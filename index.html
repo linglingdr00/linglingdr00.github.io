@@ -183,7 +183,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2023-07-24 18:10:54 / Modified: 20:17:04" itemprop="dateCreated datePublished" datetime="2023-07-24T18:10:54+08:00">2023-07-24</time>
+              <time title="Created: 2023-07-24 18:10:54 / Modified: 21:26:00" itemprop="dateCreated datePublished" datetime="2023-07-24T18:10:54+08:00">2023-07-24</time>
             </span>
 
           
@@ -200,13 +200,13 @@
           <h3 id="建立一個Hexo專案"><a href="#建立一個Hexo專案" class="headerlink" title="建立一個Hexo專案"></a>建立一個Hexo專案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init 專案名稱</span><br><span class="line">$ hexo init blog</span><br></pre></td></tr></table></figure>
 
 <h3 id="新增menu-about-tags-categories…"><a href="#新增menu-about-tags-categories…" class="headerlink" title="新增menu(about&#x2F;tags&#x2F;categories…)"></a>新增menu(about&#x2F;tags&#x2F;categories…)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page about</span><br><span class="line">$ hexo new page tags</span><br><span class="line">$ hexo new page categories</span><br></pre></td></tr></table></figure>
-<p>執行指令後source資料夾底下會出現about資料夾和index.md</p>
-<h3 id="建立新文章"><a href="#建立新文章" class="headerlink" title="建立新文章"></a>建立新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;文章標題&quot;</span></span><br><span class="line">$ hexo new <span class="string">&quot;我的第一篇文章&quot;</span></span><br></pre></td></tr></table></figure>
-
+<p>執行完成後source資料夾底下會出現<span class="label primary">about資料夾</span>和<span class="label primary">index.md</span></p>
+<h3 id="建立新文章"><a href="#建立新文章" class="headerlink" title="建立新文章"></a>建立新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;我的第一篇文章&quot;</span></span><br></pre></td></tr></table></figure>
+<p>執行完成後source&#x2F;_posts資料夾底下會出現<span class="label primary">我的第一篇文章.md</span></p>
 <h3 id="跑server"><a href="#跑server" class="headerlink" title="跑server"></a>跑server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
 <h3 id="修改-config-yml的deploy設定"><a href="#修改-config-yml的deploy設定" class="headerlink" title="修改_config.yml的deploy設定"></a>修改_config.yml的deploy設定</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:你的帳號/你的帳號.github.io.git <span class="comment">#你的github倉庫</span></span><br><span class="line">  branch: main <span class="comment">#分支</span></span><br></pre></td></tr></table></figure>
-<p>repository到你的github倉庫點選Code -&gt; copy按鈕，即可複製完成</p>
+<p>repository到你的github倉庫點選<span class="label success">Code -> copy按鈕</span>，即可複製完成<br><img src="https://i.imgur.com/6djPxpw.png" alt="Imgur"></p>
 <h3 id="產生靜態檔案"><a href="#產生靜態檔案" class="headerlink" title="產生靜態檔案"></a>產生靜態檔案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
 <h3 id="安裝hexo-deployer-git-第一次deploy前執行即可"><a href="#安裝hexo-deployer-git-第一次deploy前執行即可" class="headerlink" title="安裝hexo-deployer-git(第一次deploy前執行即可)"></a>安裝hexo-deployer-git(第一次deploy前執行即可)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>

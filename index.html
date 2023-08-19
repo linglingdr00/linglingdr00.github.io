@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-20 01:23:04" itemprop="dateModified" datetime="2023-08-20T01:23:04+08:00">2023-08-20</time>
+                <time title="Modified: 2023-08-20 01:54:22" itemprop="dateModified" datetime="2023-08-20T01:54:22+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -249,449 +249,14 @@
 <li>執行程式碼數次印出 <code>randomNumber</code> ，可以發現隨機數字不一樣。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;隨機數字: <span class="variable">$&#123;randomNumber&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h4 id="建立骰子類別"><a href="#建立骰子類別" class="headerlink" title="建立骰子類別"></a>建立骰子類別</h4><p>我們可以建立骰子的<span class="label primary">程式輔助藍圖</span>，指出骰子有多個面，而且可以擲出隨機數字。此<span class="label primary">藍圖</span>稱為<span class="label primary">類別</span>。<br>接下來，就可以透過該類別建立實際的骰子物件，稱為<span class="label primary">「物件執行個體」</span>。例如建立有 12 個面或 4 個面的骰子。</p>
-<h5 id="定義骰子類別"><a href="#定義骰子類別" class="headerlink" title="定義骰子類別"></a>定義骰子類別</h5><ul>
-<li>在下列步驟中，會定義名為 <code>Dice</code> 的新類別來代表可投擲的骰子。</li>
-</ul>
-<ol>
-<li>為了重新開始，請清除 <code>main()</code> 函式中的程式碼。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>在這個 <code>main()</code> 函式下方，新增空白行，然後新增程式碼來建立 <code>Dice</code> 類別。如下所示，請先輸入關鍵字 <code>class</code>，然後輸入類別名稱，後面加左右大括號。請在左右大括號之間留出空格，以便放入類別的程式碼。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在類別定義中，您可以使用變數為類別指定一或多項屬性。真實的骰子可以有多個面、一種顏色或重量。在這項工作中，您的重點會放在骰子面數的屬性上。</li>
-</ul>
-<ol start="3">
-<li>在 Dice 類別中，新增名為 <code>sides</code> 的 <code>var</code> 做為骰子的面數。將 sides 設為 6。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>var是可變變量，而val是不可變變量，var 在被賦予值後還能夠修改，但是val不行。</p>
-</blockquote>
-<h5 id="建立骰子類別的執行個體"><a href="#建立骰子類別的執行個體" class="headerlink" title="建立骰子類別的執行個體"></a>建立骰子類別的執行個體</h5><p>有了這個 Dice 類別，等同您掌握骰子的藍圖。如要讓程式中「實際」顯示骰子，就需要建立 Dice 物件例項。(如果您需要三個骰子，就要建立三個物件執行個體。)</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-in-kotlin/img/ba2038022410942c_1920.jpeg?authuser=2&hl=zh-tw" width="60%" height="60%">
-
-<ol>
-<li>如要建立 <code>Dice</code> 的<span class="label primary">物件執行個體</span>，請在 <code>main()</code> 函式中建立名為 <code>myFirstDice</code> 的 <code>val</code>，並將其<span class="label primary">初始化為 Dice 類別的執行個體</span>。</li>
-</ol>
-<ul>
-<li>請注意類別名稱之後的<code>括號</code>，代表要從<code>類別</code>建立新的<code>物件執行個體</code>。</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>現在已經有了根據藍圖建立的 <code>myFirstDice</code> 物件，便可以存取其<span class="label primary">屬性</span>。Dice 唯一的屬性是 <code>sides</code>。<br>如要存取 <code>myFirstDice</code> 的 <code>sides</code> 屬性，可以使用「點標記法」呼叫 <code>myFirstDice.sides</code>，讀音為「myFirstDice 點 sides」。</p>
-<ol start="2">
-<li>在 myFirstDice 宣告下方，新增 println() 陳述式，以輸出 myFirstDice. 的 sides 數量</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(myFirstDice.sides)</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>執行程式，應會輸出 <code>Dice類別</code> 中定義的 <code>sides數量</code>。</li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()</span><br><span class="line">    println(myFirstDice.sides)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure>
-
-<h4 id="擲骰子"><a href="#擲骰子" class="headerlink" title="擲骰子"></a>擲骰子</h4><p>在 <code>Dice類別</code> 中新增一個用來擲骰子的 <code>函式</code>。</p>
-<ul>
-<li>在類別中定義的函式也稱為<span class="label primary">「方法」</span>。</li>
-</ul>
-<ol>
-<li>在 Dice 類別 sides 變數下方﹐插入一行空行，然後建立新的函式來擲骰子。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line"></span><br><span class="line">    fun <span class="function"><span class="title">roll</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>在 <code>roll()</code> 方法中建立一個 <code>val</code> <code>randomNumber</code>，並呼叫 <code>random()</code> 以在 1..6 範圍內產生一個隨機數字。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line"></span><br><span class="line">    fun <span class="function"><span class="title">roll</span></span>() &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>產生<code>隨機數字</code>後將其輸出。完成的 roll() 方法應如以下程式碼所示。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">roll</span></span>() &#123;</span><br><span class="line">    val randomNumber = (1..6).random()</span><br><span class="line">    println(randomNumber)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>如要實際投擲 <code>myFirstDice</code>，請在 <code>main()</code> 中對 <code>myFirstDice</code> 呼叫 <code>roll()</code> 方法，如 <code>myFirstDice.roll()</code>，讀音為「myFirstDice 點 roll()」。</li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()  </span><br><span class="line">    println(myFirstDice.sides)</span><br><span class="line">    myFirstDice.roll()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun <span class="function"><span class="title">roll</span></span>() &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">        println(randomNumber)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>1</code>為隨機產生的數字</li>
-</ul>
-<h4 id="傳回擲骰子的結果值"><a href="#傳回擲骰子的結果值" class="headerlink" title="傳回擲骰子的結果值"></a>傳回擲骰子的結果值</h4><p>將 <code>roll()</code> 方法的結果(產生的隨機數字)存在一個變數中，並回傳到 <code>main函式</code>。</p>
-<ol>
-<li><p>在 main() 中，修改顯示 myFirstDice.roll() 的行。建立名為 <code>diceRoll</code> 的 <code>val</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val diceRoll = myFirstDice.roll()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>變更 <code>roll()</code> 函式，以指定要傳回的資料類型。在本例子中，隨機數字是 <code>Int</code>，因此傳回類型為 <code>Int</code>。<br>指定傳回類型的語法為 <code>在函式名稱後面，在括號後加上冒號和空格，然後為函式的傳回類型加上 Int 關鍵字</code>。</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">        println(randomNumber)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>在 <code>roll()</code> 中移除 <code>println()</code> 陳述式，並以 <code>randomNumber</code> 的 <code>return</code> 來取代。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>在 <code>main函式</code> 中輸出 <code>sides</code> 和 <code>diceRoll</code> 的值。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()</span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()  </span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Your 6 sided dice rolled 4!</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>6</code>為骰子的面數，<code>4</code>為1~6中隨機產生的數字</li>
-</ul>
-<h4 id="變更骰子面數"><a href="#變更骰子面數" class="headerlink" title="變更骰子面數"></a>變更骰子面數</h4><p>不是所有骰子都有 6 面！骰子有各種形狀和尺寸，有 4 面、8 面，最多可到 120 面！</p>
-<ol>
-<li>在 <code>Dice</code> 類別的 <code>roll()</code> 方法中，將硬式編碼的 <code>1..6</code> 改為使用 <code>sides</code>。這樣，範圍與擲出的隨機數字便一律適用於面數。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val randomNumber = (1..sides).random()</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>在 main() 函式中，在擲出的骰子結果下方，將 <code>myFirstDice</code> 的 <code>sides</code> 變更為 20。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myFirstDice.sides = 20</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>複製下方的現有輸出陳述式，然後貼到變更面數的後面，然後將 <code>myFirstDice</code> 的輸出結果替換為對 <code>diceRoll</code> 呼叫 <code>roll()</code> 方法的輸出結果。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;myFirstDice.roll()&#125;</span>!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()  </span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">     </span><br><span class="line">    myFirstDice.sides = 20</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;myFirstDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..sides).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Your 6 sided dice rolled 2!</span><br><span class="line">Your 20 sided dice rolled 15!</span><br></pre></td></tr></table></figure>
-<ul>
-<li>第一行為 <code>6面骰子</code> 的訊息，第二行為 <code>20面骰子</code> 的訊息</li>
-</ul>
-<h4 id="自訂骰子"><a href="#自訂骰子" class="headerlink" title="自訂骰子"></a>自訂骰子</h4><p>修改 <code>Dice類別</code>，以便在<span class="label primary">建立新的執行個體時指定面數</span>。</p>
-<ul>
-<li>變更 <code>Dice類別定義</code> 就能提供面數，這與函式接受輸入引數的方式類似。</li>
-</ul>
-<ol>
-<li>修改 <code>Dice類別定義</code>，以接受名為 <code>numSides</code> 的整數。類別中的程式碼不會改變。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Dice(val numSides: Int) &#123;</span><br><span class="line">   // Code inside does not change.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>在 <code>Dice類別</code> 中刪除 <code>sides變數</code>，並將用到 <code>sides</code> 的地方修改成 <code>numSides</code> 。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Dice(val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..numSides).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>在 <code>main()</code> 中，如要建立含有 6 個面的 <code>myFirstDice</code>，您現在必須提供面數做為 Dice 類別的引數。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val myFirstDice = Dice(6)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在輸出陳述式中，將 sides 變更為 numSides。</li>
-<li>然後在下方，刪除將 sides 變更為 20 的程式碼，因為該變數已不再存在。</li>
-<li>請一併刪除下方的 println 陳述式。</li>
-</ul>
-<p>main() 函式應如下列程式碼所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)</span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>新增程式碼來建立並輸出第二個名為 <code>mySecondDice</code> 的 <code>Dice物件</code>，這個骰子包含 <code>20</code> 個面。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val mySecondDice = Dice(20)</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>新增用於投擲和輸出傳回值的輸出陳述式。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Your <span class="variable">$&#123;mySecondDice.numSides&#125;</span> sided dice rolled  <span class="variable">$&#123;mySecondDice.roll()&#125;</span>!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)  </span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    val mySecondDice = Dice(20) </span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;mySecondDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;mySecondDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice(val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..numSides).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Your 6 sided dice rolled 3!</span><br><span class="line">Your 20 sided dice rolled 19!</span><br></pre></td></tr></table></figure>
-<ul>
-<li>第一行為 <code>第一個骰子(6面骰子)</code> 的執行結果，第二行為 <code>第二個骰子(20面骰子)</code> 的執行結果。</li>
-</ul>
-<h4 id="採用完善程式設計做法"><a href="#採用完善程式設計做法" class="headerlink" title="採用完善程式設計做法"></a>採用完善程式設計做法</h4><p>編寫程式碼時，應保持簡潔。</p>
-<ol>
-<li>可以去除 <code>randomNumber</code> 變數，並直接傳回隨機數字。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>在字串範本中呼叫 <code>myFirstDice.roll()</code> 並刪除 <code>diceRoll</code> 變數。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;myFirstDice.roll()&#125;</span></span></span><br></pre></td></tr></table></figure>
-
-<p>最終的程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;myFirstDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line"></span><br><span class="line">    val mySecondDice = Dice(20)</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;mySecondDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;mySecondDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice (val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h4><ul>
-<li>對 <code>IntRange</code> 呼叫 <code>random()</code> 函式以產生隨機數字：<code>(1..6).random()</code></li>
-<li><code>類別</code>就像是<code>物件的藍圖</code>，會包含<code>屬性</code>和<code>行為</code>，可做為<code>變數</code>和<code>函式</code>來實作。</li>
-<li><code>類別的執行個體</code>代表一個<code>物件</code>，通常是實物，例如骰子。您可以對物件呼叫動作，並變更其屬性。</li>
-<li>可以在建立執行個體時，為類別提供值。例如：<code>class Dice(val numSides: Int)</code>，然後使用 <code>Dice(6)</code> 建立執行個體。</li>
-<li>函式可以傳回結果。在函式定義中指定要傳回的資料類型，並在函式主體中使用 <code>return</code> 來傳回一些內容。例如：<code>fun example(): Int &#123; return 5 &#125;</code></li>
-</ul>
-<h4 id="自行練習"><a href="#自行練習" class="headerlink" title="自行練習"></a>自行練習</h4><p>建立 <code>Coin</code> 類別，讓它能夠翻轉、建立類別執行個體，以及拋擲一些硬幣！您會如何使用 <code>random()</code> 函式搭配範圍來完成硬幣拋擲動作呢？</p>
-<p>程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myCoin = Coin(2)  </span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myCoin.numSides&#125;</span> sided coin rolled <span class="variable">$&#123;myCoin.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Coin(val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Your 2 sided coin rolled 1!</span><br></pre></td></tr></table></figure>
-<ul>
-<li>硬幣有正反2面，假設<code>1</code>為正面，<code>2</code>為反面。</li>
-</ul>
-<hr>
-<h3 id="建立互動式的Dice-Roller應用程式"><a href="#建立互動式的Dice-Roller應用程式" class="headerlink" title="建立互動式的Dice Roller應用程式"></a>建立互動式的Dice Roller應用程式</h3><blockquote>
-<p>建立一個 <span class="label primary">Dice Roller Android 應用程式</span>，讓使用者能在應用程式中按一下 <code>Button</code> 來擲骰子。擲骰子結果會顯示在螢幕上的 <code>TextView</code> 中。</p>
-</blockquote>
-<p><strong>學習目標</strong></p>
-<ul>
-<li>如何將 <code>Button</code> 新增至 Android 應用程式。</li>
-<li>如何新增輕觸應用程式 <code>Button</code> 時的行為。</li>
-<li>如何開啟及修改應用程式的 <code>Activity</code> 程式碼。</li>
-<li>如何顯示 <code>Toast</code> 訊息。</li>
-<li>如何在應用程式執行期間更新 <code>TextView</code> 的內容。</li>
-</ul>
-<hr>
-<h4 id="設定應用程式"><a href="#設定應用程式" class="headerlink" title="設定應用程式"></a>設定應用程式</h4><p><strong>＊範例為使用 <span class="label danger">Empty View Activity</span> 構建App，非新版 <span class="label danger">Empty Activity</span></strong></p>
-<ol>
-<li>在 Create New Project(建立新專案) 中，使用 <code>Empty View Activity</code> 範本建立新的 Kotlin 專案。</li>
-</ol>
-<img src="https://i.imgur.com/PO7Hfug.png" width="70%" height="70%">
-
-<ol start="2">
-<li>將應用程式命名為「Dice Roller」，指定最低 API 級別 19 (KitKat)。</li>
-</ol>
-<img src="https://i.imgur.com/Sp5mb9j.png" width="70%" height="70%">
-
-<h4 id="建立應用程式的版面配置"><a href="#建立應用程式的版面配置" class="headerlink" title="建立應用程式的版面配置"></a>建立應用程式的版面配置</h4><ol>
-<li>開啟 <code>activity_main.xml</code>，在「Hello World」TextView 下方新增 <code>Button</code>。</li>
-</ol>
-<img src="https://i.imgur.com/7upqMzz.png" width="65%" height="65%">
-
-<ul>
-<li>TextView 和 Button 皆位於 ViewGroup 類型的 <code>ConstraintLayout</code> 中。</li>
-</ul>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/ea4be68b34500570_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="2">
-<li>由於 <code>Button</code> 位於 <code>ConstraintLayout</code> 內，因此您必須設定垂直和水平限制條件進行定位。</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/b875e0147bf9e3f5_1920.png?authuser=2&hl=zh-tw" width="60%" height="60%">
-
-<h4 id="安排按鈕的位置"><a href="#安排按鈕的位置" class="headerlink" title="安排按鈕的位置"></a>安排按鈕的位置</h4><p>新增從 Button 頂端到 TextView 底部的垂直限制條件。</p>
-<ol>
-<li>在「Design」檢視畫面中，按住 <code>Button</code> 上方邊緣有藍色邊框的白色圓圈。拖曳指標，並箭頭會遵循指標。當您移動到<code>「Hello World」TextView</code>底部邊緣時放開。這項操作會建立版面配置限制條件，且 <code>Button</code> 往上滑至 <code>TextView</code> 正下方。</li>
-</ol>
-<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/a1973a29e117dd8f.gif?authuser=2" width="30%" height="30%">
-
-<ol start="2">
-<li>查看「Layout Editor」(版面配置編輯器) 右側的「Attributes」(屬性)。請留意「Constraint Widget」中，新版面配置的限制條件設定為 <code>TextView</code> 的底部，例如 <code>Top → BottomOf textView (0dp)</code>。</li>
-</ol>
-<ul>
-<li>(0dp) 表示邊界為 0。已發生缺少水平限制條件的錯誤。</li>
-</ul>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/88b750fbe0504d93_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="3">
-<li>新增從 <code>Button</code> 的左側至父項 <code>ConstraintLayout</code> 的左側的水平限制條件。並於右側重複操作，將 <code>Button</code> 的右邊緣連接到 <code>ConstraintLayout</code> 的右邊緣。結果看起來會像這樣</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/49de1c166b355ee1_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="4">
-<li>在仍然選取 <code>Button</code> 的情況下，「Constraint Widget」應如下所示。您新增了兩個額外的限制條件：<code>Start → StartOf parent (0dp)</code> 和 <code>End → EndOf parent (0dp)</code>。這表示 <code>Button</code> 是水平置中於其父項 <code>ConstraintLayout</code> 中。</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/dd1bac8adb275f79_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="5">
-<li>執行應用程式，應如以下螢幕截圖所示。</li>
-</ol>
-<img src="https://i.imgur.com/Q7mNg9T.png" width="30%" height="30%">
-
-<h4 id="變更按鈕文字"><a href="#變更按鈕文字" class="headerlink" title="變更按鈕文字"></a>變更按鈕文字</h4><ol>
-<li>在版面配置編輯器中，如果已選取 Button，請前往「Attributes」，將「text」變更為「Roll」，然後按下 Enter 鍵 (Mac 則是按下 Return 鍵)。</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/9adeab9db109913e_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="2">
-<li>在「Component Tree」中，Button 旁邊會顯示橘色的警示三角形。只要游標懸停在三角形上，就會顯示訊息。Android Studio 在您的應用程式的程式碼中偵測到硬式編碼字串 (「Roll」)，因此建議您改用字串資源。</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/6e9a5a173a49fc8b_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%">
-
-<ol start="3">
-<li>在「Component Tree」中點選橘色三角形。在訊息底部的「Suggested Fix」下方，按一下「Fix」按鈕。(您可能需要向下捲動頁面。)</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/7206a03c9ba0d68d_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%">
-
-<ol start="4">
-<li>系統隨即會開啟「Extract Resource」(擷取資源) 對話方塊。擷取字串代表擷取「Roll」文字，並在 strings.xml 中建立一個名為 roll 的字串資源 (app &gt; res &gt; values &gt; strings.xml)。由於預設值正確無誤，因此請按一下「OK」。</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/78dc6e6f7abc1152_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="5">
-<li>在「Attributes」中，Button 的 text 屬性現在會指向 @string&#x2F;roll</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/4fa3d5e4bce95d2_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<h4 id="設定-TextView-的樣式"><a href="#設定-TextView-的樣式" class="headerlink" title="設定 TextView 的樣式"></a>設定 TextView 的樣式</h4><p>小型「Hello, World!」訊息取代為數字以顯示搖骰子值，並放大字型，讓使用者一目瞭然。</p>
-<ol>
-<li>在「Design Editor」中選取 <code>TextView</code>，接著將 <code>TextView</code> 的 <code>textSize</code> 變更為 36sp，以便放大且易讀。</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/ca5dbfd4f37a49e7_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="2">
-<li>清除 <code>TextView</code> 的 <code>text</code> 屬性。您不用在 TextView 中顯示任何資訊，直到使用者擲骰子為止。</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/da4031d0ef02f3c5_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<p>不過，當您編輯應用程式的版面配置和程式碼時，在 <code>TextView</code> 中查看部分文字會很有幫助。為此，您可以在 <code>TextView</code> 新增文字，這些文字只會顯示在版面配置預覽中，但在應用程式執行時不會顯示。</p>
-<ol start="3">
-<li><p>在「Common Attributes」下方找到「text」屬性，下方則顯示含有工具圖示的「text」屬性。text 屬性是在應用程式執行時顯示給使用者。<span class="label primary">含有工具圖示的「text」屬性是專為您 (開發人員) 設計的「tools text」屬性</span>。</p>
-</li>
-<li><p>在 <code>TextView</code> 中將工具文字設定為<code>「1」</code>(假設您有一個顯示「1」的骰子)。<code>「1」</code>只會出現在 Android Studio 的「Design Editor」(設計編輯器) 中，但當您在實際裝置或模擬器上執行應用程式時，畫面上不會顯示<code>「1」</code>。</p>
-</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/eaf488ba04947f7f_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<h4 id="啟用自動匯入作業"><a href="#啟用自動匯入作業" class="headerlink" title="啟用自動匯入作業"></a>啟用自動匯入作業</h4><p>如果您同時使用更多類別，新增 import 陳述式會變得困難。幸好，使用他人提供的類別時，Android Studio 可協助您選擇正確的匯入作業。</p>
-<p>在 macOS 中：<br>-&gt; 依序前往「File」(檔案) &gt;「New Project Settings」(新專案設定) &gt;「Preferences for New Project…」(新專案的偏好設定…) 開啟設定。<br>-&gt; 依序展開「Other Settings」(其他設定) &gt;「Auto Import」(自動匯入)。<br>-&gt; 在「Java」和「Kotlin」區段中，確定已勾選「Add unambiguous imports on the fly」(快速新增不明確的匯入) 和「Optimize imports on the fly (for current project)」(快速最佳化匯入 (適用於目前的專案))。<br>-&gt; 按下「OK」儲存變更，然後關閉設定。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/1bedf6b103fd48c3_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
-
-<h4 id="提高按鈕互動性"><a href="#提高按鈕互動性" class="headerlink" title="提高按鈕互動性"></a>提高按鈕互動性</h4><h5 id="在點選按鈕時顯示訊息"><a href="#在點選按鈕時顯示訊息" class="headerlink" title="在點選按鈕時顯示訊息"></a>在點選按鈕時顯示訊息</h5><p>在按下按鈕時，畫面底部顯示簡短訊息。</p>
-<ol>
-<li><code>setContentView()</code> 呼叫後，將下列程式碼新增至 <code>onCreate()</code> 方法。<code>findViewById()</code> 方法會在版面配置中找到 <code>Button</code>。<code>R.id.button</code> 是 <code>Button</code> 的資源 ID，這是其專屬識別碼。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val rollButton: Button = findViewById(R.id.button)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>使用 <code>rollButton</code> 物件並呼叫 <code>setOnClickListener()</code> 方法，在物件上設定點擊事件監聽器，來監聽使用者是否點選 <code>Button</code>。</li>
-</ol>
-<ul>
-<li>在方法名稱後面使用大括號，而不要使用括號。這是一個宣告 <code>Lambda</code> 的特殊語法，詳情請見未來程式碼研究室的內容。</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rollButton.setOnClickListener &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>呼叫 <code>Toast.makeText()</code> 即可建立內含文字 “Dice Rolled!” 的 <code>Toast</code>。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val toast = Toast.makeText(this, <span class="string">&quot;Dice Rolled!&quot;</span>, Toast.LENGTH_SHORT)</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>然後呼叫 <code>show()</code> 方法，讓 <code>Toast</code> 自行顯示。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val toast = Toast.makeText(this, <span class="string">&quot;Dice Rolled!&quot;</span>, Toast.LENGTH_SHORT).show()</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>執行應用程式，然後按一下「Roll」按鈕。浮動式訊息應會以彈出式視窗顯示在螢幕底部，而且不久後就會消失。</li>
-</ol>
-<img src="https://i.imgur.com/9vtBhag.png" width="30%" height="30%">
-
-<h5 id="在點選按鈕時更新-TextView"><a href="#在點選按鈕時更新-TextView" class="headerlink" title="在點選按鈕時更新 TextView"></a>在點選按鈕時更新 TextView</h5><p>如果不想顯示臨時 <code>Toast</code> 訊息，您必須撰寫程式碼，並在點選「Roll」按鈕時更新畫面上的 <code>TextView</code>。</p>
-<ol>
-<li>註解 <code>Toast</code> 的程式碼行。</li>
-<li>建立一個名稱為 <code>resultTextView</code> 的新變數，以便儲存 <code>TextView</code>。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val resultTextView: TextView = findViewById(R.id.textView)</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>將 <code>resultTextView</code> 上的文字設定為在雙引號內的　<code>6</code>。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resultTextView.text = <span class="string">&quot;6&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="新增擲骰子邏輯"><a href="#新增擲骰子邏輯" class="headerlink" title="新增擲骰子邏輯"></a>新增擲骰子邏輯</h4><h5 id="新增-Dice-骰子-類別"><a href="#新增-Dice-骰子-類別" class="headerlink" title="新增 Dice (骰子) 類別"></a>新增 Dice (骰子) 類別</h5><ol>
-<li><p>在 MainActivity 類別中加上最後一個大括號後，透過 <code>roll()</code> 方法建立 <code>Dice</code> 類別。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Dice(val numSides: Int) &#123;</span><br><span class="line"></span><br><span class="line">   fun roll(): Int &#123;</span><br><span class="line">       <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>將游標懸停在 <code>numSides</code> 上，畫面上就會顯示<code>「Property ‘numSides&#39; could be private」</code>彈出式視窗。</p>
-</li>
-</ol>
-<ul>
-<li>將 <code>numSides</code> 標示為 <code>private</code> 後，您只能在 <code>Dice</code> 類別中存取。由於只有使用 <code>numSides</code> 的程式碼才會位於 <code>Dice</code> 類別內，因此可為 <code>Dice</code> 類別指定這個引數 <code>private</code>。</li>
-</ul>
-<ol start="3">
-<li>按一下「Make ‘numSides’ ‘private」，繼續透過 Android Studio 修正建議問題。</li>
-</ol>
-<h5 id="建立-rollDice-方法"><a href="#建立-rollDice-方法" class="headerlink" title="建立 rollDice() 方法"></a>建立 rollDice() 方法</h5><p>現在您已經新增 <code>Dice</code> 類別至應用程式，必須更新 <code>MainActivity</code> 才能使用該類別。如要妥善整理程式碼，請將所有擲骰子邏輯放入一個函式中。</p>
-<ol>
-<li>將點擊事件監聽器中將文字設定為 <code>&quot;6&quot;</code> 的程式碼替換為呼叫 <code>rollDice()</code>。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rollButton.setOnClickListener &#123;</span><br><span class="line">   rollDice()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>因為尚未定義 <code>rollDice()</code>，Android Studio 會標記誤並以紅色顯示 <code>rollDice()</code>。滑鼠游標懸停在 <code>rollDice()</code> 上時，Android Studio 會顯示問題和可能的解決方法。</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/21ef4d7c6c33e154_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%">
-
-<ol start="3">
-<li>按一下「More actions…」開啟選單。(Mac 可按下 <code>Option+Enter</code> 開啟選單。)</li>
-<li>選取<code>「Create function ‘rollDice&#39;」</code>。Android Studio 會為 MainActivity 中的函式建立空白定義。</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/16bb603205fc3d3_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%">
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private fun <span class="function"><span class="title">rollDice</span></span>() &#123;</span><br><span class="line">    TODO(<span class="string">&quot;Not yet implemented&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="建立新的-Dice-物件例項"><a href="#建立新的-Dice-物件例項" class="headerlink" title="建立新的 Dice 物件例項"></a>建立新的 Dice 物件例項</h4><p>在這個步驟中，您必須建立 <code>rollDice()</code> 方法並擲骰子，然後在 <code>TextView</code> 中顯示結果。</p>
-<ol>
-<li>在 <code>rollDice()</code> 中刪除 TODO() 呼叫，並加入程式碼即可建立具有 6 個面的骰子。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val dice = Dice(6)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>呼叫 <code>roll()</code> 方法即可擲骰子，並將結果儲存在名為 <code>diceRoll</code> 的變數中。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val diceRoll = dice.roll()</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>呼叫 <code>findViewById()</code> 即可找到 <code>TextView</code>。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val resultTextView: TextView = findViewById(R.id.textView)</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>將 <code>diceRoll</code> 轉換成字串，並使用該字串更新 <code>resultTextView</code> 的文字。</li>
-</ol>
-<ul>
-<li>變數 <code>diceRoll</code> 是數字，但 <code>TextView</code> 使用文字。您可以在 <code>diceRoll</code> 上使用 <code>toString()</code> 方法，將數字轉換為字串。</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resultTextView.text = diceRoll.toString()</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>執行應用程式，點選按鈕即可擲骰子。</li>
-</ol>
-<img src="https://i.imgur.com/wwWMfJ0.gif" width="30%" height="30%">
-
-<h4 id="採用完善程式設計做法-1"><a href="#採用完善程式設計做法-1" class="headerlink" title="採用完善程式設計做法"></a>採用完善程式設計做法</h4><p>團隊合作時，理想的做法是以類似的方式撰寫程式碼，讓程式碼之間保持一致。因此，Android 提供樣式指南來說明如何編寫 Android 程式碼，包括命名慣例、格式和其他遵循的建議做法。</p>
-<p>撰寫 Android 程式碼時遵循這些指南：<a target="_blank" rel="noopener" href="https://developer.android.com/kotlin/style-guide?authuser=2&hl=zh-tw">Android 開發人員適用的 Kotlin 樣式指南</a>。</p>
-<h5 id="清理您的程式碼"><a href="#清理您的程式碼" class="headerlink" title="清理您的程式碼"></a>清理您的程式碼</h5><ol>
-<li>縮減程式碼<br>將程式碼縮減成較短行的程式碼，讓程式碼更精簡。以下範例是設定 <code>Button</code> 點擊事件監聽器的程式碼。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rollButton.setOnClickListener &#123;</span><br><span class="line">    rollDice()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>由於點擊事件監聽器的操作說明只有 1 行，因此您可以縮減 <code>rollDice()</code> 方法呼叫，將此呼叫和大括號全部置於一行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rollButton.setOnClickListener &#123; rollDice() &#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>重新設定程式碼格式<br>現在，您必須重新設定程式碼格式，確保程式碼符合 Android 建議的程式碼格式規範。</li>
-</ol>
-<p>在 <code>MainActivity.kt</code> 類別中，用 Windows 的鍵盤快速鍵 <code>Control+A</code> (Mac 則是 <code>Command+A</code>) 就可選取檔案中的所有文字。或者您可以在 Android Studio 的選單中依序點選<code>「Edit」&gt;「Select All」</code>。</p>
-<p>選取檔案中的所有文字後，在 Android Studio 的選單中依序點選<code>「Code」&gt;「Reformat Code」</code>，或使用鍵盤快速鍵 <code>Ctrl+Alt+L</code> (Mac 則是 <code>Command+Option+L</code>)。</p>
-<ul>
-<li>這會更新程式碼的格式，包括空白字元、縮排等等。您可能還看不到任何變化，這很好。您的程式碼已正確格式化！</li>
-</ul>
-<ol start="3">
-<li>為程式碼加上註解<br>為每個類別 (<code>MainActivity</code> 和 <code>Dice</code> 是您的應用程式中僅有的類別) 和您撰寫的每個方法新增註解。請在註解的開頭和結尾使用 <code>/**</code> 和 <code>*/</code> 符號，告訴系統這不是程式碼。系統在執行程式碼時會忽略這些行。</li>
-</ol>
-<h4 id="自行練習-1"><a href="#自行練習-1" class="headerlink" title="自行練習"></a>自行練習</h4><p>在應用程式中新增另一個骰子。按一下「Roll」按鈕應擲 2 個骰子。螢幕上應在 2 個不同的 <code>TextViews</code> 中顯示結果。</p>
-<p>執行畫面：<br><img src="https://i.imgur.com/qUvahVG.png" width="30%" height="30%"></p>
-<p>程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * This activity allows the user to roll a dice and view the result</span><br><span class="line"> * on the screen.</span><br><span class="line"> */</span><br><span class="line">class MainActivity : <span class="function"><span class="title">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        val rollButton: Button = findViewById(R.id.button)</span><br><span class="line">        val rollButton2: Button = findViewById(R.id.button2)</span><br><span class="line"></span><br><span class="line">        val resultTextView: TextView = findViewById(R.id.textView)</span><br><span class="line">        val resultTextView2: TextView = findViewById(R.id.textView2)</span><br><span class="line"></span><br><span class="line">        //when click button</span><br><span class="line">        rollButton.setOnClickListener &#123;</span><br><span class="line">            // Update the screen with the dice roll</span><br><span class="line">            resultTextView.text = rollDice()</span><br><span class="line">        &#125;</span><br><span class="line">        rollButton2.setOnClickListener &#123;</span><br><span class="line">            // Update the screen with the dice roll</span><br><span class="line">            resultTextView2.text = rollDice()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Roll the dice and update the screen with the result.</span><br><span class="line">     */</span><br><span class="line">    private fun rollDice(): String &#123;</span><br><span class="line">        // Create new Dice object with 6 sides and roll it</span><br><span class="line">        val dice = Dice(6)</span><br><span class="line">        val diceRoll = dice.roll()</span><br><span class="line"></span><br><span class="line">        // <span class="built_in">return</span> random number</span><br><span class="line">        <span class="built_in">return</span> diceRoll.toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice(private val numSides: Int) &#123;</span><br><span class="line"></span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8B%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -741,7 +306,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-28 13:37:13" itemprop="dateModified" datetime="2023-07-28T13:37:13+08:00">2023-07-28</time>
+                <time title="Modified: 2023-08-20 01:55:24" itemprop="dateModified" datetime="2023-08-20T01:55:24+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -793,70 +358,14 @@
 <li>在「Component Tree」(元件樹狀結構) 中，按一下<code>TextView</code>，找到右側的「Attributes」(屬性)。</li>
 <li>將「Declared Attributes」(宣告屬性) 部分中的<code>text</code>從「Hello World!」修改成「生日快樂！」。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/de37fe1f5ed1507e_1920.png?authuser=2&hl=zh-tw" alt="4"></li>
 </ol>
-<hr>
-<h3 id="在版面配置中新增TextView"><a href="#在版面配置中新增TextView" class="headerlink" title="在版面配置中新增TextView"></a>在版面配置中新增TextView</h3><h4 id="刪除目前的TextView"><a href="#刪除目前的TextView" class="headerlink" title="刪除目前的TextView"></a>刪除目前的TextView</h4><ol>
-<li>在版面配置編輯器中，按一下以選取位於版面配置中央的<code>TextView</code>。</li>
-<li>按下 Delete 鍵。Android Studio 會刪除<code>TextView</code>，而您的應用程式在版面配置編輯器和「Component Tree」(元件樹狀結構) 中只會顯示<code>ConstraintLayout</code>。</li>
-</ol>
-<h4 id="新增TextView"><a href="#新增TextView" class="headerlink" title="新增TextView"></a>新增TextView</h4><ol>
-<li>找出<code>TextView</code>。可以在「Common」類別和「Text」類別中找到它。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/e23ce742cec0ab41_1920.png?authuser=2&hl=zh-tw" alt="5"></li>
-<li>將<code>TextView</code>從「Palette」(區塊面板) 拖曳到版面配置編輯器設計平面的左上方。<br><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app/img/6bbcb1bbc39df93a.gif?authuser=2" alt="6"></li>
-<li>當新增了一個<code>TextView</code>，我們會注意到「Component Tree」(元件樹狀結構) 中有<span class="label danger">紅色驚嘆號</span>。</li>
-<li>將滑鼠游標移到驚嘆號上，就會看到一則警示訊息，說明該檢視畫面未受到限制，且會在執行應用程式時跳到其他位置。接下來要修正這個問題。</li>
-</ol>
-<h4 id="放置TextView"><a href="#放置TextView" class="headerlink" title="放置TextView"></a>放置TextView</h4><ol>
-<li>點選新增的<code>TextView</code>，在右側的「Attributes」(屬性) 中，找到「Layout」(版面配置) 部分中的<span class="label primary">「Constraint Widget」(限制小工具)</span>。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/b8811ae0b8d7acdf_1920.png?authuser=2&hl=zh-tw" alt="6"></li>
-<li>按一下正方形頂端的<code>+</code>，可設定上邊界的數字欄位。該邊界是指從<code>TextView</code>到<code>容器(即 ConstraintLayout)</code>邊緣的距離。</li>
-<li>將上邊界和左邊界變更為 16。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/ea087eb3bdbc771b_1920.png?authuser=2&hl=zh-tw" alt="7"></li>
-<li>在「Attributes」(屬性) 中設定「text」(文字) 。</li>
-</ol>
-<h4 id="新增及放置另一個TextView"><a href="#新增及放置另一個TextView" class="headerlink" title="新增及放置另一個TextView"></a>新增及放置另一個TextView</h4><ol>
-<li>從「區塊面板」將新的 TextView 拖曳到「版面配置編輯器」中的應用程式檢視畫面附近。</li>
-<li>將右邊界和下邊界設為 16。</li>
-<li>在「Attributes」(屬性) 中設定「text」(文字) 。<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/f547c1b45045984a_1920.png?authuser=2&hl=zh-tw" width="35%" height="35%"></li>
-</ol>
-<h3 id="新增文字樣式"><a href="#新增文字樣式" class="headerlink" title="新增文字樣式"></a>新增文字樣式</h3><p>在<code>TextView</code>「Attributes」(屬性) 視窗中的「Common Attributes」(一般屬性) 點開<span class="label success">「textAppearance」</span>，修改<span class="label primary">fontFamily</span>、<span class="label primary">textSize</span>和<span class="label primary">textColor</span>。</p>
-<p>完成的畫面如下，可以根據自己的喜好修改：<br><img src="https://i.imgur.com/2Pkqa6r.png" width="35%" height="35%"></p>
-<h3 id="加入圖像"><a href="#加入圖像" class="headerlink" title="加入圖像"></a>加入圖像</h3><ol>
-<li>按一下<a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-birthday-card-with-image-app-solution/blob/master/androidparty.png">這裡</a>前往GitHub下載生日資訊卡的圖像。</li>
-<li>在 Android Studio 中，按一下選單中的「View」&gt;「Tool Windows」&gt;「Resource Manager」，或按一下「Project」視窗左側的「Resource Manager」分頁標籤。</li>
-<li>按一下「Resource Manager」下方的「+」圖示，然後選取「Import Drawables」，即可開啟檔案瀏覽器，選擇剛才下載的圖片檔。</li>
-<li>如果圖像已成功匯入，Android Studio 會將圖像新增至「Drawable」清單。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/e4a7e2568ab80e33.png?authuser=2&hl=zh-tw" alt="8"></li>
-</ol>
-<h3 id="新增ImageView"><a href="#新增ImageView" class="headerlink" title="新增ImageView"></a>新增ImageView</h3><h4 id="新增ImageView並設定圖像"><a href="#新增ImageView並設定圖像" class="headerlink" title="新增ImageView並設定圖像"></a>新增ImageView並設定圖像</h4><ol>
-<li>在「Project」視窗中開啟「activity_main.xml」(「App」&gt;「Res」&gt;「Layout」&gt;「activity_main.xml」)。</li>
-<li>在「版面配置編輯器」中，前往「Palette」，然後將<code>ImageView</code>拖曳至您的應用程式。請將其放在中央附近，且不要與任何文字重疊</li>
-<li>在「Choose a Resource」對話方塊中，於「Drawable」清單中找到蛋糕圖像。</li>
-</ol>
-<h4 id="設定ImageView的位置和大小"><a href="#設定ImageView的位置和大小" class="headerlink" title="設定ImageView的位置和大小"></a>設定ImageView的位置和大小</h4><ol>
-<li>在「版面配置編輯器」中按住並拖曳<code>ImageView</code>，但請注意，在「Design」檢視畫面內，應用程式畫面周圍會顯示粉紅色矩形。 粉紅色矩形代表用來放置<code>ImageView</code>的螢幕邊界</li>
-<li>拖曳<code>ImageView</code>，讓左側和右側邊緣對齊粉紅色矩形。當您拉近時，Android Studio 會將圖像「貼齊」邊緣 (您將在稍後處理頂端和底端)。<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/25ab8b0401429ebd.gif?authuser=2" width="50%" height="50%"></li>
-</ol>
-<blockquote>
-<p><code>ConstraintLayout</code> 中的<code>View</code>需要水平和垂直限制，才能讓<code>ConstraintLayout</code>知道如何定位。</p>
-</blockquote>
-<ol start="3">
-<li><p>將游標懸停於<code>ImageView</code>外框頂端的圓圈上，並以另一個圓圈醒目顯示。</p>
-</li>
-<li><p>將圓圈拖曳到應用程式畫面頂端，當您拖曳圓圈時，會有箭頭連結圓圈與游標。在螢幕上拖曳，直到貼齊畫面頂端。您已新增從<code>ImageView</code>頂端至<code>ConstraintLayout</code>頂端的限制條件。</p>
-<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/f3b70726695ea8c9.gif?authuser=2" width="50%" height="50%">
-</li>
-<li><p>新增從<code>ImageView</code>的底部到<code>ConstraintLayout</code>底部的限制。可能太靠近邊緣，無法像對頂端那樣拖動。這時可以在「Attributes」視窗的「Constraint Widget」中，點選底部的「+」來新增至限制條件。確保邊界為 0。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/cdde37ea44d6bc1a.png?authuser=2&hl=zh-tw" alt="11"></p>
-</li>
-<li><p>在「Attributes」窗格中，使用「Constraint Widget」在左側和右側新增 0 的邊界。 這項操作會自動建立對該指令的限制。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/1c58fd4afe6f83bb.png?authuser=2&hl=zh-tw" alt="12"></p>
-</li>
-</ol>
-<blockquote>
-<p>此時圖像已置中，但還沒有佔滿整個螢幕畫面。</p>
-</blockquote>
-<ol start="7">
-<li>在「Constraint」部分的「Constraint Widget」下方，將「layout_width」和將「layout_height」設定為「0dp」。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/9fff7d632ac45a3d.png?authuser=2&hl=zh-tw" alt="13"></li>
-<li>找出「scaleType」屬性，將「scaleType」設定為「centerCrop」，這樣圖像就會填滿螢幕，不會扭曲變形。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/32350f1cf95adb1d.png?authuser=2&hl=zh-tw" alt="14"></li>
-</ol>
-<p>完成後圖片會填滿整個畫面：<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/b3ef159159143c95.png?authuser=2&hl=zh-tw" width="35%" height="35%"></p>
-<h4 id="將ImageView移至文字後方"><a href="#將ImageView移至文字後方" class="headerlink" title="將ImageView移至文字後方"></a>將ImageView移至文字後方</h4><p>在「Component Tree」中點選並拖曳 ImageView 至 TextViews 正下方 ConstraintLayout。系統隨即會顯示一條三角形的藍色線條，以代表 ImageView 的位置。<br>將 ImageView 拖放到 ConstraintLayout 正下方即可。<br><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/140649e77bd4f05b.gif?authuser=2" width="50%" height="50%"></p>
-<p>最後完成如下圖：<br><img src="https://i.imgur.com/91FX7SR.png" width="35%" height="35%"></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/07/27/Android%E7%AD%86%E8%A8%98-2-%E5%BB%BA%E7%AB%8BBirthday-Card%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -906,7 +415,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-02 20:41:42" itemprop="dateModified" datetime="2023-08-02T20:41:42+08:00">2023-08-02</time>
+                <time title="Modified: 2023-08-20 02:03:16" itemprop="dateModified" datetime="2023-08-20T02:03:16+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -942,188 +451,14 @@
 <li>而括號後方的大括號<code>&#123;&#125;</code>包起來的程式，是函式內部用於完成工作的程式碼。</li>
 <li><code>println</code>是列印+換行的意思，會指示系統列印一行文字並換行。</li>
 </ul>
-<hr>
-<h4 id="建立生日訊息"><a href="#建立生日訊息" class="headerlink" title="建立生日訊息"></a>建立生日訊息</h4><h5 id="加入範例程式"><a href="#加入範例程式" class="headerlink" title="加入範例程式"></a>加入範例程式</h5><ol>
-<li>在瀏覽器中開啟 <a target="_blank" rel="noopener" href="https://developer.android.com/training/kotlinplayground%E3%80%82">https://developer.android.com/training/kotlinplayground。</a></li>
-<li>加入範例程式碼：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, Rover!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already 5!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;5 is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h5 id="建立及使用變數"><a href="#建立及使用變數" class="headerlink" title="建立及使用變數"></a>建立及使用變數</h5><ol>
-<li>將 Rover 的年齡儲存在變數中。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val age = 5</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><code>val</code> 是 Kotlin 使用的特殊字詞，稱為「關鍵字」，<code>age</code> 為變數名稱。</li>
-</ul>
-<p>如要輸出該變數的值，而不是文字，只要在前面加上美元符號的大括號內放入變數即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;variable&#125;</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>將程式碼中兩個輸出陳述式的數字 5 改成 <code>age</code> 變數，如下所示<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span>!&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> is the very best age to celebrate!&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-<li>更改 <code>age</code> 的值為天數來表示 Rover 的年齡(年齡x365)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val age = 5 * 365</span><br></pre></td></tr></table></figure></li>
-<li>再次執行程式碼，您會發現兩條訊息現在都以天數顯示年齡。</li>
-<li>最後調整一下訊息的文字</li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, Rover!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old!!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old!!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br></pre></td></tr></table></figure>
-
-<h5 id="將文字放入變數"><a href="#將文字放入變數" class="headerlink" title="將文字放入變數"></a>將文字放入變數</h5><ol>
-<li>在 <code>age</code> 的變數下方，新增名為 <code>name</code> 的變數代表壽星名字，並將值設為 “Rover”。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val name = <span class="string">&quot;Rover&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li>用變數取代生日訊息中的名字 Rover，如下所示。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-<li>使用 <code>name</code> 變數將 Rover 加入年齡訊息中，如下所示。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br></pre></td></tr></table></figure>
-
-<h5 id="使用函式加上生日橫幅的邊框"><a href="#使用函式加上生日橫幅的邊框" class="headerlink" title="使用函式加上生日橫幅的邊框"></a>使用函式加上生日橫幅的邊框</h5><ol>
-<li>建立函式來輸出邊框<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;================================================&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>在 <code>main()</code> 函式中呼叫 <code>printBorder()</code> 函式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    printBorder()</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;================================================&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>在 <code>printBorder()</code> 函式中，使用 <code>repeat()</code> 重複邊框格式，最後加入 println() 來換行。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    printBorder()</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">================================================</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">================================================</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>使用引數變更邊框</li>
-<li>新增名為 <code>border</code> 的變數。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val border = <span class="string">&quot;%&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li>將 <code>border</code> 變數做為引數，傳遞至對 <code>printBorder()</code> 函式的呼叫中。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printBorder(border)</span><br></pre></td></tr></table></figure></li>
-<li>修改 <code>printBorder()</code> 函式中的引數，並使用 border 作為函式中的變數。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun printBorder(border: String) &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>引數的名稱是 <code>border</code>、名稱後方有冒號 <code>:</code> 以及 <code>String</code> (引數的類型)。</li>
-</ul>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">   	val border = <span class="string">&quot;%&quot;</span></span><br><span class="line">    printBorder(border)</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder(border)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun printBorder(border: String) &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>將邊框變更為 <code>&quot;&#39;-._,-&#39;&quot;</code> 格式，並新增新變數 <code>timesToRepeat</code> 調整重複次數<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val border = <span class="string">&quot;`-._,-&#x27;&quot;</span></span><br><span class="line">val timesToRepeat = 7</span><br></pre></td></tr></table></figure></li>
-<li>呼叫 <code>printBorder</code> 函式時，變成需要2個引數<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printBorder(border, timesToRepeat)</span><br></pre></td></tr></table></figure></li>
-<li>新曾 <code>printBorder</code> 函式中的引數<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun printBorder(border: String, timesToRepeat: Int) &#123;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>有多個引數時，以半形逗號 <code>,</code> 分隔引數。</li>
-</ul>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">   	val border = <span class="string">&quot;`-._,-&#x27;&quot;</span></span><br><span class="line">    val timesToRepeat = 7</span><br><span class="line">    printBorder(border, timesToRepeat)</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder(border, timesToRepeat)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun printBorder(border: String, timesToRepeat: Int) &#123;</span><br><span class="line">    repeat(timesToRepeat) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h4 id="建立一個多層且點上蠟燭的蛋糕"><a href="#建立一個多層且點上蠟燭的蛋糕" class="headerlink" title="建立一個多層且點上蠟燭的蛋糕"></a>建立一個多層且點上蠟燭的蛋糕</h4><ul>
-<li>建立三個函式來繪製一個點上蠟燭的多層蛋糕。</li>
-<li>在一個 repeat() 內部使用另一個 repeat()，建立「巢狀迴圈」。</li>
-<li>先從大方向開始，再加入細節。這就是所謂的「由上而下開發」。</li>
-</ul>
-<p>最後需要完成的蛋糕如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br></pre></td></tr></table></figure>
-<hr>
-<h5 id="建立-main-函式"><a href="#建立-main-函式" class="headerlink" title="建立 main() 函式"></a>建立 main() 函式</h5><ol>
-<li>建立變數 <code>age</code>，並將其設為 24。</li>
-<li>建立第二個變數 <code>layers</code>，並將其設為 5。</li>
-<li>呼叫函式 <code>printCakeCandles()</code>，並傳遞 age。</li>
-<li>呼叫函式 <code>printCakeTop()</code>，並傳遞 age。</li>
-<li>呼叫函式 <code>printCakeBottom()</code>，並傳遞 age 和 layers 的數量。</li>
-</ol>
-<ul>
-<li>先將函式註解</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 24</span><br><span class="line">    val layers = 5</span><br><span class="line">    // printCakeCandles(age)</span><br><span class="line">    // printCakeTop(age)</span><br><span class="line">    // printCakeBottom(age, layers)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="建立-printCakeTop"><a href="#建立-printCakeTop" class="headerlink" title="建立 printCakeTop()"></a>建立 printCakeTop()</h5><p>printCakeTop() 函式是一行等號，用於輸出蛋糕頂端。<br><code>==========================</code></p>
-<ol>
-<li>建立函式 <code>printCakeTop()</code>，接收 <code>Int</code> 類型的 <code>age</code> 引數。</li>
-<li>使用 repeat() 陳述式輸出單一等號 <code>age</code>+2 次。額外的兩個等號是為了讓蠟燭不會從蛋糕的側面掉下來。</li>
-<li>repeat() 完成後，請在結尾輸出一行空白行(換行)。</li>
-<li>移除 main() 中 <code>printCakeTop()</code> 的註解，因為該函式已存在</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeTop(age: Int) &#123;</span><br><span class="line">    repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="建立-printCakeCandles"><a href="#建立-printCakeCandles" class="headerlink" title="建立 printCakeCandles()"></a>建立 printCakeCandles()</h5><p>每支蠟燭都由兩個符號組成：半形逗號 (,) 代表燭焰，豎線號 (|) 代表燭體。<br><code>,,,,,,,,,,,,,,,,,,,,,,,,</code><br><code>||||||||||||||||||||||||</code></p>
-<ol>
-<li>建立一個新函式 <code>printCakeCandles()</code>，接收 <code>Int</code> 類型的 <code>age</code> 引數。</li>
-<li>印出一個空格，使蠟燭呈現以下的樣子<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br></pre></td></tr></table></figure></li>
-<li>使用 repeat() 陳述式輸出一個半形逗號 <code>,</code> 來代表燭焰(重複 <code>age</code> 次)，最後換行。</li>
-<li>重複上述步驟來建立第二個 repeat() 陳述式，用來使用豎線號 <code>|</code> 輸出燭體。</li>
-<li>在結尾使用 println() 輸出新的一行。</li>
-<li>移除 main() 中 <code>printCakeCandles()</code> 的註解。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeCandles(age: Int) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;|&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="建立-printCakeBottom"><a href="#建立-printCakeBottom" class="headerlink" title="建立 printCakeBottom()"></a>建立 printCakeBottom()</h5><p>使用這個函式繪製與 <code>age + 2</code> 等寬的蛋糕底部，且畫出的高度包含特定層數。</p>
-<ul>
-<li>函式需要兩個引數，一個用於寬度 <code>age</code>，一個用於高度 <code>layers</code>。</li>
-<li>如要顯示蛋糕底部，請先重複 @ 符號 <code>age + 2</code> 次，即可顯示一層蛋糕。接著，重複輸出一層蛋糕 layers 次。</li>
-</ul>
-<p>重複 @ 符號 age + 2 次，繪製一層蛋糕：</p>
-<ol>
-<li><p>建立內含引數 age 和 layers 的函式 <code>printCakeBottom()</code>，兩個引數都是 Int 類型。</p>
-</li>
-<li><p>使用 repeat() 陳述式輸出一層<code>@</code> 符號 <code>age + 2</code> 次。在結尾輸出空白行。<br>如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeBottom(age: Int, layers: Int) &#123;</span><br><span class="line">    repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用巢狀 repeat() 輸出蛋糕層 -&gt; 在函式中的所有程式碼周圍放置第二個 repeat() 陳述式。重複此循環 layers 次<br>如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeBottom(age: Int, layers: Int) &#123;</span><br><span class="line">    repeat(layers) &#123;</span><br><span class="line">        repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        println()  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>移除 main() 中 <code>printCakeBottom()</code> 的註解。</p>
-</li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 24</span><br><span class="line">    val layers = 5</span><br><span class="line">    printCakeCandles(age)</span><br><span class="line">    printCakeTop(age)</span><br><span class="line">    printCakeBottom(age, layers)</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeTop(age: Int) &#123;</span><br><span class="line">    repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeCandles(age: Int) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;|&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeBottom(age: Int, layers: Int) &#123;</span><br><span class="line">    repeat(layers) &#123;</span><br><span class="line">        repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        println()  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="重要名詞"><a href="#重要名詞" class="headerlink" title="重要名詞"></a>重要名詞</h3><h4 id="1-函式"><a href="#1-函式" class="headerlink" title="1. 函式"></a>1. 函式</h4><p><strong>函式</strong></p>
-<ul>
-<li><strong>函式</strong>是獨立的程式碼區塊，會執行運算作業並傳回值。在 Kotlin 中，系統會使用<code>fun</code>關鍵字宣告函式，您可以在函式中置入指定或預設的引數。與特定<strong>類別</strong>相關聯的函式稱為<strong>方法</strong>。</li>
-</ul>
-<p><strong>建構函式</strong></p>
-<ul>
-<li>在建立<strong>類別</strong>的<strong>執行個體</strong>時，系統會自動執行名為建構函式的方法。建構函式會負責執行所有必要作業，讓應用程式的其餘部分能使用該物件。舉例來說，針對您要建構的物件，建構函式通常會初始化 (將第一個值填入) 該物件的所有欄位。建立物件的唯一方法是呼叫 (執行) 該物件的建構函式。</li>
-<li>建構函式名稱與其所屬的類別名稱相同。一個類別可以有多個建構函式，前提是每個建構函式都要有不同的參數清單。</li>
-</ul>
-<p><strong>main()函式</strong></p>
-<ul>
-<li>Kotlin 程式的 <strong>main() 函式</strong>是指執行程式的進入點。執行 Kotlin 程式時，開頭一律是<code>main()</code>函式。在 <strong>Android 應用程式</strong>中，由於您的應用程式程式碼是由 Android 系統執行，因此不必在程式碼中特別指定<code>main()</code>函式。</li>
-</ul>
-<p><strong>方法</strong></p>
-<ul>
-<li>方法是類別中定義的函式，且與類別的物件執行個體行為相關聯。</li>
-</ul>
-<p><strong>參數和引數的差異</strong></p>
-<ul>
-<li>在<strong>函式</strong> (或<strong>方法</strong>) 中，參數是指函式定義中的變數宣告。呼叫函式時，引數是指您傳送至參數的資料。</li>
-</ul>
-<hr>
-<h4 id="2-類別"><a href="#2-類別" class="headerlink" title="2. 類別"></a>2. 類別</h4><p><strong>類別</strong></p>
-<ul>
-<li><strong>類別</strong>如同<strong>物件</strong>的藍圖，可對類別中敘述的所有物件定義通用的<strong>屬性</strong> (為<strong>變數</strong>)，以及這些物件的動作 (為名為<strong>方法</strong>的<strong>函式</strong>)。您必須以 Kotlin 中的<code>class</code>關鍵字來定義類別。</li>
-<li>類別就像是建築師的藍圖設計 (而不是房屋本身)，也就是建造房屋的指示說明。房屋則是根據該藍圖而建立的實體或<strong>物件執行個體</strong>。舉例來說，您可能會設定<code>PetDog</code>類別，其中包含寵物名稱和品種的屬性。接著就能建立物件執行個體 <code>myPetDog</code>和<code>myFriendsPetDog</code>。這兩個執行個體的名稱和品種並不相同，但都屬於<code>PetDog</code>類別。</li>
-</ul>
-<p><strong>物件</strong></p>
-<ul>
-<li>在<strong>物件導向程式設計</strong>中，<strong>物件</strong>是指<strong>類別</strong>的特定<strong>執行個體</strong>，其中物件可以是<strong>變數</strong>、<strong>函式</strong>和資料結構的組合。</li>
-</ul>
-<p><strong>public和private</strong></p>
-<ul>
-<li>系統會將類別成員預設為<code>public</code>，表示其他程式碼也能存取。不過，建議您限制對外存取權，僅供必要程式碼進行存取。如果將方法或屬性標記為<code>private</code>，則表示僅供該類別的內部元素存取。這個作法可避免不慎暴露實作部分讓其他呼叫端存取或參照。</li>
-</ul>
-<p><strong>抽象類別</strong></p>
-<ul>
-<li><strong>抽象類別是</strong> Kotlin 中標示為<code>abstract</code>關鍵字的類別。抽象類別可包含尚未實作的屬性或方法。在這種情況下，您只能在子類別中初始化抽象屬性或實作抽象方法。因此，您無法直接對抽象類別執行個體化。</li>
-</ul>
-<p><strong>封裝</strong></p>
-<ul>
-<li><strong>封裝</strong>是指將邏輯相關的功能整合為同一處。其中一個封裝範例就是<strong>類別</strong>。</li>
-</ul>
-<hr>
-<h4 id="3-命名"><a href="#3-命名" class="headerlink" title="3. 命名"></a>3. 命名</h4><p><strong>駝峰式大小寫</strong></p>
-<ul>
-<li><strong>駝峰式大小寫</strong>是指將每個字的首字母大寫，並移除每個字之間的所有空格。這是 Kotlin 中對<strong>函式</strong>、<strong>變數</strong>和<strong>類別</strong>的命名慣例，例如<code>LinearLayout</code>、<code>MainActivity</code>或<code>setOnClickListener</code>。</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/07/27/Android%E7%AD%86%E8%A8%98-1-Kotlin/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1173,7 +508,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-27 15:07:08" itemprop="dateModified" datetime="2023-07-27T15:07:08+08:00">2023-07-27</time>
+                <time title="Modified: 2023-08-20 01:58:06" itemprop="dateModified" datetime="2023-08-20T01:58:06+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1204,16 +539,14 @@
 <h3 id="建立新文章"><a href="#建立新文章" class="headerlink" title="建立新文章"></a>建立新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;我的第一篇文章&quot;</span></span><br></pre></td></tr></table></figure>
 <p>執行完成後source&#x2F;_posts資料夾底下會出現<span class="label primary">我的第一篇文章.md</span></p>
 <h3 id="跑server"><a href="#跑server" class="headerlink" title="跑server"></a>跑server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<h3 id="修改-config-yml的deploy設定"><a href="#修改-config-yml的deploy設定" class="headerlink" title="修改_config.yml的deploy設定"></a>修改_config.yml的deploy設定</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:你的帳號/你的帳號.github.io.git <span class="comment">#你的github倉庫</span></span><br><span class="line">  branch: main <span class="comment">#分支</span></span><br></pre></td></tr></table></figure>
-<p>repository: 到你的github倉庫點選<span class="label success">Code -> copy按鈕</span>，即可複製完成<br><img src="https://i.imgur.com/6djPxpw.png" alt="Imgur"></p>
-<h3 id="產生靜態檔案"><a href="#產生靜態檔案" class="headerlink" title="產生靜態檔案"></a>產生靜態檔案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<h3 id="安裝hexo-deployer-git"><a href="#安裝hexo-deployer-git" class="headerlink" title="安裝hexo-deployer-git"></a>安裝hexo-deployer-git</h3><p>(第一次deploy前執行即可)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
-<h3 id="部署到遠端"><a href="#部署到遠端" class="headerlink" title="部署到遠端"></a>部署到遠端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/07/24/Hexo%E6%8C%87%E4%BB%A4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

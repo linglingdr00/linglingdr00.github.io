@@ -20,30 +20,60 @@
     var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="在哪裡跌倒了，就在哪裡躺下來">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tina Tang&#39;s Blog">
-<meta property="og:url" content="https://linglingdr00.github.io/index.html">
+  <meta name="description" content="投擲隨機數字 建立可執隨機擲骰子的 Kotlin 程式，當使用者「擲骰子」時，系統會隨機產生結果。  學習目標  如何透過程式輔助方式產生隨機數字來模擬擲骰子的動作。 如何透過建立含有變數和方法的 Dice 類別來建構程式碼。 如何建立類別的物件例項、修改其變數，以及呼叫其方法。   使用隨機函式如要擲骰子，需要設法呈現所有有效的骰子值。一般的 6 面骰子，可接受的結果有 1、2、3、4、5 和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android筆記(3)-建立建立Dice Roller應用程式">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8B%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="在哪裡跌倒了，就在哪裡躺下來">
+<meta property="og:description" content="投擲隨機數字 建立可執隨機擲骰子的 Kotlin 程式，當使用者「擲骰子」時，系統會隨機產生結果。  學習目標  如何透過程式輔助方式產生隨機數字來模擬擲骰子的動作。 如何透過建立含有變數和方法的 Dice 類別來建構程式碼。 如何建立類別的物件例項、修改其變數，以及呼叫其方法。   使用隨機函式如要擲骰子，需要設法呈現所有有效的骰子值。一般的 6 面骰子，可接受的結果有 1、2、3、4、5 和">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-in-kotlin/img/ba2038022410942c_1920.jpeg?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/PO7Hfug.png">
+<meta property="og:image" content="https://i.imgur.com/Sp5mb9j.png">
+<meta property="og:image" content="https://i.imgur.com/7upqMzz.png">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/ea4be68b34500570_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/b875e0147bf9e3f5_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/a1973a29e117dd8f.gif?authuser=2">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/88b750fbe0504d93_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/49de1c166b355ee1_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/dd1bac8adb275f79_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/Q7mNg9T.png">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/9adeab9db109913e_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/6e9a5a173a49fc8b_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/7206a03c9ba0d68d_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/78dc6e6f7abc1152_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/4fa3d5e4bce95d2_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/ca5dbfd4f37a49e7_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/da4031d0ef02f3c5_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/eaf488ba04947f7f_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/1bedf6b103fd48c3_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/9vtBhag.png">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/21ef4d7c6c33e154_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/16bb603205fc3d3_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/wwWMfJ0.gif">
+<meta property="og:image" content="https://i.imgur.com/qUvahVG.png">
+<meta property="article:published_time" content="2023-08-19T06:15:04.000Z">
+<meta property="article:modified_time" content="2023-08-19T17:23:04.841Z">
 <meta property="article:author" content="Tina Tang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-in-kotlin/img/ba2038022410942c_1920.jpeg?authuser=2&hl=zh-tw">
 
-<link rel="canonical" href="https://linglingdr00.github.io/">
+<link rel="canonical" href="https://linglingdr00.github.io/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8B%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-tw'
   };
 </script>
 
-  <title>Tina Tang's Blog</title>
+  <title>Android筆記(3)-建立建立Dice Roller應用程式 | Tina Tang's Blog</title>
   
 
 
@@ -157,9 +187,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
@@ -175,10 +206,9 @@
       <meta itemprop="name" content="Tina Tang's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8B%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/" class="post-title-link" itemprop="url">Android筆記(3)-建立建立Dice Roller應用程式</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Android筆記(3)-建立建立Dice Roller應用程式
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -217,7 +247,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <hr>
+        <hr>
 <h3 id="投擲隨機數字"><a href="#投擲隨機數字" class="headerlink" title="投擲隨機數字"></a>投擲隨機數字</h3><blockquote>
 <p>建立可執隨機擲骰子的 Kotlin 程式，當使用者「擲骰子」時，系統會隨機產生結果。</p>
 </blockquote>
@@ -692,543 +722,34 @@
 <p>執行畫面：<br><img src="https://i.imgur.com/qUvahVG.png" width="30%" height="30%"></p>
 <p>程式碼：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * This activity allows the user to roll a dice and view the result</span><br><span class="line"> * on the screen.</span><br><span class="line"> */</span><br><span class="line">class MainActivity : <span class="function"><span class="title">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        val rollButton: Button = findViewById(R.id.button)</span><br><span class="line">        val rollButton2: Button = findViewById(R.id.button2)</span><br><span class="line"></span><br><span class="line">        val resultTextView: TextView = findViewById(R.id.textView)</span><br><span class="line">        val resultTextView2: TextView = findViewById(R.id.textView2)</span><br><span class="line"></span><br><span class="line">        //when click button</span><br><span class="line">        rollButton.setOnClickListener &#123;</span><br><span class="line">            // Update the screen with the dice roll</span><br><span class="line">            resultTextView.text = rollDice()</span><br><span class="line">        &#125;</span><br><span class="line">        rollButton2.setOnClickListener &#123;</span><br><span class="line">            // Update the screen with the dice roll</span><br><span class="line">            resultTextView2.text = rollDice()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Roll the dice and update the screen with the result.</span><br><span class="line">     */</span><br><span class="line">    private fun rollDice(): String &#123;</span><br><span class="line">        // Create new Dice object with 6 sides and roll it</span><br><span class="line">        val dice = Dice(6)</span><br><span class="line">        val diceRoll = dice.roll()</span><br><span class="line"></span><br><span class="line">        // <span class="built_in">return</span> random number</span><br><span class="line">        <span class="built_in">return</span> diceRoll.toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice(private val numSides: Int) &#123;</span><br><span class="line"></span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/07/27/Android%E7%AD%86%E8%A8%98-2-%E5%BB%BA%E7%AB%8BBirthday-Card%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile_photo.png">
-      <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="在哪裡跌倒了，就在哪裡躺下來">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tina Tang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/27/Android%E7%AD%86%E8%A8%98-2-%E5%BB%BA%E7%AB%8BBirthday-Card%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/" class="post-title-link" itemprop="url">Android筆記(2)-建立Birthday Card應用程式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-07-27 21:18:51" itemprop="dateCreated datePublished" datetime="2023-07-27T21:18:51+08:00">2023-07-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-28 13:37:13" itemprop="dateModified" datetime="2023-07-28T13:37:13+08:00">2023-07-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>學習目標</strong></p>
-<ul>
-<li>什麼是使用者介面元素，例如 Views 和 ViewGroups。</li>
-<li>如何在應用程式的 TextView 中顯示文字。</li>
-<li>如何在 TextView 上設定文字、字型和邊界等屬性。</li>
-<li>使用 ImageView 將圖像新增至應用程式。</li>
-</ul>
-<p><strong>建構目標</strong></p>
-<ul>
-<li>一個以文字格式顯示生日祝福語的 Android 應用程式。</li>
-</ul>
-<hr>
-<h3 id="設定Happy-Birthday應用程式"><a href="#設定Happy-Birthday應用程式" class="headerlink" title="設定Happy Birthday應用程式"></a>設定Happy Birthday應用程式</h3><h4 id="使用者介面"><a href="#使用者介面" class="headerlink" title="使用者介面"></a>使用者介面</h4><p>為了在畫面上顯示文字，我們將使用一種用於顯示文字的<code>View</code>，也就是<code>TextView</code>。<br><code>ViewGroup</code>是可在其中放入<code>View</code>物件的容器，負責排列內部的<code>View</code>。<br><code>ConstraintLayout</code>是其中一種<code>ViewGroup</code>，可協助您靈活地排列內部的<code>View</code>。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/b02cb13e267730fc_1920.png?authuser=2&hl=zh-tw" alt="1"></p>
-<h4 id="版面配置編輯器"><a href="#版面配置編輯器" class="headerlink" title="版面配置編輯器"></a>版面配置編輯器</h4><p>Android Studio 提供一個稱為<span class="label primary">版面配置編輯器</span>的工具，排列<code>Views</code>和<code>ViewGroups</code>來建立使用者介面。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/fc4828e6a783234_1920.png?authuser=2&hl=zh-tw" alt="2"></p>
-<ul>
-<li>左側標記 (1) 的地方是您先前看過的「Project」(專案) 視窗，其中列出專案組成的所有檔案。</li>
-<li>畫面中央會顯示 (4) 和 (5) 兩個繪圖，分別代表應用程式的螢幕版面配置。左側標記 (4) 的視窗顯示應用程式執行時呈現的近似效果，也就是所謂的「Design」(設計) 檢視畫面。</li>
-<li>右側標記 (5) 的視窗代表「Blueprint」(藍圖) 檢視畫面，在執行特定操作時會很有用。</li>
-<li>標記 (2) 的「Palette」(區塊面板) 視窗列出可新增到應用程式的各類 Views。</li>
-<li>標記 (3) 的「Component Tree」(元件樹狀結構) 是另一種螢幕檢視畫面方式，列出螢幕的所有檢視畫面。</li>
-<li>最右側標記 (6) 的視窗是「屬性」(Attributes)，顯示了 View 的各種屬性，您可在這裡加以變更。</li>
-</ul>
-<h4 id="變更Hello-World訊息"><a href="#變更Hello-World訊息" class="headerlink" title="變更Hello World訊息"></a>變更Hello World訊息</h4><p>我們使用版面配置編輯器將「Hello World!」變更為「生日快樂！」，之後再設定文字的樣式。</p>
-<ol>
-<li>展開「app」資料夾、「res」資料夾和「layout」資料夾。</li>
-<li>按兩下<code>activity_main.xml</code>，系統隨即會在版面配置編輯器中開啟<code>activity_main.xml</code>。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/1f64a0a2623c9380_1920.png?authuser=2&hl=zh-tw" alt="3"></li>
-<li>在「Component Tree」(元件樹狀結構) 中，按一下<code>TextView</code>，找到右側的「Attributes」(屬性)。</li>
-<li>將「Declared Attributes」(宣告屬性) 部分中的<code>text</code>從「Hello World!」修改成「生日快樂！」。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/de37fe1f5ed1507e_1920.png?authuser=2&hl=zh-tw" alt="4"></li>
-</ol>
-<hr>
-<h3 id="在版面配置中新增TextView"><a href="#在版面配置中新增TextView" class="headerlink" title="在版面配置中新增TextView"></a>在版面配置中新增TextView</h3><h4 id="刪除目前的TextView"><a href="#刪除目前的TextView" class="headerlink" title="刪除目前的TextView"></a>刪除目前的TextView</h4><ol>
-<li>在版面配置編輯器中，按一下以選取位於版面配置中央的<code>TextView</code>。</li>
-<li>按下 Delete 鍵。Android Studio 會刪除<code>TextView</code>，而您的應用程式在版面配置編輯器和「Component Tree」(元件樹狀結構) 中只會顯示<code>ConstraintLayout</code>。</li>
-</ol>
-<h4 id="新增TextView"><a href="#新增TextView" class="headerlink" title="新增TextView"></a>新增TextView</h4><ol>
-<li>找出<code>TextView</code>。可以在「Common」類別和「Text」類別中找到它。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/e23ce742cec0ab41_1920.png?authuser=2&hl=zh-tw" alt="5"></li>
-<li>將<code>TextView</code>從「Palette」(區塊面板) 拖曳到版面配置編輯器設計平面的左上方。<br><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app/img/6bbcb1bbc39df93a.gif?authuser=2" alt="6"></li>
-<li>當新增了一個<code>TextView</code>，我們會注意到「Component Tree」(元件樹狀結構) 中有<span class="label danger">紅色驚嘆號</span>。</li>
-<li>將滑鼠游標移到驚嘆號上，就會看到一則警示訊息，說明該檢視畫面未受到限制，且會在執行應用程式時跳到其他位置。接下來要修正這個問題。</li>
-</ol>
-<h4 id="放置TextView"><a href="#放置TextView" class="headerlink" title="放置TextView"></a>放置TextView</h4><ol>
-<li>點選新增的<code>TextView</code>，在右側的「Attributes」(屬性) 中，找到「Layout」(版面配置) 部分中的<span class="label primary">「Constraint Widget」(限制小工具)</span>。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/b8811ae0b8d7acdf_1920.png?authuser=2&hl=zh-tw" alt="6"></li>
-<li>按一下正方形頂端的<code>+</code>，可設定上邊界的數字欄位。該邊界是指從<code>TextView</code>到<code>容器(即 ConstraintLayout)</code>邊緣的距離。</li>
-<li>將上邊界和左邊界變更為 16。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/ea087eb3bdbc771b_1920.png?authuser=2&hl=zh-tw" alt="7"></li>
-<li>在「Attributes」(屬性) 中設定「text」(文字) 。</li>
-</ol>
-<h4 id="新增及放置另一個TextView"><a href="#新增及放置另一個TextView" class="headerlink" title="新增及放置另一個TextView"></a>新增及放置另一個TextView</h4><ol>
-<li>從「區塊面板」將新的 TextView 拖曳到「版面配置編輯器」中的應用程式檢視畫面附近。</li>
-<li>將右邊界和下邊界設為 16。</li>
-<li>在「Attributes」(屬性) 中設定「text」(文字) 。<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/f547c1b45045984a_1920.png?authuser=2&hl=zh-tw" width="35%" height="35%"></li>
-</ol>
-<h3 id="新增文字樣式"><a href="#新增文字樣式" class="headerlink" title="新增文字樣式"></a>新增文字樣式</h3><p>在<code>TextView</code>「Attributes」(屬性) 視窗中的「Common Attributes」(一般屬性) 點開<span class="label success">「textAppearance」</span>，修改<span class="label primary">fontFamily</span>、<span class="label primary">textSize</span>和<span class="label primary">textColor</span>。</p>
-<p>完成的畫面如下，可以根據自己的喜好修改：<br><img src="https://i.imgur.com/2Pkqa6r.png" width="35%" height="35%"></p>
-<h3 id="加入圖像"><a href="#加入圖像" class="headerlink" title="加入圖像"></a>加入圖像</h3><ol>
-<li>按一下<a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-birthday-card-with-image-app-solution/blob/master/androidparty.png">這裡</a>前往GitHub下載生日資訊卡的圖像。</li>
-<li>在 Android Studio 中，按一下選單中的「View」&gt;「Tool Windows」&gt;「Resource Manager」，或按一下「Project」視窗左側的「Resource Manager」分頁標籤。</li>
-<li>按一下「Resource Manager」下方的「+」圖示，然後選取「Import Drawables」，即可開啟檔案瀏覽器，選擇剛才下載的圖片檔。</li>
-<li>如果圖像已成功匯入，Android Studio 會將圖像新增至「Drawable」清單。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/e4a7e2568ab80e33.png?authuser=2&hl=zh-tw" alt="8"></li>
-</ol>
-<h3 id="新增ImageView"><a href="#新增ImageView" class="headerlink" title="新增ImageView"></a>新增ImageView</h3><h4 id="新增ImageView並設定圖像"><a href="#新增ImageView並設定圖像" class="headerlink" title="新增ImageView並設定圖像"></a>新增ImageView並設定圖像</h4><ol>
-<li>在「Project」視窗中開啟「activity_main.xml」(「App」&gt;「Res」&gt;「Layout」&gt;「activity_main.xml」)。</li>
-<li>在「版面配置編輯器」中，前往「Palette」，然後將<code>ImageView</code>拖曳至您的應用程式。請將其放在中央附近，且不要與任何文字重疊</li>
-<li>在「Choose a Resource」對話方塊中，於「Drawable」清單中找到蛋糕圖像。</li>
-</ol>
-<h4 id="設定ImageView的位置和大小"><a href="#設定ImageView的位置和大小" class="headerlink" title="設定ImageView的位置和大小"></a>設定ImageView的位置和大小</h4><ol>
-<li>在「版面配置編輯器」中按住並拖曳<code>ImageView</code>，但請注意，在「Design」檢視畫面內，應用程式畫面周圍會顯示粉紅色矩形。 粉紅色矩形代表用來放置<code>ImageView</code>的螢幕邊界</li>
-<li>拖曳<code>ImageView</code>，讓左側和右側邊緣對齊粉紅色矩形。當您拉近時，Android Studio 會將圖像「貼齊」邊緣 (您將在稍後處理頂端和底端)。<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/25ab8b0401429ebd.gif?authuser=2" width="50%" height="50%"></li>
-</ol>
-<blockquote>
-<p><code>ConstraintLayout</code> 中的<code>View</code>需要水平和垂直限制，才能讓<code>ConstraintLayout</code>知道如何定位。</p>
-</blockquote>
-<ol start="3">
-<li><p>將游標懸停於<code>ImageView</code>外框頂端的圓圈上，並以另一個圓圈醒目顯示。</p>
-</li>
-<li><p>將圓圈拖曳到應用程式畫面頂端，當您拖曳圓圈時，會有箭頭連結圓圈與游標。在螢幕上拖曳，直到貼齊畫面頂端。您已新增從<code>ImageView</code>頂端至<code>ConstraintLayout</code>頂端的限制條件。</p>
-<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/f3b70726695ea8c9.gif?authuser=2" width="50%" height="50%">
-</li>
-<li><p>新增從<code>ImageView</code>的底部到<code>ConstraintLayout</code>底部的限制。可能太靠近邊緣，無法像對頂端那樣拖動。這時可以在「Attributes」視窗的「Constraint Widget」中，點選底部的「+」來新增至限制條件。確保邊界為 0。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/cdde37ea44d6bc1a.png?authuser=2&hl=zh-tw" alt="11"></p>
-</li>
-<li><p>在「Attributes」窗格中，使用「Constraint Widget」在左側和右側新增 0 的邊界。 這項操作會自動建立對該指令的限制。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/1c58fd4afe6f83bb.png?authuser=2&hl=zh-tw" alt="12"></p>
-</li>
-</ol>
-<blockquote>
-<p>此時圖像已置中，但還沒有佔滿整個螢幕畫面。</p>
-</blockquote>
-<ol start="7">
-<li>在「Constraint」部分的「Constraint Widget」下方，將「layout_width」和將「layout_height」設定為「0dp」。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/9fff7d632ac45a3d.png?authuser=2&hl=zh-tw" alt="13"></li>
-<li>找出「scaleType」屬性，將「scaleType」設定為「centerCrop」，這樣圖像就會填滿螢幕，不會扭曲變形。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/32350f1cf95adb1d.png?authuser=2&hl=zh-tw" alt="14"></li>
-</ol>
-<p>完成後圖片會填滿整個畫面：<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/b3ef159159143c95.png?authuser=2&hl=zh-tw" width="35%" height="35%"></p>
-<h4 id="將ImageView移至文字後方"><a href="#將ImageView移至文字後方" class="headerlink" title="將ImageView移至文字後方"></a>將ImageView移至文字後方</h4><p>在「Component Tree」中點選並拖曳 ImageView 至 TextViews 正下方 ConstraintLayout。系統隨即會顯示一條三角形的藍色線條，以代表 ImageView 的位置。<br>將 ImageView 拖放到 ConstraintLayout 正下方即可。<br><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/140649e77bd4f05b.gif?authuser=2" width="50%" height="50%"></p>
-<p>最後完成如下圖：<br><img src="https://i.imgur.com/91FX7SR.png" width="35%" height="35%"></p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/27/Android%E7%AD%86%E8%A8%98-2-%E5%BB%BA%E7%AB%8BBirthday-Card%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/" rel="prev" title="Android筆記(2)-建立Birthday Card應用程式">
+      <i class="fa fa-chevron-left"></i> Android筆記(2)-建立Birthday Card應用程式
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/07/27/Android%E7%AD%86%E8%A8%98-1-Kotlin/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile_photo.png">
-      <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="在哪裡跌倒了，就在哪裡躺下來">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tina Tang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/27/Android%E7%AD%86%E8%A8%98-1-Kotlin/" class="post-title-link" itemprop="url">Android筆記(1)-Kotlin簡介</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-07-27 15:10:28" itemprop="dateCreated datePublished" datetime="2023-07-27T15:10:28+08:00">2023-07-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-02 20:41:42" itemprop="dateModified" datetime="2023-08-02T20:41:42+08:00">2023-08-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Kotlin為Google宣布的Android官方開發語言</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.android.com/training/kotlinplayground">點此可以線上練習編寫Kotlin</a></p>
-<h3 id="Kotlin練習"><a href="#Kotlin練習" class="headerlink" title="Kotlin練習"></a>Kotlin練習</h3><h4 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h4><p>首先我們看到第一個範例：印出Hello, world!</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;Hello, world!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>其中，<span class="label success">fun</span>代表函式(function)，<span class="label primary">main</span>則是這個函式的名稱，也是Kotlin所需的主函式。</li>
-<li>函式名稱後面一律加上兩個括號<code>()</code>，括號中的內容稱為「引數」，或簡短表示為<code>args</code>。</li>
-<li>引數是指傳送到函式的值，可以是值、變數，甚至是其他函式。</li>
-<li>而括號後方的大括號<code>&#123;&#125;</code>包起來的程式，是函式內部用於完成工作的程式碼。</li>
-<li><code>println</code>是列印+換行的意思，會指示系統列印一行文字並換行。</li>
-</ul>
-<hr>
-<h4 id="建立生日訊息"><a href="#建立生日訊息" class="headerlink" title="建立生日訊息"></a>建立生日訊息</h4><h5 id="加入範例程式"><a href="#加入範例程式" class="headerlink" title="加入範例程式"></a>加入範例程式</h5><ol>
-<li>在瀏覽器中開啟 <a target="_blank" rel="noopener" href="https://developer.android.com/training/kotlinplayground%E3%80%82">https://developer.android.com/training/kotlinplayground。</a></li>
-<li>加入範例程式碼：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, Rover!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already 5!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;5 is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h5 id="建立及使用變數"><a href="#建立及使用變數" class="headerlink" title="建立及使用變數"></a>建立及使用變數</h5><ol>
-<li>將 Rover 的年齡儲存在變數中。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val age = 5</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><code>val</code> 是 Kotlin 使用的特殊字詞，稱為「關鍵字」，<code>age</code> 為變數名稱。</li>
-</ul>
-<p>如要輸出該變數的值，而不是文字，只要在前面加上美元符號的大括號內放入變數即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;variable&#125;</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>將程式碼中兩個輸出陳述式的數字 5 改成 <code>age</code> 變數，如下所示<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span>!&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> is the very best age to celebrate!&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-<li>更改 <code>age</code> 的值為天數來表示 Rover 的年齡(年齡x365)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val age = 5 * 365</span><br></pre></td></tr></table></figure></li>
-<li>再次執行程式碼，您會發現兩條訊息現在都以天數顯示年齡。</li>
-<li>最後調整一下訊息的文字</li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, Rover!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old!!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old!!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br></pre></td></tr></table></figure>
-
-<h5 id="將文字放入變數"><a href="#將文字放入變數" class="headerlink" title="將文字放入變數"></a>將文字放入變數</h5><ol>
-<li>在 <code>age</code> 的變數下方，新增名為 <code>name</code> 的變數代表壽星名字，並將值設為 “Rover”。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val name = <span class="string">&quot;Rover&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li>用變數取代生日訊息中的名字 Rover，如下所示。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-<li>使用 <code>name</code> 變數將 Rover 加入年齡訊息中，如下所示。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br></pre></td></tr></table></figure>
-
-<h5 id="使用函式加上生日橫幅的邊框"><a href="#使用函式加上生日橫幅的邊框" class="headerlink" title="使用函式加上生日橫幅的邊框"></a>使用函式加上生日橫幅的邊框</h5><ol>
-<li>建立函式來輸出邊框<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;================================================&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>在 <code>main()</code> 函式中呼叫 <code>printBorder()</code> 函式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    printBorder()</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;================================================&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>在 <code>printBorder()</code> 函式中，使用 <code>repeat()</code> 重複邊框格式，最後加入 println() 來換行。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    printBorder()</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">================================================</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">================================================</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>使用引數變更邊框</li>
-<li>新增名為 <code>border</code> 的變數。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val border = <span class="string">&quot;%&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li>將 <code>border</code> 變數做為引數，傳遞至對 <code>printBorder()</code> 函式的呼叫中。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printBorder(border)</span><br></pre></td></tr></table></figure></li>
-<li>修改 <code>printBorder()</code> 函式中的引數，並使用 border 作為函式中的變數。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun printBorder(border: String) &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>引數的名稱是 <code>border</code>、名稱後方有冒號 <code>:</code> 以及 <code>String</code> (引數的類型)。</li>
-</ul>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">   	val border = <span class="string">&quot;%&quot;</span></span><br><span class="line">    printBorder(border)</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder(border)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun printBorder(border: String) &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>將邊框變更為 <code>&quot;&#39;-._,-&#39;&quot;</code> 格式，並新增新變數 <code>timesToRepeat</code> 調整重複次數<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val border = <span class="string">&quot;`-._,-&#x27;&quot;</span></span><br><span class="line">val timesToRepeat = 7</span><br></pre></td></tr></table></figure></li>
-<li>呼叫 <code>printBorder</code> 函式時，變成需要2個引數<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printBorder(border, timesToRepeat)</span><br></pre></td></tr></table></figure></li>
-<li>新曾 <code>printBorder</code> 函式中的引數<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun printBorder(border: String, timesToRepeat: Int) &#123;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>有多個引數時，以半形逗號 <code>,</code> 分隔引數。</li>
-</ul>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">   	val border = <span class="string">&quot;`-._,-&#x27;&quot;</span></span><br><span class="line">    val timesToRepeat = 7</span><br><span class="line">    printBorder(border, timesToRepeat)</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder(border, timesToRepeat)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun printBorder(border: String, timesToRepeat: Int) &#123;</span><br><span class="line">    repeat(timesToRepeat) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h4 id="建立一個多層且點上蠟燭的蛋糕"><a href="#建立一個多層且點上蠟燭的蛋糕" class="headerlink" title="建立一個多層且點上蠟燭的蛋糕"></a>建立一個多層且點上蠟燭的蛋糕</h4><ul>
-<li>建立三個函式來繪製一個點上蠟燭的多層蛋糕。</li>
-<li>在一個 repeat() 內部使用另一個 repeat()，建立「巢狀迴圈」。</li>
-<li>先從大方向開始，再加入細節。這就是所謂的「由上而下開發」。</li>
-</ul>
-<p>最後需要完成的蛋糕如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br></pre></td></tr></table></figure>
-<hr>
-<h5 id="建立-main-函式"><a href="#建立-main-函式" class="headerlink" title="建立 main() 函式"></a>建立 main() 函式</h5><ol>
-<li>建立變數 <code>age</code>，並將其設為 24。</li>
-<li>建立第二個變數 <code>layers</code>，並將其設為 5。</li>
-<li>呼叫函式 <code>printCakeCandles()</code>，並傳遞 age。</li>
-<li>呼叫函式 <code>printCakeTop()</code>，並傳遞 age。</li>
-<li>呼叫函式 <code>printCakeBottom()</code>，並傳遞 age 和 layers 的數量。</li>
-</ol>
-<ul>
-<li>先將函式註解</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 24</span><br><span class="line">    val layers = 5</span><br><span class="line">    // printCakeCandles(age)</span><br><span class="line">    // printCakeTop(age)</span><br><span class="line">    // printCakeBottom(age, layers)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="建立-printCakeTop"><a href="#建立-printCakeTop" class="headerlink" title="建立 printCakeTop()"></a>建立 printCakeTop()</h5><p>printCakeTop() 函式是一行等號，用於輸出蛋糕頂端。<br><code>==========================</code></p>
-<ol>
-<li>建立函式 <code>printCakeTop()</code>，接收 <code>Int</code> 類型的 <code>age</code> 引數。</li>
-<li>使用 repeat() 陳述式輸出單一等號 <code>age</code>+2 次。額外的兩個等號是為了讓蠟燭不會從蛋糕的側面掉下來。</li>
-<li>repeat() 完成後，請在結尾輸出一行空白行(換行)。</li>
-<li>移除 main() 中 <code>printCakeTop()</code> 的註解，因為該函式已存在</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeTop(age: Int) &#123;</span><br><span class="line">    repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="建立-printCakeCandles"><a href="#建立-printCakeCandles" class="headerlink" title="建立 printCakeCandles()"></a>建立 printCakeCandles()</h5><p>每支蠟燭都由兩個符號組成：半形逗號 (,) 代表燭焰，豎線號 (|) 代表燭體。<br><code>,,,,,,,,,,,,,,,,,,,,,,,,</code><br><code>||||||||||||||||||||||||</code></p>
-<ol>
-<li>建立一個新函式 <code>printCakeCandles()</code>，接收 <code>Int</code> 類型的 <code>age</code> 引數。</li>
-<li>印出一個空格，使蠟燭呈現以下的樣子<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br></pre></td></tr></table></figure></li>
-<li>使用 repeat() 陳述式輸出一個半形逗號 <code>,</code> 來代表燭焰(重複 <code>age</code> 次)，最後換行。</li>
-<li>重複上述步驟來建立第二個 repeat() 陳述式，用來使用豎線號 <code>|</code> 輸出燭體。</li>
-<li>在結尾使用 println() 輸出新的一行。</li>
-<li>移除 main() 中 <code>printCakeCandles()</code> 的註解。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeCandles(age: Int) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;|&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="建立-printCakeBottom"><a href="#建立-printCakeBottom" class="headerlink" title="建立 printCakeBottom()"></a>建立 printCakeBottom()</h5><p>使用這個函式繪製與 <code>age + 2</code> 等寬的蛋糕底部，且畫出的高度包含特定層數。</p>
-<ul>
-<li>函式需要兩個引數，一個用於寬度 <code>age</code>，一個用於高度 <code>layers</code>。</li>
-<li>如要顯示蛋糕底部，請先重複 @ 符號 <code>age + 2</code> 次，即可顯示一層蛋糕。接著，重複輸出一層蛋糕 layers 次。</li>
-</ul>
-<p>重複 @ 符號 age + 2 次，繪製一層蛋糕：</p>
-<ol>
-<li><p>建立內含引數 age 和 layers 的函式 <code>printCakeBottom()</code>，兩個引數都是 Int 類型。</p>
-</li>
-<li><p>使用 repeat() 陳述式輸出一層<code>@</code> 符號 <code>age + 2</code> 次。在結尾輸出空白行。<br>如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeBottom(age: Int, layers: Int) &#123;</span><br><span class="line">    repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用巢狀 repeat() 輸出蛋糕層 -&gt; 在函式中的所有程式碼周圍放置第二個 repeat() 陳述式。重複此循環 layers 次<br>如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeBottom(age: Int, layers: Int) &#123;</span><br><span class="line">    repeat(layers) &#123;</span><br><span class="line">        repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        println()  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>移除 main() 中 <code>printCakeBottom()</code> 的註解。</p>
-</li>
-</ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 24</span><br><span class="line">    val layers = 5</span><br><span class="line">    printCakeCandles(age)</span><br><span class="line">    printCakeTop(age)</span><br><span class="line">    printCakeBottom(age, layers)</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeTop(age: Int) &#123;</span><br><span class="line">    repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeCandles(age: Int) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;|&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeBottom(age: Int, layers: Int) &#123;</span><br><span class="line">    repeat(layers) &#123;</span><br><span class="line">        repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        println()  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="重要名詞"><a href="#重要名詞" class="headerlink" title="重要名詞"></a>重要名詞</h3><h4 id="1-函式"><a href="#1-函式" class="headerlink" title="1. 函式"></a>1. 函式</h4><p><strong>函式</strong></p>
-<ul>
-<li><strong>函式</strong>是獨立的程式碼區塊，會執行運算作業並傳回值。在 Kotlin 中，系統會使用<code>fun</code>關鍵字宣告函式，您可以在函式中置入指定或預設的引數。與特定<strong>類別</strong>相關聯的函式稱為<strong>方法</strong>。</li>
-</ul>
-<p><strong>建構函式</strong></p>
-<ul>
-<li>在建立<strong>類別</strong>的<strong>執行個體</strong>時，系統會自動執行名為建構函式的方法。建構函式會負責執行所有必要作業，讓應用程式的其餘部分能使用該物件。舉例來說，針對您要建構的物件，建構函式通常會初始化 (將第一個值填入) 該物件的所有欄位。建立物件的唯一方法是呼叫 (執行) 該物件的建構函式。</li>
-<li>建構函式名稱與其所屬的類別名稱相同。一個類別可以有多個建構函式，前提是每個建構函式都要有不同的參數清單。</li>
-</ul>
-<p><strong>main()函式</strong></p>
-<ul>
-<li>Kotlin 程式的 <strong>main() 函式</strong>是指執行程式的進入點。執行 Kotlin 程式時，開頭一律是<code>main()</code>函式。在 <strong>Android 應用程式</strong>中，由於您的應用程式程式碼是由 Android 系統執行，因此不必在程式碼中特別指定<code>main()</code>函式。</li>
-</ul>
-<p><strong>方法</strong></p>
-<ul>
-<li>方法是類別中定義的函式，且與類別的物件執行個體行為相關聯。</li>
-</ul>
-<p><strong>參數和引數的差異</strong></p>
-<ul>
-<li>在<strong>函式</strong> (或<strong>方法</strong>) 中，參數是指函式定義中的變數宣告。呼叫函式時，引數是指您傳送至參數的資料。</li>
-</ul>
-<hr>
-<h4 id="2-類別"><a href="#2-類別" class="headerlink" title="2. 類別"></a>2. 類別</h4><p><strong>類別</strong></p>
-<ul>
-<li><strong>類別</strong>如同<strong>物件</strong>的藍圖，可對類別中敘述的所有物件定義通用的<strong>屬性</strong> (為<strong>變數</strong>)，以及這些物件的動作 (為名為<strong>方法</strong>的<strong>函式</strong>)。您必須以 Kotlin 中的<code>class</code>關鍵字來定義類別。</li>
-<li>類別就像是建築師的藍圖設計 (而不是房屋本身)，也就是建造房屋的指示說明。房屋則是根據該藍圖而建立的實體或<strong>物件執行個體</strong>。舉例來說，您可能會設定<code>PetDog</code>類別，其中包含寵物名稱和品種的屬性。接著就能建立物件執行個體 <code>myPetDog</code>和<code>myFriendsPetDog</code>。這兩個執行個體的名稱和品種並不相同，但都屬於<code>PetDog</code>類別。</li>
-</ul>
-<p><strong>物件</strong></p>
-<ul>
-<li>在<strong>物件導向程式設計</strong>中，<strong>物件</strong>是指<strong>類別</strong>的特定<strong>執行個體</strong>，其中物件可以是<strong>變數</strong>、<strong>函式</strong>和資料結構的組合。</li>
-</ul>
-<p><strong>public和private</strong></p>
-<ul>
-<li>系統會將類別成員預設為<code>public</code>，表示其他程式碼也能存取。不過，建議您限制對外存取權，僅供必要程式碼進行存取。如果將方法或屬性標記為<code>private</code>，則表示僅供該類別的內部元素存取。這個作法可避免不慎暴露實作部分讓其他呼叫端存取或參照。</li>
-</ul>
-<p><strong>抽象類別</strong></p>
-<ul>
-<li><strong>抽象類別是</strong> Kotlin 中標示為<code>abstract</code>關鍵字的類別。抽象類別可包含尚未實作的屬性或方法。在這種情況下，您只能在子類別中初始化抽象屬性或實作抽象方法。因此，您無法直接對抽象類別執行個體化。</li>
-</ul>
-<p><strong>封裝</strong></p>
-<ul>
-<li><strong>封裝</strong>是指將邏輯相關的功能整合為同一處。其中一個封裝範例就是<strong>類別</strong>。</li>
-</ul>
-<hr>
-<h4 id="3-命名"><a href="#3-命名" class="headerlink" title="3. 命名"></a>3. 命名</h4><p><strong>駝峰式大小寫</strong></p>
-<ul>
-<li><strong>駝峰式大小寫</strong>是指將每個字的首字母大寫，並移除每個字之間的所有空格。這是 Kotlin 中對<strong>函式</strong>、<strong>變數</strong>和<strong>類別</strong>的命名慣例，例如<code>LinearLayout</code>、<code>MainActivity</code>或<code>setOnClickListener</code>。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/07/24/Hexo%E6%8C%87%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/profile_photo.png">
-      <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="在哪裡跌倒了，就在哪裡躺下來">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tina Tang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/24/Hexo%E6%8C%87%E4%BB%A4/" class="post-title-link" itemprop="url">Hexo指令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-07-24 18:10:54" itemprop="dateCreated datePublished" datetime="2023-07-24T18:10:54+08:00">2023-07-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-27 15:07:08" itemprop="dateModified" datetime="2023-07-27T15:07:08+08:00">2023-07-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="建立一個Hexo專案"><a href="#建立一個Hexo專案" class="headerlink" title="建立一個Hexo專案"></a>建立一個Hexo專案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init 專案名稱</span><br><span class="line">$ hexo init blog</span><br></pre></td></tr></table></figure>
-
-<h3 id="新增menu"><a href="#新增menu" class="headerlink" title="新增menu"></a>新增menu</h3><p>(about&#x2F;tags&#x2F;categories…)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page about</span><br><span class="line">$ hexo new page tags</span><br><span class="line">$ hexo new page categories</span><br></pre></td></tr></table></figure>
-<p>執行完成後source資料夾底下會出現<span class="label primary">對應資料夾</span>和其底下的<span class="label primary">index.md</span></p>
-<h3 id="建立新文章"><a href="#建立新文章" class="headerlink" title="建立新文章"></a>建立新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;我的第一篇文章&quot;</span></span><br></pre></td></tr></table></figure>
-<p>執行完成後source&#x2F;_posts資料夾底下會出現<span class="label primary">我的第一篇文章.md</span></p>
-<h3 id="跑server"><a href="#跑server" class="headerlink" title="跑server"></a>跑server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<h3 id="修改-config-yml的deploy設定"><a href="#修改-config-yml的deploy設定" class="headerlink" title="修改_config.yml的deploy設定"></a>修改_config.yml的deploy設定</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:你的帳號/你的帳號.github.io.git <span class="comment">#你的github倉庫</span></span><br><span class="line">  branch: main <span class="comment">#分支</span></span><br></pre></td></tr></table></figure>
-<p>repository: 到你的github倉庫點選<span class="label success">Code -> copy按鈕</span>，即可複製完成<br><img src="https://i.imgur.com/6djPxpw.png" alt="Imgur"></p>
-<h3 id="產生靜態檔案"><a href="#產生靜態檔案" class="headerlink" title="產生靜態檔案"></a>產生靜態檔案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<h3 id="安裝hexo-deployer-git"><a href="#安裝hexo-deployer-git" class="headerlink" title="安裝hexo-deployer-git"></a>安裝hexo-deployer-git</h3><p>(第一次deploy前執行即可)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
-<h3 id="部署到遠端"><a href="#部署到遠端" class="headerlink" title="部署到遠端"></a>部署到遠端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -1281,6 +802,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%95%E6%93%B2%E9%9A%A8%E6%A9%9F%E6%95%B8%E5%AD%97"><span class="nav-number">1.</span> <span class="nav-text">投擲隨機數字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%9A%A8%E6%A9%9F%E5%87%BD%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">使用隨機函式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E9%AA%B0%E5%AD%90%E9%A1%9E%E5%88%A5"><span class="nav-number">1.2.</span> <span class="nav-text">建立骰子類別</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9%E9%AA%B0%E5%AD%90%E9%A1%9E%E5%88%A5"><span class="nav-number">1.2.1.</span> <span class="nav-text">定義骰子類別</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E9%AA%B0%E5%AD%90%E9%A1%9E%E5%88%A5%E7%9A%84%E5%9F%B7%E8%A1%8C%E5%80%8B%E9%AB%94"><span class="nav-number">1.2.2.</span> <span class="nav-text">建立骰子類別的執行個體</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%B2%E9%AA%B0%E5%AD%90"><span class="nav-number">1.3.</span> <span class="nav-text">擲骰子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%82%B3%E5%9B%9E%E6%93%B2%E9%AA%B0%E5%AD%90%E7%9A%84%E7%B5%90%E6%9E%9C%E5%80%BC"><span class="nav-number">1.4.</span> <span class="nav-text">傳回擲骰子的結果值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4%E9%AA%B0%E5%AD%90%E9%9D%A2%E6%95%B8"><span class="nav-number">1.5.</span> <span class="nav-text">變更骰子面數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E8%A8%82%E9%AA%B0%E5%AD%90"><span class="nav-number">1.6.</span> <span class="nav-text">自訂骰子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A1%E7%94%A8%E5%AE%8C%E5%96%84%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%81%9A%E6%B3%95"><span class="nav-number">1.7.</span> <span class="nav-text">採用完善程式設計做法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">1.8.</span> <span class="nav-text">總結</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E8%A1%8C%E7%B7%B4%E7%BF%92"><span class="nav-number">1.9.</span> <span class="nav-text">自行練習</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E4%BA%92%E5%8B%95%E5%BC%8F%E7%9A%84Dice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">建立互動式的Dice Roller應用程式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">設定應用程式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%9A%84%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">建立應用程式的版面配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E6%8E%92%E6%8C%89%E9%88%95%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">安排按鈕的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4%E6%8C%89%E9%88%95%E6%96%87%E5%AD%97"><span class="nav-number">2.4.</span> <span class="nav-text">變更按鈕文字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-TextView-%E7%9A%84%E6%A8%A3%E5%BC%8F"><span class="nav-number">2.5.</span> <span class="nav-text">設定 TextView 的樣式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%95%9F%E7%94%A8%E8%87%AA%E5%8B%95%E5%8C%AF%E5%85%A5%E4%BD%9C%E6%A5%AD"><span class="nav-number">2.6.</span> <span class="nav-text">啟用自動匯入作業</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E9%AB%98%E6%8C%89%E9%88%95%E4%BA%92%E5%8B%95%E6%80%A7"><span class="nav-number">2.7.</span> <span class="nav-text">提高按鈕互動性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E9%BB%9E%E9%81%B8%E6%8C%89%E9%88%95%E6%99%82%E9%A1%AF%E7%A4%BA%E8%A8%8A%E6%81%AF"><span class="nav-number">2.7.1.</span> <span class="nav-text">在點選按鈕時顯示訊息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E9%BB%9E%E9%81%B8%E6%8C%89%E9%88%95%E6%99%82%E6%9B%B4%E6%96%B0-TextView"><span class="nav-number">2.7.2.</span> <span class="nav-text">在點選按鈕時更新 TextView</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E6%93%B2%E9%AA%B0%E5%AD%90%E9%82%8F%E8%BC%AF"><span class="nav-number">2.8.</span> <span class="nav-text">新增擲骰子邏輯</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Dice-%E9%AA%B0%E5%AD%90-%E9%A1%9E%E5%88%A5"><span class="nav-number">2.8.1.</span> <span class="nav-text">新增 Dice (骰子) 類別</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-rollDice-%E6%96%B9%E6%B3%95"><span class="nav-number">2.8.2.</span> <span class="nav-text">建立 rollDice() 方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0%E7%9A%84-Dice-%E7%89%A9%E4%BB%B6%E4%BE%8B%E9%A0%85"><span class="nav-number">2.9.</span> <span class="nav-text">建立新的 Dice 物件例項</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A1%E7%94%A8%E5%AE%8C%E5%96%84%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%81%9A%E6%B3%95-1"><span class="nav-number">2.10.</span> <span class="nav-text">採用完善程式設計做法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%85%E7%90%86%E6%82%A8%E7%9A%84%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">2.10.1.</span> <span class="nav-text">清理您的程式碼</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E8%A1%8C%E7%B7%B4%E7%BF%92-1"><span class="nav-number">2.11.</span> <span class="nav-text">自行練習</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -22,8 +22,8 @@
 
   <meta name="description" content="投擲隨機數字 建立可執隨機擲骰子的 Kotlin 程式，當使用者「擲骰子」時，系統會隨機產生結果。  學習目標  如何透過程式輔助方式產生隨機數字來模擬擲骰子的動作。 如何透過建立含有變數和方法的 Dice 類別來建構程式碼。 如何建立類別的物件例項、修改其變數，以及呼叫其方法。   使用隨機函式如要擲骰子，需要設法呈現所有有效的骰子值。一般的 6 面骰子，可接受的結果有 1、2、3、4、5 和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android筆記(3)-建立建立Dice Roller應用程式">
-<meta property="og:url" content="https://linglingdr00.github.io/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8B%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/index.html">
+<meta property="og:title" content="Android筆記(3)-建立Dice Roller應用程式">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
 <meta property="og:description" content="投擲隨機數字 建立可執隨機擲骰子的 Kotlin 程式，當使用者「擲骰子」時，系統會隨機產生結果。  學習目標  如何透過程式輔助方式產生隨機數字來模擬擲骰子的動作。 如何透過建立含有變數和方法的 Dice 類別來建構程式碼。 如何建立類別的物件例項、修改其變數，以及呼叫其方法。   使用隨機函式如要擲骰子，需要設法呈現所有有效的骰子值。一般的 6 面骰子，可接受的結果有 1、2、3、4、5 和">
 <meta property="og:locale" content="zh_TW">
@@ -53,14 +53,14 @@
 <meta property="og:image" content="https://i.imgur.com/wwWMfJ0.gif">
 <meta property="og:image" content="https://i.imgur.com/qUvahVG.png">
 <meta property="article:published_time" content="2023-08-19T06:15:04.000Z">
-<meta property="article:modified_time" content="2023-08-19T17:54:22.878Z">
+<meta property="article:modified_time" content="2023-08-21T12:19:04.055Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-in-kotlin/img/ba2038022410942c_1920.jpeg?authuser=2&hl=zh-tw">
 
-<link rel="canonical" href="https://linglingdr00.github.io/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8B%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
+<link rel="canonical" href="https://linglingdr00.github.io/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
 
 
 <script id="page-configurations">
@@ -73,7 +73,7 @@
   };
 </script>
 
-  <title>Android筆記(3)-建立建立Dice Roller應用程式 | Tina Tang's Blog</title>
+  <title>Android筆記(3)-建立Dice Roller應用程式 | Tina Tang's Blog</title>
   
 
 
@@ -127,7 +127,7 @@
       <h1 class="site-title">Tina Tang's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">血汗淚刻出來的程式</p>
+      <p class="site-subtitle" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</p>
   </div>
 
   <div class="site-nav-right">
@@ -194,12 +194,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8B%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile_photo.png">
       <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="在哪裡跌倒了，就在哪裡躺下來">
+      <meta itemprop="description" content="^(-o-)>">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -207,7 +207,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android筆記(3)-建立建立Dice Roller應用程式
+          Android筆記(3)-建立Dice Roller應用程式
         </h1>
 
         <div class="post-meta">
@@ -224,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-20 01:54:22" itemprop="dateModified" datetime="2023-08-20T01:54:22+08:00">2023-08-20</time>
+                <time title="Modified: 2023-08-21 20:19:04" itemprop="dateModified" datetime="2023-08-21T20:19:04+08:00">2023-08-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -811,7 +811,7 @@
     <img class="site-author-image" itemprop="image" alt="Tina Tang"
       src="/images/profile_photo.png">
   <p class="site-author-name" itemprop="name">Tina Tang</p>
-  <div class="site-description" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</div>
+  <div class="site-description" itemprop="description">^(-o-)></div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">

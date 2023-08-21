@@ -1,15 +1,31 @@
 img[src$="#avatar"] {
-    border: 3px solid #FFFFFF;
+    border: 3px solid #ffffffcb;
     border-radius: 50%;
     width: 150px;
+    transition: box-shadow 2s;
   }
 
+table {
+  border: 0px;
+}
+
+/*雙向*/
 img[src$="#logo"] {
     border-radius: 20%;
     width: 130px;
+    transition: box-shadow 2s;
+  }
+
+img[src]:hover { /*觸發事件為hover*/
+    box-shadow: 0 0 10px;
   }
 
 td {
-    border-width: 3px;
-    border-bottom-color: #FFFFFF;
-}
+    border-width: 0px;
+    border-bottom-color: transparent;
+  }
+
+td:has(>img) {
+    padding-top: 5%;
+    padding-left: 5%;
+  }

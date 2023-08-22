@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo2.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="將新增骰子的圖片至現有的Dice RollerAndroid應用程式。   學習目標如何在應用程式執行時更新ImageView。如何根據不同條件自訂應用程式行為(使用when陳述式)。 更新應用程式的版面配置新增顯示擲骰子結果圖片的ImageView，以取代版面配置中的TextView。  在 Android Studio 中，開啟並執行先前程式碼研究室的 Dice Roller 應用程式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android筆記(5)-新增圖片至Dice Roller應用程式">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/08/22/Android%E7%AD%86%E8%A8%98-5-%E6%96%B0%E5%A2%9E%E5%9C%96%E7%89%87%E8%87%B3Dice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Tina Tang&#39;s Blog">
+<meta property="og:description" content="將新增骰子的圖片至現有的Dice RollerAndroid應用程式。   學習目標如何在應用程式執行時更新ImageView。如何根據不同條件自訂應用程式行為(使用when陳述式)。 更新應用程式的版面配置新增顯示擲骰子結果圖片的ImageView，以取代版面配置中的TextView。  在 Android Studio 中，開啟並執行先前程式碼研究室的 Dice Roller 應用程式。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/c7f0d42525da7431_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2e8416293e597725_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/91f6e2be0a01fbf_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b8c3b83124c31ff_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/9848bb6319e11777_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2d8d134e6292d48f_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b6d3dcee6c7a51fc_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/1b05a6d2fd56459f_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/67186ea5d631bc8a_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/a45dff94a19e2722_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/ab68f82b385fc83e_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/1072e9fdd637afd9_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/9579582d8775e688_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b53f7379bfba8c27_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/IZLnPnz.png">
+<meta property="article:published_time" content="2023-08-22T13:10:05.000Z">
+<meta property="article:modified_time" content="2023-08-22T14:27:52.938Z">
+<meta property="article:author" content="Tina Tang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/c7f0d42525da7431_1920.png?authuser=2&hl=zh-tw">
+
+<link rel="canonical" href="https://linglingdr00.github.io/2023/08/22/Android%E7%AD%86%E8%A8%98-5-%E6%96%B0%E5%A2%9E%E5%9C%96%E7%89%87%E8%87%B3Dice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Android筆記(5)-新增圖片至Dice Roller應用程式 | Tina Tang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tina Tang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/08/22/Android%E7%AD%86%E8%A8%98-5-%E6%96%B0%E5%A2%9E%E5%9C%96%E7%89%87%E8%87%B3Dice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android筆記(5)-新增圖片至Dice Roller應用程式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-08-22 21:10:05 / Modified: 22:27:52" itemprop="dateCreated datePublished" datetime="2023-08-22T21:10:05+08:00">2023-08-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>將新增骰子的圖片至現有的<code>Dice Roller</code>Android應用程式。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/c7f0d42525da7431_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<p><strong>學習目標</strong><br>如何在應用程式執行時更新<code>ImageView</code>。<br>如何根據不同條件自訂應用程式行為(使用<code>when</code>陳述式)。</p>
+<h4 id="更新應用程式的版面配置"><a href="#更新應用程式的版面配置" class="headerlink" title="更新應用程式的版面配置"></a>更新應用程式的版面配置</h4><p>新增顯示擲骰子結果圖片的<code>ImageView</code>，以取代版面配置中的<code>TextView</code>。</p>
+<ol>
+<li>在 Android Studio 中，開啟並執行先前程式碼研究室的 Dice Roller 應用程式。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2e8416293e597725_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<ol start="2">
+<li><p>刪除<code>TextView</code>，新增<code>ImageView</code>並放置在<code>Button</code>上方。</p>
+</li>
+<li><p>在「Pick a Resource」對話方塊中，選取「Sample data」下的「avatars」。這是您在下一項工作中新增骰子圖片前，暫時使用的圖片。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/91f6e2be0a01fbf_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%">
+
+<ol start="4">
+<li>在「Component Tree」中，您會看到兩項錯誤。<code>Button</code>不受垂直限制，<code>ImageView</code>則不受垂直或水平限制。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b8c3b83124c31ff_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%">
+
+<h4 id="調整-ImageView-和-Button-的位置"><a href="#調整-ImageView-和-Button-的位置" class="headerlink" title="調整 ImageView 和 Button 的位置"></a>調整 ImageView 和 Button 的位置</h4><p>無論 Button 在什麼位置，ImageView 都必須垂直置於畫面中間。</p>
+<ol>
+<li>在<code>ImageView</code>中加入水平限制條件。將<code>ImageView</code>的左側連結至父項<code>ConstraintLayout</code>的左側邊緣，右側連結至父項的右側邊緣，使<code>ImageView</code>水平置中。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/9848bb6319e11777_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<ol start="2">
+<li>在<code>ImageView</code>加入垂直限制，然後連結<code>ImageView</code>的頂端與父項的頂端。<code>ImageView</code>會向上滑動至 <code>ConstraintLayout</code>的頂端。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2d8d134e6292d48f_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<ol start="3">
+<li><p>在<code>Button</code>中加入垂直限制，然後連結<code>Button</code>的頂端與<code>ImageView</code>底部。<code>Button</code>會向上滑動至 <code>ImageView</code>下方。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b6d3dcee6c7a51fc_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+</li>
+<li><p>再次選取<code>ImageView</code>並加入垂直限制，然後連結<code>ImageView</code>的底部與父項的底部。這會讓<code>ImageView</code>在 <code>ConstraintLayout</code>中垂直置中。</p>
+<span id="more"></span>
+<p>完成所有操作後，「Design」(設計) 檢視畫面應該如下所示，<code>ImageView</code>位於中央，<code>Button</code>則緊靠在下方。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/1b05a6d2fd56459f_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<h4 id="新增骰子圖片"><a href="#新增骰子圖片" class="headerlink" title="新增骰子圖片"></a>新增骰子圖片</h4><h5 id="下載骰子圖片"><a href="#下載骰子圖片" class="headerlink" title="下載骰子圖片"></a>下載骰子圖片</h5><ol>
+<li>開啟<a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-dice-roller-with-images-app-solution/raw/master/dice_images.zip">這個網址</a>下載骰子圖片的 ZIP 檔案至電腦上。</li>
+<li>解壓縮<code>dice_images</code>資料夾，可以看到骰子點數 1 到 6 共 6 張圖片。</li>
+</ol>
+<h5 id="新增骰子圖片至應用程式"><a href="#新增骰子圖片至應用程式" class="headerlink" title="新增骰子圖片至應用程式"></a>新增骰子圖片至應用程式</h5><ol>
+<li>依序按一下選單中的「View」&gt;「Tool Windows」&gt;「Resource Manager」，或點選「Project」視窗左側的「Resource Manager」分頁標籤。</li>
+<li>按一下「Resource Manager」下方的「+」圖示，然後選取「Import Drawables」，即可開啟檔案瀏覽器。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/67186ea5d631bc8a_1920.png?authuser=2&hl=zh-tw" width="40%" heught="40%">
+
+<ol start="3">
+<li>找出並選取這 6 個骰子圖片檔案。您可以選取第一個檔案，然後按住 Shift 鍵並選取其他檔案。</li>
+<li>按一下「Open」。依序點選「Next」和「Import」，確認要匯入這 6 項資源。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/a45dff94a19e2722_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%">
+
+<ol start="5">
+<li>如果成功匯入檔案，應用程式的「Resource Manager」(資源管理員) (「app」(應用程式) &gt;「res」(解析度) &gt;「drawable」(可繪項目)) 中會顯示 6 張圖片。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/ab68f82b385fc83e_1920.png?authuser=2&hl=zh-tw"  width="30%" heught="30%">
+
+<h4 id="使用骰子圖片"><a href="#使用骰子圖片" class="headerlink" title="使用骰子圖片"></a>使用骰子圖片</h4><h5 id="更換範例顯示圖片"><a href="#更換範例顯示圖片" class="headerlink" title="更換範例顯示圖片"></a>更換範例顯示圖片</h5><ol>
+<li>在「設計編輯器」中，選取<code>ImageView</code>。</li>
+<li>在「Declared Attributes」部分的「Attributes」中，找到已設為該顯示圖片工具「srcCompat」屬性。</li>
+</ol>
+<ul>
+<li>工具「srcCompat」屬性只會在建構應用程式時向開發人員顯示，所以在模擬器或裝置上執行應用程式時不會顯示。</li>
+</ul>
+<ol start="3">
+<li>按一下顯示圖片的縮圖預覽。系統會開啟對話方塊，請選擇<code>ImageView</code>使用的新資源。</li>
+<li>選取<code>dice_1</code>可繪項目，然後按一下「OK」。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/1072e9fdd637afd9_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<p>接著，調整<code>ImageView</code>的寬度和高度，避免遮掩<code>Button</code>。</p>
+<ol start="5">
+<li>在「Constraints Widget」下方的「Attributes」視窗中，找出「layout_width」和「layout_height」屬性。</li>
+</ol>
+<ul>
+<li>這兩項屬性目前設為「wrap_content」，即 ImageView 的高度和寬度與其中的內容 (來源圖片) 相同。</li>
+</ul>
+<ol start="6">
+<li>將<code>ImageView</code>的寬度改設為固定的<code>160 dp</code>，並將高度設為固定的<code>200 dp</code>。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/9579582d8775e688_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<ol start="7">
+<li>最後，由於<code>Button</code>太靠近圖片，在「限制小工具」中，設定上邊界 16dp。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b53f7379bfba8c27_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<h4 id="按下按鈕時變更骰子圖片"><a href="#按下按鈕時變更骰子圖片" class="headerlink" title="按下按鈕時變更骰子圖片"></a>按下按鈕時變更骰子圖片</h4><p>更新 MainActivity 類別才能使用骰子圖片。</p>
+<ol>
+<li>刪除<code>TextView</code>相關的程式碼。</li>
+<li>建立名為類型<code>ImageView</code>的<code>diceImage</code>的新變數。使用<code>findViewById()</code>方法，傳入<code>ImageView</code>、<code>R.id.imageView</code>的資源識別碼作為輸入引數。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val diceImage: ImageView = findViewById(R.id.imageView)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>設定顯示骰子圖片</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diceImage.setImageResource(R.drawable.dice_2)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>使用<code>if/else</code>或<code>when</code>陳述式，根據擲骰子的結果顯示正確的骰子圖片。</li>
+</ol>
+<p>if&#x2F;else：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (diceRoll == 1) &#123;</span><br><span class="line">   diceImage.setImageResource(R.drawable.dice_1)</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (diceRoll == 2) &#123;</span><br><span class="line">   diceImage.setImageResource(R.drawable.dice_2)</span><br><span class="line">&#125;</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+
+<p>when：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">when (diceRoll) &#123;</span><br><span class="line">   1 -&gt; diceImage.setImageResource(R.drawable.dice_1)</span><br><span class="line">   2 -&gt; diceImage.setImageResource(R.drawable.dice_2)</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+
+<p>完成後如下方所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private fun <span class="function"><span class="title">rollDice</span></span>() &#123;</span><br><span class="line">    // Create new Dice object with 6 sides and roll it</span><br><span class="line">    val dice = Dice(6)</span><br><span class="line">    val diceRoll = dice.roll()</span><br><span class="line"></span><br><span class="line">    val diceImage: ImageView = findViewById(R.id.imageView)</span><br><span class="line"></span><br><span class="line">    // Update the dice image with the dice roll</span><br><span class="line">    when (diceRoll) &#123;</span><br><span class="line">        1 -&gt; diceImage.setImageResource(R.drawable.dice_1)</span><br><span class="line">        2 -&gt; diceImage.setImageResource(R.drawable.dice_2)</span><br><span class="line">        3 -&gt; diceImage.setImageResource(R.drawable.dice_3)</span><br><span class="line">        4 -&gt; diceImage.setImageResource(R.drawable.dice_4)</span><br><span class="line">        5 -&gt; diceImage.setImageResource(R.drawable.dice_5)</span><br><span class="line">        6 -&gt; diceImage.setImageResource(R.drawable.dice_6)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="最佳化程式碼"><a href="#最佳化程式碼" class="headerlink" title="最佳化程式碼"></a>最佳化程式碼</h4><p>呼叫<code>diceImage.setImageResource()</code>在陳述式中出現 6 次。<br>我們可以建立變數，儲存使用的資源識別碼。</p>
+<p>更換程式碼，以下列取代。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">val drawableResource = when (diceRoll) &#123;</span><br><span class="line">   1 -&gt; R.drawable.dice_1</span><br><span class="line">   2 -&gt; R.drawable.dice_2</span><br><span class="line">   3 -&gt; R.drawable.dice_3</span><br><span class="line">   4 -&gt; R.drawable.dice_4</span><br><span class="line">   5 -&gt; R.drawable.dice_5</span><br><span class="line">   6 -&gt; R.drawable.dice_6</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">diceImage.setImageResource(drawableResource)</span><br></pre></td></tr></table></figure>
+
+<p>這時<code>when</code>會顯示錯誤訊息：「‘when’ expression must be exhaustive, add necessary ‘else’ branch」。<br>原因在於 when 運算式的值已指派給 drawableResource，因此 when 必須詳盡無遺，也就是說，這個運算式必須處理所有可能的情況，以確保即使您變更為有 12 面的骰子，仍一律會傳回值。<br>若要修正錯誤，請將案例的 6 變更為 else。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">val drawableResource = when (diceRoll) &#123;</span><br><span class="line">   1 -&gt; R.drawable.dice_1</span><br><span class="line">   2 -&gt; R.drawable.dice_2</span><br><span class="line">   3 -&gt; R.drawable.dice_3</span><br><span class="line">   4 -&gt; R.drawable.dice_4</span><br><span class="line">   5 -&gt; R.drawable.dice_5</span><br><span class="line">   <span class="keyword">else</span> -&gt; R.drawable.dice_6</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">diceImage.setImageResource(drawableResource)</span><br></pre></td></tr></table></figure>
+
+<h4 id="在-ImageView-上設定適當的內容說明"><a href="#在-ImageView-上設定適當的內容說明" class="headerlink" title="在 ImageView 上設定適當的內容說明"></a>在 ImageView 上設定適當的內容說明</h4><p>更新 <code>ImageView</code>的內容說明，有助螢幕閱讀器說明內容。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diceImage.contentDescription = diceRoll.toString()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>螢幕閱讀器可以朗讀內容說明，因此如果螢幕上顯示骰子擲出「6」的圖片，內容說明會大聲朗讀「6」。</li>
+</ul>
+<h4 id="採用完善的程式設計做法"><a href="#採用完善的程式設計做法" class="headerlink" title="採用完善的程式設計做法"></a>採用完善的程式設計做法</h4><p>使用者首次開啟應用程式時，應用程式顯示的空白畫面 (「Roll」按鈕除外) 看來很突兀。這可能會導致使用者不清楚應用程式的功能，因此您需要變更使用者介面，在首次啟動應用程式時顯示隨機擲骰子的畫面，並建立 Activity。這樣一來，使用者就較有可能理解，只要輕觸「Roll」按鈕就能擲骰子。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">    val rollButton: Button = findViewById(R.id.button)</span><br><span class="line">    rollButton.setOnClickListener &#123; rollDice() &#125;</span><br><span class="line"></span><br><span class="line">    // Do a dice roll when the app starts</span><br><span class="line">    rollDice()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最終顯示的畫面：</p>
+<img src="https://i.imgur.com/IZLnPnz.png" width="30%" height="30%">
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/22/Android%E7%AD%86%E8%A8%98-4-%E5%9C%A8Kotlin%E4%B8%AD%E6%96%B0%E5%A2%9E%E6%A2%9D%E4%BB%B6%E5%BC%8F%E8%A1%8C%E7%82%BA/" rel="prev" title="Android筆記(4)-在Kotlin中新增條件式行為">
+      <i class="fa fa-chevron-left"></i> Android筆記(4)-在Kotlin中新增條件式行為
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%9A%84%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">更新應用程式的版面配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AA%BF%E6%95%B4-ImageView-%E5%92%8C-Button-%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">調整 ImageView 和 Button 的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E9%AA%B0%E5%AD%90%E5%9C%96%E7%89%87"><span class="nav-number">3.</span> <span class="nav-text">新增骰子圖片</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E9%AA%B0%E5%AD%90%E5%9C%96%E7%89%87"><span class="nav-number">3.1.</span> <span class="nav-text">下載骰子圖片</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E9%AA%B0%E5%AD%90%E5%9C%96%E7%89%87%E8%87%B3%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">3.2.</span> <span class="nav-text">新增骰子圖片至應用程式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%AA%B0%E5%AD%90%E5%9C%96%E7%89%87"><span class="nav-number">4.</span> <span class="nav-text">使用骰子圖片</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E6%8F%9B%E7%AF%84%E4%BE%8B%E9%A1%AF%E7%A4%BA%E5%9C%96%E7%89%87"><span class="nav-number">4.1.</span> <span class="nav-text">更換範例顯示圖片</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E4%B8%8B%E6%8C%89%E9%88%95%E6%99%82%E8%AE%8A%E6%9B%B4%E9%AA%B0%E5%AD%90%E5%9C%96%E7%89%87"><span class="nav-number">5.</span> <span class="nav-text">按下按鈕時變更骰子圖片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%8C%96%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">6.</span> <span class="nav-text">最佳化程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8-ImageView-%E4%B8%8A%E8%A8%AD%E5%AE%9A%E9%81%A9%E7%95%B6%E7%9A%84%E5%85%A7%E5%AE%B9%E8%AA%AA%E6%98%8E"><span class="nav-number">7.</span> <span class="nav-text">在 ImageView 上設定適當的內容說明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A1%E7%94%A8%E5%AE%8C%E5%96%84%E7%9A%84%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E5%81%9A%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">採用完善的程式設計做法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tina Tang"
+      src="/images/profile_photo.png">
+  <p class="site-author-name" itemprop="name">Tina Tang</p>
+  <div class="site-description" itemprop="description">^(-o-)></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linglingdr00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linglingdr00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:linglingdr00@gmail.com" title="E-Mail → mailto:linglingdr00@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tina Tang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

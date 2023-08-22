@@ -163,6 +163,212 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/08/22/Android%E7%AD%86%E8%A8%98-5-%E6%96%B0%E5%A2%9E%E5%9C%96%E7%89%87%E8%87%B3Dice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/22/Android%E7%AD%86%E8%A8%98-5-%E6%96%B0%E5%A2%9E%E5%9C%96%E7%89%87%E8%87%B3Dice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/" class="post-title-link" itemprop="url">Android筆記(5)-新增圖片至Dice Roller應用程式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-08-22 21:10:05 / Modified: 22:27:52" itemprop="dateCreated datePublished" datetime="2023-08-22T21:10:05+08:00">2023-08-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>將新增骰子的圖片至現有的<code>Dice Roller</code>Android應用程式。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/c7f0d42525da7431_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<p><strong>學習目標</strong><br>如何在應用程式執行時更新<code>ImageView</code>。<br>如何根據不同條件自訂應用程式行為(使用<code>when</code>陳述式)。</p>
+<h4 id="更新應用程式的版面配置"><a href="#更新應用程式的版面配置" class="headerlink" title="更新應用程式的版面配置"></a>更新應用程式的版面配置</h4><p>新增顯示擲骰子結果圖片的<code>ImageView</code>，以取代版面配置中的<code>TextView</code>。</p>
+<ol>
+<li>在 Android Studio 中，開啟並執行先前程式碼研究室的 Dice Roller 應用程式。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2e8416293e597725_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<ol start="2">
+<li><p>刪除<code>TextView</code>，新增<code>ImageView</code>並放置在<code>Button</code>上方。</p>
+</li>
+<li><p>在「Pick a Resource」對話方塊中，選取「Sample data」下的「avatars」。這是您在下一項工作中新增骰子圖片前，暫時使用的圖片。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/91f6e2be0a01fbf_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%">
+
+<ol start="4">
+<li>在「Component Tree」中，您會看到兩項錯誤。<code>Button</code>不受垂直限制，<code>ImageView</code>則不受垂直或水平限制。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b8c3b83124c31ff_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%">
+
+<h4 id="調整-ImageView-和-Button-的位置"><a href="#調整-ImageView-和-Button-的位置" class="headerlink" title="調整 ImageView 和 Button 的位置"></a>調整 ImageView 和 Button 的位置</h4><p>無論 Button 在什麼位置，ImageView 都必須垂直置於畫面中間。</p>
+<ol>
+<li>在<code>ImageView</code>中加入水平限制條件。將<code>ImageView</code>的左側連結至父項<code>ConstraintLayout</code>的左側邊緣，右側連結至父項的右側邊緣，使<code>ImageView</code>水平置中。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/9848bb6319e11777_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<ol start="2">
+<li>在<code>ImageView</code>加入垂直限制，然後連結<code>ImageView</code>的頂端與父項的頂端。<code>ImageView</code>會向上滑動至 <code>ConstraintLayout</code>的頂端。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2d8d134e6292d48f_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<ol start="3">
+<li><p>在<code>Button</code>中加入垂直限制，然後連結<code>Button</code>的頂端與<code>ImageView</code>底部。<code>Button</code>會向上滑動至 <code>ImageView</code>下方。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b6d3dcee6c7a51fc_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+</li>
+<li><p>再次選取<code>ImageView</code>並加入垂直限制，然後連結<code>ImageView</code>的底部與父項的底部。這會讓<code>ImageView</code>在 <code>ConstraintLayout</code>中垂直置中。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/08/22/Android%E7%AD%86%E8%A8%98-5-%E6%96%B0%E5%A2%9E%E5%9C%96%E7%89%87%E8%87%B3Dice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/08/22/Android%E7%AD%86%E8%A8%98-4-%E5%9C%A8Kotlin%E4%B8%AD%E6%96%B0%E5%A2%9E%E6%A2%9D%E4%BB%B6%E5%BC%8F%E8%A1%8C%E7%82%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/22/Android%E7%AD%86%E8%A8%98-4-%E5%9C%A8Kotlin%E4%B8%AD%E6%96%B0%E5%A2%9E%E6%A2%9D%E4%BB%B6%E5%BC%8F%E8%A1%8C%E7%82%BA/" class="post-title-link" itemprop="url">Android筆記(4)-在Kotlin中新增條件式行為</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-08-22 20:25:33 / Modified: 21:37:48" itemprop="dateCreated datePublished" datetime="2023-08-22T20:25:33+08:00">2023-08-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<h3 id="Lucky-Dice-Roll"><a href="#Lucky-Dice-Roll" class="headerlink" title="Lucky Dice Roll"></a>Lucky Dice Roll</h3><blockquote>
+<p>Lucky Dice Roll 是一款以 Kotlin 為基礎的骰子遊戲，您可以在其中指定一個幸運數字。只要玩家擲出這個幸運數字，即可獲勝。</p>
+</blockquote>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何使用<code>if</code>和<code>else</code>陳述式。</li>
+<li>如何使用<code>大於(&gt;)</code>、<code>小於(&lt;)</code>和<code>等於(==)</code>等運算子來比較值。</li>
+<li>如何使用<code>when</code>陳述式來根據指定值選擇選項。</li>
+<li><code>Boolean</code>資料類型是什麼，以及如何使用<code>true</code>和<code>false</code>值來做出決策。</li>
+</ul>
+<hr>
+<h3 id="建立-Lucky-Dice-Roll-遊戲"><a href="#建立-Lucky-Dice-Roll-遊戲" class="headerlink" title="建立 Lucky Dice Roll 遊戲"></a>建立 Lucky Dice Roll 遊戲</h3><h4 id="設定範例程式碼"><a href="#設定範例程式碼" class="headerlink" title="設定範例程式碼"></a>設定範例程式碼</h4><p>參考之前的<code>Dice Roller</code>程式並修改。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)</span><br><span class="line">    val rollResult = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;rollResult&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice (val numSides: Int) &#123;</span><br><span class="line"></span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="檢查是否擲出幸運數字"><a href="#檢查是否擲出幸運數字" class="headerlink" title="檢查是否擲出幸運數字"></a>檢查是否擲出幸運數字</h4><ol>
+<li>刪除println，並新增名為<code>luckyNumber</code>的<code>val</code>，將其設為<code>4</code>。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)</span><br><span class="line">    val rollResult = myFirstDice.roll()</span><br><span class="line">    val luckyNumber = 4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/08/22/Android%E7%AD%86%E8%A8%98-4-%E5%9C%A8Kotlin%E4%B8%AD%E6%96%B0%E5%A2%9E%E6%A2%9D%E4%BB%B6%E5%BC%8F%E8%A1%8C%E7%82%BA/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/08/19/Android%E7%AD%86%E8%A8%98-3-%E5%BB%BA%E7%AB%8BDice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -629,7 +835,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

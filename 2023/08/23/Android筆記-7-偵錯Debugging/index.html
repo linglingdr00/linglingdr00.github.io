@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo2.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="只要是軟體使用者，很可能都曾遇到錯誤。「bug」是指某個軟體導致錯誤的行為，例如應用程式當機或功能無法正常運作。無論經驗為何，所有開發人員在撰寫程式碼時都會回報錯誤，而 Android 開發人員最重要的技能之一就是辨識及修正。  bug的修正程序稱為偵錯(debugging)。知名電腦科學家 Brian Kernighan 曾表示，「最有效的偵錯工具至今仍在審慎考量，加上眾所皆知的印刷品聲明。」">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android筆記(7)-偵錯(Debugging)">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/08/23/Android%E7%AD%86%E8%A8%98-7-%E5%81%B5%E9%8C%AFDebugging/index.html">
+<meta property="og:site_name" content="Tina Tang&#39;s Blog">
+<meta property="og:description" content="只要是軟體使用者，很可能都曾遇到錯誤。「bug」是指某個軟體導致錯誤的行為，例如應用程式當機或功能無法正常運作。無論經驗為何，所有開發人員在撰寫程式碼時都會回報錯誤，而 Android 開發人員最重要的技能之一就是辨識及修正。  bug的修正程序稱為偵錯(debugging)。知名電腦科學家 Brian Kernighan 曾表示，「最有效的偵錯工具至今仍在審慎考量，加上眾所皆知的印刷品聲明。」">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-debugging/img/60a1619c07fae8f5_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/IZaKXLh.png">
+<meta property="og:image" content="https://developer.android.com/static/studio/images/debug/logcat-query-suggestions.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/RmP1RGi.png">
+<meta property="article:published_time" content="2023-08-23T11:29:40.000Z">
+<meta property="article:modified_time" content="2023-08-23T13:25:26.794Z">
+<meta property="article:author" content="Tina Tang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-debugging/img/60a1619c07fae8f5_1920.png?authuser=2&hl=zh-tw">
+
+<link rel="canonical" href="https://linglingdr00.github.io/2023/08/23/Android%E7%AD%86%E8%A8%98-7-%E5%81%B5%E9%8C%AFDebugging/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Android筆記(7)-偵錯(Debugging) | Tina Tang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tina Tang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/08/23/Android%E7%AD%86%E8%A8%98-7-%E5%81%B5%E9%8C%AFDebugging/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android筆記(7)-偵錯(Debugging)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-08-23 19:29:40 / Modified: 21:25:26" itemprop="dateCreated datePublished" datetime="2023-08-23T19:29:40+08:00">2023-08-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>只要是軟體使用者，很可能都曾遇到錯誤。「<code>bug</code>」是指某個軟體導致錯誤的行為，例如應用程式當機或功能無法正常運作。無論經驗為何，所有開發人員在撰寫程式碼時都會回報錯誤，而 Android 開發人員最重要的技能之一就是辨識及修正。</p>
+</blockquote>
+<p>bug的修正程序稱為<code>偵錯(debugging)</code>。知名電腦科學家 Brian Kernighan 曾表示，「最有效的偵錯工具至今仍在審慎考量，加上眾所皆知的印刷品聲明。」 您可能已經很熟悉先前程式碼研究室的 Kotlin’s println() 陳述式，但專業的 Android 開發人員會使用記錄功能來更妥善地整理程式的輸出內容。在這個程式碼研究室中，您將瞭解如何使用 Android Studio 中的記錄功能，以及如何將記錄用於偵錯工具。您將瞭解如何讀取錯誤訊息記錄 (稱為堆疊追蹤)，藉此找出並修正錯誤。最後，您將瞭解如何自行研究錯誤，並瞭解如何透過執行中應用程式的螢幕截圖或 GIF 圖片，擷取 Android Emulator 的輸出內容。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>使用 <code>android.util.Logger</code> 寫入記錄檔。</li>
+<li>瞭解不同記錄檔層級的使用時機。</li>
+<li>使用記錄是一項簡單的強大工具。</li>
+<li>如何在堆疊追蹤中尋找有意義的資訊。</li>
+<li>搜尋錯誤訊息以解決應用程式當機問題。</li>
+</ul>
+<span id="more"></span>
+<hr>
+<h4 id="建立新專案"><a href="#建立新專案" class="headerlink" title="建立新專案"></a>建立新專案</h4><p>我們將從空白專案開始，先顯示一個空白專案來示範記錄陳述式及其偵錯用途，而不是使用大型的應用程式。<br>請先建立新的 Android Studio 專案，如圖所示。</p>
+<ol>
+<li><p>在「New Project」(新增專案) 畫面中，選擇「Empty Views Activity」(空白活動)。</p>
+</li>
+<li><p>將應用程式命名為「Debugging」。確認語言已設為 Kotlin，且其他維持不變。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-debugging/img/60a1619c07fae8f5_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
+<h4 id="對輸出進行記錄與偵錯"><a href="#對輸出進行記錄與偵錯" class="headerlink" title="對輸出進行記錄與偵錯"></a>對輸出進行記錄與偵錯</h4><p>在先前的課程中，您曾使用 Kotlin 的 <code>println()</code> 陳述式產生文字輸出。在 Android 應用程式中，記錄記錄的最佳做法是使用 <code>Log</code> 類別。記錄輸出功能有多種函式，採 <code>Log.v()</code>、<code>Log.d()</code>、<code>Log.i()</code>、<code>Log.w()</code> 或 <code>Log.e()</code> 格式。這些方法有兩種參數，第一個稱為「標記」，是<span class="label primary">識別記錄訊息來源 (例如記錄文字的類別名稱) 的字串</span>。第二個則是<span class="label primary">實際記錄訊息</span> 。</p>
+<p>執行下列步驟，開始在空白專案中使用記錄功能。</p>
+<ol>
+<li>在 <code>MainActivity.kt</code> 的類別宣告之前，新增名為 <code>TAG</code> 的常數，並將該值設為類別的名稱 <code>MainActivity</code>。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private const val TAG = <span class="string">&quot;MainActivity&quot;</span></span><br></pre></td></tr></table></figure>
+
+<div class="note success no-icon">
+            <p>注意： 記錄標記通常是在類別外宣告。雖然此變數是在 <code>MainActivity</code> 之外宣告，但會宣告為私人，因此只能在 <code>MainActivity.kt</code> 中存取。也就是說，您也可以宣告其他類別的 <code>TAG</code> 變數。</p>
+          </div>
+
+<ol start="2">
+<li>向 MainActivity 類別新增一個名為 <code>logging()</code> 的新函數，如下所示。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">logging</span></span>() &#123;</span><br><span class="line">    Log.v(TAG, <span class="string">&quot;Hello, world!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>onCreate()</code> 中呼叫 <code>logging()</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.activity_main)</span><br><span class="line">    logging()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>執行應用程式以查看記錄。記錄檔隨即顯示在畫面底部的 <code>Logcat</code> 視窗中。在篩選框中輸入 <code>level:debug</code> ，藉此排除與您應用程式無關的任何記錄。</p>
+</li>
+<li><p>您應該會在輸出視窗中看到「Hello, world!」。如有需要，請在 <code>Logcat</code> 視窗頂端的搜尋框中輸入「hello」，即可搜尋所有記錄。</p>
+</li>
+</ol>
+<h4 id="記錄層級"><a href="#記錄層級" class="headerlink" title="記錄層級"></a>記錄層級</h4><p>造成不同記錄檔函式 (名稱不同) 的原因，原因是這些相對應的記錄層級不同。您可以根據要輸出的資訊類型，在 <code>Logcat</code> 輸出內容中使用不同記錄檔層級進行篩選。您會定期使用五個主要記錄層級。</p>
+<table>
+<thead>
+<tr>
+<th align="left">紀錄層級</th>
+<th align="left">用途</th>
+<th align="left">範例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">錯誤(ERROR)</td>
+<td align="left">錯誤記錄會回報發生嚴重錯誤，例如應用程式當機的原因。</td>
+<td align="left">Log.e(TAG, “The cake was left in the oven for too long and burned.”).</td>
+</tr>
+<tr>
+<td align="left">警告(WARN)</td>
+<td align="left">WARN 記錄較不嚴重，但仍會回報應修正的問題，以避免嚴重的錯誤。舉例來說，如果您呼叫的函式「已淘汰」，我們不建議使用該函式取代較新的函式。</td>
+<td align="left">Log.w(TAG, “This oven does not heat evenly. You may want to turn the cake around halfway through to promote even browning.”)</td>
+</tr>
+<tr>
+<td align="left">資訊(INFO)</td>
+<td align="left">INFO 記錄提供實用資訊，例如成功完成的作業。</td>
+<td align="left">Log.i(TAG, “The cake is ready to be served.”).println(“The cake has cooled.”)</td>
+</tr>
+<tr>
+<td align="left">偵錯(DEBUG)</td>
+<td align="left">DEBUG 記錄包含調查問題時可能會用到的資訊。這些版本不會顯示在發布版本中，例如您在 Google Play 商店發布的版本。</td>
+<td align="left">Log.d(TAG, “Cake was removed from the oven after 55 minutes. Recipe calls for the cake to be removed after 50 - 60 minutes.”)</td>
+</tr>
+<tr>
+<td align="left">詳細程度(VERBOSE)</td>
+<td align="left">顧名思義，「VERBOSE」是最低的記錄層級。何謂偵錯記錄與詳細記錄其實有點主觀，但一般而言，詳細記錄可以在功能實作之後移除，而偵錯記錄在偵錯時可能仍然有用。這些版本不包含版本。</td>
+<td align="left">Log.v(TAG, “Put the mixing bowl on the counter.”)Log.v(TAG, “Grabbed the eggs from the refrigerator.”)Log.v(TAG, “Plugged in the stand mixer.”)</td>
+</tr>
+</tbody></table>
+<p>請注意，目前並沒有設定各類型記錄層級的使用規則，特別是使用 <code>DEBUG</code> 和 <code>VERBOSE</code> 的時機。軟體開發團隊可能會制定個別記錄層級的使用時機，或是決定不採用特定記錄層級 (例如 VERBOSE)。這兩個記錄層級有一重要的重點是，這些版本並沒有發布版本，因此使用記錄偵錯功能不會影響已發布應用程式的效能，而 <code>println()</code> 陳述式則保留在發布版本中，並對負面影響產生負面影響成效。</p>
+<p>讓我們看看 Logcat 中各種不同的記錄層級。</p>
+<ol>
+<li>在 <code>MainActivity.kt</code> 中，將 <code>logging()</code> 方法的內容替換為下列內容。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">logging</span></span>() &#123;</span><br><span class="line">    Log.e(TAG, <span class="string">&quot;ERROR: a serious error like an app crash&quot;</span>)</span><br><span class="line">    Log.w(TAG, <span class="string">&quot;WARN: warns about the potential for serious errors&quot;</span>)</span><br><span class="line">    Log.i(TAG, <span class="string">&quot;INFO: reporting technical information, such as an operation succeeding&quot;</span>)</span><br><span class="line">    Log.d(TAG, <span class="string">&quot;DEBUG: reporting technical information useful for debugging&quot;</span>)</span><br><span class="line">    Log.v(TAG, <span class="string">&quot;VERBOSE: more verbose than DEBUG logs&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>執行您的應用程式，並在 <code>Logcat</code> 中觀察輸出內容。輸入 <code>tag: MainActivity</code>，篩選出只顯示含有「MainActivity」代碼的記錄。</li>
+</ol>
+<img src="https://i.imgur.com/IZaKXLh.png">
+
+<h4 id="使用鍵-值搜尋查詢記錄"><a href="#使用鍵-值搜尋查詢記錄" class="headerlink" title="使用鍵&#x2F;值搜尋查詢記錄"></a>使用鍵&#x2F;值搜尋查詢記錄</h4><p>在 Android Studio 中，您可以直接透過主查詢欄位產生鍵&#x2F;值搜尋。這個查詢系統可提供精準的查詢結果，也能根據鍵&#x2F;值排除記錄。儘管您可以選擇使用規則運算式，但在查詢上並非必要。如要查看建議項目，請在查詢欄位中按下 Ctrl + Space 鍵。</p>
+<img src="https://developer.android.com/static/studio/images/debug/logcat-query-suggestions.png?authuser=2&hl=zh-tw">
+
+<p>以下提供幾個可用於查詢的鍵範例：</p>
+<ul>
+<li>tag：比對記錄項目的 tag 欄位。</li>
+<li>package：比對記錄應用程式的套件名稱。</li>
+<li>process：比對記錄應用程式的程序名稱。</li>
+<li>message：比對記錄項目的訊息部分。</li>
+<li>level：比對指定或更嚴重的記錄層級，例如 DEBUG。</li>
+<li>age：比對項目時間戳記是否最新。值的指定方式是以數字後面加上代表時間單位的字母：s 代表秒數、m 代表分鐘數、h 代表小時數，d 則代表天數。例如，age: 5m 只會篩選出過去 5 分鐘內記錄的訊息。</li>
+</ul>
+<p>更詳細的介紹請點<a target="_blank" rel="noopener" href="https://developer.android.com/studio/debug/logcat?authuser=2&hl=zh-tw">這裡</a>查看。</p>
+<h4 id="含有錯誤訊息的記錄"><a href="#含有錯誤訊息的記錄" class="headerlink" title="含有錯誤訊息的記錄"></a>含有錯誤訊息的記錄</h4><p>在空白專案中無法偵錯。Android 開發人員經常遇到許多錯誤，那就是應用程式當機，但用戶體驗不佳。讓我們新增一些程式碼，讓這個應用程式當機。</p>
+<ol>
+<li>將下列函式新增至 <code>logging()</code> 函式的 <code>MainActivity.kt</code>。這個程式碼以兩個數字開頭，並使用 <code>repeat</code> 來將分子除以五分子的結果。每次執行 <code>repeat</code> 區塊中的程式碼時，分母的值就會減少 1。在第 5 次和最後一次疊代時，應用程式嘗試除以 0。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">division</span></span>() &#123;</span><br><span class="line">    val numerator = 60</span><br><span class="line">    var denominator = 4</span><br><span class="line">    repeat(5) &#123;</span><br><span class="line">        Log.v(TAG, <span class="string">&quot;<span class="variable">$&#123;numerator / denominator&#125;</span>&quot;</span>)</span><br><span class="line">        denominator--</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>新增<code>division()</code> 函式到 <code>onCreate()</code> 中的 <code>logging()</code> 後。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.activity_main)</span><br><span class="line">    logging()</span><br><span class="line">    division()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>再次執行應用程式，向下捲動至 <code>MainActivity.kt</code> 類別中的記錄，即可查看先前定義的 <code>logging()</code> 函式中的日誌、「<code>division()</code>」函式的詳細記錄，以及說明應用程式為什麼當機的紅色錯誤記錄。</li>
+</ol>
+<h4 id="堆疊追蹤剖析"><a href="#堆疊追蹤剖析" class="headerlink" title="堆疊追蹤剖析"></a>堆疊追蹤剖析</h4><p>說明當機的錯誤記錄 (也稱為例外狀況) 亦稱作堆疊追蹤。堆疊追蹤會顯示所有已觸發至例外狀況的函式，而且系統會從最近呼叫的時間開始呼叫。完整輸出內容如下所示。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Process: com.example.debugging, PID: 14581</span><br><span class="line">    java.lang.RuntimeException: Unable to start activity ComponentInfo&#123;com.example.debugging/com.example.debugging.MainActivity&#125;: java.lang.ArithmeticException: divide by zero</span><br><span class="line">        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3449)</span><br><span class="line">        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3601)</span><br><span class="line">        at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:85)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)</span><br><span class="line">        at android.app.ActivityThread<span class="variable">$H</span>.handleMessage(ActivityThread.java:2066)</span><br><span class="line">        at android.os.Handler.dispatchMessage(Handler.java:106)</span><br><span class="line">        at android.os.Looper.loop(Looper.java:223)</span><br><span class="line">        at android.app.ActivityThread.main(ActivityThread.java:7656)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Native Method)</span><br><span class="line">        at com.android.internal.os.RuntimeInit<span class="variable">$MethodAndArgsCaller</span>.run(RuntimeInit.java:592)</span><br><span class="line">        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)</span><br><span class="line">     Caused by: java.lang.ArithmeticException: divide by zero</span><br><span class="line">        at com.example.debugging.MainActivity.division(MainActivity.kt:21)</span><br><span class="line">        at com.example.debugging.MainActivity.onCreate(MainActivity.kt:14)</span><br><span class="line">        at android.app.Activity.performCreate(Activity.java:8000)</span><br><span class="line">        at android.app.Activity.performCreate(Activity.java:7984)</span><br><span class="line">        at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1309)</span><br><span class="line">        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3422)</span><br><span class="line">        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3601)</span><br><span class="line">        at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:85)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)</span><br><span class="line">        at android.app.ActivityThread<span class="variable">$H</span>.handleMessage(ActivityThread.java:2066)</span><br><span class="line">        at android.os.Handler.dispatchMessage(Handler.java:106)</span><br><span class="line">        at android.os.Looper.loop(Looper.java:223)</span><br><span class="line">        at android.app.ActivityThread.main(ActivityThread.java:7656)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Native Method)</span><br><span class="line">        at com.android.internal.os.RuntimeInit<span class="variable">$MethodAndArgsCaller</span>.run(RuntimeInit.java:592)</span><br><span class="line">        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)</span><br></pre></td></tr></table></figure>
+
+<h5 id="如何查看錯誤"><a href="#如何查看錯誤" class="headerlink" title="如何查看錯誤"></a>如何查看錯誤</h5><ol>
+<li><code>java.lang.RuntimeException:</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.RuntimeException: Unable to start activity ComponentInfo&#123;com.example.debugging/com.example.debugging.MainActivity&#125;: java.lang.ArithmeticException: divide by zero</span><br></pre></td></tr></table></figure>
+<p>第一行代表應用程式無法開始活動，這就是應用程式當機的原因。下一行會提供更多資訊。具體來說，該活動無法啟動的原因是 <code>ArithmeticException</code>。具體來說，<code>ArithmeticException</code> 的類型是「除以 0」。</p>
+<ol start="2">
+<li><code>Caused by:</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.ArithmeticException: divide by zero</span><br><span class="line">        at com.example.debugging.MainActivity.division(MainActivity.kt:21)</span><br></pre></td></tr></table></figure>
+<p>如果向下捲動頁面顯示「<code>Caused by:</code>」一行，表示發生「<code>除以 0</code>」的錯誤。另會顯示錯誤發生的確切函式 (<code>division()</code>) 和確切的行數 (21)。Logcat 視窗中的檔案名稱和行數是超連結。輸出結果也會列出發生錯誤的函式名稱 (<code>division()</code>) 和呼叫該函式的函式 (<code>onCreate()</code>)。</p>
+<h4 id="使用記錄檔找出並修正錯誤"><a href="#使用記錄檔找出並修正錯誤" class="headerlink" title="使用記錄檔找出並修正錯誤"></a>使用記錄檔找出並修正錯誤</h4><p>使用記錄陳述式，透過輸出分母值來避免除數為零的情況，從而節省時間。</p>
+<ol>
+<li>在 <code>Log.v()</code> 之前，新增 <code>Log.d()</code> 呼叫記錄分母。<code>Log.d()</code> 的用途是偵錯，因此可用來篩選詳細記錄。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Log.d(TAG, <span class="string">&quot;<span class="variable">$denominator</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>再次執行應用程式。雖然分母仍持續當機，但分母應該記錄多次。您可以使用篩選條件設定，只顯示含有 “MainActivity” 標記的記錄。</li>
+</ol>
+<img src="https://i.imgur.com/RmP1RGi.png">
+
+<ol start="3">
+<li>您可以看到有多個值輸出。當分母為 0 時，迴圈會在第五次疊代之前執行數次。如要修正錯誤，您可以將迴圈中的疊代次數從 5 變更為 4。再次執行應用程式時，應用程式不會再停止運作。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">division</span></span>() &#123;</span><br><span class="line">        val numerator = 60</span><br><span class="line">        var denominator = 4</span><br><span class="line">        repeat(4) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">&quot;<span class="variable">$denominator</span>&quot;</span>)</span><br><span class="line">            Log.v(TAG, <span class="string">&quot;<span class="variable">$&#123;numerator / denominator&#125;</span>&quot;</span>)</span><br><span class="line">            denominator--</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/23/Android%E7%AD%86%E8%A8%98-6-%E7%B7%A8%E5%AF%AB%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6/" rel="prev" title="Android筆記(6)-編寫單元測試">
+      <i class="fa fa-chevron-left"></i> Android筆記(6)-編寫單元測試
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0%E5%B0%88%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">建立新專案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8D%E8%BC%B8%E5%87%BA%E9%80%B2%E8%A1%8C%E8%A8%98%E9%8C%84%E8%88%87%E5%81%B5%E9%8C%AF"><span class="nav-number">2.</span> <span class="nav-text">對輸出進行記錄與偵錯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%98%E9%8C%84%E5%B1%A4%E7%B4%9A"><span class="nav-number">3.</span> <span class="nav-text">記錄層級</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%8D%B5-%E5%80%BC%E6%90%9C%E5%B0%8B%E6%9F%A5%E8%A9%A2%E8%A8%98%E9%8C%84"><span class="nav-number">4.</span> <span class="nav-text">使用鍵&#x2F;值搜尋查詢記錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AB%E6%9C%89%E9%8C%AF%E8%AA%A4%E8%A8%8A%E6%81%AF%E7%9A%84%E8%A8%98%E9%8C%84"><span class="nav-number">5.</span> <span class="nav-text">含有錯誤訊息的記錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E7%96%8A%E8%BF%BD%E8%B9%A4%E5%89%96%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">堆疊追蹤剖析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E9%8C%AF%E8%AA%A4"><span class="nav-number">6.1.</span> <span class="nav-text">如何查看錯誤</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%A8%98%E9%8C%84%E6%AA%94%E6%89%BE%E5%87%BA%E4%B8%A6%E4%BF%AE%E6%AD%A3%E9%8C%AF%E8%AA%A4"><span class="nav-number">7.</span> <span class="nav-text">使用記錄檔找出並修正錯誤</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tina Tang"
+      src="/images/profile_photo.png">
+  <p class="site-author-name" itemprop="name">Tina Tang</p>
+  <div class="site-description" itemprop="description">^(-o-)></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linglingdr00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linglingdr00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tinatang0424@gmail.com" title="E-Mail → mailto:tinatang0424@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tina Tang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

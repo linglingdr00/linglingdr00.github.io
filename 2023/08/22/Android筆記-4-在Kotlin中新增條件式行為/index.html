@@ -28,7 +28,7 @@
 <meta property="og:description" content="Lucky Dice Roll Lucky Dice Roll 是一款以 Kotlin 為基礎的骰子遊戲，您可以在其中指定一個幸運數字。只要玩家擲出這個幸運數字，即可獲勝。  學習目標  如何使用if和else陳述式。 如何使用大於(&gt;)、小於(&lt;)和等於(&#x3D;&#x3D;)等運算子來比較值。 如何使用when陳述式來根據指定值選擇選項。 Boolean資料類型是什麼，以及如何使用true和fa">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2023-08-22T12:25:33.000Z">
-<meta property="article:modified_time" content="2023-08-22T13:37:48.816Z">
+<meta property="article:modified_time" content="2023-08-23T06:07:35.163Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
@@ -190,10 +190,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-08-22 20:25:33 / Modified: 21:37:48" itemprop="dateCreated datePublished" datetime="2023-08-22T20:25:33+08:00">2023-08-22</time>
+              <time title="Created: 2023-08-22 20:25:33" itemprop="dateCreated datePublished" datetime="2023-08-22T20:25:33+08:00">2023-08-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-08-23 14:07:35" itemprop="dateModified" datetime="2023-08-23T14:07:35+08:00">2023-08-23</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -227,6 +233,7 @@
 <li><code>Boolean</code>資料類型是什麼，以及如何使用<code>true</code>和<code>false</code>值來做出決策。</li>
 </ul>
 <hr>
+<span id="more"></span>
 <h3 id="建立-Lucky-Dice-Roll-遊戲"><a href="#建立-Lucky-Dice-Roll-遊戲" class="headerlink" title="建立 Lucky Dice Roll 遊戲"></a>建立 Lucky Dice Roll 遊戲</h3><h4 id="設定範例程式碼"><a href="#設定範例程式碼" class="headerlink" title="設定範例程式碼"></a>設定範例程式碼</h4><p>參考之前的<code>Dice Roller</code>程式並修改。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)</span><br><span class="line">    val rollResult = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;rollResult&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice (val numSides: Int) &#123;</span><br><span class="line"></span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -234,7 +241,7 @@
 <li>刪除println，並新增名為<code>luckyNumber</code>的<code>val</code>，將其設為<code>4</code>。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)</span><br><span class="line">    val rollResult = myFirstDice.roll()</span><br><span class="line">    val luckyNumber = 4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
+
 <ol start="2">
 <li>新增<code>if</code>陳述式，用於檢查<code>rollResult</code>是否等於(&#x3D;&#x3D;)<code>luckyNumber</code>。</li>
 </ol>
@@ -392,7 +399,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -415,7 +422,7 @@
         <a href="https://github.com/linglingdr00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linglingdr00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:linglingdr00@gmail.com" title="E-Mail → mailto:linglingdr00@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:tinatang0424@gmail.com" title="E-Mail → mailto:tinatang0424@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
   </div>
 

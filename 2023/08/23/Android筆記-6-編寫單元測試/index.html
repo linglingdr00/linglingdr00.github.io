@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo2.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="簡介您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！ 測試的重要性 當應用程式逐漸成長，進行手動測試會比編寫自動測試花費更多精力。 開始建構專業級的應用程式時，如果使用者數量龐大，測試也會變得十分重要。 必須考到許多不同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android筆記(6)-編寫單元測試">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/08/23/Android%E7%AD%86%E8%A8%98-6-%E7%B7%A8%E5%AF%AB%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6/index.html">
+<meta property="og:site_name" content="Tina Tang&#39;s Blog">
+<meta property="og:description" content="簡介您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！ 測試的重要性 當應用程式逐漸成長，進行手動測試會比編寫自動測試花費更多精力。 開始建構專業級的應用程式時，如果使用者數量龐大，測試也會變得十分重要。 必須考到許多不同">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/f02b380da4e8f661_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/78c943e851a33644_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/aa7d361d8e4826ef_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/751ac8089cf4c47c_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/163708373e651ecc_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/c06e8b402f293b5e_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/bbe5791b9565588c_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/9a94c2bdf84adb61_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/10eea07fc21bf998_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/5dbfba2ba0e37ac9_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/865cf0ac47738e08_1920.png?authuser=2&hl=zh-tw">
+<meta property="article:published_time" content="2023-08-23T04:35:39.000Z">
+<meta property="article:modified_time" content="2023-08-23T06:06:27.282Z">
+<meta property="article:author" content="Tina Tang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/f02b380da4e8f661_1920.png?authuser=2&hl=zh-tw">
+
+<link rel="canonical" href="https://linglingdr00.github.io/2023/08/23/Android%E7%AD%86%E8%A8%98-6-%E7%B7%A8%E5%AF%AB%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Android筆記(6)-編寫單元測試 | Tina Tang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tina Tang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/08/23/Android%E7%AD%86%E8%A8%98-6-%E7%B7%A8%E5%AF%AB%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android筆記(6)-編寫單元測試
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-08-23 12:35:39 / Modified: 14:06:27" itemprop="dateCreated datePublished" datetime="2023-08-23T12:35:39+08:00">2023-08-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h3><p>您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！</p>
+<h4 id="測試的重要性"><a href="#測試的重要性" class="headerlink" title="測試的重要性"></a>測試的重要性</h4><ul>
+<li>當應用程式逐漸成長，進行<code>手動測試</code>會比編寫<code>自動測試</code>花費更多精力。</li>
+<li>開始建構專業級的應用程式時，如果<code>使用者數量龐大</code>，測試也會變得十分重要。</li>
+<li>必須考到許多<code>不同類型的裝置</code>，而這些裝置又會執行<code>不同的 Android 版本</code>。</li>
+<li>如果您在<code>發布新的程式碼之前</code>執行測試，就可以修改現有的程式碼，以免發布的應用程式出現非預期的行為。</li>
+</ul>
+<p><code>自動化測試</code>是透過軟體執行的測試，而<code>人工測試</code>則是由會直接與裝置互動的人員執行。若要確保產品使用者都能獲得良好的體驗，自動化測試和手動測試都是非常重要的一環。不過，自動化測試的準確度較高，也可以提升團隊的工作效率，因為員工不必手動執行測試，因此自動化測試的執行速度會比手動測試還要快。</p>
+<span id="more"></span>
+<h4 id="深入探索單元測試"><a href="#深入探索單元測試" class="headerlink" title="深入探索單元測試"></a>深入探索單元測試</h4><p>單元測試一律位於 <code>test</code> 目錄中：<br><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/f02b380da4e8f661_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
+<ol>
+<li>開啟 <code>app/build.gradle</code> 檔案，然後查看依附元件。有部分依附元件會標記為 <code>testImplementation</code> 和 <code>androidTestImplementation</code>，分別是指<code>單元測試</code>和<code>檢測設備測試</code>。值得一提的是：</li>
+</ol>
+<p><code>app/build.gradle</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">testImplementation <span class="string">&#x27;junit:junit:4.12&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>用來驅動單元測試的 <code>JUnit</code> 程式庫，可讓您將程式碼標示為測試，以便採用可以測試應用程式碼的方式編譯和執行應用程式。</p>
+<ol start="2">
+<li>在 <code>test</code> 目錄中，開啟 <code>ExampleUnitTest.kt</code> 檔案。</li>
+</ol>
+<p>以下是單元測試的範例：<br><code>ExampleUnitTest.kt</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ExampleUnitTest &#123;</span><br><span class="line">   @Test</span><br><span class="line">   fun <span class="function"><span class="title">addition_isCorrect</span></span>() &#123;</span><br><span class="line">       assertEquals(4, 2 + 2)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="註解"><a href="#註解" class="headerlink" title="註解"></a>註解</h5><p>雖然你已在 <code>Dice Roller</code> 應用程式中新增了一些程式碼，但可能並未編寫任何測試。因此，這裡只有一些由 Android Studio 自動建立的一般程式碼。這個任意測試可做為預留位置，以便開發人員用來編寫更多相關的測試。<br>這個程式碼區塊現在只會測試 <code>2 + 2 = 4</code>。答案當然是正確的。讓我們進一步瞭解實際情況：</p>
+<ul>
+<li>您必須先從 <code>org.junit.test</code> 程式庫匯入 <code>@</code> <code>Test</code> 註解，然後為測試函式加上該註解。您可以將註解視為一段程式碼的中繼資料標記，可改變程式碼的編譯方式。在這個範例中，<code>@Test</code> 註解可讓編譯器知道以下方法為測試，從而讓該方法據此執行。</li>
+</ul>
+<h5 id="函式宣告"><a href="#函式宣告" class="headerlink" title="函式宣告"></a>函式宣告</h5><p>註解之後是<code>函式宣告</code>，在這個範例中為 <code>addition_isCorrect()</code> 函式。在函式中，<code>assertEquals()</code> 函式會宣告<code>預期值</code>應等於透過商業邏輯取得的<code>實際值</code>。宣告方法是單元測試的最終目標。</p>
+<p>最後，您要宣告從程式碼取得的結果處於特定狀態。如果結果狀態與預期狀態相符，即表示測試通過；如果結果狀態與預期狀態不符，即表示測試失敗。</p>
+<p>在這個範例中，程式碼會比較兩個值，因此 <code>assertEquals()</code> 方法會使用 2 個參數，分別是<code>預期值</code>和<code>實際值</code>。顧名思義，<code>預期值是您預期出現的特定結果</code>，在本例中是 <code>4</code>。<code>實際值代表實際程式碼片段的結果</code>。一般而言，這樣會測試應用程式本身的程式碼片段。這個範例只有任意的程式碼片段，例如 <code>2 + 2</code>。請先執行這個測試，看看會發生什麼事。</p>
+<div class="note info no-icon">
+            <p><strong>注意：JUnit 程式庫有許多斷言，常見的斷言如下：</strong></p><table><thead><tr><th align="left">Assert</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left">assertEquals()</td><td align="left">檢查預期值和實際值是否相同</td></tr><tr><td align="left">assertTrue()</td><td align="left">檢查condition為true</td></tr><tr><td align="left">assertFalse()</td><td align="left">檢查condition為false</td></tr><tr><td align="left">assertNull()</td><td align="left">檢查object為null</td></tr><tr><td align="left">assertNotNull()</td><td align="left">檢查object不為null</td></tr></tbody></table><p>For more information, see <a target="_blank" rel="noopener" href="https://developer.android.com/reference/junit/framework/Assert?authuser=2">Assert</a>.</p>
+          </div>
+
+<h5 id="測試成功"><a href="#測試成功" class="headerlink" title="測試成功"></a>測試成功</h5><p>您可透過多種方法在 Android Studio 中執行測試，我們稍後會深入探討。不過，現在先以簡單明瞭為主。<br>按一下 <code>addition_isCorrect</code> 方法宣告旁的箭頭，然後選取「Run ‘ExampleUnitTest.addition_isCorrect’」。</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/78c943e851a33644_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%">
+
+<p>這就是所謂的正向測試，也就是說，斷言獲得確認。<code>2 + 2</code> 等於 <code>4</code>。或者，我們可以編寫負向測試，使斷言結果為負。例如：<code>2 + 2</code> 不等於 <code>5</code>。</p>
+<p>在「Run」窗格中，螢幕截圖會如下所示：</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/aa7d361d8e4826ef_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%">
+
+<p>許多指標都能表示測試成功，包括綠色勾號，以及所通過測試的數量。</p>
+<h5 id="測試失敗"><a href="#測試失敗" class="headerlink" title="測試失敗"></a>測試失敗</h5><p>修改測試來看看測試失敗的情形。請將 <code>2 + 2</code> 變更為 <code>2 + 3</code>，然後再次執行測試。請注意，您只能以產生的程式碼進行實驗，進一步瞭解測試的運作方式。這些變更與 <code>Dice Roller</code> 功能並無任何關聯性。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ExampleUnitTest &#123;</span><br><span class="line">   @Test</span><br><span class="line">   fun <span class="function"><span class="title">addition_isCorrect</span></span>() &#123;</span><br><span class="line">       assertEquals(4, 2 + 3)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成其餘操作後，螢幕截圖會如下所示：<br><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/751ac8089cf4c47c_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%"></p>
+<p>紅色文字代表測試失敗。在測試結果選單中，按一下項目即會提供錯誤訊息，指出測試失敗的原因。<br><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/163708373e651ecc_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%"></p>
+<p>在這個例子中，錯誤訊息表示斷言失敗，因為預期結果為 <code>4</code>，但實際值是 <code>5</code>。由於您將實際值變更為 <code>2 + 3</code>，但預期值還是 <code>4</code>，所以這是合理的狀況。您也會看到測試失敗的行。在這個例子中，第 15 行測試失敗，註明為 <code>ExampleUnitTest.kt:15</code>。</p>
+<p>最後，為求測試徹底，請將預期值從 <code>4</code> 變更為 <code>5</code>，然後再次執行測試。在出現問題的程式碼中，預期值與實際值相符，所以現在測試應已通過。</p>
+<h4 id="編寫第一個單元測試"><a href="#編寫第一個單元測試" class="headerlink" title="編寫第一個單元測試"></a>編寫第一個單元測試</h4><p>現在您已慢慢熟悉單元測試，您就可以自行編寫與 <code>Dice Roller</code> 應用程式更相關的單元測試。</p>
+<p>您應該發現到，<code>Dice Roller</code> 應用程式的主要功能是以隨機號碼產生器為基礎。不過，人所共知，隨機號碼產生器難於測試，因為您無法確定隨機產生號碼的結果。這項測試旨在確保你擲出骰子，或是呼叫 <code>dice</code> 類別上的 <code>roll</code> 方法時，能夠取得正確的數字。您編寫的測試只會測試<code>隨機號碼產生器的結果</code>不會超出您為<code>產生器指定的數字範圍</code>。</p>
+<ol>
+<li><p>在 <code>ExampleUnitTest.kt</code> 檔案中，刪除產生的測試方法並匯入陳述式。您的檔案應如下所示：</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/c06e8b402f293b5e_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+</li>
+<li><p>建立 <code>generates_number()</code> 函式：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">generates_number</span></span>() &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>使用 <code>@Test</code> 註解為 <code>generates_number()</code> 方法加上註解。請注意，嘗試呼叫 <code>@Test</code> 時，文字會顯示為紅色。這是因為找不到這個註解的<code>斷言</code>，所以您需要匯入斷言。按下 <code>Control+Enter</code>(在 Mac 上則為 <code>Options+Return</code>) 即可自動執行這項操作。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/bbe5791b9565588c_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
+<p>程式碼現在應如下所示：</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/9a94c2bdf84adb61_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
+<ol start="4">
+<li>建立 <code>Dice</code> 物件的執行個體</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">fun <span class="function"><span class="title">generates_number</span></span>() &#123;</span><br><span class="line">   val dice = Dice(6)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><p>接下來，對這個執行個體呼叫 <code>roll()</code> 方法，並儲存傳回的值。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">fun <span class="function"><span class="title">generates_number</span></span>() &#123;</span><br><span class="line">   val dice = Dice(6)</span><br><span class="line">   val rollResult = dice.roll()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最後提出實際斷言即可。換句話說，您需要聲明該方法傳回的值在您傳遞的側側邊數目以內。因此在這個例子中，<code>該值必須大於 0，且小於 7</code>。為符合此要求，請使用 <code>assertTrue()</code> 方法。請注意，嘗試呼叫 <code>assertTrue()</code> 方法時，文字會先顯示為紅色。這是因為找不到這個方法的宣告，所以您必須匯入宣告，做法與處理註解時類似。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/10eea07fc21bf998_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
+<p>然後選擇來自 <code>org.junit.Assert</code> 套件的選項：</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/5dbfba2ba0e37ac9_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
+<p>如果將游標放在兩個括號之間並按下 <code>Control+P</code> (在 Mac 上則為 <code>Command+P</code>)，系統會顯示工具提示，當中會顯示方法使用的參數：</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/865cf0ac47738e08_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
+<p><code>assertTrue()</code> 方法有兩個參數：<code>String</code> 和 <code>Boolean</code>。如果斷言失敗，字串即是控制台中顯示的訊息。布林值是條件陳述式。請將訊息設為：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;The value of rollResult was not between 1 and 6&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如前文所述，測試隨機號碼是一大挑戰，因為是隨機產生的號碼，所以無法預測號碼的值。所有唯一能做的，就是確保值不會超出特定範圍。請將條件參數設為：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rollResult <span class="keyword">in</span> 1..6</span><br></pre></td></tr></table></figure>
+
+<p>程式碼應該如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">fun <span class="function"><span class="title">generates_number</span></span>() &#123;</span><br><span class="line">   val dice = Dice(6)</span><br><span class="line">   val rollResult = dice.roll()</span><br><span class="line">   assertTrue(<span class="string">&quot;The value of rollResult was not between 1 and 6&quot;</span>, rollResult <span class="keyword">in</span> 1..6)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>按一下函式旁邊的箭頭，然後選取「Run ‘ExampleUnitTest.generates_number()’」，結果應顯示測試成功。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/22/Android%E7%AD%86%E8%A8%98-5-%E6%96%B0%E5%A2%9E%E5%9C%96%E7%89%87%E8%87%B3Dice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/" rel="prev" title="Android筆記(5)-新增圖片至Dice Roller應用程式">
+      <i class="fa fa-chevron-left"></i> Android筆記(5)-新增圖片至Dice Roller應用程式
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B0%A1%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">簡介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">測試的重要性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%B4%A2%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6"><span class="nav-number">1.2.</span> <span class="nav-text">深入探索單元測試</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A8%BB%E8%A7%A3"><span class="nav-number">1.2.1.</span> <span class="nav-text">註解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E5%AE%A3%E5%91%8A"><span class="nav-number">1.2.2.</span> <span class="nav-text">函式宣告</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E6%88%90%E5%8A%9F"><span class="nav-number">1.2.3.</span> <span class="nav-text">測試成功</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E5%A4%B1%E6%95%97"><span class="nav-number">1.2.4.</span> <span class="nav-text">測試失敗</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B7%A8%E5%AF%AB%E7%AC%AC%E4%B8%80%E5%80%8B%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6"><span class="nav-number">1.3.</span> <span class="nav-text">編寫第一個單元測試</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tina Tang"
+      src="/images/profile_photo.png">
+  <p class="site-author-name" itemprop="name">Tina Tang</p>
+  <div class="site-description" itemprop="description">^(-o-)></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linglingdr00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linglingdr00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tinatang0424@gmail.com" title="E-Mail → mailto:tinatang0424@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tina Tang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

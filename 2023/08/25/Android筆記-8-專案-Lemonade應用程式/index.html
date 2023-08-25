@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo2.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用單元 1 中學到的技能，建構簡單的 Lemonade 應用程式。  學習目標  在 Google 上搜尋您在應用程式中不認得的字詞、錯誤訊息和程式碼片段。 測試程式碼、解讀錯誤，然後變更程式碼並重複測試。 回去閱讀先前在 Android 基本概念單元 1 中的內容，溫故知新。 將您知道可順利執行的程式碼 (例如專案內提供的程式碼，或是您先前在單元 1 中學到的其他應用程式的解決方案程式碼)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android筆記(8)-專案：Lemonade應用程式">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/08/25/Android%E7%AD%86%E8%A8%98-8-%E5%B0%88%E6%A1%88-Lemonade%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Tina Tang&#39;s Blog">
+<meta property="og:description" content="使用單元 1 中學到的技能，建構簡單的 Lemonade 應用程式。  學習目標  在 Google 上搜尋您在應用程式中不認得的字詞、錯誤訊息和程式碼片段。 測試程式碼、解讀錯誤，然後變更程式碼並重複測試。 回去閱讀先前在 Android 基本概念單元 1 中的內容，溫故知新。 將您知道可順利執行的程式碼 (例如專案內提供的程式碼，或是您先前在單元 1 中學到的其他應用程式的解決方案程式碼)">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/1ce5b75b513d63c9_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/fb63b41d58a83af7_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/f8882c1688a0e3e7_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/951918f0c2d0464_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/54581304e678827c_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/wIEw2fh.png">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/b6c5858a42dec80_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/b07b78c6b607e94d_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/tjUqSOM.gif">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/6c7b133bcc38ce87_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/ed1e07d2488ac446_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/13bd962d134241aa_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/903c7ed01fa7cebf_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/FWHRMiW.png">
+<meta property="article:published_time" content="2023-08-25T06:30:41.000Z">
+<meta property="article:modified_time" content="2023-08-25T10:16:15.227Z">
+<meta property="article:author" content="Tina Tang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/1ce5b75b513d63c9_1920.png?authuser=2&hl=zh-tw">
+
+<link rel="canonical" href="https://linglingdr00.github.io/2023/08/25/Android%E7%AD%86%E8%A8%98-8-%E5%B0%88%E6%A1%88-Lemonade%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Android筆記(8)-專案：Lemonade應用程式 | Tina Tang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tina Tang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/08/25/Android%E7%AD%86%E8%A8%98-8-%E5%B0%88%E6%A1%88-Lemonade%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android筆記(8)-專案：Lemonade應用程式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-08-25 14:30:41 / Modified: 18:16:15" itemprop="dateCreated datePublished" datetime="2023-08-25T14:30:41+08:00">2023-08-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>使用單元 1 中學到的技能，建構簡單的 Lemonade 應用程式。</p>
+</blockquote>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>在 Google 上搜尋您在應用程式中不認得的字詞、錯誤訊息和程式碼片段。</li>
+<li>測試程式碼、解讀錯誤，然後變更程式碼並重複測試。</li>
+<li>回去閱讀先前在 Android 基本概念單元 1 中的內容，溫故知新。</li>
+<li>將您知道可順利執行的程式碼 (例如專案內提供的程式碼，或是您先前在單元 1 中學到的其他應用程式的解決方案程式碼) 與您編寫的程式碼進行比對。</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="應用程式總覽"><a href="#應用程式總覽" class="headerlink" title="應用程式總覽"></a>應用程式總覽</h4><p>我們將建立簡單的互動式行動應用程式，讓您可以使用該應用程式榨取一杯檸檬汁。</p>
+<p>成品 Lemonade 應用程式將由單一畫面組成。使用者初次啟動應用程式時，系統會提示使用者輕觸檸檬樹的圖片，藉此挑選檸檬。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/1ce5b75b513d63c9_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<p>使用者在輕觸檸檬樹後便會看到一顆檸檬，可以輕觸以「擠壓」檸檬數次 (次數不固定，系統將隨機產生所需的擠壓次數)，才會移動到下一個畫面。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/fb63b41d58a83af7_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<p>使用者輕觸擠壓至正確次數後，便會看到玻璃杯圖片，可以「喝下」檸檬水。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/f8882c1688a0e3e7_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<p>按一下飲用檸檬汁之後，玻璃杯就會變成空的，使用者只要再次輕觸圖片，就能返回第一個畫面，再從檸檬樹中選取其他檸檬。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/951918f0c2d0464_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<p>這款應用程式的設計簡單，且提供單一活動。應用程式的不同狀態 (使用者選取檸檬、擠壓檸檬、喝檸檬汁、以及最後的空杯) 都會以「狀態機器」呈現。</p>
+<p>雖然這聽起來像是空泛的理論術語，但這僅表示應用程式的狀態 (也就是要向使用者顯示哪些文字和圖片) 是取決於包含應用程式狀態的變數 (select 和 squeeze等等)。系統會一併更新應用程式的狀態會連同任何其他必要的變數，並在完成所有更新後分別設定使用者介面 (設定圖片和文字)。</p>
+<p>系統已為您定義應用程式狀態的所有變數。您的工作是建構應用程式的版面配置並實作邏輯，讓使用者介面按預期在每個狀態之間轉換。</p>
+<h4 id="測試程式碼"><a href="#測試程式碼" class="headerlink" title="測試程式碼"></a>測試程式碼</h4><p>對於 Lemonade 應用程式 (以及日後的專案)，系統會提供一些自動化測試，讓您驗證程式碼是否可如預期般運作。Lemonade 應用程式的範例專案包含幾項測試，您可以執行測試，以確認是否已正確實作邏輯。</p>
+<h4 id="下載專案程式碼"><a href="#下載專案程式碼" class="headerlink" title="下載專案程式碼"></a>下載專案程式碼</h4><p>資料夾名稱是 <code>android-basics-kotlin-lemonade-app</code>。在 Android Studio 中開啟專案時，請選取這個資料夾。</p>
+<div class="note success no-icon">
+            <p>範例程式碼網址：</p><p><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-lemonade-app">https://github.com/google-developer-training/android-basics-kotlin-lemonade-app</a></p><p>具有範例程式碼的分支版本名稱：<font color="#01579B">main</font></p>
+          </div>
+
+<p>然後在 Android Studio 中開啟剛才下載完成的專案</p>
+<h4 id="建立使用者介面"><a href="#建立使用者介面" class="headerlink" title="建立使用者介面"></a>建立使用者介面</h4><p>Lemonade 應用程式只需要基本的版面配置；您只需要兩個檢視畫面，就能實作所有功能。</p>
+<ol>
+<li>為使用者提供操作說明的 <code>TextView</code>。</li>
+<li>根據應用程式目前狀態 (例如要擠壓的檸檬) 顯示圖形的 <code>ImageView</code>。</li>
+</ol>
+<p>您的目標是運用您掌握的版面配置編輯器知識，建構如下版面配置：兩個檢視畫面都在畫面中央，且 <code>TextView</code> 位於 <code>ImageView</code> 上方。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/54581304e678827c_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<p>實際完成畫面：<br><img src="https://i.imgur.com/wIEw2fh.png" width="30%" height="30%"></p>
+<h4 id="讓應用程式與使用者互動"><a href="#讓應用程式與使用者互動" class="headerlink" title="讓應用程式與使用者互動"></a>讓應用程式與使用者互動</h4><p>版面配置完成之後，請開啟 <code>MainActivity.kt</code>。您可以在這裡實作所有應用程式的邏輯。您會發現已經有一些程式碼。且有許多標示為 <code>// TODO:</code> 的註解 (如以下範例所示)。這些都是您要完成的工作。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/b6c5858a42dec80_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
+<p>您必須實作下列三項基本工作，才能讓檸檬汁應用程式正常運作。</p>
+<ol>
+<li>設定 <code>lemonImage</code> <code>ImageView</code> 以回應使用者輸入的內容。</li>
+<li>實作 <code>clickLemonImage()</code> 以更新應用程式的狀態。</li>
+<li>實作 <code>setViewElements()</code>，以根據應用程式目前的狀態更新使用者介面。</li>
+</ol>
+<h5 id="步驟-1：設定-ImageView"><a href="#步驟-1：設定-ImageView" class="headerlink" title="步驟 1：設定 ImageView"></a>步驟 1：設定 ImageView</h5><p>輕觸圖片檢視畫面後，應用程式就會從一個狀態切換成其他狀態。在 <code>onCreate()</code> 結尾，需要設定兩個事件監聽器。</p>
+<ol>
+<li><code>setOnClickListener()</code> 應更新應用程式的狀態。方法是 <code>clickLemonImage()</code>。</li>
+<li><code>setOnLongClickListener()</code> 會回應使用者長按圖片的事件 (例如，使用者輕觸圖片，而且沒有立即放開手指)。對於長按事件，畫面底部會顯示小工具 (稱為 Snackbar)，讓使用者知道他們擠壓檸檬的次數。這是透過 <code>showSnackbar()</code> 方法來完成。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/b07b78c6b607e94d_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<h5 id="步驟-2：實作-clickLemonImage"><a href="#步驟-2：實作-clickLemonImage" class="headerlink" title="步驟 2：實作 clickLemonImage()"></a>步驟 2：實作 clickLemonImage()</h5><p>完成前一個步驟後，每當使用者輕觸圖片時，系統就會呼叫 <code>clickLemonImage()</code> 方法。這個方法負責將應用程式從目前狀態移至下一個狀態，並視需要更新變數。有四種可能的狀態：<code>SELECT</code>、<code>SQUEEZE</code>、<code>DRINK</code> 和 <code>RESTART</code>；目前狀態會以 <code>lemonadeState</code> 變數呈現。這個方法需要針對每個狀態完成不同動作。</p>
+<p><code>SELECT</code>：轉換為 <code>SQUEEZE</code> 狀態，透過呼叫 <code>pick()</code> 方法並將 <code>squeezeCount</code> (使用者擠壓檸檬的次數) 設為 0 來設定 <code>lemonSize</code> (需要擠壓的次數)。<br><code>SQUEEZE</code>：將 <code>squeezeCount</code> 增加 1，並將 <code>lemonSize</code> 減少 1。別忘了檸檬需要不同次數的擠壓，應用程式才會轉換其狀態。只有在新的 <code>lemonSize</code> 等於 0 時，才轉換至 <code>DRINK</code> 狀態。否則應用程式應保持在 <code>SQUEEZE</code> 狀態。<br><code>DRINK</code>：轉換為 <code>RESTART</code> 狀態，並將 <code>lemonSize</code> 設為 -1。<br><code>RESTART</code>：切換回 <code>SELECT</code> 狀態。<br>處理完所有更新和狀態轉換後，請務必呼叫 <code>setViewElements()</code>，根據新狀態更新使用者介面。</p>
+<h5 id="步驟-3：實作-setViewElements"><a href="#步驟-3：實作-setViewElements" class="headerlink" title="步驟 3：實作 setViewElements()"></a>步驟 3：實作 setViewElements()</h5><p><code>setViewElements()</code> 方法負責根據應用程式的狀態更新使用者介面。文字和圖片應更新為下方顯示的值，以符合 <code>lemonadeState</code>。</p>
+<p><code>SELECT：</code></p>
+<ul>
+<li>文字：按一下即可選取檸檬！</li>
+<li>圖片：<code>R.drawable.lemon_tree</code></li>
+</ul>
+<p><code>SQUEEZE：</code><br>文字：按一下即可擠檸檬汁<br>圖片：<code>R.drawable.lemon_squeeze</code></p>
+<p><code>DRINK：</code><br>文字：按一下即可喝檸檬水！<br>圖片：<code>R.drawable.lemon_drink</code></p>
+<p><code>RESTART：</code><br>文字：按一下即可重新開始！<br>圖片：<code>R.drawable.lemon_restart</code></p>
+<h4 id="如何使用字串資源"><a href="#如何使用字串資源" class="headerlink" title="如何使用字串資源"></a>如何使用字串資源</h4><p>資源可用於定義顏色、圖片、版面配置、選單和字串值。這種做法的好處是沒有硬式編碼。這些資源檔案中定義了所有內容，您可以在應用程式的程式碼中參照。這些資源最簡單 (且最常見) 的使用方式是使用字串資源，允許具有彈性的本地化文字。</p>
+<p>字串或靜態文字可儲存在稱為 <code>strings.xml</code> 的個別檔案中，<code>strings.xml</code> 位於 <code>res</code> 資料夾的值子資料夾內。</p>
+<p>針對您想要在應用程式中顯示的每段文字 (即按鈕標籤或 <code>TextView</code> 內的文字)，您必須先定義 <code>res/values/strings.xml</code> 檔案中的文字。每個項目都是<code>索引鍵</code> (代表文字 ID) 和<code>值</code> (文字本身)。</p>
+<p>舉例來說，如果您想讓按鈕顯示「Submit」(提交)，請在 res&#x2F;values&#x2F;strings.xml 中加入以下字串資源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;resources&gt;</span><br><span class="line">    &lt;string name=<span class="string">&quot;hello&quot;</span>&gt;Hello!&lt;/string&gt;</span><br><span class="line">    &lt;string name=<span class="string">&quot;submit_label&quot;</span>&gt;Submit&lt;/string&gt;</span><br><span class="line">&lt;/resources&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如要直接存取程式碼中的資源，只要使用 <code>getResources.getString()</code> 或 <code>getString()</code> 方法，即可依照資源 ID <code>R.string.submit_label</code> 來存取相應的值。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val submitText = getResources().getString(R.string.submit_label)</span><br></pre></td></tr></table></figure>
+
+<p>如要直接將字串資源中的文字設定為 <code>TextView</code>，您可以呼叫 <code>TextView</code> 物件上的 <code>setText()</code>，並傳入資源 ID。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val infoTextView: TextView = findViewById(R.id.info_textview)</span><br><span class="line"></span><br><span class="line">infoTextView.setText(R.string.info_text)</span><br></pre></td></tr></table></figure>
+
+<p>字串資源也可以包含特殊字元，以便設定文字格式。舉例來說，可能會有字串資源可讓您將其他文字插入字串。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;string name=<span class="string">&quot;ingredient_tablespoon&quot;</span>&gt;%1<span class="variable">$d</span> 歲是 %2<span class="variable">$s</span> 的年齡&lt;/string&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在程式碼中，您可以透過傳遞引數來存取字串資源，並設定字串資源的格式。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getResources().getString(R.string.ingredient_tablespoon, 3, <span class="string">&quot;Tina&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>宣告字串資源時，每個引數都會<code>依照顯示的順序編號 (1、2 等)</code>，並<code>以字母表示不同類型 (d 代表小數，s 代表字串等等)</code>。正確類型的引數可傳遞至 getString() 的呼叫。</li>
+</ul>
+<p>輸出結果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3 歲是 Tina 的年齡</span><br></pre></td></tr></table></figure>
+
+<h4 id="執行應用程式"><a href="#執行應用程式" class="headerlink" title="執行應用程式"></a>執行應用程式</h4><p>完成結果如下所示：</p>
+<img src="https://i.imgur.com/tjUqSOM.gif" width="30%" height="30%">
+
+<h4 id="測試應用程式"><a href="#測試應用程式" class="headerlink" title="測試應用程式"></a>測試應用程式</h4><ul>
+<li>測試套件(Test Suite) - 包含所有「測試案例」的目標(target)。</li>
+<li>測試案例(Test Case) - 這個類別包含相關功能的個別測試 (Lemonade 應用程式只有一個測試案例，但更大型的應用程式通常會有更多測試案例)。</li>
+<li>測試(Test) - 用來測試特定項目的函式。</li>
+</ul>
+<p>測試案例可以有多個測試，且專案的測試套件可以有多個測試案例。</p>
+<h5 id="執行測試"><a href="#執行測試" class="headerlink" title="執行測試"></a>執行測試</h5><p>若是單一測試案例，請開啟測試案例類別，然後按一下類別宣告左側的綠色箭頭。然後，從選單中選取「Run」選項。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/6c7b133bcc38ce87_1920.png?authuser=2&hl=zh-tw" width="60%" height="60%"></p>
+<p>如果您有多個測試案例，也可以執行整個測試套件。就像執行應用程式一樣，您可以在「Run」選單中找到這個選項。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/ed1e07d2488ac446_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%"></p>
+<p>請注意，Android Studio 會預設為您所執行的最後一個目標 (應用程式、測試目標等)，因此如果選單仍顯示「Run」&gt;「Run ‘app’」，您可以依序選取「Run」&gt;「Run」以執行測試目標。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/13bd962d134241aa_1920.png?authuser=2&hl=zh-tw" width="40%" height="40%"></p>
+<p>然後從彈出式選單中選擇測試目標。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/903c7ed01fa7cebf_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
+<p>測試結果：<br><img src="https://i.imgur.com/FWHRMiW.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/23/Android%E7%AD%86%E8%A8%98-7-%E5%81%B5%E9%8C%AFDebugging/" rel="prev" title="Android筆記(7)-偵錯(Debugging)">
+      <i class="fa fa-chevron-left"></i> Android筆記(7)-偵錯(Debugging)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.</span> <span class="nav-text">應用程式總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">2.</span> <span class="nav-text">測試程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E5%B0%88%E6%A1%88%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">3.</span> <span class="nav-text">下載專案程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E4%BD%BF%E7%94%A8%E8%80%85%E4%BB%8B%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">建立使用者介面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%93%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E8%88%87%E4%BD%BF%E7%94%A8%E8%80%85%E4%BA%92%E5%8B%95"><span class="nav-number">5.</span> <span class="nav-text">讓應用程式與使用者互動</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-1%EF%BC%9A%E8%A8%AD%E5%AE%9A-ImageView"><span class="nav-number">5.1.</span> <span class="nav-text">步驟 1：設定 ImageView</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-2%EF%BC%9A%E5%AF%A6%E4%BD%9C-clickLemonImage"><span class="nav-number">5.2.</span> <span class="nav-text">步驟 2：實作 clickLemonImage()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-3%EF%BC%9A%E5%AF%A6%E4%BD%9C-setViewElements"><span class="nav-number">5.3.</span> <span class="nav-text">步驟 3：實作 setViewElements()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%AD%97%E4%B8%B2%E8%B3%87%E6%BA%90"><span class="nav-number">6.</span> <span class="nav-text">如何使用字串資源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">7.</span> <span class="nav-text">執行應用程式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">測試應用程式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%B8%AC%E8%A9%A6"><span class="nav-number">8.1.</span> <span class="nav-text">執行測試</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tina Tang"
+      src="/images/profile_photo.png">
+  <p class="site-author-name" itemprop="name">Tina Tang</p>
+  <div class="site-description" itemprop="description">^(-o-)></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linglingdr00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linglingdr00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tinatang0424@gmail.com" title="E-Mail → mailto:tinatang0424@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tina Tang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

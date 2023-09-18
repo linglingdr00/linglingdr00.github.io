@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo2.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用 Android Studio 中的 Image Asset Studio 工具，更改應用程式的啟動器圖示(launcher icon)。  學習目標  如何變更應用程式的啟動器圖示 如何在 Android Studio 中使用 Image Asset Studio 產生啟動器圖示素材資源 自動調整圖示的含意，以及其包含兩個圖層的原因">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android筆記(13)-更改應用圖示">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/09/17/Android%E7%AD%86%E8%A8%98-13-%E6%9B%B4%E6%94%B9%E6%87%89%E7%94%A8%E5%9C%96%E7%A4%BA/index.html">
+<meta property="og:site_name" content="Tina Tang&#39;s Blog">
+<meta property="og:description" content="使用 Android Studio 中的 Image Asset Studio 工具，更改應用程式的啟動器圖示(launcher icon)。  學習目標  如何變更應用程式的啟動器圖示 如何在 Android Studio 中使用 Image Asset Studio 產生啟動器圖示素材資源 自動調整圖示的含意，以及其包含兩個圖層的原因">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/491033b9aaa5d6bb_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/16e235142627947_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/3c94e41bcbfd9a3c_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/8346813da9e7c99e_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/8a9317d3f5e6dba6_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/2e9641406d006778_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/c5d4f66cfbf1c046_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/aadadc11db9ef0f0_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/codelabs/basic-android-kotlin-training-change-app-icon/img/1af36983e3677abe.gif">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/46626096e5e73515_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/5ee8395bb0bcd6f_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/2056a49400206309_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/e9c481d4823a371_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/27554596e4c0bdc6_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/29ae558130f1119b_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/8d1caf48e35b4560_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/1b4696b1ac6e657d_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/fd16968065745024_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/f6420a0476bcd44c_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/5c5280cd079c4a86_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/6e03dc79a82c2e0d_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/954e70ddbc5b7901_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/14b170ecd615cdca_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/a0173e1403278227_1920.png?hl=zh-tw">
+<meta property="article:published_time" content="2023-09-17T13:02:51.000Z">
+<meta property="article:modified_time" content="2023-09-18T06:56:13.784Z">
+<meta property="article:author" content="Tina Tang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
+<meta property="article:tag" content="Material Design">
+<meta property="article:tag" content="App Icon">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/491033b9aaa5d6bb_1920.png?hl=zh-tw">
+
+<link rel="canonical" href="https://linglingdr00.github.io/2023/09/17/Android%E7%AD%86%E8%A8%98-13-%E6%9B%B4%E6%94%B9%E6%87%89%E7%94%A8%E5%9C%96%E7%A4%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Android筆記(13)-更改應用圖示 | Tina Tang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tina Tang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/09/17/Android%E7%AD%86%E8%A8%98-13-%E6%9B%B4%E6%94%B9%E6%87%89%E7%94%A8%E5%9C%96%E7%A4%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android筆記(13)-更改應用圖示
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-09-17 21:02:51" itemprop="dateCreated datePublished" datetime="2023-09-17T21:02:51+08:00">2023-09-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-18 14:56:13" itemprop="dateModified" datetime="2023-09-18T14:56:13+08:00">2023-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">版面配置</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>使用 Android Studio 中的 Image Asset Studio 工具，更改應用程式的啟動器圖示(launcher icon)。</p>
+</blockquote>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何變更應用程式的啟動器圖示</li>
+<li>如何在 Android Studio 中使用 <strong>Image Asset Studio</strong> 產生啟動器圖示素材資源</li>
+<li>自動調整圖示的含意，以及其包含兩個圖層的原因</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="應用程式圖示-App-Icons-簡介"><a href="#應用程式圖示-App-Icons-簡介" class="headerlink" title="應用程式圖示(App Icons)簡介"></a>應用程式圖示(App Icons)簡介</h4><p>應用程式圖示(app icon)是辨認應用程式的重要方式，通常會在多個位置顯示，包括主畫面、「所有應用程式」畫面和「設定」應用程式。<br>應用程式圖示亦稱為啟動器圖示(launcher icon)，啟動器(Launcher)是指您在 Android 裝置上按下主畫面按鈕，以檢視和整理應用程式、新增小工具和捷徑等操作時看到的圖示。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/491033b9aaa5d6bb_1920.png?hl=zh-tw" width="30%" height="30%">
+
+<p>如果您用過不同的 Android 裝置，可能會發現啟動器的體驗會因裝置製造商不同而有差異。有時候，裝置製造商會打造品牌專屬的自訂啟動器體驗。在這過程中，不同製造商可能會以不同形狀顯示應用程式圖示，而不是上圖顯示的圓形圖示。</p>
+<p>例如，他們會以正方形、圓角正方形或方圓形 (介於正方形和圓形之間) 顯示所有應用程式圖示。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/16e235142627947_1920.png?hl=zh-tw" width="50%" height="50%">
+
+<p>不論裝置製造商選擇哪種形狀，其目的都是為了讓所有應用程式圖示能在單一裝置上顯示統一的形狀，以便提供更一致的使用者體驗。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/3c94e41bcbfd9a3c_1920.png?hl=zh-tw" width="30%" height="30%">
+
+<p>這就是 Android 平台支援自動調整圖示 (自 API 級別 26 起) 的原因。為應用程式實作自動調整圖示後，您的應用程式就能因應各種裝置，適當地顯示高品質的應用程式圖示。</p>
+<p>本程式碼研究室提供小費計算機啟動器圖示的圖片來源檔案，以供您練習。您會使用 Android Studio 中名為「Image Asset Studio」的工具，來產生各種所需啟動器圖示的版本。之後，您便可將所學知識應用到變更其他應用程式的應用程式圖示上！</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/8346813da9e7c99e_1920.png?hl=zh-tw" width="15%" height="15%">
+
+<hr>
+<h4 id="啟動器圖示-Launcher-Icons"><a href="#啟動器圖示-Launcher-Icons" class="headerlink" title="啟動器圖示(Launcher Icons)"></a>啟動器圖示(Launcher Icons)</h4><p>這步驟的目的是讓啟動器圖示有精美的外觀 (清晰簡潔)，而不受裝置型號或螢幕密度所影響。具體來說，螢幕像素密度是指螢幕上每英寸的像素數 (或以 dpi 表示)。如果是中密度(medium-density)裝置 (mdpi)，螢幕上每英寸像素數為 160；至於 extra-extra-extra-high-density 密度的裝置 (xxxhdpi)，螢幕上每英寸像素數則為 640。</p>
+<p>為符合不同螢幕密度的裝置，您須提供不同版本的應用程式圖示。</p>
+<h5 id="探索啟動器圖示檔案"><a href="#探索啟動器圖示檔案" class="headerlink" title="探索啟動器圖示檔案"></a>探索啟動器圖示檔案</h5><ol>
+<li><p>請開啟 Android Studio 中的「小費計算機專案」。由於是從範本開始建立應用程式，應該已有 Android Studio 提供的預設啟動器圖示。</p>
+</li>
+<li><p>在「Project」視窗中，切換至「Project」檢視畫面。系統會根據檔案儲存電腦中的檔案結構，在專案中顯示檔案。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/8a9317d3f5e6dba6_1920.png?hl=zh-tw" width="30%" height="30%">
+
+<ol start="3">
+<li>前往資源目錄 (app &gt; src &gt; main &gt; res)，然後展開部分 <code>mipmap</code> 資料夾。您應將 Android 應用程式的啟動器圖示素材資源放在這些 <code>mipmap</code> 資料夾中。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/2e9641406d006778_1920.png?hl=zh-tw" width="30%" height="30%">
+
+<p><code>mdpi</code>、<code>hdpi</code>、<code>xhdpi</code> 等都是像素密度限定詞，您可以將其附加到資源目錄名稱 (例如 <code>mipmap</code>) 上，表示這些資源適用於特定螢幕密度的裝置。以下列出 Android 的<a target="_blank" rel="noopener" href="https://developer.android.com/training/multiscreen/screendensities#TaskProvideAltBmp">像素密度限定詞</a>：</p>
+<ul>
+<li><code>mdpi</code>：適用於中密度螢幕 (約 160 dpi) 的資源</li>
+<li><code>hdpi</code>：適用於高密度螢幕 (約 240 dpi) 的資源</li>
+<li><code>xhdpi</code>：適用於 extra-high 密度螢幕 (約 320 dpi) 的資源</li>
+<li><code>xxhdpi</code>：適用於 extra-extra-high 像素密度螢幕 (約 480dpi) 的資源。</li>
+<li><code>xxxhdpi</code>：適用於 extra-extra-extra-high 密度螢幕 (約 640 dpi) 的資源</li>
+<li><code>nodpi</code>：不論螢幕的像素密度為何都不能縮放的資源</li>
+<li><code>anydpi</code>：可調整為各種密度的資源</li>
+</ul>
+<ol start="4">
+<li>按一下圖片檔，您就會看到預覽畫面。<code>ic_launcher.png</code> 檔案包含圖示的正方形版本，<code>ic_launcher_round.png</code> 檔案則包含圖示的圓形版本。每個資源目錄中都會提供這兩個版本。</li>
+</ol>
+<p>舉例來說，以下是 res &gt; mipmap-xxxhdpi &gt; ic_launcher_round.png 的顯示效果。另請注意，相應的資源素材尺寸位於右上方。此圖片的尺寸為 192px x 192px。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/c5d4f66cfbf1c046_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>而這是 res &gt; mipmap-mdpi &gt; ic_launcher_round.png 的顯示效果。尺寸只有 48px x 48px。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/aadadc11db9ef0f0_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>如您所見，這些點陣圖圖片檔是由固定的像素格線組成，是針對特定螢幕解析度而建立的。因此，如果您調整其大小，畫質可能會降低。</p>
+<p>如果你縮小點陣圖圖片，由於您去除像素資訊，因此應該沒問題。如果您大幅放大點陣圖圖片，由於 Android 需要推測並填入缺少的像素資訊，因此圖片會顯得模糊不清。</p>
+<div class="note no-icon success">
+            <p><strong>注意：</strong>為了避免應用程式圖示模糊不清，請務必為每個密度級別 (例如 <font color="#303f9f">mdpi</font>、<font color="#303f9f">hdpi</font>、<font color="#303f9f">xhdpi</font> 等) 提供不同的應用程式圖示點陣圖圖片。請注意，裝置螢幕密度未必剛好是 160dpi、240dpi、320dpi 等等…Android 會根據目前螢幕的密度，按最接近的密度級別選取資源，然後再將其縮小。</p>
+          </div>
+
+<h4 id="自動調整圖示"><a href="#自動調整圖示" class="headerlink" title="自動調整圖示"></a>自動調整圖示</h4><h5 id="前景與背景圖層"><a href="#前景與背景圖層" class="headerlink" title="前景與背景圖層"></a>前景與背景圖層</h5><p>自 <a target="_blank" rel="noopener" href="https://developer.android.com/about/versions/oreo">Android 8.0 版本</a> (API 級別 26) 起，系統便支援自動調整啟動器圖示，能讓應用程式圖示更加靈活，也能呈現出有趣的視覺效果。對開發人員來說，這表示應用程式圖示是由前景和背景這兩個圖層組成。</p>
+<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-change-app-icon/img/1af36983e3677abe.gif" width="50%" height="50%">
+
+<p>在上述例子中，白色的 Android 圖示位於前景圖層，藍色和白色的格線位於背景圖層。前景圖層會堆疊在背景圖層上方。然後，系統會在其上套用遮罩 (本例子套用圓形遮罩)，以產生圓形的應用程式圖示。</p>
+<h5 id="探索自動調整圖示檔案"><a href="#探索自動調整圖示檔案" class="headerlink" title="探索自動調整圖示檔案"></a>探索自動調整圖示檔案</h5><p>請查看 Android Studio 專案範本提供的預設自動調整圖示檔案。</p>
+<ol>
+<li>在 Android Studio 的「Project」視窗中，找出並展開「res &gt; mipmap-anydpi-v26」 資源目錄。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/46626096e5e73515_1920.png?hl=zh-tw" width="30%" height="30%">
+
+<div class="note no-icon success">
+            <p><strong>注意：</strong>自動調整圖示新增到平台的 API 級別 26，因此自動調整圖示應是在具有 <font color="#303f9f">-v26</font> 資源限定詞的 <font color="#303f9f">mipmap</font> 資源目錄中宣告。這表示此目錄中的資源僅適用於執行 API 26 (Android 8.0) 以上版本的裝置。執行舊版平台的裝置會忽略此目錄中的資源檔案。</p>
+          </div>
+
+<ol start="2">
+<li><p>開啟其中一個 XML 檔案，例如 <code>ic_launcher.xml</code>。您應該會看到：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">adaptive-icon</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">background</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@drawable/ic_launcher_background&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">foreground</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@drawable/ic_launcher_foreground&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">monochrome</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@drawable/ic_launcher_foreground&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">adaptive-icon</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>請注意，<code>&lt;adaptive-icon&gt;</code> 元素如何藉由向應用程式圖示的 <code>&lt;background&gt;</code> 和 <code>&lt;foreground&gt;</code> 圖層分別提供資源可繪項目，以完成對它們的宣告。</p>
+</li>
+<li><p>返回「Project」檢視畫面，然後尋找宣告可繪項目的位置：「drawable」&gt;「ic_launcher_ background.xml」和「drawable-v24」&gt;「ic_launcher_foreground.xml」。</p>
+</li>
+<li><p>切換至「Design」檢視畫面，查看每個圖層的預覽效果 (左側是背景、右側是前景)。</p>
+</li>
+</ol>
+<div style="display: flex;justify-content: center;">
+    <div style="width:30%;float:left;margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/5ee8395bb0bcd6f_1920.png?hl=zh-tw">
+    </div>
+    <div style="width:30%;float:left;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/2056a49400206309_1920.png?hl=zh-tw">
+    </div>
+<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+</div>
+
+<ol start="6">
+<li>以上兩者都是向量可繪項目檔案，皆沒有以像素為單位的固定尺寸。如果您切換到「Code」檢視畫面，就會看到使用 <code>&lt;vector&gt;</code> 元素對向量可繪項目做出的 XML 宣告。</li>
+</ol>
+<p>雖然向量可繪項目(vector drawable)和點陣圖(bitmap)圖片描述的都是圖像，但二者之間仍有重大差異。</p>
+<p>除了各像素的色彩資訊外，點陣圖圖片對其持有的圖片不太理解。另一方面，向量圖形則瞭解如何繪製用於定義圖片的形狀。這些操作說明是由一組點、線、曲線以及相關色彩資訊所組成。這種做法的好處，在於向量圖形可以針對各種螢幕密度的任意畫布尺寸進行縮放，而不會降低畫質。</p>
+<p>「<a target="_blank" rel="noopener" href="https://developer.android.com/develop/ui/views/graphics/vector-drawable-resources">向量可繪項目(vector drawable)</a>」是指 Android 實作的向量圖形，以便在行動裝置上提供彈性。您可以利用這些<a target="_blank" rel="noopener" href="https://developer.android.com/reference/kotlin/android/graphics/drawable/VectorDrawable">可能元素</a>在 XML 中對其加以定義。您只需定義圖片一次，而不必針對所有密度級別提供點陣圖素材資源的版本。這樣可以縮減應用程式的大小，讓應用程式更便於維護。</p>
+<div class="note no-icon success">
+            <p><strong>注意：</strong>選擇使用向量可繪項目或點陣圖圖片時，需要<a target="_blank" rel="noopener" href="https://medium.com/androiddevelopers/understanding-androids-vector-image-format-vectordrawable-ab09e41d5c68">權衡優缺點</a>。舉例來說，圖示由簡單的形狀組成，因此可以向量可繪項目便不失為理想的選擇；而圖片則難以透過一系列形狀加以描述。在這種情況下，使用點陣圖素材資源會更有效率。</p>
+          </div>
+
+<h4 id="下載新素材資源"><a href="#下載新素材資源" class="headerlink" title="下載新素材資源"></a>下載新素材資源</h4><p>接下來，請下載下面 2 個新的素材資源，以便為小費計算機應用程式建立自動調整圖示。別擔心，您不用理解向量可繪項目檔案的所有細節。您可以使用設計工具自動產生其中的內容。</p>
+<ol>
+<li><p>下載 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/google-developer-training/android-basics-kotlin-tip-calculator-app-solution/main/app/src/main/res/drawable-anydpi-v26/ic_launcher_background.xml"><code>ic_launcher_background.xml</code></a>，即背景圖層的向量可繪項目。如果瀏覽器僅顯示檔案而並未下載，請依序選取「File」&gt;「Save Page As…」，將檔案儲存到您的電腦。</p>
+</li>
+<li><p>下載 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/google-developer-training/android-basics-kotlin-tip-calculator-app-solution/main/app/src/main/res/drawable-anydpi-v26/ic_launcher_foreground.xml"><code>ic_launcher_foreground.xml</code></a>，即前景圖層的向量可繪項目。</p>
+</li>
+</ol>
+<p>請注意，系統對這些前景和背景圖層素材資源設有特定要求，例如兩者的大小都必須為 108dp x 108dp。如要進一步瞭解相關要求，請參閱<a target="_blank" rel="noopener" href="https://developer.android.com/reference/kotlin/android/graphics/drawable/AdaptiveIconDrawable">這篇文章</a>；您也可以參閱 Material 網站上的 <a target="_blank" rel="noopener" href="https://m2.material.io/design/platform-guidance/android-icons.html">Android 圖示設計指南</a>。</p>
+<p>由於圖示的邊緣可能會依據裝置製造商的遮罩形狀而遭到裁剪，因此請務必將圖示的重要資訊放在<a target="_blank" rel="noopener" href="https://medium.com/google-design/designing-adaptive-icons-515af294c783">「安全區域」</a>，亦即位於圖層中央且直徑為 66dp 的圓形範圍。位於該安全區域之外的內容不應含有重要資訊 (例如背景顏色)，這樣即使遭到裁剪也不會有任何影響。</p>
+<h4 id="變更應用程式圖示"><a href="#變更應用程式圖示" class="headerlink" title="變更應用程式圖示"></a>變更應用程式圖示</h4><p>返回 Android Studio 以使用新素材資源。</p>
+<ol>
+<li>請先刪除具備 Android 圖示和綠色格狀背景的舊版可繪製資源。在「Project」檢視畫面中，在檔案上按一下滑鼠右鍵，然後選擇「Delete」。</li>
+</ol>
+<p>刪除以下檔案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drawable/ic_launcher_background.xml</span><br><span class="line">drawable-v24/ic_launcher_foreground.xml</span><br></pre></td></tr></table></figure>
+
+<p>您可以取消勾選「Safe delete (with usage search)」方塊，然後按一下「OK」。</p>
+<ol start="2">
+<li>建立新的<code>圖片素材資源(Image Asset)</code>。在「res」目錄上按一下滑鼠右鍵，然後依序選擇「New」&gt;「Image Asset」。或者，您也可以點選「Resource Manager」分頁標籤，然後按一下「+」圖示並選取「Image Asset」。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/e9c481d4823a371_1920.png?hl=zh-tw" width="30%" height="30%">
+
+<ol start="3">
+<li><p>系統會開啟 Android Studio 的「Image Asset Studio」工具。</p>
+</li>
+<li><p>保留預設設定：<br>Icon Type: <code>Launcher Icons (Adaptive and Legacy)</code><br>Name: <code>ic_launcher</code></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/27554596e4c0bdc6_1920.png?hl=zh-tw" width="90%" height="90%">
+</li>
+<li><p>選取「Foreground Layer」分頁籤標後，前往「Source Asset」子區段。在「Path」欄位中，按一下資料夾圖示。</p>
+</li>
+<li><p>系統會顯示彈出式視窗，方便您瀏覽電腦及選取檔案。找出你剛在電腦上下載的新 <code>ic_launcher_foreground.xml</code> 檔案位置。檔案可能儲存在電腦的「下載」資料夾中。找到後，按一下「開啟」。</p>
+</li>
+<li><p>「Path」現已更新為新前景向量可繪項目的位置。維持「Layer Name」為「ic_launcher_foreground」，而「Asset Type」為「Image」。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/29ae558130f1119b_1920.png?hl=zh-tw" width="40%" height="40%">
+
+<ol start="8">
+<li><p>接下來，切換至「Background Layer」分頁標籤。保留預設值。按一下「Path」的資料夾圖示。</p>
+</li>
+<li><p>找出剛才下載的 <code>ic_launcher_background.xml</code> 檔案位置。按一下「Open」。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/8d1caf48e35b4560_1920.png?hl=zh-tw" width="40%" height="40%">
+
+<ol start="10">
+<li>選取新的資源檔案時，預覽內容應會隨之更新。以下是使用新前景和背景圖層的畫面。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/1b4696b1ac6e657d_1920.png?hl=zh-tw" width="50%" height="50%">
+
+<p>利用兩個圖層呈現應用程式圖示後，裝置製造商 (稱為原始設備製造商或簡稱 OEM) 可能會根據 Android 裝置建立不同的形狀，如上方預覽所示。原始設備製造商 (OEM) 提供的遮罩可套用至裝置上的所有應用程式圖示。</p>
+<p>這個遮罩會套用到應用程式圖示的前景和背景圖層上。以下是圓形遮罩和正方形遮罩的例子。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/fd16968065745024_1920.png?hl=zh-tw" width="60%" height="60%">
+
+<p>如果為應用程式圖示的兩個圖層都套用圓形遮罩，就會產生一個含有藍色格線背景的圓形圖示，當中包含 Android 圖示 (如上方左圖)。或者，您可以套用正方形遮罩，產生如上方右圖的應用程式圖示。</p>
+<p>此外，使用兩個圖層可以呈現有趣的視覺效果，原因為這兩個圖層可以單獨移動或縮放。請查看「Design Considerations」底下的這篇<a target="_blank" rel="noopener" href="https://medium.com/google-design/designing-adaptive-icons-515af294c783">網誌文章</a>，瞭解一些視覺效果的有趣例子。由於您無法預知使用者會使用哪種裝置，或是 OEM 會為您的圖示套用哪種遮罩，因此您必須設定自動調整圖示，以免重要資訊遭到截斷。</p>
+<ol start="11">
+<li>請確認前景圖層的主要內容 (在本例中為服務鈴圖示) 位於安全區域內，不會遭到不同遮罩形狀裁剪。如果重要內容會遭到裁剪或顯得過小，您可以使用各圖層「Scaling」區段下方的「Resize」滑桿進行調整。在本例子中，您不需要調整大小，因此可將大小保持為 100%。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/f6420a0476bcd44c_1920.png?hl=zh-tw" width="40%" height="40%">
+
+<ol start="12">
+<li><p>按一下「Next」。</p>
+</li>
+<li><p>這個步驟是「Confirm Icon Path」。按一下個別檔案即可查看預覽畫面。畫面底部也會顯示一則警示，提醒將會覆蓋部分現有檔案 (以紅色顯示)。別擔心，這些是用於先前應用程式圖示的舊檔案。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/5c5280cd079c4a86_1920.png?hl=zh-tw" width="70%" height="70%">
+
+<ol start="14">
+<li><p>預設值沒有問題，請按一下「Finish」。</p>
+</li>
+<li><p>確認 mipmap 資料夾中所有產生的素材資源皆正確顯示。例如：</p>
+<div style="display: flex;justify-content: center;">
+<div style="width:20%;float:left;margin-right:10px;">
+    <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/6e03dc79a82c2e0d_1920.png?hl=zh-tw">
+</div>
+<div style="width:20%;float:left;">
+    <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/954e70ddbc5b7901_1920.png?hl=zh-tw">
+</div>
+<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+</div></li>
+</ol>
+<h5 id="將向量可繪項目檔案移到-v26-目錄"><a href="#將向量可繪項目檔案移到-v26-目錄" class="headerlink" title="將向量可繪項目檔案移到 -v26 目錄"></a>將向量可繪項目檔案移到 -v26 目錄</h5><p>您可能會發現到，背景素材資源位於 <code>drawable-v24</code> 資料夾，前景素材資源位於 <code>drawable</code> 資料夾，具體取決於您應用程式的最低 SDK 版本。這是因為背景素材資源包含漸變效果，是 Android 7.0 版本 (亦稱為 API 版本 24，因此使用 <code>-v24</code> 資源限定詞) 起開始提供的功能。前景素材資源未包含漸層效果，所以會放在基本 <code>drawable</code> 資料夾中。</p>
+<p>請將兩個向量可繪項目檔案都移到 <code>-v26</code> 資源目錄中，而不要將前景和背景素材資源分別放在兩個不同的 <code>drawable</code> 資料夾。由於這些素材資源只會用於自動調整圖示，只有 API 26 以上版本才需要這兩個可繪項目。下列資料夾結構可協助您輕鬆找出及管理自動調整圖示檔案。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">drawable-anydpi-v26</span><br><span class="line">   ic_launcher_background.xml</span><br><span class="line">   ic_launcher_foreground.xml</span><br><span class="line">mipmap-anydpi-v26</span><br><span class="line">   ic_launcher.xml</span><br><span class="line">   ic_launcher_round.xml</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>請先建立 <code>drawable-anydpi-v26</code> 目錄。在「res」資料夾上按一下滑鼠右鍵。依序選取「New」&gt;「Android Resource Directory」。</p>
+</li>
+<li><p>畫面上顯示「New Resource Directory」對話方塊。選取下列選項：<br>「Directory name」：<code>drawable-anydpi-v26</code><br>「Resource type」：<code>drawable</code> (從下拉式選單選取)<br>「Source set」：<code>main</code> (保留預設值)</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/14b170ecd615cdca_1920.png?hl=zh-tw" width="70%" height="70%">
+
+<p>按一下「OK」。在「Project」檢視畫面中，確認您已建立新的資源目錄「res &gt; drawable-anydpi-v26」。</p>
+<ol start="3">
+<li><p>在 <code>ic_launcher_foreground.xml</code> 檔案上按一下滑鼠左鍵，並將檔案從「drawable」資料夾拖曳至「drawable-anydpi-v26」資料夾。請注意，將資源放在「any dpi」目錄中，就表示這是可依據任何密度加以縮放的資源。</p>
+</li>
+<li><p>在 <code>ic_launcher_background.xml</code> 上按一下滑鼠左鍵，並從「drawable-v24」資料夾拖曳至「drawable-anydpi-v26」資料夾。</p>
+</li>
+<li><p>如果 <code>drawable-v24</code> 資料夾目前沒有任何內容，請刪除該資料夾。接著在該資料夾上按一下滑鼠右鍵，然後選取「Delete」。</p>
+</li>
+<li><p>點閱專案中的所有 <code>drawable</code> 和 <code>mipmap</code> 檔案，確定這些圖示的預覽畫面正確無誤。</p>
+</li>
+</ol>
+<h5 id="測試應用程式"><a href="#測試應用程式" class="headerlink" title="測試應用程式"></a>測試應用程式</h5><ol>
+<li>測試新的應用程式圖示是否會顯示。在你的裝置 (模擬器或實體裝置) 上執行應用程式。</li>
+<li>按下裝置的主畫面按鈕。</li>
+<li>向上滑動即可顯示「所有應用程式」清單。</li>
+<li>尋找你剛才更新的應用程式。畫面中應會顯示新的應用程式圖示。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/a0173e1403278227_1920.png?hl=zh-tw" width="15%" height="15%">
+
+<p>注意：視裝置型號而定，您可能會看到不同形狀的啟動器圖示。儘管如此，您的前景圖層應會顯示於背景圖層上方，且已套用某種類型的遮罩。</p>
+<h5 id="自動調整及舊版啟動器圖示"><a href="#自動調整及舊版啟動器圖示" class="headerlink" title="自動調整及舊版啟動器圖示"></a>自動調整及舊版啟動器圖示</h5><p>現在，自動調整圖示可以正常運作，您可能會好奇，為什麼無法刪除所有應用程式圖示的點陣圖圖片。您仍然需要這些檔案，才能讓應用程式在舊版 Android 裝置上呈現高品質圖示，這也就是所謂的回溯相容性。</p>
+<p>在執行 Android 8.0 以上版本 (API 版本 26 以上版本) 的裝置上：</p>
+<p>您可以使用<strong>自動調整圖示</strong> (前景向量可繪項目、背景向量可繪項目以及在上方套用 OEM 遮罩的組合)。專案中的相關檔案如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">res/drawable-anydpi-v26/ic_launcher_background.xml</span><br><span class="line">res/drawable-anydpi-v26/ic_launcher_foreground.xml</span><br><span class="line">res/mipmap-anydpi-v26/ic_launcher.xml</span><br><span class="line">res/mipmap-anydpi-v26/ic_launcher_round.xml</span><br></pre></td></tr></table></figure>
+
+<p>在執行 Android 8.0 以下版本的裝置上 (但高於應用程式最低 API 級別要求)：<br>系統會使用舊版啟動器圖示 (不同密度級別 mipmap 資料夾中的點陣圖圖片)。專案中的相關檔案如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">res/mipmap-mdpi/ic_launcher.png</span><br><span class="line">res/mipmap-mdpi/ic_launcher_round.png</span><br><span class="line">res/mipmap-hdpi/ic_launcher.png</span><br><span class="line">res/mipmap-hdpi/ic_launcher_round.png</span><br><span class="line">res/mipmap-xhdpi/ic_launcher.png</span><br><span class="line">res/mipmap-xhdpi/ic_launcher_round.png</span><br><span class="line">res/mipmap-xxdpi/ic_launcher.png</span><br><span class="line">res/mipmap-xxdpi/ic_launcher_round.png</span><br><span class="line">res/mipmap-xxxdpi/ic_launcher.png</span><br><span class="line">res/mipmap-xxxdpi/ic_launcher_round.png</span><br></pre></td></tr></table></figure>
+
+<p>基本上，Android 在較舊裝置上會退改用點陣圖圖片，且不支援自動調整圖示。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+              <a href="/tags/Material-Design/" rel="tag"># Material Design</a>
+              <a href="/tags/App-Icon/" rel="tag"># App Icon</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/16/Android%E7%AD%86%E8%A8%98-12-%E6%9B%B4%E6%94%B9%E6%87%89%E7%94%A8%E4%B8%BB%E9%A1%8C/" rel="prev" title="Android筆記(12)-更改應用主題">
+      <i class="fa fa-chevron-left"></i> Android筆記(12)-更改應用主題
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E5%9C%96%E7%A4%BA-App-Icons-%E7%B0%A1%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">應用程式圖示(App Icons)簡介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%95%9F%E5%8B%95%E5%99%A8%E5%9C%96%E7%A4%BA-Launcher-Icons"><span class="nav-number">2.</span> <span class="nav-text">啟動器圖示(Launcher Icons)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E5%95%9F%E5%8B%95%E5%99%A8%E5%9C%96%E7%A4%BA%E6%AA%94%E6%A1%88"><span class="nav-number">2.1.</span> <span class="nav-text">探索啟動器圖示檔案</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8B%95%E8%AA%BF%E6%95%B4%E5%9C%96%E7%A4%BA"><span class="nav-number">3.</span> <span class="nav-text">自動調整圖示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%8D%E6%99%AF%E8%88%87%E8%83%8C%E6%99%AF%E5%9C%96%E5%B1%A4"><span class="nav-number">3.1.</span> <span class="nav-text">前景與背景圖層</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E8%87%AA%E5%8B%95%E8%AA%BF%E6%95%B4%E5%9C%96%E7%A4%BA%E6%AA%94%E6%A1%88"><span class="nav-number">3.2.</span> <span class="nav-text">探索自動調整圖示檔案</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E6%96%B0%E7%B4%A0%E6%9D%90%E8%B3%87%E6%BA%90"><span class="nav-number">4.</span> <span class="nav-text">下載新素材資源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E5%9C%96%E7%A4%BA"><span class="nav-number">5.</span> <span class="nav-text">變更應用程式圖示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%87%E5%90%91%E9%87%8F%E5%8F%AF%E7%B9%AA%E9%A0%85%E7%9B%AE%E6%AA%94%E6%A1%88%E7%A7%BB%E5%88%B0-v26-%E7%9B%AE%E9%8C%84"><span class="nav-number">5.1.</span> <span class="nav-text">將向量可繪項目檔案移到 -v26 目錄</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">5.2.</span> <span class="nav-text">測試應用程式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E5%8B%95%E8%AA%BF%E6%95%B4%E5%8F%8A%E8%88%8A%E7%89%88%E5%95%9F%E5%8B%95%E5%99%A8%E5%9C%96%E7%A4%BA"><span class="nav-number">5.3.</span> <span class="nav-text">自動調整及舊版啟動器圖示</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tina Tang"
+      src="/images/profile_photo.png">
+  <p class="site-author-name" itemprop="name">Tina Tang</p>
+  <div class="site-description" itemprop="description">^(-o-)></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linglingdr00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linglingdr00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tinatang0424@gmail.com" title="E-Mail → mailto:tinatang0424@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tina Tang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

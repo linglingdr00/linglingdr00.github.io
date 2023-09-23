@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo2.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在先前的程式碼研究室中，您已學會如何建立及執行單元測試(Unit Test)，本程式碼研究室著重於檢測設備測試(Instrumentation Test)。  學習目標  檢測設備測試(Instrumentation Test)的樣貌。 如何執行檢測設備測試(Instrumentation Test)。 如何撰寫檢測設備測試(Instrumentation Test)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android筆記(15)-編寫檢測設備測試">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/09/23/Android%E7%AD%86%E8%A8%98-15-%E7%B7%A8%E5%AF%AB%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6/index.html">
+<meta property="og:site_name" content="Tina Tang&#39;s Blog">
+<meta property="og:description" content="在先前的程式碼研究室中，您已學會如何建立及執行單元測試(Unit Test)，本程式碼研究室著重於檢測設備測試(Instrumentation Test)。  學習目標  檢測設備測試(Instrumentation Test)的樣貌。 如何執行檢測設備測試(Instrumentation Test)。 如何撰寫檢測設備測試(Instrumentation Test)。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/ztAXhLI.png">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/73b014c84f89b0f0_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/c4b99c44611ae609_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/5f6643d80a7ef0f8_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/8f8a590b7bdc01b3_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/26ff162c120e18d1_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/a113fb63b50f7674_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/Pt0hv4o.gif">
+<meta property="article:published_time" content="2023-09-23T05:18:32.000Z">
+<meta property="article:modified_time" content="2023-09-23T07:39:40.704Z">
+<meta property="article:author" content="Tina Tang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
+<meta property="article:tag" content="Instrumentation Test">
+<meta property="article:tag" content="Automated Testing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/ztAXhLI.png">
+
+<link rel="canonical" href="https://linglingdr00.github.io/2023/09/23/Android%E7%AD%86%E8%A8%98-15-%E7%B7%A8%E5%AF%AB%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Android筆記(15)-編寫檢測設備測試 | Tina Tang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tina Tang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/09/23/Android%E7%AD%86%E8%A8%98-15-%E7%B7%A8%E5%AF%AB%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android筆記(15)-編寫檢測設備測試
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-09-23 13:18:32 / Modified: 15:39:40" itemprop="dateCreated datePublished" datetime="2023-09-23T13:18:32+08:00">2023-09-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">版面配置</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>在先前的程式碼研究室中，您已學會如何建立及執行<code>單元測試(Unit Test)</code>，本程式碼研究室著重於<code>檢測設備測試(Instrumentation Test)</code>。</p>
+</blockquote>
+<p><strong>學習目標</strong></p>
+<ul>
+<li><code>檢測設備測試(Instrumentation Test)</code>的樣貌。</li>
+<li>如何執行<code>檢測設備測試(Instrumentation Test)</code>。</li>
+<li>如何撰寫<code>檢測設備測試(Instrumentation Test)</code>。</li>
+</ul>
+<span id="more"></span>
+
+<hr>
+<h4 id="下載本程式碼研究室的範例程式碼"><a href="#下載本程式碼研究室的範例程式碼" class="headerlink" title="下載本程式碼研究室的範例程式碼"></a>下載本程式碼研究室的範例程式碼</h4><p>在本程式碼研究室中，您將使用 <code>Tip Time</code> 應用程式進行檢測設備測試。</p>
+<div class="note no-icon success">
+            <p><strong>範例程式碼網址：</strong><br><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-tip-compute-app-solutions">https://github.com/google-developer-training/android-basics-kotlin-tip-compute-app-solutions</a></p><p><strong>含有範例程式碼的模組名稱：</strong> <code>main</code></p>
+          </div>
+
+<hr>
+<h4 id="範例應用程式總覽"><a href="#範例應用程式總覽" class="headerlink" title="範例應用程式總覽"></a>範例應用程式總覽</h4><ol>
+<li>開啟 <code>Tip Time</code> 應用程式。</li>
+<li><code>Tip Time</code> 應用程式有一個畫面，會顯示供使用者輸入<strong>帳單金額的文字輸入方塊</strong>、<strong>選取小費百分比的圓形按鈕</strong>，以及<strong>計算小費的按鈕</strong>。</li>
+</ol>
+<img src="https://i.imgur.com/ztAXhLI.png" width="30%" height="30%">
+
+<hr>
+<h4 id="建立檢測設備測試目錄"><a href="#建立檢測設備測試目錄" class="headerlink" title="建立檢測設備測試目錄"></a>建立檢測設備測試目錄</h4><p>本程式碼研究室的範例程式碼可以正常運作，但缺少測試和測試目錄。我們必須先新增目錄，之後再撰寫任何類型的測試，才能進行檢測設備測試。下載範例程式碼後，請按照下列步驟新增檢測設備測試的類別。</p>
+<div class="note no-icon success">
+            <p>注意： 建立新專案時會自動產生這些測試目錄。</p>
+          </div>
+
+<ol>
+<li>最簡單的做法是先從「Android」檢視畫面切換至「Project」檢視畫面。在左上方的專案窗格中，按一下「Android」下拉式選單，然後選取「Project」(專案)。</li>
+<li>按一下第一個下拉式選單，然後依序點選「app」-&gt;「src」。</li>
+<li>用滑鼠右鍵按一下「src」，然後選取「New」-&gt;「Directory」。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/73b014c84f89b0f0_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<ol start="4">
+<li>選取「androidTest&#x2F;java」。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/c4b99c44611ae609_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<ol start="5">
+<li>現在會在專案結構中看到「src」-&gt;「androidTest」目錄。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/5f6643d80a7ef0f8_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<ol start="6">
+<li>用滑鼠右鍵按一下「java」目錄，然後依序選取「New」-&gt;「Package」。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/8f8a590b7bdc01b3_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<ol start="7">
+<li><p>在視窗中輸入<code>com.example.tiptime</code>，然後按下 Return 鍵。</p>
+</li>
+<li><p>最後，用滑鼠右鍵按一下「com.example.tiptime」，然後依序選取「New」-&gt;「Kotlin Class&#x2F;File」。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/26ff162c120e18d1_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<ol start="9">
+<li>在出現的視窗中輸入 <code>CalculatorTests</code>，然後從下拉式選單中選取「Class」，並按下 Return 鍵。</li>
+</ol>
+<hr>
+<h4 id="撰寫第一個檢測設備測試"><a href="#撰寫第一個檢測設備測試" class="headerlink" title="撰寫第一個檢測設備測試"></a>撰寫第一個檢測設備測試</h4><p>現在請撰寫檢測設備測試。請按照下列步驟測試 20% 小費的功能。</p>
+<ol>
+<li>開啟您剛剛建立的檔案，該程式碼會看起來像這樣：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.tiptime</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CalculatorTests</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>檢測設備測試需要用到 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/test/InstrumentationTestRunner">InstrumentationTestRunner</a>，才能在裝置或模擬器上執行測試。有其他數個檢測執行工具，但在這個測試中，我們將使用 <code>AndroidJUnit4</code> 測試執行工具。如要指定測試執行工具，我們必須使用以下項目為類別加上註解：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(AndroidJUnit4::class)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CalculatorTests</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>Tip Time</strong> 應用程式是由單一活動 <code>MainActivity</code> 組成。若要與活動互動，您必須先啟動測試案例(Test Case)。在 <code>CalculatorTests</code> 類別中加入以下內容。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@get:Rule</span>()</span><br><span class="line"><span class="keyword">val</span> activity = ActivityScenarioRule(MainActivity::<span class="keyword">class</span>.java)</span><br></pre></td></tr></table></figure>
+
+<p><code>ActivityScenarioRule</code> 來自 <code>AndroidX</code> 測試程式庫。並指示裝置啟動開發人員指定的活動。您需要使用 <code>@get:Rule</code> 加上註解，指定應在各項測試之前於類別中執行後續規則。在本例中，該規則為啟動活動。測試規則是測試所需的基本工具，最終，您也會學到如何自行撰寫。</p>
+<ol start="4">
+<li>接下來，您需要撰寫測試邏輯本身。建立函式並呼叫 <code>calculate_20_percent_tip()</code>，並透過 <code>@Test</code> 註解加上註解。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">calculate_20_percent_tip</span><span class="params">()</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Espresso"><a href="#Espresso" class="headerlink" title="Espresso"></a>Espresso</h5><p>本課程主要使用 <code>Espresso</code> 進行檢測設備測試。<code>Espresso</code> 是一種程式庫，可供您在用 Android Studio 建立 Android 專案時立即使用，並可讓您透過程式碼與 UI 元件互動。</p>
+<p>此刻，您可能已注意到 Android Studio 提供許多自動完成功能。使用 <code>Espresso</code> 的一大挑戰，就是如果尚未匯入程式庫，系統便無法自動完成方法。所以，如果您未研究說明文件，您會很難在 <code>Espresso</code> 中瀏覽可用方法。在這些課程中，我們將提供完成測試所需的方法。</p>
+<p>首先，您必須撰寫程式碼，才能在「Cost of Service」輸入文字檢視區塊中輸入帳單金額。依序前往「app」-&gt;「src」-&gt;「main」-&gt;「res」-&gt;「layout」-&gt;「activity_main.xml」，指示 <code>TextInputEditText</code> 的 ID 為 <code>cost_of_service_edit_text</code>。複製 ID 名稱，稍後將用於測試。</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/a113fb63b50f7674_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<h5 id="實作測試函式"><a href="#實作測試函式" class="headerlink" title="實作測試函式"></a>實作測試函式</h5><p>您現在可以在測試類別的 <code>calculate_20_percent_tip()</code> 函式中撰寫測試邏輯。</p>
+<ol>
+<li>首先，請使用 <code>onView()</code> 函式尋找可互動的使用者介面元件 (在此案例中為 <code>TextInputEditText</code>)。<code>onView()</code> 函式採用 <code>ViewMatcher</code> 物件參數。<code>ViewMatcher</code> 基本上是符合特定條件的 UI 元件，在此例中則是具有 <code>R.id.cost_of_service_edit_text</code> ID 的元件。</li>
+</ol>
+<p>函式 <code>withId()</code> 會傳回 <code>ViewMatcher</code>，這是 ID 傳遞至其的使用者介面元件。<code>onView()</code> 會傳回 <code>ViewInteraction</code>，我們可以與該物件互動，就像在操控裝置一樣。若要輸入文字，請在 <code>ViewInteraction</code> 上呼叫 <code>perform()</code>。然後，<code>perform()</code> 會採用 <code>ViewAction</code> 物件。有許多方法會傳回 <code>ViewAction</code>，但現在我們正在使用 <code>typeText()</code> 方法。在 <code>activity_main.xml</code> 中，可以看到預設的小費選項為 20%，因此目前您不必指定要選取的小費選項。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onView(withId(R.id.cost_of_service_edit_text))</span><br><span class="line">    .perform(typeText(<span class="string">&quot;50.00&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<div class="note no-icon success">
+            <p><strong>注意：</strong> 在較小的裝置上，因上一個步驟需輸入文字而開啟的鍵盤可能會擋住按鈕。如果您使用較小的裝置，可以將此方法鏈結至上述指示，藉此關閉鍵盤：</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.perform(ViewActions.closeSoftKeyboard())</span><br></pre></td></tr></table></figure>
+          </div>
+
+<ol start="2">
+<li>現在按一下「Calculate」(計算) 按鈕進行測試。此程式碼的格式類似於我們用來輸入文字的格式。使用者介面元件並不相同，因此傳遞至 <code>withId()</code> 函式的 ID 名稱會不同。但在方法中的唯一差別是，<code>ViewAction</code> 不同；會以 <code>click()</code> 函式取代 <code>typeText()</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onView(withId(R.id.calculate_button))</span><br><span class="line">    .perform(click())</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>最後，您必須宣告顯示正確的小費。我們預計小費為 $10.00。在這項測試中，請確認 ID 為 <code>tip_result</code> 的 <code>TextView</code> 包含字串形式的預期小費值。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onView(withId(R.id.tip_result))</span><br><span class="line">    .check(matches(withText(containsString(<span class="string">&quot;$10.00&quot;</span>))))</span><br></pre></td></tr></table></figure>
+
+<p>當系統顯示提示時，請選取下列匯入：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> androidx.test.espresso.assertion.ViewAssertions.matches</span><br><span class="line"><span class="keyword">import</span> org.hamcrest.Matchers.containsString</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，您使用名為 <code>check()</code> 的不同互動，採用 <code>ViewAssertion</code>。您可以將 <code>ViewAssertion</code> 視為 UI 元件使用的特殊 <code>Espresso</code> 斷言。斷言是指 <code>TextView</code> 的內容與包含 “$10.00” 字串的文字相符。</p>
+<p>執行測試前，請確認匯入內容和程式碼正確無誤，看起來應如下所示 (匯入順序不同並無影響)：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.tiptime</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.Espresso.onView</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.action.ViewActions.click</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.action.ViewActions.typeText</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.assertion.ViewAssertions.matches</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.matcher.ViewMatchers.withId</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.matcher.ViewMatchers.withText</span><br><span class="line"><span class="keyword">import</span> androidx.test.ext.junit.rules.ActivityScenarioRule</span><br><span class="line"><span class="keyword">import</span> androidx.test.ext.junit.runners.AndroidJUnit4</span><br><span class="line"><span class="keyword">import</span> org.hamcrest.Matchers.containsString</span><br><span class="line"><span class="keyword">import</span> org.junit.Rule</span><br><span class="line"><span class="keyword">import</span> org.junit.Test</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith(AndroidJUnit4::class)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CalculatorTests</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@get:Rule</span>()</span><br><span class="line">   <span class="keyword">val</span> activity = ActivityScenarioRule(MainActivity::<span class="keyword">class</span>.java)</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">fun</span> <span class="title">calculate_20_percent_tip</span><span class="params">()</span></span> &#123;</span><br><span class="line">       onView(withId(R.id.cost_of_service_edit_text))</span><br><span class="line">           .perform(typeText(<span class="string">&quot;50.00&quot;</span>))</span><br><span class="line"></span><br><span class="line">       onView(withId(R.id.calculate_button)).perform(click())</span><br><span class="line"></span><br><span class="line">       onView(withId(R.id.tip_result))</span><br><span class="line">           .check(matches(withText(containsString(<span class="string">&quot;$10.00&quot;</span>))))</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果您正在使用模擬器，請務必同時查看模擬器和 Android Studio 的視窗。請以執行單元測試的相同做法執行單元測試，也就是用滑鼠右鍵按一下函式左邊的紅色&#x2F;綠色箭頭按鈕，然後選取第一個選項。看看會發生什麼事吧！</p>
+<img src="https://i.imgur.com/Pt0hv4o.gif" width="30%" height="30%">
+
+<hr>
+<h4 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h4><ul>
+<li>Android Studio 會在建立專案時產生必要的測試類別。不過，如果您的專案沒有這些類別，您可以手動建立。</li>
+<li>測試規則會在每次在測試類別中進行測試之前執行。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/training/testing/espresso/basics"><code>Espresso</code></a> 是檢測設備測試的基本元件，使得使用程式碼就能與使用者介面元件互動。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+              <a href="/tags/Instrumentation-Test/" rel="tag"># Instrumentation Test</a>
+              <a href="/tags/Automated-Testing/" rel="tag"># Automated Testing</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/22/Android%E7%AD%86%E8%A8%98-19-%E6%B8%AC%E8%A9%A6Lists%E5%92%8CAdapters/" rel="prev" title="Android筆記(19)-測試Lists和Adapters">
+      <i class="fa fa-chevron-left"></i> Android筆記(19)-測試Lists和Adapters
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E6%9C%AC%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%A0%94%E7%A9%B6%E5%AE%A4%E7%9A%84%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.</span> <span class="nav-text">下載本程式碼研究室的範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">2.</span> <span class="nav-text">範例應用程式總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6%E7%9B%AE%E9%8C%84"><span class="nav-number">3.</span> <span class="nav-text">建立檢測設備測試目錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%92%B0%E5%AF%AB%E7%AC%AC%E4%B8%80%E5%80%8B%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6"><span class="nav-number">4.</span> <span class="nav-text">撰寫第一個檢測設備測試</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Espresso"><span class="nav-number">4.1.</span> <span class="nav-text">Espresso</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E6%B8%AC%E8%A9%A6%E5%87%BD%E5%BC%8F"><span class="nav-number">4.2.</span> <span class="nav-text">實作測試函式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">5.</span> <span class="nav-text">總結</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tina Tang"
+      src="/images/profile_photo.png">
+  <p class="site-author-name" itemprop="name">Tina Tang</p>
+  <div class="site-description" itemprop="description">^(-o-)></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linglingdr00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linglingdr00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tinatang0424@gmail.com" title="E-Mail → mailto:tinatang0424@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tina Tang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

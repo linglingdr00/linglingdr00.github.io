@@ -22,8 +22,8 @@
 
   <meta name="description" content="建構 Affirmations 應用程式，並使用 RecyclerView 在可捲動的 List 中顯示 10 個正面肯定的文字。    學習目標  如何使用 RecyclerView 顯示資料 List。 如何將程式碼編排到對應的套件中 如何與 RecyclerView 搭配使用適配器(adapter)來自訂個別 List 項目的外觀。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android筆記(16)-使用RecyclerView顯示可捲動的List">
-<meta property="og:url" content="https://linglingdr00.github.io/2023/09/21/Android%E7%AD%86%E8%A8%98-16-%E4%BD%BF%E7%94%A8RecyclerView%E9%A1%AF%E7%A4%BA%E5%8F%AF%E6%8D%B2%E5%8B%95%E7%9A%84List/index.html">
+<meta property="og:title" content="Android筆記(17)-使用RecyclerView顯示可捲動的List">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/09/21/Android%E7%AD%86%E8%A8%98-17-%E4%BD%BF%E7%94%A8RecyclerView%E9%A1%AF%E7%A4%BA%E5%8F%AF%E6%8D%B2%E5%8B%95%E7%9A%84List/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
 <meta property="og:description" content="建構 Affirmations 應用程式，並使用 RecyclerView 在可捲動的 List 中顯示 10 個正面肯定的文字。    學習目標  如何使用 RecyclerView 顯示資料 List。 如何將程式碼編排到對應的套件中 如何與 RecyclerView 搭配使用適配器(adapter)來自訂個別 List 項目的外觀。">
 <meta property="og:locale" content="zh_TW">
@@ -39,16 +39,17 @@
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-recyclerview-scrollable-list/img/7a8a383a8633094b_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://i.imgur.com/uaeNGzD.png">
 <meta property="article:published_time" content="2023-09-21T03:27:00.000Z">
-<meta property="article:modified_time" content="2023-09-21T13:11:55.636Z">
+<meta property="article:modified_time" content="2023-09-23T05:19:00.482Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
 <meta property="article:tag" content="List">
 <meta property="article:tag" content="RecyclerView">
+<meta property="article:tag" content="Adapter">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-recyclerview-scrollable-list/img/cf10a913f9db0ee4_1920.png?hl=zh-tw">
 
-<link rel="canonical" href="https://linglingdr00.github.io/2023/09/21/Android%E7%AD%86%E8%A8%98-16-%E4%BD%BF%E7%94%A8RecyclerView%E9%A1%AF%E7%A4%BA%E5%8F%AF%E6%8D%B2%E5%8B%95%E7%9A%84List/">
+<link rel="canonical" href="https://linglingdr00.github.io/2023/09/21/Android%E7%AD%86%E8%A8%98-17-%E4%BD%BF%E7%94%A8RecyclerView%E9%A1%AF%E7%A4%BA%E5%8F%AF%E6%8D%B2%E5%8B%95%E7%9A%84List/">
 
 
 <script id="page-configurations">
@@ -61,7 +62,7 @@
   };
 </script>
 
-  <title>Android筆記(16)-使用RecyclerView顯示可捲動的List | Tina Tang's Blog</title>
+  <title>Android筆記(17)-使用RecyclerView顯示可捲動的List | Tina Tang's Blog</title>
   
 
 
@@ -182,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/09/21/Android%E7%AD%86%E8%A8%98-16-%E4%BD%BF%E7%94%A8RecyclerView%E9%A1%AF%E7%A4%BA%E5%8F%AF%E6%8D%B2%E5%8B%95%E7%9A%84List/">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/09/21/Android%E7%AD%86%E8%A8%98-17-%E4%BD%BF%E7%94%A8RecyclerView%E9%A1%AF%E7%A4%BA%E5%8F%AF%E6%8D%B2%E5%8B%95%E7%9A%84List/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/profile_photo.png">
@@ -195,7 +196,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android筆記(16)-使用RecyclerView顯示可捲動的List
+          Android筆記(17)-使用RecyclerView顯示可捲動的List
         </h1>
 
         <div class="post-meta">
@@ -204,10 +205,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-09-21 11:27:00 / Modified: 21:11:55" itemprop="dateCreated datePublished" datetime="2023-09-21T11:27:00+08:00">2023-09-21</time>
+              <time title="Created: 2023-09-21 11:27:00" itemprop="dateCreated datePublished" datetime="2023-09-21T11:27:00+08:00">2023-09-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-23 13:19:00" itemprop="dateModified" datetime="2023-09-23T13:19:00+08:00">2023-09-23</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -652,6 +659,7 @@
               <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
               <a href="/tags/List/" rel="tag"># List</a>
               <a href="/tags/RecyclerView/" rel="tag"># RecyclerView</a>
+              <a href="/tags/Adapter/" rel="tag"># Adapter</a>
           </div>
 
         
@@ -660,12 +668,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/09/20/Android%E7%AD%86%E8%A8%98-15-%E5%9C%A8Kotlin%E4%B8%AD%E4%BD%BF%E7%94%A8List/" rel="prev" title="Android筆記(15)-在Kotlin中使用List">
-      <i class="fa fa-chevron-left"></i> Android筆記(15)-在Kotlin中使用List
+    <a href="/2023/09/20/Android%E7%AD%86%E8%A8%98-16-%E5%9C%A8Kotlin%E4%B8%AD%E4%BD%BF%E7%94%A8List/" rel="prev" title="Android筆記(16)-在Kotlin中使用List">
+      <i class="fa fa-chevron-left"></i> Android筆記(16)-在Kotlin中使用List
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/09/22/Android%E7%AD%86%E8%A8%98-17-%E4%BD%BF%E7%94%A8Cards%E9%A1%AF%E7%A4%BA%E5%9C%96%E5%83%8FList/" rel="next" title="Android筆記(17)-使用Cards顯示圖像List">
-      Android筆記(17)-使用Cards顯示圖像List <i class="fa fa-chevron-right"></i>
+    <a href="/2023/09/22/Android%E7%AD%86%E8%A8%98-18-%E4%BD%BF%E7%94%A8Cards%E9%A1%AF%E7%A4%BA%E5%9C%96%E5%83%8FList/" rel="next" title="Android筆記(18)-使用Cards顯示圖像List">
+      Android筆記(18)-使用Cards顯示圖像List <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -741,7 +749,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -754,7 +762,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

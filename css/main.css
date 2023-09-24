@@ -177,7 +177,7 @@ body {
 body {
   background: var(--body-bg-color);
   color: var(--text-color);
-  font-family: 'Noto Serif SC', "Noto Serif SC", sans-serif;
+  font-family: 'Shippori Mincho', "Noto Serif TC", sans-serif;
   font-size: 1em;
   line-height: 2;
 }
@@ -193,7 +193,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Noto Serif SC', "Noto Serif SC", sans-serif;
+  font-family: 'Shippori Mincho', "Noto Serif TC", sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 20px 0 15px;
@@ -391,7 +391,7 @@ pre {
 }
 pre,
 code {
-  font-family: consolas, Menlo, monospace, "Noto Serif SC";
+  font-family: 'Inconsolata', consolas, Menlo, monospace, "Noto Serif TC";
 }
 code {
   background: #eee;
@@ -985,7 +985,7 @@ pre .javascript .function {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: 'Noto Serif SC', "Noto Serif SC", sans-serif;
+  font-family: 'Shippori Mincho', "Noto Serif TC", sans-serif;
   font-size: 1.375em;
   font-weight: normal;
   margin: 0;
@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f1ffba;
+  background: #25953c;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1514,7 +1514,7 @@ pre .javascript .function {
   }
 }
 .post-body {
-  font-family: 'Noto Serif SC', "Noto Serif SC", sans-serif;
+  font-family: 'Shippori Mincho', "Noto Serif TC", sans-serif;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -1812,7 +1812,7 @@ pre .javascript .function {
 }
 .posts-expand .post-meta {
   color: #999;
-  font-family: 'Noto Serif SC', "Noto Serif SC", sans-serif;
+  font-family: 'Shippori Mincho', "Noto Serif TC", sans-serif;
   font-size: 0.75em;
   margin: 3px 0 60px 0;
   text-align: center;
@@ -2456,4 +2456,7 @@ body {
 :root {
 /*--content-bg-color:#ffffffe6;*/
   --content-bg-color: rgba(255,255,255,0.9);
+}
+.posts-expand .post-title {
+  font-weight: bold;
 }

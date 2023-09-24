@@ -1,31 +1,41 @@
+/*
 img[src$="#avatar"] {
     border: 3px solid #ffffffcb;
     border-radius: 50%;
-    width: 150px;
+    width: 130px;
     transition: box-shadow 2s;
+    box-shadow: 0 0 10px;
+    margin-bottom: 0px;
   }
-
-table {
-  border: 0px;
-}
+*/
 
 /*雙向*/
 img[src$="#logo"] {
-    border-radius: 20%;
-    width: 130px;
-    transition: box-shadow 2s;
-  }
+  border-radius: 20%;
+  width: 120px;
+  /*transition: box-shadow 2s;*/
+  margin-bottom: 0px;
+  box-shadow: 0 0 10px;
+}
 
-img[src]:hover { /*觸發事件為hover*/
-    box-shadow: 0 0 10px;
-  }
+/*觸發事件為hover*/
+img[src]:hover { 
+  box-shadow: 0 0 10px;
+}
 
-td {
-    border-width: 0px;
-    border-bottom-color: transparent;
-  }
+.parent {   
+  display: flex;
+  /* 水平置中 */
+  justify-content: left;    
+  /* 垂直置中 */
+  align-items: center;
+  margin-bottom: 20px;        
+}
 
-td:has(>img) {
-    padding-top: 5%;
-    padding-left: 5%;
-  }
+.child1 {
+  margin-top: 1%;
+}
+
+.child2 {
+  margin-left: 5%;
+}

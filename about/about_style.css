@@ -9,14 +9,15 @@ img[src$="#avatar"] {
   }
 */
 
-/*雙向*/
+/*
 img[src$="#logo"] {
   border-radius: 20%;
   width: 120px;
-  /*transition: box-shadow 2s;*/
+  transition: box-shadow 2s;
   margin-bottom: 0px;
   box-shadow: 0 0 10px;
 }
+*/
 
 /*觸發事件為hover*/
 /*

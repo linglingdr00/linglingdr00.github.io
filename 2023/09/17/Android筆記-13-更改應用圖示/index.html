@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
 <link rel="preconnect" href="https://fonts.loli.net">
@@ -55,12 +55,12 @@
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/14b170ecd615cdca_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/a0173e1403278227_1920.png?hl=zh-tw">
 <meta property="article:published_time" content="2023-09-17T13:02:51.000Z">
-<meta property="article:modified_time" content="2023-09-18T06:56:13.784Z">
+<meta property="article:modified_time" content="2023-09-26T06:58:10.957Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
-<meta property="article:tag" content="Material Design">
 <meta property="article:tag" content="App Icon">
+<meta property="article:tag" content="Material Design">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/491033b9aaa5d6bb_1920.png?hl=zh-tw">
 
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-18 14:56:13" itemprop="dateModified" datetime="2023-09-18T14:56:13+08:00">2023-09-18</time>
+                <time title="Modified: 2023-09-26 14:58:10" itemprop="dateModified" datetime="2023-09-26T14:58:10+08:00">2023-09-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -314,7 +314,7 @@
 <p>如您所見，這些點陣圖圖片檔是由固定的像素格線組成，是針對特定螢幕解析度而建立的。因此，如果您調整其大小，畫質可能會降低。</p>
 <p>如果你縮小點陣圖圖片，由於您去除像素資訊，因此應該沒問題。如果您大幅放大點陣圖圖片，由於 Android 需要推測並填入缺少的像素資訊，因此圖片會顯得模糊不清。</p>
 <div class="note no-icon success">
-            <p><strong>注意：</strong>為了避免應用程式圖示模糊不清，請務必為每個密度級別 (例如 <font color="#303f9f">mdpi</font>、<font color="#303f9f">hdpi</font>、<font color="#303f9f">xhdpi</font> 等) 提供不同的應用程式圖示點陣圖圖片。請注意，裝置螢幕密度未必剛好是 160dpi、240dpi、320dpi 等等…Android 會根據目前螢幕的密度，按最接近的密度級別選取資源，然後再將其縮小。</p>
+            <p><strong>注意：</strong>為了避免應用程式圖示模糊不清，請務必為每個密度級別 (例如 <b>mdpi</b>、<b>hdpi</b>、<b>xhdpi</b> 等) 提供不同的應用程式圖示點陣圖圖片。請注意，裝置螢幕密度未必剛好是 160dpi、240dpi、320dpi 等等…Android 會根據目前螢幕的密度，按最接近的密度級別選取資源，然後再將其縮小。</p>
           </div>
 
 <h4 id="自動調整圖示"><a href="#自動調整圖示" class="headerlink" title="自動調整圖示"></a>自動調整圖示</h4><h5 id="前景與背景圖層"><a href="#前景與背景圖層" class="headerlink" title="前景與背景圖層"></a>前景與背景圖層</h5><p>自 <a target="_blank" rel="noopener" href="https://developer.android.com/about/versions/oreo">Android 8.0 版本</a> (API 級別 26) 起，系統便支援自動調整啟動器圖示，能讓應用程式圖示更加靈活，也能呈現出有趣的視覺效果。對開發人員來說，這表示應用程式圖示是由前景和背景這兩個圖層組成。</p>
@@ -328,7 +328,7 @@
 <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-icon/img/46626096e5e73515_1920.png?hl=zh-tw" width="30%" height="30%">
 
 <div class="note no-icon success">
-            <p><strong>注意：</strong>自動調整圖示新增到平台的 API 級別 26，因此自動調整圖示應是在具有 <font color="#303f9f">-v26</font> 資源限定詞的 <font color="#303f9f">mipmap</font> 資源目錄中宣告。這表示此目錄中的資源僅適用於執行 API 26 (Android 8.0) 以上版本的裝置。執行舊版平台的裝置會忽略此目錄中的資源檔案。</p>
+            <p><strong>注意：</strong>自動調整圖示新增到平台的 API 級別 26，因此自動調整圖示應是在具有 <b>-v26</b> 資源限定詞的 <b>mipmap</b> 資源目錄中宣告。這表示此目錄中的資源僅適用於執行 API 26 (Android 8.0) 以上版本的裝置。執行舊版平台的裝置會忽略此目錄中的資源檔案。</p>
           </div>
 
 <ol start="2">
@@ -497,8 +497,8 @@
           <div class="post-tags">
               <a href="/tags/Android/" rel="tag"># Android</a>
               <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
-              <a href="/tags/Material-Design/" rel="tag"># Material Design</a>
               <a href="/tags/App-Icon/" rel="tag"># App Icon</a>
+              <a href="/tags/Material-Design/" rel="tag"># Material Design</a>
           </div>
 
         

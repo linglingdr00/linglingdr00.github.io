@@ -23,12 +23,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="簡介您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！ 測試的重要性 當應用程式逐漸成長，進行手動測試會比編寫自動測試花費更多精力。 開始建構專業級的應用程式時，如果使用者數量龐大，測試也會變得十分重要。 必須考到許多不同">
+  <meta name="description" content="您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！  測試的重要性 當應用程式逐漸成長，進行手動測試會比編寫自動測試花費更多精力。 開始建構專業級的應用程式時，如果使用者數量龐大，測試也會變得十分重要。 必須考到許多不同">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(6)-編寫單元測試">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/08/23/Android%E7%AD%86%E8%A8%98-6-%E7%B7%A8%E5%AF%AB%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="簡介您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！ 測試的重要性 當應用程式逐漸成長，進行手動測試會比編寫自動測試花費更多精力。 開始建構專業級的應用程式時，如果使用者數量龐大，測試也會變得十分重要。 必須考到許多不同">
+<meta property="og:description" content="您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！  測試的重要性 當應用程式逐漸成長，進行手動測試會比編寫自動測試花費更多精力。 開始建構專業級的應用程式時，如果使用者數量龐大，測試也會變得十分重要。 必須考到許多不同">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/f02b380da4e8f661_1920.png?authuser=2&hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/78c943e851a33644_1920.png?authuser=2&hl=zh-tw">
@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/5dbfba2ba0e37ac9_1920.png?authuser=2&hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/865cf0ac47738e08_1920.png?authuser=2&hl=zh-tw">
 <meta property="article:published_time" content="2023-08-23T04:35:39.000Z">
-<meta property="article:modified_time" content="2023-09-23T07:39:45.211Z">
+<meta property="article:modified_time" content="2023-09-26T11:56:56.521Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
@@ -215,7 +215,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-23 15:39:45" itemprop="dateModified" datetime="2023-09-23T15:39:45+08:00">2023-09-23</time>
+                <time title="Modified: 2023-09-26 19:56:56" itemprop="dateModified" datetime="2023-09-26T19:56:56+08:00">2023-09-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,7 +242,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h3><p>您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！</p>
+        <blockquote>
+<p>您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！</p>
+</blockquote>
 <h4 id="測試的重要性"><a href="#測試的重要性" class="headerlink" title="測試的重要性"></a>測試的重要性</h4><ul>
 <li>當應用程式逐漸成長，進行<code>手動測試</code>會比編寫<code>自動測試</code>花費更多精力。</li>
 <li>開始建構專業級的應用程式時，如果<code>使用者數量龐大</code>，測試也會變得十分重要。</li>
@@ -251,6 +253,8 @@
 </ul>
 <p><code>自動化測試</code>是透過軟體執行的測試，而<code>人工測試</code>則是由會直接與裝置互動的人員執行。若要確保產品使用者都能獲得良好的體驗，自動化測試和手動測試都是非常重要的一環。不過，自動化測試的準確度較高，也可以提升團隊的工作效率，因為員工不必手動執行測試，因此自動化測試的執行速度會比手動測試還要快。</p>
 <span id="more"></span>
+
+<hr>
 <h4 id="深入探索單元測試"><a href="#深入探索單元測試" class="headerlink" title="深入探索單元測試"></a>深入探索單元測試</h4><p>單元測試一律位於 <code>test</code> 目錄中：<br><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/f02b380da4e8f661_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
 <ol>
 <li>開啟 <code>app/build.gradle</code> 檔案，然後查看依附元件。有部分依附元件會標記為 <code>testImplementation</code> 和 <code>androidTestImplementation</code>，分別是指<code>單元測試</code>和<code>檢測設備測試</code>。值得一提的是：</li>
@@ -291,6 +295,7 @@
 <p>紅色文字代表測試失敗。在測試結果選單中，按一下項目即會提供錯誤訊息，指出測試失敗的原因。<br><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/163708373e651ecc_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%"></p>
 <p>在這個例子中，錯誤訊息表示斷言失敗，因為預期結果為 <code>4</code>，但實際值是 <code>5</code>。由於您將實際值變更為 <code>2 + 3</code>，但預期值還是 <code>4</code>，所以這是合理的狀況。您也會看到測試失敗的行。在這個例子中，第 15 行測試失敗，註明為 <code>ExampleUnitTest.kt:15</code>。</p>
 <p>最後，為求測試徹底，請將預期值從 <code>4</code> 變更為 <code>5</code>，然後再次執行測試。在出現問題的程式碼中，預期值與實際值相符，所以現在測試應已通過。</p>
+<hr>
 <h4 id="編寫第一個單元測試"><a href="#編寫第一個單元測試" class="headerlink" title="編寫第一個單元測試"></a>編寫第一個單元測試</h4><p>現在您已慢慢熟悉單元測試，您就可以自行編寫與 <code>Dice Roller</code> 應用程式更相關的單元測試。</p>
 <p>您應該發現到，<code>Dice Roller</code> 應用程式的主要功能是以隨機號碼產生器為基礎。不過，人所共知，隨機號碼產生器難於測試，因為您無法確定隨機產生號碼的結果。這項測試旨在確保你擲出骰子，或是呼叫 <code>dice</code> 類別上的 <code>roll</code> 方法時，能夠取得正確的數字。您編寫的測試只會測試<code>隨機號碼產生器的結果</code>不會超出您為<code>產生器指定的數字範圍</code>。</p>
 <ol>
@@ -428,7 +433,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B0%A1%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">簡介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">測試的重要性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%B4%A2%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6"><span class="nav-number">1.2.</span> <span class="nav-text">深入探索單元測試</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A8%BB%E8%A7%A3"><span class="nav-number">1.2.1.</span> <span class="nav-text">註解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E5%AE%A3%E5%91%8A"><span class="nav-number">1.2.2.</span> <span class="nav-text">函式宣告</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E6%88%90%E5%8A%9F"><span class="nav-number">1.2.3.</span> <span class="nav-text">測試成功</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E5%A4%B1%E6%95%97"><span class="nav-number">1.2.4.</span> <span class="nav-text">測試失敗</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B7%A8%E5%AF%AB%E7%AC%AC%E4%B8%80%E5%80%8B%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6"><span class="nav-number">1.3.</span> <span class="nav-text">編寫第一個單元測試</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">測試的重要性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%B4%A2%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6"><span class="nav-number">2.</span> <span class="nav-text">深入探索單元測試</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A8%BB%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">註解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E5%AE%A3%E5%91%8A"><span class="nav-number">2.2.</span> <span class="nav-text">函式宣告</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E6%88%90%E5%8A%9F"><span class="nav-number">2.3.</span> <span class="nav-text">測試成功</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E5%A4%B1%E6%95%97"><span class="nav-number">2.4.</span> <span class="nav-text">測試失敗</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B7%A8%E5%AF%AB%E7%AC%AC%E4%B8%80%E5%80%8B%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6"><span class="nav-number">3.</span> <span class="nav-text">編寫第一個單元測試</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

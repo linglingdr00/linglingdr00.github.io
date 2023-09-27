@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-tip-calculator/img/32c29f73a3f20f93_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://i.imgur.com/U2IJMOB.gif">
 <meta property="article:published_time" content="2023-09-15T03:53:17.000Z">
-<meta property="article:modified_time" content="2023-09-26T06:58:10.926Z">
+<meta property="article:modified_time" content="2023-09-26T12:02:26.810Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-26 14:58:10" itemprop="dateModified" datetime="2023-09-26T14:58:10+08:00">2023-09-26</time>
+                <time title="Modified: 2023-09-26 20:02:26" itemprop="dateModified" datetime="2023-09-26T20:02:26+08:00">2023-09-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,6 +252,7 @@
 </ul>
 <span id="more"></span>
 
+<hr>
 <h4 id="範例應用程式總覽"><a href="#範例應用程式總覽" class="headerlink" title="範例應用程式總覽"></a>範例應用程式總覽</h4><p><strong>Tip Time</strong> 應用程式會提供小費計算機所需的所有 UI，但不顯示用於計算小費的程式碼。系統顯示「<strong>Calculate</strong>」按鈕，但該按鈕尚無法正常運作。</p>
 <ul>
 <li>使用者可以使用「<strong>Cost of Service</strong>」<code>EditText</code> 輸入服務費用。</li>
@@ -279,6 +280,7 @@
 <li><strong>Gradle Scripts</strong> 資料夾</li>
 </ul>
 <p><strong>Gradle</strong> 是 Android Studio 使用的自動建構系統。當您變更程式碼、新增資源或對應用程式進行其他變更時，<strong>Gradle</strong> 會判斷變更的內容，並採取必要步驟來重新建構應用程式。它還會在模擬器或實體裝置上安裝您的應用程式，並控管其執行作業。</p>
+<hr>
 <h4 id="檢視區塊繫結-Binding"><a href="#檢視區塊繫結-Binding" class="headerlink" title="檢視區塊繫結(Binding)"></a>檢視區塊繫結(Binding)</h4><p>為了計算小費，程式碼必須存取所有 <strong>UI 元素</strong>才能讀取使用者的輸入內容。程式碼必須先找到 <code>View</code> 的參照 (例如 <code>Button</code> 或 <code>TextView</code>)，然後才能呼叫 <code>View</code> 上的方法或存取其屬性。</p>
 <p>Android 架構提供 <code>findViewById()</code> 方法，可根據您的需求執行動作，即在指定 <code>View</code> ID 的情況下傳回其參照)。這種方法有用，但隨著您在應用程式中新增更多檢視畫面，而 UI 也變得更加複雜，使用 <code>findViewById()</code> 可能有點麻煩。</p>
 <p>為方便起見，Android 還提供一項名為**檢視繫結(Binding)**的功能。只要提前多做一點工作，檢視繫結就能讓您在 UI 的檢視畫面中更輕鬆、更快速地呼叫方法。您必須在 <strong>Gradle</strong> 中為應用程式啟用檢視繫結，並對程式碼進行一些變更。</p>
@@ -316,7 +318,7 @@
 <p><a target="_blank" rel="noopener" href="https://developer.android.com/topic/libraries/data-binding/generated-binding">點此查看如何創建<strong>binding classes</strong></a></p>
 <p><code>lateinit</code> 關鍵字是全新內容。應保證程式碼先初始化變數，然後再使用該變數。否則，您的應用程式將當機。</p>
 <div class="note no-icon success">
-            <p><strong>lateinit：延遲初始化</strong><br>當我們要綁定一個 <code>TextView</code>，必須先對 <code>textView</code> 這個變數指定 <b><strong>null</strong></b>，進行初始化；後續在指定<code>textView</code> 的 <b><strong>text</strong></b> 屬性時，也要先確認 <code>textView</code> 是不為空的。</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MainActivity</span> : <span class="type">AppCompatActivity</span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> textView: TextView? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        textView = findViewById(R.id.textView)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>如果你能確定 <code>textView</code> 這個變數在後續一定會被初始化，也不想每次都用問號來判斷變數是否為空，那你可以加個 <code>lateinit</code> 關鍵字來修飾這個變數：</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">lass MainActivity : AppCompatActivity() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> textView: TextView</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        textView = findViewById(R.id.textView)</span><br><span class="line">        textView.text = <span class="string">&quot;hello world&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p><strong>lateinit：延遲初始化</strong><br>當我們要綁定一個 <b>TextView</b>，必須先對 <b>textView</b> 這個變數指定 <b>null</b>，進行初始化；後續在指定 <b>textView</b> 的 <b>text</b> 屬性時，也要先確認 <b>textView</b> 是不為空的。</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MainActivity</span> : <span class="type">AppCompatActivity</span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> textView: TextView? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        textView = findViewById(R.id.textView)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>如果你能確定 <b>textView</b> 這個變數在後續一定會被初始化，也不想每次都用問號來判斷變數是否為空，那你可以加個 <b>lateinit</b> 關鍵字來修飾這個變數：</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">lass MainActivity : AppCompatActivity() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> textView: TextView</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        textView = findViewById(R.id.textView)</span><br><span class="line">        textView.text = <span class="string">&quot;hello world&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           </div>
 
 <ol start="4">
@@ -397,7 +399,7 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> roundUp = binding.roundUpSwitch.isChecked</span><br></pre></td></tr></table></figure>
 
 <div class="note no-icon success">
-            <p>字詞「四捨五入」是指將小數點四捨五入至最接近的整數值，但在這種情況下，您只會無條件進位或無條件進位至最接近的指定基數倍數。您可以使用 <code>ceil()</code> 函式來執行這項操作。有數個函式都採用該名稱，但您需要的是在 <code>kotlin.math</code> 中定義的函式。您可以新增 <code>import</code> 陳述式，但在這種情況下，較簡單的做法是直接使用 <code>kotlin.math.ceil()</code> 告知 Android Studio 您所需的函式。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-tip-calculator/img/32c29f73a3f20f93_1920.png?hl=zh-tw" width="70%" height="70%"></p>
+            <p>字詞「四捨五入」是指將小數點四捨五入至最接近的整數值，但在這種情況下，您只會無條件進位或無條件進位至最接近的指定基數倍數。您可以使用 <b>ceil()</b> 函式來執行這項操作。有數個函式都採用該名稱，但您需要的是在 <b>kotlin.math</b> 中定義的函式。您可以新增 <b>import</b> 陳述式，但在這種情況下，較簡單的做法是直接使用 <b>kotlin.math.ceil()</b> 告知 Android Studio 您所需的函式。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-tip-calculator/img/32c29f73a3f20f93_1920.png?hl=zh-tw" width="70%" height="70%"></p>
           </div>
 
 <ol start="3">
@@ -444,6 +446,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tools:text=&quot;Tip Amount: $10&quot;</span><br></pre></td></tr></table></figure>
 <p>由於這是預留位置，因此無須將字串擷取至資源。執行應用程式時，它不會顯示。</p>
 <p>最後，執行應用程式。輸入費用金額並選取一些選項，然後按「Calculate」按鈕。<br><img src="https://i.imgur.com/U2IJMOB.gif" width="30%" height="30%"></p>
+<hr>
 <h4 id="測試並偵錯"><a href="#測試並偵錯" class="headerlink" title="測試並偵錯"></a>測試並偵錯</h4><p>如果使用者未輸入任何文字，<code>stringInTextField</code> 顯示空白，會發生什麽？</p>
 <ol>
 <li>在模擬器中執行應用程式，但使用「Run」&gt;「Debug ‘app’」，而不是使用「Run」&gt;「Run ‘app’」。</li>

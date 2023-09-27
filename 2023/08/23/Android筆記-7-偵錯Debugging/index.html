@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://developer.android.com/static/studio/images/debug/logcat-query-suggestions.png?authuser=2&hl=zh-tw">
 <meta property="og:image" content="https://i.imgur.com/RmP1RGi.png">
 <meta property="article:published_time" content="2023-08-23T11:29:40.000Z">
-<meta property="article:modified_time" content="2023-09-16T07:10:49.844Z">
+<meta property="article:modified_time" content="2023-09-26T11:57:47.341Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
@@ -207,7 +207,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-16 15:10:49" itemprop="dateModified" datetime="2023-09-16T15:10:49+08:00">2023-09-16</time>
+                <time title="Modified: 2023-09-26 19:57:47" itemprop="dateModified" datetime="2023-09-26T19:57:47+08:00">2023-09-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,6 +257,7 @@
 </ol>
 <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-debugging/img/60a1619c07fae8f5_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
 
+<hr>
 <h4 id="對輸出進行記錄與偵錯"><a href="#對輸出進行記錄與偵錯" class="headerlink" title="對輸出進行記錄與偵錯"></a>對輸出進行記錄與偵錯</h4><p>在先前的課程中，您曾使用 Kotlin 的 <code>println()</code> 陳述式產生文字輸出。在 Android 應用程式中，記錄記錄的最佳做法是使用 <code>Log</code> 類別。記錄輸出功能有多種函式，採 <code>Log.v()</code>、<code>Log.d()</code>、<code>Log.i()</code>、<code>Log.w()</code> 或 <code>Log.e()</code> 格式。這些方法有兩種參數，第一個稱為「標記」，是<span class="label primary">識別記錄訊息來源 (例如記錄文字的類別名稱) 的字串</span>。第二個則是<span class="label primary">實際記錄訊息</span> 。</p>
 <p>執行下列步驟，開始在空白專案中使用記錄功能。</p>
 <ol>
@@ -265,7 +266,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private const val TAG = <span class="string">&quot;MainActivity&quot;</span></span><br></pre></td></tr></table></figure>
 
 <div class="note success no-icon">
-            <p>注意： 記錄標記通常是在類別外宣告。雖然此變數是在 <code>MainActivity</code> 之外宣告，但會宣告為私人，因此只能在 <code>MainActivity.kt</code> 中存取。也就是說，您也可以宣告其他類別的 <code>TAG</code> 變數。</p>
+            <p>注意： 記錄標記通常是在類別外宣告。雖然此變數是在 <b>MainActivity</b> 之外宣告，但會宣告為私人，因此只能在 <b>MainActivity.kt</b> 中存取。也就是說，您也可以宣告其他類別的 <b>TAG</b> 變數。</p>
           </div>
 
 <ol start="2">
@@ -284,6 +285,7 @@
 <li><p>您應該會在輸出視窗中看到「Hello, world!」。如有需要，請在 <code>Logcat</code> 視窗頂端的搜尋框中輸入「hello」，即可搜尋所有記錄。</p>
 </li>
 </ol>
+<hr>
 <h4 id="記錄層級"><a href="#記錄層級" class="headerlink" title="記錄層級"></a>記錄層級</h4><p>造成不同記錄檔函式 (名稱不同) 的原因，原因是這些相對應的記錄層級不同。您可以根據要輸出的資訊類型，在 <code>Logcat</code> 輸出內容中使用不同記錄檔層級進行篩選。您會定期使用五個主要記錄層級。</p>
 <table>
 <thead>
@@ -331,6 +333,7 @@
 </ol>
 <img src="https://i.imgur.com/IZaKXLh.png">
 
+<hr>
 <h4 id="使用鍵-值搜尋查詢記錄"><a href="#使用鍵-值搜尋查詢記錄" class="headerlink" title="使用鍵&#x2F;值搜尋查詢記錄"></a>使用鍵&#x2F;值搜尋查詢記錄</h4><p>在 Android Studio 中，您可以直接透過主查詢欄位產生鍵&#x2F;值搜尋。這個查詢系統可提供精準的查詢結果，也能根據鍵&#x2F;值排除記錄。儘管您可以選擇使用規則運算式，但在查詢上並非必要。如要查看建議項目，請在查詢欄位中按下 Ctrl + Space 鍵。</p>
 <img src="https://developer.android.com/static/studio/images/debug/logcat-query-suggestions.png?authuser=2&hl=zh-tw">
 
@@ -344,6 +347,7 @@
 <li>age：比對項目時間戳記是否最新。值的指定方式是以數字後面加上代表時間單位的字母：s 代表秒數、m 代表分鐘數、h 代表小時數，d 則代表天數。例如，age: 5m 只會篩選出過去 5 分鐘內記錄的訊息。</li>
 </ul>
 <p>更詳細的介紹請點<a target="_blank" rel="noopener" href="https://developer.android.com/studio/debug/logcat?authuser=2&hl=zh-tw">這裡</a>查看。</p>
+<hr>
 <h4 id="含有錯誤訊息的記錄"><a href="#含有錯誤訊息的記錄" class="headerlink" title="含有錯誤訊息的記錄"></a>含有錯誤訊息的記錄</h4><p>在空白專案中無法偵錯。Android 開發人員經常遇到許多錯誤，那就是應用程式當機，但用戶體驗不佳。讓我們新增一些程式碼，讓這個應用程式當機。</p>
 <ol>
 <li>將下列函式新增至 <code>logging()</code> 函式的 <code>MainActivity.kt</code>。這個程式碼以兩個數字開頭，並使用 <code>repeat</code> 來將分子除以五分子的結果。每次執行 <code>repeat</code> 區塊中的程式碼時，分母的值就會減少 1。在第 5 次和最後一次疊代時，應用程式嘗試除以 0。</li>
@@ -358,6 +362,7 @@
 <ol start="3">
 <li>再次執行應用程式，向下捲動至 <code>MainActivity.kt</code> 類別中的記錄，即可查看先前定義的 <code>logging()</code> 函式中的日誌、「<code>division()</code>」函式的詳細記錄，以及說明應用程式為什麼當機的紅色錯誤記錄。</li>
 </ol>
+<hr>
 <h4 id="堆疊追蹤剖析"><a href="#堆疊追蹤剖析" class="headerlink" title="堆疊追蹤剖析"></a>堆疊追蹤剖析</h4><p>說明當機的錯誤記錄 (也稱為例外狀況) 亦稱作堆疊追蹤。堆疊追蹤會顯示所有已觸發至例外狀況的函式，而且系統會從最近呼叫的時間開始呼叫。完整輸出內容如下所示。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Process: com.example.debugging, PID: 14581</span><br><span class="line">    java.lang.RuntimeException: Unable to start activity ComponentInfo&#123;com.example.debugging/com.example.debugging.MainActivity&#125;: java.lang.ArithmeticException: divide by zero</span><br><span class="line">        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3449)</span><br><span class="line">        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3601)</span><br><span class="line">        at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:85)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)</span><br><span class="line">        at android.app.ActivityThread<span class="variable">$H</span>.handleMessage(ActivityThread.java:2066)</span><br><span class="line">        at android.os.Handler.dispatchMessage(Handler.java:106)</span><br><span class="line">        at android.os.Looper.loop(Looper.java:223)</span><br><span class="line">        at android.app.ActivityThread.main(ActivityThread.java:7656)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Native Method)</span><br><span class="line">        at com.android.internal.os.RuntimeInit<span class="variable">$MethodAndArgsCaller</span>.run(RuntimeInit.java:592)</span><br><span class="line">        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)</span><br><span class="line">     Caused by: java.lang.ArithmeticException: divide by zero</span><br><span class="line">        at com.example.debugging.MainActivity.division(MainActivity.kt:21)</span><br><span class="line">        at com.example.debugging.MainActivity.onCreate(MainActivity.kt:14)</span><br><span class="line">        at android.app.Activity.performCreate(Activity.java:8000)</span><br><span class="line">        at android.app.Activity.performCreate(Activity.java:7984)</span><br><span class="line">        at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1309)</span><br><span class="line">        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3422)</span><br><span class="line">        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3601)</span><br><span class="line">        at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:85)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)</span><br><span class="line">        at android.app.ActivityThread<span class="variable">$H</span>.handleMessage(ActivityThread.java:2066)</span><br><span class="line">        at android.os.Handler.dispatchMessage(Handler.java:106)</span><br><span class="line">        at android.os.Looper.loop(Looper.java:223)</span><br><span class="line">        at android.app.ActivityThread.main(ActivityThread.java:7656)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Native Method)</span><br><span class="line">        at com.android.internal.os.RuntimeInit<span class="variable">$MethodAndArgsCaller</span>.run(RuntimeInit.java:592)</span><br><span class="line">        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)</span><br></pre></td></tr></table></figure>
 
@@ -371,6 +376,7 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.ArithmeticException: divide by zero</span><br><span class="line">        at com.example.debugging.MainActivity.division(MainActivity.kt:21)</span><br></pre></td></tr></table></figure>
 <p>如果向下捲動頁面顯示「<code>Caused by:</code>」一行，表示發生「<code>除以 0</code>」的錯誤。另會顯示錯誤發生的確切函式 (<code>division()</code>) 和確切的行數 (21)。Logcat 視窗中的檔案名稱和行數是超連結。輸出結果也會列出發生錯誤的函式名稱 (<code>division()</code>) 和呼叫該函式的函式 (<code>onCreate()</code>)。</p>
+<hr>
 <h4 id="使用記錄檔找出並修正錯誤"><a href="#使用記錄檔找出並修正錯誤" class="headerlink" title="使用記錄檔找出並修正錯誤"></a>使用記錄檔找出並修正錯誤</h4><p>使用記錄陳述式，透過輸出分母值來避免除數為零的情況，從而節省時間。</p>
 <ol>
 <li>在 <code>Log.v()</code> 之前，新增 <code>Log.d()</code> 呼叫記錄分母。<code>Log.d()</code> 的用途是偵錯，因此可用來篩選詳細記錄。</li>

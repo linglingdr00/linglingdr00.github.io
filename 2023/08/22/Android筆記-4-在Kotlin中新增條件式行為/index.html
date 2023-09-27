@@ -23,15 +23,15 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="Lucky Dice Roll Lucky Dice Roll 是一款以 Kotlin 為基礎的骰子遊戲，您可以在其中指定一個幸運數字。只要玩家擲出這個幸運數字，即可獲勝。  學習目標  如何使用if和else陳述式。 如何使用大於(&gt;)、小於(&lt;)和等於(&#x3D;&#x3D;)等運算子來比較值。 如何使用when陳述式來根據指定值選擇選項。 Boolean資料類型是什麼，以及如何使用true和fa">
+  <meta name="description" content="Lucky Dice Roll 是一款以 Kotlin 為基礎的骰子遊戲，您可以在其中指定一個幸運數字。只要玩家擲出這個幸運數字，即可獲勝。  學習目標  如何使用if和else陳述式。 如何使用大於(&gt;)、小於(&lt;)和等於(&#x3D;&#x3D;)等運算子來比較值。 如何使用when陳述式來根據指定值選擇選項。 Boolean資料類型是什麼，以及如何使用true和false值來做出決策。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(4)-在Kotlin中新增條件式行為">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/08/22/Android%E7%AD%86%E8%A8%98-4-%E5%9C%A8Kotlin%E4%B8%AD%E6%96%B0%E5%A2%9E%E6%A2%9D%E4%BB%B6%E5%BC%8F%E8%A1%8C%E7%82%BA/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="Lucky Dice Roll Lucky Dice Roll 是一款以 Kotlin 為基礎的骰子遊戲，您可以在其中指定一個幸運數字。只要玩家擲出這個幸運數字，即可獲勝。  學習目標  如何使用if和else陳述式。 如何使用大於(&gt;)、小於(&lt;)和等於(&#x3D;&#x3D;)等運算子來比較值。 如何使用when陳述式來根據指定值選擇選項。 Boolean資料類型是什麼，以及如何使用true和fa">
+<meta property="og:description" content="Lucky Dice Roll 是一款以 Kotlin 為基礎的骰子遊戲，您可以在其中指定一個幸運數字。只要玩家擲出這個幸運數字，即可獲勝。  學習目標  如何使用if和else陳述式。 如何使用大於(&gt;)、小於(&lt;)和等於(&#x3D;&#x3D;)等運算子來比較值。 如何使用when陳述式來根據指定值選擇選項。 Boolean資料類型是什麼，以及如何使用true和false值來做出決策。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2023-08-22T12:25:33.000Z">
-<meta property="article:modified_time" content="2023-09-01T12:19:55.785Z">
+<meta property="article:modified_time" content="2023-09-26T11:53:34.697Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-01 20:19:55" itemprop="dateModified" datetime="2023-09-01T20:19:55+08:00">2023-09-01</time>
+                <time title="Modified: 2023-09-26 19:53:34" itemprop="dateModified" datetime="2023-09-26T19:53:34+08:00">2023-09-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,8 +228,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
-<h3 id="Lucky-Dice-Roll"><a href="#Lucky-Dice-Roll" class="headerlink" title="Lucky Dice Roll"></a>Lucky Dice Roll</h3><blockquote>
+        <blockquote>
 <p>Lucky Dice Roll 是一款以 Kotlin 為基礎的骰子遊戲，您可以在其中指定一個幸運數字。只要玩家擲出這個幸運數字，即可獲勝。</p>
 </blockquote>
 <p><strong>學習目標</strong></p>
@@ -300,6 +299,7 @@
 <p>when 陳述式：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">when (variable) &#123;</span><br><span class="line">    matches-value -&gt; execute-this-code</span><br><span class="line">    matches-value -&gt; execute-this-code</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<hr>
 <h3 id="自行練習"><a href="#自行練習" class="headerlink" title="自行練習"></a>自行練習</h3><ol>
 <li><p>將 myFirstDice 變更為包含 8 個面並執行程式碼。會發生什麼？<br>當您增加面數時，when 陳述式不會再涵蓋所有情況，因此如果出現未涵蓋的情況，系統不會顯示任何內容。</p>
 </li>
@@ -390,7 +390,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lucky-Dice-Roll"><span class="nav-number">1.</span> <span class="nav-text">Lucky Dice Roll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-Lucky-Dice-Roll-%E9%81%8A%E6%88%B2"><span class="nav-number">2.</span> <span class="nav-text">建立 Lucky Dice Roll 遊戲</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">2.1.</span> <span class="nav-text">設定範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5%E6%98%AF%E5%90%A6%E6%93%B2%E5%87%BA%E5%B9%B8%E9%81%8B%E6%95%B8%E5%AD%97"><span class="nav-number">2.2.</span> <span class="nav-text">檢查是否擲出幸運數字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%9C%AA%E6%93%B2%E5%87%BA%E5%B9%B8%E9%81%8B%E6%95%B8%E5%AD%97%E6%99%82%E5%9B%9E%E6%87%89"><span class="nav-number">2.3.</span> <span class="nav-text">在未擲出幸運數字時回應</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-when-%E9%99%B3%E8%BF%B0%E5%BC%8F"><span class="nav-number">2.4.</span> <span class="nav-text">使用 when 陳述式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">2.5.</span> <span class="nav-text">總結</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E8%A1%8C%E7%B7%B4%E7%BF%92"><span class="nav-number">3.</span> <span class="nav-text">自行練習</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-Lucky-Dice-Roll-%E9%81%8A%E6%88%B2"><span class="nav-number">1.</span> <span class="nav-text">建立 Lucky Dice Roll 遊戲</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.1.</span> <span class="nav-text">設定範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5%E6%98%AF%E5%90%A6%E6%93%B2%E5%87%BA%E5%B9%B8%E9%81%8B%E6%95%B8%E5%AD%97"><span class="nav-number">1.2.</span> <span class="nav-text">檢查是否擲出幸運數字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%9C%AA%E6%93%B2%E5%87%BA%E5%B9%B8%E9%81%8B%E6%95%B8%E5%AD%97%E6%99%82%E5%9B%9E%E6%87%89"><span class="nav-number">1.3.</span> <span class="nav-text">在未擲出幸運數字時回應</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-when-%E9%99%B3%E8%BF%B0%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">使用 when 陳述式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">1.5.</span> <span class="nav-text">總結</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E8%A1%8C%E7%B7%B4%E7%BF%92"><span class="nav-number">2.</span> <span class="nav-text">自行練習</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

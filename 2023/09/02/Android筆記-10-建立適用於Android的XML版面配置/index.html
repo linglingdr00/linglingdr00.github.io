@@ -56,7 +56,7 @@
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/e4ed552fa9fbe4ce_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://i.imgur.com/iSz3wCT.png">
 <meta property="article:published_time" content="2023-09-02T14:02:37.000Z">
-<meta property="article:modified_time" content="2023-09-26T06:58:10.957Z">
+<meta property="article:modified_time" content="2023-09-26T12:01:44.295Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-26 14:58:10" itemprop="dateModified" datetime="2023-09-26T14:58:10+08:00">2023-09-26</time>
+                <time title="Modified: 2023-09-26 20:01:44" itemprop="dateModified" datetime="2023-09-26T20:01:44+08:00">2023-09-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -266,6 +266,7 @@
 </ul>
 <span id="more"></span>
 
+<hr>
 <h4 id="啟動專案"><a href="#啟動專案" class="headerlink" title="啟動專案"></a>啟動專案</h4><p>使用 Android 應用程式建立簡易的計算機簡易版。<br>完成後小費計算機應用程式會如下所示：</p>
 <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/bcc5260318477c14_1920.png?hl=zh-tw" width="30%" height="30%">
 
@@ -281,6 +282,7 @@
 <li>首先，在 Android Studio 中使用 空白活動 範本來建立新品的 Kotlin 專案。</li>
 <li>呼叫應用程式「Tip Time」，最低 API 級別為 19 (KitKat)。套件名稱為 com.example.tiptime。</li>
 </ol>
+<hr>
 <h4 id="閱讀及瞭解-XML"><a href="#閱讀及瞭解-XML" class="headerlink" title="閱讀及瞭解 XML"></a>閱讀及瞭解 XML</h4><p>如果不想使用自己熟悉的版面配置編輯器，您可以修改描述使用者介面的 XML 來建構應用程式的版面配置。瞭解使用 XML 瞭解及修改 UI 版面配置對 Android 開發人員的重要性。</p>
 <p>您將會查看並編輯 XML 檔案，為這個應用程式定義 UI 版面配置。XML 是可延伸標記語言的一種，這是一種利用文字文件來描述資料的方式。由於 XML 是可擴充且極具彈性的功能，所以有許多種不同的用途，包括定義 Android 應用程式的 UI 版面配置。您或許可以在先前的程式碼研究室中回想起，「<code>strings.xml</code>」這個 XML 檔案中的其他資源也定義了其他資源。</p>
 <p>Android 應用程式的使用者介面是由元件（小工具）的元件階層組成，以及這些元件的螢幕版面配置。請注意，這些版面配置本身是 UI 元件。</p>
@@ -348,6 +350,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>用於表示檔案是 XML 檔案，但並非所有 XML 檔案都會包含這類檔案。</p>
+<hr>
 <h4 id="在-XML-中建立版面配置"><a href="#在-XML-中建立版面配置" class="headerlink" title="在 XML 中建立版面配置"></a>在 XML 中建立版面配置</h4><ol>
 <li>在 <code>activity_main.xml</code> 中，請切換至「Split」 畫面，即可查看 設計編輯器 旁的 XML。「設計編輯器」可讓您預覽 UI 版面配置。</li>
 </ol>
@@ -394,7 +397,7 @@
 <li>將 <code>id</code> 屬性變更為較為適當的名稱 <code>@+id/cost_of_service</code>。</li>
 </ol>
 <div class="note no-icon success">
-            <p><strong>注意</strong>： 資源 ID 是元素專屬的資源名稱，當您透過「Layout Editor」新增 <b>View</b> 或其他資源時，Android Studio 會自動為資源指派資源 ID。手動輸入 XML 時，您必須手動宣告資源 ID。XML 檔案中的新資料檢視 ID 必須以 <b>@+id</b> 前置字元來定義，這樣 Android Studio 才能將該 ID 新增為新的資源 ID。</p><p>為資源取個清楚易懂的名稱，以便您知道資源的參照對象，但全都應以小寫字母輸入，並以底線分隔字詞。</p><p>如要參照應用程式程式碼中的資源 ID，請使用 <b>R.<type>.<name></b>；例如 <b>R.string.roll</b>。如為 <b>View</b> ID，<b><type></b> 則為 <b>id</b>，例如 <b>R.id.button</b>。</p>
+            <p><strong>注意</strong>： 資源 ID 是元素專屬的資源名稱，當您透過「Layout Editor」新增 <b>View</b> 或其他資源時，Android Studio 會自動為資源指派資源 ID。手動輸入 XML 時，您必須手動宣告資源 ID。XML 檔案中的新資料檢視 ID 必須以 <b>@+id</b> 前置字元來定義，這樣 Android Studio 才能將該 ID 新增為新的資源 ID。</p><p>為資源取個清楚易懂的名稱，以便您知道資源的參照對象，但全都應以小寫字母輸入，並以底線分隔字詞。</p><p>如要參照應用程式程式碼中的資源 ID，請使用 <b>R.<type>.<name></b>；例如 <b>R.string.roll</b>。如為 View ID，<b><code>&lt;type&gt;</code></b> 則為 <b>id</b>，例如 <b>R.id.button</b>。</p>
           </div>
 
 <ol start="3">
@@ -463,6 +466,7 @@
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:id=&quot;@+id/service_question&quot;</span><br></pre></td></tr></table></figure>
 
+<hr>
 <h4 id="新增提示選項"><a href="#新增提示選項" class="headerlink" title="新增提示選項"></a>新增提示選項</h4><p>接下來，您需要為各個使用者選項提供<code>圓形按鈕(RadioButton)</code>選項。</p>
 <p>共有三個選項：</p>
 <ul>
@@ -523,13 +527,14 @@
 <p>根據預設，系統會選取 20% 的小費選項！現在這開始看起來像小費計算機了！</p>
 <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/c412e7f16590cd33_1920.png?hl=zh-tw" width="30%" height="30%">
 
+<hr>
 <h4 id="完成版面配置的其餘部分"><a href="#完成版面配置的其餘部分" class="headerlink" title="完成版面配置的其餘部分"></a>完成版面配置的其餘部分</h4><p>現在已進入版面配置的最後一個部分。請新增 <code>Switch</code>、<code>Button</code> 和 <code>TextView</code> 以顯示小費金額。</p>
 <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/bcc5260318477c14_1920.png?hl=zh-tw" width="30%" height="30%">
 
 <h5 id="新增切換鈕，讓小費四捨五入"><a href="#新增切換鈕，讓小費四捨五入" class="headerlink" title="新增切換鈕，讓小費四捨五入"></a>新增切換鈕，讓小費四捨五入</h5><p>接下來，您將使用 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/kotlin/android/widget/Switch"><code>Switch</code></a> 小工具，讓使用者選取「Yes」或「No」是否要將小費四捨五入。</p>
 <p>您想要 <code>Switch</code> 的寬度和父項一樣，因此您可能會認為寬度應該設為 <code>match_parent</code>。如前文所述，您無法在 <code>ConstraintLayout</code> 的 UI 元素上設定 <code>match_parent</code>。相反地，您需要限制檢視畫面的開始和結束時間，並將寬度設為 <code>0dp</code>。將寬度設為 <code>0dp</code> 可讓系統不要計算寬度，只要嘗試與檢視畫面中的限制條件相符即可。</p>
 <div class="note no-cion success">
-            <p><strong>注意</strong>：您無法在 <code>match_parent</code> 中使用 <code>ConstraintLayout</code> 的任何資料檢視。而是使用 <code>0dp</code>，也就是相符條件。</p>
+            <p><strong>注意</strong>：您無法在 <b>match_parent</b> 中使用 <b>ConstraintLayout</b> 的任何資料檢視。而是使用 <b>0dp</b>，也就是相符條件。</p>
           </div>
 
 <ol>
@@ -586,6 +591,7 @@
 <p>實際執行畫面：</p>
 <img src="https://i.imgur.com/iSz3wCT.png" width="30%" height="30%">
 
+<hr>
 <h4 id="採用完善程式設計做法"><a href="#採用完善程式設計做法" class="headerlink" title="採用完善程式設計做法"></a>採用完善程式設計做法</h4><h5 id="擷取字串"><a href="#擷取字串" class="headerlink" title="擷取字串"></a>擷取字串</h5><ol>
 <li><p>按一下字串；將滑鼠游標懸停在顯示的黃色燈泡圖示上，然後按一下旁邊的三角形圖示；選擇「Extract String Resource」。字串資源的預設名稱沒有問題。您可以視需要根據提示選擇使用 <code>amazing_service</code>、<code>good_service</code> 和 <code>ok_service</code>，讓名稱更加描述性。</p>
 </li>
@@ -601,6 +607,7 @@
 <li>依序選擇「Code」&gt;「Reformat Code」。</li>
 </ol>
 <p>以確保縮排一致，且可能會將 UI 元素的部分 XML 重新排序，例如將單一元素的所有 android: 屬性放在一起。</p>
+<hr>
 <h4 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h4><ul>
 <li>XML (擴充標記語言) 可用來管理文字，由標記、元素和屬性構成。</li>
 <li>使用 XML 定義 Android 應用程式的版面配置。</li>

@@ -59,7 +59,7 @@ img[src]:hover {
   box-shadow: 0 0 10px;
 }
 
-.card_image > a > img {
+.card_image img {
   margin-bottom: 0px;
 }
 

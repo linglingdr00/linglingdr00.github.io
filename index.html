@@ -167,7 +167,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/10/16/Android%E7%AD%86%E8%A8%98-23-Activity%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E7%9A%84%E5%90%84%E5%80%8B%E9%9A%8E%E6%AE%B5/">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/10/17/Android%E7%AD%86%E8%A8%98-24-Fragments%E5%92%8CNavigationComponent/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blog_photo.png">
@@ -181,7 +181,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/10/16/Android%E7%AD%86%E8%A8%98-23-Activity%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E7%9A%84%E5%90%84%E5%80%8B%E9%9A%8E%E6%AE%B5/" class="post-title-link" itemprop="url">Android筆記(23)-Activity生命週期的各個階段</a>
+            <a href="/2023/10/17/Android%E7%AD%86%E8%A8%98-24-Fragments%E5%92%8CNavigationComponent/" class="post-title-link" itemprop="url">Android筆記(24)-Fragments和Navigation Component</a>
         </h2>
 
         <div class="post-meta">
@@ -191,14 +191,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2023-10-16 20:46:46" itemprop="dateCreated datePublished" datetime="2023-10-16T20:46:46+08:00">2023-10-16</time>
+              <time title="Created: 2023-10-17 18:57:25" itemprop="dateCreated datePublished" datetime="2023-10-17T18:57:25+08:00">2023-10-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-17 14:56:31" itemprop="dateModified" datetime="2023-10-17T14:56:31+08:00">2023-10-17</time>
+                <time title="Modified: 2023-10-19 18:41:25" itemprop="dateModified" datetime="2023-10-19T18:41:25+08:00">2023-10-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,7 +230,98 @@
 
       
           <blockquote>
-<p><strong>Activity 生命週期</strong> 是 <span class="label primary">activity 在其生命週期內可呈現的狀態組合</span>。<strong>生命週期(lifecycle)</strong> 是指 <span class="label primary">activity 從最初建立到刪除的這段期間</span>，且<u>系統會回收該 activity 的資源</u>。當使用者在應用程式 (包括應用程式內外) 的 activity 間進行瀏覽時，這些 activity 會在 activity 生命週期中的不同狀態之間進行轉換。</p>
+<p>許多 Android 應用程式不需個別為每個畫面設定活動。事實上，許多常見的使用者介面模式 (如分頁標籤(tabs)) 均存在單一 activity 內，並使用名為「fragment」的組成部分。</p>
+</blockquote>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/64100b59bb487856_1920.png?hl=zh-tw" width="30%">
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/17/Android%E7%AD%86%E8%A8%98-24-Fragments%E5%92%8CNavigationComponent/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/10/16/Android%E7%AD%86%E8%A8%98-23-Activity%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E7%9A%84%E5%90%84%E5%80%8B%E9%9A%8E%E6%AE%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/16/Android%E7%AD%86%E8%A8%98-23-Activity%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E7%9A%84%E5%90%84%E5%80%8B%E9%9A%8E%E6%AE%B5/" class="post-title-link" itemprop="url">Android筆記(23)-Activity生命週期的各個階段</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-10-16 20:46:46" itemprop="dateCreated datePublished" datetime="2023-10-16T20:46:46+08:00">2023-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-10-18 13:25:19" itemprop="dateModified" datetime="2023-10-18T13:25:19+08:00">2023-10-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Navigation/" itemprop="url" rel="index"><span itemprop="name">Navigation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
 <p>身為 Android 開發人員，您必須瞭解 <strong>activity 生命週期(lifecycle)</strong> 。如果您的 activity 未正確回應生命週期狀態變更，應用程式可能會產生<u>異常錯誤</u>、<u>造成使用者混淆行為</u>，或<u>耗用過多 Android 系統資源</u>。瞭解 Android 生命週期，並正確回應生命週期狀態變更，是成為 Android 優良使用者的重要條件。</p>
 </blockquote>
 <p><strong>學習目標</strong></p>
@@ -551,103 +642,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/09/22/Android%E7%AD%86%E8%A8%98-19-%E6%B8%AC%E8%A9%A6Lists%E5%92%8CAdapters/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/blog_photo.png">
-      <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="^(-o-)>">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tina Tang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/22/Android%E7%AD%86%E8%A8%98-19-%E6%B8%AC%E8%A9%A6Lists%E5%92%8CAdapters/" class="post-title-link" itemprop="url">Android筆記(19)-測試Lists和Adapters</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-09-22 23:40:53" itemprop="dateCreated datePublished" datetime="2023-09-22T23:40:53+08:00">2023-09-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-28 17:05:30" itemprop="dateModified" datetime="2023-09-28T17:05:30+08:00">2023-09-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Layouts/" itemprop="url" rel="index"><span itemprop="name">Layouts</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>詳細了解測試以及如何新增測試<code>依賴項(dependencies)</code>。進一步練習編寫<code>單元測試(unit test)</code>和<code>設備測試(instrumentation test)</code>。</p>
-</blockquote>
-<p><strong>學習目標</strong></p>
-<ul>
-<li>撰寫測試的基本概念。</li>
-<li>如何新增測試專用的 <code>Gradle</code> 依附元件。</li>
-<li>如何透過<code>檢測設備測試(instrumentation tests)</code>，來測試List。</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/22/Android%E7%AD%86%E8%A8%98-19-%E6%B8%AC%E8%A9%A6Lists%E5%92%8CAdapters/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -719,7 +713,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -732,7 +726,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="Activity 生命週期 是 activity 在其生命週期內可呈現的狀態組合。生命週期(lifecycle) 是指 activity 從最初建立到刪除的這段期間，且系統會回收該 activity 的資源。當使用者在應用程式 (包括應用程式內外) 的 activity 間進行瀏覽時，這些 activity 會在 activity 生命週期中的不同狀態之間進行轉換。 身為 Android 開發人">
+  <meta name="description" content="身為 Android 開發人員，您必須瞭解 activity 生命週期(lifecycle) 。如果您的 activity 未正確回應生命週期狀態變更，應用程式可能會產生異常錯誤、造成使用者混淆行為，或耗用過多 Android 系統資源。瞭解 Android 生命週期，並正確回應生命週期狀態變更，是成為 Android 優良使用者的重要條件。  學習目標  如何將記錄資訊列印至 Logcat。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(23)-Activity生命週期的各個階段">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/10/16/Android%E7%AD%86%E8%A8%98-23-Activity%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E7%9A%84%E5%90%84%E5%80%8B%E9%9A%8E%E6%AE%B5/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="Activity 生命週期 是 activity 在其生命週期內可呈現的狀態組合。生命週期(lifecycle) 是指 activity 從最初建立到刪除的這段期間，且系統會回收該 activity 的資源。當使用者在應用程式 (包括應用程式內外) 的 activity 間進行瀏覽時，這些 activity 會在 activity 生命週期中的不同狀態之間進行轉換。 身為 Android 開發人">
+<meta property="og:description" content="身為 Android 開發人員，您必須瞭解 activity 生命週期(lifecycle) 。如果您的 activity 未正確回應生命週期狀態變更，應用程式可能會產生異常錯誤、造成使用者混淆行為，或耗用過多 Android 系統資源。瞭解 Android 生命週期，並正確回應生命週期狀態變更，是成為 Android 優良使用者的重要條件。  學習目標  如何將記錄資訊列印至 Logcat。">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/8216c20f5571fc04_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/c685f48ff799f0c9_1920.png?hl=zh-tw">
@@ -65,7 +65,7 @@
 <meta property="og:image" content="https://i.imgur.com/wREAUdC.png">
 <meta property="og:image" content="https://i.imgur.com/naBOnos.gif">
 <meta property="article:published_time" content="2023-10-16T12:46:46.000Z">
-<meta property="article:modified_time" content="2023-10-17T06:56:31.743Z">
+<meta property="article:modified_time" content="2023-10-18T05:25:19.069Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
@@ -240,7 +240,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-17 14:56:31" itemprop="dateModified" datetime="2023-10-17T14:56:31+08:00">2023-10-17</time>
+                <time title="Modified: 2023-10-18 13:25:19" itemprop="dateModified" datetime="2023-10-18T13:25:19+08:00">2023-10-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,7 +272,6 @@
 
       
         <blockquote>
-<p><strong>Activity 生命週期</strong> 是 <span class="label primary">activity 在其生命週期內可呈現的狀態組合</span>。<strong>生命週期(lifecycle)</strong> 是指 <span class="label primary">activity 從最初建立到刪除的這段期間</span>，且<u>系統會回收該 activity 的資源</u>。當使用者在應用程式 (包括應用程式內外) 的 activity 間進行瀏覽時，這些 activity 會在 activity 生命週期中的不同狀態之間進行轉換。</p>
 <p>身為 Android 開發人員，您必須瞭解 <strong>activity 生命週期(lifecycle)</strong> 。如果您的 activity 未正確回應生命週期狀態變更，應用程式可能會產生<u>異常錯誤</u>、<u>造成使用者混淆行為</u>，或<u>耗用過多 Android 系統資源</u>。瞭解 Android 生命週期，並正確回應生命週期狀態變更，是成為 Android 優良使用者的重要條件。</p>
 </blockquote>
 <p><strong>學習目標</strong></p>
@@ -283,6 +282,7 @@
 </ul>
 <span id="more"></span>
 
+<p><strong>Activity 生命週期</strong> 是 <span class="label primary">activity 在其生命週期內可呈現的狀態組合</span>。<strong>生命週期(lifecycle)</strong> 是指 <span class="label primary">activity 從最初建立到刪除的這段期間</span>，且<u>系統會回收該 activity 的資源</u>。當使用者在應用程式 (包括應用程式內外) 的 activity 間進行瀏覽時，這些 activity 會在 activity 生命週期中的不同狀態之間進行轉換。</p>
 <hr>
 <h3 id="應用程式總覽"><a href="#應用程式總覽" class="headerlink" title="應用程式總覽"></a>應用程式總覽</h3><p>在本程式碼研究室中，您將使用名為 DessertClicker 的範例應用程式。在此應用程式中，每當使用者輕觸畫面上的甜點，應用程式就會為使用者「購買」甜點。這款應用程式會更新 layout 中的值，包括<u>已購買的甜點數量</u>，以及<u>使用者花費的總金額</u>。</p>
 <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/8216c20f5571fc04_1920.png?hl=zh-tw" width="30%">
@@ -680,7 +680,10 @@ width="30%"></p>
     <a href="/2023/09/29/Android%E7%AD%86%E8%A8%98-22-Activities%E5%92%8CIntents/" rel="prev" title="Android筆記(22)-Activities和Intents">
       <i class="fa fa-chevron-left"></i> Android筆記(22)-Activities和Intents
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/10/17/Android%E7%AD%86%E8%A8%98-24-Fragments%E5%92%8CNavigationComponent/" rel="next" title="Android筆記(24)-Fragments和Navigation Component">
+      Android筆記(24)-Fragments和Navigation Component <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -755,7 +758,7 @@ width="30%"></p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -768,7 +771,7 @@ width="30%"></p>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

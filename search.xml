@@ -8644,4 +8644,360 @@ width="30%"></p>
         <tag>SimpleDateFormat</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Android筆記(29)-Navigation和back stack</title>
+    <url>/2023/11/14/Android%E7%AD%86%E8%A8%98-29-Navigation%E5%92%8Cback-stack/</url>
+    <content><![CDATA[<blockquote>
+<p>瞭解 Android 如何處理應用程式的 tasks 和 back stack。這可讓您操控各種情況下的 back stack (例如取消訂單)，讓使用者返回應用程式的第一個畫面，而非訂購流程的前一個畫面。</p>
+</blockquote>
+<p>在先前的程式碼研究室中，您已開始實作 <strong>Cupcake</strong> app，現將在本程式碼研究室中完成其餘步驟。<strong>Cupcake</strong> app 有多個畫面，且會顯示杯子蛋糕的訂購流程。完成的 app 必須讓使用者能夠瀏覽 app，以執行下列操作：</p>
+<ul>
+<li>建立杯子蛋糕訂單</li>
+<li>使用 <strong>Up</strong> 或 <strong>Back</strong> button 前往訂購流程的上一個步驟</li>
+<li>取消訂單</li>
+<li>將訂單傳送至其他 app (例如 email app)</li>
+</ul>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>navigation 對於 app back stack 的影響</li>
+<li>如何實作自訂(custom) back stack 行為</li>
+</ul>
+<span id="more"></span>
+
+<hr>
+<h3 id="實作-Up-button-行為"><a href="#實作-Up-button-行為" class="headerlink" title="實作 Up button 行為"></a>實作 Up button 行為</h3><p>在 <strong>Cupcake</strong> app 中，app bar 會顯示可返回上一個畫面的箭頭，此為「Up」button，您在先前的程式碼研究室中曾學過。「Up」button 目前沒有任何作用，因此請先在 app 中修正此 navigation bug。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/fbdc1793f9fea6da_1920.png?hl=zh-tw" width="50%">
+
+<ol>
+<li>您的 <code>MainActivity</code> 中應該已有使用 nav controller 設定 app bar (也稱為 action bar) 的程式碼。將 <code>navController</code> 設為 class 變數，以利於其他方法中使用。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MainActivity</span> : <span class="type">AppCompatActivity</span>(R.layout.activity_main) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> navController: NavController</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> navHostFragment = supportFragmentManager</span><br><span class="line">                .findFragmentById(R.id.nav_host_fragment) <span class="keyword">as</span> NavHostFragment</span><br><span class="line">        navController = navHostFragment.navController</span><br><span class="line"></span><br><span class="line">        setupActionBarWithNavController(navController)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在同一個 class 中，新增程式碼來覆寫 <code>onSupportNavigateUp()</code> 函式。此程式碼會要求 <code>navController</code> 處理 app 的 navigating up。否則，請返回至處理「Up」button 的父類別實作 (在 <code>AppCompatActivity</code> 中)。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSupportNavigateUp</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> navController.navigateUp() || <span class="keyword">super</span>.onSupportNavigateUp()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>執行應用程式。「Up」button 現在應可在 <code>FlavorFragment</code>、<code>PickupFragment</code> 和 <code>SummaryFragment</code> 中運作。前往訂購流程中的上一個步驟時，fragments 應透過 view model 顯示正確的口味（flavor)和取貨日期(pickup date)。</li>
+</ol>
+<img src="https://i.imgur.com/DauAFkp.gif" width="30%">
+
+<hr>
+<h3 id="瞭解-tasks-和-back-stack"><a href="#瞭解-tasks-和-back-stack" class="headerlink" title="瞭解 tasks 和 back stack"></a>瞭解 tasks 和 back stack</h3><p>現在，請在 app 的訂購流程中加入「Cancel」button。在訂購過程中的任何時間點取消訂單，會讓使用者返回 <code>StartFragment</code>。若要處理此行為，您需瞭解 Android 中的 tasks 和 back stack。</p>
+<h4 id="Tasks"><a href="#Tasks" class="headerlink" title="Tasks"></a>Tasks</h4><p>Android 的 activities 存在於 tasks 中。首次從 launcher icon 開啟 app 時，Android 會建立一個包含 main activity 的新 task。「task」是使用者執行特定工作 (例如查看 email、建立杯子蛋糕訂單、拍照) 時，可進行互動的一系列 activities。</p>
+<p>系統會以 back stack 的排列方式來顯示 activities，此方式會將使用者造訪的新 activity 推送至 task 的 back stack 上。您可以將上述過程看成鬆餅的堆疊(stack)，每一份新的鬆餅皆會添加於堆疊(stack)頂端。堆疊(stack)頂端的 activity 是指使用者目前正在互動的 activity。堆疊(stack)中，位於該 activity 下方的 activity 已移至背景且停止。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/517054e483795b46_1920.png?hl=zh-tw" width="50%">
+
+<p>使用者想要往回瀏覽時，back stack 功能就能派上用場。Android 可以從 stack 頂端移除目前 activity、將其刪除，並重新啟動其下方的 activity。這稱為從 stack 中移除 activity，並將先前的 activity 移至前景(foreground)，以便使用者進行互動。如果使用者想要反覆返回查看，Android 會持續將 activity 從 stack 頂端移除，直到接近 stack 底部為止。如果返回 stack 中沒有任何 activity，系統會將使用者導回至裝置的啟動器畫面(launcher screen)（或至啟動此 app）。</p>
+<p>讓我們看看您透過以下 2 個 activities 實作的 <strong>Words</strong> app 版本：<code>MainActivity</code> 和 <code>DetailActivity</code>。</p>
+<p>初次啟動 app 時，<code>MainActivity</code> 會開啟，並新增至 task 的 back stack 中。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/4bc8f5aff4d5ee7f_1920.png?hl=zh-tw" width="50%">
+
+<p>只要按一下字母，<code>DetailActivity</code> 就會啟動，然後推送到 back stack 上。這表示已建立、啟動並重新啟用 <code>DetailActivity</code>，因此使用者可與其互動。系統會將 <code>MainActivity</code> 置於背景(background)，並以灰色的背景顏色顯示於圖表(diagram)中。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/80f7c594ae844b84_1920.png?hl=zh-tw" width="50%">
+
+<p>若輕觸「Back」button，系統就會從 back stack 中彈出 <code>DetailActivity</code>，並刪除及結束 <code>DetailActivity</code> instance。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/80f532af817191a4_1920.png?hl=zh-tw" width="50%">
+
+<p>接著，back stack 頂端的下一個 item (<code>MainActivity</code>) 就會移至前景(foreground)。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/85004712d2fbcdc1_1920.png?hl=zh-tw" width="50%">
+
+<div class="note no-icon success">
+            <p><strong>注意：</strong>開啟應用程式後，若輕觸裝置上的「主畫面(Home)」，系統會將 app 的所有 task 移至背景(background)。若再次輕觸該 app 的啟動器圖示(launcher icon)，Android 會確認 app 中是否存在現有 task ，並將該 task 移至前景(foreground) (包含完整 back stack)。如果沒有現有 task，Android 會為您建立新 task 並啟動 main activity，然後將其推送至 back stack。</p>
+          </div>
+
+<p>如同 back stack 可追蹤使用者已開啟的 activities，只要與 <strong>Jetpack Navigation component</strong> 搭配運作，back stack 也可透過相同方式追蹤使用者造訪過的 fragment 目的地(destinations)。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/fe417ac5cbca4ce7_1920.png?hl=zh-tw" width="50%">
+
+<p>只要使用 Navigation library，即可在使用者每次點選「Back」button 時，從返 back stack 中彈出  fragment 目的地(destination)。此預設行為無需實作任何設定。如果您需要自訂(custom) back stack 行為，才需要編寫程式碼，您將為 <strong>Cupcake</strong> app 進行此操作。</p>
+<h4 id="Cupcake-app-的預設行為"><a href="#Cupcake-app-的預設行為" class="headerlink" title="Cupcake app 的預設行為"></a>Cupcake app 的預設行為</h4><p>讓我們看看 back stack 在 Cupcake app 中的運作方式。App 中只有一個 activity，但使用者會瀏覽多個 fragment 目的地。因此，「Back」button 在使用者輕觸時才返回上一個 fragment 目的地較為理想。</p>
+<p>初次開啟 app 時，系統會顯示 <code>StartFragment</code> 目的地。該目的地會推送至 stack 頂端。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/cf0e80b4907d80dd_1920.png?hl=zh-tw" width="50%">
+
+<p>選取要訂購的杯子蛋糕數量後，將會前往 <code>FlavorFragment</code>，這個目的地會推送至返回 back stack 上。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/39081dcc3e537e1e_1920.png?hl=zh-tw" width="50%">
+
+<p>當您選取口味並輕觸「Next」後，將會前往 <code>PickupFragment</code>，並推送至 back stack 上。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/37dca487200f8f73_1920.png?hl=zh-tw" width="50%">
+
+<p>最後，選取自取日期並輕觸「Next」後，將會前往 <code>SummaryFragment</code>，這個目的地會新增至 back stack 頂端。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/d67689affdfae0dd_1920.png?hl=zh-tw" width="50%">
+
+<p>如果您從 <code>SummaryFragment</code> 中輕觸「Back」或「Up」button，<code>SummaryFragment</code> 會從 stack 中移除並刪除。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/215b93fd65754017_1920.png?hl=zh-tw" width="50%">
+
+<p><code>PickupFragment</code> 現在位於 back stack 頂端，並向使用者顯示。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/37dca487200f8f73_1920.png?hl=zh-tw" width="50%">
+
+<p>再次輕觸「Back」或「Up」按鈕，將會從 stack 中移除 <code>PickupFragment</code>，接著顯示 <code>FlavorFragment</code>。</p>
+<p>再次輕觸「Back」或「Up」按鈕，將會從 stack 中移除 <code>FlavorFragment</code>，接著顯示 <code>StartFragment</code>。</p>
+<p>當您在訂購流程中返回到上一個步驟時，一次只會移除一個目的地。但在下一個工作中，您會在 app 中新增<u>取消訂單</u>功能。為此，您必須<u>一次移除 back stack 中的多個目的地，讓使用者返回 <code>StartFragment</code></u> 建立新訂單。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/e3dae0f492450207_1920.png?hl=zh-tw" width="50%">
+
+<h4 id="修改-Cupcake-app-中的-back-stack"><a href="#修改-Cupcake-app-中的-back-stack" class="headerlink" title="修改 Cupcake app 中的 back stack"></a>修改 Cupcake app 中的 back stack</h4><p>修改 <code>FlavorFragment</code>、<code>PickupFragment</code> 和 <code>SummaryFragment</code> class 和 layout 檔案，為使用者提供取消訂單按鈕。</p>
+<h5 id="新增-navigation-action"><a href="#新增-navigation-action" class="headerlink" title="新增 navigation action"></a>新增 navigation action</h5><p>請先在 app 的 navigation graph 中加入 navigation actions，讓使用者能從後續目的地返回 <code>StartFragment</code>。</p>
+<ol>
+<li>前往「res」&gt;「navigation」&gt;「nav_graph.xml」檔案，然後選取「Design」檢視畫面，以開啟 Navigation Editor。</li>
+<li>目前有 <code>startFragment</code> 至 <code>flavorFragment</code> 的 action、<code>flavorFragment</code> 至 <code>pickupFragment</code> 的 action，以及 <code>pickupFragment</code> 至 <code>summaryFragment</code> 的 action。</li>
+<li>按住並拖曳即可建立從 <code>summaryFragment</code> 至 <code>startFragment</code> 的新 navigation action。如想複習如何在 navigation graph 中連結目的地，請參閱<a href="https://developer.android.com/guide/navigation/get-started?hl=zh-tw#connect">這些操作說明</a>。</li>
+<li>按住並拖曳 <code>pickupFragment</code> 即可建立至 <code>startFragment</code> 的新 action。</li>
+<li>按住並拖曳 <code>flavorFragment</code> 即可建立至 <code>startFragment</code> 的新 action。</li>
+<li>完成後，navigation graph 應如下所示。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/dcbd27a08d24cfa0_1920.png?hl=zh-tw">
+
+<p>進行上述變更後，使用者即可從訂購流程中較後方的某個 fragments 返回至訂購流程的起始處。現在，您需要實際使用這些 action 進行 navigates 的程式碼。輕觸「Cancel」按鈕處即為適當位置。</p>
+<h5 id="在-layout-中新增「Cancel」按鈕"><a href="#在-layout-中新增「Cancel」按鈕" class="headerlink" title="在 layout 中新增「Cancel」按鈕"></a>在 layout 中新增「Cancel」按鈕</h5><p>首先，請在所有 fragments (<code>StartFragment</code> 除外) 的 layout 檔案中新增「Cancel」按鈕。如果您已位於訂購流程的第一個畫面，便無需取消訂單。</p>
+<ol>
+<li>開啟 <code>fragment_flavor.xml</code> layout 檔案。</li>
+<li>您可以使用「Split」view 直接編輯 XML，且並排 view 預覽畫面。</li>
+<li>在 subtotal text view 和「Next」按鈕之間新增「Cancel」按鈕。為其指派 resource ID <code>@+id/cancel_button</code>，並以 text 顯示 <code>@string/cancel</code>。</li>
+</ol>
+<p>該按鈕應與「Next」按鈕平行放置，以一列按鈕的形式呈現。針對 vertical constraint，請將「Cancel」按鈕 top constraint 與「Next」按鈕 top 同高。針對 horizontal constraints，請將「Cancel」按鈕的 start 處限制於 parent 中，並將其 end 處限制於「Next」按鈕的 start 處。</p>
+<p>此外，請將「Cancel」按鈕的 height 設為 <code>wrap_content</code>，width 設為 <code>0dp</code>，以便將螢幕寬度平均分配給另一個按鈕。請注意，進入下一個步驟前，「Preview」窗格不會顯示此按鈕。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/subtotal&quot;</span> <span class="attr">...</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/cancel_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;@string/cancel&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintEnd_toStartOf</span>=<span class="string">&quot;@id/next_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;@id/next_button&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/next_button&quot;</span> <span class="attr">...</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在 <code>fragment_flavor.xml</code> 中，您也需將「Next」按鈕的 start constraint 從 <code>app:layout_constraintStart_toStartOf=&quot;parent&quot;</code> 變更為 <code>app:layout_constraintStart_toEndOf=&quot;@id/cancel_button&quot;</code>。此外，在「Cancel」按鈕上新增 end margin，讓兩個按鈕之間留有空白。現在，Android Studio 的「Preview」窗格中應會顯示「Cancel」按鈕。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/cancel_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_marginEnd</span>=<span class="string">&quot;@dimen/side_margin&quot;</span> <span class="attr">...</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/next_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toEndOf</span>=<span class="string">&quot;@id/cancel_button&quot;</span><span class="attr">...</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>在 visual style 方面，請使用 <a href="https://m3.material.io/components/buttons/overview">Material Outlined Button</a> 樣式 (使用屬性 <code>style=&quot;?attr/materialButtonOutlinedStyle&quot;</code>)，使「Cancel」按鈕不會過於醒目，因「Next」按鈕是您希望使用者專注的主要動作。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/cancel_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">style</span>=<span class="string">&quot;?attr/materialButtonOutlinedStyle&quot;</span> <span class="attr">...</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>按鈕和位置現在看起來十分完美！</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/1fb41763cc255c05_1920.png?hl=zh-tw" width="40%">
+
+<ol start="6">
+<li>以同樣的方式，在 <code>fragment_pickup.xml</code> layout 檔案中新增「Cancel」按鈕。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/subtotal&quot;</span> <span class="attr">...</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/cancel_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">style</span>=<span class="string">&quot;?attr/materialButtonOutlinedStyle&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_marginEnd</span>=<span class="string">&quot;@dimen/side_margin&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;@string/cancel&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintEnd_toStartOf</span>=<span class="string">&quot;@id/next_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;@id/next_button&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/next_button&quot;</span> <span class="attr">...</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>請一併更新「Next」按鈕的 start constraint。接著，預覽畫面中會顯示「Cancel」按鈕。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/next_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toEndOf</span>=<span class="string">&quot;@id/cancel_button&quot;</span> <span class="attr">...</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>對 <code>fragment_summary.xml</code> 檔案套用類似的變更，但這個 fragment 的 layout 稍有不同。您將在 parent vertical <code>LinearLayout</code> 中的「Send」按鈕下方新增「Cancel」按鈕，並在兩個按鈕之間保留一定間距。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/741c0f034397795c_1920.png?hl=zh-tw" width="40%">
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/send_button&quot;</span> <span class="attr">...</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/cancel_button&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">style</span>=<span class="string">&quot;?attr/materialButtonOutlinedStyle&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginTop</span>=<span class="string">&quot;@dimen/margin_between_elements&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;@string/cancel&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>執行並測試 app。現在，<code>FlavorFragment</code>、<code>PickupFragment</code> 和 <code>SummaryFragment</code> 的 layouts 中應該會顯示「Cancel」按鈕。不過，輕觸該按鈕目前並不會執行任何動作。請在下一個步驟中為這些按鈕設定 click listeners。</li>
+</ol>
+<h5 id="新增「Cancel」按鈕的-click-listener"><a href="#新增「Cancel」按鈕的-click-listener" class="headerlink" title="新增「Cancel」按鈕的 click listener"></a>新增「Cancel」按鈕的 click listener</h5><p>在每個 fragment class (StartFragment 除外) 中新增 Helper 方法，以便在使用者點選「Cancel」按鈕時進行處理。</p>
+<ol>
+<li>將這個 <code>cancelOrder()</code> 方法新增至 <code>FlavorFragment</code>。如果使用者在看到 flavor 選項時決定取消訂單，請呼叫 <code>sharedViewModel.resetOrder()</code> 清除 view model。接著，使用 ID 為 <code>R.id.action_flavorFragment_to_startFragment</code> 的 navigation action 返回 <code>StartFragment</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">cancelOrder</span><span class="params">()</span></span> &#123;</span><br><span class="line">    sharedViewModel.resetOrder()</span><br><span class="line">    findNavController().navigate(R.id.action_flavorFragment_to_startFragment)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果您看到與 action resource ID 相關的錯誤，可能需要返回 <code>nav_graph.xml</code> 檔案，確認您的 navigation actions 也命名為相同名稱 (<code>action_flavorFragment_to_startFragment</code>)。</li>
+</ul>
+<ol start="2">
+<li>如要在 <code>fragment_flavor.xml</code> layout 的「Cancel」按鈕上設定 click listener，請使用 listener binding。點選此按鈕可叫用您剛才在 <code>FragmentFlavor</code> class 中建立的 <code>cancelOrder()</code> 方法。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/cancel_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:onClick</span>=<span class="string">&quot;@&#123;() -&gt; flavorFragment.cancelOrder()&#125;&quot;</span> <span class="attr">...</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>針對 <code>PickupFragment</code> 重複執行相同的程序(process)。在 fragment class 中新增 <code>cancelOrder()</code> 方法，藉此重設訂單，並從 <code>PickupFragment</code> 瀏覽至 <code>StartFragment</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">cancelOrder</span><span class="params">()</span></span> &#123;</span><br><span class="line">    sharedViewModel.resetOrder()</span><br><span class="line">    findNavController().navigate(R.id.action_pickupFragment_to_startFragment)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在 <code>fragment_pickup.xml</code> 中，於「Cancel」按鈕上設定 click listener，以便在使用者點選時呼叫 <code>cancelOrder()</code> 方法。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/cancel_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:onClick</span>=<span class="string">&quot;@&#123;() -&gt; pickupFragment.cancelOrder()&#125;&quot;</span> <span class="attr">...</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>為 <code>SummaryFragment</code> 中的「Cancel」按鈕新增類似的程式碼，讓使用者可以返回 <code>StartFragment</code>。如果 <code>androidx.navigation.fragment.findNavController</code> 未自動 import，您可能需要自行 import。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">cancelOrder</span><span class="params">()</span></span> &#123;</span><br><span class="line">    sharedViewModel.resetOrder()</span><br><span class="line">    findNavController().navigate(R.id.action_summaryFragment_to_startFragment)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>在 <code>fragment_summary.xml</code> 中按下「Cancel」按鈕時，將隨即呼叫 <code>SummaryFragment</code> 的 <code>cancelOrder()</code> 方法。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/cancel_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:onClick</span>=<span class="string">&quot;@&#123;() -&gt; summaryFragment.cancelOrder()&#125;&quot;</span> <span class="attr">...</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>執行並測試 app，確認您剛才新增至每個 fragment 的邏輯。建立杯子蛋糕訂單時，輕觸 <code>FlavorFragment</code>、<code>PickupFragment</code> 或 <code>SummaryFragment</code> 上的「Cancel」按鈕，即可返回 <code>StartFragment</code>。繼續建立新訂單時，請注意系統已清除先前訂單中的資訊。</li>
+</ol>
+<p>成效看起來不錯，但返回 <code>StartFragment</code> 後，向後 navigating 實際上有錯誤。請按照下列步驟重現錯誤。</p>
+<ol start="8">
+<li><p>按照訂購流程建立新的杯子蛋糕訂單，直到到達 summary 畫面為止。舉例來說，您可以訂購 12 個巧克力口味的杯子蛋糕，並選擇未來的取貨日期。</p>
+</li>
+<li><p>接著，輕觸「Cancel」。您應該會返回 <code>StartFragment</code>。</p>
+</li>
+<li><p>這看起來沒問題，但如果您輕觸系統自帶的「Back」按鈕，就會回到訂單 summary 畫面，其中將顯示訂單摘要：訂購 0 個杯子蛋糕，未選擇任何口味。這是錯誤現象，不應向使用者顯示。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/1a9024cd58a0e643_1920.png?hl=zh-tw" width="30%">
+
+<p>使用者可能不想回到訂購流程。此外，view model 中的所有訂單資料均已清除，因此這項資訊不實用。反之，輕觸 <code>StartFragment</code> 中的「Back」按鈕，應離開 Cupcake app。</p>
+<p>以下我們將介紹  back stack 目前的情況，以及修正 bug 的方法。透過訂單 summary 畫面建立訂單時，每個目的地(destination)都會推送至 back stack 上。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/fc88100cdf1bdd1_1920.png?hl=zh-tw" width="50%">
+
+<p>您在 <code>SummaryFragment</code> 取消了訂單。當您使用 <code>SummaryFragment</code> 至 <code>StartFragment</code> 的 action 進行 navigated 時，Android 會新增另一個 <code>StartFragment</code> instance，做為 back stack 上的新目的地(destination)。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/5616cb0028b63602_1920.png" width="50%">
+
+<p>因此，當您輕觸 <code>StartFragment</code> 中的「Back」按鈕時，app 最終會重新顯示 <code>SummaryFragment</code> (包含空白訂單資訊)。</p>
+<p>如要修正這個 navigation bug，請瞭解 Navigation component 如何讓使用者在使用 action 進行 navigating 時，從返 back stack 中移除其他目的地(destination)。</p>
+<h5 id="從-back-stack-中移除其他目的地"><a href="#從-back-stack-中移除其他目的地" class="headerlink" title="從 back stack 中移除其他目的地"></a>從 back stack 中移除其他目的地</h5><h6 id="★Navigation-action：popUpTo-屬性"><a href="#★Navigation-action：popUpTo-屬性" class="headerlink" title="★Navigation action：popUpTo 屬性"></a>★Navigation action：popUpTo 屬性</h6><p><u>在 <b>navigation graph</b> 的 <b>navigation action</b> 中加入 <code>app:popUpTo</code> 屬性後，即可從 <b>back stack</b> 中移除多個目的地，直到到達指定目的地為止</u>。如果指定 <code>app:popUpTo=&quot;@id/startFragment&quot;</code>，則會移除 back stack 中的目的地，直到到達 <code>StartFragment</code> 為止，此片段會保留在 stack 中。</p>
+<p>將此變更新增至程式碼並執行 app 時，您將會發現只要取消訂單，就會回到 <code>StartFragment</code>。但這次，當您輕觸 <code>StartFragment</code> 的「Back」按鈕時，會再次看到 <code>StartFragment</code> (而不是結束 app)。這也不是預期出現的行為。如先前所述，由於您正在前往 <code>StartFragment</code>，Android 實際上會在 back stack 中新增 <code>StartFragment</code> 做為新目的地，因此現在 back stack 會有 2 個 <code>StartFragment</code> instances。因此，您必須輕觸「Back」按鈕兩次才能結束 app。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/dd0fedc6e231e595_1920.png?hl=zh-tw" width="50%">
+
+<h6 id="★Navigation-action：popUpToInclusive-屬性"><a href="#★Navigation-action：popUpToInclusive-屬性" class="headerlink" title="★Navigation action：popUpToInclusive 屬性"></a>★Navigation action：popUpToInclusive 屬性</h6><p>為修正這個新 bug，請要求<u>將所有目的地從 back stack 中移除，直到 (且包含) <code>StartFragment</code> 為止</u>。請在適當的 <strong>navigation actions</strong> 指定 <code>app:popUpTo=&quot;@id/startFragment&quot;</code> 和 <code>app:popUpToInclusive=&quot;true&quot;</code>，以達到此目標。如此一來，back stack 中就只會有一個新的 <code>StartFragment</code> instance。接著輕觸 <code>StartFragment</code> 中的「Back」按鈕，結束 app。我們現在要進行這項變更。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/cf0e80b4907d80dd_1920.png?hl=zh-tw" width="50%">
+
+<h6 id="修改-navigation-action"><a href="#修改-navigation-action" class="headerlink" title="修改 navigation action"></a>修改 navigation action</h6><ol>
+<li><p>開啟「res」&gt;「navigation」&gt;「nav_graph.xml」檔案，前往 Navigation Editor。</p>
+</li>
+<li><p>選取從 <code>summaryFragment</code> 至 <code>startFragment</code> 的 action，使其以藍色 highlighted。</p>
+</li>
+<li><p>展開右側的「Attributes」(如果尚未開啟)。在可修改的 attributes list 中尋找「Pop Behavior」。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/8c87589f9cc4d176_1920.png?hl=zh-tw">
+
+<ol start="4">
+<li>透過下拉式選單(dropdown)的選項，將 <code>popUpTo</code> 設為 <code>startFragment</code>。這表示 back stack 中的所有目的地皆會移除 (從 stack 頂端開始往下移除)，直到 <code>startFragment</code> 為止。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/a9a17493ed6bc27f_1920.png?hl=zh-tw" width="40%">
+
+<ol start="5">
+<li>接著按一下「popUpToInclusive」checkbox，直到畫面上顯示勾號和「true」label 為止。這表示您想要移除目的地，直到 (且包含) back stack 中已經存在的 <code>startFragment</code> instance 為止。透過此方式，back stack 中就不會出現兩個 <code>startFragment</code> instance。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/4a403838a62ff487_1920.png?hl=zh-tw" width="40%">
+
+<ol start="6">
+<li>針對將 <code>pickupFragment</code> 連結到 <code>startFragment</code> 的 action 重複以上變更。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/4a403838a62ff487_1920.png?hl=zh-tw" width="40%">
+
+<ol start="7">
+<li><p>針對將 <code>flavorFragment</code> 連結到 <code>startFragment</code> 的 action 重複以上操作。</p>
+</li>
+<li><p>完成後，請查看 navigation graph 檔案的「Code」view，確認 app 變更內容正確無誤。</p>
+</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">navigation</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/nav_graph&quot;</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fragment</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/startFragment&quot;</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">fragment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fragment</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/flavorFragment&quot;</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/action_flavorFragment_to_startFragment&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:destination</span>=<span class="string">&quot;@id/startFragment&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:popUpTo</span>=<span class="string">&quot;@id/startFragment&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:popUpToInclusive</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">fragment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fragment</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/pickupFragment&quot;</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/action_pickupFragment_to_startFragment&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:destination</span>=<span class="string">&quot;@id/startFragment&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:popUpTo</span>=<span class="string">&quot;@id/startFragment&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:popUpToInclusive</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">fragment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fragment</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/summaryFragment&quot;</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/action_summaryFragment_to_startFragment&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:destination</span>=<span class="string">&quot;@id/startFragment&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:popUpTo</span>=<span class="string">&quot;@id/startFragment&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:popUpToInclusive</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">fragment</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">navigation</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>請注意，這 3 項 actions (<code>action_flavorFragment_to_startFragment</code>、<code>action_pickupFragment_to_startFragment</code> 和 <code>action_summaryFragment_to_startFragment</code>) 應新增 <code>app:popUpTo=&quot;@id/startFragment&quot;</code> 和 <code>app:popUpToInclusive=&quot;true&quot;</code> 屬性。</li>
+</ul>
+<ol start="9">
+<li>接著執行 app。請按照訂購流程中的步驟操作，然後輕觸「Cancel」。返回 <code>StartFragment</code> 時，請輕觸「Back」按鈕 (僅限一次！) 退出 app。</li>
+</ol>
+<p>簡而言之，當您取消訂單並返回 app 的第一個畫面時， back stack 中的所有 fragment 目的地都會移除，包括第一個出現的 <code>StartFragment</code>。完成 navigation action 後，<code>StartFragment</code> 會做為新目的地新增至 back stack。輕觸該處的「Back」後，會從 stack 移除 <code>StartFragment</code>，使 back stack 中完全沒有 fragment。Android 即完成 activity，且使用者離開 app。</p>
+<p>app 應如下所示：</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/2e0599d9b55401f1_1920.png?hl=zh-tw">
+
+<hr>
+<h3 id="送出訂單"><a href="#送出訂單" class="headerlink" title="送出訂單"></a>送出訂單</h3><p>到目前為止，app 看起來很棒！但還剩下一部分。當您輕觸 <code>SummaryFragment</code> 上的「send order」按鈕時，仍會彈出 <code>Toast</code> 訊息。</p>
+<p>如果訂單能夠自 app 發出，即可打造更加實用的體驗。善用在先前程式碼研究室中學到的知識，運用 implicit intent 將 app 資訊分享至其他 app。如此一來，使用者就可以在裝置上與 email app 分享杯子蛋糕訂單資訊，讓系統將訂單透過 email 傳送到杯子蛋糕店。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/170d76b64ce78f56_1920.png?hl=zh-tw">
+
+<p>如要實作這項功能，請參閱上方的螢幕截圖，瞭解 email 主旨和 email 內文的結構。</p>
+<p>您將會使用 <code>strings.xml</code> 檔案中已包含的字串。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;new_cupcake_order&quot;</span>&gt;</span>New Cupcake Order<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;order_details&quot;</span>&gt;</span>Quantity: %1$s cupcakes \n Flavor: %2$s \nPickup date: %3$s \n Total: %4$s \n\n Thank you!<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>order_details</code> 是一個字串資源，其中包含 4 種不同的格式參數(format arguments)，此為<u>杯子蛋糕實際數量(quantity)</u>、<u>所需口味(flavor)</u>、<u>所需取貨日期(pickup date)</u>和<u>總金額(total price)</u>的預留位置。參數編號為 1 到 4，語法為 <code>%1</code> 到 <code>%4</code>。參數類型也已指定 (<code>$s</code> 代表字串預期在此處)。</p>
+<p>在 Kotlin 程式碼中，您可以在 <code>R.string.order_details</code> 上呼叫 <code>getString()</code>，後接 4 個參數 (順序很重要！)。舉例來說，呼叫 <code>getString(R.string.order_details, &quot;12&quot;, &quot;Chocolate&quot;, &quot;Sat Dec 12&quot;, &quot;$24.00&quot;)</code> 會建立下列字串，而這正是您所需的 email 內文。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Quantity: 12 cupcakes</span><br><span class="line">Flavor: Chocolate</span><br><span class="line">Pickup date: Sat Dec 12</span><br><span class="line">Total: $24.00</span><br><span class="line"></span><br><span class="line">Thank you!</span><br></pre></td></tr></table></figure>
+
+<div class="note no-icon success">
+            <p><strong>注意：</strong>您可能會憶起已經學習過含有<b>格式參數(format arguments)</b>的字串資源。舉例來說，您在 app 中使用的 subtotal 和 total price 會宣告為：</p><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;subtotal_price&quot;</span>&gt;</span>Subtotal %s<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;total_price&quot;</span>&gt;</span>Total %s<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure><p>其中 <b>%s</b> 是經過格式化(formatted)的 price 字串預留位置。</p>
+          </div>
+
+<ol>
+<li>在 <code>SummaryFragment.kt</code> 中修改 <code>sendOrder()</code> 方法。移除現有的 <code>Toast</code> 訊息。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sendOrder</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 <code>sendOrder()</code> 方法中，建構 order summary 文字。從 shared view model 取得訂單數量、口味、日期和價格，建立格式化的 <code>order_details</code> 字串。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> orderSummary = getString(</span><br><span class="line">    R.string.order_details,</span><br><span class="line">    sharedViewModel.quantity.value.toString(),</span><br><span class="line">    sharedViewModel.flavor.value.toString(),</span><br><span class="line">    sharedViewModel.date.value.toString(),</span><br><span class="line">    sharedViewModel.price.value.toString()</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>sendOrder()</code> 方法中，建立將訂單分享至其他 app 的 implicit intent。請參閱<a href="https://developer.android.com/guide/components/intents-common#Email">說明文件</a>，瞭解如何建立 email intent。請為 intent action 指定 <code>Intent.ACTION_SEND</code>、將 type 設為 <code>&quot;text/plain&quot;</code>，並加入 email 主旨 (<code>Intent.EXTRA_SUBJECT</code>) 和 email 內文 (<code>Intent.EXTRA_TEXT</code>) 的 intent extras。視需要 import <code>android.content.Intent</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> intent = Intent(Intent.ACTION_SEND)</span><br><span class="line">    .setType(<span class="string">&quot;text/plain&quot;</span>)</span><br><span class="line">    .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.new_cupcake_order))</span><br><span class="line">    .putExtra(Intent.EXTRA_TEXT, orderSummary)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>另提供額外 tip，如果您將此 app 調整為個人用途，可將 email 收件者預先填入為杯子蛋糕店的 email 地址。在 intent 中，您將以 intent extra <code>Intent.EXTRA_EMAIL</code> 指定 email 收件者。</li>
+</ul>
+<ol start="4">
+<li>由於此為 implicit intent，您不必事先得知哪個特定 component 或 app 會處理這項 intent。使用者會決定要使用哪一款 app 來達到 intent。但是，在使用這項 intent 啟動(launching) activity 前，請先檢查是否有 app 能處理此 intent。如果沒有能處理此 intent 的 app，這項檢查可防止 Cupcake app 當機，讓程式碼更加安全。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (activity?.packageManager?.resolveActivity(intent, <span class="number">0</span>) != <span class="literal">null</span>) &#123;</span><br><span class="line">    startActivity(intent)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>透過存取 <code>PackageManager</code> 執行這項檢查，其具備裝置上所安裝 app packages 的相關資訊。只要 activity 和 <code>packageManager</code> 並非空值(null)，就可以透過 fragment 的 <code>activity</code> 存取 <code>PackageManager</code>。使用您建立的 intent 呼叫 <code>PackageManager</code> 的 <code>resolveActivity()</code> 方法。如果結果不是空值(null)，可以放心使用 intent 呼叫 <code>startActivity()</code>。</p>
+<ol start="5">
+<li>執行 app 以測試程式碼。建立杯子蛋糕訂單，然後輕觸「Send Order to Another App」。畫面上顯示分享 dialog pops up 時，即可選取 Gmail app。如有需要，亦可選擇其他 app。如果您選擇 Gmail app，可能需要在裝置上設定帳戶 (如果尚未設定，例如您正在使用 emulator)。如果 email 內文中未顯示最新的杯子蛋糕訂單，您可能需要先捨棄目前的 email 草稿。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/170d76b64ce78f56_1920.png?hl=zh-tw">
+
+<p>在不同情況下進行測試時，如果只有 1 個杯子蛋糕，可能會發現錯誤。order summary 顯示「1 cupcakes」，但是這種說法在英文中屬於文法錯誤。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-navigation-backstack/img/ef046a100381bb07_1920.png?hl=zh-tw" width="50%">
+
+<p>反之，應顯示「1 cupcake」(非複數型態)。如要根據數量值選擇單數或複數型態的字詞，可以在 Android 中使用 <a href="https://developer.android.com/guide/topics/resources/string-resource#Plurals">quantity strings</a>。只要宣告 <code>plurals</code> resource，即可根據數量指定不同的 string resources，例如單數或複數型態。</p>
+<ol start="6">
+<li>在 <code>strings.xml</code> 檔案中新增 cupcakes 複數資源(plurals resource)。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plurals</span> <span class="attr">name</span>=<span class="string">&quot;cupcakes&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">quantity</span>=<span class="string">&quot;one&quot;</span>&gt;</span>%d cupcake<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">quantity</span>=<span class="string">&quot;other&quot;</span>&gt;</span>%d cupcakes<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plurals</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在單數(singular)情況 (<code>quantity=&quot;one&quot;</code>) 下，會使用單數字串(singular string)。在所有其他情況下 (<code>quantity=&quot;other&quot;</code>)，將會使用複數字串(plural string)。請注意，<code>%d</code> 為整數參數，而非 <code>%s</code> 的字串參數，當您格式化字串時，將會傳入此參數。</li>
+</ul>
+<p>在 Kotlin 程式碼中呼叫：</p>
+<ul>
+<li><code>getQuantityString(R.plurals.cupcakes, 1, 1)</code> 會傳回 <code>1 cupcake</code> 字串</li>
+<li><code>getQuantityString(R.plurals.cupcakes, 6, 6)</code> 會傳回 6 <code>cupcakes</code> 字串</li>
+<li><code>getQuantityString(R.plurals.cupcakes, 0, 0)</code> 會傳回 0 <code>cupcakes</code> 字串</li>
+</ul>
+<div class="note no-icon success">
+            <p><strong>注意：</strong>呼叫 <b>getQuantityString()</b> 時，您必須傳入數量兩次，因為第一個數量參數用於選取正確的複數字串(plural string)。第二個數量參數則用於實際字串資源的 <b>%d</b> 預留位置。</p>
+          </div>
+
+<ol start="7">
+<li>前往 Kotlin 程式碼前，請更新 <code>strings.xml</code> 中的 <code>order_details</code> 字串資源，使杯子蛋糕的複數(plural)版本不再以 hardcoded 的方式寫入。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;order_details&quot;</span>&gt;</span>Quantity: %1$s \n Flavor: %2$s \nPickup date: %3$s \n</span><br><span class="line">        Total: %4$s \n\n Thank you!<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>在 <code>SummaryFragment</code> class 中，更新 <code>sendOrder()</code> 方法以使用新的數量字串。最簡單的方式是先從 view model 找出數量，然後儲存在變數中。由於 view model 中的 <code>quantity</code> 屬於 <code>LiveData&lt;Int&gt;</code> 類型，因此 <code>sharedViewModel.quantity.value</code> 可能為空值。如果為空值，請使用 <code>0</code> 做為 <code>numberOfCupcakes</code> 的預設值。</li>
+</ol>
+<p>請將此新增為 <code>sendOrder()</code> 方法中的第一行程式碼。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> numberOfCupcakes = sharedViewModel.quantity.value ?: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>elvis 運算子 (<code>?:</code>) 表示左側的運算式並非空值時，請使用該運算式。如果左側的運算式為空值，請使用 elvis 運算子右側的運算式 (本例中為 <code>0</code>)。</li>
+</ul>
+<ol start="9">
+<li>接著和先前一樣，將 <code>order_details</code> 字串格式化。請勿以 <code>numberOfCupcakes</code> 做為數量參數直接傳入，而是使用 <code>resources.getQuantityString(R.plurals.cupcakes, numberOfCupcakes, numberOfCupcakes)</code> 建立格式化的杯子蛋糕字串。</li>
+</ol>
+<p>完整的 <code>sendOrder()</code> 方法如下所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sendOrder</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> numberOfCupcakes = sharedViewModel.quantity.value ?: <span class="number">0</span></span><br><span class="line">    <span class="keyword">val</span> orderSummary = getString(</span><br><span class="line">        R.string.order_details,</span><br><span class="line">        resources.getQuantityString(R.plurals.cupcakes, numberOfCupcakes, numberOfCupcakes),</span><br><span class="line">        sharedViewModel.flavor.value.toString(),</span><br><span class="line">        sharedViewModel.date.value.toString(),</span><br><span class="line">        sharedViewModel.price.value.toString()</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> intent = Intent(Intent.ACTION_SEND)</span><br><span class="line">        .setType(<span class="string">&quot;text/plain&quot;</span>)</span><br><span class="line">        .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.new_cupcake_order))</span><br><span class="line">        .putExtra(Intent.EXTRA_TEXT, orderSummary)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (activity?.packageManager?.resolveActivity(intent, <span class="number">0</span>) != <span class="literal">null</span>) &#123;</span><br><span class="line">        startActivity(intent)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>執行並測試程式碼。檢查 email 內文中的訂單摘要是否顯示 1 個杯子蛋糕、6 個杯子蛋糕或 12 個杯子蛋糕。</li>
+</ol>
+<p>透過此方法，您已完成 Cupcake app 的所有功能！恭喜！！這是一款極具挑戰性的 app，而您在成為 Android 開發人員的旅程中，獲得大幅的進展！您已成功整合目前為止學到的所有概念，同時在過程中整理出一些新的問題解決方式。</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+        <category>Android Kotlin基本概念課程</category>
+        <category>Navigation</category>
+      </categories>
+      <tags>
+        <tag>Back Stack</tag>
+        <tag>Jetpack Navigation Component</tag>
+        <tag>Navigation Graph</tag>
+        <tag>Navigation Action</tag>
+        <tag>Implicit Intent</tag>
+        <tag>plurals</tag>
+      </tags>
+  </entry>
 </search>

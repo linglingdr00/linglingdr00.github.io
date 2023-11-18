@@ -195,6 +195,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/11/17/Android%E7%AD%86%E8%A8%98-31-Coroutines%E7%B0%A1%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/17/Android%E7%AD%86%E8%A8%98-31-Coroutines%E7%B0%A1%E4%BB%8B/" class="post-title-link" itemprop="url">Android筆記(33)-Coroutines簡介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-11-17 16:32:03" itemprop="dateCreated datePublished" datetime="2023-11-17T16:32:03+08:00">2023-11-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-18 16:22:20" itemprop="dateModified" datetime="2023-11-18T16:22:20+08:00">2023-11-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Connect-to-the-internet/" itemprop="url" rel="index"><span itemprop="name">Connect to the internet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>瞭解關於<b>執行緒(threads)</b>的資訊，以及如何使用稱為<b>協程(coroutines)</b>的 Kotlin 功能撰寫<u>乾淨(clear)</u>、<u>非阻塞(non-blocking)</u>的<b>並行(concurrent)</b>程式碼。</p>
+</blockquote>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>何謂<b>並行(concurrency)</b>，以及其重要性</li>
+<li>如何使用<b>協程(coroutines)</b>和<b>執行緒(threads)</b>，撰寫<u>非阻塞(non-blocking)</u>的<u>並行(concurrent)</u>程式碼</li>
+<li>如何在 background 工作(performing tasks)時存取 <b>main thread</b>，安全地更新<b>UI</b></li>
+<li>不同<b>並行模式(concurrency pattern)</b>「<b> 範圍(Scope) &#x2F; 調度工具(Dispatchers) &#x2F; 延遲(Deferred)</b> 」的使用方式與使用時機</li>
+<li>如何撰寫與<b>網路資源(network resources)</b>互動(interacts)的程式碼</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/17/Android%E7%AD%86%E8%A8%98-31-Coroutines%E7%B0%A1%E4%BB%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/11/15/Android%E7%AD%86%E8%A8%98-30-%E6%B8%AC%E8%A9%A6ViewModel%E5%92%8CLiveData/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1283,106 +1382,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/11/05/Android%E7%AD%86%E8%A8%98-26-%E5%B0%87%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%BCViewModel%E4%B8%AD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/blog_photo.png">
-      <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="^(-o-)>">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tina Tang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/05/Android%E7%AD%86%E8%A8%98-26-%E5%B0%87%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%BCViewModel%E4%B8%AD/" class="post-title-link" itemprop="url">Android筆記(26)-將資料儲存於ViewModel中</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-11-05 14:44:53" itemprop="dateCreated datePublished" datetime="2023-11-05T14:44:53+08:00">2023-11-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-06 11:46:34" itemprop="dateModified" datetime="2023-11-06T11:46:34+08:00">2023-11-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Navigation/" itemprop="url" rel="index"><span itemprop="name">Navigation</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>瞭解如何使用 <code>ViewModel</code> 架構元件來儲存應用程式資料。如果在設定變更或其他事件期間，刪除架構並重新建立 activity 和 fragment，儲存的資料不會遺失。</p>
-</blockquote>
-<p><strong>學習目標</strong></p>
-<ul>
-<li>Android 應用程式架構基本概念簡介。</li>
-<li>如何在應用程式中使用 <code>ViewModel</code> 類別。</li>
-<li>如何使用 <code>ViewModel</code>，透過裝置設定變更保留 UI 資料。</li>
-<li>Kotlin 的幕後屬性。</li>
-<li>如何使用質感設計元件庫中的 <code>MaterialAlertDialog</code>。</li>
-<li>建立 <code>Unscramble</code> 遊戲應用程式，可讓使用者猜測打散的字詞。</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/05/Android%E7%AD%86%E8%A8%98-26-%E5%B0%87%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%BCViewModel%E4%B8%AD/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1454,20 +1453,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

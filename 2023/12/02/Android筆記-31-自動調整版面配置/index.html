@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo2.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Shippori Mincho:300,300italic,400,400italic,700,700italic|Inconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+<link rel="preconnect" href="https://fonts.loli.net">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="版面配置(layout)應配合不同的螢幕大小和方向而彈性調整，而不是以特定顯示比例和螢幕大小的硬性尺寸來指定版面配置(layout)。因此，建議將 app 設計成在可順利在各種類型的裝置 (小螢幕或大螢幕裝置) 上執行。    學習目標  如何在 app 中加入 SlidingPaneLayout。  建構項目  更新 Sports app，配合大螢幕進行調整。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android筆記(31)-自動調整版面配置">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/12/02/Android%E7%AD%86%E8%A8%98-31-%E8%87%AA%E5%8B%95%E8%AA%BF%E6%95%B4%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Tina Tang&#39;s Blog">
+<meta property="og:description" content="版面配置(layout)應配合不同的螢幕大小和方向而彈性調整，而不是以特定顯示比例和螢幕大小的硬性尺寸來指定版面配置(layout)。因此，建議將 app 設計成在可順利在各種類型的裝置 (小螢幕或大螢幕裝置) 上執行。    學習目標  如何在 app 中加入 SlidingPaneLayout。  建構項目  更新 Sports app，配合大螢幕進行調整。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/aecb59fc49fb4abf_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/d9af155f87ddbcdf_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/73a5e6de1c337b1d_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/f50d3e7b41fcb338_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/d9af155f87ddbcdf_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/b19fd0e779c1d7c3_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/c2073b1752342d97_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/d9af155f87ddbcdf_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/73a5e6de1c337b1d_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/8303f9b3e70321eb_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/200e209de7a2f0ad_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/71698910dd129a91_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/51c9542717d2f875_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/codelabs/basic-android-kotlin-training-adaptive-layouts/img/b0a205de3494e95d.gif">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/e26f94d9579b6121_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/471b0b38d4dfa95a_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/a247a843310d061a_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/ad148a96d7487e66_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/a6be6d199d2975ac_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/ce3a93fe501ee5dc_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/8fedee8d4837909_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/b0d3c8c263be15f8_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/ad52135eecbee09f_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/codelabs/basic-android-kotlin-training-adaptive-layouts/img/33967fa8fde5b902.gif">
+<meta property="article:published_time" content="2023-12-02T04:44:21.000Z">
+<meta property="article:modified_time" content="2023-12-04T11:40:50.225Z">
+<meta property="article:author" content="Tina Tang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
+<meta property="article:tag" content="Layout">
+<meta property="article:tag" content="View Binding">
+<meta property="article:tag" content="Adapter">
+<meta property="article:tag" content="RecyclerView">
+<meta property="article:tag" content="Fragment">
+<meta property="article:tag" content="ViewModel">
+<meta property="article:tag" content="Observer">
+<meta property="article:tag" content="MutableLiveData">
+<meta property="article:tag" content="Shared ViewModel">
+<meta property="article:tag" content="Custom Back Navigation">
+<meta property="article:tag" content="SlidingPaneLayout">
+<meta property="article:tag" content="Callback">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/aecb59fc49fb4abf_1920.png?hl=zh-tw">
+
+<link rel="canonical" href="https://linglingdr00.github.io/2023/12/02/Android%E7%AD%86%E8%A8%98-31-%E8%87%AA%E5%8B%95%E8%AA%BF%E6%95%B4%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Android筆記(31)-自動調整版面配置 | Tina Tang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tina Tang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/12/02/Android%E7%AD%86%E8%A8%98-31-%E8%87%AA%E5%8B%95%E8%AA%BF%E6%95%B4%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android筆記(31)-自動調整版面配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-02 12:44:21" itemprop="dateCreated datePublished" datetime="2023-12-02T12:44:21+08:00">2023-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-04 19:40:50" itemprop="dateModified" datetime="2023-12-04T19:40:50+08:00">2023-12-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Navigation/" itemprop="url" rel="index"><span itemprop="name">Navigation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><b>版面配置(layout)</b>應<u>配合不同的螢幕大小和方向而彈性調整</u>，而不是以特定顯示比例和螢幕大小的硬性尺寸來指定版面配置(layout)。因此，建議將 app 設計成在可順利在各種類型的裝置 (小螢幕或大螢幕裝置) 上執行。</p>
+</blockquote>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/aecb59fc49fb4abf_1920.png?hl=zh-tw" width="50%">
+
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何在 app 中加入 <code>SlidingPaneLayout</code>。</li>
+</ul>
+<p><strong>建構項目</strong></p>
+<ul>
+<li>更新 Sports app，配合大螢幕進行調整。</li>
+</ul>
+<span id="more"></span>
+
+<hr>
+<h3 id="下載範例程式碼"><a href="#下載範例程式碼" class="headerlink" title="下載範例程式碼"></a>下載範例程式碼</h3><div class="note no-icon success">
+            <p><strong>範例程式碼網址：</strong><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/basic-android-kotlin-training-sports/tree/starter">https://github.com/google-developer-training/basic-android-kotlin-training-sports/tree/starter</a></p><p><strong>分支版本名稱：</strong><b>starter</b></p>
+          </div>
+
+<hr>
+<h3 id="範例應用程式總覽"><a href="#範例應用程式總覽" class="headerlink" title="範例應用程式總覽"></a>範例應用程式總覽</h3><p>Sports app 由兩個畫面組成。<u>第一個畫面</u>會顯示 <u>sports lists</u> 。使用者可以<u>選取特定 sport item</u>，系統便會<u>顯示第二個畫面</u>。<u>第二個畫面</u>會顯示所選 <u>sports news 的詳細資料</u>。詳細資料畫面會顯示預留位置文字，以簡化實作。</p>
+<div style="display:flex; justify-content:center;">
+    <div style="width:40%; float:left; margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/d9af155f87ddbcdf_1920.png?hl=zh-tw">
+    </div>
+    <div style="width:40%; float:left;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/73a5e6de1c337b1d_1920.png?hl=zh-tw">
+    </div>
+    <div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+</div>
+
+<h4 id="範例程式碼逐步操作說明"><a href="#範例程式碼逐步操作說明" class="headerlink" title="範例程式碼逐步操作說明"></a>範例程式碼逐步操作說明</h4><p>您下載的範例程式碼包含預先設計的 list 畫面和詳細資料畫面 layout。在本課程中，您只需瞭解如何讓 app 配合大螢幕自動調整即可。您將用 <code>SlidingPaneLayout</code> 來利用大螢幕。以下是一些檔案的簡短逐步操作說明，以協助您快速上手。</p>
+<p><code>fragment_sports_list.xml</code></p>
+<ul>
+<li>在「Design」檢視畫面中開啟 <code>res/layout/fragment_sports_list.xml</code>。</li>
+<li>這包含 app 中第一個畫面的版面配置(layout)，也就是 sports lists 。</li>
+<li>這個版面配置(layout)包含顯示 sports news list 的 Recyclerview。</li>
+</ul>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/f50d3e7b41fcb338_1920.png?hl=zh-tw">
+
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/d9af155f87ddbcdf_1920.png?hl=zh-tw" width="30%">
+
+<p><code>sports_list_item.xml</code></p>
+<ul>
+<li>在「Design」檢視畫面中開啟 <code>res/layout/sports_list_item.xml</code>。</li>
+<li>這包含每個項目(item)在 Recyclerview 中版面配置(layout)。</li>
+<li>這個版面配置(layout)包含 sport item 的縮圖、新聞標題和 sports news 摘要的預留位置文字。</li>
+</ul>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/b19fd0e779c1d7c3_1920.png?hl=zh-tw" width="50%">
+
+<p><code>fragment_sports_news.xml</code></p>
+<ul>
+<li>在「Design」檢視畫面中開啟 <code>res/layout/fragment_sports_news.xml</code>。</li>
+<li>這包含 app 中第二個畫面的版面配置(layout)。當使用者從 Recyclerview 選擇運動時，就會顯示這個畫面。</li>
+<li>這個版面配置(layout)包含 sport item 的圖片橫幅和 sports news 的預留位置文字。</li>
+</ul>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/c2073b1752342d97_1920.png?hl=zh-tw" width="40%">
+
+<p><code>main_activity.xml</code> 和 <code>content_main.xml</code></p>
+<ul>
+<li>這兩個函式數用 <strong>single fragment</strong> 定義了 main activity 的版面配置(layout)。</li>
+</ul>
+<p><code>navigation/nav_graph.xml</code></p>
+<ul>
+<li>導覽圖包含兩個目的地，一個用於 <strong>sports lists</strong>，另一個用於 <strong>sports news</strong>。</li>
+</ul>
+<p>res&#x2F;values 資料夾</p>
+<ul>
+<li><code>colors.xml</code> 包含 app 中使用的主題顏色。</li>
+<li><code>strings.xml</code> 包含 app 所需的所有字串。</li>
+<li><code>themes.xml</code> 包含您為 app 產生的 UI 自訂項目。</li>
+</ul>
+<p><code>MainActivity.kt</code><br>這個檔案包含預設範本產生的程式碼，可<u>將 activity 的 content view 設為 <code>main_activity.xml</code></u>。為了處理 app bar 的預設 <strong>Up navigation</strong>，我們<u>覆寫了 <code>onSupportNavigateUp()</code> 方法</u>。</p>
+<p><code>model/Sport.kt</code><br>這是一種<b>資料類別(data class)</b>，用來<u>存放 sports list Recyclerview 顯示的各列資料</u>。</p>
+<p><code>data/SportsData.kt</code><br>這個檔案內含名為 <code>getSportsData()</code> 的函式，此函式會<u>傳回預先填入硬式編碼 sports data 的 <code>ArrayList</code></u>。</p>
+<p>★ <code>SportsViewModel.kt</code><br>這是 app 的 <b>shared <code>ViewModel</code></b>。您可以<u>透過 <code>SportsListFragment</code> 來分享 <code>ViewModel</code></u>，第一個畫面包含 <u>sports lists 和 <code>NewsDetailsFragment</code></u>，第二個畫面含有<u>detailed sports news</u>。</p>
+<ul>
+<li><code>_currentSport</code> 屬性為 <code>MutableLiveData</code>, 類型，此類型會<u>儲存使用者選取的 current sport</u>。</li>
+<li><code>currentSport</code> 屬性是 <code>_currentSport</code> 的 backing property，並以 <u>public 唯讀(read-only)</u>版本的形式公開，方便其他類別使用。</li>
+<li><code>_sportsData</code> 屬性包含 <b>sports data list</b>。與上一個屬性類似，<code>sportsData</code> 是這項屬性的 <u>public 唯讀</u>版本。</li>
+<li>初始化器 <code>init&#123;&#125;</code> 區塊會<b>初始化 <code>_currentSport</code> 和 <code>_sportsData</code></b>。<ul>
+<li><code>_sportsData</code> 會透過<u>來自 <code>data/SportsData.kt</code> 的完整 sports lists</u> 進行初始化。</li>
+<li><code>_currentSport</code> 會使用 <u>list 中的第一個 item</u> 進行初始化。</li>
+</ul>
+</li>
+<li>函式 <code>updateCurrentSport()</code> 包含 <b><code>Sports</code> 執行個體(instance)</b>，並<u>以傳送的值(value)更新 <code>_currentSport</code></u>。</li>
+</ul>
+<p><code>SportsAdapter.kt</code><br>這是 <b>RecyclerView 的 adapter</b>。在<u>建構函式(constructor)</u>中，會<u>傳入 click listener</u>。這個檔案中的大部分程式碼都是先前的程式碼研究室介紹過的樣板程式碼。</p>
+<p>★ <code>SportsListFragment.kt</code><br>這是<u>第一個畫面 fragment</u> ，是<u><b>顯示 sports lists</b></u> 之處。</p>
+<ul>
+<li><code>onCreateView()</code> 函式會使用 <b>binding object</b> <u>加載(inflates) <code>fragment_sports_list</code> 版面配置(layout) XML</u>。</li>
+<li><code>onViewCreated()</code> 函式會設定 <b>RecyclerView adapter</b>。這個函式會<u>將使用者選取的 sport 更新為 <b>shared <code>ViewModel</code></b> (<code>SportsViewModel</code>) 中的 current sport</u>，並導覽至內含 sports news 的詳細資料畫面，<u>使用 <code>submitList(List)</code> 將要顯示的 sports lists 提交至 <b>adapter</b></u>。</li>
+</ul>
+<p><code>NewsDetailsFragment.kt</code><br>這是您 app 的第二個畫面，其中會<u>顯示 sports news</u> 的預留位置文字。</p>
+<ul>
+<li><code>onCreateView()</code> 函式會使用 <b>binding object</b> <u>加載(inflates) <code>fragment_sports_news</code> 版面配置(layout) XML</u>。</li>
+<li><code>onViewCreated()</code> 函式會<u>在 <code>SportsViewModel</code> 的屬性上附加觀察器(observer) <code>currentSport</code></u>，在<u>資料有變時自動更新 UI</u>。運動標題(sports title)、圖片(image)和新聞(news)會在<b>觀察器(observer)</b>中更新。</li>
+</ul>
+<h4 id="建立應用程式並加以執行"><a href="#建立應用程式並加以執行" class="headerlink" title="建立應用程式並加以執行"></a>建立應用程式並加以執行</h4><p>在模擬器或裝置上建構並執行應用程式。選取體育清單中的任何項目，應用程式應該就會進入第二個畫面，畫面上包含新聞的預留位置文字。</p>
+<div style="display:flex; justify-content:center;">
+    <div style="width:40%; float:left; margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/d9af155f87ddbcdf_1920.png?hl=zh-tw">
+    </div>
+    <div style="width:40%; float:left;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/73a5e6de1c337b1d_1920.png?hl=zh-tw">
+    </div>
+    <div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+</div>
+
+<hr>
+<h3 id="List-Detail-模式"><a href="#List-Detail-模式" class="headerlink" title="List-Detail 模式"></a>List-Detail 模式</h3><p>目前的範例應用程式無法充分運用大螢幕裝置 (如平板電腦) 的螢幕空間。為解決這個問題，您稍後會透過本程式碼研究室介紹的「List-Detail」模式來顯示應用程式 UI。</p>
+<h4 id="在平板電腦上執行應用程式"><a href="#在平板電腦上執行應用程式" class="headerlink" title="在平板電腦上執行應用程式"></a>在平板電腦上執行應用程式</h4><p>在這項工作中，您會建立一個具平板電腦設定檔的模擬器。模擬器建立完畢後，您將執行 Sports 應用程式範例程式碼並觀察 UI。</p>
+<ol>
+<li>在 Android Studio 中，依序前往「Tools」&gt;「AVD Manager」。</li>
+<li>系統會隨即顯示「Android Virtual Device Manager」視窗。按一下底部顯示的「+ Create New Virtual Device…」。</li>
+<li>系統隨即會顯示「Virtual Device Configuration」視窗。請在此處設定模擬器硬體和 OS。按一下左側窗格中的「Tablet」。選取中間窗格內的「Pixel C」或任何其他類似的硬體設定檔。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/8303f9b3e70321eb_1920.png?hl=zh-tw">
+
+<ol start="4">
+<li>按一下「Next」。</li>
+<li>在撰寫這個程式碼研究室時，選取最新的系統映像檔 R (API 級別 30)。</li>
+<li>按一下「Next」。</li>
+<li>您現在可以選擇是否要重新命名虛擬裝置，這不是必須選項。</li>
+<li>按一下「Finish」。</li>
+<li>系統會將您帶回「Android Virtual Device Manager」視窗。在新建的虛擬裝置旁邊按一下啟動圖示。</li>
+<li>這應會啟動具平板電腦設定檔的模擬器。請耐心等候，這可能需要一點時間。</li>
+<li>關閉「Android Virtual Device Manager」視窗。</li>
+<li>在新建的模擬器上執行運動應用程式。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/200e209de7a2f0ad_1920.png?hl=zh-tw" width="80%">
+
+<p>請注意，在大型裝置上，應用程式不會使用整個螢幕。在大螢幕上，清單詳細資料模式會較清單模式更為有效。清單詳細資料模式又稱為「主控制項詳細資料」模式，這種模式會在版面配置的其中一側顯示項目清單，而當您輕觸項目時，便會在項目一旁顯示詳細資料。一般情況下，這類檢視畫面只會在大螢幕 (例如平板電腦) 上顯示，因為大螢幕的空間足以顯示更多的內容。</p>
+<p>以下是 list-detail 模式的範例圖片：</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/71698910dd129a91_1920.png?hl=zh-tw" width="50%">
+
+<p>如上所示，list-detail 模式會在左側顯示 list of items，在右側則會顯示所選 item 的 details。</p>
+<p>同理，如果您在 sports app 中使用上述模式，則 news fragment 將成為 details 畫面。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/51c9542717d2f875_1920.png?hl=zh-tw" width="80%">
+
+<p>在本程式碼研究室中，您將瞭解如何使用 <code>SlidingPaneLayout</code> 實作 list-detail UI。</p>
+<hr>
+<h3 id="SlidingPaneLayout-模式"><a href="#SlidingPaneLayout-模式" class="headerlink" title="SlidingPaneLayout 模式"></a>SlidingPaneLayout 模式</h3><p>list-detail UI 可能需要根據螢幕大小而採取不同的行為。大螢幕有足夠的空間，可並排顯示 list 和 detail panes。在 list item 上點擊，即可在 detail pane 中顯示詳細資料。不過在小螢幕上，這樣的安排就會相當擁擠。與其同時顯示這兩個窗格，不如逐一顯示。一開始，list 窗格(pane)會填滿整個畫面。輕觸某個 item，會以該 item 的 detail pane 取代 list pane，同時填滿整個畫面。</p>
+<p>您將瞭解如何使用 <code>SlidingPaneLayout</code> 來管理邏輯，進一步根據目前的螢幕大小選取適當的使用者體驗。</p>
+<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-adaptive-layouts/img/b0a205de3494e95d.gif" width="40%">
+
+<p>請注意 details pane 在小螢幕上滑過 list pane 的方式。</p>
+<p>下方圖片說明 <code>SlidingPaneLayout</code> 在小螢幕上的顯示方式。請在 list item 處於選取狀態時，觀察 details pane 與 list pane 如何重疊，才能讓這兩個窗格(pane)始終存在！</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/e26f94d9579b6121_1920.png?hl=zh-tw" width="80%">
+
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/471b0b38d4dfa95a_1920.png?hl=zh-tw" width="40%">
+
+<p>因此，<code>SlidingPaneLayout</code> 支援在大型裝置上並排顯示兩個窗格(pane)，而在手機之類的小型裝置上，則會自動調整為只顯示一個窗格(pane)。</p>
+<hr>
+<h3 id="新增-library-dependencies"><a href="#新增-library-dependencies" class="headerlink" title="新增 library dependencies"></a>新增 library dependencies</h3><ol>
+<li>開啟 <code>build.gradle (Module: Sports.app)</code>。</li>
+<li>在 <code>dependencies</code> 區段中，加入下列 dependency，即可在應用程式中使用 <code>SlidingPaneLayout</code>。</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">...</span><br><span class="line">    implementation <span class="string">&quot;androidx.slidingpanelayout:slidingpanelayout:1.2.0-beta01&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note no-icon success">
+            <p><strong>注意：</strong>您可以前往 <b><a target="_blank" rel="noopener" href="https://developer.android.com/jetpack/androidx/versions?hl=zh-tw">AndroidX</a></b> 版本頁面，取得最新的版本號碼。</p>
+          </div>
+
+<hr>
+<h3 id="設定-sports-list-fragment-的-XML"><a href="#設定-sports-list-fragment-的-XML" class="headerlink" title="設定 sports list fragment 的 XML"></a>設定 sports list fragment 的 XML</h3><p>在這項工作中，您將 <code>fragment_sports_list</code> 的根版面配置轉換為 <code>SlidingPaneLayout</code>。前面介紹過，<code>SlidingPaneLayout</code> 提供水平的雙窗格版面配置，可在 UI 頂層使用。這個版面配置將第一個窗格用作內容清單或瀏覽器，並對應到主要詳細資料檢視畫面，以在另一個窗格中顯示內容。</p>
+<p>在 Sports app 中，第一個窗格會是顯示 sports list 的 <code>RecyclerView</code>，第二個窗格則顯示 sports news。</p>
+<h4 id="新增-SlidingPaneLayout"><a href="#新增-SlidingPaneLayout" class="headerlink" title="新增 SlidingPaneLayout"></a>新增 SlidingPaneLayout</h4><ol>
+<li>開啟 <code>fragment_sports_list.xml</code>。請注意根版面配置為 <code>FrameLayout</code>。</li>
+<li>將 <code>FrameLayout</code> 變更為 <code>androidx.slidingpanelayout.widget.SlidingPaneLayout</code>。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.slidingpanelayout.widget.SlidingPaneLayout</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">tools:context</span>=<span class="string">&quot;.SportsListFragment&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView...</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.slidingpanelayout.widget.SlidingPaneLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>SlidingPaneLayout</code> 中加入 <code>android:id</code> 屬性，並指定一個 <code>@+id/sliding_pane_layout</code> 的值。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.slidingpanelayout.widget.SlidingPaneLayout</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/sliding_pane_layout&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="在-SlidingPaneLayout-中新增第二個窗格"><a href="#在-SlidingPaneLayout-中新增第二個窗格" class="headerlink" title="在 SlidingPaneLayout 中新增第二個窗格"></a>在 SlidingPaneLayout 中新增第二個窗格</h4><p>在這個工作中，您會在 <code>SlidingPaneLayout</code> 中新增第二個子項。這會顯示為右側的內容窗格。</p>
+<ol>
+<li>在 <code>fragment_sports_list.xml</code> 中的 <code>RecyclerView</code> 下新增第二個子項 <code>androidx.fragment.app.FragmentContainerView</code>。</li>
+<li>在 <code>FragmentContainerView</code> 中加入必要屬性 <code>layout_height</code> 和 <code>layout_width</code>，並指定 <code>match_parent</code> 這個屬性值。請注意，您稍後會更新這些值。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.fragment.app.FragmentContainerView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>FragmentContainerView</code> 中加入 <code>android:id</code> 屬性，並指定一個 <code>@+id/detail_container</code> 的值。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:id=&quot;@+id/detail_container&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>使用 <code>android:name</code> 屬性在 <code>FragmentContainerView</code> 中新增 <code>NewsDetailsFragment</code>。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:name=&quot;com.example.android.sports.NewsDetailsFragment&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="更新-layout-width-屬性"><a href="#更新-layout-width-屬性" class="headerlink" title="更新 layout_width 屬性"></a>更新 layout_width 屬性</h4><p><code>SlidingPaneLayout</code> 會依據兩個窗格的寬度來判斷是否要並排顯示窗格(pane)。舉例來說，如果經過測量後，list pane 的最小尺寸為 <code>300dp</code>，而 detail pane 需要 <code>400dp</code>，那麼只要可用寬度至少為 <code>700dp</code>，<code>SlidingPaneLayout</code> 就會自動並排顯示這兩個窗格(pane)。</p>
+<p>如果子項檢視畫面(view)的組合寬度超過 <code>SlidingPaneLayout</code> 中的可用寬度，子項 view 會發生重疊。在本範例中，子項 view 會展開來填滿 <code>SlidingPaneLayout</code> 中的可用寬度。</p>
+<p>為了判斷子項 view 的寬度，建議您瞭解裝置螢幕寬度相關的基本資訊。下表列出了幾個主觀的中斷點，可讓您針對各種可調整大小的應用程式版面配置來進行設計、開發及測試。這些中斷點經過特別挑選，目的是讓您兼顧版面配置的簡單與靈活，進一步根據獨特的情境需求來最佳化應用程式。</p>
+<table>
+<thead>
+<tr>
+<th align="left">寬度</th>
+<th align="left">中斷點</th>
+<th align="left">裝置佔比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Compact width(精簡寬度)</td>
+<td align="left">&lt; 600dp</td>
+<td align="left">99.96% 直向模式的手機</td>
+</tr>
+<tr>
+<td align="left">Medium width(中等寬度)</td>
+<td align="left">600dp+</td>
+<td align="left">93.73% 以 portraitLarge 顯示的平板電腦，會以直向展開內部的顯示項目</td>
+</tr>
+<tr>
+<td align="left">Expanded width(展開寬度)</td>
+<td align="left">840dp+</td>
+<td align="left">97.22% 以 landscapeLarge 顯示的平板電腦，會橫向展開內部的顯示項目</td>
+</tr>
+</tbody></table>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/a247a843310d061a_1920.png?hl=zh-tw">
+
+<p>在運動應用程式中，建議您在手機 (寬度小於 <code>600dp</code> 的裝置) 上顯示單一窗格 (也就是體育項目清單)。如要在平板電腦上顯示這兩個窗格，加總的寬度必須大於 <code>840dp</code>。您可以將第一個子項 (<code>RecyclerView</code>) 的寬度設為 <code>550dp</code>，第二個子項 (<code>FragmentContainerView</code>) 則設為 <code>300dp</code>。</p>
+<ol>
+<li>在 <code>fragment_sports_list.xml</code> 中，將 <code>RecyclerView</code> 的版面配置寬度變更為 <code>550dp</code>，再將 <code>FragmentContainerView</code> 的版面配置寬度變更為 <code>300dp</code>。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;550dp&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">androidx.fragment.app.FragmentContainerView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;300dp&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>分別在採用平板電腦設定檔和手機設定檔的模擬器上執行應用程式。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/ad148a96d7487e66_1920.png?hl=zh-tw" width="80%">
+
+<ul>
+<li>請注意，平板電腦會顯示兩個窗格。您將在後續步驟中將平板電腦上的第二個窗格設為固定寬度。</li>
+</ul>
+<ol start="3">
+<li>具手機設定檔的模擬器上執行應用程式。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/a6be6d199d2975ac_1920.png?hl=zh-tw" width="40%">
+
+<h4 id="新增-layout-weight"><a href="#新增-layout-weight" class="headerlink" title="新增 layout_weight"></a>新增 layout_weight</h4><p>在這項工作中，您將針對平板電腦調整 UI，讓第二個窗格(pane)占滿剩餘的全部空間。</p>
+<p>如果檢視畫面(view)未重疊，則在透過版面配置參數 <code>layout_weight</code> 測量子項檢視畫面(view)之後，<code>SlidingPaneLayout</code> 可定義剩餘空間的分割方式。這個參數僅適用於寬度。</p>
+<ol>
+<li>在 <code>fragment_sports_list.xml</code> 中，將 <code>layout_weight</code> 加入 <code>FragmentContainerView</code> 並指定其值為 <code>1</code>。這樣一來，在測量 list 窗格(pane)之後，第二個窗格(pane)就會展開並填滿剩餘空間。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:layout_weight=&quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>執行應用程式。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/ce3a93fe501ee5dc_1920.png?hl=zh-tw" width="80%">
+
+<p>恭喜！您已成功新增 <code>SlidingPaneLayout</code>。但這項設定尚未完成。從清單選擇項目之後，您必須導入返回導覽功能並更新第二個窗格。您將於後續工作中實作這些項目。</p>
+<hr>
+<h3 id="切換-details-pane"><a href="#切換-details-pane" class="headerlink" title="切換 details pane"></a>切換 details pane</h3><p>在具平板電腦設定檔的模擬器上執行應用程式。從 sports list 中選取 list item。請注意，應用程式會導航(navigates)至 details pane。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/8fedee8d4837909_1920.png?hl=zh-tw" width="80%">
+
+<p>在這項工作中，您會修正這個問題。目前，系統會先以選取的 sports item 更新雙窗格的內容，接著應用程式會轉至 <code>NewsDetailsFragment</code>。</p>
+<ol>
+<li>在 <code>SportsListFragment</code> 檔案的 <code>onViewCreated()</code> 函式中，找到以下程式行以前往 details 畫面。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Navigate to the details screen</span></span><br><span class="line"><span class="keyword">val</span> action = SportsListFragmentDirections.actionSportsListFragmentToNewsFragment()</span><br><span class="line"><span class="keyword">this</span>.findNavController().navigate(action)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用下列程式碼取代以上這幾行：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binding.slidingPaneLayout.openPane()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>對 <code>SlidingPaneLayout</code> 呼叫 <code>openPane()</code>，將第一個窗格(pane)切換至第二個窗格(pane)。如果兩個窗格(pane)皆處於顯示狀態 (例如在平板電腦上)，這項操作不會造成任何可見的影響。</li>
+</ul>
+<ol start="3">
+<li>在平板電腦和手機模擬器上執行應用程式。請注意，雙窗格(pane)內容會不斷正確更新。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/b0d3c8c263be15f8_1920.png?hl=zh-tw" width="80%">
+
+<p>在下一個工作中，您將為應用程式新增自訂返回導覽功能(custom back navigation)。</p>
+<hr>
+<h3 id="新增-custom-back-navigation"><a href="#新增-custom-back-navigation" class="headerlink" title="新增 custom back navigation"></a>新增 custom back navigation</h3><p>小型裝置上的 list 和 detail pane 會重疊，因此您必須確保系統 back 按鈕可讓使用者從 detail pane 返回 list pane。方法是 提供 <b><a target="_blank" rel="noopener" href="https://developer.android.com/guide/navigation/navigation-custom-back?hl=zh-tw">custom back navigation</a></b>，並將 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/activity/OnBackPressedCallback"><code>OnBackPressedCallback</code></a> 連結到 <code>SlidingPaneLayout</code> 目前的狀態。</p>
+<h4 id="Back-navigation"><a href="#Back-navigation" class="headerlink" title="Back navigation"></a>Back navigation</h4><p><strong>Back navigation</strong> 是指<u>使用者依據瀏覽歷史記錄返回先前瀏覽過的畫面</u>。所有 Android 裝置都會針對這類導覽提供 <strong>Back button</strong>。視使用者的 Android 裝置而定，該按鈕可能是實體按鈕或軟體按鈕。</p>
+<h4 id="Custom-back-navigation"><a href="#Custom-back-navigation" class="headerlink" title="Custom back navigation"></a>Custom back navigation</h4><p>當使用者導覽應用程式時，Android 系統會保留目的地的<b>返回堆疊(back stack)</b>。一般情況下，使用者按下 Back button 時，Android 可以導覽至之前的目的地。不過在少數情況下，您可能必須為應用程式<u>實作專屬的<b>返回行為(Back behavior)</b></u>，盡可能提供最佳使用者體驗。</p>
+<p>舉例來說，在使用 WebView (例如 Chrome 瀏覽器) 時，您可能要覆寫預設的 Back button 行為，讓使用者返回先前的網頁瀏覽記錄，而不是回到先前的應用程式畫面。</p>
+<p>同樣地，您必須在 <code>SlidingPaneLayout</code> 中提供 <b>custom back navigation</b> 功能，<u>將應用程式從 detail pane 導航回 list pane</u>。</p>
+<h4 id="實作-custom-back-navigation"><a href="#實作-custom-back-navigation" class="headerlink" title="實作 custom back navigation"></a>實作 custom back navigation</h4><p>如要在 Sports 應用程式中實作 custom back navigation，需要執行以下作業：</p>
+<ul>
+<li>定義一個 <strong>custom callback</strong> 來<u>處理返回鍵(back key)的動作</u>，這會<u>覆寫 <code>OnBackPressedCallback</code></u>。</li>
+<li>註冊並新增 <strong>callback instance</strong>。</li>
+</ul>
+<p>首先，請定義 custom callback。</p>
+<ol>
+<li>在 <code>SportsListFragment</code> 檔案中的 <code>SportsListFragment</code> 類別定義下方新增類別。將其命名為 <code>SportsListOnBackPressedCallback</code>。</li>
+<li>傳入 <code>SlidingPaneLayout</code> 的 <code>private</code> instance 做為建構函式(constructor)參數。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SportsListOnBackPressedCallback</span>(</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">val</span> slidingPaneLayout: SlidingPaneLayout</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>透過 <code>OnBackPressedCallback</code> 繼承類別。<code>OnBackPressedCallback</code> 類別會處理 <code>onBackPressed</code> callbacks。您會在不久之後修正這項建構函式(constructor)參數錯誤。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SportsListOnBackPressedCallback</span>(</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">val</span> slidingPaneLayout: SlidingPaneLayout</span><br><span class="line">): OnBackPressedCallback()</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>OnBackPressedCallback</code> 的建構函式(constructor)會<u>以布林值(boolean)表示初始啟用狀態</u>。只有在<u>已啟用 callback 的情況下</u> (即 <code>isEnabled()</code> 傳回 <code>true</code>)，<b>分派器(dispatcher)</b>才會<u>呼叫 callback 的 <code>handleOnBackPressed()</code> 來處理 Back button event</u>。</li>
+</ul>
+<ol start="4">
+<li>將 <code>slidingPaneLayout.isSlideable &amp;&amp; slidingPaneLayout.isOpen</code> 做為建構函式參數傳入 <code>OnBackPressedCallback</code>。只有在第二個窗格可滑動的情況下，布林值 <code>isSlideable</code> 才會為 <code>true</code>；這種情況可能會發生在顯示單一窗格的小螢幕裝置上。如果第二個窗格 (內容窗格) 完全開啟，則 <code>isOpen</code> 的值將為 <code>true</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SportsListOnBackPressedCallback</span>(</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">val</span> slidingPaneLayout: SlidingPaneLayout</span><br><span class="line">): OnBackPressedCallback(slidingPaneLayout.isSlideable &amp;&amp; slidingPaneLayout.isOpen)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>這段程式碼可確保只有在小螢幕裝置上且內容窗格開啟的情況下，才會啟用這個 callback。</li>
+</ul>
+<ol start="5">
+<li><p>如要修正未實作方法造成的錯誤，請按一下紅色燈泡圖示，然後選取「Implement members」。</p>
+</li>
+<li><p>在「Implement members」彈出式視窗中按一下「OK」，覆寫 <code>handleOnBackPressed</code> 方法。</p>
+</li>
+</ol>
+<p>您的類別應如下所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SportsListOnBackPressedCallback</span>(</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">val</span> slidingPaneLayout: SlidingPaneLayout</span><br><span class="line">): OnBackPressedCallback(slidingPaneLayout.isSlideable &amp;&amp; slidingPaneLayout.isOpen) &#123;</span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Callback for handling the [OnBackPressedDispatcher.onBackPressed] event.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">handleOnBackPressed</span><span class="params">()</span></span> &#123;</span><br><span class="line">       TODO(<span class="string">&quot;Not yet implemented&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>在 <code>handleOnBackPressed()</code> 函式中刪除 TODO 陳述式，然後新增下列程式碼來關閉 content(內容) pane 並返回 list pane。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slidingPaneLayout.closePane()</span><br></pre></td></tr></table></figure>
+
+<div class="note no-icon success">
+            <p><strong>注意：</strong><b>SlidingPaneLayout</b> 會一律允許您手動呼叫 <b>open()</b> 和 <b>close()</b>，讓您可在手機的 list pane 和 detail pane 之間切換。<u>如果兩個窗格(pane)都顯示且未重疊，這些方法就不會生效</u>。</p>
+          </div>
+
+<h4 id="監控-SlidingPaneLayout-的事件"><a href="#監控-SlidingPaneLayout-的事件" class="headerlink" title="監控 SlidingPaneLayout 的事件"></a>監控 SlidingPaneLayout 的事件</h4><p>除了處理 back press events 外，您也必須<u>監聽及監控與 sliding pane 相關的事件</u>。<u>內容窗格(content pane)滑動時，應視滑動情況啟用或停用 callback</u>。您將使用 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/slidingpanelayout/widget/SlidingPaneLayout.PanelSlideListener"><code>PanelSlideListener</code></a> 進行這項操作。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/slidingpanelayout/widget/SlidingPaneLayout.PanelSlideListener"><code>SlidingPaneLayout.PanelSlideListener</code></a> 介面包含三個<u>抽象方法</u>：</p>
+<ul>
+<li><code>onPanelSlide()</code></li>
+<li><code>onPanelOpened()</code> </li>
+<li><code>onPanelClosed()</code></li>
+</ul>
+<p>details pane <b>滑動(slides)</b>、<b>開啟(opens)</b>及<b>關閉(closes)</b>時，系統會呼叫這些方法。</p>
+<ol>
+<li><p>從 <code>SlidingPaneLayout.PanelSlideListener</code> 展開 <code>SportsListOnBackPressedCallback</code> 類別。</p>
+</li>
+<li><p>如要解決錯誤，請導入這三種方法。按一下紅色燈泡，然後在 Android Studio 中選取「Implement members」。</p>
+</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-adaptive-layouts/img/ad52135eecbee09f_1920.png?hl=zh-tw" width="60%">
+
+<p>您的 <code>SportsListOnBackPressedCallback</code> 類別應如下所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SportsListOnBackPressedCallback</span>(</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">val</span> slidingPaneLayout: SlidingPaneLayout</span><br><span class="line">): OnBackPressedCallback(slidingPaneLayout.isSlideable &amp;&amp; slidingPaneLayout.isOpen),</span><br><span class="line">  SlidingPaneLayout.PanelSlideListener&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">handleOnBackPressed</span><span class="params">()</span></span> &#123;</span><br><span class="line">       slidingPaneLayout.closePane()</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPanelSlide</span><span class="params">(panel: <span class="type">View</span>, slideOffset: <span class="type">Float</span>)</span></span> &#123;</span><br><span class="line">       TODO(<span class="string">&quot;Not yet implemented&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPanelOpened</span><span class="params">(panel: <span class="type">View</span>)</span></span> &#123;</span><br><span class="line">       TODO(<span class="string">&quot;Not yet implemented&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPanelClosed</span><span class="params">(panel: <span class="type">View</span>)</span></span> &#123;</span><br><span class="line">       TODO(<span class="string">&quot;Not yet implemented&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>移除 TODO 陳述式。</p>
+</li>
+<li><p>在 details pane 開啟 (visible) 時，啟用 <code>OnBackPressedCallback</code> callback。實際做法為呼叫 <code>setEnabled()</code> 函式並傳入 <code>true</code>。在 <code>onPanelOpened()</code> 中編寫以下程式碼：</p>
+</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setEnabled(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>使用屬性存取語法可以簡化上述的程式碼。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPanelOpened</span><span class="params">(panel: <span class="type">View</span>)</span></span> &#123;</span><br><span class="line">   isEnabled = <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>同樣地，當 details pane 關閉(closed)時，請將 <code>isEnabled</code> 設為 <code>false</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPanelClosed</span><span class="params">(panel: <span class="type">View</span>)</span></span> &#123;</span><br><span class="line">   isEnabled = <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>如要完成 callback，最後一個步驟是將 <code>SportsListOnBackPressedCallback</code> 的 <strong>listener class</strong> 新增至 <strong>listeners</strong> 的 <strong>list</strong> 中，該 list 將會<u>收到 details pane 滑動事件(slide events)的通知</u>。將 <code>init</code> 區塊新增至 <code>SportsListOnBackPressedCallback</code> 類別。在 <code>init</code> 區塊內，呼叫 <code>slidingPaneLayout.addPanelSlideListener()</code> 以傳入 <code>this</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">init</span> &#123;</span><br><span class="line">   slidingPaneLayout.addPanelSlideListener(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成的 <code>SportsListOnBackPressedCallback</code> 類別看起來應如下所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SportsListOnBackPressedCallback</span>(</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">val</span> slidingPaneLayout: SlidingPaneLayout</span><br><span class="line">): OnBackPressedCallback(slidingPaneLayout.isSlideable &amp;&amp; slidingPaneLayout.isOpen),</span><br><span class="line">  SlidingPaneLayout.PanelSlideListener&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">init</span> &#123;</span><br><span class="line">       slidingPaneLayout.addPanelSlideListener(<span class="keyword">this</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">handleOnBackPressed</span><span class="params">()</span></span> &#123;</span><br><span class="line">       slidingPaneLayout.closePane()</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPanelSlide</span><span class="params">(panel: <span class="type">View</span>, slideOffset: <span class="type">Float</span>)</span></span> &#123;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPanelOpened</span><span class="params">(panel: <span class="type">View</span>)</span></span> &#123;</span><br><span class="line">       isEnabled = <span class="literal">true</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPanelClosed</span><span class="params">(panel: <span class="type">View</span>)</span></span> &#123;</span><br><span class="line">       isEnabled = <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="註冊-callback"><a href="#註冊-callback" class="headerlink" title="註冊 callback"></a>註冊 callback</h4><p>如要查看 callback 的實際效果，請使用 <strong>dispatcher</strong> <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/activity/OnBackPressedDispatcher"><code>OnBackPressedDispatcher</code></a> 註冊 callback。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/fragment/app/FragmentActivity"><code>FragmentActivity</code></a> 的基礎類別可讓您<u>透過 <code>OnBackPressedDispatcher</code> 控制 Back button 的行為</u>。<code>OnBackPressedDispatcher</code> 可控管系統如何<u>將 Back button events 分派到一或多個 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/activity/OnBackPressedCallback"><code>OnBackPressedCallback</code></a> 物件</u>。</p>
+<p>使用 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/activity/OnBackPressedDispatcher#addCallback(androidx.lifecycle.LifecycleOwner,%20androidx.activity.OnBackPressedCallback)"><code>addCallback()</code></a> 方法新增 callback。這個方法需要使用 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/lifecycle/LifecycleOwner"><code>LifecycleOwner</code></a>。此方法可確保只有在 <code>LifecycleOwner</code> 為 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/lifecycle/Lifecycle.State#STARTED"><code>Lifecycle.State.STARTED</code></a> 時，才會新增 <code>OnBackPressedCallback</code>。<u>當相關 <code>LifecycleOwner</code> 遭到刪除時</u>，<u>activity 或 fragment 也會移除已註冊的 callbacks</u>，藉此<u>防止記憶體流失</u>，並讓 callbacks 適合用於 fragments 或其他 lifecycle owners (生命週期較短時)。</p>
+<p><code>addCallback()</code> 方法也會採用<u>將 callback class 做為第二個參數的 instance</u>。請按照下列步驟註冊 callback：</p>
+<ol>
+<li>在 <code>SportsListFragment</code> 檔案的 <code>onViewCreated()</code> 函式中，於 binding 變數宣告的下方為 <code>SlidingPaneLayout</code> 建立 instance，並為其指派 <code>binding.slidingPaneLayout</code> 的值。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> slidingPaneLayout = binding.slidingPaneLayout</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 <code>SportsListFragment</code> 檔案的 <code>onViewCreated()</code> 函式中，緊接在 <code>slidingPaneLayout</code> 宣告下方，新增下列程式碼：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Connect the SlidingPaneLayout to the system back button.</span></span><br><span class="line">requireActivity().onBackPressedDispatcher.addCallback(</span><br><span class="line">   viewLifecycleOwner,</span><br><span class="line">   SportsListOnBackPressedCallback(slidingPaneLayout)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上述程式碼使用了 <code>addCallback()</code>，並傳入 <code>viewLifecycleOwner</code> 和 <code>SportsListOnBackPressedCallback</code> 的 instance。這個 callback 的有效期間僅限於 fragment 的生命週期。</li>
+</ul>
+<ol start="3">
+<li>您現在可以在具手機設定檔的模擬器上執行應用程式，看看 custom back button 的實際運作情形。</li>
+</ol>
+<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-adaptive-layouts/img/33967fa8fde5b902.gif" width="40%">
+
+<hr>
+<h3 id="鎖定模式-Lock-mode"><a href="#鎖定模式-Lock-mode" class="headerlink" title="鎖定模式(Lock mode)"></a>鎖定模式(Lock mode)</h3><p>根據預設，在手機等小螢幕裝置上，當 list 和 detail panes 重疊時，使用者可以左右滑動，不必使用手勢操作即可切換這兩個窗格。您可以設定 <code>SlidingPaneLayout</code> 的鎖定模式(lock mode)，鎖定或解鎖 details pane。</p>
+<ol>
+<li>在具手機設定檔的模擬器中，嘗試將 details pane 在畫面中滑開。</li>
+<li>你也可以在 details pane 中滑動，請自行嘗試。</li>
+<li>在 Sports 應用程式中，您不必使用這項功能。建議您鎖定 <code>SlidingPaneLayout</code>，防止使用者透過手勢向內及向外滑動。如要實作這項功能，請在 <code>onViewCreated()</code> 方法的 <code>slidingPaneLayout</code> 定義下方，將 <code>lockMode</code> 設為 <code>LOCK_MODE_LOCKED</code>：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slidingPaneLayout.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如要進一步瞭解其他 lock mode，請參閱<a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/slidingpanelayout/widget/SlidingPaneLayout#LOCK_MODE_LOCKED">說明文件</a>。</li>
+</ul>
+<div class="note no-icon success">
+            <p><strong>注意：</strong><b>鎖定模式(lock mode)</b>只能控制哪些是可用的使用者手勢。無論設定哪一種鎖定模式，您隨時都能透過程式化方式開啟或關閉 <b>SlidingPaneLayout</b>。</p>
+          </div>
+
+<ol start="4">
+<li>再次執行應用程式，注意 detail pane 現已鎖定。</li>
+</ol>
+<p>恭喜！您已成功將 <code>SlidingPaneLayout</code> 新增至應用程式！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+              <a href="/tags/Layout/" rel="tag"># Layout</a>
+              <a href="/tags/View-Binding/" rel="tag"># View Binding</a>
+              <a href="/tags/Adapter/" rel="tag"># Adapter</a>
+              <a href="/tags/RecyclerView/" rel="tag"># RecyclerView</a>
+              <a href="/tags/Fragment/" rel="tag"># Fragment</a>
+              <a href="/tags/ViewModel/" rel="tag"># ViewModel</a>
+              <a href="/tags/Observer/" rel="tag"># Observer</a>
+              <a href="/tags/MutableLiveData/" rel="tag"># MutableLiveData</a>
+              <a href="/tags/Shared-ViewModel/" rel="tag"># Shared ViewModel</a>
+              <a href="/tags/Custom-Back-Navigation/" rel="tag"># Custom Back Navigation</a>
+              <a href="/tags/SlidingPaneLayout/" rel="tag"># SlidingPaneLayout</a>
+              <a href="/tags/Callback/" rel="tag"># Callback</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/17/Android%E7%AD%86%E8%A8%98-33-Coroutines%E7%B0%A1%E4%BB%8B/" rel="prev" title="Android筆記(33)-Coroutines簡介">
+      <i class="fa fa-chevron-left"></i> Android筆記(33)-Coroutines簡介
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.</span> <span class="nav-text">下載範例程式碼</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">2.</span> <span class="nav-text">範例應用程式總覽</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC%E9%80%90%E6%AD%A5%E6%93%8D%E4%BD%9C%E8%AA%AA%E6%98%8E"><span class="nav-number">2.1.</span> <span class="nav-text">範例程式碼逐步操作說明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E4%B8%A6%E5%8A%A0%E4%BB%A5%E5%9F%B7%E8%A1%8C"><span class="nav-number">2.2.</span> <span class="nav-text">建立應用程式並加以執行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List-Detail-%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">List-Detail 模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%B9%B3%E6%9D%BF%E9%9B%BB%E8%85%A6%E4%B8%8A%E5%9F%B7%E8%A1%8C%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">在平板電腦上執行應用程式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SlidingPaneLayout-%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">SlidingPaneLayout 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-library-dependencies"><span class="nav-number">5.</span> <span class="nav-text">新增 library dependencies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-sports-list-fragment-%E7%9A%84-XML"><span class="nav-number">6.</span> <span class="nav-text">設定 sports list fragment 的 XML</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-SlidingPaneLayout"><span class="nav-number">6.1.</span> <span class="nav-text">新增 SlidingPaneLayout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8-SlidingPaneLayout-%E4%B8%AD%E6%96%B0%E5%A2%9E%E7%AC%AC%E4%BA%8C%E5%80%8B%E7%AA%97%E6%A0%BC"><span class="nav-number">6.2.</span> <span class="nav-text">在 SlidingPaneLayout 中新增第二個窗格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-layout-width-%E5%B1%AC%E6%80%A7"><span class="nav-number">6.3.</span> <span class="nav-text">更新 layout_width 屬性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-layout-weight"><span class="nav-number">6.4.</span> <span class="nav-text">新增 layout_weight</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8F%9B-details-pane"><span class="nav-number">7.</span> <span class="nav-text">切換 details pane</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-custom-back-navigation"><span class="nav-number">8.</span> <span class="nav-text">新增 custom back navigation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Back-navigation"><span class="nav-number">8.1.</span> <span class="nav-text">Back navigation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Custom-back-navigation"><span class="nav-number">8.2.</span> <span class="nav-text">Custom back navigation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C-custom-back-navigation"><span class="nav-number">8.3.</span> <span class="nav-text">實作 custom back navigation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%A3%E6%8E%A7-SlidingPaneLayout-%E7%9A%84%E4%BA%8B%E4%BB%B6"><span class="nav-number">8.4.</span> <span class="nav-text">監控 SlidingPaneLayout 的事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%BB%E5%86%8A-callback"><span class="nav-number">8.5.</span> <span class="nav-text">註冊 callback</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%8E%96%E5%AE%9A%E6%A8%A1%E5%BC%8F-Lock-mode"><span class="nav-number">9.</span> <span class="nav-text">鎖定模式(Lock mode)</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tina Tang"
+      src="/images/blog_photo.png">
+  <p class="site-author-name" itemprop="name">Tina Tang</p>
+  <div class="site-description" itemprop="description">^(-o-)></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linglingdr00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linglingdr00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tinatang0424@gmail.com" title="E-Mail → mailto:tinatang0424@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tina Tang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

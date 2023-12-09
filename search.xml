@@ -9615,7 +9615,7 @@ width="30%"></p>
   </entry>
   <entry>
     <title>Android筆記(33)-Coroutines簡介</title>
-    <url>/2023/11/17/Android%E7%AD%86%E8%A8%98-33-Coroutines%E7%B0%A1%E4%BB%8B/</url>
+    <url>/2023/12/05/Android%E7%AD%86%E8%A8%98-33-Coroutines%E7%B0%A1%E4%BB%8B/</url>
     <content><![CDATA[<blockquote>
 <p>瞭解關於<b>執行緒(threads)</b>的資訊，以及如何使用稱為<b>協程(coroutines)</b>的 Kotlin 功能撰寫<u>乾淨(clear)</u>、<u>非阻塞(non-blocking)</u>的<b>並行(concurrent)</b>程式碼。</p>
 </blockquote>
@@ -9716,14 +9716,14 @@ width="30%"></p>
 <td align="left"><u>決定 coroutine 將要使用的 thread</u>。<strong>Main dispatcher</strong> 會一律在 <strong>main thread</strong> 上執行 coroutine，而 <strong>Default</strong>、<strong>IO</strong> 或 <strong>Unconfined</strong> 等 dispatcher 會使用其他 threads。</td>
 </tr>
 </tbody></table>
-<p>您可以在稍後深入瞭解這些資訊，但 <code>Dispatchers</code> 是能讓 coroutines 展現高效能的其中一種方法。其可避免初始化(initializing)新 thread 產生的效能成本。</p>
+<p>您可以在稍後深入瞭解這些資訊，但 <code>Dispatchers</code> 是能讓 coroutines 展現高效能的其中一種方法。其<u>可避免初始化(initializing)新 thread 產生的效能成本</u>。</p>
 <p>讓我們舉個更早的 coroutines 使用範例。</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlinx.coroutines.*</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    repeat(<span class="number">3</span>) &#123;</span><br><span class="line">        GlobalScope.launch &#123;</span><br><span class="line">            println(<span class="string">&quot;Hi from <span class="subst">$&#123;Thread.currentThread()&#125;</span>&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Hi from Thread[DefaultDispatcher-worker-2@coroutine#2,5,main]</span><br><span class="line">Hi from Thread[DefaultDispatcher-worker-1@coroutine#1,5,main]</span><br><span class="line">Hi from Thread[DefaultDispatcher-worker-1@coroutine#3`,5,main]</span><br></pre></td></tr></table></figure>
 
-<p>以上程式碼片段(snippet)使用<u>預設(default) <strong>dispatcher</strong></u>，在 <code>GlobalScope</code> 中建立三個 coroutines。<code>GlobalScope</code> 允許在 app 處於執行中(running)狀態期間，執行其中的任何 coroutines。由於我們在此討論的是 main thread，因此不建議在超出範例程式碼範圍下採取此做法。在 app 中使用 coroutines 時，我們會使用其他範圍(scopes)。</p>
-<p><code>launch()</code> function 會建立包裝成<u>可取消(cancelable)的 Job object 的封閉程式碼(enclosed code)</u>。若 return value 不需超出 coroutine 限制範圍，請使用 <code>launch()</code>。</p>
+<p>以上程式碼片段(snippet)使用<u>預設(default) <strong>dispatcher</strong></u>，在 <code>GlobalScope</code> 中建立三個 coroutines。<u><code>GlobalScope</code> 允許在 app 處於執行中(running)狀態期間，執行其中的任何 coroutines</u>。由於我們在此討論的是 main thread，因此不建議在超出範例程式碼範圍下採取此做法。在 app 中使用 coroutines 時，我們會使用其他範圍(scopes)。</p>
+<p><strong><code>launch()</code> function</strong> 會建立包裝成<u>可取消(cancelable)的 Job object 的封閉程式碼(enclosed code)</u>。若 return value 不需超出 coroutine 限制範圍，請使用 <code>launch()</code>。</p>
 <p>讓我們來看看 <code>launch()</code> 的 full signature，瞭解關於 coroutines 的下一個重要概念。</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> CoroutineScope.<span class="title">launch</span><span class="params">()</span></span> &#123;</span><br><span class="line">    context: CoroutineContext = EmptyCoroutineContext,</span><br><span class="line">    start: CoroutineStart = CoroutineStart.DEFAULT,</span><br><span class="line">    block: <span class="keyword">suspend</span> CoroutineScope.() -&gt; <span class="built_in">Unit</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
@@ -9996,6 +9996,494 @@ width="30%"></p>
         <tag>MutableLiveData</tag>
         <tag>Shared ViewModel</tag>
         <tag>Navigation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android筆記(34)-從Internet取得Data</title>
+    <url>/2023/12/06/Android%E7%AD%86%E8%A8%98-34-%E5%BE%9EInternet%E5%8F%96%E5%BE%97Data/</url>
+    <content><![CDATA[<blockquote>
+<p>使用第三方 library <code>Retrofit</code> 將 app 連線至後端 server，並瞭解 <code>REST</code> web service。</p>
+</blockquote>
+<p>使用以 open source 開發的 libraries 建構<u>網路層(network layer)</u>，並<u>從後端 server 取得 data</u>。這樣可大幅簡化資料擷取作業，還可讓 app 符合 Android 最佳做法，例如在<u>背景執行緒(background thread)</u>上執行作業。若網際網路(internet)連線速度緩慢或無法使用，您也可更新 app 的 UI，以讓使用者隨時掌握任何網路連線問題。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>什麼是 <a href="https://en.wikipedia.org/wiki/REST"><code>REST</code></a> web service。</li>
+<li>使用 <a href="https://square.github.io/retrofit/"><code>Retrofit</code></a> library 連線至 internet 上的 <code>REST</code> web service 並取得 response(回應)。</li>
+<li>使用 <a href="https://github.com/square/moshi"><code>Moshi</code></a> library 將 <u><code>JSON</code> response</u> 解析(parse)成 <u>data object</u>。</li>
+</ul>
+<p><strong>建構項目</strong></p>
+<ul>
+<li>修改 starter app，以發出 <strong>web service API</strong> 的<u>要求(request)</u>和<u>處理回應(response)</u>。</li>
+<li>使用 <code>Retrofit</code> library 為 app 實作<u>網路層(network layer)</u>。</li>
+<li>使用 <code>Moshi</code> library，將 web service 中的 <u><code>JSON</code> response</u> 解析(parse)成 app 的 <u><code>LiveData</code> objects</u>。</li>
+<li>使用 <code>Retrofit</code> 提供的 <b>coroutines(協程)</b>來簡化程式碼。</li>
+</ul>
+<span id="more"></span>
+
+<hr>
+<h3 id="App-總覽"><a href="#App-總覽" class="headerlink" title="App 總覽"></a>App 總覽</h3><p>在本課程中，您將使用名為 <code>MarsPhotos</code> 的範例 app，顯示火星表面的圖片。此 app 會連線至 web service，以擷取和顯示火星的相片。這些圖片是自 NASA 火星漫遊者擷取的火星實景相片。以下是最後一個 app 的螢幕截圖，其中包含以 <code>RecyclerView</code> 建構的縮圖屬性圖片。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/ea967f35fa98d72b_1920.png?hl=zh-tw" width="40%">
+
+<div class="note no-icon success">
+            <p><strong>注意：</strong>以上螢幕截圖是您在下個程式碼研究室結束時，於課程結束時所建構最終 app 的螢幕截圖。本程式碼研究室中顯示的螢幕截圖，可協助您更加瞭解整體的app功能。</p>
+          </div>
+
+<p>您在本程式碼研究室中建構的 app 版本不會採用大量視覺閃光特效：其著重於 app 的網路層部分，以<u>連線至 <strong>internet</strong> 並透過 <strong>web service</strong> 下載<b>原始屬性資料(raw property data)</b></u>。為確保系統正確擷取和剖析資料，請直接<u>在 text view 輸出從後端 server 接收的相片數量</u>：</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/1a7e99791caf8d96_1920.png?hl=zh-tw" width="40%">
+
+<hr>
+<h3 id="探索-MarsPhotos-starter-app"><a href="#探索-MarsPhotos-starter-app" class="headerlink" title="探索 MarsPhotos starter app"></a>探索 MarsPhotos starter app</h3><h4 id="下載範例程式碼"><a href="#下載範例程式碼" class="headerlink" title="下載範例程式碼"></a>下載範例程式碼</h4><p>如果您使用 GitHub 中的範例程式碼，請注意資料夾名稱是 <code>android-basics-kotlin-mars-photos-app</code>。在 Android Studio 中開啟專案時，請選取這個資料夾。</p>
+<div class="note no-icon success">
+            <p><strong>範例程式碼網址：</strong><br><a href="https://github.com/google-developer-training/android-basics-kotlin-mars-photos-app/tree/starter">https://github.com/google-developer-training/android-basics-kotlin-mars-photos-app/tree/starter</a><br><strong>分支版本名稱：</strong><b>starter</b></p>
+          </div>
+
+<p>當您編譯和執行 app 時，應會在下列畫面畫面中央看見預留位置文字。完成本程式碼研究室後，您會將此預留位置文字更新為已擷取的相片數量。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/406c7bcc0f07267c_1920.png?hl=zh-tw" width="40%">
+
+<h4 id="範例程式碼逐步操作說明"><a href="#範例程式碼逐步操作說明" class="headerlink" title="範例程式碼逐步操作說明"></a>範例程式碼逐步操作說明</h4><p>在此工作中，您將會熟悉專案的結構。以下是關於專案中重要檔案與資料夾的逐步操作說明。</p>
+<ol>
+<li><code>OverviewFragment</code>:</li>
+</ol>
+<ul>
+<li>此為 <u><code>MainActivity</code> 中顯示的 fragment</u>。您在上個步驟中看到的 placeholder text 會顯示於此 fragment。</li>
+<li>在下一個程式碼研究室中，此 fragment 會<u>顯示自 Mars photos 後端 server 接收的 data</u>。</li>
+<li>此類別會保留 <code>OverviewViewModel</code> 物件的引用。</li>
+<li><code>OverviewFragment</code> 的 <code>onCreateView()</code> 函式會<u>使用 Data Binding 來加載 <code>fragment_overview</code> layout</u>，將 binding lifecycle owner 設定為自己，並<u>在其 binding object 中設定 <code>viewModel</code> 變數</u>。</li>
+<li>指派 lifecycle owner 後，系統會<u>自動觀察 Data Binding 中使用的任何 <code>LiveData</code> 是否有任何變更，並據以更新 UI</u>。</li>
+</ul>
+<ol start="2">
+<li><code>OverviewViewModel</code>:</li>
+</ol>
+<ul>
+<li>此為 <u><code>OverviewFragment</code> 的對應 view model</u>。</li>
+<li>此類別包含名為 <code>_status</code> 的 <u><code>MutableLiveData</code> 屬性</u>及其 <u>backing 屬性</u>。更新此屬性的值時，會一併更新畫面上顯示的 <u>placeholder text</u>。</li>
+<li><code>getMarsPhotos()</code> 方法會<u>更新 placeholder response</u>。稍後在程式碼研究室中，您將使用此程式碼來顯示從 server 擷取(fetched)的 data。本程式碼研究室的目標，在於<u>使用從 internet 取得的 real data 來更新 <code>ViewModel</code> 中的 <code>status</code> <code>LiveData</code></u>。</li>
+</ul>
+<ol start="3">
+<li><code>res/layout/fragment_overview.xml</code>：</li>
+</ol>
+<ul>
+<li>此 layout 已設為使用 <strong>data binding</strong>，且由單一 <code>TextView</code> 組成。</li>
+<li>其會宣告 <code>OverviewViewModel</code> 變數，然後<u>將 <code>status</code> 從 <code>ViewModel</code> binds 至 <code>TextView</code></u>。</li>
+</ul>
+<ol start="4">
+<li><p><code>MainActivity.kt</code>：<br>此 activity 的唯一工作是<u>載入(load)該 activity 的 layout <code>activity_main</code></u>。</p>
+</li>
+<li><p><code>layout/activity_main.xml</code>:<br>main activity layout <u>具有指向 <code>fragment_overview</code> 的單一 <code>FragmentContainerView</code></u>，overview fragment 會在 app 啟動(launched)時執行個體化(instantiated)。</p>
+</li>
+</ol>
+<h4 id="App-Overview"><a href="#App-Overview" class="headerlink" title="App Overview"></a>App Overview</h4><p>在本程式碼研究室中，您會<u>建立網路服務層來與後端 server 進行溝通</u>，以及<u>擷取(fetch)必要的 data</u>。您將使用名為 <code>Retrofit</code> 的第三方 library 實作此步驟。您將在稍後進一步瞭解相關資訊。<u><code>ViewModel</code> 會直接與該網路層進行通訊</u>，app 的其餘部分則會對此實作公開。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/1c2493b9e9e1eef_1920.png?hl=zh-tw" width="40%">
+
+<p><code>OverviewViewModel</code> 負責<u>執行 <strong>network call</strong> 以取得 <strong>Mars photos data</strong></u>。在 <code>ViewModel</code> 中，您會使用 <code>LiveData</code> 搭配<u>生命週期感知(lifecycle-aware) data binding</u>，在 data 變更時更新 app UI。</p>
+<hr>
+<h3 id="Web-services-與-Retrofit"><a href="#Web-services-與-Retrofit" class="headerlink" title="Web services 與 Retrofit"></a>Web services 與 Retrofit</h3><p>Mars photos data 會儲存在 web server 中。如要讓 app 取得此 data，您必須建立連線(establish a connection)並與 internet 上的 server 通訊(communicate)。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/37f7c367e182b4f9_1920.png?hl=zh-tw" width="70%">
+
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/d99aca47f5947a78_1920.png?hl=zh-tw" width="70%">
+
+<p>現今的大部分 web servers 會使用稱為 <a href="https://en.wikipedia.org/wiki/REST">REST</a> 的一般無狀態網路架構(stateless web architecture)，其中 <strong>RE</strong> 為<u>「Representational」(表示法)</u> 的縮寫，<strong>S</strong> 為<u>「State」(狀態)</u> 的縮寫，<strong>T</strong> 為<u>「Transfer」(傳輸)</u> 的縮寫。提供此架構的 web services，稱為 <strong>RESTful services</strong>。</p>
+<p>系統會透過 <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URI</a> 以規範的方式向 <strong>RESTful web services</strong> 發出<u>請求(requests)</u>。<strong>URI (Uniform Resource Identifier&#x2F;統一資源標識符)</strong> 會<u>依 name 來識別 server 中的資源(resource)，而不會暗示其位置(location)或存取方式(access)</u>。舉例來說，在本課程的 app 中，您將使用下列 <strong>server URI</strong> 來擷取(retrieve) <strong>image urls</strong> (此 server 會代管(hosts) Mars real-estate 和 Mars photos)：<br><a href="https://android-kotlin-fun-mars-server.appspot.com/?hl=zh-tw">android-kotlin-fun-mars-server.appspot.com</a></p>
+<p><strong>URL (Uniform Resource Locator&#x2F;統一資源定位符)</strong> 是一種 <strong>URI</strong>，其<u>會指定運作或取得資源(resource)表示法的方式</u>，亦即同時指定的主要<u>存取機制(access mechanism)</u>與<u>網路位置(network location)</u>。</p>
+<div class="note no-icon primary">
+            <p><strong>URI vs URL</strong><br>假設我要設計一個API</p><ul><li>URI 為：<br><code>/auth/sound/:name</code></li><li>URL 為：<br><code>music.com/auth/sound/bird</code><br>(URL 可讓其他人來使用)</li></ul><p>在以上的例子中，<code>/auth/sound/:name</code> 是一個 URI，它用於<u>識別和定位一個資源</u>，其中 <code>:name</code> 是一個路由參數，可以在實際使用時被具體的值替換。</p><p>而提供給他人使用的 <code>music.com/auth/sound/bird</code> 是一個 URL，它是一個<u>具體的資源位址</u>，包含了協定 (http 或 https)、主機名稱 (music.com)、路徑 (&#x2F;auth&#x2F;sound&#x2F;bird) 等元素，用於<u>定位並存取資源</u>。</p><p>因此，URI 是用於<u>識別和定位資源的通用概念</u>，而 <u>URL 是 URI 的一種具體實現方式</u>，用於指定資源的位址和定位方式，則 <code>/auth/sound/:name</code> 是 URI，<code>music.com/auth/sound/bird</code> 是其對應的 URL。</p><p><a href="https://hackmd.io/@Si-Fi-Life/BJMfdJ2O2">點此了解更多</a></p>
+          </div>
+
+<p>例如：<br>下列 URL 會列出 Mars 上所有可用的 real estate list！<br><a href="https://android-kotlin-fun-mars-server.appspot.com/realestate">https://android-kotlin-fun-mars-server.appspot.com/realestate</a></p>
+<p>下列 URL 會取得 Mars photos 的 list：<br><a href="https://android-kotlin-fun-mars-server.appspot.com/photos">https://android-kotlin-fun-mars-server.appspot.com/photos</a></p>
+<p>這些 URLs 是指識別的資源(resource identified)，例如 <a href="https://android-kotlin-fun-mars-server.appspot.com/realestate?hl=zh-tw">&#x2F;realestate</a> 或 <a href="https://android-kotlin-fun-mars-server.appspot.com/photos?hl=zh-tw">&#x2F;photos</a>，您可透過 <strong>Hypertext Transfer Protocol (http:)</strong> 從網路(network)中取得。您將在本程式碼研究室中使用 <a href="https://android-kotlin-fun-mars-server.appspot.com/photos?hl=zh-tw">&#x2F;photos</a> 端點(endpoint)。</p>
+<div class="note no-icon success">
+            <p><strong>注意：</strong>熟悉的 <b>web URL</b> 實際上屬於 <b>URI</b> 類型。在本課程中會取決於<u>呼叫 API 的方式</u>，交替使用 URL 和 URI。</p>
+          </div>
+
+<h4 id="Web-service-request"><a href="#Web-service-request" class="headerlink" title="Web service request"></a>Web service request</h4><p>每個 <strong>web service request</strong> 都包含一個 <strong>URI</strong>，並透過 Chrome 等網路瀏覽器使用的 <strong>HTTP</strong> 通訊協定傳輸至 <strong>server</strong>。HTTP 要求包含<u>指示 server 處置方式的作業</u>。</p>
+<p>常見的 HTTP 作業包括：</p>
+<ul>
+<li><code>GET</code> 用於抓取 server data</li>
+<li><code>POST</code> 或 <code>PUT</code> 用於 add&#x2F;create&#x2F;update server 的 new data</li>
+<li><code>DELETE</code> 用於刪除 server 中的 data</li>
+</ul>
+<p>App 會向 server 傳送包含 <u>Mars photos 資訊(information)</u>的 <u><strong>HTTP GET request</strong></u>，接著 server 會對 app 傳回 response，包括 <u>image urls</u>。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/bcd50e389186fa98_1920.png?hl=zh-tw" width="70%">
+
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/1e08dbc82558a7cd_1920.png?hl=zh-tw" width="70%">
+
+<p>Web service 的 response 通常會採用 <strong>XML</strong> 或 <strong>JSON</strong> 這種常見的網路格式進行格式化 (在 <strong>key-value</strong> 組合中代表<u>結構化資料(structured data)</u> 格式)。我們將在後續工作中進一步瞭解 JSON。</p>
+<p>在這項工作中，您要<u>建立與 server 的連線(network connection)</u>、<u>與 server 通訊(communicate)</u>，以及<u>接收 JSON response</u>。您將使用已寫入的後端 server。在本程式碼研究室中，您將使用第三方 library <strong>Retrofit</strong> 來與後端 server 進行通訊(communicate)。</p>
+<h4 id="External-Libraries"><a href="#External-Libraries" class="headerlink" title="External Libraries"></a>External Libraries</h4><p><u>外部程式庫(External Libraries)</u>或<u>第三方 libraries</u> 就像是 <b>core Android API</b> 的<u>擴充功能(extensions)</u>。這些 libraries 大多為 open source、由社群開發，並由全球廣大 Android 社群集體貢獻心力負責維護。這讓包括您在內的 Android developers 能夠打造出更優異的 app。</p>
+<h4 id="Retrofit-Library"><a href="#Retrofit-Library" class="headerlink" title="Retrofit Library"></a>Retrofit Library</h4><p>在本程式碼研究室中，您會使用 <strong>Retrofit library</strong> 來與 <strong>RESTful Mars web service</strong> 通訊，其為具備完善支援和維護的理想範例 library。只要瀏覽其 <a href="https://github.com/square/retrofit">GitHub</a> 網頁，查看尚未解決的問題 (部分為功能要求) 和已解決的問題，即可感受上述優勢。若 developers 有在解決問題並定期回應功能要求，表示此 library 維護良好，且極為適合在 app 中使用。此外，亦提供 <a href="https://square.github.io/retrofit/">Retrofit</a> documentation 網頁。</p>
+<p><strong>Retrofit library</strong> 將<u>與後端(backend)通訊</u>。其會根據<u>傳遞的參數(parameters)</u>，<u>建立 web service 的 URI</u>。您將在稍後的章節中看到更多內容。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/a8f10b735ad998ac_1920.png?hl=zh-tw" width="80%">
+
+<h4 id="新增-Retrofit-dependencies"><a href="#新增-Retrofit-dependencies" class="headerlink" title="新增 Retrofit dependencies"></a>新增 Retrofit dependencies</h4><p><strong>Android Gradle</strong> 可讓您<u>將外部 libraries 新增至 project</u>。除了 library dependency 外，亦應包括<u>代管(hosted) library 的 repository</u>。例如來自 <strong>Jetpack libraries</strong> 的 <code>ViewModel</code> 和 <code>LiveData</code> 等 <strong>Google libraries</strong>，是由 Google repository 負責代管(hosted)。大部分的 community libraries (例如 Retrofit) 皆是由 <u><b>Google</b> 和 <b>MavenCentral</b> repositories</u> 代管。</p>
+<ol>
+<li>開啟 project 的頂層 <code>build.gradle(Project: MarsPhotos)</code> 檔案。請注意在 repositories 區塊下方列出的 <code>repositories</code>。您應該會看到以下兩個 repositories：<code>google()</code>、<code>mavenCentral()</code>。</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">   google()</span><br><span class="line">   mavenCentral()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>開啟 module 層級 Gradle 檔案 <code>build.gradle (Module: MarsPhots.app)</code>。</li>
+<li>在 <code>dependencies</code> 區段中，為 Retrofit libraries 新增以下幾行：</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Retrofit</span></span><br><span class="line">implementation <span class="string">&quot;com.squareup.retrofit2:retrofit:2.9.0&quot;</span></span><br><span class="line"><span class="comment">// Retrofit with Scalar Converter</span></span><br><span class="line">implementation <span class="string">&quot;com.squareup.retrofit2:converter-scalars:2.9.0&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一個 dependency 針對 Retrofit2 library 本身提供，第二個 dependency 則用於 Retrofit scalar converter(純量轉換工具)。<u>此 converter 可讓 Retrofit 以 <code>String</code> 的形式傳回 JSON 結果</u>。這兩個 libraries 會搭配運作。</li>
+</ul>
+<ol start="4">
+<li>按一下「Sync Now」，使用新的 dependencies rebuild project。</li>
+</ol>
+<h4 id="新增-Java-8-語言功能支援"><a href="#新增-Java-8-語言功能支援" class="headerlink" title="新增 Java 8 語言功能支援"></a>新增 Java 8 語言功能支援</h4><p>包括 Retrofit2 在內的眾多第三方 libraries，皆使用 Java 8 語言功能(features)。Android Gradle 外掛程式(plugin)提供使用特定 Java 8 語言功能的內建支援。</p>
+<ol>
+<li>如要使用內建功能(built-in features,)，您必須在 module 的 <code>build.gradle</code> 檔案中加入下列程式碼。系統已為您完成此步驟，請確認在您的 <code>build.gradle(Module: MarsPhotos.app)</code> 中顯示下列程式碼。</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  compileOptions &#123;</span><br><span class="line">    <span class="keyword">sourceCompatibility</span> JavaVersion.VERSION_1_8</span><br><span class="line">    <span class="keyword">targetCompatibility</span> JavaVersion.VERSION_1_8</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  kotlinOptions &#123;</span><br><span class="line">    jvmTarget = <span class="string">&#x27;1.8&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="連線至-Internet"><a href="#連線至-Internet" class="headerlink" title="連線至 Internet"></a>連線至 Internet</h3><p>您會使用 Retrofit library 與 <u><strong>Mars web service</strong></u> 進行通訊，並將原始 <u><strong>JSON response</strong></u> 顯示為 <code>String</code>。預留位置 <code>TextView</code> 會<u>顯示傳回的 JSON response 字串，或顯示連線錯誤的訊息</u>。</p>
+<p>Retrofit <u>會根據 web service 的內容為 app 建立 <strong>network API</strong></u>。其會<u>從 web service 擷取 data</u>，並透過獨立的<u><strong>轉換工具(converter) library</strong> 執行 data 轉送</u> ，該 library 瞭解 <u>data 解碼</u>方式，且會<u>以 <code>String</code> 等 objects 形式傳回 data</u>。Retrofit 提供諸如 XML 和 JSON 等熱門 data 格式的內建支援。Retrofit 最終會建立程式碼來呼叫和耗用這項服務，包括<u>在 background threads 執行 requests</u> 之類的重要詳細資訊。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/deb437805232f6a_1920.png?hl=zh-tw" width="80%">
+
+<p>在此工作中，您會將<u>網路層</u>新增至 MarsPhotos project，以供 <code>ViewModel</code> 用於<u>與 web service 通訊</u>。您必須按照下列步驟實作 <u><strong>Retrofit service API</strong></u>。</p>
+<ul>
+<li>建立網路層 (<u><strong><code>MarsApiService</code> class</strong></u>)。</li>
+<li>使用 <u>base URL</u> 和 <u>converter factory</u> 來建立 <u><strong>Retrofit object</strong></u>。</li>
+<li>建立用於說明 <u>Retrofit 如何與 web server 通訊</u>的 <u><strong>interface</strong></u>。</li>
+<li>建立 <u><strong>Retrofit service</strong></u>，並向 app 的其餘部分<u>公開 API service instance</u>。</li>
+</ul>
+<p>實作上述步驟：</p>
+<ol>
+<li>建立名為 network 的新 package。在「Android」project 案窗格中，以滑鼠右鍵按一下套件 <code>com.example.android.marsphotos</code>。依序選取「New」(新增) &gt;「Package」(套件)。在彈出式視窗中，將 network 附加至建議的 package name 結尾處。</li>
+<li>在新 package network 中，建立新的 Kotlin 檔案。將其命名為 <code>MarsApiService</code>。</li>
+<li>開啟 <code>network/MarsApiService.kt</code>。為 web service 的 <u>base URL</u> 新增下列常數(constant)。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> BASE_URL =</span><br><span class="line">   <span class="string">&quot;https://android-kotlin-fun-mars-server.appspot.com&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在該常數下方，新增 <u>Retrofit builder</u> 來 <u>建立和新增<b>Retrofit object</b></u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> retrofit = Retrofit.Builder()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在系統提示時 import <code>retrofit2.Retrofit</code>。</li>
+</ul>
+<ol start="5">
+<li>Retrofit 需要 <u>web service 的 <strong>base URI</strong> 和 <strong>converter factory</strong></u>，以 <u>build <b>web services API</b></u>。converter 會向 Retrofit 告知如何處理從 web service 傳回的 data。在此範例中，您希望 Retrofit 從 web service 擷取 JSON response，並以 <code>String</code> 形式傳回。Retrofit 具備支援字串(strings)和其他原始類型(primitive types)的 <code>ScalarsConverter</code>，因此您會<u>在具有 <code>ScalarsConverterFactory</code> instance 的 builder 上呼叫 <code>addConverterFactory()</code></u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> retrofit = Retrofit.Builder()</span><br><span class="line">   .addConverterFactory(ScalarsConverterFactory.create())</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在系統提示時 import <code>retrofit2.converter.scalars.ScalarsConverterFactory</code>。</li>
+</ul>
+<ol start="6">
+<li>使用 <code>baseUrl()</code> 方法<u>新增 web service 的 <strong>base URI</strong></u>。最後，呼叫 <code>build()</code> 以建立 Retrofit object。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> retrofit = Retrofit.Builder()</span><br><span class="line">   .addConverterFactory(ScalarsConverterFactory.create())</span><br><span class="line">   .baseUrl(BASE_URL)</span><br><span class="line">   .build()</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>在 Retrofit builder 的呼叫下方，定義名為 <code>MarsApiService</code> 的 interface，此 interface 會定義 Retrofit <u>使用 <strong>HTTP requests</strong> 與 <strong>web server</strong> 通訊的方式</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">MarsApiService</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>在 <code>MarsApiService</code> interface 當中，新增名為 <code>getPhotos()</code> 的函式，以<u>從 web service 取得 response 字串</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">MarsApiService</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getPhotos</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>使用 <code>@GET</code> 註解，向 Retrofit 表明此為 <u>GET request</u>，並指定該 web service 方法的端點(endpoint)。在此範例中，endpoint 就是 <code>photos</code>。如上個工作中所述，您可在本程式碼研究室中使用 <a href="https://android-kotlin-fun-mars-server.appspot.com/photos?hl=zh-tw">&#x2F;photos</a> endpoint。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">MarsApiService</span> &#123;</span><br><span class="line">    <span class="meta">@GET(<span class="string">&quot;photos&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getPhotos</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>依要求 import <code>retrofit2.http.GET</code>。</li>
+</ul>
+<ol start="10">
+<li>叫用 <code>getPhotos()</code> 方法時，Retrofit 會將 endpoint <code>photos</code> 附加至在 Retrofit builder 中定義的 base URL，以用於啟動 request。將函式的 return type 新增至 <code>String</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">MarsApiService</span> &#123;</span><br><span class="line">    <span class="meta">@GET(<span class="string">&quot;photos&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getPhotos</span><span class="params">()</span></span>: String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="物件宣告"><a href="#物件宣告" class="headerlink" title="物件宣告"></a>物件宣告</h4><p>在 Kotlin 中，<a href="https://kotlinlang.org/docs/object-declarations.html#object-declarations">物件宣告(object declarations)</a>是用來<u>宣告單例模式物件(singleton objects)</u>。<a href="https://en.wikipedia.org/wiki/Singleton_pattern">單例模式(singleton pattern)</a>可確保<u>僅建立一個 <b>object instance</b></u>，且對該 object <u>僅有一個<b>全域存取點(global point of access)</b></u>。物件宣告的初始化為<u>執行緒安全(thread-safe)</u>，且會在<u>初次存取</u>時完成。</p>
+<p>Kotlin 可讓您輕鬆宣告 singletons。以下是 object 宣告及其存取權的示例。object 宣告在 <code>object</code> 關鍵字後方一律帶有 name。</p>
+<p>範例：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Object declaration</span></span><br><span class="line"><span class="keyword">object</span> DataProviderManager &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">registerDataProvider</span><span class="params">(provider: <span class="type">DataProvider</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">​</span><br><span class="line">    <span class="keyword">val</span> allDataProviders: Collection&lt;DataProvider&gt;</span><br><span class="line">        <span class="keyword">get</span>() = <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// To refer to the object, use its name directly.</span></span><br><span class="line">DataProviderManager.registerDataProvider(...)</span><br></pre></td></tr></table></figure>
+
+<p>在 Retrofit object 上呼叫 <code>create()</code> 函式的代價非常高，且 app 只需要<u>單一 <strong>Retrofit API service instance</strong></u>。因此，您可以<u>使用物件宣告，向 app 的其餘部分公開 service</u>。</p>
+<ol>
+<li>在 <code>MarsApiService</code> interface 宣告之外，定義名為 <code>MarsApi</code> 的 <strong>public object</strong>，以<u>初始化 Retrofit service</u>。這是可從 app 其餘部分存取的 public singleton object。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">object</span> MarsApi &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 <code>MarsApi</code> object 宣告當中，新增名為 <code>retrofitService</code> 的 type <code>MarsApiService</code> 延遲(lazy)初始化 Retrofit object 屬性。執行此延遲初始化的用意，在於確保其在第一次使用時已初始化。您將在後續步驟中修正錯誤。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">object</span> MarsApi &#123;</span><br><span class="line">    <span class="keyword">val</span> retrofitService : MarsApiService <span class="keyword">by</span> lazy &#123;</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>透過 <code>MarsApiService</code> interface，使用 <code>retrofit.create()</code> 方法初始化 <code>retrofitService</code> 變數。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">object</span> MarsApi &#123;</span><br><span class="line">    <span class="keyword">val</span> retrofitService : MarsApiService <span class="keyword">by</span> lazy &#123;</span><br><span class="line">       retrofit.create(MarsApiService::<span class="keyword">class</span>.java) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>::</code> 表示把一個方法當作一個參數，傳遞到另一個方法中進行使用(通俗來說就是引用一個方法)。</li>
+</ul>
+<p>Retrofit 設定完成！每當 app 呼叫 <code>MarsApi.retrofitService</code> 時，呼叫端就會<u>存取在第一次存取時建立的同個 <strong>singleton Retrofit object</strong> 來實作 <code>MarsApiService</code></u>。在下一個工作中，您將使用先前實作的 Retrofit object。</p>
+<div class="note no-icon success">
+            <p><strong>注意：</strong>提醒您，<b>延遲執行個體(lazy instantiation)</b>是指<u>在實際需要 object 之前特意延遲建立該 object</u>，以<u>避免不必要的運算或使用其他運算資源</u>。Kotlin 針對延遲執行個體化(lazy instantiation)提供<a href="https://kotlinlang.org/docs/delegated-properties.html#lazy">一流的支援</a>。</p>
+          </div>
+
+<h4 id="在-OverviewViewModel-中呼叫-web-service"><a href="#在-OverviewViewModel-中呼叫-web-service" class="headerlink" title="在 OverviewViewModel 中呼叫 web service"></a>在 OverviewViewModel 中呼叫 web service</h4><p>在此步驟中，您會<u>實作 <code>getMarsPhotos()</code> 方法來呼叫 <strong>Retrofit service</strong></u>，然後<u>處理傳回的 JSON 字串(string)</u>。</p>
+<h4 id="ViewModelScope"><a href="#ViewModelScope" class="headerlink" title="ViewModelScope"></a>ViewModelScope</h4><p><a href="https://developer.android.com/topic/libraries/architecture/coroutines?hl=zh-tw#viewmodelscope"><code>ViewModelScope</code></a> 是在 app 中為每個 <code>ViewModel</code> 定義的<u>內建 <strong>coroutine scope</strong></u>。若已清除 <code>ViewModel</code>，系統就會<u>自動取消此範圍內啟動(launched)的所有協程(coroutine)</u>。</p>
+<p>您會<u>使用 <code>ViewModelScope</code> 來啟動協程(coroutine)</u>，並<u>在背景執行 <strong>Retrofit network 呼叫</strong></u>。</p>
+<ol start="4">
+<li>在 <code>MarsApiService</code> 中，將 <code>getPhotos()</code> 設為 <u>suspend 函式</u>。這樣就能在 coroutine 中呼叫此方法。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GET(<span class="string">&quot;photos&quot;</span>)</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">getPhotos</span><span class="params">()</span></span>: String</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>開啟 <code>overview/OverviewViewModel</code>。向下捲動至 <code>getMarsPhotos()</code> 方法。刪除將 status response 設為 “Set the Mars API Response here!”. 的行。方法 <code>getMarsPhotos()</code> 應已空白。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getMarsPhotos</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>在 <code>getMarsPhotos()</code> 當中，使用 <code>viewModelScope.launch</code> 啟動 coroutine。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getMarsPhotos</span><span class="params">()</span></span> &#123;</span><br><span class="line">    viewModelScope.launch &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在系統提示時 import <code>androidx.lifecycle.viewModelScope</code> 和 <code>kotlinx.coroutines.launch</code>。</li>
+</ul>
+<ol start="7">
+<li>在 <code>viewModelScope</code> 當中，使用 <u>singleton object <code>MarsApi</code></u> <u>從 <code>retrofitService</code> interface 呼叫 <code>getPhotos()</code> 方法</u>。將傳回的 response 儲存於名為 <code>listResult</code> 的 <code>val</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">viewModelScope.launch &#123;</span><br><span class="line">    <span class="keyword">val</span> listResult = MarsApi.retrofitService.getPhotos()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在系統提示時 import <code>com.example.android.marsphotos.network.MarsApi</code>。</li>
+</ul>
+<ol start="8">
+<li>將剛從後端 server 收到的結果指派至 <code>_status.value</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> listResult = MarsApi.retrofitService.getPhotos()</span><br><span class="line">_status.value = listResult</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li><p>執行 app，請注意 app 會立即關閉，且不一定會顯示錯誤彈出式視窗。</p>
+</li>
+<li><p>按一下 Android Studio 中的「Logcat」分頁標籤，會顯示錯誤「missing INTERNET permission」。</p>
+</li>
+</ol>
+<img src="https://i.imgur.com/JkHklos.png">
+
+<p>此錯誤訊息代表 app 可能缺少 <code>INTERNET</code> 權限(permissions)。在下一個工作中，您會新增 app 的 internet permissions 來解決這個問題。</p>
+<hr>
+<h3 id="新增-Internet-權限與處理-Exception"><a href="#新增-Internet-權限與處理-Exception" class="headerlink" title="新增 Internet 權限與處理 Exception"></a>新增 Internet 權限與處理 Exception</h3><h4 id="Android-Permissions"><a href="#Android-Permissions" class="headerlink" title="Android Permissions"></a>Android Permissions</h4><p>Android 系統的<u>權限(permissions)</u>旨在保護 Android 使用者的隱私權。Android apps 必須宣告或要求權限，以存取諸如聯絡人、通話記錄等敏感使用者資料，以及例如 camera 或 internet 等特定系統功能。</p>
+<p>您必須具備 <strong>INTERNET permissions</strong>，才可讓 apps 存取 internet。連線至 internet 後會引發安全性疑慮，因此根據預設，apps 無 internet 連線。您必須<u>明確宣告 app 需要存取 internet</u>。這視為<u>一般權限</u>。如要進一步瞭解 Android permissions 及其類型，請參閱<a href="https://developer.android.com/guide/topics/permissions/overview?hl=zh-tw">說明文件</a>。</p>
+<p>在此步驟中，app 會在 <code>AndroidManifest</code> 檔案中加入<code> &lt;uses-permission&gt;</code> 標記，以宣告所需的權限。</p>
+<ol>
+<li>開啟 <code>manifests/AndroidManifest.xml</code>。在 <code>&lt;application&gt;</code> 標記前方加上這一行：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.INTERNET&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>編譯並再次執行 app。若您有可用的 internet 連線，應會看到內含 Mars photos 相關資料的 <strong>JSON text</strong>。稍後您可在程式碼研究室中進一步瞭解 JSON 格式。</li>
+</ol>
+<img src="https://i.imgur.com/68ByRSb.png" width="40%">
+
+<ol start="3">
+<li><p>輕觸裝置或模擬器中的「Back」按鈕，關閉 app。</p>
+</li>
+<li><p>將裝置或模擬器設為飛航模式，以模擬網路連線錯誤。從最近用過的選單重新開啟 app，或從 Android Studio 重新啟動 app。</p>
+</li>
+<li><p>按一下 Android Studio 中的「Logcat」分頁標籤，然後記下 Log 中的<u>嚴重例外狀況(fatal exception)</u>，如下所示：</p>
+</li>
+</ol>
+<img src="https://i.imgur.com/LhZcXhH.png">
+
+<h4 id="處理-Exception"><a href="#處理-Exception" class="headerlink" title="處理 Exception"></a>處理 Exception</h4><p><a href="https://developer.android.com/reference/java/lang/Exception">例外狀況(Exception)</a> 是指在<u>執行階段期間(runtime)</u>【非<u>編譯期間(compile time)</u>】 可能發生的錯誤，會在未通知使用者的情況下突然終止 app。這會對使用者體驗造成負面影響。<u>例外狀況處理(Exception handling)</u>是一種機制，可<u>避免 app 突然終止</u>，並<u>以使用者容易理解的方式處理</u>。</p>
+<p>發生 exceptions 的原因可能很單純，例如以零為除數或網路發生錯誤。這些 exceptions 與您在先前程式碼研究室中學到的 <code>NumberFormatException</code> 類似。</p>
+<p>連線至 server 時可能發生的問題範例：</p>
+<ul>
+<li>API 使用的 <u>URL 或 URI 不正確</u>。</li>
+<li><u>server 無法使用</u>，且 <u>app 無法連線至 server</u>。</li>
+<li><u>網路延遲(Network latency)</u>問題。</li>
+<li>裝置的<u>網際網路(internet)連線狀況不良</u>或<u>無網際網路(internet)連線</u>。</li>
+</ul>
+<p>在<u>編譯期間(compile time)</u>無法擷取這些 exceptions。您可以使用 <code>try-catch</code> 區塊來處理<u>執行階段(runtime)</u>中的 exceptions。如要進一步瞭解，請參閱<a href="https://kotlinlang.org/docs/exceptions.html">說明文件</a>。</p>
+<p><strong>Try-catch 區塊的範例語法</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// some code that can cause an exception.</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (e: SomeException) &#123;</span><br><span class="line">    <span class="comment">// handle the exception to avoid abrupt termination.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>try</code> 區塊當中，執行預期發生 exception 的所在程式碼，這在 app 中稱為 network call。您必須在 <code>catch</code> 區塊中實作程式碼，以避免 app 突然終止。若發生 exception，系統將執行 <code>catch</code> 區塊來復原錯誤，而不會突然終止 app。</p>
+<ol>
+<li>開啟 <code>overview/OverviewViewModel.kt</code>。向下捲動至 <code>getMarsPhotos()</code> 方法。在啟動區塊當中，在 <code>MarsApi</code> 呼叫周圍新增 <code>try</code> 區塊來處理 exception。在 <code>try</code> 區塊後方新增 <code>catch</code> 區塊：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">viewModelScope.launch &#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="keyword">val</span> listResult = MarsApi.retrofitService.getPhotos()</span><br><span class="line">       _status.value = listResult</span><br><span class="line">   &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 <code>catch &#123;&#125;</code> 區塊當中處理 failure response。將 <code>e.message</code> 設為 <code>_status.value</code>，以向使用者顯示 error message。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">   _status.value = <span class="string">&quot;Failure: <span class="subst">$&#123;e.message&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>開啟飛航模式，並再次執行 app。此時不會突然關閉 app，但會改為顯示 error message。</li>
+</ol>
+<img src="https://i.imgur.com/2JIw5Gl.png" width="40%">
+
+<ol start="4">
+<li>關閉手機或模擬器的飛航模式。執行並測試您的 app，確定一切運作正常，且您能夠查看 JSON 字串。</li>
+</ol>
+<hr>
+<h3 id="使用-Moshi-剖析-JSON-response"><a href="#使用-Moshi-剖析-JSON-response" class="headerlink" title="使用 Moshi 剖析 JSON response"></a>使用 Moshi 剖析 JSON response</h3><h4 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h4><p>requested data 通常為常用的資料格式，例如 <strong>XML</strong> 或 <strong>JSON</strong>。每次呼叫都會傳回<u>結構化資料(structured data)</u>，而 app 必須瞭解該結構的內容，才能讀取 response 中的 data。</p>
+<p>舉例來說，您將在此 app 中從下列 server 擷取 data：<a href="https://android-kotlin-fun-mars-server.appspot.com/photos">https://android-kotlin-fun-mars-server.appspot.com/photos</a> 。若您在瀏覽器中輸入此 URL，即會顯示 JSON 格式的 <u>Mars surface <strong>IDs</strong> 和 <strong>image URLs</strong> list</u>！</p>
+<p>範例 JSON 回應結構：<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/fde4f6f199990ae8_1920.png?hl=zh-tw"></p>
+<ul>
+<li><strong>JSON response</strong> 為<u>陣列(array)</u>，以方括號 <code>[]</code> 表示。陣列(array)包含 <strong>JSON objects</strong>。</li>
+<li><strong>JSON objects</strong> 會以大括號 <code>&#123;&#125;</code> 括住。</li>
+<li>每個 <strong>JSON objects</strong> 皆內含一組 <strong>name-value</strong> 配對，並以半形逗號 <code>,</code> 分隔。</li>
+<li>配對的 <strong>name</strong> 和 <strong>value</strong> 會以半形冒號 <code>:</code> 分隔。</li>
+<li><strong>name</strong> 會以引號 <code>&quot;&quot;</code> 括住。</li>
+<li><strong>value</strong> 可以是數字(numbers)、字串(strings)、布林值(boolean)、陣列(array)、物件 (JSON object) 或空值(null)。</li>
+</ul>
+<p>舉例來說，<code>img_src</code> 是一個 url 字串。若將 url 貼至網路瀏覽器中，就會看到 Mars surface image。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/b4f9f196c64f02c3_1920.png?hl=zh-tw" width="50%">
+
+<p>您現可從 Mars web service 取得 JSON response，這是個不錯的起點。但您真正需要的是 <strong>Kotlin objects</strong>，而非大型 JSON 字串。此外還有一個名為 <a href="https://github.com/square/moshi">Moshi</a> 的外部 library，這個 Android <b>JSON 剖析器(parser)</b>可<u>將 JSON 字串轉換為 Kotlin objects</u>。Retrofit 具備可與 Moshi 搭配使用的<u>轉換工具(converter)</u>，是非常適合在這裡使用的優異 library。</p>
+<p>在此工作中，您會<u>使用 Moshi library 搭配 Retrofit</u>，將 web service 中的 <u><strong>JSON response</strong> 剖析為呈現 Mars photos 的實用 <strong>Kotlin objects</strong></u>。App 會改為顯示<u>傳回的 Mars photos 數量</u>，而非顯示原始 JSON。</p>
+<h4 id="新增-Moshi-library-dependencies"><a href="#新增-Moshi-library-dependencies" class="headerlink" title="新增 Moshi library dependencies"></a>新增 Moshi library dependencies</h4><ol>
+<li>開啟 <code>build.gradle (Module: app)</code>。</li>
+<li>在 dependencies 區段新增以下程式碼，以包含 Moshi dependency。此 dependency 會新增使用 Kotlin support 的 Moshi JSON library support。</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Moshi</span></span><br><span class="line">implementation <span class="string">&#x27;com.squareup.moshi:moshi-kotlin:1.13.0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>dependencies</code> 區塊中找出 Retrofit scalar converter 行，並將以下 dependencies 變更為使用 <code>converter-moshi</code>：</li>
+</ol>
+<p>將以下</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Retrofit</span></span><br><span class="line">implementation <span class="string">&quot;com.squareup.retrofit2:retrofit:2.9.0&quot;</span></span><br><span class="line"><span class="comment">// Retrofit with scalar Converter</span></span><br><span class="line">implementation <span class="string">&quot;com.squareup.retrofit2:converter-scalars:2.9.0&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>替換為</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Retrofit with Moshi Converter</span></span><br><span class="line">implementation <span class="string">&#x27;com.squareup.retrofit2:converter-moshi:2.9.0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>按一下「Sync Now」(立即同步處理)，使用新 dependencies rebuild project。</li>
+</ol>
+<div class="note no-icon success">
+            <p><strong>注意：</strong>Project 可能會顯示與已移除 <u>Retrofit scalar dependency</u> 相關的<u>編譯器錯誤</u>。您會在接下來的步驟中修正這些錯誤。</p>
+          </div>
+
+<h4 id="實作-Mars-Photos-data-class"><a href="#實作-Mars-Photos-data-class" class="headerlink" title="實作 Mars Photos data class"></a>實作 Mars Photos data class</h4><p>從 web service 取得的 JSON response 範例項目看起來會像這樣，如下所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>:<span class="string">&quot;424906&quot;</span>,</span><br><span class="line">    <span class="string">&quot;img_src&quot;</span>:<span class="string">&quot;http://mars.jpl.nasa.gov/msl-raw-images/msss/01000/mcam/1000ML0044631300305227E03_DXXX.jpg&quot;</span></span><br><span class="line">&#125;,</span><br><span class="line">...]</span><br></pre></td></tr></table></figure>
+
+<p>在上述範例中，請注意每個 Mars photo 項目皆具有以下的 JSON key 與 value 配對：</p>
+<ul>
+<li><code>id</code>：屬性的 ID，以 string 表示。由於其已納入 <code>&quot; &quot;</code>，因此屬於 <code>String</code> 類型而非 <code>Integer</code>。</li>
+<li><code>img_src</code>：image 的 URL，以 string 表示。</li>
+</ul>
+<p>Moshi 會剖析此 JSON data，然後將其轉換為 Kotlin objects。如要這麼做，Moshi 必須具有 Kotlin <strong>data class</strong> 以<u>儲存剖析結果(將轉換完成的 Kotlin objects 儲存在 data class)</u>，因此您會在此步驟中<u>建立 data class <code>MarsPhoto</code></u>。</p>
+<ol>
+<li>在 network 套件上按一下滑鼠右鍵，然後依序選取「New」&gt;「Kotlin File&#x2F;Class」。</li>
+<li>在彈出式視窗中選取「Class」，然後輸入 <code>MarsPhoto</code> 做為 class name。這麼做會在 <code>network</code> package 中建立名為 <code>MarsPhoto.kt</code> 的新檔案。</li>
+<li>在 class 定義前方新增 <code>data</code> keyword，以將 <code>MarsPhoto</code> 設為 data class。將 <code>&#123;&#125;</code> 括號變更為 <code>()</code> 括號。這樣會發生錯誤，因為 data class 必須定義至少一個屬性。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">MarsPhoto</span>(</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>將下列屬性新增至 <code>MarsPhoto</code> 類別定義。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">MarsPhoto</span>(</span><br><span class="line">   <span class="keyword">val</span> id: String, <span class="keyword">val</span> img_src: String</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>請注意，<u><code>MarsPhoto</code> class 中的每個變數皆會對應至 <strong>JSON object</strong> 中的 <strong>key name</strong></u>。如要比對特定 JSON response 中的 types，請為所有 value 使用 <code>String</code> object。</li>
+</ul>
+<p>Moshi 剖析 JSON 時，會<u>根據 name 比對 key</u>，並<u>在 data object 中填入適當的 value</u>。</p>
+<h4 id="Json-註解"><a href="#Json-註解" class="headerlink" title="@Json 註解"></a>@Json 註解</h4><p>有時，JSON response 中的 <strong>key name</strong> 可能導致 Kotlin 屬性有所混淆，或與建議的程式設計樣式不符；舉例來說，在 JSON 檔案中，<code>img_src</code> key 會使用<u>底線</u>，而屬性的 Kotlin 慣例會使用大小寫字母 (<u>駝峰式大小寫</u>)。</p>
+<p>如要在 data class 中使用與 JSON response 中 key name 不同的變數名稱，請使用 <code>@Json</code> 註解。在此範例中，data class 中的變數名稱為 <code>imgSrcUrl</code>。您可使用<code> @Json(name = &quot;img_src&quot;)</code> 將變數對應至 JSON 屬性 <code>img_src</code>。</p>
+<ol start="5">
+<li>將 <code>img_src</code> key 這行替換為以下顯示的行。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Json(name = <span class="string">&quot;img_src&quot;</span>)</span> <span class="keyword">val</span> imgSrcUrl: String</span><br></pre></td></tr></table></figure>
+<ul>
+<li>依要求 import <code>com.squareup.moshi.Json</code>。</li>
+</ul>
+<h4 id="更新-MarsApiService-和-OverviewViewModel"><a href="#更新-MarsApiService-和-OverviewViewModel" class="headerlink" title="更新 MarsApiService 和 OverviewViewModel"></a>更新 MarsApiService 和 OverviewViewModel</h4><p>在此工作中，您會<u>使用 <strong>Moshi builder</strong> 來建立 <strong>Moshi object</strong></u>，做法與 Retrofit builder 類似。</p>
+<p>您會<u>將 <code>ScalarsConverterFactory</code> 替換為 <code>KotlinJsonAdapterFactory</code></u>，以讓 Retrofit 知道可以使用 Moshi 將 JSON response 轉換為 Kotlin object。接著會<u>更新 <strong>network API</strong> 和 <code>ViewModel</code></u>，以使用 <strong>Moshi object</strong>。</p>
+<ol>
+<li>開啟 <code>network/MarsApiService.kt</code>。注意 <code>ScalarsConverterFactory</code> 的未解決 reference 錯誤。這是因為您在先前的步驟中已變更 Retrofit dependency。刪除 <code>ScalarConverterFactory</code> 的 import 作業。您會在不久之後修正其他錯誤。</li>
+</ol>
+<p>移除：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> retrofit2.converter.scalars.ScalarsConverterFactory</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在檔案頂端 (在 Retrofit builder 之前)，新增下列程式碼以<u>建立 Moshi object</u>，類似 Retrofit object。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> moshi = Moshi.Builder()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>依照要求 import <code>com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory</code> 和 <code>com.squareup.moshi.Moshi</code>。</li>
+</ul>
+<ol start="3">
+<li>若要讓 Moshi 註解與 Kotlin 順利搭配運作，請<u>在 Moshi builder 中新增 <code>KotlinJsonAdapterFactory</code></u>，然後<u>呼叫 <code>build()</code></u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> moshi = Moshi.Builder()</span><br><span class="line">   .add(KotlinJsonAdapterFactory())</span><br><span class="line">   .build()</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在 <code>retrofit</code> object 宣告中，<u>將 Retrofit builder 變更為使用 <code>MoshiConverterFactory</code></u> 而非 <code>ScalarConverterFactory</code>，並傳遞您剛建立的 <u><code>moshi</code> instance</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> retrofit = Retrofit.Builder()</span><br><span class="line">   .addConverterFactory(MoshiConverterFactory.create(moshi))</span><br><span class="line">   .baseUrl(BASE_URL)</span><br><span class="line">   .build()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>依要求 import <code>retrofit2.converter.moshi.MoshiConverterFactory</code>。</li>
+</ul>
+<ol start="5">
+<li>您已將 <code>MoshiConverterFactory</code> 設定妥當，現在可以要求 Retrofit 從 <strong>JSON array</strong> 傳回 <u><code>MarsPhoto</code> objects list</u>，而非傳回 JSON string。更新 <code>MarsApiService</code> interface，讓 Retrofit 傳回 <code>MarsPhoto</code> objects list，而非傳回 <code>String</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">MarsApiService</span> &#123;</span><br><span class="line">   <span class="meta">@GET(<span class="string">&quot;photos&quot;</span>)</span></span><br><span class="line">   <span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">getPhotos</span><span class="params">()</span></span>: List&lt;MarsPhoto&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><p>對 <code>viewModel</code> 進行類似的變更，開啟 <code>OverviewViewModel.kt</code>。向下捲動至 <code>getMarsPhotos()</code> 方法。</p>
+</li>
+<li><p>在方法 <code>getMarsPhotos()</code> 中，<code>listResult</code> 為 <code>List&lt;MarsPhoto&gt;</code> 而不再是 <code>String</code>。該 list 大小為已接收和剖析的 photos 數量。如要輸出已擷取的 photos 數量，請按照下列方式更新 <code>_status.value</code>。</p>
+</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">_status.value = <span class="string">&quot;Success: <span class="subst">$&#123;listResult.size&#125;</span> Mars photos retrieved&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在系統提示時 import <code>com.example.android.marsphotos.network.MarsPhoto</code>。</li>
+</ul>
+<ol start="8">
+<li>確認裝置或模擬器已關閉飛航模式。編譯並執行 app。此時 message 應會顯示從 web service 傳回的屬性數量，而非大型 JSON string：</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-getting-data-internet/img/8f47f004c7f91394_1920.png?hl=zh-tw" width="40%">
+
+<hr>
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><p><strong>REST web services</strong></p>
+<ul>
+<li>web service 是透過 internet 提供的軟體功能，，可<u>讓 app 傳送 requests 和傳回 data</u>。</li>
+<li>一般的 web service 使用 <u>REST 架構</u>。<u>提供 REST 架構的 web service 稱為 <strong>RESTful services</strong></u>。符合 RESTful web services，均使用標準 <u>web 元件(components)</u>和<u>通訊協定(protocols)</u>建構而成。</li>
+<li>透過 <strong>URIs</strong> 以標準化方式<u>向 REST web service 傳送 request</u>。</li>
+<li>如要使用 web service，app 必須<u>建立 network connection，並與 service 通訊</u>。接著，app 必須<u>接收 response data</u>，並將其<u>剖析</u>為可供 app 使用的格式。</li>
+<li><strong>Retrofit library</strong> 是一個 client library，可<u>讓 app 向 REST web service 發出 requests</u>。</li>
+<li>使用 <strong>converters</strong> 向 Retrofit 告知該<u>如何處理傳送至 web service 的 data</u>，以及<u>從 web service 傳回的 data</u>。舉例來說， <code>ScalarsConverter</code> converter 會將 web service data 視為 <code>String</code> 或其他原始檔案(primitive)。</li>
+<li>如要讓 app 連上 internet，請在 Android manifest 中新增 <code>&quot;android.permission.INTERNET&quot;</code> 權限。</li>
+</ul>
+<p><strong>JSON 剖析</strong></p>
+<ul>
+<li>web service 的 response 通常會以 JSON 格式表示，這是一種代表結構化資料的常用格式。</li>
+<li><strong>JSON object</strong> 是一組 <u>key-value</u> 組合。</li>
+<li><u>一組 <b>JSON object</b> 稱為 <b>JSON array</b></u>。您可以<u>從 web service 取得 JSON array 做為 response</u>。</li>
+<li>key-value 組合的 keys 前後會加上半形引號 <code>&quot;&quot;</code>。values 可以是 <u>numbers 或 strings</u>。</li>
+<li><strong>Moshi library</strong> 為 Android <u>JSON 剖析器(parser)</u>，可<u>將 <strong>JSON string</strong> 轉換為 <strong>Kotlin objects</strong></u>。Retrofit 具備可與 Moshi 搭配使用的 <strong>converter</strong>。</li>
+<li>Moshi 會比對 JSON response 中的 <u>keys 與 data object 中的同名屬性</u>。</li>
+<li>如要為某個 <u>key 使用不同的屬性名稱</u>，請為該屬性加上 <u><code>@Json</code> 註解</u>和 <u>JSON key name</u>。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Android</category>
+        <category>Android Kotlin基本概念課程</category>
+        <category>Connect to the internet</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Kotlin</tag>
+        <tag>Internet</tag>
+        <tag>Web Service</tag>
+        <tag>REST</tag>
+        <tag>RESTful</tag>
+        <tag>Retrofit</tag>
+        <tag>Converter</tag>
+        <tag>Permission</tag>
+        <tag>JSON</tag>
+        <tag>Moshi</tag>
+        <tag>URI</tag>
+        <tag>URL</tag>
       </tags>
   </entry>
 </search>

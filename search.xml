@@ -2353,7 +2353,7 @@
 <ol start="2">
 <li><p>在「New Package」彈出式視窗中，查看建議的套件名稱前置字元。建議套件名稱的第一個部分為您按一下滑鼠右鍵時出現的套件名稱。套件名稱並不會建立套件階層，但名稱中重複使用的部分可用來表示內容之間的關係和編制！</p>
 </li>
-<li><p>在彈出式視窗中，將 <code>model</code> 附加到建議的套件名稱結尾處。開發人員通常會使用 <code>model</code> 做為建模 (或代表) 資料類別的套件名稱。</p>
+<li><p>在彈出式視窗中，將 <code>model</code> 附加到建議的套件名稱結尾處。開發人員通常會使用 <code>model</code> 做為建模 (或代表) data class 的套件名稱。</p>
 </li>
 </ol>
 <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-recyclerview-scrollable-list/img/3d392f8da53adc6f_1920.png?hl=zh-tw" width="50%" height="50%">
@@ -2361,7 +2361,7 @@
 <ol start="4">
 <li>按下「Enter」(輸入) 鍵，系統隨即會在「<code>com.example.affirmations</code>」(根層級) 套件下建立新的套件。這個新的套件將包含應用程式中定義的任何資料相關類別</li>
 </ol>
-<h4 id="建立-Affirmation-資料類別"><a href="#建立-Affirmation-資料類別" class="headerlink" title="建立 Affirmation 資料類別"></a>建立 Affirmation 資料類別</h4><p>在這項工作中，您會建立名為 <code>Affirmation</code> 的類別。<code>Affirmation</code> 的<strong>物件執行個體(object instance)<strong>代表一個</strong>肯定字詞</strong>，且包含使用該肯定字詞的<strong>字串資源 ID</strong>。</p>
+<h4 id="建立-Affirmation-data-class"><a href="#建立-Affirmation-data-class" class="headerlink" title="建立 Affirmation data class"></a>建立 Affirmation data class</h4><p>在這項工作中，您會建立名為 <code>Affirmation</code> 的類別。<code>Affirmation</code> 的<strong>物件執行個體(object instance)<strong>代表一個</strong>肯定字詞</strong>，且包含使用該肯定字詞的<strong>字串資源 ID</strong>。</p>
 <ol>
 <li>在「com.example.affirmations.model」套件上按一下滑鼠右鍵，然後依序選取「New」&gt;「Kotlin File&#x2F;Class」。</li>
 </ol>
@@ -2370,7 +2370,7 @@
 <ol start="2">
 <li><p>在彈出式視窗中選取「Class」，然後輸入 <code>Affirmation</code> 做為類別名稱。這麼做會在 <code>model</code> 套件中建立名為 <code>Affirmation.kt</code> 的新檔案。</p>
 </li>
-<li><p>在類別定義前新增 <code>data</code> 關鍵字，即可將 <code>Affirmation</code> 設為資料類別。這樣會發生錯誤，因為資料類別必須定義至少一個屬性。</p>
+<li><p>在類別定義前新增 <code>data</code> 關鍵字，即可將 <code>Affirmation</code> 設為 data class。這樣會發生錯誤，因為 data class 必須定義至少一個屬性。</p>
 </li>
 </ol>
 <p><code>Affirmation.kt</code></p>
@@ -2690,6 +2690,7 @@
         <tag>List</tag>
         <tag>Adapter</tag>
         <tag>RecyclerView</tag>
+        <tag>Data Class</tag>
       </tags>
   </entry>
   <entry>
@@ -3114,6 +3115,7 @@
         <tag>List</tag>
         <tag>Adapter</tag>
         <tag>RecyclerView</tag>
+        <tag>Data Class</tag>
       </tags>
   </entry>
   <entry>
@@ -9611,6 +9613,7 @@ width="30%"></p>
         <tag>Custom Back Navigation</tag>
         <tag>SlidingPaneLayout</tag>
         <tag>Callback</tag>
+        <tag>Data Class</tag>
       </tags>
   </entry>
   <entry>
@@ -9996,6 +9999,7 @@ width="30%"></p>
         <tag>MutableLiveData</tag>
         <tag>Shared ViewModel</tag>
         <tag>Navigation</tag>
+        <tag>Data Class</tag>
       </tags>
   </entry>
   <entry>
@@ -10484,6 +10488,7 @@ width="30%"></p>
         <tag>Moshi</tag>
         <tag>URI</tag>
         <tag>URL</tag>
+        <tag>Data Class</tag>
       </tags>
   </entry>
 </search>

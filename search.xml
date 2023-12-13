@@ -11060,11 +11060,13 @@ width="30%"></p>
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
+        <tag>View Binding</tag>
         <tag>Material Design</tag>
         <tag>RecyclerView</tag>
         <tag>ImageView</tag>
         <tag>ViewModel</tag>
         <tag>LiveData</tag>
+        <tag>Data Binding</tag>
         <tag>Coil</tag>
         <tag>Binding Adapters</tag>
         <tag>let</tag>

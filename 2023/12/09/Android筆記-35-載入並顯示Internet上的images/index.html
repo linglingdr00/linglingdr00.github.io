@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo2.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Shippori Mincho:300,300italic,400,400italic,700,700italic|Inconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+<link rel="preconnect" href="https://fonts.loli.net">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="了解如何使用 Coil library 從 URL 載入並顯示網路上的圖片。  學習目標  如何使用 Coil library 從 URL 載入及顯示 image。 如何使用 RecyclerView 和 grid adapter 顯示格狀(grid) images。 如何處理 images 下載及顯示時出現的潛在 errors。  建構項目  修改 MarsPhotos app 以取得 Mar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android筆記(35)-載入並顯示Internet上的images">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/12/09/Android%E7%AD%86%E8%A8%98-35-%E8%BC%89%E5%85%A5%E4%B8%A6%E9%A1%AF%E7%A4%BAInternet%E4%B8%8A%E7%9A%84images/index.html">
+<meta property="og:site_name" content="Tina Tang&#39;s Blog">
+<meta property="og:description" content="了解如何使用 Coil library 從 URL 載入並顯示網路上的圖片。  學習目標  如何使用 Coil library 從 URL 載入及顯示 image。 如何使用 RecyclerView 和 grid adapter 顯示格狀(grid) images。 如何處理 images 下載及顯示時出現的潛在 errors。  建構項目  修改 MarsPhotos app 以取得 Mar">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/243d21747dfb8999_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/154f7a78fcf330d2_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/6b9a8183bcd961ab_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/kzizMxx.png">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/a04afbd6ae8ccfcd_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/e59b6e849e63ae2b_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/467c213c859e1904_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/6c1f87d1c932c762_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/codelabs/basic-android-kotlin-training-internet-images/img/6dcecd205a0741a.gif">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/fcf0fc4b78f8650_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/2262933d015af49c_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/b5744904f1a1d3fb_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/20742824367c3952_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/a3561fa85fea7a8f_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/5d03641aa1589842_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/3128b84aa22ef97e_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/28d2cbba564f35ff_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/492011786c2dd7f7_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/a91ddb1c89f2efec_1920.png?hl=zh-tw">
+<meta property="article:published_time" content="2023-12-09T07:25:13.000Z">
+<meta property="article:modified_time" content="2023-12-13T08:35:30.912Z">
+<meta property="article:author" content="Tina Tang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
+<meta property="article:tag" content="Material Design">
+<meta property="article:tag" content="RecyclerView">
+<meta property="article:tag" content="ImageView">
+<meta property="article:tag" content="ViewModel">
+<meta property="article:tag" content="LiveData">
+<meta property="article:tag" content="Coil">
+<meta property="article:tag" content="Binding Adapters">
+<meta property="article:tag" content="let">
+<meta property="article:tag" content="Grid Layout">
+<meta property="article:tag" content="ListAdapter">
+<meta property="article:tag" content="Enum Classes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/243d21747dfb8999_1920.png?hl=zh-tw">
+
+<link rel="canonical" href="https://linglingdr00.github.io/2023/12/09/Android%E7%AD%86%E8%A8%98-35-%E8%BC%89%E5%85%A5%E4%B8%A6%E9%A1%AF%E7%A4%BAInternet%E4%B8%8A%E7%9A%84images/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Android筆記(35)-載入並顯示Internet上的images | Tina Tang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tina Tang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/12/09/Android%E7%AD%86%E8%A8%98-35-%E8%BC%89%E5%85%A5%E4%B8%A6%E9%A1%AF%E7%A4%BAInternet%E4%B8%8A%E7%9A%84images/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android筆記(35)-載入並顯示Internet上的images
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-09 15:25:13" itemprop="dateCreated datePublished" datetime="2023-12-09T15:25:13+08:00">2023-12-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-13 16:35:30" itemprop="dateModified" datetime="2023-12-13T16:35:30+08:00">2023-12-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Connect-to-the-internet/" itemprop="url" rel="index"><span itemprop="name">Connect to the internet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>了解如何使用 <a target="_blank" rel="noopener" href="https://coil-kt.github.io/coil/">Coil</a> library 從 URL 載入並顯示網路上的圖片。</p>
+</blockquote>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何使用 <strong>Coil library</strong> <u>從 URL 載入及顯示 image</u>。</li>
+<li>如何使用 <code>RecyclerView</code> 和 <strong>grid adapter</strong> 顯示<u>格狀(grid) images</u>。</li>
+<li>如何處理 images <u>下載及顯示</u>時出現的<u>潛在 errors</u>。</li>
+</ul>
+<p><strong>建構項目</strong></p>
+<ul>
+<li>修改 MarsPhotos app 以<u>取得 Mars data 中的 image URL</u>，並<u>使用 Coil 載入並顯示該 image</u>。</li>
+<li>在 app 中加入 <u>loading animation</u> 和 <u>error icon</u>。</li>
+<li>使用 <code>RecyclerView</code> 顯示格狀(grid) Mars images。</li>
+<li>為 <code>RecyclerView</code> 加入<u>狀態和錯誤處理機制(status and error handling)</u>。</li>
+</ul>
+<span id="more"></span>
+
+<hr>
+<h3 id="App-overview"><a href="#App-overview" class="headerlink" title="App overview"></a>App overview</h3><p>在本程式碼研究室中，您將繼續使用之前程式碼研究室中稱為 MarsPhotos app。MarsPhotos app 會<u>連線至 web service，以擷取並顯示使用 Retrofit 獲取的 Kotlin objects 數量</u>。這些 Kotlin objects 包含 NASA 的火星探測器擷取的火星表面真實相片的 URL。</p>
+<p>您在本程式碼研究室中建構的 app 版本會填入 overview 頁面，此頁面以 images grid(格狀) 模式顯示 Mars photos。這些 images 來自您的 app 從 Mars web service 擷取的 data。您的 app 會<u>使用 <strong>Coil library</strong> 來載入並顯示 images</u>，也會<u>使用 <strong>RecyclerView</strong> 來建立 images 的 <strong>grid layout</strong></u>。此外，app 式還會妥善處理<u>網路錯誤(network errors)</u>。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/243d21747dfb8999_1920.png?hl=zh-tw" width="40%">
+
+<hr>
+<h3 id="顯示-internet-image"><a href="#顯示-internet-image" class="headerlink" title="顯示 internet image"></a>顯示 internet image</h3><p>想要顯示某個 URL 的相片，聽起來可能很簡單，但其中需要經過很多程序才能順利完成。image 必須經過<u><b>下載(downloaded)</b></u>、<u><b>內部儲存(internally stored)</b></u>、<u><b>對壓縮格式進行解碼(decoded from its compressed format)</b></u>，才能供 Android 使用。image 應快取(cached)至<u><b>記憶體快取(in-memory cache)</b></u>或<u><b>儲存空間快取(storage-based cache)</b></u>，或同時存放在這兩個地方。系統只會在低優先順序的 <u>background threads</u> 中採取這些動作，以確保 UI 的靈敏度。此外，為獲得最佳 network 和 CPU 效能，建議您一次擷取多張圖片並解碼(decode)。</p>
+<p>您可以使用社群開發的資料庫 <a target="_blank" rel="noopener" href="https://coil-kt.github.io/coil/">Coil</a> ，<u><b>下載(download)</b></u>、<u><b>緩衝處理(buffer)</b></u>、<u><b>解碼(decode)</b></u>及<u><b>快取(cache)</b></u>您的 images。如果不使用 Coil，工作將會更多。</p>
+<p>Coil 基本上需要下列兩項：</p>
+<ul>
+<li>要載入並顯示的 <u>image URL</u>。</li>
+<li>用來顯示該 image 的 <u><code>ImageView</code> object</u>。</li>
+</ul>
+<p>在這項工作中，您會瞭解如何使用 Coil 顯示來自 Mars web service 的單張圖片。您會顯示 <u>web service 傳回的 photos list 中第一張 Mars photo</u>。以下是前後對照的螢幕截圖：</p>
+<div style="display:flex; justify-content:center;">
+    <div style="width:40%; float:left;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/154f7a78fcf330d2_1920.png?hl=zh-tw">
+    </div>
+    <div style="width:40%; float:left;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/6b9a8183bcd961ab_1920.png?hl=zh-tw">
+    </div>
+<div style="clear:both;"></div>
+</div>
+
+<h4 id="新增-Coil-dependency"><a href="#新增-Coil-dependency" class="headerlink" title="新增 Coil dependency"></a>新增 Coil dependency</h4><ol>
+<li>開啟先前程式碼研究室中的 <a target="_blank" rel="noopener" href="https://developer.android.com/codelabs/basic-android-kotlin-training-getting-data-internet?hl=zh-tw#8">MarsPhotos solution</a> app。</li>
+<li>執行 app 以查看其用途。(其中顯示擷取的 Mars photos 總數)。</li>
+<li>開啟「build.gradle (Module: app)」。</li>
+<li>在 <code>dependencies</code> 區段，為 Coil library 新增此行內容：</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Coil</span></span><br><span class="line">implementation <span class="string">&quot;io.coil-kt:coil:1.1.1&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>透過 <a target="_blank" rel="noopener" href="https://coil-kt.github.io/coil/#download">Coil documentation 頁面</a>查看及更新最新版本的程式庫。</li>
+</ul>
+<p>Coil library 於 <code>mavenCentral()</code> repository 託管(hosted)並提供。在 <strong>build.gradle (Project: MarsPhotos)</strong> 的頂部 <code>repositories</code> 區塊中，新增 <code>mavenCentral()</code>。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">   google()</span><br><span class="line">   mavenCentral()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>按一下「Sync Now」，使用新 dependency rebuild project。</li>
+</ol>
+<h4 id="更新-ViewModel"><a href="#更新-ViewModel" class="headerlink" title="更新 ViewModel"></a>更新 ViewModel</h4><p>在這個步驟中，您需要將 <code>LiveData</code> 屬性新增至 <code>OverviewViewModel</code> class，以儲存收到的 Kotlin object <code>MarsPhoto</code>。</p>
+<ol>
+<li>開啟 <code>overview/OverviewViewModel.kt</code>。在 <code>_status</code> 屬性宣告的正下方，新增 type 為 <code>MutableLiveData </code>的可變動屬性 <code>_photos</code>，其可儲存單個 <code>MarsPhoto</code> object。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _photos = MutableLiveData&lt;MarsPhoto&gt;()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>依要求 import <code>com.example.android.marsphotos.network.MarsPhoto</code>。</li>
+</ul>
+<ol start="2">
+<li>在 <code>_photos</code> 宣告的正下方，新增 type 為 <code>LiveData&lt;MarsPhoto&gt;</code> 的 public backing field <code>photos</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> photos: LiveData&lt;MarsPhoto&gt; = _photos</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>getMarsPhotos()</code> 方法的 <code>try&#123;&#125;</code> 區塊中，找到以下一行內容，可用於將從 web service 擷取的 data 設為 <code>listResult</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">   <span class="keyword">val</span> listResult = MarsApi.retrofitService.getPhotos()</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>將擷取到的第一張 Mars photo 指派給新的變數 <code>_photos</code>。將 <code>listResult</code> 變更為 <code>_photos.value</code>。在 index <code>0</code> 處指派第一個 photos url。這將引發 error，您要在稍後修正它。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">   _photos.value = MarsApi.retrofitService.getPhotos()[<span class="number">0</span>]</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>在下一行中，將 <code>status.value</code> 更新為下列內容。請使用新屬性 (非 <code>listResult</code> 中) 的 data。顯示  photos List 中的第一個 image URL。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">   ...</span><br><span class="line">   _status.value = <span class="string">&quot;   First Mars image URL : <span class="subst">$&#123;_photos.value!!.imgSrcUrl&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>現在，完整的 <code>try&#123;&#125;</code> 區塊大致如下：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">   _photos.value = MarsApi.retrofitService.getPhotos()[<span class="number">0</span>]</span><br><span class="line">   _status.value = <span class="string">&quot;   First Mars image URL : <span class="subst">$&#123;_photos.value!!.imgSrcUrl&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>執行 app。現在，<code>TextView</code> 會顯示第一張 Mars photo 的 URL。目前，您已設定好該 URL 的 <code>ViewModel</code> 和 <code>LiveData</code>。</li>
+</ol>
+<img src="https://i.imgur.com/kzizMxx.png" width="40%">
+
+<h4 id="使用-Binding-Adapters"><a href="#使用-Binding-Adapters" class="headerlink" title="使用 Binding Adapters"></a>使用 Binding Adapters</h4><p><strong>Binding Adapters</strong> 是帶<u>註解</u>的方法，用於<u>為 <strong>view</strong> 的<b>自訂屬性</b>建立<b>自訂 setter</b></u>。</p>
+<p>通常您會使用以下程式碼在 XML 中設定屬性：<code>android:text=&quot;Sample Text&quot;</code>。Android 系統會自動尋找由 <code>setText(String: text)</code> 方法 <u>setter、name 與 <code>text</code> 屬性</u>相同的 <u>setter 屬性</u>。<code>setText(String: text)</code> 方法是一種 <u>setter 方法</u>，適用於 Android 架構所提供之部分 view。您可使用  binding adapters 自訂類似行為；也可以提供由 Data binding library 呼叫的自訂屬性和自訂邏輯。</p>
+<p>範例：<br>若想執行更為複雜的操作，而不只是在 Image view 上呼叫 setter，請設定 <strong>drawable image</strong>。請考慮<u>從 internet 載入 UI thread (main thread) 的 images</u>。首先，選擇<b>自訂屬性</b>用於<u>將 image 指派給 <code>ImageView</code></u>。在以下範例中為 <code>imageUrl</code>。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:imageUrl</span>=<span class="string">&quot;@&#123;product.imageUrl&#125;&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果您未新增任何程式碼，系統將在 <code>ImageView</code> 中尋找 <code>setImageUrl(String)</code> 方法；如果找不到該方法，將會引發 error，因為這個自定屬性並非由架構提供。您<u>必須建立實作方式，並將 <code>app:imageUrl</code> 屬性設為 <code>ImageView</code></u>。請使用 <u><strong>Binding adapters (註解方法)</strong></u> 進行這項作業。</p>
+<p>Binding Adapter 範例：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindingAdapter(<span class="string">&quot;imageUrl&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bindImage</span><span class="params">(imgView: <span class="type">ImageView</span>, imgUrl: <span class="type">String</span>?)</span></span> &#123;</span><br><span class="line">    imgUrl?.let &#123;</span><br><span class="line">        <span class="comment">// Load the image in the background using Coil.</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>@BindingAdapter</code> 註解會將<u>屬性名稱</u>做為<u>參數</u>。</li>
+<li>在 <code>bindImage</code> 方法中，第一個方法參數是<u><b>目標 View 的 type</b></u>，第二個則是要設為<u><b>屬性的 value</b></u>。</li>
+<li>在方法中，Coil library 會載入 <strong>UI thread</strong> 的 image 並將其設為 <code>ImageView</code>。</li>
+</ul>
+<h5 id="建立-binding-adapter-及使用-Coil"><a href="#建立-binding-adapter-及使用-Coil" class="headerlink" title="建立 binding adapter 及使用 Coil"></a>建立 binding adapter 及使用 Coil</h5><ol>
+<li>在 <code>com.example.android.marsphotos.overview</code> 中，建立名稱為 <code>BindingAdapters</code> 的 Kotlin 檔案。這個檔案會保留您在 app 中使用的 binding adapters。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/a04afbd6ae8ccfcd_1920.png?hl=zh-tw" width="70%">
+
+<ol start="2">
+<li>在 <code>BindingAdapters.kt</code> 中，建立 <code>bindImage()</code> 函式做為頂層函式 (不在類別中)，並使用 <code>ImageView</code> 和 <code>String</code> 做為參數。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bindImage</span><span class="params">(imgView: <span class="type">ImageView</span>, imgUrl: <span class="type">String</span>?)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>依要求 import <code>android.widget.ImageView</code>。</li>
+</ul>
+<ol start="3">
+<li>使用 <code>@BindingAdapter</code> 為函式加上註解。<code>@BindingAdapter</code> 註解會<u>通知 <strong>data binding</strong></u>，在 View item 擁有 <code>imageUrl</code> 屬性時執行此 binding adapter。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindingAdapter(<span class="string">&quot;imageUrl&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bindImage</span><span class="params">(imgView: <span class="type">ImageView</span>, imgUrl: <span class="type">String</span>?)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>依要求 import <code>androidx.databinding.BindingAdapter</code>。</li>
+</ul>
+<h5 id="let-scope-function"><a href="#let-scope-function" class="headerlink" title="let scope function"></a>let scope function</h5><p><code>let</code> 是 Kotlin 的<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/scope-functions.html">範圍函式(scope function)</a>之一，可讓您<u>在 <strong>object</strong> 的 <strong>context</strong> 內執行<b>程式碼區塊(code block)</b></u>。Kotlin 中有五個 scope function，詳情請參閱 <a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/scope-functions.html#functions">documentation</a>。</p>
+<p>使用方式：</p>
+<ul>
+<li><code>let</code> 的用途是根據<u><b>呼叫鏈(call chains)</b>的結果</u><u>叫用一或多個函式</u>。</li>
+<li><code>let</code> 函式和安全呼叫運算子 (<code>?</code>) 的用途是對 object 執行<u>空值安全運算(null safe operation)</u>。在這種情況下，只有在 <u>object 不是空值時，系統才會執行 <code>let</code> 程式碼區塊(code block)</u>。</li>
+</ul>
+<ol start="4">
+<li>在 <code>bindImage()</code> 函式中，使用安全呼叫運算子 (<code>?.</code>) 將 <code>let&#123;&#125;</code> 區塊新增至 <code>imgUrl</code> 引數(argument)。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">imgUrl?.let &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note no-icon primary">
+            <p><strong>筆記：</strong></p><ul><li><u>傳遞出去</u>的是 <b>參數(parameter)</b> </li><li>可以被<u>傳進來</u>的是 <b>引數(argument)</b></li></ul><p><code>load(n)</code>，<code>n</code> 是參數<br><code>fun load(number: Int)</code>，<code>number</code> 是引數</p>
+          </div>
+
+<ol start="5">
+<li>在 <code>let&#123;&#125;</code> 區塊內，新增以下一行內容來使用 <code>toUri()</code> 方法將  URL string 轉換為 <code>Uri</code> object。若要使用 HTTPS 配置，請將 <code>buildUpon.scheme(&quot;https&quot;)</code> 附加至 <code>toUri</code> builder。接著呼叫 <code>build()</code> 來建構(build) object。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> imgUri = imgUrl.toUri().buildUpon().scheme(<span class="string">&quot;https&quot;</span>).build() </span><br></pre></td></tr></table></figure>
+<ul>
+<li>依要求 import <code>androidx.core.net.toUri</code>。</li>
+</ul>
+<ol start="6">
+<li>在 <code>let&#123;&#125;</code> 區塊內，宣告 <code>imgUri</code> 之後，使用 Coil 的 <code>load()&#123;&#125;</code> 將 <code>imgUri</code> object 的 image 載入 <code>imgView</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imgView.load(imgUri)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>依要求 import <code>coil.load</code>。</li>
+</ul>
+<ol start="7">
+<li>完整方法大致如下：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindingAdapter(<span class="string">&quot;imageUrl&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bindImage</span><span class="params">(imgView: <span class="type">ImageView</span>, imgUrl: <span class="type">String</span>?)</span></span> &#123;</span><br><span class="line">    imgUrl?.let &#123;</span><br><span class="line">        <span class="comment">// 使用 toUri() 將 URL string 轉換為 Uri object (將 buildUpon.scheme(&quot;https&quot;) 附加至 toUri builder)</span></span><br><span class="line">        <span class="keyword">val</span> imgUri = imgUrl.toUri().buildUpon().scheme(<span class="string">&quot;https&quot;</span>).build()</span><br><span class="line">        <span class="comment">// 使用 Coil 的 load()&#123;&#125; 將 imgUri object 的 image 載入 imgView</span></span><br><span class="line">        imgView.load(imgUri)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="更新-layout-和-fragments"><a href="#更新-layout-和-fragments" class="headerlink" title="更新 layout 和 fragments"></a>更新 layout 和 fragments</h4><p>在上一節中，您使用了 <strong>Coil image library</strong> <u>載入 image</u>。接著<u>使用<b>新屬性</b>更新 <code>ImageView</code></u>，以顯示單張 image，即可在螢幕上顯示 image。</p>
+<p>稍後，在程式碼研究室中，您將使用 <code>res/layout/grid_view_item.xml</code> 做為 <code>RecyclerView</code> 中每個 grid item 的 layout resource 檔案。在這項工作中，您將暫時使用這個檔案，透過在前一項工作中擷取到的 <strong>image URL</strong> 來顯示 image。目前，您將使用這個 layout 檔案取代 <code>fragment_overview.xml</code>。</p>
+<div class="note no-icon success">
+            <p><strong>注意：</strong>在這項工作中，您將使用 <b>grid_view_item.xml</b> layout 來暫時顯示單張 image。藉此避免建立及刪除臨時 layout 檔案。產生的 binding class 名稱為 <b>GridViewItemBinding</b>，因為 class 的命名依據是 layout 檔案名稱，即 <b>grid_view_item.xml</b>。即使 binding class 名稱為 <b>GridViewItemBinding</b>，但在這項工作中的 <b>RecyclerView</b> 內，您將無法使用它來顯示 grid images。這屬於後續工作。</p>
+          </div>
+
+<ol>
+<li>開啟 <code>res/layout/grid_view_item.xml</code>。</li>
+<li>在 <code>&lt;ImageView&gt;</code> element 上方，為 data binding 新增 <code>&lt;data&gt;</code> element，並 bind 至 <code>OverviewViewModel</code> class：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">data</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">variable</span></span></span><br><span class="line"><span class="tag">       <span class="attr">name</span>=<span class="string">&quot;viewModel&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">type</span>=<span class="string">&quot;com.example.android.marsphotos.overview.OverviewViewModel&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">data</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>ImageView</code> element 中新增 <code>app:imageUrl</code> 屬性，即可使用新的 image 載入 binding adapter。請注意，<code>photos</code> 包含從 server 擷取的 list <code>MarsPhotos</code>。將第一個 item 的 URL 指派給 <code>imageUrl</code> 屬性。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/mars_image&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:imageUrl</span>=<span class="string">&quot;@&#123;viewModel.photos.imgSrcUrl&#125;&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>開啟 <code>overview/OverviewFragment.kt</code>。在 <code>onCreateView()</code> 方法中，註解加載(inflates) <code>FragmentOverviewBinding</code> class 並將其指派給 binding variable 的行。移除此行會發生錯誤。請放心，這是暫時現象，稍後就會修正。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//val binding = FragmentOverviewBinding.inflate(inflater)</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>請改用 <code>grid_view_item.xml</code> 取代 <code>fragment_overview.xml</code>。在這種情況下，請改為新增以下一行內容，以加載(inflate) <code>GridViewItemBinding</code> class。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> binding = GridViewItemBinding.inflate(inflater)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>視需要 import <code>com.example.android.marsphotos.databinding.GridViewItemBinding</code>。</li>
+</ul>
+<div class="note no-icon success">
+            <p><strong>注意：</strong>這項變更可能會導致 Android Studio 發生 <b>data-binding errors</b>。clean 後再 rebuild project 即可解決這些錯誤。依序選取「Build」&gt;「Clean Project」&gt;「Build」&gt;「Rebuild Project」</p>
+          </div>
+
+<p>執行 app。現在螢幕上會顯示單張 Mars image。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/e59b6e849e63ae2b_1920.png?hl=zh-tw" width="40%">
+
+<h4 id="新增-loading-和-error-images"><a href="#新增-loading-和-error-images" class="headerlink" title="新增 loading 和 error images"></a>新增 loading 和 error images</h4><p>使用 Coil，您可以在<u>載入 image 時顯示 <strong>placeholder image</strong></u>，並在<u>載入失敗（例如 image 遺失或損壞）時顯示 <strong>error image</strong></u>，從而改善使用者體驗。在此步驟中，您需將該功能新增至 <strong>binding adapter</strong>。</p>
+<ol>
+<li>開啟 <code>res/drawable/ic_broken_image.xml</code>，然後按一下右側的「Design」分頁標籤。如果出現 error image，表示您使用的是內建 icon library 中的 <u>broken-image icon</u>。此 <strong>vector drawable</strong> 使用 <code>android:tint</code> 屬性，將 icon 變為灰色。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/467c213c859e1904_1920.png?hl=zh-tw" width="20%">
+
+<ol start="2">
+<li>開啟 <code>res/drawable/loading_animation.xml</code>。這個 drawable 是 <strong>animation</strong>，可圍繞中心點旋轉(rotate) image drawable <code>loading_img.xml</code> (預覽畫面不會顯示 animation)。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/6c1f87d1c932c762_1920.png?hl=zh-tw" width="20%">
+
+<ol start="3">
+<li>返回 <code>BindingAdapters.kt</code> 檔案。在 <code>bindImage()</code> 方法中，更新對 <code>imgView.load(imgUri)</code> 的呼叫即可新增<u>後置(trailing) lambda</u>，如下所示：此程式碼會<u>設定載入時使用的 <strong>placeholder loading image</strong> (<code>loading_animation</code> drawable)</u>。此程式碼也會<u>設定 image 載入失敗時要使用的 <strong>error image</strong> (<code>broken_image</code> drawable)</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">imgView.load(imgUri) &#123;</span><br><span class="line">   <span class="comment">// 使用 Coil 的 placeholder() 和 error() 設定 image 載入時和載入失敗時要使用的 drawable</span></span><br><span class="line">   placeholder(R.drawable.loading_animation)</span><br><span class="line">   error(R.drawable.ic_broken_image)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>現在，完整的 <code>bindImage()</code> 方法大致如下：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindingAdapter(<span class="string">&quot;imageUrl&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bindImage</span><span class="params">(imgView: <span class="type">ImageView</span>, imgUrl: <span class="type">String</span>?)</span></span> &#123;</span><br><span class="line">    imgUrl?.let &#123;</span><br><span class="line">        <span class="comment">// 使用 toUri() 將 URL string 轉換為 Uri object</span></span><br><span class="line">        <span class="keyword">val</span> imgUri = imgUrl.toUri().buildUpon().scheme(<span class="string">&quot;https&quot;</span>).build()</span><br><span class="line">        <span class="comment">// 使用 Coil 的 load()&#123;&#125; 將 imgUri object 的 image 載入 imgView</span></span><br><span class="line">        imgView.load(imgUri) &#123;</span><br><span class="line">            <span class="comment">// 使用 Coil 的 placeholder() 和 error() 設定 image 載入時和載入失敗時要使用的 drawable</span></span><br><span class="line">            placeholder(R.drawable.loading_animation)</span><br><span class="line">            error(R.drawable.ic_broken_image)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>執行 app。系統可能會在 Coil 下載並顯示屬性 image 時，暫時顯示 loading image，具體情況視網路連線速度而定。但即使您關閉網路，此刻仍不會顯示 broken-image icon。此問題會在程式碼研究室的最後一項工作中加以修正。</li>
+</ol>
+<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-internet-images/img/6dcecd205a0741a.gif" width="40%">
+
+<ol start="6">
+<li>還原您在 <code>overview/OverviewFragment.kt</code> 中做出的臨時變更。在方法 <code>onCreateview()</code> 中，取消註解加載(inflates) <code>FragmentOverviewBinding</code> 的行。刪除加載(inflates) <code>GridViewIteMBinding</code> 的行或設為註解。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> binding = FragmentOverviewBinding.inflate(inflater)</span><br><span class="line"> <span class="comment">// val binding = GridViewItemBinding.inflate(inflater)</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="使用-RecyclerView-顯示格狀的-images"><a href="#使用-RecyclerView-顯示格狀的-images" class="headerlink" title="使用 RecyclerView 顯示格狀的 images"></a>使用 RecyclerView 顯示格狀的 images</h3><p>現在，您的 app 會<u>從 internet 載入 Mars photo</u>。透過<u>使用第一個 <code>MarsPhoto</code>  list item 的 data</u>，您已<u>在 <code>ViewModel</code> 中建立 <code>LiveData</code> 屬性</u>，並<u>使用 Mars photo data 中的 image URL 填入 <code>ImageView</code></u>。但我們的目標是讓您的 app 顯示格狀的 images，因此在這項工作中，您將<u>使用 <code>RecyclerView</code> 搭配 <strong>Grid layout manager</strong> 來顯示格狀 images</u>。</p>
+<h4 id="更新-view-model"><a href="#更新-view-model" class="headerlink" title="更新 view model"></a>更新 view model</h4><p>在先前的工作中，您在 <code>OverviewViewModel</code> 新增了名為 <code>_photos</code> 的 <u><code>LiveData </code> object</u>，該 object 存放了一個 <u><code>MarsPhoto</code> object</u>，即 web service 提供的 <u>response list 中的第一個 object</u>。在此步驟中，您必須變更這個 <code>LiveData</code>，使其存放 <u><code>MarsPhoto</code> object 的完整 list</u>。</p>
+<ol>
+<li>開啟 <code>overview/OverviewViewModel.kt</code>。</li>
+<li>將 <code>_photos</code> type 變更為 <u><code>MarsPhoto</code> object 的 <strong>list</strong></u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _photos = MutableLiveData&lt;List&lt;MarsPhoto&gt;&gt;()</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>同時將 backing 屬性 <code>photos</code> type 變更為 <code>List&lt;MarsPhoto&gt;</code> type：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> photos: LiveData&lt;List&lt;MarsPhoto&gt;&gt; = _photos</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>向下捲動至 <code>getMarsPhotos()</code> 方法中的 <code>try &#123;&#125;</code> 區塊。<code>MarsApi.retrofitService.getPhotos()</code><br>會傳回 <u><code>MarsPhoto</code> objects 的 list</u>，您可以將它指派給 <code>_photos.value</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_photos.value = MarsApi.retrofitService.getPhotos()</span><br><span class="line">_status.value = <span class="string">&quot;Success: Mars properties retrieved&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>現在整個 <code>try/catch</code> 區塊如下所示：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    _photos.value = MarsApi.retrofitService.getPhotos()</span><br><span class="line">    _status.value = <span class="string">&quot;Success: Mars properties retrieved&quot;</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">    _status.value = <span class="string">&quot;Failure: <span class="subst">$&#123;e.message&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Grid-Layout"><a href="#Grid-Layout" class="headerlink" title="Grid Layout"></a>Grid Layout</h4><p><code>RecyclerView</code> 的 <code>GridLayoutManager</code> 會將 data 設為 <u>scrollable(可滑動的) grid</u>，如下所示。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/fcf0fc4b78f8650_1920.png?hl=zh-tw" width="80%">
+
+<p>從設計的角度來看，<strong>Grid Layout</strong> 最適合用於<u>可透過 icons 或 images 表示的 lists</u>，例如 Mars photo 瀏覽 app 中的 list。</p>
+<h5 id="Grid-layout-的-items-排列方式"><a href="#Grid-layout-的-items-排列方式" class="headerlink" title="Grid layout 的 items 排列方式"></a>Grid layout 的 items 排列方式</h5><p>Grid layout 透過由<u>列(rows)</u>和<u>欄(columns)</u>組成的<u>格線排列 items</u>。假設您預設為<u>垂直捲動(vertical scrolling)</u>，則<u>每一列(rows)中的每個 item 都會占用一個 <strong>span</strong></u>。一個 item 可以占用<u>多個 span</u>。在下列範例中，一個 span 等同於一欄的寬度 3。</p>
+<p>在以下兩個範例中，<u>每列(rows)由三個 spans 組成</u>。根據預設，<code>GridLayoutManager</code> 會<u>將每個 item 放置在一個 span 中</u>，直到達到您指定的 <strong>span count</strong>。達到 span count 時，系統會<u>換行</u>到下一行。</p>
+<div style="display:flex; justify-content:center;">
+    <div style="width:35%; float:left;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/2262933d015af49c_1920.png?hl=zh-tw">
+    </div>
+    <div style="width:35%; float:left;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/b5744904f1a1d3fb_1920.png?hl=zh-tw">
+    </div>
+<div style="clear:both;"></div>
+</div>
+
+<h4 id="新增-Recycler-view"><a href="#新增-Recycler-view" class="headerlink" title="新增 Recycler view"></a>新增 Recycler view</h4><p>在這個步驟中，您需要變更 app 的 layout，改用採用 <u>grid layout 的 recycler view</u>，而非 single image view。</p>
+<ol>
+<li>開啟 <code>layout/grid_view_item.xml</code>。請移除 <code>viewModel</code> data variable。</li>
+<li>在 <code>&lt;data&gt;</code> 標記中，新增下列 <u><code>MarsPhoto</code> type 的 <code>photo</code> variable</u>。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">data</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">variable</span></span></span><br><span class="line"><span class="tag">       <span class="attr">name</span>=<span class="string">&quot;photo&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">type</span>=<span class="string">&quot;com.example.android.marsphotos.network.MarsPhoto&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">data</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>&lt;ImageView&gt;</code> 中，將 <code>app:imageUrl</code> 屬性變更為<u>引用 <code>MarsPhoto</code> object 中的 image URL</u>。這些變更會復原您在上一個工作中做出的臨時變更。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:imageUrl=&quot;@&#123;photo.imgSrcUrl&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>開啟 <code>layout/fragment_overview.xml</code>。刪除整個<code> &lt;TextView&gt;</code> element。</li>
+<li>請改為新增下列 <u><code>&lt;RecyclerView&gt;</code> element</u>。將 <u>ID 設為 <code>photos_grid</code></u>，將 <u><code>width</code> 和 <code>height</code> 屬性設為 <code>0dp</code></u>，方便填充父項(parent) <code>ConstraintLayout</code>。您要使用的是 Grid layout，因此請<u>將 <code>layoutManager</code> 屬性設為 <code>androidx.recyclerview.widget.GridLayoutManager</code></u>。<u>將 <code>spanCount</code> 設為 <code>2</code></u>，即可擁有兩欄。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/photos_grid&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;0dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layoutManager</span>=<span class="string">&quot;androidx.recyclerview.widget.GridLayoutManager&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:spanCount</span>=<span class="string">&quot;2&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>如要預覽上述程式碼在「Design」view 中的外觀，請使用 <code>tools:itemCount</code> 將 layout 中顯示的 items 數量設為 <code>16</code>。<code>itemCount</code> 屬性可指定 layout editor 在「Preview」視窗中應顯示的 items 數量。使用 <code>tools:listitem</code> 將 list items 的 layout 設為 <code>grid_view_item</code>。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">...</span></span></span><br><span class="line"><span class="tag">            <span class="attr">tools:itemCount</span>=<span class="string">&quot;16&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">tools:listitem</span>=<span class="string">&quot;@layout/grid_view_item&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>切換為「Design」view 後，系統應會顯示類似下方螢幕截圖的預覽畫面。這個預覽畫面看起來不像 Mars photos，但您可以從中查看 recyclerview  grid layout 的外觀。對於 <code>recyclerview</code> 中每個 grid item，其預覽皆會顯示 padding 和 <code>grid_view_item</code> layout。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/20742824367c3952_1920.png?hl=zh-tw" width="40%">
+
+<ol start="8">
+<li>根據 <a target="_blank" rel="noopener" href="https://m2.material.io/components/image-lists/#anatomy">Material Design guidelines</a>，list 頂端(top)、底部(bottom)和側邊(sides)應保留 <code>8dp</code> 的空間，而 items 之間應保留 <code>4dp</code> 的空間。搭配運用 <code>fragment_overview.xml</code> layout 和 <code>grid_view_item.xml</code> layout 中的 padding 可實現上述目標。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/a3561fa85fea7a8f_1920.png?hl=zh-tw" width="40%">
+
+<ol start="9">
+<li><p>開啟 <code>layout/grid_view_item.xml</code>。請注意，已設定 <code>padding</code> 屬性<u>在 item 外部和內容(content)之間留有 <code>2dp</code> 的 padding</u>。如此可在 item content 之間留出 <code>4dp</code> 的空間，而在外邊留出 <code>2dp</code> 的空間。也就是說，為了符合設計規範，外部需要留出額外 <code>6dp</code> 的 padding。</p>
+</li>
+<li><p>返回 <code>layout/fragment_overview.xml</code>。為 <code>RecyclerView</code> 新增 <code>6dp</code> 的 padding，這樣外部就有 <code>8dp</code>，內部則有 <code>4dp</code>，符合規範。</p>
+</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">...</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:padding</span>=<span class="string">&quot;6dp&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">...</span>  /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>完整的 <code>&lt;RecyclerView&gt;</code> element 應如下所示。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/photos_grid&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;0dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">&quot;6dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layoutManager</span>=<span class="string">&quot;androidx.recyclerview.widget.GridLayoutManager&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:spanCount</span>=<span class="string">&quot;2&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:itemCount</span>=<span class="string">&quot;16&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:listitem</span>=<span class="string">&quot;@layout/grid_view_item&quot;</span>  /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="新增-photo-grid-adapter"><a href="#新增-photo-grid-adapter" class="headerlink" title="新增 photo grid adapter"></a>新增 photo grid adapter</h4><p>現在，<code>RecyclerView</code> 在 <code>fragment_overview.xml</code> layout 中採用 grid layout。在這個步驟中，您可以透過 <u><code>RecyclerView</code> adapter</u>，將從 web server 擷取的 <u>data bind 至 <code>RecyclerView</code></u>。</p>
+<h5 id="ListAdapter-Refresher"><a href="#ListAdapter-Refresher" class="headerlink" title="ListAdapter(Refresher)"></a>ListAdapter(Refresher)</h5><p><a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter"><code>ListAdapter</code></a> 是 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter"><code>RecyclerView.Adapter</code></a> class 的<u>子類別(subclass)</u>，用來在 <code>RecyclerView</code> 中<u>顯示 List data</u>，包括在 background thread 上計算 Lists 之間的差異。</p>
+<p>在此 app 中，您將<u>在 <code>ListAdapter</code> 中使用 <code>DiffUtil</code> 實作</u>。使用 <code>DiffUtil</code> 的優勢在於，每當新增(added)、移除(removed)或變更(changed) <code>RecyclerView</code> 中的某些 item 時，系統<u>不會 refreshed 整個 list</u>。系統<u>只會 refreshed 已變更的 items</u>。</p>
+<p>將 <code>ListAdapter</code> 新增至您的 app。</p>
+<ol>
+<li>在 <code>overview</code> package 中，建立名為 <code>PhotoGridAdapter</code> 的 Kotlin class。</li>
+<li>使用如下所示的<u>建構函式(constructor)參數</u>，從 <code>ListAdapter</code> 繼承(extends) <code>PhotoGridAdapter</code> class。<code>PhotoGridAdapter</code> class 會繼承(extends) <code>ListAdapter</code>，其 constructor 需要 <u>list item type</u>、<u>view holder</u> 和<u>實作 <code>DiffUtil.ItemCallback</code></u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PhotoGridAdapter</span> : <span class="type">ListAdapter</span>&lt;<span class="type">MarsPhoto,</span></span><br><span class="line"><span class="type">        PhotoGridAdapter.MarsPhotoViewHolder</span>&gt;(DiffCallback) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>視需要 import <b><code>androidx.recyclerview.widget.ListAdapter</code></b> 和 <code>com.example.android.marsphoto.network.MarsPhoto</code> 類別。在後續步驟中，您將導入此 constructor 缺少的其他實作，這些實作會產生錯誤。</li>
+</ul>
+<ol start="3">
+<li>如要解決上述錯誤，請在這個步驟中新增必要的方法，並於這項工作的後續部分實作這些方法。依序按一下 <code>PhotoGridAdapter</code> class、紅色燈泡，然後從下拉式選單中選取「Implement members」。在彈出式視窗中，選取 <code>ListAdapter</code> 方法，也就是 <code>onCreateViewHolder()</code> 和 <code>onBindViewHolder()</code>。Android Studio 仍會顯示錯誤，您將於這項工作的結尾修正這些錯誤。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(parent: <span class="type">ViewGroup</span>, viewType: <span class="type">Int</span>)</span></span>: PhotoGridAdapter.MarsPhotoViewHolder &#123;</span><br><span class="line">   TODO(<span class="string">&quot;Not yet implemented&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">PhotoGridAdapter</span>.<span class="type">MarsPhotoViewHolder</span>, position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">   TODO(<span class="string">&quot;Not yet implemented&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>實作 <code>onCreateViewHolder</code> 和 <code>onBindViewHolder</code> 方法時需要 <code>MarsPhotoViewHolder</code>，這個項目會在下一步中新增。</li>
+</ul>
+<ol start="4">
+<li>在 <code>PhotoGridAdapter</code> 中，新增 <code>MarsPhotoViewHolder</code> 的內部類別(inner class)定義，該定義可繼承(extends) <code>RecyclerView.ViewHolder</code>。您需要<u>使用 <b><code>GridViewItemBinding</code></b> 變數將 <code>MarsPhoto</code>  binding 至 layout</u>，請將該變數傳送至 <code>MarsPhotoViewHolder</code>。基本 <code>ViewHolder</code> class 需要在其 constructor 中設定 view，而您要<u>將其傳送至 binding 的 <strong>root view</strong></u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MarsPhotoViewHolder</span>(<span class="keyword">private</span> <span class="keyword">var</span> binding:</span><br><span class="line">                   GridViewItemBinding):</span><br><span class="line">       RecyclerView.ViewHolder(binding.root) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>視需要 import <code>androidx.recyclerview.widget.RecyclerView</code> 和 <code>com.example.android.marsrealestate.databinding.GridViewItemBinding</code>。</li>
+</ul>
+<ol start="5">
+<li>在 <code>MarsPhotoViewHolder</code> 中建立 <code>bind()</code> 方法，<u>將 <code>MarsPhoto</code> object 做為引數(argument)</u>，並<u>將 <code>binding.property</code> 設為該 object</u>。設定屬性後，請<u>呼叫 <code>executePendingBindings()</code></u>，以立即執行更新作業。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(MarsPhoto: <span class="type">MarsPhoto</span>)</span></span> &#123;</span><br><span class="line">   binding.photo = MarsPhoto</span><br><span class="line">   binding.executePendingBindings()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>在 <code>onCreateViewHolder()</code> 的 <code>PhotoGridAdapter</code> class 中，移除 TODO 並新增下列一行內容。<code>onCreateViewHolder()</code> 方法需要<u>傳回新的 <code>MarsPhotoViewHolder</code></u>，<u>加載 <code>GridViewItemBinding</code></u> 並<u>使用父項(parent) <code>ViewGroup</code> context 中的 <code>LayoutInflater</code></u> 即可建立。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> MarsPhotoViewHolder(GridViewItemBinding.inflate(</span><br><span class="line">   LayoutInflater.from(parent.context)))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>視需要 import <code>android.view.LayoutInflater</code>。</li>
+</ul>
+<ol start="7">
+<li>在 <code>onBindViewHolder()</code> 方法中，移除 TODO 並新增下列幾行內容。您可以在這裡呼叫 <code>getItem()</code>，<u>取得與目前 <code>RecyclerView</code> 位置相關的 <code>MarsPhoto</code> object</u>，然後將該屬性<u>傳遞至 <code>MarsPhotoViewHolder</code> 中的 <code>bind()</code> 方法</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> marsPhoto = getItem(position)</span><br><span class="line">holder.bind(marsPhoto)</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>在 <code>PhotoGridAdapter</code> 中，為 <code>DiffCallback</code> 新增 <u>companion object</u> 定義，如下所示。<br><code>DiffCallback</code> object 繼承 <code>DiffUtil.ItemCallback</code> 為要比較的 generic type：<code>MarsPhoto</code>。您需要在這項實作中<u>比較兩張 Mars photo objects</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">companion</span> <span class="keyword">object</span> DiffCallback : DiffUtil.ItemCallback&lt;MarsPhoto&gt;() &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>依要求 import <code>androidx.recyclerview.widget.DiffUtil</code>。</li>
+</ul>
+<ol start="9">
+<li>按下紅色燈泡，為 <code>DiffCallback</code> object (<code>areItemsTheSame()</code> 和 <code>areContentsTheSame()</code>) 實作 comparator 方法。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areItemsTheSame</span><span class="params">(oldItem: <span class="type">MarsPhoto</span>, newItem: <span class="type">MarsPhoto</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   TODO(<span class="string">&quot;Not yet implemented&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areContentsTheSame</span><span class="params">(oldItem: <span class="type">MarsPhoto</span>, newItem: <span class="type">MarsPhoto</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   TODO(<span class="string">&quot;Not yet implemented&quot;</span>) &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>在 <code>areItemsTheSame()</code> 方法中，移除 TODO。<code>DiffUtil</code> 會呼叫此方法來<u>判定兩個 objects 是否代表同一個 item</u>。<code>DiffUtil</code> 會使用此方法來<u>判斷新的 <code>MarsPhoto</code> object 是否和舊的 <code>MarsPhoto</code> object 相同</u>。每個 item (<code>MarsPhoto</code> object) 的 <u>ID 皆不得重複</u>。<u>比較 <code>oldItem</code> 和 <code>newItem</code> 的 ID</u>，然後 return 結果。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areItemsTheSame</span><span class="params">(oldItem: <span class="type">MarsPhoto</span>, newItem: <span class="type">MarsPhoto</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> oldItem.id == newItem.id</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>在 <code>areContentsTheSame()</code> 中，移除 TODO。如果 <code>DiffUtil</code> 想<u>檢查兩個 items 是否擁有相同的 data</u>，便會呼叫此方法。<code>MarsPhoto</code> 中的重要 data 是 image URL。<u>比較 <code>oldItem</code> 和 <code>newItem</code> 的 URLs</u>，然後 return 結果。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areContentsTheSame</span><span class="params">(oldItem: <span class="type">MarsPhoto</span>, newItem: <span class="type">MarsPhoto</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> oldItem.imgSrcUrl == newItem.imgSrcUrl</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>請確認您可以正常編譯並執行 app，但模擬器顯示空白畫面。r<code>ecyclerview</code> 已準備就緒，但尚未收到任何 data，您將在接下來的步驟中實作這部分內容。</li>
+</ul>
+<h4 id="新增-binding-adapter-並-connect-各個部分"><a href="#新增-binding-adapter-並-connect-各個部分" class="headerlink" title="新增 binding adapter 並 connect 各個部分"></a>新增 binding adapter 並 connect 各個部分</h4><p>在這個步驟中，您將使用 <b><code>BindingAdapter</code></b> 來<u>初始化</u>包含 <u><code>MarsPhoto</code> objects list</u> 的 <b><code>PhotoGridAdapter</code></b>。若使用 <code>BindingAdapter</code> 設定 <code>RecyclerView</code> data，data binding 將<u>自動監控 <code>LiveData</code> 的 <code>MarsPhoto</code> objects list</u>。當 <u><code>MarsPhoto</code> list 有所變更</u>時，系統會自動呼叫 <strong>binding adapter</strong>。</p>
+<ol>
+<li>開啟 <code>BindingAdapters.kt</code>。</li>
+<li>在檔案結尾，新增 <code>bindRecyclerView()</code> 方法，以 <code>RecyclerView</code> 和 <code>MarsPhoto</code> objects list 做為引數。請使用帶有 <code>listData</code> 屬性的 <code>@BindingAdapter</code> 為該方法加上註解。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindingAdapter(<span class="string">&quot;listData&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bindRecyclerView</span><span class="params">(recyclerView: <span class="type">RecyclerView</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">data</span>: <span class="type">List</span>&lt;<span class="type">MarsPhoto</span>&gt;?)</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>視需要 import <code>androidx.recyclerview.widget.RecyclerView</code> 和 <code>com.example.android.marsphotos.network.MarsPhoto</code>。</li>
+</ul>
+<ol start="3">
+<li>在 <code>bindRecyclerView()</code> 函式中，將 <code>recyclerView.adapter</code> 做為 <code>PhotoGridAdapter</code> 並指派給新的 <code>val</code> 屬性 <code>adapter</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> adapter = recyclerView.adapter <span class="keyword">as</span> PhotoGridAdapter</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在 <code>bindRecyclerView()</code> 函式結尾，呼叫 <code>adapter.submitList()</code> 可查看 <u>Mars photos list data</u>。出現新的 list 時，這個屬性會通知 <code>RecyclerView</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adapter.submitList(<span class="keyword">data</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>視需要 import <code>com.example.android.marsrealestate.overview.PhotoGridAdapter</code>。</li>
+</ul>
+<ol start="5">
+<li>完整的 <code>bindRecyclerView</code> binding adapter 應如下所示：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindingAdapter(<span class="string">&quot;listData&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bindRecyclerView</span><span class="params">(recyclerView: <span class="type">RecyclerView</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="keyword">data</span>: <span class="type">List</span>&lt;<span class="type">MarsPhoto</span>&gt;?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> adapter = recyclerView.adapter <span class="keyword">as</span> PhotoGridAdapter</span><br><span class="line">   adapter.submitList(<span class="keyword">data</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>如要連結所有 items，請開啟 <code>res/layout/fragment_overview.xml</code>。接著<u>將 <code>app:listData</code> 屬性新增至 <code>RecyclerView</code></u> element，然後使用 <strong>data binding</strong> <u>將屬性設為 <code>viewmodel.photos</code></u>。這類似於您在先前的工作中為 <code>ImageView</code> 完成的工作。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:listData=&quot;@&#123;viewModel.photos&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>開啟 <code>overview/OverviewFragment.kt</code>。在 <code>onCreateView()</code> 中，於 <code>return</code> 陳述式之前，將 <u><code>binding.photosGrid</code> 中的 <code>RecyclerView</code> adapter</u> 初始化為<u>新的 <code>PhotoGridAdapter</code> object</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binding.photosGrid.adapter = PhotoGridAdapter()</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>執行 app。畫面上應該會顯示可滑動的(scrolling)格狀 Mars images。滑動畫面即可查看新 images，但看起來有點奇怪。當您滑動畫面時，邊框間距會維持在 <code>RecyclerView</code> 的頂端和底部，所以 list 看起來並不會在動作列下方捲動。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/5d03641aa1589842_1920.png?hl=zh-tw" width="40%">
+
+<ol start="9">
+<li>如要修正這個問題，您需要指示 <code>RecyclerView</code> 不要使用 <code>android:clipToPadding</code> 屬性將 inner contents clip 至 padding。這樣，它便會在 padding 區域中繪製 scrolling view。返回 <code>layout/fragment_overview.xml</code>。為 <code>RecyclerView</code> 新增 <code>android:clipToPadding</code> 屬性，並將其設為 <code>false</code>。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">...</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:clipToPadding</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">...</span>  /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>執行 app。請注意，app 在正常顯示 image 前還會顯示 loading-progress icon。這是您傳送給 Coil image library 的 <strong>placeholder loading image</strong>。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/3128b84aa22ef97e_1920.png?hl=zh-tw" width="40%">
+
+<ol start="11">
+<li>執行 app 期間，請開啟飛航模式。在模擬器中滑動 image。尚未載入的 image 會顯示為 <strong>broken-image icons</strong>。這是您傳遞至 Coil library的 image drawable，用於在系統出現網路錯誤或無法擷取 image 時顯示。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/28d2cbba564f35ff_1920.png?hl=zh-tw" width="40%">
+
+<p>恭喜您，就快完成了！在接下來的最後一項工作中，您需要在 app 中新增更多<u>錯誤處理機制(error handling)</u>，進一步改善使用者體驗。</p>
+<hr>
+<h3 id="在-RecyclerView-中新增-error-handling"><a href="#在-RecyclerView-中新增-error-handling" class="headerlink" title="在 RecyclerView 中新增 error handling"></a>在 RecyclerView 中新增 error handling</h3><p>MarsPhotos app 會將無法擷取的圖片顯示為 broken-image icon。但是<u>如果沒有網路連線，app 會顯示空白畫面</u>。您將在接下來的步驟中驗證空白畫面。</p>
+<p>開啟裝置或模擬器上的飛航模式。透過 Android Studio 執行應用程式。請注意空白畫面。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/492011786c2dd7f7_1920.png?hl=zh-tw" width="40%">
+
+<p>這無法提供良好的使用者體驗。在這項工作中，您需要<u>新增基本的錯誤處理機制(error handling)</u>，讓使用者更好地瞭解發生的情況。<u>如果未連線到網際網路，app 將顯示 connection-error icon</u>；而在擷取 MarsPhoto list 時，app 會顯示 loading animation。</p>
+<h4 id="在-ViewModel-中新增-status"><a href="#在-ViewModel-中新增-status" class="headerlink" title="在 ViewModel 中新增 status"></a>在 ViewModel 中新增 status</h4><p>在這項工作中，您會在 <code>OverviewViewModel</code> 中建立屬性來代表 web request 的狀態(status)。需要考慮的 status 有三種：<u><b>載入(loading)</b></u>、<u><b>成功(success)</b></u>和<u><b>失敗(failure)</b></u>。</p>
+<ul>
+<li><u>等待資料時</u>，畫面會顯示 <u>loading status</u>。</li>
+<li>系統<u>成功從 web service 擷取資料時</u>會顯示 <u>success status</u>。</li>
+<li>出現<u>網路或連線錯誤時</u>會顯示 <u>failure status</u>。</li>
+</ul>
+<h5 id="Kotlin-中的-Enum-Classes"><a href="#Kotlin-中的-Enum-Classes" class="headerlink" title="Kotlin 中的 Enum Classes"></a>Kotlin 中的 Enum Classes</h5><p>如要在 app 中表示這三個 status，請使用 <a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/enum-classes.html">enum</a>。<code>enum</code> 是<u>列舉(enumeration)</u>的縮寫，表示<u>集合(collection)中所有 items 已排序的 list</u>。每個 <u><code>enum</code> 常數</u>都是 <code>enum</code> class 的一個 <strong>object</strong>。</p>
+<p>在 Kotlin 中，<code>enum</code> 這種 data type 可容納一組<u>常數(constants)</u>。其定義方式是在 class 定義前方加上 keyword <code>enum</code>，如下所示。列舉常數(Enum constants)會以半形逗號分隔。</p>
+<p>定義：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="title class_">Direction</span> &#123;</span><br><span class="line">    NORTH, SOUTH, WEST, EAST</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方式：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> direction : Direction = Direction.NORTH </span><br></pre></td></tr></table></figure>
+<ul>
+<li>如上所示，您可以使用 class 名稱後跟點 (<code>.</code>) 運算子和常數名稱來引用 <code>enum</code> object。</li>
+</ul>
+<div class="note no-icon success">
+            <p><strong>注意：</strong>您可使用 class 定義中的<u>建構函式(constructor)參數</u>，以自訂 value 初始化列舉常數(Enum constants)。此內容目前不在這個程式碼研究室的範圍內，更多資訊請參閱 <a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/enum-classes.html#anonymous-classes">Kotlin 說明文件</a>。</p>
+          </div>
+
+<h5 id="在-Viewmodel-中新增帶有-status-values-的-enum-class-定義"><a href="#在-Viewmodel-中新增帶有-status-values-的-enum-class-定義" class="headerlink" title="在 Viewmodel 中新增帶有 status values 的 enum class 定義"></a>在 Viewmodel 中新增帶有 status values 的 enum class 定義</h5><ol>
+<li>開啟 <code>overview/OverviewViewModel.kt</code>。然後在檔案頂端 (imports之後、class 定義之前) 新增 <code>enum</code>，代表所有可用狀態(available statuses)：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="title class_">MarsApiStatus</span> &#123; LOADING, ERROR, DONE &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>捲動至<code> _status</code> 和 <code>status</code> 屬性的定義後，將 type 從 <code>String</code> 變更為 <code>MarsApiStatus. MarsApiStatus</code>。是您在上一步定義的 enum class。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _status = MutableLiveData&lt;MarsApiStatus&gt;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> status: LiveData&lt;MarsApiStatus&gt; = _status</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>getMarsPhotos()</code> 方法中，將 “Success: …” 字串變更為 <code>MarsApiStatus.DONE</code> status，並將 “Failure…” 字串變更為 <code>MarsApiStatus.ERROR</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    _photos.value = MarsApi.retrofitService.getPhotos()</span><br><span class="line">    _status.value = MarsApiStatus.DONE</span><br><span class="line">&#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">     _status.value = MarsApiStatus.ERROR</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在 <code>try &#123;&#125;</code> 區塊上方將 status 設為 <code>MarsApiStatus.LOADING</code>。這是<b>協程(coroutine)</b><u>執行期間</u>以及您在<u>等待資料時</u>的<u>初始 status</u>。現在，完整的 <code>viewModelScope.launch &#123;&#125;</code> 區塊如下所示：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">viewModelScope.launch &#123;</span><br><span class="line">            _status.value = MarsApiStatus.LOADING</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                _photos.value = MarsApi.retrofitService.getPhotos()</span><br><span class="line">                _status.value = MarsApiStatus.DONE</span><br><span class="line">            &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">                _status.value = MarsApiStatus.ERROR</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>在 <code>catch &#123;&#125;</code> 區塊中的 error state 之後，將 <code>_photos</code> 設為 empty list。這項操作可清除 Recycler view。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">   _status.value = MarsApiStatus.ERROR</span><br><span class="line">   _photos.value = listOf()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>完整的 <code>getMarsPhotos()</code> 方法應如下所示：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getMarsPhotos</span><span class="params">()</span></span> &#123;</span><br><span class="line">   viewModelScope.launch &#123;</span><br><span class="line">        _status.value = MarsApiStatus.LOADING</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">           _photos.value = MarsApi.retrofitService.getPhotos()</span><br><span class="line">           _status.value = MarsApiStatus.DONE</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">           _status.value = MarsApiStatus.ERROR</span><br><span class="line">           _photos.value = listOf()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>您已將 status 定義為 <strong>enum states</strong>，並完成了以下設定：</p>
+<ol>
+<li>在 <u>coroutine 開始時</u>顯示 <strong>loading</strong>。</li>
+<li>在 app <u>從 web server 擷取好資料時</u>顯示 <strong>done</strong>。</li>
+<li>在<u>出現 exception 時</u>顯示 <strong>error</strong>。</li>
+</ol>
+<p>在下一項工作中，您將使用 binding adapter 顯示對應的 icons。</p>
+<h4 id="為-ImageView-status-新增-binding-adapter"><a href="#為-ImageView-status-新增-binding-adapter" class="headerlink" title="為 ImageView status 新增 binding adapter"></a>為 ImageView status 新增 binding adapter</h4><p>您已使用一組 <code>enum</code> status 在 <code>OverviewViewModel</code> 中設定了 <code>MarsApiStatus</code>。在這個步驟中，您需要在 app 中顯示它。您可以對 <code>ImageView</code> 使用 <strong>binding adapter</strong>，以<u>顯示 loading 和 error status 的 icon</u>。如果 app 處於 loading state 或 error state，則應顯示(visible) <code>ImageView</code>。app loading 完畢後，應不再顯示(invisible) <code>ImageView</code>。</p>
+<ol>
+<li>請開啟 <code>BindingAdapters.kt</code>，捲動至檔案結尾，即可新增其他 adaptor。新增名為 <code>bindStatus()</code> 的新 binding adapter，<u>以 <code>ImageView</code> 和 <code>MarsApiStatus</code> 值做為引數</u>。使用 <code>@BindingAdapter</code> 為方法加上注釋，<u>傳遞自訂屬性 <code>marsApiStatus</code> 做為參數</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BindingAdapter(<span class="string">&quot;marsApiStatus&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bindStatus</span><span class="params">(statusImageView: <span class="type">ImageView</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">          status: <span class="type">MarsApiStatus</span>?)</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>視需要 import <code>com.example.android.marsrealestate.overview.MarsApiStatus</code>。</li>
+</ul>
+<ol start="2">
+<li>在 <code>bindStatus()</code> 方法中新增 <code>when &#123;&#125;</code> 區塊，即可在不同 status 之間切換。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">when</span> (status) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>when &#123;&#125;</code> 中，新增 loading state 的 case <code>(MarsApiStatus.LOADING)</code>。對於這個 state，請將 <code>ImageView</code> 設為 visible，並指派 loading animation。這個 animation drawable 與先前工作中 Coil 採用的 drawable 相同。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">when</span> (status) &#123;</span><br><span class="line">   MarsApiStatus.LOADING -&gt; &#123;</span><br><span class="line">      statusImageView.visibility = View.VISIBLE</span><br><span class="line">      statusImageView.setImageResource(R.drawable.loading_animation)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>視需要 import <code>android.view.View</code>。</li>
+</ul>
+<ol start="4">
+<li>新增 error state 的 case，即 <code>MarsApiStatus.ERROR</code>。如同 <code>LOADING</code> state，請將 state <code>ImageView</code> 設為 visible，並使用 connection-error drawable。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MarsApiStatus.ERROR -&gt; &#123;</span><br><span class="line">   statusImageView.visibility = View.VISIBLE</span><br><span class="line">   statusImageView.setImageResource(R.drawable.ic_connection_error)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>新增 done state 的 case，即 <code>MarsApiStatus.DONE</code>。您收到了正確的 response，請將 state  <code>ImageView</code> 的 visibility 設定為 <code>View.GONE</code> 以隱藏該 status。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MarsApiStatus.DONE -&gt; &#123;</span><br><span class="line">   statusImageView.visibility = View.GONE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>您已為 status image view 設定了 binding adapter，在下一個步驟中，您需要新增 image view ，該 view 使用新的 binding adapter。</p>
+<h4 id="新增-status-ImageView"><a href="#新增-status-ImageView" class="headerlink" title="新增 status ImageView"></a>新增 status ImageView</h4><p>在這個步驟中，您將在 <code>fragment_overview.xml</code> 中新增 Image view，以顯示您先前定義的 status。</p>
+<ol>
+<li>開啟 <code>res/layout/fragment_overview.xml</code>。在 <code>ConstraintLayout</code> 的 <code>RecyclerView</code> element 下方，新增下方顯示的 <code>ImageView</code>。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/status_image&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:marsApiStatus</span>=<span class="string">&quot;@&#123;viewModel.status&#125;&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述 <code>ImageView</code> 與 <code>RecyclerView</code> 具有相同的 constraints。不過，所設 width 和 height 會使用 <code>wrap_content</code> 將圖片置中，而不是延展圖片來填滿 view。另請注意，<code>app:marsApiStatus</code> 屬性已設為 <code>viewModel.status</code>，並在 <code>ViewModel</code> 中的 status 屬性變更時呼叫 <code>BindingAdapter</code>。</p>
+<ol start="2">
+<li>如要測試上述程式碼，請在模擬器或裝置上開啟飛航模式，模擬網路連線錯誤。接著編譯並執行 app，請注意，畫面上會顯示 error image：</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-internet-images/img/a91ddb1c89f2efec_1920.png?hl=zh-tw" width="40%">
+
+<ol start="3">
+<li>輕觸返回按鈕即可關閉 app，並關閉飛航模式。使用最近畫面可返回 app。當 app 查詢 web service 時，圖片開始 load 之前，畫面上可能會極短暫地顯示 loading 旋轉 icon，具體視您的網路連線速度而定。</li>
+</ol>
+<p>恭喜您完成本程式碼研究室，並建構了 MarsPhotos app！現在就與親朋好友分享真實的火星圖片，炫耀一下您的 app 吧。</p>
+<hr>
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://coil-kt.github.io/coil/">Coil library</a> 可簡化在 app 中管理 image 的程序，例如download, buffer, decode, 和 cache image。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/topic/libraries/data-binding/binding-adapters">Binding adapters</a> 是一種 extension methods，顯示在 view 與 view 綁定的 data 之間。data 變更時，binding adapters 會提供自訂行為，例如呼叫 Coil 將 URL 中的 image 載入 <code>ImageView</code>。</li>
+<li>Binding adapters 是 extension methods，附有 <code>@BindingAdapter</code> 註解。</li>
+<li>如要顯示格狀排列的 image，請將 <code>RecyclerView</code> 與 <code>GridLayoutManager</code> 搭配使用。</li>
+<li>如要在屬性變更時更新屬性 list，請使用 <code>RecyclerView</code> 和 layout 之間的 binding adapter。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+              <a href="/tags/Material-Design/" rel="tag"># Material Design</a>
+              <a href="/tags/RecyclerView/" rel="tag"># RecyclerView</a>
+              <a href="/tags/ImageView/" rel="tag"># ImageView</a>
+              <a href="/tags/ViewModel/" rel="tag"># ViewModel</a>
+              <a href="/tags/LiveData/" rel="tag"># LiveData</a>
+              <a href="/tags/Coil/" rel="tag"># Coil</a>
+              <a href="/tags/Binding-Adapters/" rel="tag"># Binding Adapters</a>
+              <a href="/tags/let/" rel="tag"># let</a>
+              <a href="/tags/Grid-Layout/" rel="tag"># Grid Layout</a>
+              <a href="/tags/ListAdapter/" rel="tag"># ListAdapter</a>
+              <a href="/tags/Enum-Classes/" rel="tag"># Enum Classes</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/12/06/Android%E7%AD%86%E8%A8%98-34-%E5%BE%9EInternet%E5%8F%96%E5%BE%97Data/" rel="prev" title="Android筆記(34)-從Internet取得Data">
+      <i class="fa fa-chevron-left"></i> Android筆記(34)-從Internet取得Data
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#App-overview"><span class="nav-number">1.</span> <span class="nav-text">App overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA-internet-image"><span class="nav-number">2.</span> <span class="nav-text">顯示 internet image</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Coil-dependency"><span class="nav-number">2.1.</span> <span class="nav-text">新增 Coil dependency</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-ViewModel"><span class="nav-number">2.2.</span> <span class="nav-text">更新 ViewModel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Binding-Adapters"><span class="nav-number">2.3.</span> <span class="nav-text">使用 Binding Adapters</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-binding-adapter-%E5%8F%8A%E4%BD%BF%E7%94%A8-Coil"><span class="nav-number">2.3.1.</span> <span class="nav-text">建立 binding adapter 及使用 Coil</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#let-scope-function"><span class="nav-number">2.3.2.</span> <span class="nav-text">let scope function</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-layout-%E5%92%8C-fragments"><span class="nav-number">2.4.</span> <span class="nav-text">更新 layout 和 fragments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-loading-%E5%92%8C-error-images"><span class="nav-number">2.5.</span> <span class="nav-text">新增 loading 和 error images</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-RecyclerView-%E9%A1%AF%E7%A4%BA%E6%A0%BC%E7%8B%80%E7%9A%84-images"><span class="nav-number">3.</span> <span class="nav-text">使用 RecyclerView 顯示格狀的 images</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-view-model"><span class="nav-number">3.1.</span> <span class="nav-text">更新 view model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Grid-Layout"><span class="nav-number">3.2.</span> <span class="nav-text">Grid Layout</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Grid-layout-%E7%9A%84-items-%E6%8E%92%E5%88%97%E6%96%B9%E5%BC%8F"><span class="nav-number">3.2.1.</span> <span class="nav-text">Grid layout 的 items 排列方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Recycler-view"><span class="nav-number">3.3.</span> <span class="nav-text">新增 Recycler view</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-photo-grid-adapter"><span class="nav-number">3.4.</span> <span class="nav-text">新增 photo grid adapter</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ListAdapter-Refresher"><span class="nav-number">3.4.1.</span> <span class="nav-text">ListAdapter(Refresher)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-binding-adapter-%E4%B8%A6-connect-%E5%90%84%E5%80%8B%E9%83%A8%E5%88%86"><span class="nav-number">3.5.</span> <span class="nav-text">新增 binding adapter 並 connect 各個部分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-RecyclerView-%E4%B8%AD%E6%96%B0%E5%A2%9E-error-handling"><span class="nav-number">4.</span> <span class="nav-text">在 RecyclerView 中新增 error handling</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8-ViewModel-%E4%B8%AD%E6%96%B0%E5%A2%9E-status"><span class="nav-number">4.1.</span> <span class="nav-text">在 ViewModel 中新增 status</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Kotlin-%E4%B8%AD%E7%9A%84-Enum-Classes"><span class="nav-number">4.1.1.</span> <span class="nav-text">Kotlin 中的 Enum Classes</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8-Viewmodel-%E4%B8%AD%E6%96%B0%E5%A2%9E%E5%B8%B6%E6%9C%89-status-values-%E7%9A%84-enum-class-%E5%AE%9A%E7%BE%A9"><span class="nav-number">4.1.2.</span> <span class="nav-text">在 Viewmodel 中新增帶有 status values 的 enum class 定義</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%82%BA-ImageView-status-%E6%96%B0%E5%A2%9E-binding-adapter"><span class="nav-number">4.2.</span> <span class="nav-text">為 ImageView status 新增 binding adapter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-status-ImageView"><span class="nav-number">4.3.</span> <span class="nav-text">新增 status ImageView</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">5.</span> <span class="nav-text">總結</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tina Tang"
+      src="/images/blog_photo.png">
+  <p class="site-author-name" itemprop="name">Tina Tang</p>
+  <div class="site-description" itemprop="description">^(-o-)></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linglingdr00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linglingdr00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tinatang0424@gmail.com" title="E-Mail → mailto:tinatang0424@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tina Tang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

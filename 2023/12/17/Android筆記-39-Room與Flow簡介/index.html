@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/67807de86ced0858_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://i.imgur.com/SRXR0FP.png">
 <meta property="article:published_time" content="2023-12-17T12:35:07.000Z">
-<meta property="article:modified_time" content="2023-12-19T10:57:57.916Z">
+<meta property="article:modified_time" content="2023-12-19T11:14:17.056Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
@@ -255,7 +255,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-19 18:57:57" itemprop="dateModified" datetime="2023-12-19T18:57:57+08:00">2023-12-19</time>
+                <time title="Modified: 2023-12-19 19:14:17" itemprop="dateModified" datetime="2023-12-19T19:14:17+08:00">2023-12-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -633,6 +633,17 @@
 
 <p>新 item 隨即會顯示在 list 頂端。</p>
 <img src="https://i.imgur.com/SRXR0FP.png" width="40%">
+
+<hr>
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li>SQL database 中的 tables 會在 <strong>Room</strong> 中<u>以稱為 <strong>entities</strong> 的 Kotlin classes 表示</u>。</li>
+<li><strong>DAO(Data Access Object)</strong> 會提供<u>對應於與 database 互動的 SQL 指令的 methods</u>。</li>
+<li><code>ViewModel</code> 是一種 <u>lifecycle 感知 component</u>，可<u>將 app <strong>data</strong> 與 <strong>view</strong> 分隔</u>。</li>
+<li><code>AppDatabase</code> class 會指示 Room <u>要使用哪些 entities</u>、<u>提供 DAO 的存取權</u>，並<u>在建立 database 時執行任何設定</u>。</li>
+<li><code>ListAdapter</code> 是<u>搭配 <code>RecyclerView</code> 使用的 adapter</u>，非常適合處理<u>動態更新的 list</u>。</li>
+<li><strong>Flow</strong> 是一種 Kotlin 功能，可用於 <u>return <strong>data stream</strong></u>，可與 Room 搭配使用，<u>確保 UI 和 database 保持同步(sync)</u>。</li>
+</ul>
+
     </div>
 
     
@@ -728,7 +739,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E5%A7%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">開始操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Room-dependency"><span class="nav-number">2.</span> <span class="nav-text">新增 Room dependency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%AF%A6%E9%AB%94-entity"><span class="nav-number">3.</span> <span class="nav-text">建立實體(entity)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9-DAO"><span class="nav-number">4.</span> <span class="nav-text">定義 DAO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9-ViewModel"><span class="nav-number">5.</span> <span class="nav-text">定義 ViewModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-database-class-%E5%8F%8A-pre-populate-database"><span class="nav-number">6.</span> <span class="nav-text">建立 database class 及 pre-populate database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-ListAdapter"><span class="nav-number">7.</span> <span class="nav-text">建立 ListAdapter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Flow-%E5%9B%9E%E6%87%89-data-%E8%AE%8A%E6%9B%B4"><span class="nav-number">8.</span> <span class="nav-text">使用 Flow 回應 data 變更</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E5%A7%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">開始操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Room-dependency"><span class="nav-number">2.</span> <span class="nav-text">新增 Room dependency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%AF%A6%E9%AB%94-entity"><span class="nav-number">3.</span> <span class="nav-text">建立實體(entity)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9-DAO"><span class="nav-number">4.</span> <span class="nav-text">定義 DAO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9-ViewModel"><span class="nav-number">5.</span> <span class="nav-text">定義 ViewModel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-database-class-%E5%8F%8A-pre-populate-database"><span class="nav-number">6.</span> <span class="nav-text">建立 database class 及 pre-populate database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-ListAdapter"><span class="nav-number">7.</span> <span class="nav-text">建立 ListAdapter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Flow-%E5%9B%9E%E6%87%89-data-%E8%AE%8A%E6%9B%B4"><span class="nav-number">8.</span> <span class="nav-text">使用 Flow 回應 data 變更</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">9.</span> <span class="nav-text">總結</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

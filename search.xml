@@ -11991,7 +11991,18 @@ app 啟動後，您會看到像這樣的畫面：
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">INSERT INTO schedule</span><br><span class="line">VALUES (<span class="literal">null</span>, <span class="string">&#x27;Winding Way&#x27;</span>, <span class="number">1617202500</span>)</span><br></pre></td></tr></table></figure>
 
 <p>新 item 隨即會顯示在 list 頂端。</p>
-<img src="https://i.imgur.com/SRXR0FP.png" width="40%">]]></content>
+<img src="https://i.imgur.com/SRXR0FP.png" width="40%">
+
+<hr>
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li>SQL database 中的 tables 會在 <strong>Room</strong> 中<u>以稱為 <strong>entities</strong> 的 Kotlin classes 表示</u>。</li>
+<li><strong>DAO(Data Access Object)</strong> 會提供<u>對應於與 database 互動的 SQL 指令的 methods</u>。</li>
+<li><code>ViewModel</code> 是一種 <u>lifecycle 感知 component</u>，可<u>將 app <strong>data</strong> 與 <strong>view</strong> 分隔</u>。</li>
+<li><code>AppDatabase</code> class 會指示 Room <u>要使用哪些 entities</u>、<u>提供 DAO 的存取權</u>，並<u>在建立 database 時執行任何設定</u>。</li>
+<li><code>ListAdapter</code> 是<u>搭配 <code>RecyclerView</code> 使用的 adapter</u>，非常適合處理<u>動態更新的 list</u>。</li>
+<li><strong>Flow</strong> 是一種 Kotlin 功能，可用於 <u>return <strong>data stream</strong></u>，可與 Room 搭配使用，<u>確保 UI 和 database 保持同步(sync)</u>。</li>
+</ul>
+]]></content>
       <categories>
         <category>Android</category>
         <category>Android Kotlin基本概念課程</category>

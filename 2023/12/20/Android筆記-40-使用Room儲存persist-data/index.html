@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo2.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Shippori Mincho:300,300italic,400,400italic,700,700italic|Inconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"linglingdr00.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+<link rel="preconnect" href="https://fonts.loli.net">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="建構一個 inventory app，使用 Room 將庫存商品儲存至 SQLite database。   如何使用 Room library 建立 SQLite database 並與之互動。 如何建立 entity、DAO 和 database classes。 如何使用 data access object (DAO) 將 Kotlin function 對應至 SQL 查詢(queri">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android筆記(40)-使用Room儲存persist data">
+<meta property="og:url" content="https://linglingdr00.github.io/2023/12/20/Android%E7%AD%86%E8%A8%98-40-%E4%BD%BF%E7%94%A8Room%E5%84%B2%E5%AD%98persist-data/index.html">
+<meta property="og:site_name" content="Tina Tang&#39;s Blog">
+<meta property="og:description" content="建構一個 inventory app，使用 Room 將庫存商品儲存至 SQLite database。   如何使用 Room library 建立 SQLite database 並與之互動。 如何建立 entity、DAO 和 database classes。 如何使用 data access object (DAO) 將 Kotlin function 對應至 SQL 查詢(queri">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/7521165e051cc0d4_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/439ad9a8183278c5_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/f0931dab5089a14f_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/33a193a68c9a8e0e_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/8c9f1659ee82ca43_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/be39b42484ba2664_1920.png">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/7a8480711f04b3ef_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/bb381857d5fba511_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/91298a7c05e4f5e0_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/85c644aced4198c5_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/AyYav11.png">
+<meta property="og:image" content="https://i.imgur.com/QCHoAgW.png">
+<meta property="article:published_time" content="2023-12-20T09:01:16.000Z">
+<meta property="article:modified_time" content="2023-12-21T14:22:09.686Z">
+<meta property="article:author" content="Tina Tang">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
+<meta property="article:tag" content="Fragment">
+<meta property="article:tag" content="ViewModel">
+<meta property="article:tag" content="LiveData">
+<meta property="article:tag" content="Coroutine">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="Room">
+<meta property="article:tag" content="DAO">
+<meta property="article:tag" content="Entity">
+<meta property="article:tag" content="Factory">
+<meta property="article:tag" content="Flow">
+<meta property="article:tag" content="Database Class">
+<meta property="article:tag" content="companion object">
+<meta property="article:tag" content="SQLite">
+<meta property="article:tag" content="Concurrency">
+<meta property="article:tag" content="singleton">
+<meta property="article:tag" content="suspend function">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/7521165e051cc0d4_1920.png?hl=zh-tw">
+
+<link rel="canonical" href="https://linglingdr00.github.io/2023/12/20/Android%E7%AD%86%E8%A8%98-40-%E4%BD%BF%E7%94%A8Room%E5%84%B2%E5%AD%98persist-data/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Android筆記(40)-使用Room儲存persist data | Tina Tang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tina Tang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">在哪裡跌倒了，就在哪裡躺下來</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/12/20/Android%E7%AD%86%E8%A8%98-40-%E4%BD%BF%E7%94%A8Room%E5%84%B2%E5%AD%98persist-data/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android筆記(40)-使用Room儲存persist data
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-20 17:01:16" itemprop="dateCreated datePublished" datetime="2023-12-20T17:01:16+08:00">2023-12-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-21 22:22:09" itemprop="dateModified" datetime="2023-12-21T22:22:09+08:00">2023-12-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Data-persistence/" itemprop="url" rel="index"><span itemprop="name">Data persistence</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>建構一個 inventory app，使用 <strong>Room</strong> 將庫存商品儲存至 <strong>SQLite database</strong>。</p>
+</blockquote>
+<ul>
+<li>如何使用 <strong>Room library</strong> 建立 <strong>SQLite database</strong> 並與之互動。</li>
+<li>如何建立 <u>entity</u>、<u>DAO</u> 和 <u>database classes</u>。</li>
+<li>如何使用 <strong>data access object (DAO)</strong> 將 <u>Kotlin function</u> 對應至 <u>SQL 查詢(queries)</u>。</li>
+</ul>
+<span id="more"></span>
+
+<hr>
+<h3 id="Persist-data"><a href="#Persist-data" class="headerlink" title="Persist data"></a>Persist data</h3><p><u>大多數的 production quality apps 都有<b>需要儲存的 data</b>，即便使用者關閉 app 也不例外</u>。舉例來說，app 可能會儲存歌曲播放清單、待辦事項清單、支出和收入記錄、星座目錄或個人資料記錄。在大部分情況下，您可以使用 database 來儲存這些<u><b>持續性資料(persistent data)</b></u>。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.com/training/data-storage/room?hl=zh-tw">Room</a> 是 <a target="_blank" rel="noopener" href="https://developer.android.com/jetpack/?hl=zh-tw">Android Jetpack</a> 中的 persistence library。Room 是 <a target="_blank" rel="noopener" href="https://developer.android.com/training/data-storage/sqlite?hl=zh-tw">SQLite</a>  database 頂端的<u>抽象層(abstraction layer)</u>。<strong>SQLite</strong> 使用 <u>specialized language (SQL)</u> 執行 database 作業。<strong>Room</strong> <u>不直接使用 <strong>SQLite</strong></u>，因此<u>簡化了設定 <strong>database</strong> 並與之互動的過程</u>。<strong>Room</strong> 也提供 <strong>SQLite statements</strong> 的<u>編譯時間(compile-time)檢查</u>。</p>
+<p>下圖說明了 Room 如何配合本課程推薦的整體架構。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/7521165e051cc0d4_1920.png?hl=zh-tw" width="50%">
+
+<hr>
+<h3 id="App-overview"><a href="#App-overview" class="headerlink" title="App overview"></a>App overview</h3><p>在本程式碼研究室中，您將使用名為 <strong>Inventory app</strong> 的 starter app，並透過 <strong>Room</strong> library 將 <strong>database layer</strong> 加入其中。最終版本的 app 會使用 <code>RecyclerView</code> 顯示 <u>inventory database</u> 的<u>items list</u>。使用者可以選擇在 inventory database 中<u>新增(new) item</u>、<u>更新(update)其中的現有 item</u>，以及<u>刪除(delete)其中的 item</u> (您將於下一個程式碼研究室完成 app 功能)。</p>
+<p>以下是最終版本 app 的螢幕截圖。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/439ad9a8183278c5_1920.png?hl=zh-tw">
+
+<div class="note success">
+            <p><strong>注意：</strong>以上螢幕截圖均來自課程最後的最終版本 app，而非本程式碼研究室最後的 app。此處提供這些螢幕截圖，以便您大概瞭解最終版本的 app。</p>
+          </div>
+
+<h4 id="下載範例程式碼"><a href="#下載範例程式碼" class="headerlink" title="下載範例程式碼"></a>下載範例程式碼</h4><p>如果您使用 GitHub 中的範例程式碼，請注意資料夾名稱是 <code>android-basics-kotlin-inventory-app-starter</code>。在 Android Studio 中開啟專案時，請選取這個資料夾。</p>
+<div class="note success">
+            <p><strong>範例程式碼網址：</strong><br><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-inventory-app/tree/starter">https://github.com/google-developer-training/android-basics-kotlin-inventory-app/tree/starter</a><br><strong>分支名稱：</strong><b>starter</b></p>
+          </div>
+
+<h4 id="範例程式碼相關問題"><a href="#範例程式碼相關問題" class="headerlink" title="範例程式碼相關問題"></a>範例程式碼相關問題</h4><ol>
+<li>在「Add Item」畫面中，<u>輸入 item 的詳細資料(details)</u>。輕觸「Save」(儲存)。目前，此 <u>add item fragment</u> 未關閉。使用系統 back 鍵返回。系統<u>不會儲存 new item，也不會將其列在 inventory 畫面中</u>。請注意，此 app 並不完整，且<u>未實作「Save」button 功能</u>。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/f0931dab5089a14f_1920.png?hl=zh-tw" width="70%">
+
+<p>在本程式碼研究室中，您將新增 app 的 <strong>database</strong> 部分，該部分會將 <b>inventory 詳細資料(details)</b>儲存至 <strong>SQLite database</strong>。您將使用 Room persistence library 與 SQLite database 互動。</p>
+<h4 id="程式碼逐步操作說明"><a href="#程式碼逐步操作說明" class="headerlink" title="程式碼逐步操作說明"></a>程式碼逐步操作說明</h4><p>您下載的範例程式碼包含已為您預先設計的螢幕版面配置。在本課程中，您將重點瞭解<u>實作 database 邏輯</u>。以下是一些檔案的簡要逐步操作說明，協助您快速上手。</p>
+<ol>
+<li><p><code>main_activity.xml</code><br>App 中代管(hosts)所有其他 fragment 的 main activity。<code>onCreate()</code> method 會從 <code>NavHostFragment</code> 擷取 <code>NavController</code>，並設定與 <code>NavController</code> 搭配使用的 action bar。</p>
+</li>
+<li><p><code>item_list_fragment.xml</code><br>App 中顯示的第一個畫面。主要包含 <u><code>RecyclerView</code></u> 和<u>懸浮動作按鈕 (FAB)</u>。您會在稍後的課程中實作 <code>RecyclerView</code>。</p>
+</li>
+<li><p><code>fragment_add_item.xml</code><br>這個 layout 包含 <strong>text fields</strong>，用於<u>輸入要被 added 的 new inventory item 的詳細資料(details)</u>。</p>
+</li>
+<li><p><code>ItemListFragment.kt</code><br>這個 fragment 主要包含樣板程式碼。在 <code>onViewCreated()</code> method 中，<u>在 <strong>FAB</strong> 上設定 <strong>click listener</strong> 以導覽(navigate)至 <code>AddItemFragment</code></u></p>
+</li>
+<li><p><code>AddItemFragment.kt</code><br>這個 fragment 用於<u>向 database 加入 new items</u>。<code>onCreateView()</code> function 會<u>初始化<strong>binding variable</strong></u>，<code>onDestroyView()</code> function 則會<u>在 destroying fragment 前隱藏鍵盤(keyboard)</u>。</p>
+</li>
+</ol>
+<hr>
+<h3 id="★Room-的主要-components"><a href="#★Room-的主要-components" class="headerlink" title="★Room 的主要 components"></a>★Room 的主要 components</h3><p>Kotlin 可透過引入 <strong>data classes</strong>，輕鬆處理 data。<u>這些 data 可存取，並可透過 function 呼叫加以修改</u>。但在 database 中，您需要使用 <strong>tables</strong> 和 <strong>queries</strong> 來<u>存取及修改 data</u>。以下 Room components 能讓這些工作流程順暢運作。</p>
+<p>Room 有三個主要 components：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/training/data-storage/room/defining-data?hl=zh-tw">Data entities</a>，代表 app database 中的 <strong>tables</strong>。它們可用於<u>更新 tables 中以 <strong>rows</strong> 形式儲存的 data</u>，也可用於<u>建立要插入(insertion)的 <strong>new rows</strong></u>。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/training/data-storage/room/accessing-data?hl=zh-tw">Data access object (DAO)</a> 為 app 提供了各種 <strong>methods</strong>，用來<u>擷取(retrieve)、更新(update)、插入(insert)及刪除(delete) database 中的 data</u>。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/reference/kotlin/androidx/room/Database">Database class</a><u>可存放 database</u>，是 app database 連線的<u>主要存取點(main access point)</u>。Database class 為您的 app <u>提供了與該 database 關聯的 <strong>DAO instances</strong></u>。</li>
+</ul>
+<p>您將在稍後的程式碼研究室中實作這些 components，並進一步瞭解它們。下圖演示了 Room 的各 components 如何一起工作以與 database 互動。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/33a193a68c9a8e0e_1920.png?hl=zh-tw" width="70%">
+
+<h4 id="新增-Room-libraries"><a href="#新增-Room-libraries" class="headerlink" title="新增 Room libraries"></a>新增 Room libraries</h4><p>在這項工作中，您要將必要的 Room component libraries 加入 Gradle 檔案。</p>
+<p>開啟 module level 的 Gradle 檔案 <code>build.gradle (Module: InventoryApp.app)</code>。在 <code>dependencies</code> 區塊中，為 Room library 新增下列 dependencies。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Room</span></span><br><span class="line">implementation <span class="string">&quot;androidx.room:room-runtime:$room_version&quot;</span></span><br><span class="line">kapt <span class="string">&quot;androidx.room:room-compiler:$room_version&quot;</span></span><br><span class="line">implementation <span class="string">&quot;androidx.room:room-ktx:$room_version&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>room_version</code> 可至 <a target="_blank" rel="noopener" href="https://developer.android.com/jetpack/androidx/versions">AndroidX</a> 查詢最新版本。</li>
+</ul>
+<div class="note primary">
+            <p><strong>重要：</strong>因使用了 kapt，需在 app-level <code>build.gradle</code> 檔案的 plugins 中新增 <code>id &#39;kotlin-kapt&#39;</code>。</p><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    ...</span><br><span class="line">    id <span class="string">&#x27;kotlin-kapt&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          </div>
+
+<hr>
+<h3 id="建立-item-Entity"><a href="#建立-item-Entity" class="headerlink" title="建立 item Entity"></a>建立 item Entity</h3><p><strong>Entity class</strong> 定義了 <strong>table</strong>，<u>這個 class 的所有 <strong>instance</strong> 都代表了 database table 中的一個 <strong>row</strong></u>。Entity class 擁有<b>對應項目(mappings)</b>，可用來<u>向 Room 顯示它打算如何呈現 database 中的資訊並與之互動</u>。在 app 中，這個 entity 會<u>存放有關 <strong>inventory items</strong> 的資訊</u>，例如 <u>item name</u>、<u>item price</u> 和 <u>stock</u> 狀況。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/8c9f1659ee82ca43_1920.png?hl=zh-tw">
+
+<p><code>@Entity</code> 註解會<u>將 class 標示為 <strong>database Entity class</strong></u>。系統會為每個 <strong>entity class</strong> 建立 <strong>database table</strong>，用於<u>存放 items</u>。在 entity 中，每個<u>欄位(field)</u>都會表示為 <u>database 中的一列 column</u>，除非另有說明。儲存在 database 中的所有 <strong>entity instance</strong> 都必須有<u>主鍵(primary key)</u>。<a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/room/PrimaryKey">Primary key</a> 用於唯一識別 database table 中的每個 record&#x2F;entry。Primary key 一經指派即無法修改，只要存在於 database 中，指的就是 <strong>entity object</strong>。</p>
+<p>在這項工作中，您將建立 entity class。定義 field 以儲存每個 item 的下列 <u>inventory information</u>。</p>
+<ul>
+<li>用於儲存 primary key 的 <code>Int</code>。</li>
+<li>用於儲存 item name 的 <code>String</code>。</li>
+<li>用於儲存 item price 的 <code>Double</code>。</li>
+<li>用於儲存 stock 數量的 <code>Int</code>。</li>
+</ul>
+<ol>
+<li><p>在 Android Studio 中開啟範例程式碼。</p>
+</li>
+<li><p>在 <code>com.example.inventory</code> 基本 package 下方建立名為 <code>data</code> 的 package。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/be39b42484ba2664_1920.png" width="50%">
+</li>
+<li><p>在 <code>data</code> package 中，建立名為 <code>Item</code> 的 Kotlin class。這個 class 將代表 app 中的 <strong>database entity</strong>。在下一個步驟中，您將新增<b>對應欄位(fields)</b>來<u>儲存 inventory information</u>。</p>
+</li>
+<li><p>使用下列程式碼更新 <code>Item</code> class 定義。宣告 <code>Int</code> type 的 <code>id</code>、<code>String</code> type 的 <code>itemName</code>、<code>Double</code> type 的 <code>itemPrice</code>，以及 <code>Int</code> type 的 <code>quantityInStock</code> <u>做為 <strong>primary constructor</strong> 的參數</u>。將 <code>id</code> 的預設值設為 <code>0</code>。<code>id</code> 將成為 <strong>primary key</strong>，用來辨識 <code>Item</code> table 中每個 record&#x2F;entry 的 <strong>uniquely ID</strong>。</p>
+</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Item</span>(</span><br><span class="line">   <span class="keyword">val</span> id: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">   <span class="keyword">val</span> itemName: String,</span><br><span class="line">   <span class="keyword">val</span> itemPrice: <span class="built_in">Double</span>,</span><br><span class="line">   <span class="keyword">val</span> quantityInStock: <span class="built_in">Int</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<div class="note success">
+            <p><strong>Refresher on primary constructor：</strong><b>Primary constructor</b> 是 Kotlin class 的 <u>class header</u> 的一部分；<u>出現在 <b>class name</b> (和 <u>optional type 參數</u>) 之後</u>。</p>
+          </div>
+
+<h4 id="Data-classes"><a href="#Data-classes" class="headerlink" title="Data classes"></a>Data classes</h4><p><strong>Data classes</strong> 主要用於<u>保存 Kotlin 中的 data</u>。這些 class 有標示 <code>data</code> keyword。Kotlin data class objects 有許多其他優勢，compiler 會自動產生<u>公用程式(utilities)</u>，用於comparing、printing 及 copying： <code>toString()</code>、<code>copy()</code>、<code>equals()</code> 等。</p>
+<p>範例：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example data class with 2 properties.</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">User</span>(<span class="keyword">val</span> first_name: String, <span class="keyword">val</span> last_name: String)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>為了讓產生的程式碼保持一致且行為有意義，data classes 必須符合下列規定：</p>
+<ul>
+<li><strong>Primary constructor</strong> 必須有<u>至少一個參數</u>。</li>
+<li>所有 <strong>primary constructor</strong> 參數都必須標示為 <code>val</code> 或 <code>var</code>。</li>
+<li><strong>Data classes</strong> 不得為 <code>abstract</code>、<code>open</code>、<code>sealed</code> 或 <code>inner</code>。</li>
+</ul>
+<div class="note danger">
+            <p><strong>警告：</strong><u><strong>Compiler</strong> 只會使用 <b>primary constructor</b> 內部定義的屬性，來自動產生 <b>functions</b></u>。產生的實作會排除在 class body 中宣告的屬性。</p>
+          </div>
+<ul>
+<li>如要進一步瞭解 data classes，請參閱<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/data-classes.html">說明文件</a>。</li>
+</ul>
+<ol start="5">
+<li>在 <code>Item</code> class 的 class 定義前加上 <code>data</code> keyword，將其轉換為 data class。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Item</span>(</span><br><span class="line">   <span class="keyword">val</span> id: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">   <span class="keyword">val</span> itemName: String,</span><br><span class="line">   <span class="keyword">val</span> itemPrice: <span class="built_in">Double</span>,</span><br><span class="line">   <span class="keyword">val</span> quantityInStock: <span class="built_in">Int</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>在 <code>Item</code> class 宣告上方，為 data class 加上註解 <code>@Entity</code>。使用 <code>tableName</code> 引數提供 <code>item</code> 做為 <strong>SQLite table name</strong>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity(tableName = <span class="string">&quot;item&quot;</span>)</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Item</span>(</span><br><span class="line">   ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<div class="note success">
+            <p><strong>重要：</strong>當 Android Studio 顯示<u>提示(prompted)</u>時，請從 <strong>androidx library</strong> import <b>Entity</b> 和所有其他 <b>Room</b> 註解。例如，<b>androidx.room.Entity</b>。</p>
+          </div>
+
+<div class="note success">
+            <p><strong>注意：</strong><b>@Entity</b> 註解有幾個可能的引數。<u>根據預設 (<b>@Entity</b> 沒有引數)，table name 將與 class 相同</u>。<b>tableName</b> 引數可讓您提供其他更為實用的 table name。雖然 <b>tableName</b> 引數是可選的(optional)，但我們強烈建議使用。為求簡單，請<u>提供與 <strong>class name</strong> 相同的名稱，也就是 <b>item</b></u>。您還可以在<a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/room/Entity">說明文件</a>中調查 <b>@Entity</b> 的其他幾個引數。</p>
+          </div>
+
+<ol start="7">
+<li>要將 <code>id</code> 作為 primary key，請為 <code>id</code> 屬性加上註解 <code>@PrimaryKey</code>。<u>將 <code>autoGenerate</code> 參數設為 <code>true</code>，以便 <strong>Room</strong> 為每個 <strong>entity</strong> 產生 <strong>ID</strong></u>。這能保證<u>每個 item 的 ID 都不重複</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity(tableName = <span class="string">&quot;item&quot;</span>)</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Item</span>(</span><br><span class="line">   <span class="meta">@PrimaryKey(autoGenerate = true)</span></span><br><span class="line">   <span class="keyword">val</span> id: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">   ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>為其餘屬性加上註解 <code>@ColumnInfo</code>。<code>ColumnInfo</code> 註解可用來<u>自訂與特定欄位(field)相關的 column</u>。舉例來說，使用 <code>name</code> 引數時，您可以<u>為欄位(field)指定不同的 <strong>column name</strong></u>。</li>
+</ol>
+<p><code>Item.kt</code> 完整程式碼：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data class entity</span></span><br><span class="line"><span class="comment">// 建立 item Entity</span></span><br><span class="line"><span class="meta">@Entity(tableName = <span class="string">&quot;item&quot;</span>)</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Item</span>(</span><br><span class="line">    <span class="meta">@PrimaryKey(autoGenerate = true)</span> <span class="comment">// 將 id 設為 primary key</span></span><br><span class="line">    <span class="keyword">val</span> id: <span class="built_in">Int</span> = <span class="number">0</span>, <span class="comment">// 將 id 的預設值設為 0</span></span><br><span class="line">    <span class="meta">@ColumnInfo(name = <span class="string">&quot;name&quot;</span>)</span> <span class="comment">// 將 itemName 設為 column，name 設為 column name</span></span><br><span class="line">    <span class="keyword">val</span> itemName: String,</span><br><span class="line">    <span class="meta">@ColumnInfo(name = <span class="string">&quot;price&quot;</span>)</span> <span class="comment">// 將 itemPrice 設為 column，price 設為 column name</span></span><br><span class="line">    <span class="keyword">val</span> itemPrice: <span class="built_in">Double</span>,</span><br><span class="line">    <span class="meta">@ColumnInfo(name = <span class="string">&quot;quantity&quot;</span>)</span> <span class="comment">// 將 quantityInStock 設為 column，quantity 設為 column name</span></span><br><span class="line">    <span class="keyword">val</span> quantityInStock: <span class="built_in">Int</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="建立-item-DAO"><a href="#建立-item-DAO" class="headerlink" title="建立 item DAO"></a>建立 item DAO</h3><h4 id="Data-Access-Object-DAO"><a href="#Data-Access-Object-DAO" class="headerlink" title="Data Access Object (DAO)"></a>Data Access Object (DAO)</h4><p>Data Access Object (DAO) 是一種<u>模式(pattern)</u>，可透過提供 <strong>abstract interface</strong>，從 app 的其餘部分中區隔出 <strong>persistence layer</strong>。這種隔離機制符合<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Single_responsibility_principle">單一責任原則(single responsibility principle)</a>。</p>
+<p>DAO 的功能是向 app 的其餘部分<u>隱藏在基礎 <strong>persistence layer</strong> 中執行 <strong>database</strong> 作業所涉及的所有復雜性</u>。這樣一來，就可以<u>變更 <strong>data access layer</strong>，而不受使用該 data 的程式碼影響</u>。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/7a8480711f04b3ef_1920.png?hl=zh-tw">
+
+<p>在這項工作中，您要為 Room 定義 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/room/Dao">Data Access Object (DAO)</a>。<strong>Data Access Object</strong> 是 Room 的<u>主要 components</u>，負責<u>定義存取 <strong>database</strong> 的 <strong>interface</strong></u>。</p>
+<p><strong>DAO</strong> 是<u>自訂 interface</u>，該 interface 可提供便利的 <strong>methods</strong>，用於 <u><b>querying&#x2F;retrieving</b>、<b>inserting</b>、<b>deleting</b> 及 <b>updating</b> database</u>。Room 會在 compile time 產生這個 class 的實作。</p>
+<p>針對常見的 database 作業，<strong>Room library</strong> 可提供便利的<b>註解</b>，例如 <code>@Insert</code>、<code>@Delete</code> 和 <code>@Update</code>。除此之外，您還可以使用 <code>@Query</code> 註解。您可以編寫受 <strong>SQLite</strong> 支援的任何查詢(query)。</p>
+<p>另一個好處是，當您在 Android Studio 中編寫<u>查詢(queries)</u>時，<strong>Compiler</strong> 會<u>檢查 SQL 查詢是否有語法錯誤</u>。</p>
+<p>對於 inventory app，您需要能夠執行以下操作：</p>
+<ul>
+<li><b>插入(Insert)</b>或新增(add) ，<u>new item</u>。</li>
+<li><b>更新(Update)</b> 現有 item 的 <u>name</u>、<u>price</u> 和 <u>quantity</u>。</li>
+<li>根據 <u>primary key</u> <code>id</code>，<b>取得(Get)</b><u>特定 item</u>。</li>
+<li><b>取得(Get)</b><u>所有 items</u>，以便顯示它們。</li>
+<li><b>刪除(Delete)</b> database 中的 <u>entry</u>。</li>
+</ul>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/bb381857d5fba511_1920.png?hl=zh-tw" width="50%">
+
+<p>接著在 app 中實作 item DAO：</p>
+<ol>
+<li>在 <code>data</code> package 中建立 Kotlin class <code>ItemDao.kt</code>。</li>
+<li>將 class 定義變更為 <strong>interface</strong>，並加上註解 <code>@Dao</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Dao</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">ItemDao</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 interface body 中，新增 <code>@Insert</code> 註解。在 <code>@Insert</code> 下方，新增 <code>insert()</code> function，以<u>將 <code>Entity</code> class <code>item</code> 的 instance 做為引數</u>。<u>Database 作業執行時間可能較長，因此應該會在另一個 <strong>thread</strong> 中執行</u>。請<u>將 function 設為 <strong>suspend function</strong></u>，以便<u>從 <strong>coroutine</strong> 中呼叫</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Insert</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">insert</span><span class="params">(item: <span class="type">Item</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>新增引數 <code>OnConflict</code>，並為其指派 <code>OnConflictStrategy.IGNORE</code> 的值。<code>OnConflict</code> 引數會<u>指示 <strong>Room</strong> 在發生衝突時應如何處理</u>。如果 new item 的 <strong>primary key</strong> 已存在於 database 中，則 <code>OnConflictStrategy.IGNORE</code> 策略<u>會忽略 <strong>new item</strong></u>。如要進一步瞭解可用的衝突策略，請參閱<a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/room/OnConflictStrategy">說明文件</a>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Insert(onConflict = OnConflictStrategy.IGNORE)</span> <span class="comment">// 發生衝突時會忽略 new item</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">insert</span><span class="params">(item: <span class="type">Item</span>)</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Room</strong> 會<u>產生將 <code>item</code> insert database 所需的所有程式碼</u>。當從 Kotlin 程式碼呼叫 <code>insert()</code> 時，Room 會<u>執行 SQL 查詢(query)，將 <strong>entity</strong> insert 到 database 中</u>。</li>
+</ul>
+<ol start="5">
+<li>為一個 <code>item</code> 新增帶有 <code>update()</code> function 的 <code>@Update</code> 註解。<u>更新的 entity 與傳入的 <strong>entity key</strong> 相同</u>。您可以更新 entity 的部分或全部其他屬性。類似於 <code>insert()</code> method，使以下 <code>update()</code> method <code>suspend</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Update</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">update</span><span class="params">(item: <span class="type">Item</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>新增具有 <code>delete()</code> function 的 <code>@Delete</code> 註解以刪除 item。使其成為 <strong>suspend method</strong>。<code>@Delete</code> 註解會<u>刪除一個 item 或一個 item list</u>。(您需要傳遞要刪除的 <b>entity(s)</b>；若沒有 <strong>entity</strong>，則要在呼叫 <code>delete()</code> function 之前擷取 <strong>entity</strong>。)</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Delete</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">delete</span><span class="params">(item: <span class="type">Item</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>剩餘的 function 沒有方便的註解，因此您必須<u>使用 <code>@Query</code> 註解並提供 <strong>SQLite 查詢(queries)</strong></u>。</p>
+<ul>
+<li>編寫 <u>SQLite 查詢(query)</u>，根據指定的 <code>id</code> 從 <strong>item table</strong> 中<u>擷取特定 item</u>。接著，您要新增 <u>Room 註解</u>，並在後續步驟中使用修改後的下列 query。在後續步驟中，您還要透過 Room 將這項內容變更為 <strong>DAO method</strong>。</li>
+<li>從 <code>item</code> 中選取所有 columns。</li>
+<li><code>WHERE</code> <code>id</code> 符合特定值。</li>
+</ul>
+<p>範例：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * from item WHERE id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>變更上述 <u>SQL 查詢(query)</u>，使其與 <u>Room 註解</u>和<u>引數</u>搭配使用。新增 <code>@Query</code> 註解，將 query 以 string 參數的形式提供給 <code>@Query</code> 註解。將 <code>String</code> 參數新增至 <code>@Query</code>，這是一個 SQLite 查詢(query)，用於<u>從 <strong>item table</strong> 中擷取 item</u>。</li>
+<li>從 <code>item</code> 中選取所有 columns。</li>
+<li><code>WHERE</code> <code>id</code> &#x3D; <code>:id</code> 引數。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(<span class="string">&quot;SELECT * from item WHERE id = :id&quot;</span>)</span></span><br></pre></td></tr></table></figure>
+
+<div class="note primary">
+            <p><strong>筆記：</strong>請留意 <code>:id</code>。您可以<span class="label primary">在 <b>Query</b> 中使用<b>冒號</b>( <b>:</b> )來引用 <b>function</b> 中的<b>引數(argument)</b></span>。</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(<span class="string">&quot;SELECT * from item WHERE id = :引數&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getItem</span><span class="params">(引數: <span class="type">Int</span>)</span></span>: Flow&lt;Item&gt;</span><br></pre></td></tr></table></figure>
+          </div>
+
+<ol start="10">
+<li>在 <code>@Query</code> 註解下方，新增 <code>getItem()</code> function，這個 function 會採用 <code>Int</code> 引數並 return <code>Flow&lt;Item&gt;</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(<span class="string">&quot;SELECT * from item WHERE id = :id&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getItem</span><span class="params">(id: <span class="type">Int</span>)</span></span>: Flow&lt;Item&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>import <code>kotlinx.coroutines.flow.Flow</code>。</li>
+</ul>
+<p>使用 <code>Flow</code> 或 <code>LiveData</code> 做為 return type，可確保當 database 中的 data 有變更時，您會收到通知。建議您在 persistence layer 中使用 <code>Flow</code>。<strong>Room</strong> 將隨時為您更新這個 <code>Flow</code>，因此您<u>只需要明確取得一次 data 即可</u>。這有助於<u>更新 <strong>inventory list</strong></u>，您將於下一個程式碼研究室中實作這部分內容。根據 <code>Flow</code> return type，<strong>Room</strong> 也會在 <strong>background thread</strong> 上執行查詢(query)。您<u>不需要將它明確設為 <code>suspend</code> function，並在 <strong>coroutine scope</strong> 內呼叫</u>。</p>
+<ol start="11">
+<li>新增具有 <code>getItems()</code> function 的 <code>@Query</code>：</li>
+<li>讓 <strong>SQLite query</strong> return <u><code>item</code> table 中的所有 columns</u>，以 <strong>name</strong> <u>遞增順序</u>排序。</li>
+<li>使 <code>getItems()</code> return <u><code>Item</code> entities list</u> (做為 <code>Flow</code>)。<strong>Room</strong> 將隨時為您更新這個 <code>Flow</code>，因此您只需要明確取得一次 data 即可。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(<span class="string">&quot;SELECT * from item ORDER BY name ASC&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getItems</span><span class="params">()</span></span>: Flow&lt;List&lt;Item&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>ItemDao.kt</code> 完整程式碼：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data access object (DAO)</span></span><br><span class="line"><span class="comment">// 建立 item DAO</span></span><br><span class="line"><span class="meta">@Dao</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">ItemDao</span> &#123;</span><br><span class="line">    <span class="comment">// insert suspend function</span></span><br><span class="line">    <span class="meta">@Insert(onConflict = OnConflictStrategy.IGNORE)</span> <span class="comment">// 發生衝突時會忽略 new item</span></span><br><span class="line">    <span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">insert</span><span class="params">(item: <span class="type">Item</span>)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// update suspend function</span></span><br><span class="line">    <span class="meta">@Update</span></span><br><span class="line">    <span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">update</span><span class="params">(item: <span class="type">Item</span>)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// delete suspend function</span></span><br><span class="line">    <span class="meta">@Delete</span></span><br><span class="line">    <span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">delete</span><span class="params">(item: <span class="type">Item</span>)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 選取特定 item 的 所有 column</span></span><br><span class="line">    <span class="meta">@Query(<span class="string">&quot;SELECT * from item WHERE id = :id&quot;</span>)</span> <span class="comment">// :id 為 getItem 中的引數(id)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getItem</span><span class="params">(id: <span class="type">Int</span>)</span></span>: Flow&lt;Item&gt;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 選取 item table 中的所有 columns，以 name 遞增順序排序</span></span><br><span class="line">    <span class="meta">@Query(<span class="string">&quot;SELECT * from item ORDER BY name ASC&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getItems</span><span class="params">()</span></span>: Flow&lt;List&lt;Item&gt;&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="14">
+<li>雖然您看不到任何明顯的變更，但請執行 app，確定沒有任何錯誤。</li>
+</ol>
+<hr>
+<h3 id="建立-database-class"><a href="#建立-database-class" class="headerlink" title="建立 database class"></a>建立 database class</h3><p>在這項工作中，您要建立 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/room/RoomDatabase">RoomDatabase</a>，並使用您在先前工作中建立的 <u><code>Entity</code></u> 和 <u><strong>DAO</strong></u>。<strong>Database class</strong> 定義了 <u>entities list</u> 和 <u>data access objects(DAO) list</u>。同時也是基礎連線(connection)的<u>主要存取點(main access point)</u>。</p>
+<p><code>Database</code> class 為您的 app 提供了定義的 <strong>DAO instance</strong>。反過來，app 可以<u>使用 <strong>DAO</strong> 來擷取 database 中的 data</u>，做為<b>關聯(associated) data entity objects</b> 的 <strong>instance</strong>。App 也可以使用定義的 <strong>data entity</strong>，<u>更新對應 table 中的 rows</u>，或是<u>建立 new rows 來插入 data</u>。</p>
+<p>您需要建立 <u>abstract <code>RoomDatabase</code> class</u>，並加上 <code>@Database</code> 註解。此 class 包含一個 <strong>method</strong>，可在 <code>RoomDatabase</code> 的 <u><strong>instance</strong> 不存在時建立該 <strong>instance</strong></u>，或者 return <code>RoomDatabase</code> 的<u>現有 <strong>instance</strong></u>。</p>
+<p>取得 <code>RoomDatabase</code> instance 的一般程序如下：</p>
+<ul>
+<li>建立繼承 <code>RoomDatabase</code> 的 <code>public abstract</code> class。您定義的新 abstract class 會成為 <u>database holder</u>。您定義的 class 為 abstract，因為 <code>Room</code> 會為您建立實作。</li>
+<li>使用 <code>@Database</code> 為 class 加上註解。在<u>引數</u>中，列出 <u>database 的 entity</u> 並設定 <u>version number</u>。</li>
+<li>定義 return <code>ItemDao</code> instance 的 <u>abstract method</u> 或<u>屬性(property)</u>，<code>Room</code> 會為您產生實作。</li>
+<li>整個 app <u>只需要一個 <code>RoomDatabase</code> instance</u>，因此請將 <code>RoomDatabase</code> 設為<b>單例模式(singleton)</b>。</li>
+<li>僅在您的 (<code>item_database</code>) <u>database 不存在</u>的情況下，使用 Room 的 <code>Room.databaseBuilder</code> <u>建立 database</u>。否則，請 return <u>現有 database</u>。</li>
+</ul>
+<div class="note primary">
+            <p><strong>筆記：</strong><b>單例模式(singleton)</b>可確保<u>只建立一個 instance</u>。<b>Companion object</b> 只會存在<u>一個 instance</u>，所以也屬於<b>單例模式(singleton)</b>。</p>
+          </div>
+
+<h4 id="建立-Database"><a href="#建立-Database" class="headerlink" title="建立 Database"></a>建立 Database</h4><ol>
+<li>在 <code>data</code> package 中，建立 Kotlin class <code>ItemRoomDatabase.kt</code>。</li>
+<li>在 <code>ItemRoomDatabase.kt</code> 檔案中，將 <code>ItemRoomDatabase</code> class 設為繼承 <code>RoomDatabase</code> 的 <code>abstract</code> class。使用 <code>@Database</code> 為 class 加上註解。您將在下一步中修正缺少參數的錯誤。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Database</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">ItemRoomDatabase</span>: <span class="type">RoomDatabase</span>() &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><code>@Database</code> 註解需要多個<u>引數</u>，以便 <code>Room</code> 能夠 build database。</li>
+</ol>
+<ul>
+<li>將 <code>Item</code> 指定為<u>包含 <code>entities</code> list 的唯一 class</u>。</li>
+<li>將 <code>version</code> 設為 <code>1</code>。每次變更 database table 的<u>結構定義(schema)</u>時，都必須增加 <strong>version number</strong>。</li>
+<li>只要將 <code>exportSchema</code> 設為 <code>false</code>，即可<u>不保留結構定義(schema) version 紀錄的備份</u>。</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Database(entities= [Item::class], version = 1, exportSchema = false)</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>Database 需要知道該 <strong>DAO</strong>。在 class body 中，宣告一個 return <code>ItemDao</code> 的 <strong>abstract function</strong>。您可以擁有多個 DAO。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">itemDao</span><span class="params">()</span></span>: ItemDao</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>在 abstract function 下方，定義 <code>companion object</code>。Companion object 可讓您<u>使用 <strong>class name</strong> 做為限定詞(qualifier)，建立或取得 database</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">companion</span> <span class="keyword">object</span> &#123; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>在 <code>companion object</code> 中，宣告 database 的 private nullable 變數 <code>INSTANCE</code>，並將其初始化為 <code>null</code>。<code>INSTANCE</code> 變數會<u>在建立 database 時保留對該 database 的引用</u>。這有助於<u>維護在指定時間開啟的 database <b>單一 instance</b></u>，該 instance 是建立及維護成本很高的資源。</li>
+</ol>
+<p>使用 <code>@Volatile</code> 為 <code>INSTANCE</code> 加上註解。系統一律<u>不會快取易失變數的值</u>，所有<u>讀取與寫入作業</u>都會在<b>主記憶體(main memory)</b>中完成。這有助於<u>確保所有執行 thread 的 <code>INSTANCE</code> 值保持在最新狀態且相同</u>。這表示一個 thread 對 <code>INSTANCE</code> 所做的變更將立即對所有其他 thread 可見。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Volatile</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> INSTANCE: ItemRoomDatabase? = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>在 <code>INSTANCE</code> 下方的 <code>companion object</code> 內，使用 database builder 所需的 <code>Context</code> 參數定義 <code>getDatabase()</code> method。Return type <code>ItemRoomDatabase</code>。由於 <code>getDatabase()</code> 尚未 return 任何內容，因此系統會顯示錯誤訊息。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getDatabase</span><span class="params">(context: <span class="type">Context</span>)</span></span>: ItemRoomDatabase &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li><u>多個 thread</u> 可能會產生<b>競爭狀況(race condition)</b>，並<u>同時要求一個 <strong>database instance</strong></u>，如此一來就會<u>產生兩個 database</u>。納入程式碼以將 database 納入 <code>synchronized</code> 區塊中，這表示<u>一次只能執行一個 thread</u>，只有這個 thread 可以進入此<b>程式碼區塊</b>，從而確保系統<u>只會將 database 初始化一次</u>。</li>
+</ol>
+<p>在 <code>getDatabase()</code> 中，return <code>INSTANCE</code> 變數；如果 <code>INSTANCE</code> 為 null，則在 <code>synchronized&#123;&#125;</code> 區塊內對其進行初始化。使用 <code>elvis</code> 運算子 (<code>?:</code>) 執行此作業。傳入 companion object <code>this</code>，也就是要在 function 區塊中鎖定的 companion object。您將在後續步驟中修正此錯誤。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> INSTANCE ?: synchronized(<span class="keyword">this</span>) &#123; &#125;</span><br></pre></td></tr></table></figure>
+<div class="note primary">
+            <p><strong>筆記：</strong> <b>A ?: B</b> 意思是「當 <b>A</b> 不為 <b>null</b> 時就返回 <b>A</b>，當 <b>A</b> 為 <b>null</b> 時就返回 <b>B</b>」。</p>
+          </div>
+
+<ol start="9">
+<li>在 <code>synchronized</code> 區塊中，<u>建立 <code>val</code> instance 變數</u>，並<u>使用 <strong>database builder</strong> 取得 database</u>。您還有錯誤有待在後續步驟中修正。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> instance = Room.databaseBuilder()</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>在 <code>synchronized</code> 區塊的結尾，return <code>instance</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> instance</span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>在 <code>synchronized</code> 區塊中，<u>初始化 <code>instance</code> 變數</u>，並<u>使用 <strong>database builder</strong> 取得 database</u>。將 <strong>application context</strong>、<strong>database class</strong> 以及 <strong>database name</strong> <code>item_database</code> 傳遞給 <code>Room.databaseBuilder()</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> instance = Room.databaseBuilder(</span><br><span class="line">   context.applicationContext,</span><br><span class="line">   ItemRoomDatabase::<span class="keyword">class</span>.java,</span><br><span class="line">   <span class="string">&quot;item_database&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Android Studio 會產生「 type mismatch」錯誤。如要移除這項錯誤，請按照下列步驟新增遷移策略和 <code>build()</code>。</li>
+</ul>
+<ol start="12">
+<li>將必要的<u>遷移策略(migration strategy)</u>新增至 <strong>builder</strong>。使用 <code>.fallbackToDestructiveMigration()</code>。</li>
+</ol>
+<p>一般來說，您必須為<b>遷移物件(migration object)</b>提供有關<u>何時變更結構定義(schema)</u>的遷移策略(migration strategy)。遷移物件(migration object)是一種 object，可定義<u>如何擷取舊結構定義(schema)中的所有 rows</u>，並將其<u>轉換為新結構定義(schema)中的 rows</u>，以免 data 遺失。<a target="_blank" rel="noopener" href="https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929">遷移(migration)</a>不在本程式碼研究室的範圍內。其中一個簡單的解決方法是刪除並重新 build database，但代表 data 會遺失。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.fallbackToDestructiveMigration()</span><br></pre></td></tr></table></figure>
+
+<ol start="13">
+<li>如要建立 <strong>database instance</strong>，請呼叫 <code>.build()</code>。這應該會移除 Android Studio 錯誤。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.build()</span><br></pre></td></tr></table></figure>
+
+<ol start="14">
+<li>在 <code>synchronized</code> 區塊內，指派 <code>INSTANCE = instance</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSTANCE = instance</span><br></pre></td></tr></table></figure>
+
+<ol start="15">
+<li>在 <code>synchronized</code> 區塊的結尾，return <code>instance</code>。</li>
+</ol>
+<p><code>ItemRoomDatabase.kt</code> 完整程式碼：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// database class</span></span><br><span class="line"><span class="comment">// 建立 item database class</span></span><br><span class="line"><span class="meta">@Database(entities = [Item::class], version = 1, exportSchema = false)</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">ItemRoomDatabase</span>: <span class="type">RoomDatabase</span>() &#123;</span><br><span class="line">    <span class="comment">// return ItemDao 的 abstract function</span></span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">itemDao</span><span class="params">()</span></span>: ItemDao</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定義 companion object (可使用 class name 做為限定詞，建立或取得 database)</span></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="meta">@Volatile</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">var</span> INSTANCE: ItemRoomDatabase? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用 database builder 所需的 Context 參數定義 getDatabase() method</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">getDatabase</span><span class="params">(context: <span class="type">Context</span>)</span></span>: ItemRoomDatabase &#123;</span><br><span class="line">            <span class="keyword">return</span> INSTANCE ?: synchronized(<span class="keyword">this</span>) &#123; <span class="comment">// synchronized區塊中，一次只能執行一個 thread</span></span><br><span class="line">                <span class="comment">// 使用 database builder 取得 database instance</span></span><br><span class="line">                <span class="comment">// 將 application context、database class 以及 database name item_database 傳遞給 database builder</span></span><br><span class="line">                <span class="keyword">val</span> instance = Room.databaseBuilder(</span><br><span class="line">                    context.applicationContext,</span><br><span class="line">                    ItemRoomDatabase::<span class="keyword">class</span>.java,</span><br><span class="line">                    <span class="string">&quot;item_database&quot;</span>)</span><br><span class="line">                    .fallbackToDestructiveMigration() <span class="comment">// 將遷移策略新增至 builder</span></span><br><span class="line">                    .build()</span><br><span class="line">                INSTANCE = instance <span class="comment">// 將 INSTANCE 設為剛才建立好的 instance</span></span><br><span class="line">                <span class="keyword">return</span> instance</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="16">
+<li>建構程式碼，確保沒有錯誤。</li>
+</ol>
+<h4 id="實作-Application-class"><a href="#實作-Application-class" class="headerlink" title="實作 Application class"></a>實作 Application class</h4><p>在這項工作中，您需要在 <strong>Application class</strong> 中<u>對 <strong>database instance</strong> 執行<b>實例化(instantiate)</b></u>。</p>
+<ol>
+<li><ul>
+<li>開啟 <code>InventoryApplication.kt</code>，建立 type 為 <code>ItemRoomDatabase</code> 且名為 <code>database</code> 的 <code>val</code>。</li>
+<li>在傳入 <strong>context</strong> 的 <code>ItemRoomDatabase</code> 中呼叫 <code>getDatabase()</code>，藉此對 <code>database</code> instance 執行實例化(instantiate)。</li>
+<li>請使用 <code>lazy</code> 委派(delegate)，讓系統<u>在您首次需要&#x2F;存取 <strong>reference</strong> 時</u> (而非 app starts 時) <u>延遲建立 <code>database</code> instance</u>。這項操作會<u>在首次存取時建立 database</u> (也就是磁碟(disk)上的<b>實體(physical) database</b>)。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.app.Application</span><br><span class="line"><span class="keyword">import</span> com.example.inventory.<span class="keyword">data</span>.ItemRoomDatabase</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">InventoryApplication</span> : <span class="type">Application</span>()&#123;</span><br><span class="line">   <span class="keyword">val</span> database: ItemRoomDatabase <span class="keyword">by</span> lazy &#123; ItemRoomDatabase.getDatabase(<span class="keyword">this</span>) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>稍後在程式碼研究室中建立 <code>ViewModel</code> instance 時，您將用到這個 <code>database</code>。</li>
+</ul>
+<p>現在您擁有了使用 <code>Room</code> 所需的所有 building 區塊。這個程式碼可以編譯並執行，但無法判斷它是否正常運作。因此，我們建議您在 Inventory database 中新增 new item 來測試 database。如要完成這項工作，您需要使用 <code>ViewModel</code> 與 database 互動。</p>
+<hr>
+<h3 id="新增-ViewModel"><a href="#新增-ViewModel" class="headerlink" title="新增 ViewModel"></a>新增 ViewModel</h3><p>目前您建立了一個 database，且 UI class 屬於範例程式碼。如要儲存 app 的暫時性 data 並存取 database ，您必須具備 <code>ViewModel</code>。<span class="label primary"> <b>Inventory ViewModel</b> 將透過 <b>DAO</b> 與 <b>database</b> 互動，並將 data 提供給 <b>UI</b></span>。所有 database 作業都必須透過 <strong>main UI thread</strong> 執行，為此，使用 <u>coroutines</u> 和 <a target="_blank" rel="noopener" href="https://developer.android.com/topic/libraries/architecture/coroutines?hl=zh-tw#viewmodelscope">viewModelScope</a> 即可。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/91298a7c05e4f5e0_1920.png?hl=zh-tw" width="60%">
+
+<h4 id="建立-Inventory-ViewModel"><a href="#建立-Inventory-ViewModel" class="headerlink" title="建立 Inventory ViewModel"></a>建立 Inventory ViewModel</h4><ol>
+<li>在 <code>com.example.inventory</code> package 中，建立 Kotlin class 檔案 <code>InventoryViewModel.kt</code>。</li>
+<li><code>InventoryViewModel</code> class 繼承 <code>ViewModel</code> class。將 <u><code>ItemDao</code> object</u> 做為參數傳遞至預設 constructor。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">InventoryViewModel</span>(<span class="keyword">private</span> <span class="keyword">val</span> itemDao: ItemDao) : ViewModel() &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 class 外的 <code>InventoryViewModel.kt</code> 檔案結尾，新增 <code>InventoryViewModelFactory</code> class，對 <code>InventoryViewModel</code> instance 執行<u>實例化(instantiate)</u>。傳入與做為 <code>ItemDao</code> instance 的 <code>InventoryViewModel</code> 相同的 constructor 參數。繼承 <code>ViewModelProvider.Factory</code> class。您將在下一個步驟中修正未實作 method 的錯誤。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">InventoryViewModelFactory</span>(<span class="keyword">private</span> <span class="keyword">val</span> itemDao: ItemDao) : ViewModelProvider.Factory &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>按一下紅色燈泡並選取「Implement Members」，或是覆寫 <code>ViewModelProvider.Factory</code> class 中的 <code>create()</code> method，這會將任何 <strong>class type</strong> 當做引數，然後 return <code>ViewModel</code> object。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : ViewModel?&gt;</span> <span class="title">create</span><span class="params">(modelClass: <span class="type">Class</span>&lt;<span class="type">T</span>&gt;)</span></span>: T &#123;</span><br><span class="line">   TODO(<span class="string">&quot;Not yet implemented&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>實作 <code>create()</code> method。檢查 <code>modelClass</code> 是否和 <code>InventoryViewModel</code> class 相同，如果是，請 return 一個 instance。否則，您可以 throw 例外狀況(exception)。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (modelClass.isAssignableFrom(InventoryViewModel::<span class="keyword">class</span>.java)) &#123;</span><br><span class="line">   <span class="meta">@Suppress(<span class="string">&quot;UNCHECKED_CAST&quot;</span>)</span></span><br><span class="line">   <span class="keyword">return</span> InventoryViewModel(itemDao) <span class="keyword">as</span> T</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">throw</span> IllegalArgumentException(<span class="string">&quot;Unknown ViewModel class&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="填入-ViewModel"><a href="#填入-ViewModel" class="headerlink" title="填入 ViewModel"></a>填入 ViewModel</h4><p>在這項工作中，您要填入 <code>InventoryViewModel</code> class，<u>將 <strong>inventory data</strong> 新增至 <strong>database</strong></u>。請查看 inventory app 中的 <code>Item</code> entity 和「Add Item」畫面。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Item</span>(</span><br><span class="line">   <span class="meta">@PrimaryKey(autoGenerate = true)</span></span><br><span class="line">   <span class="keyword">val</span> id: <span class="built_in">Int</span> = <span class="number">0</span>,</span><br><span class="line">   <span class="meta">@ColumnInfo(name = <span class="string">&quot;name&quot;</span>)</span></span><br><span class="line">   <span class="keyword">val</span> itemName: String,</span><br><span class="line">   <span class="meta">@ColumnInfo(name = <span class="string">&quot;price&quot;</span>)</span></span><br><span class="line">   <span class="keyword">val</span> itemPrice: <span class="built_in">Double</span>,</span><br><span class="line">   <span class="meta">@ColumnInfo(name = <span class="string">&quot;quantity&quot;</span>)</span></span><br><span class="line">   <span class="keyword">val</span> quantityInStock: <span class="built_in">Int</span></span><br><span class="line">)   </span><br></pre></td></tr></table></figure>
+
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-persisting-data-room/img/85c644aced4198c5_1920.png?hl=zh-tw" width="40%">
+
+<p>您需要該特定 item 的 <u>name</u>、<u>price</u> 和 <u>stock</u>，以便將 <strong>entity</strong> 新增到 database。在程式碼研究室的後續部分，您將使用「Add Item」畫面取得使用者的詳細資料(details)。在目前的工作中，您要：</p>
+<ul>
+<li>使用三個 <strong>strings</strong> 做為 <u><code>ViewModel</code> 的 input</u>。</li>
+<li>將這些 <strong>strings</strong> 轉換為 <u><code>Item</code> entity instance</u>。</li>
+<li>使用 <u><code>ItemDao</code> instance</u> 將其儲存至 <strong>database</strong>。</li>
+</ul>
+<ol>
+<li>在 <code>InventoryViewModel</code> class 中，新增名為 <code>insertItem()</code> 的 <code>private</code> function，該 function 會<u>擷取 <code>Item</code> object</u>，並以<a href="https://linglingdr00.github.io/2023/12/05/Android%E7%AD%86%E8%A8%98-33-Coroutines%E7%B0%A1%E4%BB%8B/#%E9%97%9C%E6%96%BC-runBlocking">非阻塞(non-blocking)</a>的方式<u>將 <strong>data</strong> 加入 <strong>database</strong></u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">insertItem</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>如要透過 main thread 與 database 互動，請啟動 <a href="https://linglingdr00.github.io/2023/12/05/Android%E7%AD%86%E8%A8%98-33-Coroutines%E7%B0%A1%E4%BB%8B/#Kotlin-%E4%B8%AD%E7%9A%84%E5%8D%94%E7%A8%8B-coroutines">coroutine</a>，然後呼叫其中的 <strong>DAO method</strong>。在 <code>insertItem()</code> method 中，使用 <code>viewModelScope.launch</code> 來啟動 <code>ViewModelScope</code> 中的 coroutine。在啟動 function 中，對傳入 <code>item</code> 的 <code>itemDao</code> 呼叫 <strong>suspend function</strong> <code>insert()</code>。<code>ViewModelScope</code> 是 <code>ViewModel</code> class 的 extension 屬性，<u>會在 <code>ViewModel</code> 刪除時自動取消其子項 coroutine</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">insertItem</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   viewModelScope.launch &#123;</span><br><span class="line">       itemDao.insert(item)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>import <code>kotlinx.coroutines.launch</code> 和 <code>androidx.lifecycle.viewModelScope</code>。</p>
+<ol start="3">
+<li>在 <code>InventoryViewModel</code> class 中，新增另一個 private function，該 function 會<u>擷取三個 strings，並 return <code>Item</code> instance</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getNewItemEntry</span><span class="params">(itemName: <span class="type">String</span>, itemPrice: <span class="type">String</span>, itemCount: <span class="type">String</span>)</span></span>: Item &#123;</span><br><span class="line">   <span class="keyword">return</span> Item(</span><br><span class="line">       itemName = itemName,</span><br><span class="line">       itemPrice = itemPrice.toDouble(),</span><br><span class="line">       quantityInStock = itemCount.toInt()</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在 <code>InventoryViewModel</code> class 中，新增名為 <code>addNewItem()</code> 的 public function，該 function 會<u>採用三個 <strong>strings</strong> 來取得 <strong>item detail strings</strong></u>。將 <strong>item detail strings</strong> 傳遞至 <code>getNewItemEntry()</code> function，並將 return 的值指派給名為 <code>newItem</code> 的值。呼叫傳入 <code>newItem</code> 的 <code>insertItem()</code>，以<u>將 new <strong>entity</strong> 新增至 database</u>。系統會從 <strong>UI fragment</strong> 中呼叫，將 <strong>Item details</strong> 新增至 database。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">addNewItem</span><span class="params">(itemName: <span class="type">String</span>, itemPrice: <span class="type">String</span>, itemCount: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> newItem = getNewItemEntry(itemName, itemPrice, itemCount)</span><br><span class="line">   insertItem(newItem)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>請注意，您並沒有在 <code>addNewItem()</code> 中使用 <code>viewModelScope.launch</code>，但呼叫 <strong>DAO method</strong> 時在上述 <code>insertItem()</code> 中會用到。這是因為<span class="label primary">系統只能從 <b>coroutine</b> 或其他 <b>suspend function</b> 中呼叫 <b>suspend function</b></span>，而 <code>itemDao.insert(item)</code> 是一種 suspend function。</p>
+<p><code>InventoryViewModel.kt</code> 完整程式碼：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// view model</span></span><br><span class="line"><span class="comment">// ViewModel 將透過 DAO 與 database 互動，並將 data 提供給 UI</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">InventoryViewModel</span>(<span class="keyword">private</span> <span class="keyword">val</span> itemDao: ItemDao): ViewModel() &#123;</span><br><span class="line">    <span class="comment">// 抓取 Item object，將其加入 database</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">insertItem</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">        viewModelScope.launch &#123; <span class="comment">// 啟動 coroutine</span></span><br><span class="line">            <span class="comment">// 透過 dao 的 insert 方法，新增 item 到 database</span></span><br><span class="line">            itemDao.insert(item)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 抓取三個 strings，並 return Item instance</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getNewItemEntry</span><span class="params">(itemName: <span class="type">String</span>, itemPrice: <span class="type">String</span>, itemCount: <span class="type">String</span>)</span></span>: Item &#123;</span><br><span class="line">        <span class="keyword">return</span> Item(</span><br><span class="line">            itemName = itemName,</span><br><span class="line">            itemPrice = itemPrice.toDouble(), <span class="comment">// 轉成 Double</span></span><br><span class="line">            quantityInStock = itemCount.toInt() <span class="comment">// 轉成 Int</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 將 new entity 新增至 database</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">addNewItem</span><span class="params">(itemName: <span class="type">String</span>, itemPrice: <span class="type">String</span>, itemCount: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 將 newItem 轉換成 Item object</span></span><br><span class="line">        <span class="keyword">val</span> newItem = getNewItemEntry(itemName, itemPrice, itemCount)</span><br><span class="line">        <span class="comment">// 將 Item object 傳給 insertItem function</span></span><br><span class="line">        insertItem(newItem)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 對 InventoryViewModel instance 執行實例化(instantiate)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">InventoryViewModelFactory</span>(<span class="keyword">private</span> <span class="keyword">val</span> itemDao: ItemDao): ViewModelProvider.Factory &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : ViewModel&gt;</span> <span class="title">create</span><span class="params">(modelClass: <span class="type">Class</span>&lt;<span class="type">T</span>&gt;)</span></span>: T &#123;</span><br><span class="line">        <span class="comment">// 檢查 modelClass 是否和 InventoryViewModel class 相同</span></span><br><span class="line">        <span class="keyword">if</span> (modelClass.isAssignableFrom(InventoryViewModel::<span class="keyword">class</span>.java)) &#123;</span><br><span class="line">            <span class="meta">@Suppress(<span class="string">&quot;UNCHECKED_CAST&quot;</span>)</span></span><br><span class="line">            <span class="comment">//  return 一個 instance</span></span><br><span class="line">            <span class="keyword">return</span> InventoryViewModel(itemDao) <span class="keyword">as</span> T</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// throw exception</span></span><br><span class="line">        <span class="keyword">throw</span> IllegalArgumentException(<span class="string">&quot;Unknown ViewModel class&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>您已新增所有必要的 function，<u>可將 entity 新增至 database</u>。在下一項工作中，您需要更新 <strong>Add Item fragment</strong> 以使用上述 function。</p>
+<hr>
+<h3 id="更新-AddItemFragment"><a href="#更新-AddItemFragment" class="headerlink" title="更新 AddItemFragment"></a>更新 AddItemFragment</h3><ol>
+<li>在 <code>AddItemFragment.kt</code> 中 <code>AddItemFragment</code> class 的開頭，建立 type 為 <code>InventoryViewModel</code> 且名為 <code>viewModel</code> 的 <code>private val</code>。<u>使用 <code>by activityViewModels()</code></u> Kotlin 屬性委派(delegate)功能，即可<u>跨 <strong>fragments</strong> 共用(shared) <code>ViewModel</code></u>。您將在下一個步驟中修正錯誤。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: InventoryViewModel <span class="keyword">by</span> activityViewModels &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 <code>lambda</code> 中，呼叫 <code>InventoryViewModelFactory()</code> constructor 並傳入 <code>ItemDao</code> instance。請使用先前其中一項工作中建立的 <u><code>database</code> instance</u>，<u>呼叫 <code>itemDao</code> constructor</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: InventoryViewModel <span class="keyword">by</span> activityViewModels &#123;</span><br><span class="line">   InventoryViewModelFactory(</span><br><span class="line">       (activity?.application <span class="keyword">as</span> InventoryApplication).database</span><br><span class="line">           .itemDao()</span><br><span class="line">   )</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>viewModel</code> 定義下方，建立 type 為 <code>Item</code> 且名為 <code>item</code> 的 <code>lateinit var</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lateinit</span> <span class="keyword">var</span> item: Item</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>「Add Item」畫面會顯示三個 <u>text fields</u>，用於取得使用者的 <u>item details</u>。在這個步驟中，您要新增 function，<u>驗證 <code>TextFields</code> 中的 text 並非 empty</u>。在新增或更新 database 中的 <strong>entity</strong> 之前，請使用這個 function 來<u>驗證使用者輸入內容(input)</u>。這項驗證程序必須在 <code>ViewModel</code>、而非 fragments 中進行。在 <code>InventoryViewModel</code> class 中，新增下列名為 <code>isEntryValid()</code> 的 <code>public</code> function。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">isEntryValid</span><span class="params">(itemName: <span class="type">String</span>, itemPrice: <span class="type">String</span>, itemCount: <span class="type">String</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>在 <code>AddItemFragment.kt</code> 的 <code>onCreateView()</code> function 下方，建立一個名為 <code>isEntryValid()</code> 的 <code>private</code> function，該 function 會 return <code>Boolean</code>。您將在下一步中修正缺少 return 值這一錯誤。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">isEntryValid</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>在 <code>AddItemFragment</code> class 中，實作 <code>isEntryValid()</code> function。在 <code>viewModel</code> instance 上呼叫 <code>isEntryValid()</code> function，傳入 text views 中的 text。Return <code>viewModel.isEntryValid()</code> function 的值。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">isEntryValid</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> viewModel.isEntryValid(</span><br><span class="line">       binding.itemName.text.toString(),</span><br><span class="line">       binding.itemPrice.text.toString(),</span><br><span class="line">       binding.itemCount.text.toString()</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>在 <code>AddItemFragment</code> class 的 <code>isEntryValid()</code> function 下方，請新增另一個名為 <code>addNewItem()</code> 的 <code>private</code> function，<u>該 function 沒有參數且不會 return 任何內容</u>。在 function 中，在 <code>if</code> 條件內呼叫 <code>isEntryValid()</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">addNewItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (isEntryValid()) &#123;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>在 <code>if</code> 區塊內，對 <code>viewModel</code> instance 呼叫 <code>addNewItem()</code> 方法。傳入使用者輸入的 <strong>item details</strong>，使用 <code>binding</code> instance 讀取這些 data。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (isEntryValid()) &#123;</span><br><span class="line">   viewModel.addNewItem(</span><br><span class="line">   binding.itemName.text.toString(),</span><br><span class="line">   binding.itemPrice.text.toString(),</span><br><span class="line">   binding.itemCount.text.toString(),</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>在 <code>if</code> 區塊下方建立 <code>val action</code>，<b>導覽回(navigate back)</b> <code>ItemListFragment</code>。呼叫 <code>findNavController().navigate()</code>，以傳入 <code>action</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()</span><br><span class="line">findNavController().navigate(action)</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>完整方法應如下所示。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">addNewItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (isEntryValid()) &#123;</span><br><span class="line">           viewModel.addNewItem(</span><br><span class="line">               binding.itemName.text.toString(),</span><br><span class="line">               binding.itemPrice.text.toString(),</span><br><span class="line">               binding.itemCount.text.toString(),</span><br><span class="line">           )</span><br><span class="line">           <span class="keyword">val</span> action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()</span><br><span class="line">           findNavController().navigate(action)</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li><p>如要連結所有內容，請<u>在 <strong>save button</strong> 中新增 <strong>click handler</strong></u>。在 <code>AddItemFragment</code> class 的 <code>onDestroyView()</code> function 上方，覆寫 <code>onViewCreated()</code> function。</p>
+</li>
+<li><p>在 <code>onViewCreated()</code> function 中，將 <strong>click handler</strong> 新增至 <strong>save button</strong>，並呼叫 <code>addNewItem()</code>。</p>
+</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onViewCreated</span><span class="params">(view: <span class="type">View</span>, savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onViewCreated(view, savedInstanceState)</span><br><span class="line">   binding.saveAction.setOnClickListener &#123;</span><br><span class="line">       addNewItem()</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="13">
+<li>build 並執行 app，然後輕觸「+」(FAB)。在「Add Item」畫面中，新增 item details，然後輕觸「Save」。這項操作會儲存 data，但 app 還不會顯示任何 data。在下一項工作中，您將使用 App Inspector 瀏覽已儲存的 data。</li>
+</ol>
+<img src="https://i.imgur.com/AyYav11.png" width="40%">
+
+<img src="https://i.imgur.com/QCHoAgW.png">
+
+<p>恭喜！您已經建立了一個 app，可使用 <code>Room</code> 保存 data。在接下來的程式碼研究室中，您將在 app 中<u>新增 <code>RecyclerView</code> 以顯示 <strong>databse</strong> 中的 <strong>items</strong></u>，並在 app 中<u>新增刪除(deleting)及更新(updating) <strong>entities</strong> 等功能</u>。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+              <a href="/tags/Fragment/" rel="tag"># Fragment</a>
+              <a href="/tags/ViewModel/" rel="tag"># ViewModel</a>
+              <a href="/tags/LiveData/" rel="tag"># LiveData</a>
+              <a href="/tags/Coroutine/" rel="tag"># Coroutine</a>
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
+              <a href="/tags/Room/" rel="tag"># Room</a>
+              <a href="/tags/DAO/" rel="tag"># DAO</a>
+              <a href="/tags/Entity/" rel="tag"># Entity</a>
+              <a href="/tags/Factory/" rel="tag"># Factory</a>
+              <a href="/tags/Flow/" rel="tag"># Flow</a>
+              <a href="/tags/Database-Class/" rel="tag"># Database Class</a>
+              <a href="/tags/companion-object/" rel="tag"># companion object</a>
+              <a href="/tags/SQLite/" rel="tag"># SQLite</a>
+              <a href="/tags/Concurrency/" rel="tag"># Concurrency</a>
+              <a href="/tags/singleton/" rel="tag"># singleton</a>
+              <a href="/tags/suspend-function/" rel="tag"># suspend function</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/12/17/Android%E7%AD%86%E8%A8%98-39-Room%E8%88%87Flow%E7%B0%A1%E4%BB%8B/" rel="prev" title="Android筆記(39)-Room與Flow簡介">
+      <i class="fa fa-chevron-left"></i> Android筆記(39)-Room與Flow簡介
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Persist-data"><span class="nav-number">1.</span> <span class="nav-text">Persist data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App-overview"><span class="nav-number">2.</span> <span class="nav-text">App overview</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">2.1.</span> <span class="nav-text">下載範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%9B%B8%E9%97%9C%E5%95%8F%E9%A1%8C"><span class="nav-number">2.2.</span> <span class="nav-text">範例程式碼相關問題</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E9%80%90%E6%AD%A5%E6%93%8D%E4%BD%9C%E8%AA%AA%E6%98%8E"><span class="nav-number">2.3.</span> <span class="nav-text">程式碼逐步操作說明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%98%85Room-%E7%9A%84%E4%B8%BB%E8%A6%81-components"><span class="nav-number">3.</span> <span class="nav-text">★Room 的主要 components</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Room-libraries"><span class="nav-number">3.1.</span> <span class="nav-text">新增 Room libraries</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-item-Entity"><span class="nav-number">4.</span> <span class="nav-text">建立 item Entity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-classes"><span class="nav-number">4.1.</span> <span class="nav-text">Data classes</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-item-DAO"><span class="nav-number">5.</span> <span class="nav-text">建立 item DAO</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Access-Object-DAO"><span class="nav-number">5.1.</span> <span class="nav-text">Data Access Object (DAO)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-database-class"><span class="nav-number">6.</span> <span class="nav-text">建立 database class</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-Database"><span class="nav-number">6.1.</span> <span class="nav-text">建立 Database</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C-Application-class"><span class="nav-number">6.2.</span> <span class="nav-text">實作 Application class</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-ViewModel"><span class="nav-number">7.</span> <span class="nav-text">新增 ViewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-Inventory-ViewModel"><span class="nav-number">7.1.</span> <span class="nav-text">建立 Inventory ViewModel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A1%AB%E5%85%A5-ViewModel"><span class="nav-number">7.2.</span> <span class="nav-text">填入 ViewModel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-AddItemFragment"><span class="nav-number">8.</span> <span class="nav-text">更新 AddItemFragment</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tina Tang"
+      src="/images/blog_photo.png">
+  <p class="site-author-name" itemprop="name">Tina Tang</p>
+  <div class="site-description" itemprop="description">^(-o-)></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">104</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linglingdr00" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linglingdr00" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tinatang0424@gmail.com" title="E-Mail → mailto:tinatang0424@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tina Tang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

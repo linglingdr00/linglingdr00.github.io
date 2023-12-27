@@ -13041,4 +13041,215 @@ app 啟動後，您會看到像這樣的畫面：
         <tag>suspend function</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Android筆記(42)-Repository Pattern</title>
+    <url>/2023/12/24/Android%E7%AD%86%E8%A8%98-42-Repository-Pattern/</url>
+    <content><![CDATA[<blockquote>
+<p>在本程式碼研究室中，您將使用<u>離線快取(offline caching)</u>功能來改善 app 的使用者體驗。許多 app 都依賴來自網路的 data。如果 app 在每次啟動時都從 server 擷取 data，並顯示 loading 畫面，可能會造成使用者體驗不佳，導致使用者解除安裝 app。</p>
+</blockquote>
+<p>使用者啟動 app 時，會希望 app 能快速顯示 data。實作<u>離線快取(offline caching)</u>功能就能實現這個目標。<b>離線快取(offline caching)</b>是指 app <u>將從網路擷取的 data 儲存到裝置的本機<b>儲存空間(local storage)</b></u>，進而<u>加快存取速度</u>。</p>
+<p>由於 app 將可從網路取得 data，並且保留先前下載結果的離線快取(offline cache)，因此您需要讓 app 透過某種方式<u>彙整來自多個來源的 data</u>。做法是實作<b>repository class</b>，做為 app data 的單一可靠資料來源，並從 view model 中提取資料來源 (例如<u>網路(network)、快取(cache)</u>等)。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何<u>實作 repository</u>，以便從 app 的其他部分提取 data layer。</li>
+<li>如何<u>使用 repository</u> 載入<b>快取資料(cached data)</b>。</li>
+</ul>
+<span id="more"></span>
+
+<hr>
+<h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><p><strong>下載專案程式碼</strong><br>請注意，資料夾名稱是 <code>RepositoryPattern-Starter</code>。在 Android Studio 中開啟專案時，請選取這個資料夾。</p>
+<div class="note success">
+            <p><strong>範例程式碼網址：</strong><br><a href="https://github.com/google-developer-training/android-kotlin-fundamentals-starter-apps/tree/master/RepositoryPattern-Starter">https://github.com/google-developer-training/android-kotlin-fundamentals-starter-apps/tree/master/RepositoryPattern-Starter</a><br><strong>分支版本名稱：</strong><b>master</b></p>
+          </div>
+
+<hr>
+<h3 id="範例應用程式總覽"><a href="#範例應用程式總覽" class="headerlink" title="範例應用程式總覽"></a>範例應用程式總覽</h3><p>DevBytes app 會在 <code>RecyclerView</code> 中顯示 <a href="https://www.youtube.com/user/androiddevelopers">Android 開發人員 YouTube 頻道</a>的 DevBytes 影片清單(list)，使用者可以從中點選以開啟影片的<a href="https://www.youtube.com/watch?v=sYGKUtM2ga8">連結</a>。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-repository-pattern/img/9757e53b89d2de7c_1920.png?hl=zh-tw" width="40%">
+
+<p>雖然範例程式碼可以完全正常運作，但有重大瑕疵，可能會對使用者體驗造成負面影響。如果使用者的網路連線不穩，或根本沒有網路連線，系統將無法顯示任何一部影片。即使先前已開啟 app 也是如此。假如使用者退出 app 並重新啟動，這次不使用網際網路，app 會嘗試重新下載影片清單(list)，但沒有成功。</p>
+<p>您可以在模擬器中查看實際運作情形。</p>
+<ol>
+<li>在 Android Emulator 中暫時開啟飛航模式 (依序點選「Settings App」&gt;「Network &amp; Internet」&gt;「Airplane mode」)。</li>
+<li>執行 DevBytes app，可觀察到畫面呈現空白。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-repository-pattern/img/f0365b27d0dd8f78_1920.png?hl=zh-tw" width="40%">
+
+<ol start="3">
+<li>務必先關閉飛航模式，再繼續完成程式碼研究室的其餘部分。</li>
+</ol>
+<p>這是因為 DevBytes app 首次下載資料後，就不會快取任何資料以供日後使用。這個 app 目前包含 <code>Room</code> database。您必須使用這個 database 來實作快取功能，並更新 view model 以使用「repository」，這樣一來，就能下載新資料或從 <code>Room</code> database 中擷取資料。Repository class 會將這個邏輯從 view model 中提取出來，讓程式碼保持井然有序且已分離。</p>
+<p>範例專案分為數個 packages。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-repository-pattern/img/25b5f8d0997df54c_1920.png?hl=zh-tw" width="70%">
+
+<p>除了歡迎您並鼓勵您熟悉程式碼以外，您只會接觸以下兩個檔案：<code>repository/VideosRepository.kt</code> 和 <code>viewmodels/DevByteViewModel</code>。首先，您將建立 <code>VideosRepository</code> class 來實作用於快取的 repository pattern (在接下來幾頁中會有更進一步的說明)，接著更新 <code>DevByteViewModel</code> 以使用新的 <code>VideosRepository</code> class。</p>
+<p>不過在開始使用程式碼之前，請花點時間進一步瞭解快取(caching)和存放區模式(repository pattern)。</p>
+<hr>
+<h3 id="Caching-和-repository-pattern"><a href="#Caching-和-repository-pattern" class="headerlink" title="Caching 和 repository pattern"></a>Caching 和 repository pattern</h3><h4 id="Repositories"><a href="#Repositories" class="headerlink" title="Repositories"></a>Repositories</h4><p><b>存放區模式(repository pattern)</b>是一種設計模式，可將資料層( data layer)與 app 的其他部分分開。資料層是指<u>獨立於 UI 的 app 部分</u>，用於<u>處理 app 的資料和商業邏輯</u>，讓 app 的其餘部分都能使用一致的 API 存取這類資料。儘管 UI 會向使用者顯示資訊，但<b>資料層(data layer)</b>會包括<u>網路程式碼(networking code)</u>、<u><code>Room</code> database</u>、<u>錯誤處理(error handling)</u>，以及<u>任何讀取或操控資料的程式碼</u>。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-repository-pattern/img/9e528301efd49aea_1920.png?hl=zh-tw" width="60%">
+
+<p>Repository 可以解決資料來源(data sources) (例如 persistent models、web services 和 caches) 之間的衝突，並集中管理這項資料的變更。下圖顯示 app components (例如 activity) 如何透過 repository 與資料來源(data sources)互動。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-repository-pattern/img/69021c8142d29198_1920.png?hl=zh-tw">
+
+<p>如要實作 repository，請使用其他 class，例如您在下一個工作中建立的 <code>VideosRepository</code> class。<strong>Repository class</strong> 可將<u>資料來源(data sources)</u>與 app 的其他部分分開，並提供<u>簡潔的 API</u>，方便存取 app 其餘部分的資料。使用 repository class 可確保這個程式碼與 <code>ViewModel</code> class 分開，而且是適合用於程式碼分隔和架構的建議最佳做法。</p>
+<h4 id="使用-repository-的優點"><a href="#使用-repository-的優點" class="headerlink" title="使用 repository 的優點"></a>使用 repository 的優點</h4><p>repository module 會處理資料作業，並且讓您可以使用多個後端。在一般的實際 app 中，repository 會實作邏輯，以<u>判斷是否要從網路擷取資料</u>，或使用<b>本機資料庫(local database)</b>中的快取結果。透過 repository，您可以替換實作的詳細資料(details)，例如遷移至不同的 persistence library，而不會影響到呼叫的程式碼 (例如 view model)。這也有助於讓程式碼<u>模組化(modular)</u>且<u>可用於測試(testable)</u>。您可以輕鬆模擬 repository，並測試程式碼的其他部分。</p>
+<p>Repository 應做為 app 特定資料的單一可靠資料來源。使用<u>網路資源(networked resource)</u>和<u>離線快取(offline cache)</u>等多個資料來源時，repository 能夠盡可能地確保 app 資料正確無誤且為最新狀態，即使 app 處於離線狀態，也能提供最佳體驗。</p>
+<h4 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a>Caching</h4><p><a href="https://www.techtarget.com/searchstorage/definition/cache">快取(cache)</a>是指 <u>app 所使用的資料儲存空間</u>。舉例來說，使用者網路連線中斷時，您可能會想要暫時儲存網路的資料。即使已無法使用網路，app 仍可借助快取資料。快取也可以為不再顯示於畫面上的 activity 儲存暫存資料，甚至儲存 app 啟動期間的持續性資料(persisting data)。</p>
+<p>快取(cache)可以採用多種形式，有些較為簡單、有些較為複雜，視特定工作而定。以下表格說明在 Android 中實作<u>網路快取(network caching)</u>的方法。</p>
+<table>
+<thead>
+<tr>
+<th align="left">快取技術</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="https://square.github.io/retrofit/">Retrofit</a> 是一個 networking library，用於實作 Android 適用的 type-safe REST client。您可以設定 Retrofit 在本機儲存所有網路結果的副本。</td>
+<td align="left">對於簡單的 <u>requests 和 responses</u>、<u>網路呼叫(network calls)頻率不高</u>或<u>小型資料集(small datasets)</u>來說，這是不錯的解決方式。</td>
+</tr>
+<tr>
+<td align="left">您可以使用 <a href="https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAiAo4OQBhBBEiwA5KWu_ycTffFKG5WREVR823MtLnXULsZ7GMJJ-mlFljeziSYPCx2jQdmIIBoCd5AQAvD_BwE&gclsrc=aw.ds">DataStore</a> 儲存 key-value 組合。</td>
+<td align="left">如果 key 很少且 value 較為簡單 (例如 app 設定)，這是不錯的解決方式。您<u>無法使用這項技術儲存大量結構化資料(structured data)</u>。</td>
+</tr>
+<tr>
+<td align="left">您可以<a href="https://developer.android.com/training/data-storage/app-specific">存取 app 的內部儲存空間目錄</a>，並將資料檔案儲存在其中。app 的 package name 會指定 app 的<u>內部儲存空間目錄(internal storage directory)</u>，這個目錄位於 Android 檔案系統中的特殊位置。目錄僅供您的 app 使用，而且會在 app 解除安裝後清除。</td>
+<td align="left">如果有檔案系統可以解決的特定需求 (例如您需要儲存媒體檔案或資料檔案，且必須自行管理檔案時)，這是不錯的解決方案。您<u>無法使用這項技術儲存 app 所需查詢的複雜結構化資料(structured data)</u>。</td>
+</tr>
+<tr>
+<td align="left">您可以使用 <a href="https://developer.android.com/training/data-storage/room">Room</a> 快取資料(cache data)。Room 是一個 SQLite object-mapping library，可提供以 SQLite 為基礎的抽象層(abstraction layer)。</td>
+<td align="left"><u>對於複雜的結構化可查詢資料，這是建議的解決方式</u>，因為在裝置的檔案系統中<u>儲存<b>結構化資料(structured data)</b>的最佳方式就是儲存在 <b>local SQLite database</b></u>。</td>
+</tr>
+</tbody></table>
+<p>在這個程式碼研究室中，您將使用 <code>Room</code>，因為這是在裝置的檔案系統中<u>儲存<b>結構化資料(structured data)</b>的建議方式</u>。DevBytes app 已設定為使用 <code>Room</code>。您的工作是<u>使用 <strong>repository pattern</strong> 實作<b>離線快取(offline caching)</b></u>，<u>將<b>資料層(data layer)</b>與 <b>UI code</b> 分開</u>。</p>
+<hr>
+<h3 id="實作-VideoRepository"><a href="#實作-VideoRepository" class="headerlink" title="實作 VideoRepository"></a>實作 VideoRepository</h3><h4 id="工作：建立-repository"><a href="#工作：建立-repository" class="headerlink" title="工作：建立 repository"></a>工作：建立 repository</h4><p>在這項工作中，您會建立 <strong>repository</strong> 來<u>管理在上一個工作中已實作的<b>離線快取(offline caching)</b></u>。<strong>Room database</strong> <u>沒有管理<b>離線快取(offline caching)</b>的邏輯</u>，其中只有 insert、update、delete 及 retrieve 資料的方法。<strong>Repository</strong> 將<u>使用邏輯擷取<b>網路結果(network results)</b></u>，並<u>讓 database 保持在最新狀態</u>。</p>
+<h5 id="步驟-1：新增-repository"><a href="#步驟-1：新增-repository" class="headerlink" title="步驟 1：新增 repository"></a>步驟 1：新增 repository</h5><p>在 <code>repository/VideosRepository.kt</code> 建立 <code>VideosRepository</code> class。傳入 <code>VideosDatabase</code> object 做為 class 的 constructor，以<u>存取 DAO 方法</u>。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">VideosRepository</span>(<span class="keyword">private</span> <span class="keyword">val</span> database: VideosDatabase) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 <code>VideosRepository</code> class 中，新增名為 <code>refreshVideos()</code> 的 <code>suspend</code> 方法，這個方法沒有引數，且不會 return 任何內容。這個方法是用於<u>重新整理離線快取的 API</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">refreshVideos</span><span class="params">()</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="note success">
+            <p><strong>注意：</strong>Android 中的 database 會儲存在檔案系統或磁碟中。如要儲存，這類 database 必須執行<u>磁碟(disk) I&#x2F;O 作業</u>。<b>Disk I&#x2F;O</b> 或讀取和寫入磁碟(disk)的速度緩慢，而且在操作完成之前會一律封鎖目前的 thread。因此，您必須在 <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html">I&#x2F;O dispatcher</a>中執行 <b>disk I&#x2F;O</b>。這個 dispatcher 可用於<u>使用 <b><a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html">withContext</a>(Dispatchers.IO) { … }</b>，將封鎖的 I&#x2F;O 工作卸載至<b>共用執行緒集區(shared pool of threads)</b></u>。</p>
+          </div>
+
+<ol start="3">
+<li>在 <code>refreshVideos()</code> 方法中，將 coroutine context 切換為 <code>Dispatchers.IO</code>，以執行<u>網路(network)和 database 作業</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">refreshVideos</span><span class="params">()</span></span> &#123;</span><br><span class="line">   withContext(Dispatchers.IO) &#123;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在 <code>withContext</code> 區塊內，使用 <code>Retrofit</code> service instance <code>DevByteNetwork</code> 從網路擷取 <code>DevByte</code> video playlist。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> playlist = DevByteNetwork.devbytes.getPlaylist()</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>在 <code>refreshVideos()</code> 方法中，從網路擷取 playlist 後，將 <u>playlist</u> 儲存在 <u>Room database</u> 中。如要儲存 playlist，請使用 <code>VideosDatabase</code> class。呼叫 <code>insertAll()</code> DAO 方法，傳入從網路擷取的 playlist。使用 <code>asDatabaseModel()</code> extension function，將 playlist 對應到 database object。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">database.videoDao.insertAll(playlist.asDatabaseModel())</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>以下是完整的 <code>refreshVideos()</code> 方法，其中包含追蹤何時該方法會被呼叫的 <strong>log statement</strong>：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">refreshVideos</span><span class="params">()</span></span> &#123;</span><br><span class="line">   withContext(Dispatchers.IO) &#123;</span><br><span class="line">       <span class="keyword">val</span> playlist = DevByteNetwork.devbytes.getPlaylist()</span><br><span class="line">       database.videoDao.insertAll(playlist.asDatabaseModel())</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="步驟-2：從-database-擷取資料"><a href="#步驟-2：從-database-擷取資料" class="headerlink" title="步驟 2：從 database 擷取資料"></a>步驟 2：從 database 擷取資料</h5><p>在這個步驟中，您會<u>建立 <b><code>LiveData</code> object</b></u>，以<u>從 <strong>database</strong> 中讀取 <strong>video playlist</strong></u>。在 database 更新時，這個 <code>LiveData</code> object 會自動更新。附加的 fragment 或 activity 會使用新的 value 重新整理。</p>
+<div class="note success">
+            <p><strong>注意：</strong>為求簡單，<b>LiveData</b> 會保留在這個範例中。一般來說，建議將 <a href="https://kotlinlang.org/docs/flow.html">Flow</a> 與 repositories 搭配使用，因為這種函式與生命週期無關。</p>
+          </div>
+
+<ol>
+<li>在 <code>VideosRepository</code> class 中，宣告名為 <code>videos</code> 的 <code>LiveData</code> object 以存放 <code>DevByteVideo</code> object list。使用 <code>database.videoDao</code> 初始化 <code>videos</code> object。呼叫 <code>getVideos()</code> DAO 方法。由於 <code>getVideos()</code> 方法會 return <strong>database object list</strong>，而不是 <code>DevByteVideo</code> object list，因此 Android Studio 會 throw「類型不符(type mismatch)」的錯誤。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> videos: LiveData&lt;List&lt;DevByteVideo&gt;&gt; = database.videoDao.getVideos()</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>如要修正錯誤，請使用 <code>Transformations.map</code> 將 database object list 轉換成使用 <code>asDomainModel()</code> conversion function 的 domain object list。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> videos: LiveData&lt;List&lt;DevByteVideo&gt;&gt; = Transformations.map(database.videoDao.getVideos()) &#123;</span><br><span class="line">   it.asDomainModel()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>現在您已為 app 實作 repository。在下一個工作中，您將使用簡單的重新整理策略，以確保 local database 保持在最新狀態。</p>
+<div class="note success">
+            <p><strong>溫故知新：</strong><b>Transformations.map()</b> 方法會使用 conversion function，將一個 <b>LiveData</b> object 轉換成另一個 <b>LiveData</b> object。只有在 active activity 和 fragment 觀察(observing)到 return 的 <b>LiveData</b> 屬性時，系統才會計算轉換(transformations)。</p>
+          </div>
+
+<hr>
+<h3 id="在-DevByteViewModel-中使用-VideoRepository"><a href="#在-DevByteViewModel-中使用-VideoRepository" class="headerlink" title="在 DevByteViewModel 中使用 VideoRepository"></a>在 DevByteViewModel 中使用 VideoRepository</h3><h4 id="工作：使用-refresh-策略整合-repository"><a href="#工作：使用-refresh-策略整合-repository" class="headerlink" title="工作：使用 refresh 策略整合 repository"></a>工作：使用 refresh 策略整合 repository</h4><p>在這項工作中，您會使用簡單的<b>重新整理(refresh)策略</b><u>將 repository 與 <code>ViewModel</code> 整合</u>。還會顯示 Room database 的 video playlist，而不是直接從網路擷取。</p>
+<p>Database 重新整理是更新或重新整理 local database 的過程，讓 database 與網路中的資料保持同步。在這個範例 app 中，您將使用簡單的重新整理策略，其中<u>向 <strong>repository</strong> 要求資料(requests data)的模組(module)會負責重新整理(refresh)<b>本機資料(local data)</b></u>。</p>
+<p>在實際 app 中，這類策略可能會更複雜。例如，程式碼可能會自動在背景重新整理資料 (將頻寬納入考量)，或快取使用者接下來最有可能使用的資料。</p>
+<ol>
+<li>在 <code>viewmodels/DevByteViewModel.kt</code> 的 <code>DevByteViewModel</code> class 內，建立名為 <code>videosRepository</code> 且 type 為 <code>VideosRepository</code> 的 private member 變數。透過傳遞<b>單例模式(singleton)</b> <code>VideosDatabase</code> object 將變數執行<u>實例化(instantiate)</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> videosRepository = VideosRepository(getDatabase(application))</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 <code>DevByteViewModel</code> class 中，將 <code>refreshDataFromNetwork()</code> 方法替換為 <code>refreshDataFromRepository()</code> 方法。舊方法 <code>refreshDataFromNetwork()</code> 使用 Retrofit library 從網路擷取 <u>video playlist</u>。新方法則會從 <strong>repository</strong> 載入 <u>video playlist</u>。Repository 會決定要從哪個來源 (例如 network、database 等) 擷取 playlist，而不需在 view model 中包含實作的詳細資料(details)。Repository 也可以使程式碼更容易維護；即使日後要變更取得資料的實作方式，也不需要修改 view model。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">refreshDataFromRepository</span><span class="params">()</span></span> &#123;</span><br><span class="line">   viewModelScope.launch &#123;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           videosRepository.refreshVideos()</span><br><span class="line">           _eventNetworkError.value = <span class="literal">false</span></span><br><span class="line">           _isNetworkErrorShown.value = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">       &#125; <span class="keyword">catch</span> (networkError: IOException) &#123;</span><br><span class="line">           <span class="comment">// Show a Toast error message and hide the progress bar.</span></span><br><span class="line">           <span class="keyword">if</span>(playlist.value.isNullOrEmpty())</span><br><span class="line">               _eventNetworkError.value = <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>DevByteViewModel</code> class 的 <code>init</code> 區塊中，將函式呼叫從 <code>refreshDataFromNetwork()</code> 變更為 <code>refreshDataFromRepository()</code>。這個程式碼可從 repository 擷取 video playlist，而不是直接從網路擷取。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">init</span> &#123;</span><br><span class="line">   refreshDataFromRepository()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在 <code>DevByteViewModel</code> class 中，刪除 <code>_playlist</code> 屬性及其幕後(backing)屬性 <code>playlist</code>。</li>
+</ol>
+<p>要刪除的程式碼</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _playlist = MutableLiveData&lt;List&lt;Video&gt;&gt;()</span><br><span class="line">...</span><br><span class="line"><span class="keyword">val</span> playlist: LiveData&lt;List&lt;Video&gt;&gt;</span><br><span class="line">   <span class="keyword">get</span>() = _playlist</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>在 <code>DevByteViewModel</code> class 中，將 <code>videosRepository</code> object 執行實例化(instantiating)之後，新增一個名為 <code>playlist</code> 的新 <code>val</code>，來保存 repository 中的 <code>LiveData</code> video list。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> playlist = videosRepository.videos</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>執行 app。 App 會照常運作，但系統現在會從網路擷取 DevBytes playlist，並儲存至 Room database。螢幕上顯示的 playlist 是取自 Room database，而非直接取自網路。</li>
+</ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-repository-pattern/img/30ee74d946a2f6ca_1920.png?hl=zh-tw">
+
+<ol start="7">
+<li><p>只要在模擬器或裝置上啟用飛航模式，就可以看出這項差異。</p>
+</li>
+<li><p>再次執行 app。請注意，app 不會顯示「Network Error」的 toast 訊息，而會顯示從<u>離線快取(offline cache)</u>中擷取的 playlist。</p>
+</li>
+<li><p>在模擬器或裝置上關閉飛航模式。</p>
+</li>
+<li><p>關閉再重新開啟 app。<u><b>網路要求(network request)</b>在<b>背景(background)</b>執行時</u>，<u>app 會從<b>離線快取(offline cache)</b>載入 <strong>playlist</strong></u>。</p>
+</li>
+</ol>
+<p>如果有來自網路的新資料，螢幕會自動更新以顯示新資料。不過，DevBytes server 不會重新整理其內容，因此您不會看到資料正在更新。</p>
+<div class="note success">
+            <p><strong>提示：</strong>如要移除測試用的快取(cache)，最簡單的方法是解除安裝 app。</p>
+          </div>
+
+<p>真厲害！在這個程式碼研究室中，您<u>將 offline cache 與 <code>ViewModel</code> 整合，以顯示來自 repository 的 playlist</u>，而不是從網路(network)擷取的 playlist。</p>
+<hr>
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li><a href="https://www.techtarget.com/searchstorage/definition/cache">快取(Caching)</a>是將從<b>網路(network)</b>擷取的資料儲存到<b>裝置儲存空間(storage)</b>的過程。快取(Caching)可讓 app 在裝置離線，或 app 必須重新存取相同資料時，得以存取資料。</li>
+<li>如要讓 app 在裝置的檔案系統中儲存<u>結構化資料(structured data)</u>，最好的做法是使用 <b>local SQLite database</b>。<strong>Room</strong> 是 <strong>SQLite object-mapping library</strong>，意味著其提供了以 SQLite 為基礎的抽象層(abstraction layer)。<u>使用 Room 是實作離線快取(offline caching)的建議最佳做法</u>。</li>
+<li><strong>Repository class</strong> 可以將<b>資料來源(data sources)</b>，例如 <u>Room database</u> 和 <u>web service</u>s，與 app 的其他部分隔離。<strong>Repository class</strong> 提供<u>簡潔的 API</u>，方便存取 app 其餘部分的資料。</li>
+<li>對於程式碼分隔(separation)和架構(architecture)，使用 <strong>repositories</strong> 是建議的最佳做法。</li>
+<li>設計離線快取(offline cache)時，最佳做法是將 app 的網路(network)、網域(domain)和 database objects 做出區隔。這項策略是<a href="https://en.wikipedia.org/wiki/Separation_of_concerns">區隔疑慮(separation of concerns)</a>的例子之一。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Android</category>
+        <category>Android Kotlin基本概念課程</category>
+        <category>Data persistence</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Kotlin</tag>
+        <tag>RecyclerView</tag>
+        <tag>ViewModel</tag>
+        <tag>LiveData</tag>
+        <tag>Room</tag>
+        <tag>DAO</tag>
+        <tag>Flow</tag>
+        <tag>Cache</tag>
+        <tag>Repository</tag>
+      </tags>
+  </entry>
 </search>

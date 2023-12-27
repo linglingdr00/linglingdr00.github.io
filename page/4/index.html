@@ -195,6 +195,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/11/06/Android%E7%AD%86%E8%A8%98-27-%E6%90%AD%E9%85%8DViewModel%E4%BD%BF%E7%94%A8LiveData/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/06/Android%E7%AD%86%E8%A8%98-27-%E6%90%AD%E9%85%8DViewModel%E4%BD%BF%E7%94%A8LiveData/" class="post-title-link" itemprop="url">Android筆記(27)-搭配ViewModel使用LiveData</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-11-06 11:49:17" itemprop="dateCreated datePublished" datetime="2023-11-06T11:49:17+08:00">2023-11-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-17 15:50:23" itemprop="dateModified" datetime="2023-11-17T15:50:23+08:00">2023-11-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Navigation/" itemprop="url" rel="index"><span itemprop="name">Navigation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>將 <code>ViewModel</code> 中的應用程式資料轉換為 <code>LiveData</code>，並觀察自動更新 UI 所出現的變化。</p>
+</blockquote>
+<p>在先前的程式碼研究室中，您已瞭解如何使用 <code>ViewModel</code> 儲存應用程式資料。<code>ViewModel</code> 可在設定變更時保留應用程式資料。在本程式碼研究室中，您將瞭解如何整合 <code>LiveData</code> 與 <code>ViewModel</code> 中的資料。</p>
+<p><code>LiveData</code> 類別也屬於 Android 架構元件的一部分，為可觀察的資料容器類別。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何在應用程式中使用 <code>LiveData</code> 和 <code>MutableLiveData</code>。</li>
+<li>如何使用 <code>LiveData</code> 來封裝儲存在 <code>ViewModel</code> 中的資料。</li>
+<li>如何新增觀察器(observer)方法以觀察 <code>LiveData</code> 中的變化。</li>
+<li>如何在版面配置檔案中編寫 binding 表達式。</li>
+</ul>
+<p><strong>建構項目</strong></p>
+<ul>
+<li>針對 <code>Unscramble</code> 應用程式中的應用程式資料 (字詞、字詞計數和分數) 使用 <code>LiveData</code>。</li>
+<li>新增觀察器(observer)方法，在資料變更時接收通知，並自動更新打散字詞的 text view。</li>
+<li>在 layout 檔案中編寫 binding 表達式，在基礎 <code>LiveData</code> 變更時觸發。分數、字詞計數和打散字詞 text view 會自動更新。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/06/Android%E7%AD%86%E8%A8%98-27-%E6%90%AD%E9%85%8DViewModel%E4%BD%BF%E7%94%A8LiveData/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/11/05/Android%E7%AD%86%E8%A8%98-26-%E5%B0%87%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%BCViewModel%E4%B8%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -576,104 +682,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/09/29/Android%E7%AD%86%E8%A8%98-22-Activities%E5%92%8CIntents/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/blog_photo.png">
-      <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="^(-o-)>">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tina Tang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/29/Android%E7%AD%86%E8%A8%98-22-Activities%E5%92%8CIntents/" class="post-title-link" itemprop="url">Android筆記(22)-Activities和Intents</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-09-29 17:55:01" itemprop="dateCreated datePublished" datetime="2023-09-29T17:55:01+08:00">2023-09-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-24 16:47:45" itemprop="dateModified" datetime="2023-12-24T16:47:45+08:00">2023-12-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Navigation/" itemprop="url" rel="index"><span itemprop="name">Navigation</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>目前為止，您使用的應用程式只執行一項<code>活動(activity)</code>。但實際上很多 Android 應用程式需要執行多項活動(activity)，並透過<code>導覽(navigation)</code>來切換應用程式。</p>
-</blockquote>
-<p><strong>學習目標</strong></p>
-<ul>
-<li>使用<code>明確意圖(intent)</code>導覽(navigation)至特定活動(activity)。</li>
-<li>使用<code>隱含意圖(intent)</code>導覽(navigation)至其他應用程式的內容。</li>
-<li>新增<code>選單(menu)</code>選項，並新增按鈕至<code>應用程式列(app bar)</code>。</li>
-</ul>
-<p>在本程式碼研究室中，您要建構一個字典應用程式，讓應用程式使用多項活動，並使用<code>意圖(intent)</code>切換應用程式，同時<strong>傳遞資料</strong>至其他應用程式。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/29/Android%E7%AD%86%E8%A8%98-22-Activities%E5%92%8CIntents/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -745,7 +753,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -758,7 +766,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">104</span>
+        <span class="site-state-item-count">106</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

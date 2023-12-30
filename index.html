@@ -195,6 +195,212 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/12/29/Android%E7%AD%86%E8%A8%98-45-%E4%BD%BF%E7%94%A8WorkManager%E8%99%95%E7%90%86background-work/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/29/Android%E7%AD%86%E8%A8%98-45-%E4%BD%BF%E7%94%A8WorkManager%E8%99%95%E7%90%86background-work/" class="post-title-link" itemprop="url">Android筆記(45)-使用WorkManager處理background work</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-29 14:32:57" itemprop="dateCreated datePublished" datetime="2023-12-29T14:32:57+08:00">2023-12-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-30 15:10:57" itemprop="dateModified" datetime="2023-12-30T15:10:57+08:00">2023-12-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/WorkManager/" itemprop="url" rel="index"><span itemprop="name">WorkManager</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>瞭解如何使用 <code>WorkManager</code> 編寫 simple work，然後執行設有<b>限制條件(constraints)</b>的複雜<b>鏈結(chaining)</b> work。</p>
+</blockquote>
+<p><strong>建構項目</strong><br>使用 Blur-O-Matic，該 app 可對照片進行模糊處理，並將處理後的照片保存在檔案中。</p>
+<div style="display: flex;justify-content: center;">
+    <div style="width:40%;float:left;margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/android-workmanager/img/9e4707e0fbdd93c7_1920.png">
+    </div>
+    <div style="width:40%;float:left;">
+        <img src="https://developer.android.com/static/codelabs/android-workmanager/img/f290bdf51724bfd7_1920.png">
+    </div>
+<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+</div>
+
+<p><strong>學習目標</strong></p>
+<ul>
+<li>將 <code>WorkManager</code> 添加到您的 project 中</li>
+<li>安排(scheduling) 一個 simple task</li>
+<li>Input 和 output 參數</li>
+<li>鏈結(chaining) work</li>
+<li>唯一(unique) work</li>
+<li>在 UI 中顯示 work status </li>
+<li>取消(cancel) work</li>
+<li>work 限制條件(constraints)</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/12/29/Android%E7%AD%86%E8%A8%98-45-%E4%BD%BF%E7%94%A8WorkManager%E8%99%95%E7%90%86background-work/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/12/28/Android%E7%AD%86%E8%A8%98-44-%E5%B0%88%E6%A1%88%EF%BC%9AForage%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/28/Android%E7%AD%86%E8%A8%98-44-%E5%B0%88%E6%A1%88%EF%BC%9AForage%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/" class="post-title-link" itemprop="url">Android筆記(44)-專案：Forage應用程式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-28 14:21:22" itemprop="dateCreated datePublished" datetime="2023-12-28T14:21:22+08:00">2023-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-29 14:33:18" itemprop="dateModified" datetime="2023-12-29T14:33:18+08:00">2023-12-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Data-persistence/" itemprop="url" rel="index"><span itemprop="name">Data persistence</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>建構一款名為「Forage」的 app。本程式碼研究室將引導您逐步完成 Forage app project，包括在 Android Studio 中設定和測試 project。</p>
+</blockquote>
+<p>完成後的 Forage app 可讓使用者追蹤他們在自然界中搜尋到的物品，例如食物。通過使用 Room，可使這些資料在會話間<u>持久保存(persisted)</u>下來。運用您掌握的 Room 知識以及對 database 進行讀取、寫入、更新和刪除，以在 Forage app 中實現資料的<u>持久保留(persisted)</u>。</p>
+<p><strong>建構項目</strong><br>實作 <strong>entity</strong>、<strong>DAO</strong>、<strong>ViewModel</strong> 和 <strong>database class</strong>，以便透過 Room 在 app 中加入<u>持續性機制(persistence)</u>。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/12/28/Android%E7%AD%86%E8%A8%98-44-%E5%B0%88%E6%A1%88%EF%BC%9AForage%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/12/27/Android%E7%AD%86%E8%A8%98-43-Preferences-DataStore/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -483,209 +689,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/12/20/Android%E7%AD%86%E8%A8%98-40-%E4%BD%BF%E7%94%A8Room%E5%84%B2%E5%AD%98persist-data/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/blog_photo.png">
-      <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="^(-o-)>">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tina Tang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/20/Android%E7%AD%86%E8%A8%98-40-%E4%BD%BF%E7%94%A8Room%E5%84%B2%E5%AD%98persist-data/" class="post-title-link" itemprop="url">Android筆記(40)-使用Room儲存persist data</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-20 17:01:16" itemprop="dateCreated datePublished" datetime="2023-12-20T17:01:16+08:00">2023-12-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-21 22:22:09" itemprop="dateModified" datetime="2023-12-21T22:22:09+08:00">2023-12-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Data-persistence/" itemprop="url" rel="index"><span itemprop="name">Data persistence</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>建構一個 inventory app，使用 <strong>Room</strong> 將庫存商品儲存至 <strong>SQLite database</strong>。</p>
-</blockquote>
-<ul>
-<li>如何使用 <strong>Room library</strong> 建立 <strong>SQLite database</strong> 並與之互動。</li>
-<li>如何建立 <u>entity</u>、<u>DAO</u> 和 <u>database classes</u>。</li>
-<li>如何使用 <strong>data access object (DAO)</strong> 將 <u>Kotlin function</u> 對應至 <u>SQL 查詢(queries)</u>。</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/12/20/Android%E7%AD%86%E8%A8%98-40-%E4%BD%BF%E7%94%A8Room%E5%84%B2%E5%AD%98persist-data/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/12/17/Android%E7%AD%86%E8%A8%98-39-Room%E8%88%87Flow%E7%B0%A1%E4%BB%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/blog_photo.png">
-      <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="^(-o-)>">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tina Tang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/17/Android%E7%AD%86%E8%A8%98-39-Room%E8%88%87Flow%E7%B0%A1%E4%BB%8B/" class="post-title-link" itemprop="url">Android筆記(39)-Room與Flow簡介</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-17 20:35:07" itemprop="dateCreated datePublished" datetime="2023-12-17T20:35:07+08:00">2023-12-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-28 13:41:30" itemprop="dateModified" datetime="2023-12-28T13:41:30+08:00">2023-12-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Data-persistence/" itemprop="url" rel="index"><span itemprop="name">Data persistence</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>使用 <strong>Room library</strong> 即可輕鬆在 Android app 中使用 database。<strong>Room</strong> 也稱為 <u>ORM (Object Relational Mapping) library</u>，顧名思義，就是<u>將 relational database 中的 table 對應至可在 Kotlin 程式碼中使用的 objects</u>。在本課程中，您只需要關注<u>讀取 data</u>。使用預先填入的 database，您就能載入公車抵達時間 table 中的 data，並在 <code>RecyclerView</code> 中呈現這些 data。</p>
-</blockquote>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/70c597851eba9518_1920.png?hl=zh-tw" width="40%">
-
-<p>在課程中，您將瞭解使用 Room 的基礎知識，包括 <u>database class</u>、<u>DAO</u>、<u>實體(entities)</u>和 <u>view models</u>。此外，課程中也會介紹 <code>ListAdapter</code> class，讓您透過另一種方式在 <code>RecyclerView</code> 中呈現 data；以及 <strong>Flow</strong>，這是一種<u>類似於 <code>LiveData</code></u> 的 Kotlin 語言功能，<u>可使 UI 針對 database 變更做出 response</u>。</p>
-<p><strong>學習目標</strong></p>
-<ul>
-<li>將 database table 以 <strong>Kotlin  objects</strong> (<u>實體(entities)</u>) 表示。</li>
-<li><u>定義</u>要用於在 app 中<u>使用 Room 的 <strong>database class</strong></u>，並從檔案預先填入 database。</li>
-<li>定義 <strong>DAO class</strong>，並<u>使用 SQL 查詢</u>從 <u>Kotlin 程式碼</u>存取 database。</li>
-<li>定義 <strong>view models</strong>，以允許 <u>UI 與 DAO 互動</u>。</li>
-<li>瞭解如何<u>在 recycler view 中使用 <code>ListAdapter</code></u>。</li>
-<li>瞭解 Kotlin <strong>Flow</strong> 的基本概念，以及學習如何實際運用，<u>讓 UI 對基礎 data 的變更做出 response</u>。</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/12/17/Android%E7%AD%86%E8%A8%98-39-Room%E8%88%87Flow%E7%B0%A1%E4%BB%8B/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -753,14 +760,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

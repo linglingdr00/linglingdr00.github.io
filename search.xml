@@ -13760,7 +13760,7 @@ app 啟動後，您會看到像這樣的畫面：
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone -b start_kotlin https://github.com/googlecodelabs/android-workmanager</span><br></pre></td></tr></table></figure>
 
 <h4 id="第-2-步-執行-app"><a href="#第-2-步-執行-app" class="headerlink" title="第 2 步 - 執行 app"></a>第 2 步 - 執行 app</h4><p>執行 app，您應該會看到下方的畫面。</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/9e4707e0fbdd93c7.png?hl=zh-cn" width="40%">
+<img src="https://i.imgur.com/M5wSsva.png" width="40%">
 
 <p>螢幕上應該會顯示一些 radio buttons，您可以通過這些 button 選擇要對圖片進行什麽程度的模糊處理。按 Go button 即可對圖片進行模糊處理並保存。</p>
 <p>截至目前，此 app 不會應用任何模糊處理。</p>
@@ -13801,20 +13801,54 @@ app 啟動後，您會看到像這樣的畫面：
 <p>替換 <code>doWork()</code> 方法，然後執行以下操作。您可以參考本部分末尾完成後的程式碼：</p>
 <ol>
 <li>通過呼叫 <code>applicationContext</code> 屬性獲取 <code>Context</code>。將其分配給名為 <code>appContext</code> 的新 <code>val</code>。您接下來要執行的各種 bitmap 處理需要用到此參數。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> appContext = applicationContext</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
 <li>使用函數 <code>makeStatusNotification</code> 顯示<b>狀態通知(status notification)</b>，以向使用者發送有關對圖片進行模糊處理的<u>通知(notify)</u>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">makeStatusNotification(<span class="string">&quot;Blurring image&quot;</span>, appContext)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
 <li>利用 cupcake image 創建一個 <code>Bitmap</code>：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> picture = BitmapFactory.decodeResource(</span><br><span class="line">        appContext.resources,</span><br><span class="line">        R.drawable.android_cupcake)</span><br></pre></td></tr></table></figure>
 
 <ol start="4">
 <li>通過從 <code>WorkerUtils</code> 呼叫 <code>blurBitmap</code> 方法，獲取此 bitmap 模糊處理後的版本。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> output = blurBitmap(picture, appContext)</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
 <li>從 <code>WorkerUtils</code> 呼叫 <code>writeBitmapToFile</code> 方法，將該 bitmap 寫入暫存檔案。請務必將 return 的 <strong>URI</strong> 保存到 <strong>local variable</strong>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> outputUri = writeBitmapToFile(appContext, output)</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
 <li>從 <code>WorkerUtils</code> 呼叫 <code>makeStatusNotification</code> 方法，以創建顯示 URI 的通知(notification)。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">makeStatusNotification(<span class="string">&quot;Output is <span class="variable">$outputUri</span>&quot;</span>, appContext)</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
 <li>Return <code>Result.success()</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">Result.success()</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
 <li>將步驟 3-6 中的程式碼包裝在 <code>try/catch</code> statement 中。Catch 一個通用的(generic) <code>Throwable</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> picture = BitmapFactory.decodeResource(</span><br><span class="line">            appContext.resources,</span><br><span class="line">            R.drawable.android_cupcake)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> output = blurBitmap(picture, appContext)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Write bitmap to a temp file</span></span><br><span class="line">    <span class="keyword">val</span> outputUri = writeBitmapToFile(appContext, output)</span><br><span class="line"></span><br><span class="line">    makeStatusNotification(<span class="string">&quot;Output is <span class="variable">$outputUri</span>&quot;</span>, appContext)</span><br><span class="line"></span><br><span class="line">    Result.success()</span><br><span class="line">&#125; <span class="keyword">catch</span> (throwable: Throwable) &#123;</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
 <li>在 <code>catch</code> statement 中，使用 Log statement <code>Log.e(TAG, &quot;Error applying blur&quot;)</code> 輸出error message 。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">Log.e(TAG, <span class="string">&quot;Error applying blur&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
 <li>然後在 <code>catch</code> statement 中 return <code>Result.failure()</code>。</li>
 </ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">Result.failure()</span><br></pre></td></tr></table></figure>
+
 <p>此步驟的完整程式碼如下所示。</p>
 <p><code>BlurWorker.kt</code></p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.background.workers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context</span><br><span class="line"><span class="keyword">import</span> android.graphics.BitmapFactory</span><br><span class="line"><span class="keyword">import</span> android.util.Log</span><br><span class="line"><span class="keyword">import</span> androidx.work.Worker</span><br><span class="line"><span class="keyword">import</span> androidx.work.WorkerParameters</span><br><span class="line"><span class="keyword">import</span> com.example.background.R</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> TAG = <span class="string">&quot;BlurWorker&quot;</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BlurWorker</span>(ctx: Context, params: WorkerParameters) : Worker(ctx, params) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doWork</span><span class="params">()</span></span>: Result &#123;</span><br><span class="line">        <span class="keyword">val</span> appContext = applicationContext</span><br><span class="line"></span><br><span class="line">        makeStatusNotification(<span class="string">&quot;Blurring image&quot;</span>, appContext)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">val</span> picture = BitmapFactory.decodeResource(</span><br><span class="line">                    appContext.resources,</span><br><span class="line">                    R.drawable.android_cupcake)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">val</span> output = blurBitmap(picture, appContext)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Write bitmap to a temp file</span></span><br><span class="line">            <span class="keyword">val</span> outputUri = writeBitmapToFile(appContext, output)</span><br><span class="line"></span><br><span class="line">            makeStatusNotification(<span class="string">&quot;Output is <span class="variable">$outputUri</span>&quot;</span>, appContext)</span><br><span class="line"></span><br><span class="line">            Result.success()</span><br><span class="line">        &#125; <span class="keyword">catch</span> (throwable: Throwable) &#123;</span><br><span class="line">            Log.e(TAG, <span class="string">&quot;Error applying blur&quot;</span>)</span><br><span class="line">            Result.failure()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -13835,13 +13869,13 @@ app 啟動後，您會看到像這樣的畫面：
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="function"><span class="keyword">fun</span> <span class="title">applyBlur</span><span class="params">(blurLevel: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">   workManager.enqueue(OneTimeWorkRequest.from(BlurWorker::<span class="keyword">class</span>.java))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="第-6-步-運行您的程式碼！"><a href="#第-6-步-運行您的程式碼！" class="headerlink" title="第 6 步 - 運行您的程式碼！"></a>第 6 步 - 運行您的程式碼！</h4><p>運行您的程式碼。此程式碼應進行編譯，並且在按下 Go button 時，您應該會看到<b>通知(Notification)</b>。請注意，如需查看更模糊的照片，您應該選擇 “More blurred”（更模糊）或 “The most blurred”（最模糊）選項。</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/ed497b57e1f527be.png?hl=zh-cn">
+<img src="https://i.imgur.com/o2Yp0Ua.png" width="70%">
 
 <p>如需確認圖片是否已成功模糊，您可以在 Android Studio 中打開 <a href="https://developer.android.com/studio/debug/device-file-explorer?hl=zh-tw">Device File Explorer</a>：</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/cf10a1af6e84f5ff.png?hl=zh-cn" width="80%">
+<img src="https://i.imgur.com/JA71kOE.png" width="80%">
 
 <p>然後依次轉到 data &gt; data &gt; <code>com.example.background</code> &gt; files &gt; <code>Blathfilterfilter_outputs</code> &gt; <code>&lt;URI&gt;</code>，並確認 cupcake 確實已經模糊：</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/e1f61035d680ba03.png?hl=zh-cn">
+<img src="https://i.imgur.com/v5lxFff.png">
 
 <hr>
 <h3 id="新增-input-和-output"><a href="#新增-input-和-output" class="headerlink" title="新增 input 和 output"></a>新增 input 和 output</h3><p>對資源目錄中的圖片資源進行模糊處理固然不錯，但如果想讓 O-M-Matic 真正成為一款革命性的圖片編輯應用，您應該讓使用者模糊處理他們在螢幕上看到的圖片，然後向他們展示經過模糊處理的照片。</p>
@@ -13851,9 +13885,19 @@ app 啟動後，您會看到像這樣的畫面：
 <p>在 <code>BlurViewModel</code> 中，創建一個名為 <code>createInputDataForUri</code> 的 private 方法。該方法應執行以下操作：</p>
 <ol>
 <li>創建一個 <code>Data.Builder</code> object。在收到 <strong>request</strong> 時，import <code>androidx.work.Data</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> builder = Data.Builder()</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
 <li>如果 <code>imageUri</code> 是非 null <code>URI</code>，則使用 <code>putString</code> 方法將其添加到 <code>Data</code> object。該方法可獲取一個 <strong>key</strong> 和一個 <strong>value</strong>。您可以使用 <code>Constants</code> class 中的 <code>String</code> constant <code>KEY_IMAGE_URI</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">imageUri?.let &#123;</span><br><span class="line">        builder.putString(KEY_IMAGE_URI, imageUri.toString())</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
 <li>對 <code>Data.Builder</code> object 呼叫 <code>build()</code> 以創建 <code>Data</code> object 並 return。</li>
 </ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> builder.build()</span><br></pre></td></tr></table></figure>
+
 <p>下面是完整的 <code>createInputDataForUri</code> 方法：</p>
 <p><code>BlurViewModel.kt</code></p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates the input data bundle which includes the Uri to operate on</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> Data which contains the Image Uri as a String</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">createInputDataForUri</span><span class="params">()</span></span>: Data &#123;</span><br><span class="line">    <span class="keyword">val</span> builder = Data.Builder()</span><br><span class="line">    imageUri?.let &#123;</span><br><span class="line">        builder.putString(KEY_IMAGE_URI, imageUri.toString())</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> builder.build()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -13861,10 +13905,23 @@ app 啟動後，您會看到像這樣的畫面：
 <h4 id="第-2-步-將-Data-object-傳遞到-WorkRequest"><a href="#第-2-步-將-Data-object-傳遞到-WorkRequest" class="headerlink" title="第 2 步 - 將 Data object 傳遞到 WorkRequest"></a>第 2 步 - 將 Data object 傳遞到 WorkRequest</h4><p>您將更改 <code>BlurViewModel</code> 中的 <code>applyBlur</code> 方法，以便：</p>
 <ol>
 <li>創建新的 <code>OneTimeWorkRequestBuilder</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> blurRequest = OneTimeWorkRequestBuilder&lt;BlurWorker&gt;()</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
 <li>呼叫 <code>setInputData</code>，傳入 <code>createInputDataForUri</code> 的結果。</li>
-<li>構建(Builds) <code>OneTimeWorkRequest</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">.setInputData(createInputDataForUri())</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>build <code>OneTimeWorkRequest</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">.build() </span><br></pre></td></tr></table></figure>
+<ol start="4">
 <li>使用 <code>WorkManager</code> 將 <strong>work request</strong> 加入<b>隊列(enqueues)</b>，以便系統將可以按照預期運行工作(scheduled to run)。</li>
 </ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">workManager.enqueue(blurRequest)</span><br></pre></td></tr></table></figure>
+
 <p>下面是完整的 <code>applyBlur</code> 方法：</p>
 <p><code>BlurViewModel.kt</code></p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="function"><span class="keyword">fun</span> <span class="title">applyBlur</span><span class="params">(blurLevel: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> blurRequest = OneTimeWorkRequestBuilder&lt;BlurWorker&gt;()</span><br><span class="line">            .setInputData(createInputDataForUri())</span><br><span class="line">            .build()</span><br><span class="line"></span><br><span class="line">    workManager.enqueue(blurRequest)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -13875,13 +13932,17 @@ app 啟動後，您會看到像這樣的畫面：
 
 <h4 id="第-4-步-對給定的-URI-進行模糊處理"><a href="#第-4-步-對給定的-URI-進行模糊處理" class="headerlink" title="第 4 步 - 對給定的 URI 進行模糊處理"></a>第 4 步 - 對給定的 URI 進行模糊處理</h4><p>有了此 <strong>URI</strong>，我們現在對螢幕上的 cupcake image 進行模糊處理(blur)。</p>
 <ol>
-<li><p>移除之前用於獲取圖片資源的程式碼。</p>
+<li>移除之前用於獲取圖片資源的程式碼。</li>
+</ol>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> picture = BitmapFactory.decodeResource(appContext.resources, R.drawable.android_cupcake)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>檢查從傳入的 <code>Data</code> 中獲取的 <code>resourceUri</code> 不為空(empty)。</p>
-</li>
-<li><p>將 <code>picture</code> variable 指派(assign)給傳入的圖片，如下所示：</p>
-</li>
+
+<ol start="2">
+<li>檢查從傳入的 <code>Data</code> 中獲取的 <code>resourceUri</code> 不為空(empty)。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (TextUtils.isEmpty(resourceUri)) &#123;</span><br><span class="line">    Log.e(TAG, <span class="string">&quot;Invalid input uri&quot;</span>)</span><br><span class="line">    <span class="keyword">throw</span> IllegalArgumentException(<span class="string">&quot;Invalid input uri&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>將 <code>picture</code> variable 指派(assign)給傳入的圖片，如下所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> resolver = appContext.contentResolver</span><br></pre></td></tr></table></figure>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> picture = BitmapFactory.decodeStream(</span><br><span class="line">        resolver.openInputStream(Uri.parse(resourceUri)))</span><br></pre></td></tr></table></figure>
@@ -13892,15 +13953,21 @@ app 啟動後，您會看到像這樣的畫面：
 <h4 id="第-5-步-Output-temporary-URI"><a href="#第-5-步-Output-temporary-URI" class="headerlink" title="第 5 步 - Output temporary URI"></a>第 5 步 - Output temporary URI</h4><p>此 Worker 的工作已完成，您可以在 <code>Result.success()</code> 中 return <strong>output URI</strong>。提供 <strong>Output URI</strong> 作為 output Data，使其他 Worker 可以輕鬆存取這張臨時圖片，以執行進一步操作。<br>在下一章中，您將創建<b>工作鏈(Chain of workers)</b>，屆時此操作將非常有幫助。具體操作步驟如下：</p>
 <ol>
 <li>像對 input 進行的操作一樣，創建新的 <code>Data</code>，並將 <code>outputUri</code> 儲存為 <code>String</code>。使用相同的 <strong>key</strong>，即 <code>KEY_IMAGE_URI</code>。</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> outputData = workDataOf(KEY_IMAGE_URI to outputUri.toString())</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
 <li>使用 <code>Result.success(Data outputData)</code> 方法將它 return 給 <code>WorkManager</code>。</li>
 </ol>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">Result.success(outputData)</span><br></pre></td></tr></table></figure>
+
 <p><code>BlurWorker.kt</code><br>將 <code>doWork()</code> 中的 <code>Result.success()</code> 行修改為：</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> outputData = workDataOf(KEY_IMAGE_URI to outputUri.toString())</span><br><span class="line"></span><br><span class="line">Result.success(outputData)</span><br></pre></td></tr></table></figure>
 
 <h4 id="第-6-步-執行您的-app"><a href="#第-6-步-執行您的-app" class="headerlink" title="第 6 步 - 執行您的 app"></a>第 6 步 - 執行您的 app</h4><p>此時，您應該執行 app。它應會編譯並具有相同的行為，您可以透過 <strong>Device File Explorer</strong> 看到模糊的圖片，但尚未在螢幕上看到。</p>
 <p>如需檢查是否存在其他經過模糊處理的圖片，您可以在 Android Studio 中打開 <strong>Device File Explorer</strong>，然後轉到 <code>data/data/com.example.background/files/blur_filter_outputs/&lt;URI&gt;</code>，就像上一步的操作一樣。</p>
 <p>請注意，您可能需要點擊 <strong>Synchronize</strong>（同步）才能查看圖片：</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/7e717ffd6b3d9d52.png?hl=zh-cn" width="50%">
+<img src="https://i.imgur.com/PUEDtds.png" width="50%">
 
 <p>太棒了！您已使用 <code>WorkManager</code> 對 input image 進行模糊處理！</p>
 <hr>
@@ -13911,7 +13978,7 @@ app 啟動後，您會看到像這樣的畫面：
 <li>始終對圖片做相同程度的<u>模糊處理(blurs)</u>。<br>我們將使用 <code>WorkManager</code> 工作鏈添加此功能。</li>
 </ul>
 <p><code>WorkManager</code> 允許您創建<u>按順序(in order)</u>執行或<u>並行(parallel)</u>執行的單獨(separate) <code>WorkerRequest</code>。在此步驟中，您將創建一個如下所示的<b>工作鏈(chain of work)</b>：</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/54832b34e9c9884a.png?hl=zh-cn">
+<img src="https://i.imgur.com/MQ8a6su.png">
 
 <p><code>WorkRequest</code> 表示為方框。</p>
 <p>鏈接(chaining)的另一個簡潔功能是，一個 <code>WorkRequest</code> 的 output 會成為鏈(chain)中下一個 <code>WorkRequest</code> 的 input。在每個 <code>WorkRequest</code> 之間傳遞的 input 和 output 均顯示為 blue text。</p>
@@ -13925,7 +13992,7 @@ app 啟動後，您會看到像這樣的畫面：
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.background.workers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context</span><br><span class="line"><span class="keyword">import</span> android.util.Log</span><br><span class="line"><span class="keyword">import</span> androidx.work.Worker</span><br><span class="line"><span class="keyword">import</span> androidx.work.WorkerParameters</span><br><span class="line"><span class="keyword">import</span> com.example.background.OUTPUT_PATH</span><br><span class="line"><span class="keyword">import</span> java.io.File</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Cleans up temporary files generated during blurring process</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> TAG = <span class="string">&quot;CleanupWorker&quot;</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CleanupWorker</span>(ctx: Context, params: WorkerParameters) : Worker(ctx, params) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doWork</span><span class="params">()</span></span>: Result &#123;</span><br><span class="line">        <span class="comment">// Makes a notification when the work starts and slows down the work so that</span></span><br><span class="line">        <span class="comment">// it&#x27;s easier to see each WorkRequest start, even on emulated devices</span></span><br><span class="line">        makeStatusNotification(<span class="string">&quot;Cleaning up old temporary files&quot;</span>, applicationContext)</span><br><span class="line">        sleep()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">val</span> outputDirectory = File(applicationContext.filesDir, OUTPUT_PATH)</span><br><span class="line">            <span class="keyword">if</span> (outputDirectory.exists()) &#123;</span><br><span class="line">                <span class="keyword">val</span> entries = outputDirectory.listFiles()</span><br><span class="line">                <span class="keyword">if</span> (entries != <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (entry <span class="keyword">in</span> entries) &#123;</span><br><span class="line">                        <span class="keyword">val</span> name = entry.name</span><br><span class="line">                        <span class="keyword">if</span> (name.isNotEmpty() &amp;&amp; name.endsWith(<span class="string">&quot;.png&quot;</span>)) &#123;</span><br><span class="line">                            <span class="keyword">val</span> deleted = entry.delete()</span><br><span class="line">                            Log.i(TAG, <span class="string">&quot;Deleted <span class="variable">$name</span> - <span class="variable">$deleted</span>&quot;</span>)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Result.success()</span><br><span class="line">        &#125; <span class="keyword">catch</span> (exception: Exception) &#123;</span><br><span class="line">            exception.printStackTrace()</span><br><span class="line">            Result.failure()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="第-4-步-覆寫和實作-doWork-以用於-SaveImageToFileWorker"><a href="#第-4-步-覆寫和實作-doWork-以用於-SaveImageToFileWorker" class="headerlink" title="第 4 步 - 覆寫和實作 doWork() 以用於 SaveImageToFileWorker"></a>第 4 步 - 覆寫和實作 doWork() 以用於 SaveImageToFileWorker</h4><p><code>SaveImageToFileWorker</code> 將獲取 input 和 output。Input 是使用 key <code>KEY_IMAGE_URI</code> 儲存的 <code>String</code>，即暫時模糊處理的圖片 URI(<b>temporarily blurred image URI</b>)，而 output 也將是使用 key <code>KEY_IMAGE_URI</code> 儲存的 <code>String</code>，即保存的模糊處理圖片的 URI(<b>saved blurred image stored URI</b>)。</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/4fc29ac70fbecf85.png?hl=zh-cn" width="50%">
+<img src="https://i.imgur.com/gYfCyRY.png" width="50%">
 
 <p>此 Codelab 不涉及檔案處理，因此我們在下面提供了程式碼。請注意，系統會使用 key <code>KEY_IMAGE_URI</code> 檢索 <code>resourceUri</code> 和 <code>output</code> 值。該程式碼與您在最後一步中為 input 和 output 編寫的程式碼非常相似（它使用了全部相同的 key）。</p>
 <p><code>SaveImageToFileWorker.kt</code></p>
@@ -13943,7 +14010,7 @@ app 啟動後，您會看到像這樣的畫面：
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Example code, don&#x27;t copy to the project</span></span><br><span class="line"><span class="keyword">val</span> continuation = workManager.beginWith(workA)</span><br><span class="line"></span><br><span class="line">continuation.then(workB) <span class="comment">// FYI, then() returns a new WorkContinuation instance</span></span><br><span class="line">        .then(workC)</span><br><span class="line">        .enqueue() <span class="comment">// Enqueues the WorkContinuation which is a chain of work</span></span><br></pre></td></tr></table></figure>
 
 <p>此程式碼將生成並運行以下 <code>WorkRequest</code> 鏈(chain)：</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/bf3b82eb9fd22349.png?hl=zh-cn" width="50%">
+<img src="https://i.imgur.com/iyBRecI.png" width="50%">
 
 <p>在 <code>applyBlur</code> 中創建一個 <code>CleanupWorker</code> <code>WorkRequest</code>、<code>BlurImage</code> <code>WorkRequest</code> 和 <code>SaveImageToFile</code> <code>WorkRequest</code> 鏈(chain)。將 input 傳遞到 <code>BlurImage</code> <code>WorkRequest</code> 中。</p>
 <p>此操作的程式碼如下：<br><code>BlurViewModel.kt</code></p>
@@ -13953,15 +14020,15 @@ app 啟動後，您會看到像這樣的畫面：
 <p>在下面的屏幕截圖中，您會發現 <strong>notification messages</strong> 中顯示當前正在執行的 <strong>workers</strong>。</p>
 <div style="display: flex;justify-content: center;">
     <div style="width:40%;float:left;margin-right:10px;">
-        <img src="https://developer.android.com/static/codelabs/android-workmanager/img/f0bbaf643c24488f.png">
+        <img src="https://i.imgur.com/Rfxj1l7.png">
     </div>
     <div style="width:40%;float:left;">
-        <img src="https://developer.android.com/static/codelabs/android-workmanager/img/42a036f4b24adddb.png">
+        <img src="https://i.imgur.com/X3SouxX.png">
     </div>
 <div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
 </div>
 
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/a438421064c385d4.png" width="40%">
+<img src="https://i.imgur.com/B1Gguul.png" width="40%">
 
 <h4 id="第-7-步-重覆使用-BlurWorker"><a href="#第-7-步-重覆使用-BlurWorker" class="headerlink" title="第 7 步 - 重覆使用 BlurWorker"></a>第 7 步 - 重覆使用 BlurWorker</h4><p>現在，我們需要添加對圖片進行不同程度的模糊處理的功能。請獲取傳遞到 <code>applyBlur</code> 中的 <code>blurLevel</code> 參數，並向鏈(chain)中添加多個模糊處理 <code>WorkRequest</code> 操作。只有第一個 <code>WorkRequest</code> 需要且應該獲取 <strong>URI input</strong>。</p>
 <div class="note success">
@@ -14044,7 +14111,7 @@ app 啟動後，您會看到像這樣的畫面：
 <li>import <code>androidx.lifecycle.Observer</code>。</li>
 </ul>
 <h4 id="第-4-步-執行您的-app"><a href="#第-4-步-執行您的-app" class="headerlink" title="第 4 步 - 執行您的 app"></a>第 4 步 - 執行您的 app</h4><p>執行您的 app - 它應該編譯並運行，且現在可以在工作時顯示<b>進度條(progress bar)</b>以及 <b>cancel button</b>：</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/7b70288f69050f0b.png?hl=zh-cn" width="40%">
+<img src="https://i.imgur.com/a59SNFe.png" width="40%">
 
 <hr>
 <h3 id="顯示-final-output"><a href="#顯示-final-output" class="headerlink" title="顯示 final output"></a>顯示 final output</h3><p>每個 <code>WorkInfo</code> 還有一個 <code>getOutputData</code> 方法，該方法可讓您獲取(get)包含<u>最終保存的圖片(final saved image)</u>的 <strong>output</strong> <code>Data</code> object。在 Kotlin 中，您可以使用該語言為您生成的 variable <code>outputData</code> 存取此方法。每當有經過模糊處理的圖片準備就緒可供顯示時，便在螢幕上顯示 <strong>See File button</strong>。</p>
@@ -14063,9 +14130,9 @@ app 啟動後，您會看到像這樣的畫面：
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">workInfosObserver</span><span class="params">()</span></span>: Observer&lt;List&lt;WorkInfo&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> Observer &#123; listOfWorkInfo -&gt;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Note that these next few lines grab a single WorkInfo if it exists</span></span><br><span class="line">        <span class="comment">// This code could be in a Transformation in the ViewModel; they are included here</span></span><br><span class="line">        <span class="comment">// so that the entire process of displaying a WorkInfo is in one location.</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// If there are no matching work info, do nothing</span></span><br><span class="line">        <span class="keyword">if</span> (listOfWorkInfo.isNullOrEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span><span class="symbol">@Observer</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// We only care about the one output status.</span></span><br><span class="line">        <span class="comment">// Every continuation has only one worker tagged TAG_OUTPUT</span></span><br><span class="line">        <span class="keyword">val</span> workInfo = listOfWorkInfo[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (workInfo.state.isFinished) &#123;</span><br><span class="line">            showWorkFinished()</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Normally this processing, which is not directly related to drawing views on</span></span><br><span class="line">            <span class="comment">// screen would be in the ViewModel. For simplicity we are keeping it here.</span></span><br><span class="line">            <span class="keyword">val</span> outputImageUri = workInfo.outputData.getString(KEY_IMAGE_URI)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// If there is an output file show &quot;See File&quot; button</span></span><br><span class="line">            <span class="keyword">if</span> (!outputImageUri.isNullOrEmpty()) &#123;</span><br><span class="line">                viewModel.setOutputUri(outputImageUri)</span><br><span class="line">                binding.seeFileButton.visibility = View.VISIBLE</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            showWorkInProgress()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="第-3-步-執行您的程式碼"><a href="#第-3-步-執行您的程式碼" class="headerlink" title="第 3 步 - 執行您的程式碼"></a>第 3 步 - 執行您的程式碼</h4><p>執行您的程式碼。您應該會看到新的可點擊(clickable)的 <strong>See File button</strong>，該 button 會將您轉到 <strong>outputted file</strong>：</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/5366222d0b4fb705.png" width="40%">
+<img src="https://i.imgur.com/RbMQGSF.png" width="40%">
 
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/cd1ecc8b4ca86748.png" width="40%">
+<img src="https://i.imgur.com/9kb3CK0.png" width="40%">
 
 <hr>
 <h3 id="取消-work"><a href="#取消-work" class="headerlink" title="取消 work"></a>取消 work</h3><img src="https://developer.android.com/static/codelabs/android-workmanager/img/632d75e145022d14_1920.png" width="30%">
@@ -14081,7 +14148,7 @@ app 啟動後，您會看到像這樣的畫面：
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">// In onCreate()</span></span><br><span class="line"><span class="comment">// Hookup the Cancel button</span></span><br><span class="line">binding.cancelButton.setOnClickListener &#123; viewModel.cancelWork() &#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="第-3-步-執行和取消-work"><a href="#第-3-步-執行和取消-work" class="headerlink" title="第 3 步 - 執行和取消 work"></a>第 3 步 - 執行和取消 work</h4><p>運行您的 app。它應該可以正常編譯。先對圖片進行模糊處理，然後點擊 <strong>cancel button</strong>。整個<b>鏈(chain)</b>都會被取消！</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/dcb4ccfd261957b1.png" width="40%">
+<img src="https://i.imgur.com/OJe7YmQ.png" width="40%">
 
 <p>請注意，由於 <code>WorkState</code> 不再處於 <code>FINISHED</code>(已完成) 狀態，因此 <strong>work</strong> 取消後，只有 <strong>GO button</strong>。</p>
 <hr>
@@ -14093,10 +14160,10 @@ app 啟動後，您會看到像這樣的畫面：
 <li>import <code>androidx.work.Constraints</code></li>
 </ul>
 <h4 id="第-2-步-使用模擬器或裝置進行測試"><a href="#第-2-步-使用模擬器或裝置進行測試" class="headerlink" title="第 2 步 - 使用模擬器或裝置進行測試"></a>第 2 步 - 使用模擬器或裝置進行測試</h4><p>現在您就可以執行 Blur-O-Matic 了。如果您使用的是一台裝置，則可以移除或插入您的裝置。在模擬器上，您可以在 <b>Extended controls window</b> 中更改充電狀態：</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/406ce044ca07169f.png">
+<img src="https://i.imgur.com/QM7oKH1.png">
 
 <p>當裝置不充電時，應會暫停執行 <code>SaveImageToFileWorker</code>，直到您將裝置插入充電。</p>
-<img src="https://developer.android.com/static/codelabs/android-workmanager/img/302da5ec986ae769.png" width="40%">
+<img src="https://i.imgur.com/7qq8doF.png" width="40%">
 
 <div class="note success">
             <p><strong>重要：</strong>添加到 Blur-O-Matic 的另一個良好<b>限制條件(constraint)</b>是保存時的(saving) <b><a href="https://developer.android.com/reference/androidx/work/Constraints.html#setRequiresStorageNotLow(boolean)">setRequiresStorageNotLow</a></b> constraint。如需查看 <strong>constraint options</strong> 的完整列表，請參閱 <b><a href="https://developer.android.com/reference/androidx/work/Constraints.Builder.html">Constraints.Builder</a></b> reference。</p>

@@ -14393,10 +14393,13 @@ app 啟動後，您會看到像這樣的畫面：
 </tr>
 </tbody></table>
 <hr>
+<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p>以下為「天氣：威特 App」的 Demo 影片：</p>
+<div class="video-container"><iframe src="https://player.vimeo.com/video/914676522" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
+
 <h4 id="下載-App"><a href="#下載-App" class="headerlink" title="下載 App"></a>下載 App</h4><ul>
 <li><p>由於此 App 處於封閉測試階段，如欲安裝「天氣：威特 App」可寄信至 <a href="mailto:linglingdr00@gmail.com">linglingdr00@gmail.com</a>，這邊會邀請您加入封閉測試。</p>
 </li>
-<li><p>如欲查看專案 source code，可點選以下連結查看。<br>Github: <a href="https://github.com/linglingdr00/Weather_App">https://github.com/linglingdr00/Weather_App</a></p>
+<li><p>如欲查看專案 <strong>source code</strong>，可點選以下連結查看。<br>Github: <a href="https://github.com/linglingdr00/Weather_App">https://github.com/linglingdr00/Weather_App</a></p>
 </li>
 </ul>
 ]]></content>
@@ -14407,6 +14410,19 @@ app 啟動後，您會看到像這樣的畫面：
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
+        <tag>Fragment</tag>
+        <tag>ViewModel</tag>
+        <tag>LiveData</tag>
+        <tag>Retrofit</tag>
+        <tag>Moshi</tag>
+        <tag>ListAdapter</tag>
+        <tag>MVVM</tag>
+        <tag>RyclcerView</tag>
+        <tag>DataBinding</tag>
+        <tag>BottomNavigation</tag>
+        <tag>LocationManager</tag>
+        <tag>FusedLocationProvider</tag>
+        <tag>RecyclerView.Adapter</tag>
       </tags>
   </entry>
 </search>

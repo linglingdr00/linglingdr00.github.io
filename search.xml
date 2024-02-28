@@ -14348,8 +14348,10 @@ app 啟動後，您會看到像這樣的畫面：
 <img src="https://i.imgur.com/4KYdGOs.png" width="40%">
 
 <ul>
-<li><strong>天氣預報</strong><br>進入天氣預報頁面後，使用者可點選右上角的下拉選單，選取欲查詢的地區，畫面中便會呈現該地區今明 36 小時的天氣預報。<img src="https://i.imgur.com/5ZyOnRw.png" width="40%"></li>
+<li><strong>天氣預報</strong><br>進入天氣預報頁面後，使用者可點選右上角的下拉選單，選取欲查詢的地區，畫面中便會呈現該地區今明 36 小時的天氣預報。</li>
 </ul>
+<img src="https://i.imgur.com/5ZyOnRw.png" width="40%">
+
 <hr>
 <h4 id="天氣資料簡介"><a href="#天氣資料簡介" class="headerlink" title="天氣資料簡介"></a>天氣資料簡介</h4><p>「天氣：威特 App」中使用的天氣資料皆為<u>中央氣象署&#x2F;中央氣象局</u>提供的 <a href="https://opendata.cwa.gov.tw/dist/opendata-swagger.html#/">API 資料</a>。</p>
 <ul>

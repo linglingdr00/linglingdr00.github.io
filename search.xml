@@ -14433,6 +14433,8 @@ app 啟動後，您會看到像這樣的畫面：
     <content><![CDATA[<blockquote>
 <p>物件導向(Object-oriented programming)是程式開發的抽象方針，將物件作為程式的基本單元，將程式和資料封裝其中，以提高軟體的重用性、靈活性和擴充性。</p>
 </blockquote>
+<span id="more"></span>
+
 <h3 id="類別-class"><a href="#類別-class" class="headerlink" title="類別(class)"></a>類別(class)</h3><p><b>類別(class)</b>是建立<b>物件(object)</b>的藍圖，內部定義了具體的<u><b>屬性(attribute)</b></u>和<u><b>方法(method)</b></u>，一旦類別做了<b>實體化(new)</b>的動作之後，就可以產生<b>物件(object)</b>，這個具體的物件就會擁有該類別所定義的屬性，並且可以執行該類別所定義的方法。</p>
 <p>類別可能包括：</p>
 <ul>

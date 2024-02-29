@@ -195,6 +195,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/12/05/Android%E7%AD%86%E8%A8%98-33-Coroutines%E7%B0%A1%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/05/Android%E7%AD%86%E8%A8%98-33-Coroutines%E7%B0%A1%E4%BB%8B/" class="post-title-link" itemprop="url">Android筆記(33)-Coroutines簡介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-05 15:24:00" itemprop="dateCreated datePublished" datetime="2023-12-05T15:24:00+08:00">2023-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-28 13:41:33" itemprop="dateModified" datetime="2023-12-28T13:41:33+08:00">2023-12-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Connect-to-the-internet/" itemprop="url" rel="index"><span itemprop="name">Connect to the internet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>瞭解關於<b>執行緒(threads)</b>的資訊，以及如何使用稱為<b>協程(coroutines)</b>的 Kotlin 功能撰寫<u>乾淨(clear)</u>、<u>非阻塞(non-blocking)</u>的<b>並行(concurrent)</b>程式碼。</p>
+</blockquote>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>何謂<b>並行(concurrency)</b>，以及其重要性</li>
+<li>如何使用<b>協程(coroutines)</b>和<b>執行緒(threads)</b>，撰寫<u>非阻塞(non-blocking)</u>的<u>並行(concurrent)</u>程式碼</li>
+<li>如何在 background 工作(performing tasks)時存取 <b>main thread</b>，安全地更新<b>UI</b></li>
+<li>不同<b>並行模式(concurrency pattern)</b>「<b> 範圍(Scope) &#x2F; 調度工具(Dispatchers) &#x2F; 延遲(Deferred)</b> 」的使用方式與使用時機</li>
+<li>如何撰寫與<b>網路資源(network resources)</b>互動(interacts)的程式碼</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/12/05/Android%E7%AD%86%E8%A8%98-33-Coroutines%E7%B0%A1%E4%BB%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/12/04/Android%E7%AD%86%E8%A8%98-32-%E5%B0%88%E6%A1%88%EF%BC%9ALunch-Tray%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -589,104 +688,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2023/11/11/Android%E7%AD%86%E8%A8%98-28-%E5%9C%A8%E5%90%84Fragment%E4%B9%8B%E9%96%93%E5%85%B1%E7%94%A8ViewModel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/blog_photo.png">
-      <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="^(-o-)>">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tina Tang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/11/Android%E7%AD%86%E8%A8%98-28-%E5%9C%A8%E5%90%84Fragment%E4%B9%8B%E9%96%93%E5%85%B1%E7%94%A8ViewModel/" class="post-title-link" itemprop="url">Android筆記(28)-在各Fragment之間共用ViewModel</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-11-11 23:04:33" itemprop="dateCreated datePublished" datetime="2023-11-11T23:04:33+08:00">2023-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-24 16:48:04" itemprop="dateModified" datetime="2023-12-24T16:48:04+08:00">2023-12-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Android Kotlin基本概念課程</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Android-Kotlin%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AA%B2%E7%A8%8B/Navigation/" itemprop="url" rel="index"><span itemprop="name">Navigation</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>瞭解如何使用共用 <code>ViewModel</code> 在相同 activity 的 fragment 之間共用資料，還有 <code>LiveData</code> 轉換等新概念。</p>
-</blockquote>
-<p><strong>學習目標</strong></p>
-<ul>
-<li>如何在更進階用途中導入建議的應用程式架構做法</li>
-<li>如何在 activity 的各個 fragment 中使用共用的 <code>ViewModel</code></li>
-<li>如何套用 <code>LiveData</code> 轉換</li>
-</ul>
-<p><strong>建構項目</strong><br>此杯子蛋糕應用程式會顯示杯子蛋糕的訂單流程，讓使用者選擇杯子蛋糕口味、數量和取貨日期。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/11/Android%E7%AD%86%E8%A8%98-28-%E5%9C%A8%E5%90%84Fragment%E4%B9%8B%E9%96%93%E5%85%B1%E7%94%A8ViewModel/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -758,20 +759,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">120</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

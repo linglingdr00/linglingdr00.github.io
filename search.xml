@@ -14393,6 +14393,7 @@ app 啟動後，您會看到像這樣的畫面：
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">動物資料: type:貓</span><br><span class="line">小狗資料: type:狗 species:米格魯 color:金毛 age:3 weight:15</span><br></pre></td></tr></table></figure>
 
 <p>原本父類別的 getInfo() 方法只能取得 type。<br>因子類別覆寫了父類別的 getInfo() 方法，可取得 type、species、color、age 和 weight。</p>
+<h4 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h4><p><a href="https://hackmd.io/@Aquamay/H1nxBOLcO/https%3A%2F%2Fhackmd.io%2F%40Aquamay%2FrkAMTLIjd">物件導向(Object-oriented programming)</a><br><a href="https://java.4-x.tw/">Java 學習系列</a></p>
 ]]></content>
       <categories>
         <category>Java</category>

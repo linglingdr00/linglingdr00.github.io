@@ -1200,7 +1200,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f10a33;
+  background: #3301ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2615,4 +2615,8 @@ span.exturl {
 /* note success的背景顏色 */
 .post-body .note.success {
   background: #e6f4ea;
+}
+/* note primary的背景顏色 */
+.post-body .note.primary {
+  background: #e8e8ff;
 }

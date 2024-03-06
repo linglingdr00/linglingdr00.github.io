@@ -33,7 +33,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://i.imgur.com/GeSlqpx.png">
 <meta property="article:published_time" content="2024-02-29T05:35:40.000Z">
-<meta property="article:modified_time" content="2024-02-29T09:48:47.630Z">
+<meta property="article:modified_time" content="2024-03-06T07:20:50.399Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="OOP">
@@ -224,10 +224,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-02-29 13:35:40 / Modified: 17:48:47" itemprop="dateCreated datePublished" datetime="2024-02-29T13:35:40+08:00">2024-02-29</time>
+              <time title="Created: 2024-02-29 13:35:40" itemprop="dateCreated datePublished" datetime="2024-02-29T13:35:40+08:00">2024-02-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-03-06 15:20:50" itemprop="dateModified" datetime="2024-03-06T15:20:50+08:00">2024-03-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -285,12 +291,16 @@
 <p>有了 Dog 這個類別之後，可以產出很多 Dog 資料(dog1, dog2, dog3…)，每個 Dog 都是物件，每一個物件是獨立的個體，彼此互不影響。</p>
 <hr>
 <h3 id="物件導向的三大特性"><a href="#物件導向的三大特性" class="headerlink" title="物件導向的三大特性"></a>物件導向的三大特性</h3><p>物件導向的三大特性包括：<b>封裝(Encapsulation)</b>、<b>繼承(Inheritance)</b>、<b>多型(Polymorphism)</b>。</p>
-<h4 id="封裝-Encapsulation"><a href="#封裝-Encapsulation" class="headerlink" title="封裝(Encapsulation)"></a>封裝(Encapsulation)</h4><p>所謂<b>封裝(Encapsulation)</b>，是指 class A 的設計者可以指定其他的 class 能否存取 A 的某個 member。</p>
+<h4 id="封裝-Encapsulation"><a href="#封裝-Encapsulation" class="headerlink" title="封裝(Encapsulation)"></a>封裝(Encapsulation)</h4><p>所謂<b>封裝(Encapsulation)</b>，是指<u>類別</u>的設計者可以指定<u>其他的類別</u>能否存取自己的某個 <b>member</b>，也就是<b>存取範圍的控制(對外的開放程度)</b>。</p>
+<div class="note primary">
+            <p>封裝包含了兩個重要的觀念：</p><ul><li>控制<b>物件</b>和<b>外部</b>進行互動的<b>出入口</b></li><li>隱藏<b>物件內部</b>的細節資訊</li></ul>
+          </div>
+
 <p>Java 定義了四種存取範圍：</p>
 <ul>
-<li><b>private</b>：只有 <u>A 自己</u>才可以存取，使用關鍵字 <code>private</code>。</li>
-<li><b>package</b>：只有<u>和 A 同一個 package 的 class</u> 才可以存取，沒有相對應的關鍵字。</li>
-<li><b>protected</b>：只有<u>同一個 package</u> 或是 <u>A 的子類別</u>才可以存取，使用關鍵字   <code>protected</code>。</li>
+<li><b>private</b>：只有 <u>自己</u>才可以存取，使用關鍵字 <code>private</code>。</li>
+<li><b>package</b>：只有<u>和自己同一個 package 的 class</u> 才可以存取，沒有相對應的關鍵字。</li>
+<li><b>protected</b>：只有<u>同一個 package</u> 或是 <u>自己的子類別</u>才可以存取，使用關鍵字   <code>protected</code>。</li>
 <li><b>public</b>：所有的 class 都可以存取，使用關鍵字 <code>public</code>。</li>
 </ul>
 <p>如果 member 的前面沒有 <code>private / protected / public</code> 其中一個修飾字，則該 member 的存取範圍就是 <b>package</b>。從以上的敘述，讀者可以推知這四種存取範圍的大小是：<br><code>public &gt; protected &gt; package &gt; private</code></p>
@@ -354,7 +364,10 @@
     <a href="/2024/02/16/%E4%BD%9C%E5%93%81%E9%9B%86-%E5%A4%A9%E6%B0%A3%EF%BC%9A%E5%A8%81%E7%89%B9App/" rel="prev" title="作品集-天氣：威特App">
       <i class="fa fa-chevron-left"></i> 作品集-天氣：威特App
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/06/Java%E7%AD%86%E8%A8%98-2-%E4%BB%8B%E9%9D%A2%E5%92%8C%E6%8A%BD%E8%B1%A1/" rel="next" title="Java筆記(2)-介面和抽象">
+      Java筆記(2)-介面和抽象 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -429,7 +442,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -442,7 +455,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">120</span>
+        <span class="site-state-item-count">122</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

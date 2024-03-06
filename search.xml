@@ -14532,6 +14532,8 @@ app 啟動後，您會看到像這樣的畫面：
     <content><![CDATA[<blockquote>
 <p>了解 Java 中的<b>介面(interface)</b>和<b>抽象(abstract)</b>。</p>
 </blockquote>
+<span id="more"></span>
+
 <h3 id="介面"><a href="#介面" class="headerlink" title="介面"></a>介面</h3><p>介面可以被理解為「接口」，讓外部可以透過這個接口與內部作溝通。而「接口」通常都是有著某些特定形態的，只有收發雙方都有一樣的「接口」，接口才能被有效使用。介面作為接口，規範了方法能被外部使用的規則。</p>
 <p>在程式設計中，我們可以透過介面來設定我們想被外部使用的規則，一是可以為每個需要的類別設定一樣的規則，二是避免把不應公開的內部程式碼對外公開。</p>
 <p><b>介面(interface)</b>的方法都是<b>抽象(abstract)</b>且<b>公開(public)</b>的，以及其屬性全部都為<b>常數(const)</b>，介面本身<u>不實作方法</u>，而是為了<u>被外部使用</u>，因此方法都必定是公開的。</p>
@@ -14577,7 +14579,7 @@ app 啟動後，您會看到像這樣的畫面：
 <li>介面是用來被類別<b>實作(extends)</b>的，抽象類別是用來被類別<b>繼承(extends)</b>的。</li>
 <li>抽象類別中可以定義<u>抽象方法</u>和<u>非抽象方法</u>，而介面中只能定義<u>抽象方法</u>。</li>
 </ol>
-<h4 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h4><p><a href="https://medium.com/%E7%A8%8B%E5%BC%8F%E6%84%9B%E5%A5%BD%E8%80%85/%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E4%B8%AD%E7%9A%84%E4%BB%8B%E9%9D%A2%E8%88%87%E6%8A%BD%E8%B1%A1%E9%A1%9E%E5%88%A5%E6%98%AF%E4%BB%80%E9%BA%BC-1199804ccc5f">Java備忘筆記</a><br><a href="https://medium.com/%E7%A8%8B%E5%BC%8F%E6%84%9B%E5%A5%BD%E8%80%85/%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E4%B8%AD%E7%9A%84%E4%BB%8B%E9%9D%A2%E8%88%87%E6%8A%BD%E8%B1%A1%E9%A1%9E%E5%88%A5%E6%98%AF%E4%BB%80%E9%BA%BC-1199804ccc5f">物件導向中的介面與抽象類別是什麼？</a></p>
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><p><a href="https://medium.com/%E7%A8%8B%E5%BC%8F%E6%84%9B%E5%A5%BD%E8%80%85/%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E4%B8%AD%E7%9A%84%E4%BB%8B%E9%9D%A2%E8%88%87%E6%8A%BD%E8%B1%A1%E9%A1%9E%E5%88%A5%E6%98%AF%E4%BB%80%E9%BA%BC-1199804ccc5f">Java備忘筆記</a><br><a href="https://medium.com/%E7%A8%8B%E5%BC%8F%E6%84%9B%E5%A5%BD%E8%80%85/%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E4%B8%AD%E7%9A%84%E4%BB%8B%E9%9D%A2%E8%88%87%E6%8A%BD%E8%B1%A1%E9%A1%9E%E5%88%A5%E6%98%AF%E4%BB%80%E9%BA%BC-1199804ccc5f">物件導向中的介面與抽象類別是什麼？</a></p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -14587,6 +14589,221 @@ app 啟動後，您會看到像這樣的畫面：
         <tag>OOP</tag>
         <tag>Interface</tag>
         <tag>Abstract</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android筆記(46)-Android架構</title>
+    <url>/2024/03/06/Android%E7%AD%86%E8%A8%98-46-Android%E6%9E%B6%E6%A7%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>比較 Android 架構(MVC、MVP、MVVM、Clean Architecture、MVI)</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="MVC-Model-View-Controller"><a href="#MVC-Model-View-Controller" class="headerlink" title="MVC(Model-View-Controller)"></a>MVC(Model-View-Controller)</h3><p>MVC 是最古老和最廣為人知的架構模式之一。 </p>
+<ul>
+<li>在啟動小型專案或快速原型設計時使用 MVC。 </li>
+<li>它在 <b>data(Model)</b>、<b>UI(View)</b>和<b>邏輯(Controller)</b>之間提供了明確的分離。 </li>
+<li>但是 MVC 會導致元件之間的<u>高耦合</u>和<u>單元測試</u>的困難。</li>
+</ul>
+<p>MVC 將程式碼劃分為三個部分：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>View</strong></td>
+<td align="left">Layout XML 文件。</td>
+</tr>
+<tr>
+<td align="left"><strong>Model</strong></td>
+<td align="left">負責管理商業資料邏輯，如網絡請求、資料庫處理。</td>
+</tr>
+<tr>
+<td align="left"><strong>Controller</strong></td>
+<td align="left">Activity 負責處理表現邏輯。</td>
+</tr>
+</tbody></table>
+<img src="https://imgur.com/UZjDO3d.png" width="80%">
+
+<p>MVC 希望 Activity &#x2F; Fragment 是只處理表現邏輯的部分 ，但現實是 Activity 不可避免要處理 UI，也要處理和使用者的互動，說明 Activity 也承擔了 View 的角色。那麼這個架構就會造成 Activity 中融合了 view 和 logic 的代碼，分離程度不夠。</p>
+<h3 id="MVP-Model-View-Presenter"><a href="#MVP-Model-View-Presenter" class="headerlink" title="MVP(Model-View-Presenter)"></a>MVP(Model-View-Presenter)</h3><p>MVP 是 MVC 的演變，它進一步分離了 UI 和商業邏輯(business logic)的關注點。 </p>
+<ul>
+<li>將 MVP 用於要求更複雜的中型專案。 </li>
+<li>它強制將 <b>Model</b>、<b>View</b> 和 <b>Presenter</b> 明確分開，使程式碼更易於理解和測試。 </li>
+<li>MVP 允許更好的可測試性，並促進<a href="https://igouist.github.io/post/2020/10/oo-10-single-responsibility-principle/">單一責任原則(Single Responsibility Principle)</a>。 </li>
+<li>但是，它仍然可能受到過多的樣板程式碼的影響，並且隨著專案的擴展而變得複雜。</li>
+</ul>
+<p>為了將 Activity 中的表現邏輯徹底分離出來，業界提出了 MVP 的設計。</p>
+<p>MVP 將程式碼劃分為三個部分：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>View</strong></td>
+<td align="left">Activity 和 Layout XML 文件。</td>
+</tr>
+<tr>
+<td align="left"><strong>Model</strong></td>
+<td align="left">負責管理商業資料邏輯，如網絡請求、資料庫處理。</td>
+</tr>
+<tr>
+<td align="left"><strong>Presenter</strong></td>
+<td align="left">負責處理表現邏輯。</td>
+</tr>
+</tbody></table>
+<img src="https://imgur.com/CdbisGM.png">
+
+<p>在實現細節上，View 和 Presenter 中間會定義一個協議介面 Contract，這個介面會約定 View 如何向 Presenter 發指令和 Presenter 如何 Callback 給 View。這樣的架構里 Activity 不再有表現邏輯的部分，Activity 作為 View 的角色只處理和 UI 有關的事情。但還是存在一些缺點：</p>
+<ul>
+<li>雙向依賴： View 和 Presenter 是雙向依賴的，一旦 View 層做出改變，相應地 Presenter 也需要做出調整。在業務語境下，View 層變化是大概率事件；</li>
+<li>內存泄漏風險： Presenter 持有 View 層的引用，當用戶關閉了 View 層，但 Model 層仍然在進行耗時操作，就會有內存泄漏風險。雖然有解決辦法，但還是存在風險點和複雜度（弱引用 &#x2F; onDestroy() 回收 Presenter）。</li>
+<li>協議介面類膨脹： View 層和 Presenter 層的交互需要定義介面方法，當交互非常複雜時，需要定義很多介面方法和 callback 方法，也不好維護。</li>
+</ul>
+<h3 id="MVVM-Model-View-ViewModel"><a href="#MVVM-Model-View-ViewModel" class="headerlink" title="MVVM(Model-View-ViewModel)"></a>MVVM(Model-View-ViewModel)</h3><p>MVVM 是一種利用數據綁定(data binding)和響應式(reactive)程式設計的現代體系結構模式。 </p>
+<ul>
+<li>將 MVVM 用於大型專案，重點關注數據驅動的 UI 和複雜的數據流。 </li>
+<li>它在 <b>View</b>、<b>ViewModel</b> 和 <b>Model</b> 之間提供了明確的分離。 </li>
+<li>MVVM 利用雙向數據綁定(data binding)，使 UI 更新自動並減少樣板程式碼。 </li>
+<li>這種架構允許更好的解耦、可測試性和可維護性。 </li>
+<li>但是，採用 MVVM 需要對響應式程式設計和 data binding 概念有很好的理解。</li>
+</ul>
+<p>MVVM 將程式碼劃分為三個部分：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>View</strong></td>
+<td align="left">Activity 和 Layout XML 文件，與 MVP 中 View 的概念相同。</td>
+</tr>
+<tr>
+<td align="left"><strong>Model</strong></td>
+<td align="left">負責管理業務數據邏輯，如網絡請求、資料庫處理，與 MVP 中 Model 的概念相同。</td>
+</tr>
+<tr>
+<td align="left"><strong>ViewModel</strong></td>
+<td align="left">存儲視圖狀態，負責處理表現邏輯，並將數據設置給可觀察數據容器。</td>
+</tr>
+</tbody></table>
+<img src="https://imgur.com/za9JdgN.png">
+
+<p>在實現細節上，View 和 Presenter 從雙向依賴變成 View 可以向 ViewModel 發指令，但 ViewModel 不會直接向 View 回調，而是讓 View 通過觀察者的模式去監聽數據的變化，有效規避了 MVP 雙向依賴的缺點。但 MVVM 本身也存在一些缺點：</p>
+<ul>
+<li>多數據流： View 與 ViewModel 的交互分散，缺少唯一修改源，不易於追蹤。</li>
+<li>LiveData 膨脹： 複雜的頁面需要定義多個 MutableLiveData，並且都需要暴露為不可變的 LiveData。</li>
+</ul>
+<div class="note primary">
+            <p>DataBinding、ViewModel 和 LiveData 等組件是 Google 為了幫助我們實現 MVVM 模式提供的架構組件，它們並不是 MVVM 的本質，只是實現上的工具。</p><ul><li>Lifecycle： 生命周期狀態回調。</li><li>LiveData： 可觀察的數據存儲類。</li><li>DataBinding： 可以自動同步 UI 和 data。</li><li>ViewModel： 存儲界面相關的數據，這些數據不會在手機旋轉等配置改變時丟失。</li></ul>
+          </div>
+
+
+<h3 id="Clean-Architecture"><a href="#Clean-Architecture" class="headerlink" title="Clean Architecture"></a>Clean Architecture</h3><p>Clean Architecture 強調關注點和依賴關係規則的分離。</p>
+<ul>
+<li>將 Clean 架構用於大型複雜專案，重點關注可維護性和可測試性。 </li>
+<li>它將代碼庫(codebase)劃分為多個層：<b>Presentation</b>、<b>Domain</b> 和 <b>Data</b>，每個層都有自己的職責和依賴關係。 </li>
+<li>簡潔的架構允許輕鬆更換元件並促進單元測試。 </li>
+<li>但是，它引入了額外的複雜性，並且可能會針對較小的專案進行過度設計。</li>
+</ul>
+<h3 id="MVI-Model-View-Intent"><a href="#MVI-Model-View-Intent" class="headerlink" title="MVI(Model-View-Intent)"></a>MVI(Model-View-Intent)</h3><p> MVI 是一種新興的架構模式，旨在提供<u>可預測(predictable)</u>且<u>響應式(reactive)</u> UI。 </p>
+<ul>
+<li>將 MVI 用於需要嚴格的單向數據流(data flow)和高度互動式 UI 的專案。 </li>
+<li>它將 <b>Model</b>、<b>View</b> 和 <b>Intent</b> 的關注點分開，提供清晰的數據流(data flow)方向。 </li>
+<li>MVI 促進了不變性(immutability)和回應式(reactive)程式設計，使得對狀態變化的推理變得更加容易。 </li>
+<li>但是，MVI 可能會帶來額外的複雜性，尤其是對於簡單的專案。</li>
+</ul>
+<ul>
+<li>MVC 和 MVP 適用於較小的專案。</li>
+<li>MVVM、Clean Architecture 和 MVI 為更大和更複雜的專案提供了更好的可伸縮性、可測試性和可維護性。</li>
+</ul>
+<p>MVI 模式的改動在於將 View 和 ViewModel 之間的多數據流改為基於 ViewState 的單數據流。</p>
+<p>MVI 將程式碼劃分為四個部分：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>View</strong></td>
+<td align="left">Activity 和 Layout XML 文件，與 MVVM 中 View 的概念相同。</td>
+</tr>
+<tr>
+<td align="left"><strong>Intent</strong></td>
+<td align="left">定義數據操作，是將數據傳到 Model 的唯一來源，相比 MVVM 是新的概念。</td>
+</tr>
+<tr>
+<td align="left"><strong>ViewModel</strong></td>
+<td align="left">存儲視圖狀態，負責處理表現邏輯，並將 ViewState 設置給可觀察數據容器。</td>
+</tr>
+<tr>
+<td align="left"><strong>ViewState</strong></td>
+<td align="left">一個數據類，包含頁面狀態和對應的數據。</td>
+</tr>
+</tbody></table>
+<img src="https://imgur.com/RkvcUAT.png">
+
+<p>在實現細節上，View 和 ViewModel 之間的多個交互（多 LiveData 數據流）變成了單數據流。無論 View 有多少個視圖狀態，只需要訂閱一個 ViewState 便可以獲取所有狀態，再根據 ViewState 去響應。當然，實踐中應該根據狀態之間的關聯程度來決定數據流的個數，不應該為了使用 MVI 模式而強行將多個無關的狀態壓縮在同一個數據流中。</p>
+<ul>
+<li>唯一可信源： 數據只有一個來源（ViewModel），與 MVVM 的思想相同；</li>
+<li>單數據流： View 和 ViewModel 之間只有一個數據流，只有一個地方可以修改數據，確保數據是安全穩定的。並且 View 只需要訂閱一個 ViewState 就可以獲取所有狀態和數據，相比 MVVM 是新的特性；</li>
+<li>響應式： ViewState 包含頁面當前的狀態和數據，View 通過訂閱 ViewState 就可以完成頁面刷新，相比於 MVVM 是新的特性。</li>
+</ul>
+<p>但 MVI 本身也存在一些缺點：</p>
+<ul>
+<li>State 膨脹： 所有視圖變化都轉換為 ViewState，還需要管理不同狀態下對應的數據。實踐中應該根據狀態之間的關聯程度來決定使用單流還是多流；</li>
+<li>內存開銷： ViewState 是不可變類，狀態變更時需要創建新的對象，存在一定內存開銷；</li>
+<li>局部刷新： View 根據 ViewState 響應，不易實現局部 Diff 刷新，可以使用 Flow#distinctUntilChanged() 來刷新來減少不必要的刷新。</li>
+</ul>
+<h3 id="Android-架構的比較"><a href="#Android-架構的比較" class="headerlink" title="Android 架構的比較"></a>Android 架構的比較</h3><p>MVVM 和 MVP 的思想是相同的，最本質的概念就是 Activity 里做的事情太多了，所以要把 Activity 中與 UI 無關的部分抽離出來，交給別人做。這個 「別人」 在 MVP 里叫作 Presenter，在 MVVM 里叫作 ViewModel。而不論是 MVP 中的約定接口，還是 ViewModel 里的觀察者模式，這些都是實現上的細節而已。</p>
+<p>MVI 與前者的主要區別不在於強調嚴格的單向數據流，而在於從命令式的開發模式，轉變為響應式的開發模式。</p>
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><p><a href="https://medium.com/@KodeFlap/choosing-android-architectures-mvc-mvp-mvvm-clean-architecture-and-mvi-8ad2a43f7f9b">Choosing Android Architectures: MVC, MVP, MVVM, Clean Architecture, and MVI</a><br><a href="https://kknews.cc/zh-tw/n/pjb52mj.html">Android 架構演進：從 MVC 到 MVP、MVVM、MVI，Android開發如何選？</a></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>MVVM</tag>
+        <tag>MVC</tag>
+        <tag>MVP</tag>
+        <tag>MVI</tag>
+        <tag>Clean Architecture</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java筆記(3)-內聚和耦合</title>
+    <url>/2024/03/06/Java%E7%AD%86%E8%A8%98-3-%E5%85%A7%E8%81%9A%E5%92%8C%E8%80%A6%E5%90%88/</url>
+    <content><![CDATA[<blockquote>
+<p>好的程式往往追求「高內聚、低耦合」，「內聚」指的是和其它程式碼「無」相關；「耦合」指的是和其它程式碼「有」相關。</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="內聚"><a href="#內聚" class="headerlink" title="內聚"></a>內聚</h3><p>內聚(Cohesion)是指模組的獨立性，當這個模組可以獨力完成工作，就代表我們能夠重複使用它，且不需要擔心影響到其他模組，<u>越不需要依賴其他模組，內聚力就越高</u>。</p>
+<p>白話一點的解釋：就算自己修改了也不影響其它人(模組)。</p>
+<h3 id="耦合"><a href="#耦合" class="headerlink" title="耦合"></a>耦合</h3><p>耦合(Coupling)是指模組的關聯性，如果模組和另一個模組有關聯，那這兩者之間就耦合。例如：一個模組中的 function 使用<u>全域變數</u>或是<u>接受其他模組傳入的參數</u>，那麼這兩個模組就彼此耦合。</p>
+<p>白話一點的解釋：牽一髮而動全身。</p>
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><p>高內聚：分類分得越精準越好。<br>低耦合：建立的關係越少越好。</p>
+<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><p><a href="https://ithelp.ithome.com.tw/articles/10203659">實務上的高內聚與低耦合</a><br><a href="https://igouist.github.io/post/2020/09/oo-8-cohesion-and-coupling/">菜雞與物件導向 (8): 內聚、耦合</a><br><a href="https://devs.tw/post/385">元件如何正確使用 ? | 元件耦合性三大原則 : ADP、SDP、SAP</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>OOP</tag>
+        <tag>Cohesion</tag>
+        <tag>Coupling</tag>
       </tags>
   </entry>
 </search>

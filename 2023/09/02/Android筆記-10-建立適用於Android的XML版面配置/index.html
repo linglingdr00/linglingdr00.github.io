@@ -300,18 +300,16 @@
 <li>如何建構簡易表單，用於使用者文字輸入和選項</li>
 </ul>
 <span id="more"></span>
-
 <hr>
 <h4 id="啟動專案"><a href="#啟動專案" class="headerlink" title="啟動專案"></a>啟動專案</h4><p>使用 Android 應用程式建立簡易的計算機簡易版。<br>完成後小費計算機應用程式會如下所示：</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/bcc5260318477c14_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/bcc5260318477c14_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <p>您需要使用 Android 提供的下列 UI 元素：</p>
 <ul>
 <li><code>EditText</code> - 用於輸入及傳送訊息</li>
 <li><code>TextView</code> - 顯示服務條款和小費金額等文字</li>
 <li><code>RadioButton</code>：每個小費選項的可選取圓形按鈕</li>
 <li><code>RadioGroup</code> - 將圓形按鈕選項分組</li>
-<li><code>Switch</code> - 開啟&#x2F;關閉切換按鈕，選擇是否將小費四捨五入</li>
+<li><code>Switch</code> - 開啟/關閉切換按鈕，選擇是否將小費四捨五入</li>
 </ul>
 <h5 id="建立一個空白活動專案"><a href="#建立一個空白活動專案" class="headerlink" title="建立一個空白活動專案"></a>建立一個空白活動專案</h5><ol>
 <li>首先，在 Android Studio 中使用 空白活動 範本來建立新品的 Kotlin 專案。</li>
@@ -322,15 +320,10 @@
 <p>您將會查看並編輯 XML 檔案，為這個應用程式定義 UI 版面配置。XML 是可延伸標記語言的一種，這是一種利用文字文件來描述資料的方式。由於 XML 是可擴充且極具彈性的功能，所以有許多種不同的用途，包括定義 Android 應用程式的 UI 版面配置。您或許可以在先前的程式碼研究室中回想起，「<code>strings.xml</code>」這個 XML 檔案中的其他資源也定義了其他資源。</p>
 <p>Android 應用程式的使用者介面是由元件（小工具）的元件階層組成，以及這些元件的螢幕版面配置。請注意，這些版面配置本身是 UI 元件。</p>
 <p>您必須說明畫面上的 UI 元素檢視畫面階層。舉例來說，<code>ConstraintLayout</code> (父項) 可包含 <code>Buttons</code>、<code>TextViews</code>、<code>ImageViews</code> 或其他檢視畫面 (子項)。請注意，<code>ConstraintLayout</code>是 <code>ViewGroup</code> 的子類別。可讓您靈活設定子項的位置或調整大小。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/74c7c563d18fffd4_1920.png?hl=zh-tw" width="70%" height="70%">
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/32df120272b2331d_1920.png?hl=zh-tw" width="40%" height="40%">
-
-<p>每個 UI 元素都會在 XML 檔案中以 XML 元素出現。每個元素的開頭和結尾都是代碼，而每個標記的開頭都是 <code>&lt;</code>，結尾則是 <code>&gt;</code>。就像是您可以使用版面配置編輯器 (設計) 設定 UI 元素的屬性，XML 元素也可以具有「屬性」。簡單來說，上述 UI 元素的 XML 可能如下所示：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ConstraintLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">text</span>=<span class="string">&quot;Hello World!&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">TextView</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/8dea708333aebabe_1920.png?hl=zh-tw" width="80%" height="80%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/74c7c563d18fffd4_1920.png?hl=zh-tw" width="70%" height="70%"></p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/32df120272b2331d_1920.png?hl=zh-tw" width="40%" height="40%"></p>
+<p>每個 UI 元素都會在 XML 檔案中以 XML 元素出現。每個元素的開頭和結尾都是代碼，而每個標記的開頭都是 <code>&lt;</code>，結尾則是 <code>&gt;</code>。就像是您可以使用版面配置編輯器 (設計) 設定 UI 元素的屬性，XML 元素也可以具有「屬性」。簡單來說，上述 UI 元素的 XML 可能如下所示：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ConstraintLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">text</span>=<span class="string">&quot;Hello World!&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">TextView</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/8dea708333aebabe_1920.png?hl=zh-tw" width="80%" height="80%"></p>
 <p>以下是一個實際範例。</p>
 <ol>
 <li>開啟 <code>activity_main.xml</code> (「app」&gt;「res」&gt;「layout」&gt;「activity_main.xml」)</li>
@@ -338,30 +331,17 @@
 <li>在版面配置編輯器的右上方，找到「Code」、「Split」和「Design」檢視畫面的選項。</li>
 <li>選取「Code」檢視。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/6203bec920791bcc_1920.png?hl=zh-tw" width="50%" height="50%">
-
-<p><code>activity_main.xml</code> 中的 XML 如下所示：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/6203bec920791bcc_1920.png?hl=zh-tw" width="50%" height="50%"></p>
+<p><code>activity_main.xml</code> 中的 XML 如下所示：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>請注意縮排。Android Studio 會自動執行上述作業，顯示元素階層。<code>TextView</code> 已縮排，因為 <code>ConstraintLayout</code> 裡包含這個項目。<code>ConstraintLayout</code> 是父項，<code>TextView</code> 是子節點。每個元素的屬性會以縮排的方式顯示，表示該元素屬於該元素的一部分。</li>
 <li>請注意色彩編碼：檔案的類似部分會繪製成同一顏色，方便您比對。請特別注意，Android Studio 會繪製用相同顏色元素的開始和結尾。</li>
 </ol>
-<h5 id="XML-標記、元素和屬性"><a href="#XML-標記、元素和屬性" class="headerlink" title="XML 標記、元素和屬性"></a>XML 標記、元素和屬性</h5><p>以下是 <code>TextView</code> 元素的簡化版本，方便您查看部分重要部分：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>包含 <code>&lt;TextView</code> 的行則是標記的開頭，而 <code>/&gt;</code> 行則是標記結尾。標有 <code>android:text=&quot;Hello World!&quot;</code> 的行是標記的屬性。這代表 <code>TextView</code> 將要顯示的文字。這 3 行是常用的元素 (又稱為空白元素代碼)，也就是說，如果您利用獨立的「start-tag」和「end-tag」編寫程式碼，例如：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">TextView</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>另一個常見的例子是空白元素標記，編寫時盡可能減少這類標記的行數，然後將代碼的結尾與行前的行結合。因此，您可能會在兩行中看到空白元素標記 (沒有屬性的話，甚至只有一行)：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- with attributes, two lines --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>由於 <code>ConstraintLayout</code> 元素是以獨立開始和結束標記寫成，因此必須含有其他元素。以下是含有 <code>TextView</code> 元素的 <code>ConstraintLayout</code> 元素簡化版本：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>如要將另一個 <code>View</code> 新增為 <code>ConstraintLayout</code> 的子項 (例如 <code>TextView</code> 下的 <code>Button</code>)，其會在 <code>TextView</code> 標記 <code>/&gt;</code> 的結尾，並且在 <code>ConstraintLayout</code> 的結尾標記之前，如下所示：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;Calculate&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<h5 id="XML-標記、元素和屬性"><a href="#XML-標記、元素和屬性" class="headerlink" title="XML 標記、元素和屬性"></a>XML 標記、元素和屬性</h5><p>以下是 <code>TextView</code> 元素的簡化版本，方便您查看部分重要部分：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>包含 <code>&lt;TextView</code> 的行則是標記的開頭，而 <code>/&gt;</code> 行則是標記結尾。標有 <code>android:text=&quot;Hello World!&quot;</code> 的行是標記的屬性。這代表 <code>TextView</code> 將要顯示的文字。這 3 行是常用的元素 (又稱為空白元素代碼)，也就是說，如果您利用獨立的「start-tag」和「end-tag」編寫程式碼，例如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">TextView</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>另一個常見的例子是空白元素標記，編寫時盡可能減少這類標記的行數，然後將代碼的結尾與行前的行結合。因此，您可能會在兩行中看到空白元素標記 (沒有屬性的話，甚至只有一行)：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- with attributes, two lines --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>由於 <code>ConstraintLayout</code> 元素是以獨立開始和結束標記寫成，因此必須含有其他元素。以下是含有 <code>TextView</code> 元素的 <code>ConstraintLayout</code> 元素簡化版本：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如要將另一個 <code>View</code> 新增為 <code>ConstraintLayout</code> 的子項 (例如 <code>TextView</code> 下的 <code>Button</code>)，其會在 <code>TextView</code> 標記 <code>/&gt;</code> 的結尾，並且在 <code>ConstraintLayout</code> 的結尾標記之前，如下所示：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;Hello World!&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;Calculate&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <h5 id="進一步瞭解版面配置的-XML"><a href="#進一步瞭解版面配置的-XML" class="headerlink" title="進一步瞭解版面配置的 XML"></a>進一步瞭解版面配置的 XML</h5><ol>
 <li><p>查看 <code>ConstraintLayout</code> 的標記，您會發現這顯示為 <code>androidx.constraintlayout.widget.ConstraintLayout</code>，而非和 <code>TextView</code> 一樣只有 <code>ConstraintLayout</code>。這是因為 <code>ConstraintLayout</code> 是 <strong>Android Jetpack</strong> 的一部分，而其中的程式碼程式庫在 Android 核心平台之外提供了額外功能。<strong>Jetpack</strong> 提供了一些實用功能，可協助您輕鬆建構應用程式。您會發現此 UI 元件因為是以「<code>androidx</code>」開頭，所以屬於 <strong>Jetpack</strong> 的一部分。</p>
 </li>
@@ -369,33 +349,28 @@
 </li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br></pre></td></tr></table></figure>
-
 <p><code>xmlns</code> 代表 XML 命名空間，而每一行分別定義一個「結構定義」或相關詞彙。舉例來說，<code>android:</code> 命名空間會標示 Android 系統定義的屬性。版面配置 XML 中的所有屬性都是從其中一個命名空間開始執行。</p>
-<ol start="3">
+<ol>
 <li><p>XML 元素之間的空白字元不會對電腦產生意義，但可讓 XML 更易於閱讀。</p>
 </li>
 <li><p>您可以對 XML 新增註解，就跟使用 Kotlin 程式碼一樣。開頭是 <code>&lt;!--</code>，結尾是<code>--&gt;</code>。</p>
 </li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- this is a comment in XML --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- this is a</span></span><br><span class="line"><span class="comment">multi-line</span></span><br><span class="line"><span class="comment">Comment.</span></span><br><span class="line"><span class="comment">And another</span></span><br><span class="line"><span class="comment">Multi-line comment --&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>請注意檔案的第一行：</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>用於表示檔案是 XML 檔案，但並非所有 XML 檔案都會包含這類檔案。</p>
 <hr>
 <h4 id="在-XML-中建立版面配置"><a href="#在-XML-中建立版面配置" class="headerlink" title="在 XML 中建立版面配置"></a>在 XML 中建立版面配置</h4><ol>
 <li>在 <code>activity_main.xml</code> 中，請切換至「Split」 畫面，即可查看 設計編輯器 旁的 XML。「設計編輯器」可讓您預覽 UI 版面配置。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/a03bcf5beacb4b45_1920.png?hl=zh-tw" width="50%" height="50%">
-
-<ol start="2">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/a03bcf5beacb4b45_1920.png?hl=zh-tw" width="50%" height="50%"></p>
+<ol>
 <li>請嘗試點選其他行 (<code>ConstraintLayout</code> 下和 <code>TextView</code>下一行)，然後可注意到會選取到「Design Editor」中對應的畫面。反之亦然。舉例來說，如果您在「Design Editor」中按一下 <code>TextView</code>，系統就會醒目顯示對應的 XML。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/1abc54a646c39f66_1920.png?hl=zh-tw" width="90%" height="90%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/1abc54a646c39f66_1920.png?hl=zh-tw" width="90%" height="90%"></p>
 <h5 id="刪除-TextView"><a href="#刪除-TextView" class="headerlink" title="刪除 TextView"></a>刪除 TextView</h5><ol>
 <li><p>您現在不需要 <code>TextView</code>，請將其刪除。請務必從 <code>&lt;TextView</code> 至 <code>/&gt;</code> 結尾全部刪除。</p>
 </li>
@@ -403,78 +378,62 @@
 </li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <h5 id="新增服務費用文字欄位"><a href="#新增服務費用文字欄位" class="headerlink" title="新增服務費用文字欄位"></a>新增服務費用文字欄位</h5><p>在這個步驟中，您必須新增 UI 元素，才能在應用程式中輸入服務費用。您必須使用 <code>EditText</code> 元素，讓使用者在應用程式中輸入或修改文字。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/7746dedb0d79923f_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<p>目前的版面配置檔案應該會如下所示：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">EditText</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/plain_text_input&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:inputType</span>=<span class="string">&quot;text&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/7746dedb0d79923f_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>目前的版面配置檔案應該會如下所示：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">EditText</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/plain_text_input&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:inputType</span>=<span class="string">&quot;text&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ol>
 <li><p>請注意，<code>EditText</code> 會加上紅色底線。</p>
 </li>
 <li><p>將滑鼠游標移到指標上，系統就會顯示「檢視畫面不受限」的錯誤訊息，您對在舊版程式碼研究室中的這類程式碼應該十分熟悉。先前提過，<code>ConstraintLayout</code> 的子項設有限制，因此版面配置會熟悉該如何排列。</p>
 </li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/40c17058bd6786f_1920.png?hl=zh-tw" width="80%" height="80%">
-
-<ol start="5">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/40c17058bd6786f_1920.png?hl=zh-tw" width="80%" height="80%"></p>
+<ol>
 <li>將這些限制新增至 <code>EditText</code> 可固定在父項的左上角。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app:layout_constraintStart_toStartOf=&quot;parent&quot;</span><br><span class="line">app:layout_constraintTop_toTopOf=&quot;parent&quot;</span><br></pre></td></tr></table></figure>
-
-<p>加入新限制條件後，<code>EditText</code> 元素會如下所示：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">EditText</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/plain_text_input&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:inputType</span>=<span class="string">&quot;text&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
+<p>加入新限制條件後，<code>EditText</code> 元素會如下所示：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">EditText</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/plain_text_input&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:inputType</span>=<span class="string">&quot;text&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
 <h5 id="查看編輯文字屬性"><a href="#查看編輯文字屬性" class="headerlink" title="查看編輯文字屬性"></a>查看編輯文字屬性</h5><p>請仔細檢查您貼上的所有 <code>EditText</code> 屬性，確保它們與您應用程式中的方式搭配運作。</p>
 <ol>
 <li>找出設為 <code>@+id/plain_text_input</code> 的 <code>id</code> 屬性。</li>
 <li>將 <code>id</code> 屬性變更為較為適當的名稱 <code>@+id/cost_of_service</code>。</li>
 </ol>
 <div class="note no-icon success">
-            <p><strong>注意</strong>： 資源 ID 是元素專屬的資源名稱，當您透過「Layout Editor」新增 <b>View</b> 或其他資源時，Android Studio 會自動為資源指派資源 ID。手動輸入 XML 時，您必須手動宣告資源 ID。XML 檔案中的新資料檢視 ID 必須以 <b>@+id</b> 前置字元來定義，這樣 Android Studio 才能將該 ID 新增為新的資源 ID。</p><p>為資源取個清楚易懂的名稱，以便您知道資源的參照對象，但全都應以小寫字母輸入，並以底線分隔字詞。</p><p>如要參照應用程式程式碼中的資源 ID，請使用 <b>R.<type>.<name></b>；例如 <b>R.string.roll</b>。如為 View ID，<b><code>&lt;type&gt;</code></b> 則為 <b>id</b>，例如 <b>R.id.button</b>。</p>
+            <p><strong>注意</strong>： 資源 ID 是元素專屬的資源名稱，當您透過「Layout Editor」新增 <b>View</b> 或其他資源時，Android Studio 會自動為資源指派資源 ID。手動輸入 XML 時，您必須手動宣告資源 ID。XML 檔案中的新資料檢視 ID 必須以 &lt;b&gt;@+id&lt;/b&gt; 前置字元來定義，這樣 Android Studio 才能將該 ID 新增為新的資源 ID。</p><p>為資源取個清楚易懂的名稱，以便您知道資源的參照對象，但全都應以小寫字母輸入，並以底線分隔字詞。</p><p>如要參照應用程式程式碼中的資源 ID，請使用 <b>R.<type>.<name></b>；例如 <b>R.string.roll</b>。如為 View ID，<b><code>&lt;type&gt;</code></b> 則為 <b>id</b>，例如 <b>R.id.button</b>。</p>
           </div>
-
-<ol start="3">
+<ol>
 <li><p>查看 <code>layout_height</code> 屬性。已設為 <code>wrap_content</code>，表示高度會和當中的內容高度相同。沒關係，因為只有 1 行文字。</p>
 </li>
 <li><p>查看 <code>layout_width</code> 屬性。已設為 <code>match_parent</code>，但你無法在 <code>ConstraintLayout</code> 的子項中設定 <code>match_parent</code>。此外，文字欄位不需要那麼寬。設為 <code>160dp</code> 的固定寬度，但應預留足夠空間，讓使用者輸入服務費用。</p>
 </li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/1f82a5e86ae94fd2_1920.png?hl=zh-tw" width="50%" height="50%">
-
-<ol start="5">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/1f82a5e86ae94fd2_1920.png?hl=zh-tw" width="50%" height="50%"></p>
+<ol>
 <li>找到新的 <code>inputType</code> 屬性，這是一項新功能。屬性值為 <code>&quot;text&quot;</code>，表示使用者可在畫面上的欄位中輸入任何文字字元 (英數字元、符號等)。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:inputType=&quot;text&quot;</span><br></pre></td></tr></table></figure>
-
 <p>不過，假如您只想在 EditText 中輸入數字，因為該欄位代表貨幣金額。</p>
-<ol start="6">
+<ol>
 <li>清除 <code>text</code> 字詞，但保留引號。</li>
 <li>輸入 <code>number</code> 的位置。輸入「n」後，Android Studio 會顯示包含「n」的可能完成項目清單。</li>
 </ol>
-<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-xml-layouts/img/99b04cbd21e74693.gif" width="50%" height="50%">
-
-<ol start="8">
+<p><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-xml-layouts/img/99b04cbd21e74693.gif" width="50%" height="50%"></p>
+<ol>
 <li>選擇 <code>numberDecimal</code>，這個類型可限制只顯示含小數點的數字。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:inputType=&quot;numberDecimal&quot;</span><br></pre></td></tr></table></figure>
-
 <p>如要查看輸入類型的其他選項，請參閱開發人員說明文件中的 <a target="_blank" rel="noopener" href="https://developer.android.com/develop/ui/views/touch-and-input/keyboard-input/style">指定輸入法類型</a>。</p>
-<ol start="9">
+<ol>
 <li>在 <code>EditText</code> 中加入 <code>hint</code> 屬性，藉此說明使用者應在欄位中輸入的內容。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:hint=&quot;Cost of Service&quot;</span><br></pre></td></tr></table></figure>
-
 <p>您也會看到「Design Editor」將其更新。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/824454d2a316efb1_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<ol start="10">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/824454d2a316efb1_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<ol>
 <li>在模擬器中執行應用程式。看起來應該像這樣：</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/c9d413de53b0853d_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<h5 id="新增服務問題"><a href="#新增服務問題" class="headerlink" title="新增服務問題"></a>新增服務問題</h5><p>在這個步驟中，您必須新增 <code>TextView</code> 問題說明：”How was the service?”請嘗試輸入，不要複製&#x2F;貼上。你可以透過 Android Studio 提供建議的做法。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/c9d413de53b0853d_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<h5 id="新增服務問題"><a href="#新增服務問題" class="headerlink" title="新增服務問題"></a>新增服務問題</h5><p>在這個步驟中，您必須新增 <code>TextView</code> 問題說明：”How was the service?”請嘗試輸入，不要複製/貼上。你可以透過 Android Studio 提供建議的做法。</p>
 <ol>
 <li>關閉 <code>EditText</code> 標記 <code>/&gt;</code> 後，新增一行然後開始輸入 <code>&lt;TextView</code></li>
 <li>從建議中選取 <code>TextView</code>，Android Studio 就會自動為 <code>TextView</code> 新增 <code>layout_width</code> 和 <code>layout_height</code> 屬性。</li>
@@ -483,24 +442,20 @@
 <li>使用 <code>/&gt;</code> 關閉標記。</li>
 <li>請注意，在「Design Editor」中 <code>TextView</code> 會與 <code>EditText</code> 重疊。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/ac09d5cae6ae2455_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/ac09d5cae6ae2455_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <p>垂直部分 <code>TextView</code> 應低於服務費用文字欄位。水平部分要讓 <code>TextView</code> 對齊父項的邊緣。</p>
-<ol start="7">
+<ol>
 <li>為 <code>TextView</code> 加上水平限制，限制它的起點到父項的起點。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:layout_constraintStart_toStartOf=&quot;parent&quot;</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<ol>
 <li>在 <code>TextView</code> 中加入垂直限制，將 <code>TextView</code> 的上緣限制在服務費用 <code>View</code> 的底部邊緣。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:layout_constraintTop_toBottomOf=&quot;@id/cost_of_service&quot;</span><br></pre></td></tr></table></figure>
-
-<ol start="9">
+<ol>
 <li>在 <code>TextView</code> 新增資源 ID。您稍後必須參考這個資料檢視，因為我們建議您新增更多檢視點，並將這些項目互相衝突。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:id=&quot;@+id/service_question&quot;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h4 id="新增提示選項"><a href="#新增提示選項" class="headerlink" title="新增提示選項"></a>新增提示選項</h4><p>接下來，您需要為各個使用者選項提供<code>圓形按鈕(RadioButton)</code>選項。</p>
 <p>共有三個選項：</p>
@@ -515,22 +470,19 @@
 <div class="note no-icon primary">
             <p>在建立每個圓形按鈕選項時，請在版面配置中建立 <code>RadioButton</code>。 不過，由於圓形按鈕彼此互斥，因此必須在 <code>RadioGroup</code> 內將這些按鈕設成一個群組。把它們設成一個群組，系統即可確保一次只能選取一個圓形按鈕。</p>
           </div>
-
-<ol start="2">
+<ol>
 <li>返回 Android Studio 中的版面配置，將 <code>RadioGroup</code> 和 <code>RadioButton</code> 新增至應用程式。</li>
 <li>在 <code>TextView</code> 元素之後，仍顯示在 <code>ConstraintLayout</code> 中，開始輸入 <code>&lt;RadioGroup</code>。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/aee75ba409dc51aa_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<ol start="4">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/aee75ba409dc51aa_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<ol>
 <li>將 <code>RadioGroup</code> 的 <code>layout_width</code> 和 <code>layout_height</code> 設為 <code>wrap_content</code>。</li>
 <li>新增設為 <code>@+id/tip_options</code> 的資源 ID。</li>
 <li>使用 <code>&gt;</code> 關閉起始標記。</li>
 <li>Android Studio 會加上 <code>&lt;/RadioGroup&gt;</code>。和 <code>ConstraintLayout</code> 一樣，<code>RadioGroup</code> 元素內部也會包含其他元素，因此建議您將元素移到單獨的線條。</li>
 </ol>
-<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-xml-layouts/img/b66934aa214811ad.gif" width="60%" height="60%">
-
-<ol start="8">
+<p><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-xml-layouts/img/b66934aa214811ad.gif" width="60%" height="60%"></p>
+<ol>
 <li>將 <code>RadioGroup</code> 限制在服務問題下方 (垂直)，並限制父項的開頭 (水平)。</li>
 <li>將 <code>android:orientation</code> 屬性設為 <code>vertical</code>。如要指定某列的 <code>RadioButtons</code>，可以將方向設為 <code>horizontal</code>。</li>
 </ol>
@@ -538,40 +490,31 @@
 <li>在 <code>RadioGroup</code> 的最後一個屬性後方，在 <code>&lt;/RadioGroup&gt;</code> 結束標記之前加上 <code>RadioButton</code>。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">RadioGroup</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/tip_options&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toBottomOf</span>=<span class="string">&quot;@id/service_question&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- add RadioButtons here --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">RadioGroup</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>將 <code>layout_width</code> 和 <code>layout_height</code> 設為 <code>wrap_content</code>。</li>
 <li>將 <code>@+id/option_twenty_percent</code> 的資源 ID 指派給 <code>RadioButton</code>。</li>
 <li>將文字設為 <code>Amazing (20%)</code>。</li>
 <li>使用 <code>/&gt;</code> 關閉標記。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/53cb416b368e9612_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/53cb416b368e9612_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <p>接著為 <code>Good (18%)</code> 和 <code>Okay (15%)</code> 選項新增 2 個圓形按鈕(RadioButton)。</p>
-<p>以下是新增完成的XML：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">RadioGroup</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/tip_options&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintTop_toBottomOf</span>=<span class="string">&quot;@id/service_question&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">RadioButton</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/option_twenty_percent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:text</span>=<span class="string">&quot;Amazing (20%)&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">RadioButton</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/option_eighteen_percent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:text</span>=<span class="string">&quot;Good (18%)&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">RadioButton</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/option_fifteen_percent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:text</span>=<span class="string">&quot;Okay (15%)&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">RadioGroup</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/bab25b6a35d4ce52_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p>以下是新增完成的XML：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">RadioGroup</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/tip_options&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintTop_toBottomOf</span>=<span class="string">&quot;@id/service_question&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">RadioButton</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/option_twenty_percent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:text</span>=<span class="string">&quot;Amazing (20%)&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">RadioButton</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/option_eighteen_percent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:text</span>=<span class="string">&quot;Good (18%)&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">RadioButton</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/option_fifteen_percent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:text</span>=<span class="string">&quot;Okay (15%)&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">RadioGroup</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/bab25b6a35d4ce52_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <h5 id="新增預設選項"><a href="#新增預設選項" class="headerlink" title="新增預設選項"></a>新增預設選項</h5><p>目前未選取任何提示選項。系統預設會選取其中一個圓形按鈕選項。<br><code>RadioGroup</code> 上有一個屬性可讓您指定要先檢查哪一個按鈕。名稱是 <code>checkedButton</code>，並設為所選圓形按鈕的按鈕資源。</p>
 <ol>
 <li>在 <code>RadioGroup</code> 上，將 <code>android:checkedButton</code> 屬性設為 <code>@id/option_twenty_percent</code>。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">RadioGroup</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/tip_options&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:checkedButton</span>=<span class="string">&quot;@id/option_twenty_percent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span></span></span><br></pre></td></tr></table></figure>
-
 <p>根據預設，系統會選取 20% 的小費選項！現在這開始看起來像小費計算機了！</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/c412e7f16590cd33_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/c412e7f16590cd33_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <hr>
 <h4 id="完成版面配置的其餘部分"><a href="#完成版面配置的其餘部分" class="headerlink" title="完成版面配置的其餘部分"></a>完成版面配置的其餘部分</h4><p>現在已進入版面配置的最後一個部分。請新增 <code>Switch</code>、<code>Button</code> 和 <code>TextView</code> 以顯示小費金額。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/bcc5260318477c14_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/bcc5260318477c14_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <h5 id="新增切換鈕，讓小費四捨五入"><a href="#新增切換鈕，讓小費四捨五入" class="headerlink" title="新增切換鈕，讓小費四捨五入"></a>新增切換鈕，讓小費四捨五入</h5><p>接下來，您將使用 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/kotlin/android/widget/Switch"><code>Switch</code></a> 小工具，讓使用者選取「Yes」或「No」是否要將小費四捨五入。</p>
 <p>您想要 <code>Switch</code> 的寬度和父項一樣，因此您可能會認為寬度應該設為 <code>match_parent</code>。如前文所述，您無法在 <code>ConstraintLayout</code> 的 UI 元素上設定 <code>match_parent</code>。相反地，您需要限制檢視畫面的開始和結束時間，並將寬度設為 <code>0dp</code>。將寬度設為 <code>0dp</code> 可讓系統不要計算寬度，只要嘗試與檢視畫面中的限制條件相符即可。</p>
 <div class="note no-cion success">
             <p><strong>注意</strong>：您無法在 <b>match_parent</b> 中使用 <b>ConstraintLayout</b> 的任何資料檢視。而是使用 <b>0dp</b>，也就是相符條件。</p>
           </div>
-
 <ol>
 <li>在 <code>RadioGroup</code> 的 XML 後方加入 <code>Switch</code> 元素。</li>
 <li>如上所述，將 <code>layout_width</code> 設為 <code>0dp</code></li>
@@ -583,17 +526,14 @@
 <li>使用 <code>/&gt;</code> 關閉標記。</li>
 </ol>
 <p>如果切換按鈕預設為開啟，且有 <code>android:checked</code> 的屬性，則可能的值為 <code>true</code> (開啟) 或 <code>false</code> (關閉)。</p>
-<ol start="9">
+<ol>
 <li>將 <code>android:checked</code> 屬性設為 <code>true</code></li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Switch</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/round_up_switch&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:checked</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;Round up tip?&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintEnd_toEndOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;@id/tip_options&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toBottomOf</span>=<span class="string">&quot;@id/tip_options&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
 <div class="note no-icon danger">
             <p><strong>注意</strong>：如果您將滑鼠遊標懸停在 XML 版面配置中的 <code>Switch</code> 元素上，Android Studio 會顯示以下建議：「使用 <code>AppCompat</code> 的 <code>SwitchCompat</code>，或 <code>Material</code> 資料庫的 <code>SwitchMaterial</code>」。稍後您將在建構小費計算機應用程式的程式碼研究室中實作此建議，因此您可以忽略這則警告。</p>
           </div>
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/d374fab984650296_1920.png?hl=zh-tw" width="50%" height="50%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/d374fab984650296_1920.png?hl=zh-tw" width="50%" height="50%"></p>
 <h5 id="新增計算按鈕"><a href="#新增計算按鈕" class="headerlink" title="新增計算按鈕"></a>新增計算按鈕</h5><p>接著，您必須新增 <code>Button</code> 來向使用者說明小費的計算方式。您想將按鈕設為與上層最寬，因此水平限制和寬度與 <code>Switch</code> 相同。</p>
 <ol>
 <li>在 <code>Switch</code> 後方加上 <code>Button</code>。</li>
@@ -605,9 +545,7 @@
 <li>使用 <code>/&gt;</code> 關閉標記。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/calculate_button&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:text</span>=<span class="string">&quot;Calculate&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintTop_toBottomOf</span>=<span class="string">&quot;@id/round_up_switch&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintEnd_toEndOf</span>=<span class="string">&quot;parent&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/5338cf87c61d15c9_1920.png?hl=zh-tw" width="50%" height="50%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/5338cf87c61d15c9_1920.png?hl=zh-tw" width="50%" height="50%"></p>
 <h5 id="新增小費計算結果"><a href="#新增小費計算結果" class="headerlink" title="新增小費計算結果"></a>新增小費計算結果</h5><p>就快完成了版面配置！在這個步驟中，您會為小費的結果加上 <code>TextView</code>、將其放在<code>「Calculate」</code>按鈕下方，並且與結尾處對齊，而非與其他 UI 元素一樣放在開始處。</p>
 <ol>
 <li>新增具有 ID 為 <code>tip_result</code> 且 ID 為 <code>Tip Amount</code> 的 <code>TextView</code>。</li>
@@ -615,17 +553,13 @@
 <li>限制「Calculate」按鈕的上方與下方的邊緣。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/tip_result&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintEnd_toEndOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toBottomOf</span>=<span class="string">&quot;@id/calculate_button&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;Tip Amount&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/9644bcdabbd8d7d1_1920.png?hl=zh-tw" width="50%" height="50%">
-
-<ol start="4">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/9644bcdabbd8d7d1_1920.png?hl=zh-tw" width="50%" height="50%"></p>
+<ol>
 <li>執行應用程式。看起來應該要像這個螢幕截圖一樣。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/e4ed552fa9fbe4ce_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-xml-layouts/img/e4ed552fa9fbe4ce_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <p>實際執行畫面：</p>
-<img src="https://i.imgur.com/iSz3wCT.png" width="30%" height="30%">
-
+<p><img src="https://i.imgur.com/iSz3wCT.png" width="30%" height="30%"></p>
 <hr>
 <h4 id="採用完善程式設計做法"><a href="#採用完善程式設計做法" class="headerlink" title="採用完善程式設計做法"></a>採用完善程式設計做法</h4><h5 id="擷取字串"><a href="#擷取字串" class="headerlink" title="擷取字串"></a>擷取字串</h5><ol>
 <li><p>按一下字串；將滑鼠游標懸停在顯示的黃色燈泡圖示上，然後按一下旁邊的三角形圖示；選擇「Extract String Resource」。字串資源的預設名稱沒有問題。您可以視需要根據提示選擇使用 <code>amazing_service</code>、<code>good_service</code> 和 <code>ok_service</code>，讓名稱更加描述性。</p>
@@ -636,7 +570,6 @@
 </li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;app_name&quot;</span>&gt;</span>Tip Time<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;cost_of_service&quot;</span>&gt;</span>Cost of Service<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;how_was_the_service&quot;</span>&gt;</span>How was the service?<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;amazing_service&quot;</span>&gt;</span>Amazing (20%)<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;good_service&quot;</span>&gt;</span>Good (18%)<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;ok_service&quot;</span>&gt;</span>Okay (15%)<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;round_up_tip&quot;</span>&gt;</span>Round up tip?<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;calculate&quot;</span>&gt;</span>Calculate<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;tip_amount&quot;</span>&gt;</span>Tip Amount<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <h5 id="重新格式化-XML"><a href="#重新格式化-XML" class="headerlink" title="重新格式化 XML"></a>重新格式化 XML</h5><ol>
 <li>在 <code>activity_main.xml</code> 中，選擇「Edit」&gt;「Select All」。</li>
 <li>依序選擇「Code」&gt;「Reformat Code」。</li>
@@ -869,6 +802,8 @@
 
 
 
+
+  
 
   
 

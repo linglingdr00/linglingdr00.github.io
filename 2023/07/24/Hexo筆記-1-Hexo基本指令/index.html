@@ -258,35 +258,25 @@
 
       
         <blockquote>
-<p>學習關於 Hexo 的基本指令，包括建立專案、新文章、新增 menu、跑 server 和 deploy 等等</p>
+<p>學習關於 Hexo 的基本指令，包括建立專案、新文章、新增 menu、跑 server 和 deploy 等等<br><span id="more"></span></p>
 </blockquote>
-<span id="more"></span>
-
 <hr>
 <h3 id="建立一個Hexo專案"><a href="#建立一個Hexo專案" class="headerlink" title="建立一個Hexo專案"></a>建立一個Hexo專案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init 專案名稱</span><br><span class="line">$ hexo init blog</span><br></pre></td></tr></table></figure>
-
-<h3 id="新增menu"><a href="#新增menu" class="headerlink" title="新增menu"></a>新增menu</h3><p>(about&#x2F;tags&#x2F;categories…)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page about</span><br><span class="line">$ hexo new page tags</span><br><span class="line">$ hexo new page categories</span><br></pre></td></tr></table></figure>
-<p>執行完成後source資料夾底下會出現<span class="label primary">對應資料夾</span>和其底下的<span class="label primary">index.md</span></p>
+<h3 id="新增menu"><a href="#新增menu" class="headerlink" title="新增menu"></a>新增menu</h3><p>(about/tags/categories…)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page about</span><br><span class="line">$ hexo new page tags</span><br><span class="line">$ hexo new page categories</span><br></pre></td></tr></table></figure><br>執行完成後source資料夾底下會出現<span class="label primary">對應資料夾</span>和其底下的<span class="label primary">index.md</span></p>
 <h3 id="建立新文章"><a href="#建立新文章" class="headerlink" title="建立新文章"></a>建立新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;我的第一篇文章&quot;</span></span><br></pre></td></tr></table></figure>
-<p>執行完成後source&#x2F;_posts資料夾底下會出現<span class="label primary">我的第一篇文章.md</span></p>
+<p>執行完成後source/_posts資料夾底下會出現<span class="label primary">我的第一篇文章.md</span></p>
 <h3 id="跑server"><a href="#跑server" class="headerlink" title="跑server"></a>跑server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
 <h3 id="修改-config-yml的deploy設定"><a href="#修改-config-yml的deploy設定" class="headerlink" title="修改_config.yml的deploy設定"></a>修改_config.yml的deploy設定</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repository: git@github.com:你的帳號/你的帳號.github.io.git <span class="comment">#你的github倉庫</span></span><br><span class="line">  branch: main <span class="comment">#分支</span></span><br></pre></td></tr></table></figure>
 <p>repository: 到你的github倉庫點選<span class="label success">Code -> copy按鈕</span>，即可複製完成<br><img src="https://i.imgur.com/6djPxpw.png" alt="Imgur"></p>
 <h3 id="產生靜態檔案"><a href="#產生靜態檔案" class="headerlink" title="產生靜態檔案"></a>產生靜態檔案</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<h3 id="安裝hexo-deployer-git"><a href="#安裝hexo-deployer-git" class="headerlink" title="安裝hexo-deployer-git"></a>安裝hexo-deployer-git</h3><p>(第一次deploy前執行即可)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
+<h3 id="安裝hexo-deployer-git"><a href="#安裝hexo-deployer-git" class="headerlink" title="安裝hexo-deployer-git"></a>安裝hexo-deployer-git</h3><p>(第一次deploy前執行即可)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure></p>
 <h3 id="部署到遠端"><a href="#部署到遠端" class="headerlink" title="部署到遠端"></a>部署到遠端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
 <h4 id="一鍵部屬"><a href="#一鍵部屬" class="headerlink" title="一鍵部屬"></a>一鍵部屬</h4><ol>
 <li>安裝 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a></li>
 <li>清空 <code>_config.yml</code> 的現有資料，並新增以下組態:</li>
 </ol>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/&lt;username&gt;/&lt;project&gt;</span></span><br><span class="line">  <span class="comment"># example, https://github.com/hexojs/hexojs.github.io</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">gh-pages</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
+<ol>
 <li>執行 <code>hexo clean &amp;&amp; hexo deploy</code> 。</li>
 <li>瀏覽 <code>&lt;GitHub 用戶名&gt;.github.io</code> 檢查你的網站能否運作。</li>
 </ol>
@@ -496,6 +486,8 @@
 
 
 
+
+  
 
   
 

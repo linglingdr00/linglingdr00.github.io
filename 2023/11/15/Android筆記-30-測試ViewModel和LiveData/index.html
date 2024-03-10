@@ -296,7 +296,6 @@
 <li>編寫 <code>ViewModel</code> 和 <code>LiveData</code> 單元測試(unit tests)。</li>
 </ul>
 <span id="more"></span>
-
 <hr>
 <h3 id="建立單元測試目錄"><a href="#建立單元測試目錄" class="headerlink" title="建立單元測試目錄"></a>建立單元測試目錄</h3><p>單元測試一律位於 <code>test</code> 目錄中：</p>
 <ol>
@@ -304,42 +303,34 @@
 <li>按一下第一個下拉式選單，然後依序點選「app」-&gt;「src」。</li>
 <li>用滑鼠右鍵按一下「src」，然後選取「New」-&gt;「Directory」。</li>
 </ol>
-<img src="https://i.imgur.com/KQwG4fC.png" width="90%">
-
-<ol start="4">
+<p><img src="https://i.imgur.com/KQwG4fC.png" width="90%"></p>
+<ol>
 <li>輸入並選取 <code>test/java</code>。</li>
 </ol>
-<img src="https://i.imgur.com/XCpZreH.png" width="40%">
-
-<ol start="5">
+<p><img src="https://i.imgur.com/XCpZreH.png" width="40%"></p>
+<ol>
 <li>現在會在專案結構中看到「src」-&gt;「test」目錄。</li>
 </ol>
-<img src="https://i.imgur.com/9Q6G56K.png" width="40%">
-
-<ol start="6">
+<p><img src="https://i.imgur.com/9Q6G56K.png" width="40%"></p>
+<ol>
 <li>用滑鼠右鍵按一下「java」目錄，然後依序選取「New」-&gt;「Package」。</li>
 </ol>
-<img src="https://i.imgur.com/sFkQ38z.png" width="90%">
-
-<ol start="7">
+<p><img src="https://i.imgur.com/sFkQ38z.png" width="90%"></p>
+<ol>
 <li>在視窗中輸入 <code>com.example.cupcake</code>，然後按下 Return 鍵。</li>
 </ol>
-<img src="https://i.imgur.com/9977Lc4.png" width="40%">
-
-<ol start="8">
-<li>最後，建立名為 <code>ViewModelTests.kt</code> 的新 class。用滑鼠右鍵按一下 <code>com.example.cupcake</code>，然後依序選取「New」-&gt;「Kotlin Class&#x2F;File」。</li>
+<p><img src="https://i.imgur.com/9977Lc4.png" width="40%"></p>
+<ol>
+<li>最後，建立名為 <code>ViewModelTests.kt</code> 的新 class。用滑鼠右鍵按一下 <code>com.example.cupcake</code>，然後依序選取「New」-&gt;「Kotlin Class/File」。</li>
 </ol>
-<img src="https://i.imgur.com/rtne9Xv.png" width="90%">
-
-<ol start="9">
+<p><img src="https://i.imgur.com/rtne9Xv.png" width="90%"></p>
+<ol>
 <li>在出現的視窗中輸入 <code>ViewModelTests</code>，然後從下拉式選單中選取「Class」。</li>
 </ol>
-<img src="https://i.imgur.com/3uhe7a5.png" width="40%">
-
+<p><img src="https://i.imgur.com/3uhe7a5.png" width="40%"></p>
 <hr>
 <h3 id="新增必要的-dependencies"><a href="#新增必要的-dependencies" class="headerlink" title="新增必要的 dependencies"></a>新增必要的 dependencies</h3><p>將下列 dependencies 新增至專案：</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testImplementation <span class="string">&#x27;junit:junit:4.+&#x27;</span></span><br><span class="line">testImplementation <span class="string">&#x27;androidx.arch.core:core-testing:2.1.0&#x27;</span></span><br></pre></td></tr></table></figure>
-
 <p>接著同步(sync)專案。</p>
 <hr>
 <h3 id="編寫和執行-ViewModel-測試"><a href="#編寫和執行-ViewModel-測試" class="headerlink" title="編寫和執行 ViewModel 測試"></a>編寫和執行 ViewModel 測試</h3><h4 id="編寫單元測試"><a href="#編寫單元測試" class="headerlink" title="編寫單元測試"></a>編寫單元測試</h4><p>讓我們先從簡單的測試開始。當我們在裝置(device)或模擬器(emulator)上與 app 互動時，首先會<u>選取杯子蛋糕(cupcakes)的數量(quantity)</u>。因此，我們會<u>在 <code>OrderViewModel</code> 中測試 <code>setQuantity()</code> 方法</u>，並<u>檢查 <code>quantity</code> <code>LiveData</code> 物件的 value</u>。</p>
@@ -349,44 +340,36 @@
 <li>如要指定 <u><code>LiveData</code> 物件不得呼叫主執行緒(main thread)</u>，我們需在每次測試 <code>LiveData</code> 物件時提供專用<u><b>測試規則(test rule)</b></u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@get:Rule</span></span><br><span class="line"><span class="keyword">var</span> instantTaskExecutorRule = InstantTaskExecutorRule()</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>現在可建立名為 <code>quantity_twelve_cupcakes()</code> 的 function。在 method 中，建立 <code>OrderViewModel</code> instance。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> quantity_twelve_cupcakes &#123;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li><p>在本測試中，您需確認 <code>OrderViewModel</code> 中的 <code>quantity</code> 物件在 <code>setQuantity</code> 呼叫時已更新。但在呼叫任何 method 或處理 <code>OrderViewModel</code> 中的任何資料前，請注意測試 <code>LiveData</code> 物件的 value 時，必須先觀察(observed)物件，才能發出變更。方法很簡單，只要使用 <code>observeForever</code> method 即可。呼叫 <code>quantity</code> 物件的 <code>observeForever</code> method 。這個 method 需要 <strong>lambda</strong> 運算式，但可以留空(empty)。</p>
 </li>
 <li><p>然後呼叫 <code>setQuantity()</code> method，將 <code>12</code> 傳入做為參數。</p>
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在 method 中，建立 OrderViewModel instance</span></span><br><span class="line"><span class="keyword">val</span> viewModel = OrderViewModel()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 確認 OrderViewModel 中的 quantity 物件在 setQuantity 呼叫時已更新</span></span><br><span class="line"><span class="comment">// 測試 LiveData 物件的 value 時，須先使用 observeForever method 觀察(observed)物件，才能發出變更</span></span><br><span class="line">viewModel.quantity.observeForever &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 呼叫 setQuantity() method，將 12 傳入做為參數</span></span><br><span class="line">viewModel.setQuantity(<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>我們可以放心推論 <code>quantity</code> 物件的 value 為 <code>12</code>。請注意，<code>LiveData</code> 物件本身並不是 value。value 包含在名為 <code>value</code> 的屬性中。指定以下斷言(assertion)：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">12</span>, viewModel.quantity.value)</span><br></pre></td></tr></table></figure>
 <ul>
-<li>請注意，嘗試呼叫 <code>assertEquals()</code> 方法時，文字會先顯示為紅色。這是因為找不到這個方法的宣告，所以您必須 import 宣告(option+enter)，然後選擇來自 <code>org.junit.Assert</code> package 的選項。<img src="https://i.imgur.com/iXIWd50.png"></li>
+<li>請注意，嘗試呼叫 <code>assertEquals()</code> 方法時，文字會先顯示為紅色。這是因為找不到這個方法的宣告，所以您必須 import 宣告(option+enter)，然後選擇來自 <code>org.junit.Assert</code> package 的選項。<br><img src="https://i.imgur.com/iXIWd50.png"></li>
 </ul>
-<p>Test code 的編寫方式如下：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">quantity_twelve_cupcakes</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> viewModel = OrderViewModel()</span><br><span class="line">   viewModel.quantity.observeForever &#123;&#125;</span><br><span class="line">   viewModel.setQuantity(<span class="number">12</span>)</span><br><span class="line">   assertEquals(<span class="number">12</span>, viewModel.quantity.value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>Test code 的編寫方式如下：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">quantity_twelve_cupcakes</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> viewModel = OrderViewModel()</span><br><span class="line">   viewModel.quantity.observeForever &#123;&#125;</span><br><span class="line">   viewModel.setQuantity(<span class="number">12</span>)</span><br><span class="line">   assertEquals(<span class="number">12</span>, viewModel.quantity.value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <div class="note no-icon success">
-            <p><strong>補充：</strong><b><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E6%96%B7%E8%A8%80_(%E7%A8%8B%E5%BC%8F)">斷言(assertion)</a></b>是一種放在程式中的一階邏輯（如一個結果為真或是假的邏輯判斷式），目的是為了標示與驗證程式開發者預期的結果－當程式執行到斷言的位置時，對應的斷言應該為真。若斷言不為真時，程式會中止執行，並給出錯誤訊息。<br><a href="https://linglingdr00.github.io/2023/08/23/Android%E7%AD%86%E8%A8%98-6-%E7%B7%A8%E5%AF%AB%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6/#%E5%87%BD%E5%BC%8F%E5%AE%A3%E5%91%8A">點此查看常見的斷言(assertion)</a></p>
+            <p><strong>補充：</strong><b><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E6%96%B7%E8%A8%80_(%E7%A8%8B%E5%BC%8F">斷言(assertion)</a>)</b>是一種放在程式中的一階邏輯（如一個結果為真或是假的邏輯判斷式），目的是為了標示與驗證程式開發者預期的結果－當程式執行到斷言的位置時，對應的斷言應該為真。若斷言不為真時，程式會中止執行，並給出錯誤訊息。<br><a href="https://linglingdr00.github.io/2023/08/23/Android%E7%AD%86%E8%A8%98-6-%E7%B7%A8%E5%AF%AB%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6/#%E5%87%BD%E5%BC%8F%E5%AE%A3%E5%91%8A">點此查看常見的斷言(assertion)</a></p>
           </div>
-
 <h4 id="執行單元測試"><a href="#執行單元測試" class="headerlink" title="執行單元測試"></a>執行單元測試</h4><ol>
 <li>點選 Run Test 執行 <code>ViewModelTests</code>。</li>
 </ol>
-<img src="https://i.imgur.com/IJNuI4L.png">
-
-<ol start="2">
+<p><img src="https://i.imgur.com/IJNuI4L.png"></p>
+<ol>
 <li>查看測試結果，顯示 <strong>Tests passed</strong> 即代表測試通過。</li>
 </ol>
-<img src="https://i.imgur.com/kG1dwHG.png">
-
+<p><img src="https://i.imgur.com/kG1dwHG.png"></p>
 <p>執行測試！恭喜！您剛剛已編寫第一個 <code>LiveData</code> 單元測試(unit test)，這是 <strong>Modern Android Development</strong> 的重要技能。這種方式並未測試到大部分的商業邏輯，因此我們要設計較為深入的測試。</p>
 <p>計算訂單價格是 <code>OrderViewModel</code> 的主要功能之一。當我們選取杯子蛋糕數量，並選取取貨日期時，就會執行此功能。價格計算是以 private method 進行，因此我們的測試無法直接呼叫此 method。只有 <code>OrderViewModel</code> 中的其他 method 可以進行呼叫。這些是 public method，因此我們會呼叫此類 method 觸發價格計算作業，以便確認價格值是否符合預期。</p>
 <h4 id="最佳做法"><a href="#最佳做法" class="headerlink" title="最佳做法"></a>最佳做法</h4><p>選取杯子蛋糕數量及日期時，價格將會隨之更新。儘管兩者都應進行測試，但我們通常建議針對單一功能進行測試。因此，我們會針對各測試建立不同的方法：</p>
@@ -402,29 +385,22 @@
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> viewModel = OrderViewModel()</span><br><span class="line">viewModel.setQuantity(<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>查看 <code>OrderViewModel</code> 中的 <code>PRICE_PER_CUPCAKE</code> 時，可看見每個杯子蛋糕的售價為 <strong>$2.00 美元</strong>。還可以看到每次 <code>ViewModel</code> 初始化時都會呼叫 <code>resetOrder()</code>，在此方法中，預設日期為今天的日期，<code>PRICE_FOR_SAME_DAY_PICKUP</code> 為 <strong>$3.00 美元</strong>。因此，<strong>12 * 2 + 3 &#x3D; 27</strong>。選擇 12 個杯子蛋糕後，我們預期 <code>price</code> 變數的 value 應為 <strong>$27.00 美元</strong>。接著做出斷言，假設 <strong>$27.00 美元</strong>的預期值等於 <code>price</code> <code>LiveData</code> 物件的 value。</li>
+<ol>
+<li>查看 <code>OrderViewModel</code> 中的 <code>PRICE_PER_CUPCAKE</code> 時，可看見每個杯子蛋糕的售價為 <strong>$2.00 美元</strong>。還可以看到每次 <code>ViewModel</code> 初始化時都會呼叫 <code>resetOrder()</code>，在此方法中，預設日期為今天的日期，<code>PRICE_FOR_SAME_DAY_PICKUP</code> 為 <strong>$3.00 美元</strong>。因此，<strong>12 * 2 + 3 = 27</strong>。選擇 12 個杯子蛋糕後，我們預期 <code>price</code> 變數的 value 應為 <strong>$27.00 美元</strong>。接著做出斷言，假設 <strong>$27.00 美元</strong>的預期值等於 <code>price</code> <code>LiveData</code> 物件的 value。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="string">&quot;$27.00&quot;</span>, viewModel.price.value)</span><br></pre></td></tr></table></figure>
-
 <p>現在請執行測試，測試應會失敗！</p>
-<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-test-viewmodel-and-livedata/img/17c8a24e4d7d635d_1920.png?hl=zh-tw">
-
-<p>測試結果顯示，實際值是 <code>null</code>。以下為相關說明。如果您查看 <code>OrderViewModel</code> 中的 <code>price</code> 變數，可看見：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> price: LiveData&lt;String&gt; = Transformations.map(_price) &#123;</span><br><span class="line">   <span class="comment">// Format the price into the local currency and return this as LiveData&lt;String&gt;</span></span><br><span class="line">   NumberFormat.getCurrencyInstance().format(it)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-test-viewmodel-and-livedata/img/17c8a24e4d7d635d_1920.png?hl=zh-tw"></p>
+<p>測試結果顯示，實際值是 <code>null</code>。以下為相關說明。如果您查看 <code>OrderViewModel</code> 中的 <code>price</code> 變數，可看見：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> price: LiveData&lt;String&gt; = Transformations.map(_price) &#123;</span><br><span class="line">   <span class="comment">// Format the price into the local currency and return this as LiveData&lt;String&gt;</span></span><br><span class="line">   NumberFormat.getCurrencyInstance().format(it)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>此範例是應在測試中觀察(observed)到 <code>LiveData</code> 的原因。系統會使用 <code>Transformation</code> 設定 <code>price</code> 的 value。基本上，此程式碼會使用我們指派給 <code>price</code> 的 value，並將其轉換成貨幣格式，使我們不必手動執行。但這個程式碼還有其他含意。轉換 <code>LiveData</code> 物件時，除非有必要進行呼叫，否則系統不會呼叫程式碼，而會將資源(resources)儲存到行動裝置(mobile device)。只有在觀察(observe)到物件變更時，系統才會呼叫程式碼。當然，此操作是在 app 中執行，但我們也需要為測試進行相同操作。</p>
-<ol start="4">
+<ol>
 <li>在測試方法中，請先新增下列程式碼，再設定數量(quantity)：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viewModel.price.observeForever &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>測試程式碼的編寫方式如下：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">price_twelve_cupcakes</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> viewModel = OrderViewModel()</span><br><span class="line">   viewModel.price.observeForever &#123;&#125;</span><br><span class="line">   viewModel.setQuantity(<span class="number">12</span>)</span><br><span class="line">   assertEquals(<span class="string">&quot;$27.00&quot;</span>, viewModel.price.value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>測試程式碼的編寫方式如下：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">price_twelve_cupcakes</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> viewModel = OrderViewModel()</span><br><span class="line">   viewModel.price.observeForever &#123;&#125;</span><br><span class="line">   viewModel.setQuantity(<span class="number">12</span>)</span><br><span class="line">   assertEquals(<span class="string">&quot;$27.00&quot;</span>, viewModel.price.value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>如果現在進行測試，應可通過測試。</p>
-<img src="https://i.imgur.com/7t5rnKR.png">
+<p><img src="https://i.imgur.com/7t5rnKR.png"></p>
+
     </div>
 
     
@@ -638,6 +614,8 @@
 
 
 
+
+  
 
   
 

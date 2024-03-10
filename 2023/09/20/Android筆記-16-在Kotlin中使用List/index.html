@@ -278,7 +278,6 @@
 <li>如何迭代 <code>List</code> 中的所有項目，並對每個項目執行動作。</li>
 </ul>
 <span id="more"></span>
-
 <hr>
 <h4 id="List-簡介"><a href="#List-簡介" class="headerlink" title="List 簡介"></a>List 簡介</h4><p>在先前的程式碼研究室中，您已瞭解 Kotlin 的基本資料類型，例如 <code>Int</code>、<code>Double</code>、<code>Boolean</code> 和 <code>String</code>。這些資料類型可讓您在變數中儲存特定類型的值。但如要儲存多個值，該怎麼辦？這時我們就需要 List 資料類型。</p>
 <p>清單是具有特定順序的項目的集合。Kotlin 中有兩種類型的清單：</p>
@@ -294,89 +293,75 @@
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>在 <code>main()</code> 中，建立類型為 <code>List&lt;Int&gt;</code> 的 <code>numbers</code> 變數，因為其中包含整數的唯讀清單。使用 Kotlin 標準程式庫函式 <code>listOf()</code> 建立新的 <code>List</code>，然後將清單元素做為以半形逗號隔開的引數傳入。<code>listOf(1, 2, 3, 4, 5, 6)</code> 會傳回介於 1 到 6 之間的整數唯讀清單。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> numbers: List&lt;<span class="built_in">Int</span>&gt; = listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>如果根據指派運算子 (<code>=</code>) 右側的值可推斷 (或推論) 變數類型，則可忽略變數的資料類型。因此，您可以將這行程式碼縮短為以下內容：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> numbers = listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>使用 <code>println()</code> 列印 <code>numbers</code> 列表。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;List: <span class="variable">$numbers</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
 <ul>
 <li>請記住，在字串中加入 <code>$</code> 表示後面的內容是一個<span class="label primary">運算式</span>，系統會評估該運算式並將其加入該字串 (請參閱字串範本)。這行程式碼也可寫成 <code>println(&quot;List: &quot; + numbers)</code>.</li>
 </ul>
-<ol start="6">
+<ol>
 <li>使用 <code>numbers.size</code> 屬性擷取 List 大小，並將其列印出來。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Size: <span class="subst">$&#123;numbers.size&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol>
 <li>執行程式。輸出結果會列出清單的所有元素和清單的大小。請注意，括號 <code>[]</code> 代表這是 <code>List</code>。括號內為 <code>numbers</code> 的元素，以半形逗號分隔。另請注意，這些元素的順序與其建立順序相同。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List: [1, 2, 3, 4, 5, 6]</span><br><span class="line">Size: 6</span><br></pre></td></tr></table></figure>
-
 <h5 id="存取-List-元素"><a href="#存取-List-元素" class="headerlink" title="存取 List 元素"></a>存取 List 元素</h5><p><code>List</code> 的特定功能是，能夠依 <code>元素(Element)</code> 的 <code>索引(Index)</code> 存取 <code>List</code> 的每個 <code>元素(Element)</code>，<code>索引(Index)</code> 是代表位置的整數。下圖是我們建立的 numbers List圖表，其中顯示了每個元素及其對應的索引。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-lists/img/cb6924554804458d_1920.png?hl=zh-tw" width="70%" height="70%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-lists/img/cb6924554804458d_1920.png?hl=zh-tw" width="70%" height="70%"></p>
 <p>索引實際上是與第一個元素的偏移值。例如，當您表示 <code>list[2]</code> 時，您並非要求清單的第二個元素，而是要求與第一個元素偏移 2 個位置的元素。因此，<code>list[0]</code> 是第一個元素 (零偏移)，<code>list[1]</code> 是第二個元素 (偏移值 1)，<code>list[2]</code> 是第三個元素 (偏移值 2)，依此類推。</p>
 <ol>
 <li>列印 <code>List</code> 中索引為 <code>0</code> 的第一個元素。您可以呼叫 <code>get()</code> 函式，使得所需索引為 <code>numbers.get(0)</code>，也可以使用簡式語法搭配索引前後的方括號做為 <code>numbers[0]</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;First element: <span class="subst">$&#123;numbers.get(<span class="number">0</span>)&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;First element: <span class="subst">$&#123;numbers[<span class="number">0</span>]&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>接下來，列印 <code>List</code> 中索引為 <code>1</code> 的第二個元素。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Second element: <span class="subst">$&#123;numbers.get(<span class="number">1</span>)&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Second element: <span class="subst">$&#123;numbers[<span class="number">1</span>]&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
 <p><code>List</code> 的有效索引值 (「索引」) 介於 0 到最後一個索引之間，也就是 <code>List</code> 大小減 1。也就是說，您的 <code>numbers</code> <code>List</code> 中的索引介於 0 至 5 之間。</p>
-<ol start="3">
+<ol>
 <li>列印 <code>List</code> 的最後一個元素，使用 <code>numbers.size - 1</code> 計算其索引，應為 5。存取第 5 個索引處的元素時，系統會傳回 6 做為輸出內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Last index: <span class="subst">$&#123;numbers.size - <span class="number">1</span>&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Last element: <span class="subst">$&#123;numbers[numbers.size - <span class="number">1</span>]&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>Kotlin 也支援在 <code>List</code> 上執行 <code>first()</code> 和 <code>last()</code> 作業。請嘗試呼叫 <code>numbers.first()</code> 和 <code>numbers.last()</code>，並查看輸出內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;First: <span class="subst">$&#123;numbers.first()&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Last: <span class="subst">$&#123;numbers.last()&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>numbers.first()</code> 會傳回 List 的第一個元素，而 <code>numbers.last()</code> 會傳回 List 的最後一個元素。</li>
 </ul>
-<ol start="5">
+<ol>
 <li>另一個實用的 <code>List</code> 作業就是 <code>contains()</code> 方法，可確認 <code>List</code> 中是否有指定的元素。舉例來說，如果您有一份公司員工姓名清單，則可以使用 <code>contains()</code> 方法確認 <code>List</code> 中是否包含指定的姓名。</li>
 </ol>
 <p>在 <code>numbers</code> List 中，呼叫 <code>contains()</code> 方法，並提供 List 中的一個整數。<code>numbers.contains(4)</code> 會傳回 <code>true</code> 值。接著，呼叫 <code>contains()</code> 方法，並提供一個不存在於 List 中的整數。<code>numbers.contains(7)</code> 會傳回 <code>false</code>。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Contains 4? <span class="subst">$&#123;numbers.contains(<span class="number">4</span>)&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Contains 7? <span class="subst">$&#123;numbers.contains(<span class="number">7</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>已完成的程式碼應如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> numbers = listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line">    println(<span class="string">&quot;List: <span class="variable">$numbers</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Size: <span class="subst">$&#123;numbers.size&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Access elements of the list</span></span><br><span class="line">    println(<span class="string">&quot;First element: <span class="subst">$&#123;numbers[<span class="number">0</span>]&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Second element: <span class="subst">$&#123;numbers[<span class="number">1</span>]&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Last index: <span class="subst">$&#123;numbers.size - <span class="number">1</span>&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Last element: <span class="subst">$&#123;numbers[numbers.size - <span class="number">1</span>]&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;First: <span class="subst">$&#123;numbers.first()&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Last: <span class="subst">$&#123;numbers.last()&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Use the contains() method</span></span><br><span class="line">    println(<span class="string">&quot;Contains 4? <span class="subst">$&#123;numbers.contains(<span class="number">4</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Contains 7? <span class="subst">$&#123;numbers.contains(<span class="number">7</span>)&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol>
 <li>執行程式碼。以下是輸出結果。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List: [1, 2, 3, 4, 5, 6]</span><br><span class="line">Size: 6</span><br><span class="line">First element: 1</span><br><span class="line">Second element: 2</span><br><span class="line">Last index: 5</span><br><span class="line">Last element: 6</span><br><span class="line">First: 1</span><br><span class="line">Last: 6</span><br><span class="line">Contains 4? true</span><br><span class="line">Contains 7? false</span><br></pre></td></tr></table></figure>
-
 <h4 id="清單為唯讀狀態"><a href="#清單為唯讀狀態" class="headerlink" title="清單為唯讀狀態"></a>清單為唯讀狀態</h4><ol>
 <li>刪除 <code>Kotlin Playground</code> 中的程式碼，並替換成以下程式碼。<code>colors</code> List 已初始化為一份包含 3 個顏色的清單，以 <code>Strings</code> 表示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> colors = listOf(<span class="string">&quot;green&quot;</span>, <span class="string">&quot;orange&quot;</span>, <span class="string">&quot;blue&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>請注意，您無法在唯讀 <code>List</code> 中新增或變更元素。看看如果嘗試將項目加入 List，或嘗試將 List 中的元素設定為新的值，藉此修改 List 元素，會發生什麼情況。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">colors.add(<span class="string">&quot;purple&quot;</span>)</span><br><span class="line">colors[<span class="number">0</span>] = <span class="string">&quot;yellow&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>執行程式碼，系統會顯示幾條錯誤訊息。基本上，這些錯誤表示 <code>List</code> 的 <code>add()</code> 方法不存在，且您無法變更元素的值。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-lists/img/dd21aaccdf3528c6_1920.png?hl=zh-tw" width="70%" height="70%"></p>
-<ol start="4">
+<ol>
 <li>移除不正確的程式碼。</li>
 </ol>
 <p>您已經瞭解到，唯讀 List 無法變更。不過，有些 List 作業並不會變更 List，只會傳回新的 List。其中兩個是 <code>reversed()</code> 和 <code>sorted()</code>。<code>reversed()</code> 函式會傳回新的 List，其中元素會依<span class="label primary">相反順序</span>排序；<code>sorted()</code> 會傳回新的 List，元素會以<span class="label primary">遞增順序</span>排序。</p>
@@ -387,28 +372,20 @@
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Reversed list: <span class="subst">$&#123;colors.reversed()&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;List: <span class="variable">$colors</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Reversed list: [blue, orange, green]</span><br><span class="line">List: [green, orange, blue]</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Reversed list: [blue, orange, green]</span><br><span class="line">List: [green, orange, blue]</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>新增程式碼，使用 <code>sorted()</code> 函式傳回 List 的已排序版本。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Sorted list: <span class="subst">$&#123;colors.sorted()&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sorted list: [blue, green, orange]</span><br></pre></td></tr></table></figure>
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sorted list: [blue, green, orange]</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>輸出內容是一份新的顏色 List，該 List 依<span class="label primary">字母順序</span>排列。</li>
 </ul>
-<ol start="4">
+<ol>
 <li>也可以嘗試在未排序的<span class="label primary">數字清單</span>上使用 <code>sorted()</code> 函式。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> oddNumbers = listOf(<span class="number">5</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">1</span>)</span><br><span class="line">println(<span class="string">&quot;List: <span class="variable">$oddNumbers</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Sorted list: <span class="subst">$&#123;oddNumbers.sorted()&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List: [5, 3, 7, 1]</span><br><span class="line">Sorted list: [1, 3, 5, 7]</span><br></pre></td></tr></table></figure>
-
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List: [5, 3, 7, 1]</span><br><span class="line">Sorted list: [1, 3, 5, 7]</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h4 id="可變動-List-簡介"><a href="#可變動-List-簡介" class="headerlink" title="可變動 List 簡介"></a>可變動 List 簡介</h4><p>可變動 List 在建立後可以修改。您可以新增、移除或變更項目。可變動 List 提供唯讀 List 的全部功能。可變動 List 的類型為 <code>MutableList</code>，您可以透過呼叫 <code>mutableListOf()</code> 來建立。</p>
 <h5 id="建立-MutableList"><a href="#建立-MutableList" class="headerlink" title="建立 MutableList"></a>建立 MutableList</h5><ol>
@@ -416,37 +393,31 @@
 <li>在 <code>main()</code> 函式中，建立一個空白的可變動 List，並指派給名為 <code>entrees</code> 的 <code>val</code> 變數。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> entrees = mutableListOf()</span><br></pre></td></tr></table></figure>
-
-<p>如果嘗試執行程式碼，就會發生下列錯誤。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Not enough information to infer type variable T</span><br></pre></td></tr></table></figure>
-
+<p>如果嘗試執行程式碼，就會發生下列錯誤。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Not enough information to infer type variable T</span><br></pre></td></tr></table></figure></p>
 <div class="note no-icon success">
             <p><strong>注意：</strong>當建立 <b>MutableList</b> 或 <b>List</b> 時，Kotlin 會嘗試<strong>從傳遞的引數中推論清單中包含的元素類型</strong>。舉例來說，當您編寫 <b>listOf(“noodles”)</b> 時，Kotlin 會推論您要建立 <b>String</b> 清單。初始化不含元素的<strong>空白清單</strong>時，Kotlin <strong>無法推論元素的類型</strong>，因此您必須明確指出類型。為此，只要在 <b>mutableListOf</b> 或 <b>listOf</b> 後的角括號中加上類型即可。(在說明文件中，這可能會顯示為 <code>&lt;T&gt;</code>，其中 <b>T</b> 代表<strong>類型參數</strong>)。</p>
           </div>
-
-<ol start="3">
+<ol>
 <li>修正變數宣告，指定您要建立 <code>String</code> 類型的可變動 List。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> entrees = mutableListOf&lt;String&gt;()</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>另一個修正錯誤的方法，就是預先指定變數的資料類型。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> entrees: MutableList&lt;String&gt; = mutableListOf()</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>val</code> 可用於可變動 List，因為 <code>entrees</code> 變數包含對 List 的參照；即使 List 內容有所變更，參照也不會改變。</li>
 </ul>
-<ol start="5">
+<ol>
 <li>列印 List。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Entrees: []</span><br></pre></td></tr></table></figure>
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Entrees: []</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>空白清單的輸出內容會顯示 <code>[]</code>。</li>
-</ul>
+<li><p>空白清單的輸出內容會顯示 <code>[]</code>。</p>
 <h5 id="在清單中新增元素"><a href="#在清單中新增元素" class="headerlink" title="在清單中新增元素"></a>在清單中新增元素</h5><p>新增、移除及更新元素時，可變動清單會變得非常有趣。</p>
+</li>
+</ul>
 <ol>
 <li><p>使用 <code>entrees.add(&quot;noodles&quot;)</code>. 將 “noodles” 新增至 List。如果成功將元素新增至 List，<code>add()</code> 函式會傳回 <code>true</code>，否則傳回 <code>false</code>。</p>
 </li>
@@ -454,98 +425,67 @@
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Add noodles: <span class="subst">$&#123;entrees.add(<span class="string">&quot;noodles&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>輸出內容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Add noodles: true</span><br><span class="line">Entrees: [noodles]</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<p>輸出內容如下：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Add noodles: true</span><br><span class="line">Entrees: [noodles]</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>將另一個項目 “spaghetti” 新增至 List。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Add spaghetti: <span class="subst">$&#123;entrees.add(<span class="string">&quot;spaghetti&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>產生的 entrees List 現在包含兩個項目。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Add spaghetti: true</span><br><span class="line">Entrees: [noodles, spaghetti]</span><br></pre></td></tr></table></figure>
-
+<p>產生的 entrees List 現在包含兩個項目。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Add spaghetti: true</span><br><span class="line">Entrees: [noodles, spaghetti]</span><br></pre></td></tr></table></figure></p>
 <p>與其使用 <code>add()</code> 逐一新增元素，您可以使用 <code>addAll()</code> 一次新增多個元素並傳入 List。</p>
-<ol start="4">
+<ol>
 <li>建立 <code>moreItems</code> List。您不需要變更這個 List，因此請將其設定為 <code>val</code>，不可變動。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> moreItems = listOf(<span class="string">&quot;ravioli&quot;</span>, <span class="string">&quot;lasagna&quot;</span>, <span class="string">&quot;fettuccine&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>使用 <code>addAll()</code>，將新 List 上的所有項目新增至 <code>entrees</code>。列印產生的 List。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Add list: <span class="subst">$&#123;entrees.addAll(moreItems)&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>輸出內容顯示新增 List 成功。entrees List 現在共有 5 個項目。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Add list: true</span><br><span class="line">Entrees: [noodles, spaghetti, ravioli, lasagna, fettuccine]</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<p>輸出內容顯示新增 List 成功。entrees List 現在共有 5 個項目。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Add list: true</span><br><span class="line">Entrees: [noodles, spaghetti, ravioli, lasagna, fettuccine]</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>現在，請嘗試在這份 List 中新增一個數字。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">entrees.add(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
-
-<p>作業失敗，發生錯誤：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The integer literal does not conform to the expected type String</span><br></pre></td></tr></table></figure>
-
+<p>作業失敗，發生錯誤：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The integer literal does not conform to the expected type String</span><br></pre></td></tr></table></figure></p>
 <p>這是因為 <code>entrees</code> List 需要 <code>String</code> 類型的元素，而您嘗試新增的是 <code>Int</code>。請記住，僅在 List 中新增正確資料類型的元素。否則，您將收到編譯錯誤。</p>
-<ol start="7">
+<ol>
 <li>請移除不正確的程式碼行，確保編譯程式碼。</li>
 </ol>
 <h5 id="移除-List-中的元素"><a href="#移除-List-中的元素" class="headerlink" title="移除 List 中的元素"></a>移除 List 中的元素</h5><ol>
 <li>呼叫 <code>remove()</code> 即可將 “spaghetti” 從 List 中移除。再次列印 List。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Remove spaghetti: <span class="subst">$&#123;entrees.remove(<span class="string">&quot;spaghetti&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>移除 “spaghetti” 會傳回 <code>true</code>，因為該元素存在於 List 中，可以成功移除。List 現在還剩 4 個項目。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Remove spaghetti: true</span><br><span class="line">Entrees: [noodles, ravioli, lasagna, fettuccine]</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>如果您嘗試移除 List 中沒有的項目，會發生什麼事？請嘗試使用 <code>entrees.remove(&quot;rice&quot;)</code> 從 List 中移除 “rice”。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Remove item that doesn&#x27;t exist: <span class="subst">$&#123;entrees.remove(<span class="string">&quot;rice&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><code>remove()</code> 方法會傳回 <code>false</code>，因為元素不存在，所以無法移除。List 保持不變，還是只有 4 個項目。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Remove item that doesn&#x27;t exist: false</span><br><span class="line">Entrees: [noodles, ravioli, lasagna, fettuccine]</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<p><code>remove()</code> 方法會傳回 <code>false</code>，因為元素不存在，所以無法移除。List 保持不變，還是只有 4 個項目。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Remove item that doesn&#x27;t exist: false</span><br><span class="line">Entrees: [noodles, ravioli, lasagna, fettuccine]</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>您還可以指定要移除的元素索引。使用 <code>removeAt()</code> 移除索引 <code>0</code> 處的項目。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Remove first element: <span class="subst">$&#123;entrees.removeAt(<span class="number">0</span>)&#125;</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><code>removeAt(0)</code> 的傳回值是從 List 中移除的第一個元素 (“noodles”)。<code>entrees</code> List 現在還剩 3 個項目。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Remove first element: noodles</span><br><span class="line">Entrees: [ravioli, lasagna, fettuccine]</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<p><code>removeAt(0)</code> 的傳回值是從 List 中移除的第一個元素 (“noodles”)。<code>entrees</code> List 現在還剩 3 個項目。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Remove first element: noodles</span><br><span class="line">Entrees: [ravioli, lasagna, fettuccine]</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>如要清除整個 List，請呼叫 <code>clear()</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">entrees.clear()</span><br><span class="line">println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>輸出內容現在會顯示空白 List。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Entrees: []</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<p>輸出內容現在會顯示空白 List。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Entrees: []</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>透過 Kotlin，您可使用 <code>isEmpty()</code> 函式，檢查 List 是否為空白。請嘗試列印輸出 <code>entrees.isEmpty()</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Empty? <span class="subst">$&#123;entrees.isEmpty()&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>輸出結果應為 <code>true</code>，因為 List 目前為空白，沒有元素。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Empty? true</span><br></pre></td></tr></table></figure>
-
-<p>以下是以上可變動 List 撰寫的所有程式碼。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> entrees = mutableListOf&lt;String&gt;()</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add individual items using add()</span></span><br><span class="line">    println(<span class="string">&quot;Add noodles: <span class="subst">$&#123;entrees.add(<span class="string">&quot;noodles&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Add spaghetti: <span class="subst">$&#123;entrees.add(<span class="string">&quot;spaghetti&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add a list of items using addAll()</span></span><br><span class="line">    <span class="keyword">val</span> moreItems = listOf(<span class="string">&quot;ravioli&quot;</span>, <span class="string">&quot;lasagna&quot;</span>, <span class="string">&quot;fettuccine&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Add list: <span class="subst">$&#123;entrees.addAll(moreItems)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Remove an item using remove()</span></span><br><span class="line">    println(<span class="string">&quot;Remove spaghetti: <span class="subst">$&#123;entrees.remove(<span class="string">&quot;spaghetti&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Remove item that doesn&#x27;t exist: <span class="subst">$&#123;entrees.remove(<span class="string">&quot;rice&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Remove an item using removeAt() with an index</span></span><br><span class="line">    println(<span class="string">&quot;Remove first element: <span class="subst">$&#123;entrees.removeAt(<span class="number">0</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Clear out the list</span></span><br><span class="line">    entrees.clear()</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check if the list is empty</span></span><br><span class="line">    println(<span class="string">&quot;Empty? <span class="subst">$&#123;entrees.isEmpty()&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>輸出結果應為 <code>true</code>，因為 List 目前為空白，沒有元素。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Empty? true</span><br></pre></td></tr></table></figure></p>
+<p>以下是以上可變動 List 撰寫的所有程式碼。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> entrees = mutableListOf&lt;String&gt;()</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add individual items using add()</span></span><br><span class="line">    println(<span class="string">&quot;Add noodles: <span class="subst">$&#123;entrees.add(<span class="string">&quot;noodles&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Add spaghetti: <span class="subst">$&#123;entrees.add(<span class="string">&quot;spaghetti&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add a list of items using addAll()</span></span><br><span class="line">    <span class="keyword">val</span> moreItems = listOf(<span class="string">&quot;ravioli&quot;</span>, <span class="string">&quot;lasagna&quot;</span>, <span class="string">&quot;fettuccine&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Add list: <span class="subst">$&#123;entrees.addAll(moreItems)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Remove an item using remove()</span></span><br><span class="line">    println(<span class="string">&quot;Remove spaghetti: <span class="subst">$&#123;entrees.remove(<span class="string">&quot;spaghetti&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Remove item that doesn&#x27;t exist: <span class="subst">$&#123;entrees.remove(<span class="string">&quot;rice&quot;</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Remove an item using removeAt() with an index</span></span><br><span class="line">    println(<span class="string">&quot;Remove first element: <span class="subst">$&#123;entrees.removeAt(<span class="number">0</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Clear out the list</span></span><br><span class="line">    entrees.clear()</span><br><span class="line">    println(<span class="string">&quot;Entrees: <span class="variable">$entrees</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check if the list is empty</span></span><br><span class="line">    println(<span class="string">&quot;Empty? <span class="subst">$&#123;entrees.isEmpty()&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h4 id="迴圈-List"><a href="#迴圈-List" class="headerlink" title="迴圈 List"></a>迴圈 List</h4><p>如要對 List 中的每個項目執行作業，您可以透過 List 執行迴圈 (也就是迭代整個 List)。迴圈功能可與 <code>Lists</code> 和 <code>MutableLists</code> 搭配使用。</p>
 <h5 id="While-迴圈"><a href="#While-迴圈" class="headerlink" title="While 迴圈"></a>While 迴圈</h5><p>其中一種迴圈類型為 <code>while</code> 迴圈。在 Kotlin 中，<code>while</code> 迴圈以 <code>while</code> 關鍵字開頭。迴圈中包含一個程式碼區塊 (位於大括號中)，只要括號中的運算式為 <code>true</code> 即可不斷執行。為避免程式碼永久執行 (又稱「無限迴圈」)，程式碼區塊必須包含用來變更運算式值的邏輯，這樣一來，運算式最終將產生 <code>false</code>，系統將停止執行迴圈。屆時，系統可結束 <code>while</code> 迴圈，並繼續執行該迴圈之後的程式碼。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (expression) &#123;</span><br><span class="line">    <span class="comment">// While the expression is true, execute this code block</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <div class="note no-icon success">
             <p><strong>注意：</strong> while 迴圈不必包含 List (<a target="_blank" rel="noopener" href="https://play.kotlinlang.org/byExample/02_control_flow/02_Loops">這裡</a>的範例)，但適合 List 使用。</p>
           </div>
-
 <p>使用 <code>while</code> 迴圈疊代整個 List。建立變數，以在 List 中追蹤您目前查看的 index。這個 index 變數會保持每次增加 1，直到達到 List 的最後一個索引，然後您便可結束迴圈。</p>
 <ol>
 <li><p>刪除 Kotlin Playground 中現有的程式碼，得到一個空白的 <code>main()</code> 函式。</p>
@@ -554,88 +494,66 @@
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> guestsPerFamily = listOf(<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>確認賓客總數。撰寫迴圈找到答案。為賓客總數建立 <code>var</code>，並將其初始化為 <code>0</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> totalGuests = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>初始化 <code>index</code> 變數的 <code>var</code>，如前文所述。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> index = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>撰寫 <code>while</code> 迴圈，以迭代整個清單。條件是只要 <code>index</code> 值小於 List 的大小，系統就會一直執行程式碼區塊。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (index &lt; guestsPerFamily.size) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>在迴圈中，請在目前的 <code>index</code> 處取得 List 元素，並將該元素加入賓客變數總數。請注意，<code>totalGuests += guestsPerFamily[index]</code> 和 <code>totalGuests = totalGuests + guestsPerFamily[index]</code> 相同。</li>
 </ol>
-<p>迴圈的最後一行會使用 <code>index++</code> 將 <code>index</code> 變數遞增 1，這樣下一個迴圈迭代會查看 List 中的下一個家庭。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (index &lt; guestsPerFamily.size) &#123;</span><br><span class="line">    totalGuests += guestsPerFamily[index]</span><br><span class="line">    index++</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我的程式碼：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> guestsPerFamily = listOf(<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">var</span> totalGuests = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (index &lt; guestsPerFamily.size) &#123;</span><br><span class="line">        println(<span class="string">&quot;index: <span class="variable">$index</span>&quot;</span>)</span><br><span class="line">        totalGuests += guestsPerFamily[index]</span><br><span class="line">        println(<span class="string">&quot;totalGuests: <span class="variable">$totalGuests</span>&quot;</span>)</span><br><span class="line">        index ++</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">index: 0</span><br><span class="line">totalGuests: 2</span><br><span class="line">index: 1</span><br><span class="line">totalGuests: 6</span><br><span class="line">index: 2</span><br><span class="line">totalGuests: 7</span><br><span class="line">index: 3</span><br><span class="line">totalGuests: 10</span><br></pre></td></tr></table></figure>
+<p>迴圈的最後一行會使用 <code>index++</code> 將 <code>index</code> 變數遞增 1，這樣下一個迴圈迭代會查看 List 中的下一個家庭。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (index &lt; guestsPerFamily.size) &#123;</span><br><span class="line">    totalGuests += guestsPerFamily[index]</span><br><span class="line">    index++</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我的程式碼：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> guestsPerFamily = listOf(<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">var</span> totalGuests = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (index &lt; guestsPerFamily.size) &#123;</span><br><span class="line">        println(<span class="string">&quot;index: <span class="variable">$index</span>&quot;</span>)</span><br><span class="line">        totalGuests += guestsPerFamily[index]</span><br><span class="line">        println(<span class="string">&quot;totalGuests: <span class="variable">$totalGuests</span>&quot;</span>)</span><br><span class="line">        index ++</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">index: 0</span><br><span class="line">totalGuests: 2</span><br><span class="line">index: 1</span><br><span class="line">totalGuests: 6</span><br><span class="line">index: 2</span><br><span class="line">totalGuests: 7</span><br><span class="line">index: 3</span><br><span class="line">totalGuests: 10</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>根據以上結果，可以看出 <code>index</code> 加 1 時，<code>totalGuest</code> 也隨之增加。</li>
 </ul>
-<ol start="7">
+<ol>
 <li>您可以在 <code>while</code> 迴圈之後列印輸出結果。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> ... &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">println(<span class="string">&quot;Total Guest Count: <span class="variable">$totalGuests</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<ol>
 <li>執行程式，輸出內容如下。只需手動把 List 中的數字加起來，就能驗證正確答案。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Total Guest Count: 10</span><br></pre></td></tr></table></figure>
-
 <p>以下是完整的程式碼片段：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> guestsPerFamily = listOf(<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">var</span> totalGuests = <span class="number">0</span></span><br><span class="line"><span class="keyword">var</span> index = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> (index &lt; guestsPerFamily.size) &#123;</span><br><span class="line">    totalGuests += guestsPerFamily[index]</span><br><span class="line">    index++</span><br><span class="line">&#125;</span><br><span class="line">println(<span class="string">&quot;Total Guest Count: <span class="variable">$totalGuests</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
 <h5 id="For-迴圈"><a href="#For-迴圈" class="headerlink" title="For 迴圈"></a>For 迴圈</h5><p><code>for</code> 迴圈是另一種類型的迴圈。這可讓迴圈 List 作業更加輕鬆。這會以 Kotlin 中的 <code>for</code> 關鍵字開頭，在大括號中放置程式碼區塊。用來執行程式碼區塊的條件在括號中表示。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (number <span class="keyword">in</span> numberList) &#123;</span><br><span class="line">   <span class="comment">// For each element in the list, execute this code block</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在這個範例中，變數 <code>number</code> 設為等於 <code>numberList</code> 的第一個元素，並執行程式碼區塊。接著，<code>number</code> 變數會自動更新為 <code>numberList</code> 的下一個元素，然後再次執行程式碼區塊。對清單的每個元素重複此操作，直到觸及 <code>numberList</code> 的結尾為止。</p>
 <ol>
 <li>刪除 Kotlin Playground 中的現有程式碼，並替換成以下程式碼：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> names = listOf(<span class="string">&quot;Jessica&quot;</span>, <span class="string">&quot;Henry&quot;</span>, <span class="string">&quot;Alicia&quot;</span>, <span class="string">&quot;Jose&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>新增 <code>for</code> 迴圈，以輸出 <code>names</code> List 中的所有項目。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (name <span class="keyword">in</span> names) &#123;</span><br><span class="line">    println(name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>這比直接撰寫為 <code>while</code> 迴圈要簡單許多！</p>
-<ol start="3">
+<ol>
 <li>輸出內容如下：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Jessica</span><br><span class="line">Henry</span><br><span class="line">Alicia</span><br><span class="line">Jose</span><br></pre></td></tr></table></figure>
-
 <p>List 的一個常見作業就是對每個 List 元素嘗試執行某個操作。</p>
-<ol start="4">
+<ol>
 <li>修改迴圈，使其列印輸出人員姓名的字元數。提示：您可以使用 <code>String</code> 的 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/length.html">length</a> 屬性找出 <code>String</code> 中的字元數。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> names = listOf(<span class="string">&quot;Jessica&quot;</span>, <span class="string">&quot;Henry&quot;</span>, <span class="string">&quot;Alicia&quot;</span>, <span class="string">&quot;Jose&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> (name <span class="keyword">in</span> names) &#123;</span><br><span class="line">    println(<span class="string">&quot;<span class="variable">$name</span> - Number of characters: <span class="subst">$&#123;name.length&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>輸出內容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Jessica - Number of characters: 7</span><br><span class="line">Henry - Number of characters: 5</span><br><span class="line">Alicia - Number of characters: 6</span><br><span class="line">Jose - Number of characters: 4</span><br></pre></td></tr></table></figure>
-
+<p>輸出內容：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Jessica - Number of characters: 7</span><br><span class="line">Henry - Number of characters: 5</span><br><span class="line">Alicia - Number of characters: 6</span><br><span class="line">Jose - Number of characters: 4</span><br></pre></td></tr></table></figure></p>
 <div class="note no-icon success">
-            <p><strong>注意：</strong> 以下是您可以使用 <b>for</b> 迴圈執行的其他一些變體，包括將它們用於具有特定步驟的範圍 (而不是每次遞增 1)。<br><code>for (item in list) print(item) // Iterate over items in a list<br>for (item in 'b'..'g') print(item) // Range of characters in an alphabet<br>for (item in 1..5) print(item) // Range of numbers<br>for (item in 5 downTo 1) print(item) // Going backward<br>for (item in 3..6 step 2) print(item) // Prints: 35</code><br>您可以在本程式碼研究室結尾的說明文件中找到更多資訊。</p>
+            <p><strong>注意：</strong> 以下是您可以使用 <b>for</b> 迴圈執行的其他一些變體，包括將它們用於具有特定步驟的範圍 (而不是每次遞增 1)。<br><code>for (item in list) print(item) // Iterate over items in a list<br>for (item in ‘b’..’g’) print(item) // Range of characters in an alphabet<br>for (item in 1..5) print(item) // Range of numbers<br>for (item in 5 downTo 1) print(item) // Going backward<br>for (item in 3..6 step 2) print(item) // Prints: 35</code><br>您可以在本程式碼研究室結尾的說明文件中找到更多資訊。</p>
           </div>
-
 <hr>
 <h4 id="靈活運用"><a href="#靈活運用" class="headerlink" title="靈活運用"></a>靈活運用</h4><p>在當地餐廳訂餐時，客戶通常會一次訂購多種商品。List 最適合用來儲存訂單相關資訊。此外，您也可運用類別和繼承的知識，來建立更完善、可擴充的 Kotlin 程式，而不是將所有程式碼放在 main() 函式中。</p>
 <p>在接下來的一系列工作中，請建立一個 Kotlin 程式，用於訂購不同的食物組合。</p>
-<p>首先請查看最後一個程式碼的範例輸出內容。腦力激盪一下，想想您需要建立哪些類別，以協助妥善規劃所有資料？</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Order #1</span><br><span class="line">Noodles: $10</span><br><span class="line">Total: $10</span><br><span class="line"></span><br><span class="line">Order #2</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Chef&#x27;s Choice: $5</span><br><span class="line">Total: $15</span><br></pre></td></tr></table></figure>
-<p>從輸出內容中，您可發現：</p>
+<p>首先請查看最後一個程式碼的範例輸出內容。腦力激盪一下，想想您需要建立哪些類別，以協助妥善規劃所有資料？<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Order #1</span><br><span class="line">Noodles: $10</span><br><span class="line">Total: $10</span><br><span class="line"></span><br><span class="line">Order #2</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Chef&#x27;s Choice: $5</span><br><span class="line">Total: $15</span><br></pre></td></tr></table></figure><br>從輸出內容中，您可發現：</p>
 <ul>
 <li>有一份訂單列表</li>
 <li>每筆訂單都有一個編號</li>
@@ -649,12 +567,10 @@
 </ol>
 <p>請花點時間檢查該程式碼，瞭解具體情況。複製這段程式碼並貼到 Kotlin Playground 中執行。在貼上這段新程式碼之前，請務必刪除 Kotlin Playground 中的所有現有程式碼。觀察輸出內容，看看它是否有助於您進一步理解程式碼。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="keyword">class</span> <span class="title class_">Item</span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> price: <span class="built_in">Int</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Noodles</span> : <span class="type">Item</span>(<span class="string">&quot;Noodles&quot;</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Vegetables</span> : <span class="type">Item</span>(<span class="string">&quot;Vegetables&quot;</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> noodles = Noodles()</span><br><span class="line">    <span class="keyword">val</span> vegetables = Vegetables()</span><br><span class="line">    println(noodles)</span><br><span class="line">    println(vegetables)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>您應該會看到類似以下的輸出內容：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Noodles@5451c3a8</span><br><span class="line">Vegetables@76ed5528</span><br></pre></td></tr></table></figure>
-
 <p>以下是程式碼更為詳細的說明。首先是一個名為 <code>Item</code> 的類別，其中建構函式會使用 2 個參數：用於商品的 <code>name</code> (做為字串) 和 <code>price</code> (做為整數)。這兩項屬性在傳遞後皆維持不變，因此標示為 <code>val</code>。由於 <code>Item</code> 是父項類別，子類別由它擴充而來，因此該類別會標上 <code>open</code> 關鍵字。</p>
 <p><code>Noodles</code> 類別建構函式不含任何參數，但會從 <code>Item</code> 擴充，並透過傳遞 “Noodles” (做為名稱) 與價格 10 呼叫父類別建構函式。<code>Vegetables</code> 類別相似，但會以 “Vegetables” 與價格 5 呼叫父類別建構函式。</p>
 <p><code>main()</code> 函式會初始化 <code>Noodles</code> 和 <code>Vegetables</code> 類別的新物件例項，並將其列印至輸出內容。</p>
@@ -663,135 +579,108 @@
 <li>在 <code>Noodles</code> 類別中，覆寫 <code>toString()</code> 方法，然後使其傳回 <code>name</code>。請注意，<code>Noodles</code> 會繼承父項類別 <code>Item</code> 的 <code>name</code> 屬性。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Noodles</span> : <span class="type">Item</span>(<span class="string">&quot;Noodles&quot;</span>, <span class="number">10</span>) &#123;</span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">toString</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">       <span class="keyword">return</span> name</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>針對 <code>Vegetables</code> 類別重複相同步驟。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vegetables</span>() : Item(<span class="string">&quot;Vegetables&quot;</span>, <span class="number">5</span>) &#123;</span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">toString</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">       <span class="keyword">return</span> name</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>執行程式碼。現在，輸出內容看起來更有用：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Noodles</span><br><span class="line">Vegetables</span><br></pre></td></tr></table></figure>
-
 <h5 id="透過訂單自訂蔬菜"><a href="#透過訂單自訂蔬菜" class="headerlink" title="透過訂單自訂蔬菜"></a>透過訂單自訂蔬菜</h5><p>為使麵條更有吸引力，您可以在訂單中包含不同的蔬菜。</p>
 <ol>
 <li>在 <code>main()</code> 函式中，不要初始化不含輸入引數的 <code>Vegetables</code> 例項，而是傳遞客戶想要的特定蔬菜。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">val</span> vegetables = Vegetables(<span class="string">&quot;Cabbage&quot;</span>, <span class="string">&quot;Sprouts&quot;</span>, <span class="string">&quot;Onion&quot;</span>)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果現在嘗試編譯程式碼，系統會顯示以下錯誤訊息：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Too many arguments for public constructor Vegetables() defined in Vegetables</span><br></pre></td></tr></table></figure>
-
+<p>如果現在嘗試編譯程式碼，系統會顯示以下錯誤訊息：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Too many arguments for public constructor Vegetables() defined in Vegetables</span><br></pre></td></tr></table></figure></p>
 <p>您正在將 3 個字串引數傳遞至 <code>Vegetables</code> 類別建構函式，因此需要修改 <code>Vegetables</code> 類別。</p>
-<ol start="2">
+<ol>
 <li>更新 <code>Vegetables</code> 類別標頭，以擷取 3 個字串參數，如以下程式碼所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vegetables</span>(<span class="keyword">val</span> topping1: String,</span><br><span class="line">                 <span class="keyword">val</span> topping2: String,</span><br><span class="line">                 <span class="keyword">val</span> topping3: String) : Item (<span class="string">&quot;Vegetables&quot;</span>, <span class="number">5</span>) &#123;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li><p>現在，您的程式碼會重新編譯。不過，只有客戶想每次都訂購三種蔬菜時，這個解決方法才適用。如果客戶想訂購一種或五種蔬菜，就沒有辦法了。</p>
 </li>
 <li><p>您可以在 <code>Vegetables</code> 類別的建構函式中接受一份蔬菜清單 (長度不限) 以修正此問題，而不用使用每個蔬菜的屬性。<code>List</code> 只能包含 <code>Strings</code>，因此輸入參數的類型為 <code>List&lt;String&gt;</code>。</p>
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vegetables</span>(<span class="keyword">val</span> toppings: List&lt;String&gt;) : Item(<span class="string">&quot;Vegetables&quot;</span>, <span class="number">5</span>) &#123;</span><br></pre></td></tr></table></figure>
-
 <p>這不是最完美的解決方法，因為在 <code>main()</code> 中，您需要先變更程式碼來建立配料清單，然後才將其傳遞至 <code>Vegetables</code> 建構函式。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vegetables(listOf(<span class="string">&quot;Cabbage&quot;</span>, <span class="string">&quot;Sprouts&quot;</span>, <span class="string">&quot;Onion&quot;</span>))</span><br></pre></td></tr></table></figure>
-
 <p>還有更好的解決方法。</p>
-<ol start="5">
+<ol>
 <li>在 Kotlin 中，<code>vararg</code> 修改程式可讓您將類型相同、數量可變的引數傳遞給函式或建構函式。這樣一來，您就可以提供不同的蔬菜做為單個字串，而非 List。</li>
 </ol>
 <p>變更 <code>Vegetables</code> 的類別定義，以採用類型為 <code>String</code> 的 <code>vararg</code> <code>toppings</code>。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vegetables</span>(<span class="keyword">vararg</span> <span class="keyword">val</span> toppings: String) : Item(<span class="string">&quot;Vegetables&quot;</span>, <span class="number">5</span>) &#123;</span><br></pre></td></tr></table></figure>
-
 <div class="note no-icon success">
             <p><strong>注意：</strong> 您只能將一個參數標示為 <code>vararg</code>，且通常是 List 中的最後一個參數。</p>
           </div>
-
-<ol start="6">
+<ol>
 <li><code>main()</code> 函式中的程式碼現在正常運作。透過傳遞任何數量的配料字串，即可建立 <code>Vegetables</code> 例項。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">val</span> vegetables = Vegetables(<span class="string">&quot;Cabbage&quot;</span>, <span class="string">&quot;Sprouts&quot;</span>, <span class="string">&quot;Onion&quot;</span>)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol>
 <li>現在，請修改 <code>Vegetables</code> 類別的 <code>toString()</code> 方法，使其傳回同樣提及以下配料格式的 <code>String</code>：<code>Vegetables Cabbage, Sprouts, Onion</code>。</li>
 </ol>
-<p>以商品名稱 (<code>Vegetables</code>) 開頭。接著使用 <code>joinToString()</code> 方法將所有配料加入單一字串。使用 <code>+</code> 運算子將兩個部分加起來，之間留有空格。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vegetables</span>(<span class="keyword">vararg</span> <span class="keyword">val</span> toppings: String) : Item(<span class="string">&quot;Vegetables&quot;</span>, <span class="number">5</span>) &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">toString</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">        <span class="keyword">return</span> name + <span class="string">&quot; &quot;</span> + toppings.joinToString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<p>以商品名稱 (<code>Vegetables</code>) 開頭。接著使用 <code>joinToString()</code> 方法將所有配料加入單一字串。使用 <code>+</code> 運算子將兩個部分加起來，之間留有空格。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vegetables</span>(<span class="keyword">vararg</span> <span class="keyword">val</span> toppings: String) : Item(<span class="string">&quot;Vegetables&quot;</span>, <span class="number">5</span>) &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">toString</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">        <span class="keyword">return</span> name + <span class="string">&quot; &quot;</span> + toppings.joinToString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>執行程式，輸出內容應為：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Noodles</span><br><span class="line">Vegetables Cabbage, Sprouts, Onion</span><br></pre></td></tr></table></figure>
-
 <div class="note no-icon success">
             <p><strong>注意：</strong> 如要指定半形逗號以外的分隔符，請將所需的分隔符字串做為引數傳遞至 <code>joinToString()</code> 方法。範例：<code>joinToString(&quot; &quot;)</code> 以空格分隔每個商品。</p>
           </div>
-
-<ol start="9">
+<ol>
 <li>編寫程式時，您需要考量所有可能的輸入內容。如果 <code>Vegetables</code> 建構函式中沒有任何輸入引數，請使用較容易的方式處理 <code>toString()</code> 方法。</li>
 </ol>
 <p>由於客戶想訂購蔬菜，但並未具體說明要哪些蔬菜，其中一種解決方法就是為他們提供預設由廚師選擇的蔬菜。</p>
-<p>如未傳遞任何配料，請更新 <code>toString()</code> 方法以傳回 <code>Vegetables Chef&#39;s Choice</code>。使用您先前學過的 <code>isEmpty()</code> 方法。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">toString</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">    <span class="keyword">if</span> (toppings.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;<span class="variable">$name</span> Chef&#x27;s Choice&quot;</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name + <span class="string">&quot; &quot;</span> + toppings.joinToString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="10">
+<p>如未傳遞任何配料，請更新 <code>toString()</code> 方法以傳回 <code>Vegetables Chef&#39;s Choice</code>。使用您先前學過的 <code>isEmpty()</code> 方法。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">toString</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">    <span class="keyword">if</span> (toppings.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;<span class="variable">$name</span> Chef&#x27;s Choice&quot;</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name + <span class="string">&quot; &quot;</span> + toppings.joinToString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>更新 <code>main()</code> 函數，以測試在兩種情況下建立 <code>Vegetables</code> 例項的可能性：不含任何建構函式引數以及含有多個引數。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> noodles = Noodles()</span><br><span class="line">    <span class="keyword">val</span> vegetables = Vegetables(<span class="string">&quot;Cabbage&quot;</span>, <span class="string">&quot;Sprouts&quot;</span>, <span class="string">&quot;Onion&quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> vegetables2 = Vegetables()</span><br><span class="line">    println(noodles)</span><br><span class="line">    println(vegetables)</span><br><span class="line">    println(vegetables2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="11">
+<ol>
 <li>確認輸出內容符合預期。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Noodles</span><br><span class="line">Vegetables Cabbage, Sprouts, Onion</span><br><span class="line">Vegetables Chef&#x27;s Choice</span><br></pre></td></tr></table></figure>
-
 <h5 id="建立一個訂單"><a href="#建立一個訂單" class="headerlink" title="建立一個訂單"></a>建立一個訂單</h5><p>現在您擁有了一些食物，可以建立訂單了。在程式的 <code>Order</code> 類別中封裝訂單的邏輯。</p>
 <ol>
 <li>想想看 <code>Order</code> 類別可以使用哪些屬性和方法。如果有所幫助，請再次參考以下的最終程式碼輸出內容範例。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Order #1</span><br><span class="line">Noodles: $10</span><br><span class="line">Total: $10</span><br><span class="line"></span><br><span class="line">Order #2</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Chef&#x27;s Choice: $5</span><br><span class="line">Total: $15</span><br><span class="line"></span><br><span class="line">Order #3</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Carrots, Beans, Celery: $5</span><br><span class="line">Total: $15</span><br><span class="line"></span><br><span class="line">Order #4</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Cabbage, Onion: $5</span><br><span class="line">Total: $15</span><br><span class="line"></span><br><span class="line">Order #5</span><br><span class="line">Noodles: $10</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Spinach: $5</span><br><span class="line">Total: $25</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>您可能已經想到以下幾點：</li>
 </ol>
 <p>訂單類別<br>屬性：訂單號碼、商品清單<br>方法：新增商品、新增多個商品、列印訂單摘要 (含價格)</p>
-<ol start="3">
+<ol>
 <li><p>首先關注屬性，每個屬性的資料類型應該是什麼？它們對於類別應為公開還是私人？它們應該做為引數傳遞還是在類別中定義？</p>
 </li>
 <li><p>您可以透過多種方式來實作，以下是一個解決方法。建立含有整數 <code>orderNumber</code> 建構函式參數的 <code>class</code> <code>Order</code>。</p>
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Order</span>(<span class="keyword">val</span> orderNumber: <span class="built_in">Int</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>您可能無法預先知道訂單中的所有商品，因此無需將商品 List 作為引數傳遞。這可以宣告為頂層類別變數，並初始化為空白的 <code>MutableList</code>，用於儲存 <code>Item</code> 類型的元素。標示變數 <code>private</code>，讓系統只允許這個類別直接修改商品 List。這種做法可以防止此類別以外的程式碼意外修改清單。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Order</span>(<span class="keyword">val</span> orderNumber: <span class="built_in">Int</span>) &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> itemList = mutableListOf&lt;Item&gt;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>現在，請將方法加入類別定義中。您可以隨意為每種方法挑選合理的名稱，目前每個方法內的實作邏輯則可以留空。此外，還要決定需要哪些函式引數和傳回值。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Order</span>(<span class="keyword">val</span> orderNumber: <span class="built_in">Int</span>) &#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">val</span> itemList = mutableListOf&lt;Item&gt;()</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">fun</span> <span class="title">addItem</span><span class="params">(newItem: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">fun</span> <span class="title">addAll</span><span class="params">(newItems: <span class="type">List</span>&lt;<span class="type">Item</span>&gt;)</span></span> &#123;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">fun</span> <span class="title">print</span><span class="params">()</span></span> &#123;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol>
 <li><code>addItem()</code> 方法似乎最直接，因此先實作該函式。該函式會擷取新的 <code>Item</code>，而該方法應將其新增至 <code>itemList</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">addItem</span><span class="params">(newItem: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">    itemList.add(newItem)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<ol>
 <li>接下來請實作 <code>addAll()</code> 方法。該方法會擷取唯讀商品 List。將所有商品加入內部商品 List。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">addAll</span><span class="params">(newItems: <span class="type">List</span>&lt;<span class="type">Item</span>&gt;)</span></span> &#123;</span><br><span class="line">    itemList.addAll(newItems)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="9">
+<ol>
 <li>接著，請實作 <code>print()</code> 方法，藉此將所有商品及其價格的摘要以及訂單的總價輸出至輸出內容。<br>請先列印輸出訂單號碼。接下來，使用迴圈迭代訂單清單中的所有商品。請輸出每個商品及其對應價格。同時，保留到目前為止的總價，並在疊代整個清單時繼續增加總價。最後，輸出總價。嘗試自行實作這個邏輯。如需相關協助，請查看下列解決方法。</li>
 </ol>
 <p>建議您加入貨幣符號，讓輸出內容更容易閱讀。以下是實作該解決方法的一個方式。此程式碼使用 <code>$</code> 貨幣符號，但也可以視需要換算成當地幣別符號。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">print</span><span class="params">()</span></span> &#123;</span><br><span class="line">    println(<span class="string">&quot;Order #<span class="subst">$&#123;orderNumber&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">var</span> total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (item <span class="keyword">in</span> itemList) &#123;</span><br><span class="line">        println(<span class="string">&quot;<span class="subst">$&#123;item&#125;</span>: $<span class="subst">$&#123;item.price&#125;</span>&quot;</span>)</span><br><span class="line">        total += item.price</span><br><span class="line">    &#125;</span><br><span class="line">    println(<span class="string">&quot;Total: $<span class="subst">$&#123;total&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>針對 <code>itemList</code> 中的每個 <code>item</code>，請輸出 <code>item</code> (這將觸發要在 <code>item</code> 上呼叫的 <code>toString()</code>)，然後是商品的 <code>price</code>。同樣，在執行迴圈之前，請將 <code>total</code> 整數變數初始化為 <code>0</code>。接著，在 <code>total</code> 中加入目前商品的價格，繼續增加總價。</p>
 <h5 id="建立多個訂單"><a href="#建立多個訂單" class="headerlink" title="建立多個訂單"></a>建立多個訂單</h5><ol>
 <li><p>在 <code>main()</code> 函式中建立 <code>Order</code> 例項，藉此測試程式碼。請先刪除 <code>main()</code> 函式中現有的內容。</p>
@@ -800,12 +689,10 @@
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> order1 = Order(<span class="number">1</span>)</span><br><span class="line">    order1.addItem(Noodles())</span><br><span class="line">    order1.print()</span><br><span class="line"></span><br><span class="line">    println()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> order2 = Order(<span class="number">2</span>)</span><br><span class="line">    order2.addItem(Noodles())</span><br><span class="line">    order2.addItem(Vegetables())</span><br><span class="line">    order2.print()</span><br><span class="line"></span><br><span class="line">    println()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> order3 = Order(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">val</span> items = listOf(Noodles(), Vegetables(<span class="string">&quot;Carrots&quot;</span>, <span class="string">&quot;Beans&quot;</span>, <span class="string">&quot;Celery&quot;</span>))</span><br><span class="line">    order3.addAll(items)</span><br><span class="line">    order3.print()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>上述程式碼的輸出內容應如下所示。確認總價已正確相加。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Order #1</span><br><span class="line">Noodles: $10</span><br><span class="line">Total: $10</span><br><span class="line"></span><br><span class="line">Order #2</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Chef&#x27;s Choice: $5</span><br><span class="line">Total: $15</span><br><span class="line"></span><br><span class="line">Order #3</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Carrots, Beans, Celery: $5</span><br><span class="line">Total: $15</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h4 id="改善程式碼"><a href="#改善程式碼" class="headerlink" title="改善程式碼"></a>改善程式碼</h4><h5 id="保留訂單清單"><a href="#保留訂單清單" class="headerlink" title="保留訂單清單"></a>保留訂單清單</h5><p>如果您建構能實際在麵店中使用的程式，請務必追蹤所有客戶訂單的清單。</p>
 <ol>
@@ -815,41 +702,34 @@
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> ordersList = mutableListOf&lt;Order&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> order1 = Order(<span class="number">1</span>)</span><br><span class="line">    order1.addItem(Noodles())</span><br><span class="line">    ordersList.add(order1)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> order2 = Order(<span class="number">2</span>)</span><br><span class="line">    order2.addItem(Noodles())</span><br><span class="line">    order2.addItem(Vegetables())</span><br><span class="line">    ordersList.add(order2)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> order3 = Order(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">val</span> items = listOf(Noodles(), Vegetables(<span class="string">&quot;Carrots&quot;</span>, <span class="string">&quot;Beans&quot;</span>, <span class="string">&quot;Celery&quot;</span>))</span><br><span class="line">    order3.addAll(items)</span><br><span class="line">    ordersList.add(order3)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>由於訂單會隨著時間增加，因此 List 應為 <code>Order</code> 類型的 <code>MutableList</code>。然後使用 <code>MutableList</code> 上的 <code>add()</code> 方法新增每個訂單。</p>
-<ol start="3">
+<ol>
 <li>建立訂單 List 後，您可以使用迴圈來列印每個訂單。在訂單之間列印空白行，讓輸出內容更容易閱讀。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> ordersList = mutableListOf&lt;Order&gt;()</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (order <span class="keyword">in</span> ordersList) &#123;</span><br><span class="line">        order.print()</span><br><span class="line">        println()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>這麼做會移除 <code>main()</code> 函式中的重複程式碼，讓程式碼更容易閱讀！輸出內容應與先前相同。</p>
 <h5 id="實作訂單的建構工具模式"><a href="#實作訂單的建構工具模式" class="headerlink" title="實作訂單的建構工具模式"></a>實作訂單的建構工具模式</h5><p>如果要讓 Kotlin 程式碼更簡潔，您可以使用<span class="label primary">建構工具模式</span>來建立訂單。<span class="label primary">建構工具模式</span>是程式設計中的設計模式，可逐步指導您建構複雜的物件。</p>
 <ol>
 <li>請傳回已變更的 <code>Order</code>，不要傳回 <code>Order</code> 類別中 <code>addItem()</code> 和 <code>addAll()</code> 方法的 <code>Unit</code> (或不傳回任何內容)。Kotlin 提供關鍵字 <code>this</code> 以參照目前的物件例項。在 <code>addItem()</code> 和 <code>addAll()</code> 方法中，您會透過傳回 <code>this</code> 來傳回目前的 <code>Order</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">addItem</span><span class="params">(newItem: <span class="type">Item</span>)</span></span>: Order &#123;</span><br><span class="line">    itemList.add(newItem)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">addAll</span><span class="params">(newItems: <span class="type">List</span>&lt;<span class="type">Item</span>&gt;)</span></span>: Order &#123;</span><br><span class="line">    itemList.addAll(newItems)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>現在，在 <code>main()</code> 函式中，您可以將呼叫鏈結在一起，如以下程式碼所示。這個程式碼會建立新的 <code>Order</code>，並充分運用建構工具模式。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> order4 = Order(<span class="number">4</span>).addItem(Noodles()).addItem(Vegetables(<span class="string">&quot;Cabbage&quot;</span>, <span class="string">&quot;Onion&quot;</span>))</span><br><span class="line">ordersList.add(order4)</span><br></pre></td></tr></table></figure>
-
-<p><code>Order(4)</code> 會傳回 <code>Order</code> 例項，您之後可以在上面呼叫 <code>addItem(Noodles()).addItem() </code> 方法會傳回相同的 <code>Order</code> 例項 (採用新的狀態)，您可以用再次在上面呼叫 <code>addItem()</code> 的方式處理蔬菜。傳回的 <code>Order</code> 結果可以儲存在 <code>order4</code> 變數中。</p>
+<p><code>Order(4)</code> 會傳回 <code>Order</code> 例項，您之後可以在上面呼叫 <code>addItem(Noodles()).addItem()</code> 方法會傳回相同的 <code>Order</code> 例項 (採用新的狀態)，您可以用再次在上面呼叫 <code>addItem()</code> 的方式處理蔬菜。傳回的 <code>Order</code> 結果可以儲存在 <code>order4</code> 變數中。</p>
 <p>用來建立 <code>Orders</code> 的現有程式碼仍可使用，因此可保持不變。雖然並非一定要鏈結這些呼叫，但這是一種常見且推薦的做法，可讓您善用函式的傳回值。</p>
-<ol start="3">
+<ol>
 <li>此時您甚至不需要將訂單儲存在變數中。在 <code>main()</code> 函式中 (在列印輸出訂單的最終迴圈之前)，直接建立 <code>Order</code>，並將其新增至 <code>orderList</code>。如果每種方法呼叫都自成一行，程式碼也更容易讀取。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ordersList.add(</span><br><span class="line">    Order(<span class="number">5</span>)</span><br><span class="line">        .addItem(Noodles())</span><br><span class="line">        .addItem(Noodles())</span><br><span class="line">        .addItem(Vegetables(<span class="string">&quot;Spinach&quot;</span>)))</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>執行程式碼，以下是預期的輸出內容：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Order #1</span><br><span class="line">Noodles: $10</span><br><span class="line">Total: $10</span><br><span class="line"></span><br><span class="line">Order #2</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Chef&#x27;s Choice: $5</span><br><span class="line">Total: $15</span><br><span class="line"></span><br><span class="line">Order #3</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Carrots, Beans, Celery: $5</span><br><span class="line">Total: $15</span><br><span class="line"></span><br><span class="line">Order #4</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Cabbage, Onion: $5</span><br><span class="line">Total: $15</span><br><span class="line"></span><br><span class="line">Order #5</span><br><span class="line">Noodles: $10</span><br><span class="line">Noodles: $10</span><br><span class="line">Vegetables Spinach: $5</span><br><span class="line">Total: $25</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h4 id="所有程式碼"><a href="#所有程式碼" class="headerlink" title="所有程式碼"></a>所有程式碼</h4><p>以下是 <code>Item</code>、<code>Noodles</code>、<code>Vegetables</code> 和 <code>Order</code> 類別的程式碼。此外，<code>main()</code> 函式也會顯示這些類別的使用方式。實作這項程式的方法有很多，因此您的程式碼可能會略有不同。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="keyword">class</span> <span class="title class_">Item</span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> price: <span class="built_in">Int</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Noodles</span> : <span class="type">Item</span>(<span class="string">&quot;Noodles&quot;</span>, <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">toString</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">        <span class="keyword">return</span> name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Vegetables</span>(<span class="keyword">vararg</span> <span class="keyword">val</span> toppings: String) : Item(<span class="string">&quot;Vegetables&quot;</span>, <span class="number">5</span>) &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">toString</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">        <span class="keyword">if</span> (toppings.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;<span class="variable">$name</span> Chef&#x27;s Choice&quot;</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> name + <span class="string">&quot; &quot;</span> + toppings.joinToString()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Order</span>(<span class="keyword">val</span> orderNumber: <span class="built_in">Int</span>) &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> itemList = mutableListOf&lt;Item&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">addItem</span><span class="params">(newItem: <span class="type">Item</span>)</span></span>: Order &#123;</span><br><span class="line">        itemList.add(newItem)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">addAll</span><span class="params">(newItems: <span class="type">List</span>&lt;<span class="type">Item</span>&gt;)</span></span>: Order &#123;</span><br><span class="line">        itemList.addAll(newItems)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">print</span><span class="params">()</span></span> &#123;</span><br><span class="line">        println(<span class="string">&quot;Order #<span class="subst">$&#123;orderNumber&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">var</span> total = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> (item <span class="keyword">in</span> itemList) &#123;</span><br><span class="line">            println(<span class="string">&quot;<span class="subst">$&#123;item&#125;</span>: $<span class="subst">$&#123;item.price&#125;</span>&quot;</span>)</span><br><span class="line">            total += item.price</span><br><span class="line">        &#125;</span><br><span class="line">        println(<span class="string">&quot;Total: $<span class="subst">$&#123;total&#125;</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> ordersList = mutableListOf&lt;Order&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add an item to an order</span></span><br><span class="line">    <span class="keyword">val</span> order1 = Order(<span class="number">1</span>)</span><br><span class="line">    order1.addItem(Noodles())</span><br><span class="line">    ordersList.add(order1)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add multiple items individually</span></span><br><span class="line">    <span class="keyword">val</span> order2 = Order(<span class="number">2</span>)</span><br><span class="line">    order2.addItem(Noodles())</span><br><span class="line">    order2.addItem(Vegetables())</span><br><span class="line">    ordersList.add(order2)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add a list of items at one time</span></span><br><span class="line">    <span class="keyword">val</span> order3 = Order(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">val</span> items = listOf(Noodles(), Vegetables(<span class="string">&quot;Carrots&quot;</span>, <span class="string">&quot;Beans&quot;</span>, <span class="string">&quot;Celery&quot;</span>))</span><br><span class="line">    order3.addAll(items)</span><br><span class="line">    ordersList.add(order3)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Use builder pattern</span></span><br><span class="line">    <span class="keyword">val</span> order4 = Order(<span class="number">4</span>)</span><br><span class="line">        .addItem(Noodles())</span><br><span class="line">        .addItem(Vegetables(<span class="string">&quot;Cabbage&quot;</span>, <span class="string">&quot;Onion&quot;</span>))</span><br><span class="line">    ordersList.add(order4)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create and add order directly</span></span><br><span class="line">    ordersList.add(</span><br><span class="line">        Order(<span class="number">5</span>)</span><br><span class="line">            .addItem(Noodles())</span><br><span class="line">            .addItem(Noodles())</span><br><span class="line">            .addItem(Vegetables(<span class="string">&quot;Spinach&quot;</span>))</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Print out each order</span></span><br><span class="line">    <span class="keyword">for</span> (order <span class="keyword">in</span> ordersList) &#123;</span><br><span class="line">        order.print()</span><br><span class="line">        println()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h4 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h4><ul>
 <li>清單(List) 是特定類型元素的有序集合，例如 <code>Strings</code> List。</li>
@@ -1074,6 +954,8 @@
 
 
 
+
+  
 
   
 

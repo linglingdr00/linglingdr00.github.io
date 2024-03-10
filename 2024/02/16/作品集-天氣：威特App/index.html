@@ -44,9 +44,9 @@
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
-<meta property="article:tag" content="Fragment">
 <meta property="article:tag" content="ViewModel">
 <meta property="article:tag" content="LiveData">
+<meta property="article:tag" content="Fragment">
 <meta property="article:tag" content="Retrofit">
 <meta property="article:tag" content="Moshi">
 <meta property="article:tag" content="ListAdapter">
@@ -305,13 +305,11 @@
 </div>
 
 <span id="more"></span>
-
 <hr>
 <h4 id="App-簡介"><a href="#App-簡介" class="headerlink" title="App 簡介"></a>App 簡介</h4><ul>
 <li><strong>起始畫面</strong><br>開啟「天氣：威特 App」時會先出現如下圖的起始畫面。</li>
 </ul>
-<img src="https://i.imgur.com/QMH3e52.png" width="40%">
-
+<p><img src="https://i.imgur.com/QMH3e52.png" width="40%"></p>
 <ul>
 <li><strong>目前位置</strong></li>
 </ul>
@@ -320,64 +318,25 @@
 <li>首次開啟時，會向使用者要求位置權限，當權限通過後，即開始嘗試定位使用者的所在位置。</li>
 <li>當取得使用者的所在位置，且確認使用者的所在國家為台灣時，便會抓取該地區的天氣資料，並呈現在畫面中。</li>
 </ol>
-<img src="https://i.imgur.com/fVaRh2J.png" width="40%">
-
+<p><img src="https://i.imgur.com/fVaRh2J.png" width="40%"></p>
 <ul>
 <li><strong>現在天氣</strong><br>進入現在天氣頁面後，使用者可點選右上角的下拉選單，選取欲查詢的地區及縣市，畫面中便會呈現該縣市即時的天氣狀況。</li>
 </ul>
-<img src="https://i.imgur.com/4KYdGOs.png" width="40%">
-
+<p><img src="https://i.imgur.com/4KYdGOs.png" width="40%"></p>
 <ul>
 <li><strong>天氣預報</strong><br>進入天氣預報頁面後，使用者可點選右上角的下拉選單，選取欲查詢的地區，畫面中便會呈現該地區今明 36 小時的天氣預報。</li>
 </ul>
-<img src="https://i.imgur.com/5ZyOnRw.png" width="40%">
-
+<p><img src="https://i.imgur.com/5ZyOnRw.png" width="40%"></p>
 <hr>
-<h4 id="天氣資料簡介"><a href="#天氣資料簡介" class="headerlink" title="天氣資料簡介"></a>天氣資料簡介</h4><p>「天氣：威特 App」中使用的天氣資料皆為<u>中央氣象署&#x2F;中央氣象局</u>提供的 <a target="_blank" rel="noopener" href="https://opendata.cwa.gov.tw/dist/opendata-swagger.html#/">API 資料</a>。</p>
+<h4 id="天氣資料簡介"><a href="#天氣資料簡介" class="headerlink" title="天氣資料簡介"></a>天氣資料簡介</h4><p>「天氣：威特 App」中使用的天氣資料皆為<u>中央氣象署/中央氣象局</u>提供的 <a target="_blank" rel="noopener" href="https://opendata.cwa.gov.tw/dist/opendata-swagger.html#/">API 資料</a>。</p>
 <ul>
 <li>現在天氣：使用「預報」的「現在天氣觀測報告」(O-A0003-001)</li>
 <li>天氣預報：使用「觀測」的「臺灣各縣市天氣預報資料」(F-C0032-001)</li>
 </ul>
 <hr>
-<h4 id="使用的方法"><a href="#使用的方法" class="headerlink" title="使用的方法"></a>使用的方法</h4><p>以下將「天氣：威特 App」中使用到的一些重要方法&#x2F;架構&#x2F;工具等整理成表格來呈現。</p>
-<table>
-<thead>
-<tr>
-<th align="center"><div style="width:100px">架構&#x2F;功能</div></th>
-<th align="center">工具&#x2F;套件</th>
-<th align="center">說明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">App 架構</td>
-<td align="center">MVVM</td>
-<td align="center">使用 LiveData+ViewModel 實現 MVVM 架構</td>
-</tr>
-<tr>
-<td align="center">抓取資料</td>
-<td align="center">Retrofit、Moshi</td>
-<td align="center">使用 Retrofit 抓取氣象局 API 資料，並使用 Moshi 將 JSON 資料解析成 data object</td>
-</tr>
-<tr>
-<td align="center">App 畫面</td>
-<td align="center">RyclcerView、Data Binding</td>
-<td align="center">使用 RyclcerView 呈現天氣資料，並透過 Data Binding 更新 UI</td>
-</tr>
-<tr>
-<td align="center">切換畫面</td>
-<td align="center">Fragment、Bottom Navigation</td>
-<td align="center">使用 Fragment 搭配 Bottom Navigation 切換 App 畫面</td>
-</tr>
-<tr>
-<td align="center">GPS 定位</td>
-<td align="center">LocationManager、Fused Location Provider</td>
-<td align="center">使用 LocationManager API 和 Fused Location Provider API 實現定位功能</td>
-</tr>
-</tbody></table>
+<h4 id="使用的方法"><a href="#使用的方法" class="headerlink" title="使用的方法"></a>使用的方法</h4><p>以下將「天氣：威特 App」中使用到的一些重要方法/架構/工具等整理成表格來呈現。<br>|<div style="width:100px">架構/功能</div>|工具/套件|說明|<br>|:—:|:—:|:—:|<br>|App 架構|MVVM|使用 LiveData+ViewModel 實現 MVVM 架構|<br>|抓取資料|Retrofit、Moshi|使用 Retrofit 抓取氣象局 API 資料，並使用 Moshi 將 JSON 資料解析成 data object|<br>|App 畫面|RyclcerView、Data Binding|使用 RyclcerView 呈現天氣資料，並透過 Data Binding 更新 UI|<br>|切換畫面|Fragment、Bottom Navigation|使用 Fragment 搭配 Bottom Navigation 切換 App 畫面|<br>|GPS 定位|LocationManager、Fused Location Provider|使用 LocationManager API 和 Fused Location Provider API 實現定位功能|</p>
 <hr>
-<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p>以下為「天氣：威特 App」的 Demo 影片：</p>
-<div class="video-container"><iframe src="https://player.vimeo.com/video/914676522" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
-
+<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p>以下為「天氣：威特 App」的 Demo 影片：<br><div class="video-container"><iframe src="https://player.vimeo.com/video/914676522" frameborder="0" loading="lazy" allowfullscreen></iframe></div></p>
 <h4 id="下載-App"><a href="#下載-App" class="headerlink" title="下載 App"></a>下載 App</h4><ul>
 <li><p>由於此 App 處於封閉測試階段，如欲安裝「天氣：威特 App」可寄信至 <a href="mailto:linglingdr00@gmail.com">linglingdr00@gmail.com</a>，這邊會邀請您加入封閉測試。</p>
 </li>
@@ -395,9 +354,9 @@
           <div class="post-tags">
               <a href="/tags/Android/" rel="tag"># Android</a>
               <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
-              <a href="/tags/Fragment/" rel="tag"># Fragment</a>
               <a href="/tags/ViewModel/" rel="tag"># ViewModel</a>
               <a href="/tags/LiveData/" rel="tag"># LiveData</a>
+              <a href="/tags/Fragment/" rel="tag"># Fragment</a>
               <a href="/tags/Retrofit/" rel="tag"># Retrofit</a>
               <a href="/tags/Moshi/" rel="tag"># Moshi</a>
               <a href="/tags/ListAdapter/" rel="tag"># ListAdapter</a>
@@ -606,6 +565,8 @@
 
 
 
+
+  
 
   
 

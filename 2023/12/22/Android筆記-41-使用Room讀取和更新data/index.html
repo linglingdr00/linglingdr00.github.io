@@ -56,17 +56,17 @@
 <meta property="article:tag" content="RecyclerView">
 <meta property="article:tag" content="Data Class">
 <meta property="article:tag" content="Navigation">
-<meta property="article:tag" content="Fragment">
 <meta property="article:tag" content="ViewModel">
 <meta property="article:tag" content="LiveData">
+<meta property="article:tag" content="Fragment">
 <meta property="article:tag" content="Coroutine">
 <meta property="article:tag" content="suspend function">
-<meta property="article:tag" content="ListAdapter">
 <meta property="article:tag" content="SQL">
+<meta property="article:tag" content="ListAdapter">
 <meta property="article:tag" content="Room">
+<meta property="article:tag" content="Flow">
 <meta property="article:tag" content="DAO">
 <meta property="article:tag" content="Entity">
-<meta property="article:tag" content="Flow">
 <meta property="article:tag" content="SQLite">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/771c6a677ecd96c7_1920.png?hl=zh-tw">
@@ -305,32 +305,25 @@
 <li>如何使用 <code>Room</code> library <u>更新和刪除</u> SQLite database 中的 <strong>entities</strong>。</li>
 </ul>
 <span id="more"></span>
-
 <hr>
 <h3 id="Starter-app-overview"><a href="#Starter-app-overview" class="headerlink" title="Starter app overview"></a>Starter app overview</h3><p>本程式碼研究室會使用先前程式碼研究室的 Inventory app solution code，做為範例程式碼。範例 app 已使用 <code>Room</code> persistence library 儲存 data。使用者可以透過「Add Item」畫面，將 data 新增至 app database。</p>
 <p>注意：目前版本的範例 app 不會顯示 database 中儲存的日期(date)。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/771c6a677ecd96c7_1920.png?hl=zh-tw">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/771c6a677ecd96c7_1920.png?hl=zh-tw"></p>
 <p>在本程式碼研究室中，您將擴充 app，使其<u>使用 <code>Room</code> library 讀取及顯示 database 中的 data</u>，以及<u>更新及刪除 database 中的 <strong>entities</strong></u>。</p>
-<h4 id="下載範例程式碼"><a href="#下載範例程式碼" class="headerlink" title="下載範例程式碼"></a>下載範例程式碼</h4><p>這個範例程式碼與先前程式碼研究室的 solution code 相同。</p>
-<div class="note success">
+<h4 id="下載範例程式碼"><a href="#下載範例程式碼" class="headerlink" title="下載範例程式碼"></a>下載範例程式碼</h4><p>這個範例程式碼與先前程式碼研究室的 solution code 相同。<br><div class="note success">
             <p><strong>範例程式碼網址：</strong><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-inventory-app/tree/room">https://github.com/google-developer-training/android-basics-kotlin-inventory-app/tree/room</a><br><strong>分支名稱：</strong><b>room</b></p>
-          </div>
-
+          </div></p>
 <hr>
 <h3 id="新增-RecyclerView"><a href="#新增-RecyclerView" class="headerlink" title="新增 RecyclerView"></a>新增 RecyclerView</h3><p>在這項工作中，您要在 app 中新增 <code>RecyclerView</code>，以顯示 database 中儲存的 data。</p>
 <h4 id="新增-helper-function-以-format-price"><a href="#新增-helper-function-以-format-price" class="headerlink" title="新增 helper function 以 format price"></a>新增 helper function 以 format price</h4><p>以下是最終 app 的螢幕截圖。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/d6e7b7b9f12e7a16_1920.png?hl=zh-tw" width="40%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/d6e7b7b9f12e7a16_1920.png?hl=zh-tw" width="40%"></p>
 <p>請注意，price 會以<u>貨幣格式(currency format)</u>顯示。如要將 <u>double value</u>轉換成所需的<u>貨幣格式(currency format)</u>，請在 <code>Item</code> class 中加入 <strong>extension function</strong>。</p>
 <h5 id="Extension-Functions"><a href="#Extension-Functions" class="headerlink" title="Extension Functions"></a>Extension Functions</h5><p>Kotlin 能夠<u>使用新功能<b>擴充(extend)</b> class</u>，無需沿用 class 或修改 class 的現有定義。這表示您可以將 functions 加入現有 class，而無需存取其原始碼。方法是透過名為<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/extensions.html">擴充功能</a>的特殊宣告來執行。</p>
 <p>舉例來說，您可以<u>在無法修改的<b>第三方 library</b> 中，為某個 <strong>class</strong> 編寫新的 <strong>functions</strong></u>。這類 functions 可以照常呼叫，就像是原始 class 的方法一樣。這些 functions 稱為 <strong>extension function</strong>。(您也可以使用 <b>extension properties(擴充屬性)</b>為現有 class 定義新屬性)。</p>
 <p><strong>Extension function</strong> 實際上<u>不會修改 class</u>，但可以讓您<u>在呼叫該 <strong>class objects</strong> 的 <strong>function</strong> 時</u>使用<b>點號標記法( <code>.</code> )</b>。</p>
 <p>例如，在下列程式碼中，有一個名為 <code>Square</code> 的 class。此 class 內會有<u>正方形四邊的屬性 <code>side</code></u>，以及<u>計算正方形面積的 function <code>area()</code></u>。請注意，<u><code>Square.perimeter()</code> <strong>extension function</strong> 的 <b>function name 開頭</b>是其使用的 <strong>class</strong></u>。在 function 中，您<u>可以引用 <code>Square</code> class 的 public 屬性( <code>side</code> )</u>。</p>
 <p>查看 <code>main()</code> function 中的 extension function 使用方式。建立的 extension function <code>perimeter()</code> 會在該 <code>Square</code> class 中做為一般 function 呼叫。</p>
-<p>範例：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Square</span>(<span class="keyword">val</span> side: <span class="built_in">Double</span>)&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">area</span><span class="params">()</span></span>: <span class="built_in">Double</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> side * side;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Extension function to calculate the perimeter of the square</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Square.<span class="title">perimeter</span><span class="params">()</span></span>: <span class="built_in">Double</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">4</span> * side;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Usage</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span>&#123;</span><br><span class="line">      <span class="keyword">val</span> square = Square(<span class="number">5.5</span>);</span><br><span class="line">      <span class="keyword">val</span> perimeterValue = square.perimeter()</span><br><span class="line">      println(<span class="string">&quot;Perimeter: <span class="variable">$perimeterValue</span>&quot;</span>)</span><br><span class="line">      <span class="keyword">val</span> areaValue = square.area()</span><br><span class="line">      println(<span class="string">&quot;Area: <span class="variable">$areaValue</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>範例：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Square</span>(<span class="keyword">val</span> side: <span class="built_in">Double</span>)&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">area</span><span class="params">()</span></span>: <span class="built_in">Double</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> side * side;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Extension function to calculate the perimeter of the square</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Square.<span class="title">perimeter</span><span class="params">()</span></span>: <span class="built_in">Double</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">4</span> * side;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Usage</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span>&#123;</span><br><span class="line">      <span class="keyword">val</span> square = Square(<span class="number">5.5</span>);</span><br><span class="line">      <span class="keyword">val</span> perimeterValue = square.perimeter()</span><br><span class="line">      println(<span class="string">&quot;Perimeter: <span class="variable">$perimeterValue</span>&quot;</span>)</span><br><span class="line">      <span class="keyword">val</span> areaValue = square.area()</span><br><span class="line">      println(<span class="string">&quot;Area: <span class="variable">$areaValue</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在這個步驟中，您要將 <strong>item price</strong> 轉換為<u>貨幣格式(currency format) string</u>。一般而言，建議您<u>不要只是為了設定 data 格式而去變更代表 data 的 <strong>entity class</strong></u> (請參見<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Single_responsibility_principle">單一責任原則</a>)，您可改為新增 <strong>extension function</strong>。</p>
 <ol>
 <li>在 <code>Item.kt</code> 的 class 定義下方，新增名為 <code>Item.getFormattedPrice()</code> 的 extension function，該 function 不使用參數並且會 return <code>String</code>。請注意 function 名稱中的 <strong>class name</strong> 和<b>點號( <code>.</code> )標記</b>。</li>
@@ -339,9 +332,7 @@
 <ul>
 <li>import <code>java.text.NumberFormat</code>。</li>
 </ul>
-<p>或者：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新增 Item 的 extension function</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Item.<span class="title">getFormatPrice</span><span class="params">()</span></span>:String &#123;</span><br><span class="line">    <span class="comment">// 將 item price 轉換為貨幣格式(currency format) string</span></span><br><span class="line">    <span class="keyword">return</span> NumberFormat.getCurrencyInstance().format(itemPrice)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>或者：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新增 Item 的 extension function</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Item.<span class="title">getFormatPrice</span><span class="params">()</span></span>:String &#123;</span><br><span class="line">    <span class="comment">// 將 item price 轉換為貨幣格式(currency format) string</span></span><br><span class="line">    <span class="keyword">return</span> NumberFormat.getCurrencyInstance().format(itemPrice)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h4 id="新增-ListAdapter"><a href="#新增-ListAdapter" class="headerlink" title="新增 ListAdapter"></a>新增 ListAdapter</h4><p>在這個步驟中，您要在 <code>RecyclerView</code> 中新增 <strong>list adapter</strong>。鑒於您熟悉了之前程式碼研究室中有關實作 adapter 的內容，操作說明匯總如下。為了方便起見，這個步驟最後提供了完整的 <code>ItemListAdapter</code> 檔案，可協助您瞭解程式碼研究室中的 <code>Room</code> 概念。</p>
 <ol>
 <li>在 <code>com.example.inventory</code> package 中，新增名為 <code>ItemListAdapter</code> 的 Kotlin class。傳入名為 <code>onItemClicked()</code> 的 function 做為 constructor 參數，並將 <code>Item</code> object 做為參數使用。</li>
@@ -355,10 +346,8 @@
 <li>定義 <code>ItemViewHolder</code> class，並從 <code>RecyclerView.ViewHolder</code> 繼承該 class。覆寫 <code>bind()</code> function，並傳入 <code>Item</code> object。</li>
 <li>定義 <strong>companion object</strong>。在 companion object 中，定義 type 為 <code>DiffUtil.ItemCallback&lt;Item&gt;()</code> 且名稱為 <code>DiffCallback</code> 的 <code>val</code>。覆寫必要的方法 <code>areItemsTheSame()</code> 和 <code>areContentsTheSame()</code>，然後加以定義。</li>
 </ol>
-<p>完成的 class 應如下所示：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.inventory</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.view.LayoutInflater</span><br><span class="line"><span class="keyword">import</span> android.view.ViewGroup</span><br><span class="line"><span class="keyword">import</span> androidx.recyclerview.widget.DiffUtil</span><br><span class="line"><span class="keyword">import</span> androidx.recyclerview.widget.ListAdapter</span><br><span class="line"><span class="keyword">import</span> androidx.recyclerview.widget.RecyclerView</span><br><span class="line"><span class="keyword">import</span> com.example.inventory.<span class="keyword">data</span>.Item</span><br><span class="line"><span class="keyword">import</span> com.example.inventory.<span class="keyword">data</span>.getFormattedPrice</span><br><span class="line"><span class="keyword">import</span> com.example.inventory.databinding.ItemListItemBinding</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* [ListAdapter] implementation for the recyclerview.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ItemListAdapter</span>(<span class="keyword">private</span> <span class="keyword">val</span> onItemClicked: (Item) -&gt; <span class="built_in">Unit</span>) :</span><br><span class="line">   ListAdapter&lt;Item, ItemListAdapter.ItemViewHolder&gt;(DiffCallback) &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(parent: <span class="type">ViewGroup</span>, viewType: <span class="type">Int</span>)</span></span>: ItemViewHolder &#123;</span><br><span class="line">       <span class="keyword">return</span> ItemViewHolder(</span><br><span class="line">           ItemListItemBinding.inflate(</span><br><span class="line">               LayoutInflater.from(</span><br><span class="line">                   parent.context</span><br><span class="line">               )</span><br><span class="line">           )</span><br><span class="line">       )</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">ItemViewHolder</span>, position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">       <span class="keyword">val</span> current = getItem(position)</span><br><span class="line">       holder.itemView.setOnClickListener &#123;</span><br><span class="line">           onItemClicked(current)</span><br><span class="line">       &#125;</span><br><span class="line">       holder.bind(current)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">class</span> <span class="title class_">ItemViewHolder</span>(<span class="keyword">private</span> <span class="keyword">var</span> binding: ItemListItemBinding) :</span><br><span class="line">       RecyclerView.ViewHolder(binding.root) &#123;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">val</span> DiffCallback = <span class="keyword">object</span> : DiffUtil.ItemCallback&lt;Item&gt;() &#123;</span><br><span class="line">           <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areItemsTheSame</span><span class="params">(oldItem: <span class="type">Item</span>, newItem: <span class="type">Item</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">               <span class="keyword">return</span> oldItem === newItem</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areContentsTheSame</span><span class="params">(oldItem: <span class="type">Item</span>, newItem: <span class="type">Item</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">               <span class="keyword">return</span> oldItem.itemName == newItem.itemName</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="11">
+<p>完成的 class 應如下所示：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.inventory</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.view.LayoutInflater</span><br><span class="line"><span class="keyword">import</span> android.view.ViewGroup</span><br><span class="line"><span class="keyword">import</span> androidx.recyclerview.widget.DiffUtil</span><br><span class="line"><span class="keyword">import</span> androidx.recyclerview.widget.ListAdapter</span><br><span class="line"><span class="keyword">import</span> androidx.recyclerview.widget.RecyclerView</span><br><span class="line"><span class="keyword">import</span> com.example.inventory.<span class="keyword">data</span>.Item</span><br><span class="line"><span class="keyword">import</span> com.example.inventory.<span class="keyword">data</span>.getFormattedPrice</span><br><span class="line"><span class="keyword">import</span> com.example.inventory.databinding.ItemListItemBinding</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* [ListAdapter] implementation for the recyclerview.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ItemListAdapter</span>(<span class="keyword">private</span> <span class="keyword">val</span> onItemClicked: (Item) -&gt; <span class="built_in">Unit</span>) :</span><br><span class="line">   ListAdapter&lt;Item, ItemListAdapter.ItemViewHolder&gt;(DiffCallback) &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(parent: <span class="type">ViewGroup</span>, viewType: <span class="type">Int</span>)</span></span>: ItemViewHolder &#123;</span><br><span class="line">       <span class="keyword">return</span> ItemViewHolder(</span><br><span class="line">           ItemListItemBinding.inflate(</span><br><span class="line">               LayoutInflater.from(</span><br><span class="line">                   parent.context</span><br><span class="line">               )</span><br><span class="line">           )</span><br><span class="line">       )</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">ItemViewHolder</span>, position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">       <span class="keyword">val</span> current = getItem(position)</span><br><span class="line">       holder.itemView.setOnClickListener &#123;</span><br><span class="line">           onItemClicked(current)</span><br><span class="line">       &#125;</span><br><span class="line">       holder.bind(current)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">class</span> <span class="title class_">ItemViewHolder</span>(<span class="keyword">private</span> <span class="keyword">var</span> binding: ItemListItemBinding) :</span><br><span class="line">       RecyclerView.ViewHolder(binding.root) &#123;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">val</span> DiffCallback = <span class="keyword">object</span> : DiffUtil.ItemCallback&lt;Item&gt;() &#123;</span><br><span class="line">           <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areItemsTheSame</span><span class="params">(oldItem: <span class="type">Item</span>, newItem: <span class="type">Item</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">               <span class="keyword">return</span> oldItem === newItem</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areContentsTheSame</span><span class="params">(oldItem: <span class="type">Item</span>, newItem: <span class="type">Item</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">               <span class="keyword">return</span> oldItem.itemName == newItem.itemName</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>在 <code>ItemViewHolder</code> class 中實作 <code>bind()</code>  function。將 <code>itemName</code> TextView bind 至 <code>item.itemName</code>。使用 <code>getFormattedPrice()</code> extension function 以貨幣格式(currency format)取得 price，並將其 bind 至 <code>itemPrice</code> TextView。將 <code>quantityInStock</code> 值轉換為 <code>String</code>，並將其 bind 至 <code>itemQuantity</code> TextView。已完成的方法應如下所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   binding.apply &#123;</span><br><span class="line">       itemName.text = item.itemName</span><br><span class="line">       itemPrice.text = item.getFormattedPrice()</span><br><span class="line">       itemQuantity.text = item.quantityInStock.toString()</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -366,8 +355,7 @@
 <li>import <code>com.example.inventory.data.getFormattedPrice</code>。</li>
 </ul>
 <p>從完成的 app 查看 inventory list 畫面。請注意，每個 list element 都會顯示 inventory item 的 <u>name</u>、<u>以貨幣格式(currency format)顯示的 price</u>，以及 <u>current stock</u>。在先前的步驟中，您使用了 <code>item_list_item.xml</code> layout 檔案和三個 <code>TextView</code> 來建立 rows。在下一個步驟中，您要將 entity 的詳細資料(details) bind 至這些 <code>TextView</code>。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/9c416f2fbf1e5ae2_1920.png?hl=zh-tw" width="40%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/9c416f2fbf1e5ae2_1920.png?hl=zh-tw" width="40%"></p>
 <h4 id="使用-ListAdapter"><a href="#使用-ListAdapter" class="headerlink" title="使用 ListAdapter"></a>使用 ListAdapter</h4><p>在這項工作中，您要更新 <code>InventoryViewModel</code> 和 <code>ItemListFragment</code>，以便使用您在上一個步驟中建立的 <strong>list adapter</strong>，在畫面中顯示 item 詳細資料(details)。</p>
 <ol>
 <li>在 <code>InventoryViewModel</code> class 的開頭，針對 <u>database 中的 item</u>，建立一個名為 <code>allItems</code> 且 type 為 <code>LiveData&lt;List&lt;Item&gt;&gt;</code> 的 <code>val</code>。如果出現錯誤，別擔心，您將很快進行修正。</li>
@@ -376,47 +364,42 @@
 <ul>
 <li>import <code>androidx.lifecycle.LiveData</code>。</li>
 </ul>
-<ol start="2">
+<ol>
 <li>在 <code>itemDao</code> 上呼叫 <code>getItems()</code>，並指派給 <code>allItems</code>。<code>getItems()</code> function 會 return <code>Flow</code>。如要以 <code>LiveData</code> 值的形式使用 data，請使用 <code>asLiveData()</code> function。已完成的定義應如下所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> allItems: LiveData&lt;List&lt;Item&gt;&gt; = itemDao.getItems().asLiveData()</span><br></pre></td></tr></table></figure>
 <ul>
 <li>import <code>androidx.lifecycle.asLiveData</code>。</li>
 </ul>
-<ol start="3">
+<ol>
 <li>在 <code>ItemListFragment</code> 中，請於 class 開頭宣告一個 type 為 <code>InventoryViewModel</code> 的 <code>private</code> 不可變屬性 <code>viewModel</code>。使用 <code>by</code> 委派，將屬性初始化作業傳送至 <code>activityViewModels</code> class。傳入 <code>InventoryViewModelFactory</code> constructor。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: InventoryViewModel <span class="keyword">by</span> activityViewModels &#123;</span><br><span class="line">   InventoryViewModelFactory(</span><br><span class="line">       (activity?.application <span class="keyword">as</span> InventoryApplication).database.itemDao()</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>import <code>androidx.fragment.app.activityViewModels</code>。</li>
 </ul>
-<ol start="4">
+<ol>
 <li><p>同樣在 <code>ItemListFragment</code> 中，捲動至 function <code>onViewCreated()</code>。在 <code>super.onViewCreated()</code> 呼叫下方，宣告名為 <code>adapter</code> 的 <code>val</code>。使用預設 constructor 初始化新的 <code>adapter</code> 屬性，<code>ItemListAdapter&#123;&#125;</code> 不會傳入任何內容。</p>
 </li>
 <li><p>將新建立的 <code>adapter</code>  bind 至 <code>recyclerView</code>，如下所示：</p>
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> adapter = ItemListAdapter &#123;</span><br><span class="line">&#125;</span><br><span class="line">binding.recyclerView.adapter = adapter</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li><p>設定 adapter 後，仍位於 <code>onViewCreated()</code> 內。在 <code>allItems</code> 上附加 <strong>observer</strong>，<u>監聽 data 變更</u>。</p>
 </li>
 <li><p>在 observer 內，對 <code>adapter</code> 呼叫 <code>submitList()</code>，並傳遞新的 list。此操作會使用 list 中的新 item 更新 <code>RecyclerView</code>。</p>
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">viewModel.allItems.observe(<span class="keyword">this</span>.viewLifecycleOwner) &#123; items -&gt;</span><br><span class="line">   items.let &#123;</span><br><span class="line">       adapter.submitList(it)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<ol>
 <li>確認已完成的 <code>onViewCreated()</code> 方法如下所示。執行 app。請注意，如果您將 item 儲存在 app database 中，則系統會顯示 inventory list。如果 list 為 empty，請新增部分 inventory items 至 app database。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onViewCreated</span><span class="params">(view: <span class="type">View</span>, savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onViewCreated(view, savedInstanceState)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">val</span> adapter = ItemListAdapter &#123;</span><br><span class="line">      &#125;</span><br><span class="line">   binding.recyclerView.adapter = adapter</span><br><span class="line">   viewModel.allItems.observe(<span class="keyword">this</span>.viewLifecycleOwner) &#123; items -&gt;</span><br><span class="line">       items.let &#123;</span><br><span class="line">           adapter.submitList(it)</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   binding.recyclerView.layoutManager = LinearLayoutManager(<span class="keyword">this</span>.context)</span><br><span class="line">   binding.floatingActionButton.setOnClickListener &#123;</span><br><span class="line">       <span class="keyword">val</span> action = ItemListFragmentDirections.actionItemListFragmentToAddItemFragment(</span><br><span class="line">           getString(R.string.add_fragment_title)</span><br><span class="line">       )</span><br><span class="line">       <span class="keyword">this</span>.findNavController().navigate(action)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/9c416f2fbf1e5ae2_1920.png?hl=zh-tw" width="40%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/9c416f2fbf1e5ae2_1920.png?hl=zh-tw" width="40%"></p>
 <hr>
 <h3 id="顯示-item-details"><a href="#顯示-item-details" class="headerlink" title="顯示 item details"></a>顯示 item details</h3><p>在這項工作中，您將在「Item Details」畫面中讀取並顯示 <strong>entity details</strong>。您要使用 <strong>primary key</strong> (也就是 <u>item <code>id</code></u>) 來從 inventory app <strong>database</strong> 中讀取 <strong>details</strong> (例如 <u>name、price 和 quantity</u>)，並使用 <code>fragment_item_detail.xml</code> layout 檔案將這些 details 顯示在「Item Details」畫面上。我們已預先為您設計好 layout 檔案 (<code>fragment_item_detail.xml</code>)，當中包含三個用來顯示 item details 的 <code>TextView</code>。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/d699618f5d9437df_1920.png?hl=zh-tw" width="80%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/d699618f5d9437df_1920.png?hl=zh-tw" width="80%"></p>
 <p>在這項工作中，您將執行下列步驟：</p>
 <ul>
 <li>在 <code>RecyclerView</code> 中新增 <strong>click handler</strong>，將 app 移至「Item Details」畫面。</li>
@@ -428,39 +411,32 @@
 <li>將 <code>lambda</code> 新增為 <code>ItemListAdapter&#123;&#125;</code> 的 constructor 參數。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> adapter = ItemListAdapter &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>在 <code>lambda</code> 中，建立名為 <code>action</code> 的 <code>val</code>。您很快便要修正初始化錯誤。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> adapter = ItemListAdapter &#123;</span><br><span class="line">    <span class="keyword">val</span> action</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>對 <code>ItemListFragmentDirections</code> 呼叫 <code>actionItemListFragmentToItemDetailFragment()</code> 方法，傳入 item <code>id</code>。將 return 的 <code>NavDirections</code> object 指派給 <code>action</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> adapter = ItemListAdapter &#123;</span><br><span class="line">   <span class="keyword">val</span> action =  ItemListFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>在 <code>action</code> 定義下方，使用 <code>this.findNavController()</code> 擷取 <code>NavController</code> instance，然後對其呼叫 <code>navigate()</code>，傳入 <code>action</code>。Adapter 的定義如下所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> adapter = ItemListAdapter &#123;</span><br><span class="line">   <span class="keyword">val</span> action =   ItemListFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)</span><br><span class="line">   <span class="keyword">this</span>.findNavController().navigate(action)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>執行 app。在 <code>RecyclerView</code> 中按一下某個 item。App 將轉至「Item Details」畫面。請注意，details 為空白(blank)。輕觸 buttons，系統沒有回應。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/196553111ee69beb_1920.png?hl=zh-tw" width="40%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/196553111ee69beb_1920.png?hl=zh-tw" width="40%"></p>
 <p>在接下來的步驟中，您要在「Item Details」畫面中顯示 entity details，並為「Sell」和「Delete」button 新增功能。</p>
 <h4 id="擷取-item-details"><a href="#擷取-item-details" class="headerlink" title="擷取 item details"></a>擷取 item details</h4><p>在這個步驟中，您將在 <code>InventoryViewModel</code> 中新增 function，以根據 <u>item <code>id</code></u> 從 <strong>database</strong> 中擷取 <u><strong>item details</strong></u>。在下一個步驟中，您將使用此 function 在「Item Details」畫面中顯示 <strong>entity details</strong>。</p>
 <ol>
 <li>在 <code>InventoryViewModel</code> 中，新增名為 <code>retrieveItem()</code> 的 function，該 function 會以 <code>Int</code> 做為 item <code>id</code>，並 return <code>LiveData&lt;Item&gt;</code>。您很快便要修正 return 運算式錯誤。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">retrieveItem</span><span class="params">(id: <span class="type">Int</span>)</span></span>: LiveData&lt;Item&gt; &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>在新 function 中，對 <code>itemDao</code> 呼叫 <code>getItem()</code>，並傳入參數 <code>id</code>。<code>getItem()</code> function 會 return <code>Flow</code>。如要將 <code>Flow</code> value 做為 <code>LiveData</code> 使用，請呼叫 <code>asLiveData()</code> function，並將此 function 做為 <code>retrieveItem()</code> function 的 return。已完成的 function 應如下所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">retrieveItem</span><span class="params">(id: <span class="type">Int</span>)</span></span>: LiveData&lt;Item&gt; &#123;</span><br><span class="line">   <span class="keyword">return</span> itemDao.getItem(id).asLiveData()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="將-data-bind-至-TextView"><a href="#將-data-bind-至-TextView" class="headerlink" title="將 data bind 至 TextView"></a>將 data bind 至 TextView</h4><p>在這個步驟中，您將在 <code>ItemDetailFragment</code> 中<u>建立 <code>ViewModel</code> instance</u>，並將 <u><code>ViewModel</code> data</u> bind 至「Item Details」畫面中的 <u><code>TextView</code></u>。您還要將 <strong>observer</strong> 附加至 <u><code>ViewModel</code> 中的 data</u>，以便在 database 中的基礎 data 有所變更時，隨時<u>更新畫面上的 <strong>inventory list</strong></u>。</p>
 <ol>
 <li>在 <code>ItemDetailFragment</code> 中，新增 type <code>Item</code> entity 的 <code>item</code> 可變動屬性( <code>var</code> )。這個屬性可用來<u>儲存單一 entity 的相關資訊</u>。這個屬性稍後會初始化，請在前面加上 <code>lateinit</code>。</li>
@@ -469,49 +445,42 @@
 <ul>
 <li>import <code>com.example.inventory.data.Item</code></li>
 </ul>
-<ol start="2">
+<ol>
 <li>請於 class <code>ItemDetailFragment</code> 開頭宣告一個 type 為 <code>InventoryViewModel</code> 的 <code>private</code> 不可變屬性 <code>viewModel</code>。使用 <code>by</code> 委派，將屬性初始化作業傳送至 <code>activityViewModels</code> class。傳入 <code>InventoryViewModelFactory</code> constructor。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: InventoryViewModel <span class="keyword">by</span> activityViewModels &#123;</span><br><span class="line">   InventoryViewModelFactory(</span><br><span class="line">       (activity?.application <span class="keyword">as</span> InventoryApplication).database.itemDao()</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>import <code>androidx.fragment.app.activityViewModels</code>。</li>
 </ul>
-<ol start="3">
+<ol>
 <li>同樣在 <code>ItemDetailFragment</code> 中，建立名為 <code>bind()</code> 的 <code>private</code> function，該 function 會採用 <code>Item</code> entity 的 instance 做為參數，並且不會 return 任何內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>實作 <code>bind()</code> function，這與您在 <code>ItemListAdapter</code> 中所進行的操作類似。將 <code>itemName</code> TextView 的 <code>text</code> 屬性設為 <code>item.itemName</code>。對 <code>item</code> 屬性呼叫 <code>getFormattedPrice()</code>，以設定 price value 的格式(format)，然後將其設為 <code>itemPrice</code> TextView 的 <code>text</code> 屬性。將 <code>quantityInStock</code> 轉換為 <code>String</code>，並將其設為 <code>itemQuantity</code> TextView 的 <code>text</code> 屬性。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   binding.itemName.text = item.itemName</span><br><span class="line">   binding.itemPrice.text = item.getFormattedPrice()</span><br><span class="line">   binding.itemCount.text = item.quantityInStock.toString()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>更新 <code>bind()</code> function，以對程式碼區塊使用 <code>apply&#123;&#125;</code> scope function，如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   binding.apply &#123;</span><br><span class="line">       itemName.text = item.itemName</span><br><span class="line">       itemPrice.text = item.getFormattedPrice()</span><br><span class="line">       itemCount.text = item.quantityInStock.toString()</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>還是在 <code>ItemDetailFragment</code> 中，覆寫 <code>onViewCreated()</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onViewCreated</span><span class="params">(view: <span class="type">View</span>, savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onViewCreated(view, savedInstanceState)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol>
 <li>在之前某個步驟中，您已從 <code>ItemListFragment</code> 將 item <code>id</code> 做為 navigation 引數傳遞至 <code>ItemDetailFragment</code> 在 <code>onViewCreated()</code> 中的 <b>super</b> function 呼叫下方，建立名為 <code>id</code> 的不可變變數( <code>val</code> )。擷取 navigation 引數並將其指派給這個新的變數。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> id = navigationArgs.itemId</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<ol>
 <li>接著，請使用這個 <code>id</code> 變數來擷取 <strong>item details</strong>。同樣在 <code>onViewCreated()</code> 中，對傳入 <code>id</code> 的 <code>viewModel</code> 呼叫 <code>retrieveItem()</code> function。將 observer 附加至傳入 <code>viewLifecycleOwner</code> 和 <code>lambda</code> 的 return value。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">viewModel.retrieveItem(id).observe(<span class="keyword">this</span>.viewLifecycleOwner) &#123;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="9">
+<ol>
 <li>在 <code>lambda</code> 中，傳入 <code>selectedItem</code> 做為參數，其中包含擷取自 database 的 <code>Item</code> entity。在 <code>lambda</code> function 內文中，將 <code>selectedItem</code> value 指派給 <code>item</code>。呼叫傳入 <code>item</code> 的 <code>bind()</code> function。已完成的 function 應如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onViewCreated</span><span class="params">(view: <span class="type">View</span>, savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onViewCreated(view, savedInstanceState)</span><br><span class="line">   <span class="keyword">val</span> id = navigationArgs.itemId</span><br><span class="line">   viewModel.retrieveItem(id).observe(<span class="keyword">this</span>.viewLifecycleOwner) &#123; selectedItem -&gt;</span><br><span class="line">       item = selectedItem</span><br><span class="line">       bind(item)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="10">
+<ol>
 <li>執行 app。按一下「Inventory」畫面上的任何 list 元素，系統會隨即顯示「Item Details」畫面。請注意，現在畫面不再為空白(blank)，而是顯示擷取自 inventory database 的 entity details。</li>
 </ol>
 <div style="display: flex;justify-content: center;">
@@ -524,7 +493,7 @@
 <div style="clear:both;"></div>
 </div>
 
-<ol start="11">
+<ol>
 <li>依序輕觸「Sell」button、「Delete」button 和 FAB button。沒有回應！接下來的工作中，您將實作這些 button 的功能。</li>
 </ol>
 <hr>
@@ -540,67 +509,53 @@
 <li>在 <code>InventoryViewModel</code> 中，新增名為 <code>updateItem()</code> 的 private 函式，該函式會使用 entity class <code>Item</code> 的 instance 且不會 return 任何內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">updateItem</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>實作新方法：<code>updateItem()</code>。如要從 <code>ItemDao</code> class 呼叫 <code>update()</code> <strong>suspend</strong> 方法，請使用 <code>viewModelScope</code> 啟動 <strong>coroutine</strong>。在 launch 區塊中，對傳入 <code>item</code> 的 <code>itemDao</code> 呼叫 <code>update()</code> 函式。已完成的方法應如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">updateItem</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   viewModelScope.launch &#123;</span><br><span class="line">       itemDao.update(item)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>在 <code>InventoryViewModel</code> 中，新增其他名為 <code>sellItem()</code> 的方法，該方法會使用 <code>Item</code> entity class 的 instance，且不會 return 任何內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sellItem</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>在 <code>sellItem()</code> 函式中，新增 <code>if</code> 條件來檢查 <code>item.quantityInStock</code> 是否大於 <code>0</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sellItem</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (item.quantityInStock &gt; <span class="number">0</span>) &#123;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在 <code>if</code> 區塊內，您需要使用 <strong>data class</strong> 的 <a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/data-classes.html#copying"><code>copy()</code></a> 函式來<u>更新 entity</u>。</p>
 <h5 id="Data-class：copy"><a href="#Data-class：copy" class="headerlink" title="Data class：copy()"></a>Data class：copy()</h5><p>根據預設，系統會向 data class 的所有 <strong>instance</strong> 提供 <a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/data-classes.html#copying"><code>copy()</code></a> 函式。此函式可用於<u>複製物件來變更其部分屬性</u>，但保留其餘屬性。</p>
-<p>舉例來說，考慮如下所示的 <code>User</code> class 及其 instance <code>jack</code>。如要建立新的 instance 且僅更新 <code>age</code> 屬性，則實作方法如下：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Data class</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">User</span>(<span class="keyword">val</span> name: String = <span class="string">&quot;&quot;</span>, <span class="keyword">val</span> age: <span class="built_in">Int</span> = <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Data class instance</span></span><br><span class="line"><span class="keyword">val</span> jack = User(name = <span class="string">&quot;Jack&quot;</span>, age = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// A new instance is created with its age property changed, rest of the properties unchanged.</span></span><br><span class="line"><span class="keyword">val</span> olderJack = jack.copy(age = <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<p>舉例來說，考慮如下所示的 <code>User</code> class 及其 instance <code>jack</code>。如要建立新的 instance 且僅更新 <code>age</code> 屬性，則實作方法如下：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Data class</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">User</span>(<span class="keyword">val</span> name: String = <span class="string">&quot;&quot;</span>, <span class="keyword">val</span> age: <span class="built_in">Int</span> = <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Data class instance</span></span><br><span class="line"><span class="keyword">val</span> jack = User(name = <span class="string">&quot;Jack&quot;</span>, age = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// A new instance is created with its age property changed, rest of the properties unchanged.</span></span><br><span class="line"><span class="keyword">val</span> olderJack = jack.copy(age = <span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<ol>
 <li>返回 <code>InventoryViewModel</code> 中的 <code>sellItem()</code> 函式。在 <code>if</code> 區塊中，建立名為 <code>newItem</code> 的新不可變屬性( <code>val</code> )。在傳入更新的 <code>quantityInStock</code> 的 <code>item</code> instance 上呼叫 <code>copy()</code> 函式，藉此減少 <code>1</code> 庫存。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> newItem = item.copy(quantityInStock = item.quantityInStock - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>在 <code>newItem</code> 定義下方，呼叫傳入新的更新 entity (即 <code>newItem</code>) 的 <code>updateItem()</code> 函式。已完成的方法應如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sellItem</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (item.quantityInStock &gt; <span class="number">0</span>) &#123;</span><br><span class="line">       <span class="comment">// Decrease the quantity by 1</span></span><br><span class="line">       <span class="keyword">val</span> newItem = item.copy(quantityInStock = item.quantityInStock - <span class="number">1</span>)</span><br><span class="line">       updateItem(newItem)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol>
 <li>如要新增<u>銷售庫存(selling stock)</u>功能，請前往 <code>ItemDetailFragment</code>。捲動至 <code>bind()</code> 函式的結尾。在 <code>apply</code> 區塊內，為 Sell button 設定 <strong>click listener</strong>，並在 <code>viewModel</code> 上呼叫 <code>sellItem()</code> 函式。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">binding.apply &#123;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">    sellItem.setOnClickListener &#123; viewModel.sellItem(item) &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<ol>
 <li>執行 app。在「Inventory」畫面中，按一下數量大於 <code>0</code> 的 list 元素。系統隨即顯示「Item Details」畫面。輕觸 Sell button。請注意數量值會減少一個單位。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/aa63ca761dc8f009_1920.png?hl=zh-tw" width="80%">
-
-<ol start="9">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/aa63ca761dc8f009_1920.png?hl=zh-tw" width="80%"></p>
+<ol>
 <li>在「Item Details」畫面上，連續輕觸 Sell button 即可將數量設為 <code>0</code>。數量設為 <code>0</code> 後，輕觸 Sell button。不會出現明顯的變更。這是因為函式 <code>sellItem()</code> 會先檢查數量是否大於 <code>0</code>，然後再更新數量。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/3e099d3c55596938_1920.png?hl=zh-tw" width="40%">
-
-<ol start="10">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/3e099d3c55596938_1920.png?hl=zh-tw" width="40%"></p>
+<ol>
 <li>如要為使用者提供更符合需求的意見回饋，建議您在沒有 item 可銷售時停用 Sell button。在 <code>InventoryViewModel</code> 中，新增函式，檢查數量是否大於 <code>0</code>。將函式命名為 <code>isStockAvailable()</code>，該函式使用 <code>Item</code> instance 並傳回 <code>Boolean</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">isStockAvailable</span><span class="params">(item: <span class="type">Item</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> (item.quantityInStock &gt; <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="11">
+<ol>
 <li>前往 <code>ItemDetailFragment</code>，捲動至 <code>bind()</code> 函式。在 apply 區塊中，在傳入 <code>item</code> 的 <code>viewModel</code> 上呼叫 <code>isStockAvailable()</code> 函式。請將 return 的 value 設為 Sell button 的 <code>isEnabled</code> 屬性。程式碼應如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   binding.apply &#123;</span><br><span class="line">       ...</span><br><span class="line">       sellItem.isEnabled = viewModel.isStockAvailable(item)</span><br><span class="line">       sellItem.setOnClickListener &#123; viewModel.sellItem(item) &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="12">
+<ol>
 <li>執行 app，請注意，當庫存數量為 <code>0</code> 時，系統將停用 Sell button。恭喜您在 app 中實作了 sell item 功能。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/5e49db8451e77c2b_1920.png?hl=zh-tw" width="40%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/5e49db8451e77c2b_1920.png?hl=zh-tw" width="40%"></p>
 <h4 id="Delete-item-entity"><a href="#Delete-item-entity" class="headerlink" title="Delete item entity"></a>Delete item entity</h4><p>與上一項工作一樣，您將實作刪除(delete)功能，進一步擴充 app 的功能。</p>
 <p>以下是這個步驟的詳細操作說明：</p>
 <ul>
@@ -612,28 +567,23 @@
 <li>在 <code>InventoryViewModel</code> 中，新增名為 <code>deleteItem()</code> 的函式，該函式會使用名為 <code>item</code> 的 <code>Item</code> entity class 的 instance，但不會 return 任何內容。在 <code>deleteItem()</code> 函式中，使用 <code>viewModelScope</code> 啟動 coroutine。在 <code>launch</code> 區塊內，對傳入 <code>item</code> 的 <code>itemDao</code> 呼叫 <code>delete()</code> 方法。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">deleteItem</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   viewModelScope.launch &#123;</span><br><span class="line">       itemDao.delete(item)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>在 <code>ItemDetailFragment</code> 中，捲動至 <code>deleteItem()</code> 函式的開頭。對 <code>viewModel</code> 呼叫 <code>deleteItem()</code>，並傳入 <code>item</code>。<code>item</code> instance 會包含目前顯示在「Item Details」畫面上的 entity。已完成的方法應如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">deleteItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">   viewModel.deleteItem(item)</span><br><span class="line">   findNavController().navigateUp()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>在 <code>ItemDetailFragment</code> 中，捲動至 <code>showConfirmationDialog()</code> 函式。這個函式會在範例程式碼中提供給您。這個方法會顯示 alert dialog，以便在刪除 item 前取得使用者的確認，並在使用者輕觸 <b>positive button</b> 時呼叫 <code>deleteItem()</code> 函式。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">showConfirmationDialog</span><span class="params">()</span></span> &#123;</span><br><span class="line">        MaterialAlertDialogBuilder(requireContext())</span><br><span class="line">            ...</span><br><span class="line">            .setPositiveButton(getString(R.string.yes)) &#123; _, _ -&gt;</span><br><span class="line">                deleteItem()</span><br><span class="line">            &#125;</span><br><span class="line">            .show()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
 <p><code>showConfirmationDialog()</code> 函式會顯示 alert dialog，如下所示：<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/728bfcbb997c8017_1920.png?hl=zh-tw" width="50%"></p>
-<ol start="4">
+<ol>
 <li>在 <code>ItemDetailFragment</code> 中，請在 <code>bind()</code> 函式結尾的 <code>apply</code> 區塊內，將設定 Delete button 的 click listener。呼叫 click listener <code>lambda</code> 中的 <code>showConfirmationDialog()</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   binding.apply &#123;</span><br><span class="line">       ...</span><br><span class="line">       deleteItem.setOnClickListener &#123; showConfirmationDialog() &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>執行 app！在「Inventory」list 畫面中選取 list 元素，然後在「Item Details」畫面中輕觸「Delete」button。輕觸「Yes」，app 將返回「Inventory」畫面。請注意，已刪除的 entity 已不在 app database 中。恭喜您實作了 delete 功能。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/c05318ab8c216fa1_1920.png?hl=zh-tw">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/c05318ab8c216fa1_1920.png?hl=zh-tw"></p>
 <h4 id="Edit-item-entity"><a href="#Edit-item-entity" class="headerlink" title="Edit item entity"></a>Edit item entity</h4><p>與先前的工作類似，在這項工作中，您要在 app 中新增另一項功能，實作 <u>edit item entity</u>。</p>
 <p>以下為編輯 app database 中 entity 的步驟：</p>
 <ul>
@@ -644,115 +594,93 @@
 </ul>
 <h5 id="將-click-listener-新增至-FAB-button"><a href="#將-click-listener-新增至-FAB-button" class="headerlink" title="將 click listener 新增至 FAB button"></a>將 click listener 新增至 FAB button</h5><p>在 <code>ItemDetailFragment</code> 中，新增名為 <code>editItem()</code> 的 <code>private</code> 函式，該函式不採用任何參數，且不會 return 任何內容。在下一個步驟中，請將畫面標題更新為「Edit Item」，這樣就能重複使用 <code>fragment_add_item.xml</code>。為實作此操作，您需要傳送 <u>fragment title string</u> 以及 <u>item id</u>。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">editItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>更新 fragment title 後，「Edit Item」畫面應顯示如下。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/bcd407af7c515a21_1920.png?hl=zh-tw" width="40%"></p>
-<ol start="2">
+<ol>
 <li>在 <code>editItem()</code> 函式中，建立名為 <code>action</code> 的不可變變數( <code>val</code> )。對傳入 title string  <code>edit_fragment_title</code> 和 item <code>id</code> 的 <code>ItemDetailFragmentDirections</code> 呼叫 <code>actionItemDetailFragmentToAddItemFragment()</code>。將 return 的 value 指派給 <code>action</code>。在 <code>action</code> 定義下方，呼叫 <code>this.findNavController().navigate()</code> 並傳入 <code>action</code>，前往「Edit Item」畫面。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">editItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> action = ItemDetailFragmentDirections.actionItemDetailFragmentToAddItemFragment(</span><br><span class="line">       getString(R.string.edit_fragment_title),</span><br><span class="line">       item.id</span><br><span class="line">   )</span><br><span class="line">   <span class="keyword">this</span>.findNavController().navigate(action)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>還是在 <code>ItemDetailFragment</code> 中，捲動至 <code>bind()</code> 函式。在 <code>apply</code> 區塊內，為 FAB button 設定 <strong>click listener</strong>，以及從 <code>lambda</code> 呼叫 <code>editItem()</code> 函式，以便前往「Edit Item」畫面。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   binding.apply &#123;</span><br><span class="line">       ...</span><br><span class="line">       editItem.setOnClickListener &#123; editItem() &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>執行 app。前往「Item Details」畫面。按一下 FAB button。請注意，螢幕 title 已更新為「Edit Item」，但所有 <strong>text fields</strong> 均為<u>空白(empty)</u>。在下一個步驟中，您將修正這個問題。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/a6a6583171b68230_1920.png?hl=zh-tw" width="80%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/a6a6583171b68230_1920.png?hl=zh-tw" width="80%"></p>
 <h5 id="填入-TextView"><a href="#填入-TextView" class="headerlink" title="填入 TextView"></a>填入 TextView</h5><p>在這個步驟中，您要在「Edit Item」螢幕的 <strong>text fields</strong> 中填入 <strong>entity details</strong>。由於我們使用的是 <code>Add Item</code> 螢幕，因此您要在 Kotlin 檔案 <code>AddItemFragment.kt</code> 中新增函式。</p>
 <ol>
 <li>在 <code>AddItemFragment</code> 中，新增 <code>private</code> 函式，<u>將 <strong>text fields</strong> 與 <strong>entity details</strong> bind 在一起</u>。為函式 <code>bind()</code> 命名，該函式會使用商品 entity class 的 instance，且不會 return 任何內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li><code>bind()</code> 函式的實作方式與先前在 <code>ItemDetailFragment</code> 中的實作類似。在 <code>bind()</code> 函式中，使用 <code>format()</code> 函式將 price 四捨五入至小數點後兩位，並指派給名為 <code>price</code> 的 <code>val</code>，如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> price = <span class="string">&quot;%.2f&quot;</span>.format(item.itemPrice)</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>在 <code>price</code> 定義下方，針對 <code>binding</code> 屬性使用 <code>apply</code> scope function，如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binding.apply &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>在 <code>apply</code> scope function 程式碼區塊內，將 <code>item.itemName</code> 設為 <code>itemName</code> 的 <code>text</code> 屬性。使用 <code>setText()</code> 函式，並傳入 <code>item.itemName</code> string 和 <code>TextView.BufferType.SPANNABLE</code> 做為 <code>BufferType</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">binding.apply &#123;</span><br><span class="line">   itemName.setText(item.itemName, TextView.BufferType.SPANNABLE)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>類似於上述步驟，設定 price <code>EditText</code> 的 <code>text</code> 屬性，如下所示。如要設定 <code>EditEdit</code> 數量的 <code>text</code> 屬性，請記得將 <code>item.quantityInStock</code> 轉換為 <code>String</code>。您完成的函式應如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> price = <span class="string">&quot;%.2f&quot;</span>.format(item.itemPrice)</span><br><span class="line">   binding.apply &#123;</span><br><span class="line">       itemName.setText(item.itemName, TextView.BufferType.SPANNABLE)</span><br><span class="line">       itemPrice.setText(price, TextView.BufferType.SPANNABLE)</span><br><span class="line">       itemCount.setText(item.quantityInStock.toString(), TextView.BufferType.SPANNABLE)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>在 <code>AddItemFragment</code> 中，捲動至 <code>onViewCreated()</code> 函式。在呼叫 super class 函式之後。建立名為 <code>id</code> 的 <code>val</code>，並從 navigation 引數擷取 <code>itemId</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> id = navigationArgs.itemId</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol>
 <li>新增帶有條件的 <code>if-else</code> 區塊，以檢查 <code>id</code> 是否大於零，並將 Save button 的 <strong>click listener</strong> 移至 <code>else</code> 區塊。在 <code>if</code> 區塊內，使用 <code>id</code> 擷取 entity，然後在其中新增 observer。在 observer 內部，更新 <code>item</code> 屬性並呼叫傳入 <code>item</code> 的 <code>bind()</code>。系統會提供完整函式供您複製貼上。這個函式簡單易懂，您可以自行研究。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onViewCreated</span><span class="params">(view: <span class="type">View</span>, savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onViewCreated(view, savedInstanceState)</span><br><span class="line">   <span class="keyword">val</span> id = navigationArgs.itemId</span><br><span class="line">   <span class="keyword">if</span> (id &gt; <span class="number">0</span>) &#123;</span><br><span class="line">       viewModel.retrieveItem(id).observe(<span class="keyword">this</span>.viewLifecycleOwner) &#123; selectedItem -&gt;</span><br><span class="line">           item = selectedItem</span><br><span class="line">           bind(item)</span><br><span class="line">       &#125;</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       binding.saveAction.setOnClickListener &#123;</span><br><span class="line">           addNewItem()</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<ol>
 <li>執行 app，前往「Item Details」，然後輕觸「+」這個 FAB button。請注意，這些欄位會填入 item details。編輯 stock quantity 或任何其他欄位，然後輕觸 Save button。沒有回應！這是因為您<u>並未更新 app database 中的 entity</u>。您很快就會解決這個問題。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/829ceb9dd7993215_1920.png?hl=zh-tw" width="80%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/829ceb9dd7993215_1920.png?hl=zh-tw" width="80%"></p>
 <h5 id="使用-Room-更新-entity"><a href="#使用-Room-更新-entity" class="headerlink" title="使用 Room 更新 entity"></a>使用 Room 更新 entity</h5><p>在最後一項工作中，新增最後一段程式碼來實作更新功能。您要在 <code>ViewModel</code> 中定義必要的函式，並在 <code>AddItemFragment</code> 中使用它們。</p>
 <ol>
 <li>在 <code>InventoryViewModel</code> 中，新增名為 <code>getUpdatedItemEntry()</code> 的 <code>private</code> 函式，該函式使用 <code>Int</code>，以及 entity details 三個名為 <code>itemName</code>、<code>itemPrice</code> 和 <code>itemCount</code> 的 string。Return 函式的 <code>Item</code> instance。程式碼僅供參考。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getUpdatedItemEntry</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">   itemId: <span class="type">Int</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemName: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemPrice: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemCount: <span class="type">String</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>: Item &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>在 <code>getUpdatedItemEntry()</code> 函式中，使用函式參數建立 item instance，如下所示。Return 函式的 <code>Item</code> instance。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getUpdatedItemEntry</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">   itemId: <span class="type">Int</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemName: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemPrice: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemCount: <span class="type">String</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>: Item &#123;</span><br><span class="line">   <span class="keyword">return</span> Item(</span><br><span class="line">       id = itemId,</span><br><span class="line">       itemName = itemName,</span><br><span class="line">       itemPrice = itemPrice.toDouble(),</span><br><span class="line">       quantityInStock = itemCount.toInt()</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>同樣在 <code>InventoryViewModel</code> 中，新增其他名為 <code>updateItem()</code> 的函式。此函式也會使用 <code>Int</code> 和 entity details 的三個 strung，且不會 return 任何內容。使用以下程式碼片段中的變數名稱。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">updateItem</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">   itemId: <span class="type">Int</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemName: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemPrice: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemCount: <span class="type">String</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>在 <code>updateItem()</code> 函式中，呼叫傳入 entity 資訊的 <code>getUpdatedItemEntry()</code> 函式，該函式會以函式參數的形式傳遞，如下所示。將 return 的 value 指派給名為 <code>updatedItem</code> 的不可變變數( <code>val</code> )。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount)</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>在 <code>getUpdatedItemEntry()</code> 函式呼叫的正下方，呼叫傳入 <code>val</code> <code>updatedItem</code> 的 <code>updateItem(item: Item)</code> 函式。已完成的函式如下所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">updateItem</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">   itemId: <span class="type">Int</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemName: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemPrice: <span class="type">String</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   itemCount: <span class="type">String</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span> &#123;</span><br><span class="line">   <span class="comment">// 呼叫 getUpdatedItemEntry()，取得 Item object</span></span><br><span class="line">   <span class="keyword">val</span> updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount)</span><br><span class="line">   <span class="comment">// 將 Item object 傳入 updateItem(item: Item) 以更新 database</span></span><br><span class="line">   updateItem(updatedItem)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>返回 <code>AddItemFragment</code>，新增名為 <code>updateItem()</code> 的 private 函式，該函式不含任何參數，且不會 return 任何內容。在函式中，新增 <code>if</code> 條件，以透過呼叫函式 <code>isEntryValid()</code> 來驗證使用者輸入內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">updateItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (isEntryValid()) &#123;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol>
 <li>在 <code>if</code> 區塊中，呼叫傳遞 entity details 的 <code>viewModel.updateItem()</code>。請使用 navigation 引數中的 <code>itemId</code>，以及 <code>EditText</code> 中的其他 entity details，例如 name、price 和 quantity，如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">viewModel.updateItem(</span><br><span class="line">    <span class="keyword">this</span>.navigationArgs.itemId,</span><br><span class="line">    <span class="keyword">this</span>.binding.itemName.text.toString(),</span><br><span class="line">    <span class="keyword">this</span>.binding.itemPrice.text.toString(),</span><br><span class="line">    <span class="keyword">this</span>.binding.itemCount.text.toString()</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<ol>
 <li>在 <code>updateItem()</code> 函式呼叫下方，定義名為 <code>action</code> 的 <code>val</code>。對 <code>AddItemFragmentDirections</code> 呼叫 <code>actionAddItemFragmentToItemListFragment()</code>，並將 return 的 value 指派給 <code>action</code>。請瀏覽(navigate)至 <code>ItemListFragment</code>，並呼叫傳入 <code>action</code> 的 <code>findNavController().navigate()</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">updateItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (isEntryValid()) &#123;</span><br><span class="line">       viewModel.updateItem(</span><br><span class="line">           <span class="keyword">this</span>.navigationArgs.itemId,</span><br><span class="line">           <span class="keyword">this</span>.binding.itemName.text.toString(),</span><br><span class="line">           <span class="keyword">this</span>.binding.itemPrice.text.toString(),</span><br><span class="line">           <span class="keyword">this</span>.binding.itemCount.text.toString()</span><br><span class="line">       )</span><br><span class="line">       <span class="keyword">val</span> action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()</span><br><span class="line">       findNavController().navigate(action)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="9">
+<ol>
 <li>還是在 <code>AddItemFragment</code> 中，捲動至 <code>bind()</code> 函式。在 <code>binding.apply</code> scope functino 區塊中，為 Save button 設定 <strong>click listener</strong>。呼叫 <code>lambda</code> 中的 <code>updateItem()</code> 函式，如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(item: <span class="type">Item</span>)</span></span> &#123;</span><br><span class="line">   ...</span><br><span class="line">   binding.apply &#123;</span><br><span class="line">       ...</span><br><span class="line">       saveAction.setOnClickListener &#123; updateItem() &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;   </span><br></pre></td></tr></table></figure>
-
-<ol start="10">
+<ol>
 <li>執行 app！嘗試編輯 inventory items；您應該可以編輯 inventory app database 中的任何 item。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/1bbd094a77c25fc4_1920.png?hl=zh-tw">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-update-data-room/img/1bbd094a77c25fc4_1920.png?hl=zh-tw"></p>
 <h4 id="App-執行結果"><a href="#App-執行結果" class="headerlink" title="App 執行結果"></a>App 執行結果</h4><p>完成的 app 如下：</p>
 <div style="position:relative; overflow:hidden; width:100%; padding-top:75%;">
     <iframe src="https://streamable.com/e/40ijw0" frameborder="0" width="100%" height="100%" allowfullscreen style="position:absolute; top:0; left:0; bottom:0; right:0; width:100%; height:100%;">
@@ -772,17 +700,17 @@
               <a href="/tags/RecyclerView/" rel="tag"># RecyclerView</a>
               <a href="/tags/Data-Class/" rel="tag"># Data Class</a>
               <a href="/tags/Navigation/" rel="tag"># Navigation</a>
-              <a href="/tags/Fragment/" rel="tag"># Fragment</a>
               <a href="/tags/ViewModel/" rel="tag"># ViewModel</a>
               <a href="/tags/LiveData/" rel="tag"># LiveData</a>
+              <a href="/tags/Fragment/" rel="tag"># Fragment</a>
               <a href="/tags/Coroutine/" rel="tag"># Coroutine</a>
               <a href="/tags/suspend-function/" rel="tag"># suspend function</a>
-              <a href="/tags/ListAdapter/" rel="tag"># ListAdapter</a>
               <a href="/tags/SQL/" rel="tag"># SQL</a>
+              <a href="/tags/ListAdapter/" rel="tag"># ListAdapter</a>
               <a href="/tags/Room/" rel="tag"># Room</a>
+              <a href="/tags/Flow/" rel="tag"># Flow</a>
               <a href="/tags/DAO/" rel="tag"># DAO</a>
               <a href="/tags/Entity/" rel="tag"># Entity</a>
-              <a href="/tags/Flow/" rel="tag"># Flow</a>
               <a href="/tags/SQLite/" rel="tag"># SQLite</a>
           </div>
 
@@ -982,6 +910,8 @@
 
 
 
+
+  
 
   
 

@@ -301,17 +301,15 @@
 </ul>
 <hr>
 <span id="more"></span>
-
 <h4 id="使用隨機函式"><a href="#使用隨機函式" class="headerlink" title="使用隨機函式"></a>使用隨機函式</h4><p>如要擲骰子，需要設法呈現所有有效的骰子值。一般的 6 面骰子，可接受的結果有 1、2、3、4、5 和 6。<br><code>IntRange</code> 是一種資料類型，代表從起點到終點的整數範圍。<br>在這裡，我們使用 <code>IntRange</code> 定義骰子可能產生的值。</p>
 <ol>
 <li>在 <code>main() 函式</code> 中定義為名為 <code>diceRange</code> 的 <code>val</code>，並給定 1 到 6 的 IntRange，代表 6 面骰子可以擲出的整數範圍。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val diceRange = 1..6</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><code>val diceRange = 1..6</code> 等於 <code>val diceRange: IntRange = 1..6</code></li>
 </ul>
-<ol start="2">
+<ol>
 <li>使用 <code>random()</code> 的函式，產生並傳回指定範圍的隨機數字，將結果儲存在變數中。</li>
 </ol>
 <ul>
@@ -319,11 +317,10 @@
 <li>將 <code>diceRange</code> 呼叫 <code>random()</code> 的結果，存在 <code>randomNumber</code>中 。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val randomNumber = diceRange.random()</span><br></pre></td></tr></table></figure>
-<ol start="3">
+<ol>
 <li>執行程式碼數次印出 <code>randomNumber</code> ，可以發現隨機數字不一樣。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;隨機數字: <span class="variable">$&#123;randomNumber&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h4 id="建立骰子類別"><a href="#建立骰子類別" class="headerlink" title="建立骰子類別"></a>建立骰子類別</h4><p>我們可以建立骰子的<span class="label primary">程式輔助藍圖</span>，指出骰子有多個面，而且可以擲出隨機數字。此<span class="label primary">藍圖</span>稱為<span class="label primary">類別</span>。<br>接下來，就可以透過該類別建立實際的骰子物件，稱為<span class="label primary">「物件執行個體」</span>。例如建立有 12 個面或 4 個面的骰子。</p>
 <h5 id="定義骰子類別"><a href="#定義骰子類別" class="headerlink" title="定義骰子類別"></a>定義骰子類別</h5><ul>
@@ -333,16 +330,14 @@
 <li>為了重新開始，請清除 <code>main()</code> 函式中的程式碼。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>在這個 <code>main()</code> 函式下方，新增空白行，然後新增程式碼來建立 <code>Dice</code> 類別。如下所示，請先輸入關鍵字 <code>class</code>，然後輸入類別名稱，後面加左右大括號。請在左右大括號之間留出空格，以便放入類別的程式碼。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>在類別定義中，您可以使用變數為類別指定一或多項屬性。真實的骰子可以有多個面、一種顏色或重量。在這項工作中，您的重點會放在骰子面數的屬性上。</li>
 </ul>
-<ol start="3">
+<ol>
 <li>在 Dice 類別中，新增名為 <code>sides</code> 的 <code>var</code> 做為骰子的面數。將 sides 設為 6。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -350,8 +345,7 @@
 <p>var是可變變量，而val是不可變變量，var 在被賦予值後還能夠修改，但是val不行。</p>
 </blockquote>
 <h5 id="建立骰子類別的執行個體"><a href="#建立骰子類別的執行個體" class="headerlink" title="建立骰子類別的執行個體"></a>建立骰子類別的執行個體</h5><p>有了這個 Dice 類別，等同您掌握骰子的藍圖。如要讓程式中「實際」顯示骰子，就需要建立 Dice 物件例項。(如果您需要三個骰子，就要建立三個物件執行個體。)</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-in-kotlin/img/ba2038022410942c_1920.jpeg?authuser=2&hl=zh-tw" width="60%" height="60%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-in-kotlin/img/ba2038022410942c_1920.jpeg?authuser=2&hl=zh-tw" width="60%" height="60%"></p>
 <ol>
 <li>如要建立 <code>Dice</code> 的<span class="label primary">物件執行個體</span>，請在 <code>main()</code> 函式中建立名為 <code>myFirstDice</code> 的 <code>val</code>，並將其<span class="label primary">初始化為 Dice 類別的執行個體</span>。</li>
 </ol>
@@ -359,22 +353,16 @@
 <li>請注意類別名稱之後的<code>括號</code>，代表要從<code>類別</code>建立新的<code>物件執行個體</code>。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>現在已經有了根據藍圖建立的 <code>myFirstDice</code> 物件，便可以存取其<span class="label primary">屬性</span>。Dice 唯一的屬性是 <code>sides</code>。<br>如要存取 <code>myFirstDice</code> 的 <code>sides</code> 屬性，可以使用「點標記法」呼叫 <code>myFirstDice.sides</code>，讀音為「myFirstDice 點 sides」。</p>
-<ol start="2">
+<ol>
 <li>在 myFirstDice 宣告下方，新增 println() 陳述式，以輸出 myFirstDice. 的 sides 數量</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(myFirstDice.sides)</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>執行程式，應會輸出 <code>Dice類別</code> 中定義的 <code>sides數量</code>。</li>
 </ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()</span><br><span class="line">    println(myFirstDice.sides)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure>
-
+<p>現在程式碼：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()</span><br><span class="line">    println(myFirstDice.sides)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h4 id="擲骰子"><a href="#擲骰子" class="headerlink" title="擲骰子"></a>擲骰子</h4><p>在 <code>Dice類別</code> 中新增一個用來擲骰子的 <code>函式</code>。</p>
 <ul>
@@ -384,25 +372,19 @@
 <li>在 Dice 類別 sides 變數下方﹐插入一行空行，然後建立新的函式來擲骰子。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line"></span><br><span class="line">    fun <span class="function"><span class="title">roll</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>在 <code>roll()</code> 方法中建立一個 <code>val</code> <code>randomNumber</code>，並呼叫 <code>random()</code> 以在 1..6 範圍內產生一個隨機數字。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line"></span><br><span class="line">    fun <span class="function"><span class="title">roll</span></span>() &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>產生<code>隨機數字</code>後將其輸出。完成的 roll() 方法應如以下程式碼所示。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">roll</span></span>() &#123;</span><br><span class="line">    val randomNumber = (1..6).random()</span><br><span class="line">    println(randomNumber)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>如要實際投擲 <code>myFirstDice</code>，請在 <code>main()</code> 中對 <code>myFirstDice</code> 呼叫 <code>roll()</code> 方法，如 <code>myFirstDice.roll()</code>，讀音為「myFirstDice 點 roll()」。</li>
 </ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()  </span><br><span class="line">    println(myFirstDice.sides)</span><br><span class="line">    myFirstDice.roll()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun <span class="function"><span class="title">roll</span></span>() &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">        println(randomNumber)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>現在程式碼：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()  </span><br><span class="line">    println(myFirstDice.sides)</span><br><span class="line">    myFirstDice.roll()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun <span class="function"><span class="title">roll</span></span>() &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">        println(randomNumber)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">1</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li><code>1</code>為隨機產生的數字</li>
 </ul>
@@ -416,20 +398,16 @@
 </li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">        println(randomNumber)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>在 <code>roll()</code> 中移除 <code>println()</code> 陳述式，並以 <code>randomNumber</code> 的 <code>return</code> 來取代。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>在 <code>main函式</code> 中輸出 <code>sides</code> 和 <code>diceRoll</code> 的值。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()</span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<ol>
+<li>在 <code>main函式</code> 中輸出 <code>sides</code> 和 <code>diceRoll</code> 的值。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()</span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()  </span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Your 6 sided dice rolled 4!</span><br></pre></td></tr></table></figure>
+<p>現在程式碼：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()  </span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..6).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Your 6 sided dice rolled 4!</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li><code>6</code>為骰子的面數，<code>4</code>為1~6中隨機產生的數字</li>
 </ul>
@@ -439,22 +417,16 @@
 <li>在 <code>Dice</code> 類別的 <code>roll()</code> 方法中，將硬式編碼的 <code>1..6</code> 改為使用 <code>sides</code>。這樣，範圍與擲出的隨機數字便一律適用於面數。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val randomNumber = (1..sides).random()</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>在 main() 函式中，在擲出的骰子結果下方，將 <code>myFirstDice</code> 的 <code>sides</code> 變更為 20。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myFirstDice.sides = 20</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>複製下方的現有輸出陳述式，然後貼到變更面數的後面，然後將 <code>myFirstDice</code> 的輸出結果替換為對 <code>diceRoll</code> 呼叫 <code>roll()</code> 方法的輸出結果。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;myFirstDice.roll()&#125;</span>!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()  </span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">     </span><br><span class="line">    myFirstDice.sides = 20</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;myFirstDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..sides).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Your 6 sided dice rolled 2!</span><br><span class="line">Your 20 sided dice rolled 15!</span><br></pre></td></tr></table></figure>
+<p>現在程式碼：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice()  </span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">     </span><br><span class="line">    myFirstDice.sides = 20</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.sides&#125;</span> sided dice rolled <span class="variable">$&#123;myFirstDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice &#123;</span><br><span class="line">    var sides = 6</span><br><span class="line">    </span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..sides).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Your 6 sided dice rolled 2!</span><br><span class="line">Your 20 sided dice rolled 15!</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>第一行為 <code>6面骰子</code> 的訊息，第二行為 <code>20面骰子</code> 的訊息</li>
 </ul>
@@ -468,8 +440,7 @@
 <li>在 <code>Dice類別</code> 中刪除 <code>sides變數</code>，並將用到 <code>sides</code> 的地方修改成 <code>numSides</code> 。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Dice(val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..numSides).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>在 <code>main()</code> 中，如要建立含有 6 個面的 <code>myFirstDice</code>，您現在必須提供面數做為 Dice 類別的引數。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val myFirstDice = Dice(6)</span><br></pre></td></tr></table></figure>
@@ -480,22 +451,16 @@
 </ul>
 <p>main() 函式應如下列程式碼所示：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)</span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>新增程式碼來建立並輸出第二個名為 <code>mySecondDice</code> 的 <code>Dice物件</code>，這個骰子包含 <code>20</code> 個面。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val mySecondDice = Dice(20)</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>新增用於投擲和輸出傳回值的輸出陳述式。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Your <span class="variable">$&#123;mySecondDice.numSides&#125;</span> sided dice rolled  <span class="variable">$&#123;mySecondDice.roll()&#125;</span>!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>現在程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)  </span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    val mySecondDice = Dice(20) </span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;mySecondDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;mySecondDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice(val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..numSides).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Your 6 sided dice rolled 3!</span><br><span class="line">Your 20 sided dice rolled 19!</span><br></pre></td></tr></table></figure>
+<p>現在程式碼：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)  </span><br><span class="line">    val diceRoll = myFirstDice.roll()</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;diceRoll&#125;</span>!&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    val mySecondDice = Dice(20) </span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;mySecondDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;mySecondDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice(val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        val randomNumber = (1..numSides).random()</span><br><span class="line">        <span class="built_in">return</span> randomNumber</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Your 6 sided dice rolled 3!</span><br><span class="line">Your 20 sided dice rolled 19!</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>第一行為 <code>第一個骰子(6面骰子)</code> 的執行結果，第二行為 <code>第二個骰子(20面骰子)</code> 的執行結果。</li>
 </ul>
@@ -505,15 +470,11 @@
 <li>可以去除 <code>randomNumber</code> 變數，並直接傳回隨機數字。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>在字串範本中呼叫 <code>myFirstDice.roll()</code> 並刪除 <code>diceRoll</code> 變數。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;myFirstDice.roll()&#125;</span></span></span><br></pre></td></tr></table></figure>
-
-<p>最終的程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;myFirstDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line"></span><br><span class="line">    val mySecondDice = Dice(20)</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;mySecondDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;mySecondDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice (val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>最終的程式碼：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(6)</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myFirstDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;myFirstDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line"></span><br><span class="line">    val mySecondDice = Dice(20)</span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;mySecondDice.numSides&#125;</span> sided dice rolled <span class="variable">$&#123;mySecondDice.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice (val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h4 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h4><ul>
 <li>對 <code>IntRange</code> 呼叫 <code>random()</code> 函式以產生隨機數字：<code>(1..6).random()</code></li>
@@ -524,11 +485,8 @@
 </ul>
 <hr>
 <h4 id="自行練習"><a href="#自行練習" class="headerlink" title="自行練習"></a>自行練習</h4><p>建立 <code>Coin</code> 類別，讓它能夠翻轉、建立類別執行個體，以及拋擲一些硬幣！您會如何使用 <code>random()</code> 函式搭配範圍來完成硬幣拋擲動作呢？</p>
-<p>程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myCoin = Coin(2)  </span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myCoin.numSides&#125;</span> sided coin rolled <span class="variable">$&#123;myCoin.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Coin(val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Your 2 sided coin rolled 1!</span><br></pre></td></tr></table></figure>
+<p>程式碼：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myCoin = Coin(2)  </span><br><span class="line">    println(<span class="string">&quot;Your <span class="variable">$&#123;myCoin.numSides&#125;</span> sided coin rolled <span class="variable">$&#123;myCoin.roll()&#125;</span>!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Coin(val numSides: Int) &#123;</span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>執行結果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Your 2 sided coin rolled 1!</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>硬幣有正反2面，假設<code>1</code>為正面，<code>2</code>為反面。</li>
 </ul>
@@ -549,146 +507,121 @@
 <ol>
 <li>在 Create New Project(建立新專案) 中，使用 <code>Empty View Activity</code> 範本建立新的 Kotlin 專案。</li>
 </ol>
-<img src="https://i.imgur.com/PO7Hfug.png" width="70%" height="70%">
-
-<ol start="2">
+<p><img src="https://i.imgur.com/PO7Hfug.png" width="70%" height="70%"></p>
+<ol>
 <li>將應用程式命名為「Dice Roller」，指定最低 API 級別 19 (KitKat)。</li>
 </ol>
-<img src="https://i.imgur.com/Sp5mb9j.png" width="70%" height="70%">
-
+<p><img src="https://i.imgur.com/Sp5mb9j.png" width="70%" height="70%"></p>
 <h4 id="建立應用程式的版面配置"><a href="#建立應用程式的版面配置" class="headerlink" title="建立應用程式的版面配置"></a>建立應用程式的版面配置</h4><ol>
 <li>開啟 <code>activity_main.xml</code>，在「Hello World」TextView 下方新增 <code>Button</code>。</li>
 </ol>
-<img src="https://i.imgur.com/7upqMzz.png" width="65%" height="65%">
-
+<p><img src="https://i.imgur.com/7upqMzz.png" width="65%" height="65%"></p>
 <ul>
 <li>TextView 和 Button 皆位於 ViewGroup 類型的 <code>ConstraintLayout</code> 中。</li>
 </ul>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/ea4be68b34500570_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="2">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/ea4be68b34500570_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
+<ol>
 <li>由於 <code>Button</code> 位於 <code>ConstraintLayout</code> 內，因此您必須設定垂直和水平限制條件進行定位。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/b875e0147bf9e3f5_1920.png?authuser=2&hl=zh-tw" width="60%" height="60%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/b875e0147bf9e3f5_1920.png?authuser=2&hl=zh-tw" width="60%" height="60%"></p>
 <h4 id="安排按鈕的位置"><a href="#安排按鈕的位置" class="headerlink" title="安排按鈕的位置"></a>安排按鈕的位置</h4><p>新增從 Button 頂端到 TextView 底部的垂直限制條件。</p>
 <ol>
 <li>在「Design」檢視畫面中，按住 <code>Button</code> 上方邊緣有藍色邊框的白色圓圈。拖曳指標，並箭頭會遵循指標。當您移動到<code>「Hello World」TextView</code>底部邊緣時放開。這項操作會建立版面配置限制條件，且 <code>Button</code> 往上滑至 <code>TextView</code> 正下方。</li>
 </ol>
-<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/a1973a29e117dd8f.gif?authuser=2" width="30%" height="30%">
-
-<ol start="2">
+<p><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/a1973a29e117dd8f.gif?authuser=2" width="30%" height="30%"></p>
+<ol>
 <li>查看「Layout Editor」(版面配置編輯器) 右側的「Attributes」(屬性)。請留意「Constraint Widget」中，新版面配置的限制條件設定為 <code>TextView</code> 的底部，例如 <code>Top → BottomOf textView (0dp)</code>。</li>
 </ol>
 <ul>
 <li>(0dp) 表示邊界為 0。已發生缺少水平限制條件的錯誤。</li>
 </ul>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/88b750fbe0504d93_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="3">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/88b750fbe0504d93_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
+<ol>
 <li>新增從 <code>Button</code> 的左側至父項 <code>ConstraintLayout</code> 的左側的水平限制條件。並於右側重複操作，將 <code>Button</code> 的右邊緣連接到 <code>ConstraintLayout</code> 的右邊緣。結果看起來會像這樣</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/49de1c166b355ee1_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="4">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/49de1c166b355ee1_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
+<ol>
 <li>在仍然選取 <code>Button</code> 的情況下，「Constraint Widget」應如下所示。您新增了兩個額外的限制條件：<code>Start → StartOf parent (0dp)</code> 和 <code>End → EndOf parent (0dp)</code>。這表示 <code>Button</code> 是水平置中於其父項 <code>ConstraintLayout</code> 中。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/dd1bac8adb275f79_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="5">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/dd1bac8adb275f79_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
+<ol>
 <li>執行應用程式，應如以下螢幕截圖所示。</li>
 </ol>
-<img src="https://i.imgur.com/Q7mNg9T.png" width="30%" height="30%">
-
+<p><img src="https://i.imgur.com/Q7mNg9T.png" width="30%" height="30%"></p>
 <h4 id="變更按鈕文字"><a href="#變更按鈕文字" class="headerlink" title="變更按鈕文字"></a>變更按鈕文字</h4><ol>
 <li>在版面配置編輯器中，如果已選取 Button，請前往「Attributes」，將「text」變更為「Roll」，然後按下 Enter 鍵 (Mac 則是按下 Return 鍵)。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/9adeab9db109913e_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="2">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/9adeab9db109913e_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
+<ol>
 <li>在「Component Tree」中，Button 旁邊會顯示橘色的警示三角形。只要游標懸停在三角形上，就會顯示訊息。Android Studio 在您的應用程式的程式碼中偵測到硬式編碼字串 (「Roll」)，因此建議您改用字串資源。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/6e9a5a173a49fc8b_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%">
-
-<ol start="3">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/6e9a5a173a49fc8b_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%"></p>
+<ol>
 <li>在「Component Tree」中點選橘色三角形。在訊息底部的「Suggested Fix」下方，按一下「Fix」按鈕。(您可能需要向下捲動頁面。)</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/7206a03c9ba0d68d_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%">
-
-<ol start="4">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/7206a03c9ba0d68d_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%"></p>
+<ol>
 <li>系統隨即會開啟「Extract Resource」(擷取資源) 對話方塊。擷取字串代表擷取「Roll」文字，並在 strings.xml 中建立一個名為 roll 的字串資源 (app &gt; res &gt; values &gt; strings.xml)。由於預設值正確無誤，因此請按一下「OK」。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/78dc6e6f7abc1152_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="5">
-<li>在「Attributes」中，Button 的 text 屬性現在會指向 @string&#x2F;roll</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/78dc6e6f7abc1152_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
+<ol>
+<li>在「Attributes」中，Button 的 text 屬性現在會指向 @string/roll</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/4fa3d5e4bce95d2_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/4fa3d5e4bce95d2_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
 <h4 id="設定-TextView-的樣式"><a href="#設定-TextView-的樣式" class="headerlink" title="設定 TextView 的樣式"></a>設定 TextView 的樣式</h4><p>小型「Hello, World!」訊息取代為數字以顯示搖骰子值，並放大字型，讓使用者一目瞭然。</p>
 <ol>
 <li>在「Design Editor」中選取 <code>TextView</code>，接著將 <code>TextView</code> 的 <code>textSize</code> 變更為 36sp，以便放大且易讀。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/ca5dbfd4f37a49e7_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
-<ol start="2">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/ca5dbfd4f37a49e7_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
+<ol>
 <li>清除 <code>TextView</code> 的 <code>text</code> 屬性。您不用在 TextView 中顯示任何資訊，直到使用者擲骰子為止。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/da4031d0ef02f3c5_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/da4031d0ef02f3c5_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
 <p>不過，當您編輯應用程式的版面配置和程式碼時，在 <code>TextView</code> 中查看部分文字會很有幫助。為此，您可以在 <code>TextView</code> 新增文字，這些文字只會顯示在版面配置預覽中，但在應用程式執行時不會顯示。</p>
-<ol start="3">
+<ol>
 <li><p>在「Common Attributes」下方找到「text」屬性，下方則顯示含有工具圖示的「text」屬性。text 屬性是在應用程式執行時顯示給使用者。<span class="label primary">含有工具圖示的「text」屬性是專為您 (開發人員) 設計的「tools text」屬性</span>。</p>
 </li>
 <li><p>在 <code>TextView</code> 中將工具文字設定為<code>「1」</code>(假設您有一個顯示「1」的骰子)。<code>「1」</code>只會出現在 Android Studio 的「Design Editor」(設計編輯器) 中，但當您在實際裝置或模擬器上執行應用程式時，畫面上不會顯示<code>「1」</code>。</p>
 </li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/eaf488ba04947f7f_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/eaf488ba04947f7f_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
 <h4 id="啟用自動匯入作業"><a href="#啟用自動匯入作業" class="headerlink" title="啟用自動匯入作業"></a>啟用自動匯入作業</h4><p>如果您同時使用更多類別，新增 import 陳述式會變得困難。幸好，使用他人提供的類別時，Android Studio 可協助您選擇正確的匯入作業。</p>
 <p>在 macOS 中：<br>-&gt; 依序前往「File」(檔案) &gt;「New Project Settings」(新專案設定) &gt;「Preferences for New Project…」(新專案的偏好設定…) 開啟設定。<br>-&gt; 依序展開「Other Settings」(其他設定) &gt;「Auto Import」(自動匯入)。<br>-&gt; 在「Java」和「Kotlin」區段中，確定已勾選「Add unambiguous imports on the fly」(快速新增不明確的匯入) 和「Optimize imports on the fly (for current project)」(快速最佳化匯入 (適用於目前的專案))。<br>-&gt; 按下「OK」儲存變更，然後關閉設定。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/1bedf6b103fd48c3_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/1bedf6b103fd48c3_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
 <h4 id="提高按鈕互動性"><a href="#提高按鈕互動性" class="headerlink" title="提高按鈕互動性"></a>提高按鈕互動性</h4><h5 id="在點選按鈕時顯示訊息"><a href="#在點選按鈕時顯示訊息" class="headerlink" title="在點選按鈕時顯示訊息"></a>在點選按鈕時顯示訊息</h5><p>在按下按鈕時，畫面底部顯示簡短訊息。</p>
 <ol>
 <li><code>setContentView()</code> 呼叫後，將下列程式碼新增至 <code>onCreate()</code> 方法。<code>findViewById()</code> 方法會在版面配置中找到 <code>Button</code>。<code>R.id.button</code> 是 <code>Button</code> 的資源 ID，這是其專屬識別碼。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val rollButton: Button = findViewById(R.id.button)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>使用 <code>rollButton</code> 物件並呼叫 <code>setOnClickListener()</code> 方法，在物件上設定點擊事件監聽器，來監聽使用者是否點選 <code>Button</code>。</li>
 </ol>
 <ul>
 <li>在方法名稱後面使用大括號，而不要使用括號。這是一個宣告 <code>Lambda</code> 的特殊語法，詳情請見未來程式碼研究室的內容。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rollButton.setOnClickListener &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>呼叫 <code>Toast.makeText()</code> 即可建立內含文字 “Dice Rolled!” 的 <code>Toast</code>。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val toast = Toast.makeText(this, <span class="string">&quot;Dice Rolled!&quot;</span>, Toast.LENGTH_SHORT)</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>然後呼叫 <code>show()</code> 方法，讓 <code>Toast</code> 自行顯示。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val toast = Toast.makeText(this, <span class="string">&quot;Dice Rolled!&quot;</span>, Toast.LENGTH_SHORT).show()</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>執行應用程式，然後按一下「Roll」按鈕。浮動式訊息應會以彈出式視窗顯示在螢幕底部，而且不久後就會消失。</li>
 </ol>
-<img src="https://i.imgur.com/9vtBhag.png" width="30%" height="30%">
-
+<p><img src="https://i.imgur.com/9vtBhag.png" width="30%" height="30%"></p>
 <h5 id="在點選按鈕時更新-TextView"><a href="#在點選按鈕時更新-TextView" class="headerlink" title="在點選按鈕時更新 TextView"></a>在點選按鈕時更新 TextView</h5><p>如果不想顯示臨時 <code>Toast</code> 訊息，您必須撰寫程式碼，並在點選「Roll」按鈕時更新畫面上的 <code>TextView</code>。</p>
 <ol>
 <li>註解 <code>Toast</code> 的程式碼行。</li>
 <li>建立一個名稱為 <code>resultTextView</code> 的新變數，以便儲存 <code>TextView</code>。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val resultTextView: TextView = findViewById(R.id.textView)</span><br></pre></td></tr></table></figure>
-<ol start="3">
+<ol>
 <li>將 <code>resultTextView</code> 上的文字設定為在雙引號內的　<code>6</code>。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resultTextView.text = <span class="string">&quot;6&quot;</span></span><br></pre></td></tr></table></figure>
-
 <h4 id="新增擲骰子邏輯"><a href="#新增擲骰子邏輯" class="headerlink" title="新增擲骰子邏輯"></a>新增擲骰子邏輯</h4><h5 id="新增-Dice-骰子-類別"><a href="#新增-Dice-骰子-類別" class="headerlink" title="新增 Dice (骰子) 類別"></a>新增 Dice (骰子) 類別</h5><ol>
 <li><p>在 MainActivity 類別中加上最後一個大括號後，透過 <code>roll()</code> 方法建立 <code>Dice</code> 類別。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Dice(val numSides: Int) &#123;</span><br><span class="line"></span><br><span class="line">   fun roll(): Int &#123;</span><br><span class="line">       <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -699,7 +632,7 @@
 <ul>
 <li>將 <code>numSides</code> 標示為 <code>private</code> 後，您只能在 <code>Dice</code> 類別中存取。由於只有使用 <code>numSides</code> 的程式碼才會位於 <code>Dice</code> 類別內，因此可為 <code>Dice</code> 類別指定這個引數 <code>private</code>。</li>
 </ul>
-<ol start="3">
+<ol>
 <li>按一下「Make ‘numSides’ ‘private」，繼續透過 Android Studio 修正建議問題。</li>
 </ol>
 <h5 id="建立-rollDice-方法"><a href="#建立-rollDice-方法" class="headerlink" title="建立 rollDice() 方法"></a>建立 rollDice() 方法</h5><p>現在您已經新增 <code>Dice</code> 類別至應用程式，必須更新 <code>MainActivity</code> 才能使用該類別。如要妥善整理程式碼，請將所有擲骰子邏輯放入一個函式中。</p>
@@ -707,59 +640,49 @@
 <li>將點擊事件監聽器中將文字設定為 <code>&quot;6&quot;</code> 的程式碼替換為呼叫 <code>rollDice()</code>。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rollButton.setOnClickListener &#123;</span><br><span class="line">   rollDice()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<ol>
 <li>因為尚未定義 <code>rollDice()</code>，Android Studio 會標記誤並以紅色顯示 <code>rollDice()</code>。滑鼠游標懸停在 <code>rollDice()</code> 上時，Android Studio 會顯示問題和可能的解決方法。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/21ef4d7c6c33e154_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%">
-
-<ol start="3">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/21ef4d7c6c33e154_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%"></p>
+<ol>
 <li>按一下「More actions…」開啟選單。(Mac 可按下 <code>Option+Enter</code> 開啟選單。)</li>
 <li>選取<code>「Create function ‘rollDice&#39;」</code>。Android Studio 會為 MainActivity 中的函式建立空白定義。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/16bb603205fc3d3_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-create-dice-roller-app-with-button/img/16bb603205fc3d3_1920.png?authuser=2&hl=zh-tw" width="50%" height="50%"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private fun <span class="function"><span class="title">rollDice</span></span>() &#123;</span><br><span class="line">    TODO(<span class="string">&quot;Not yet implemented&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="建立新的-Dice-物件例項"><a href="#建立新的-Dice-物件例項" class="headerlink" title="建立新的 Dice 物件例項"></a>建立新的 Dice 物件例項</h4><p>在這個步驟中，您必須建立 <code>rollDice()</code> 方法並擲骰子，然後在 <code>TextView</code> 中顯示結果。</p>
 <ol>
 <li>在 <code>rollDice()</code> 中刪除 TODO() 呼叫，並加入程式碼即可建立具有 6 個面的骰子。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val dice = Dice(6)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>呼叫 <code>roll()</code> 方法即可擲骰子，並將結果儲存在名為 <code>diceRoll</code> 的變數中。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val diceRoll = dice.roll()</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>呼叫 <code>findViewById()</code> 即可找到 <code>TextView</code>。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val resultTextView: TextView = findViewById(R.id.textView)</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>將 <code>diceRoll</code> 轉換成字串，並使用該字串更新 <code>resultTextView</code> 的文字。</li>
 </ol>
 <ul>
 <li>變數 <code>diceRoll</code> 是數字，但 <code>TextView</code> 使用文字。您可以在 <code>diceRoll</code> 上使用 <code>toString()</code> 方法，將數字轉換為字串。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resultTextView.text = diceRoll.toString()</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>執行應用程式，點選按鈕即可擲骰子。</li>
 </ol>
-<img src="https://i.imgur.com/wwWMfJ0.gif" width="30%" height="30%">
-
+<p><img src="https://i.imgur.com/wwWMfJ0.gif" width="30%" height="30%"></p>
 <h4 id="採用完善程式設計做法-1"><a href="#採用完善程式設計做法-1" class="headerlink" title="採用完善程式設計做法"></a>採用完善程式設計做法</h4><p>團隊合作時，理想的做法是以類似的方式撰寫程式碼，讓程式碼之間保持一致。因此，Android 提供樣式指南來說明如何編寫 Android 程式碼，包括命名慣例、格式和其他遵循的建議做法。</p>
-<p>撰寫 Android 程式碼時遵循這些指南：<a target="_blank" rel="noopener" href="https://developer.android.com/kotlin/style-guide?authuser=2&hl=zh-tw">Android 開發人員適用的 Kotlin 樣式指南</a>。</p>
+<p>撰寫 Android 程式碼時遵循這些指南：<a target="_blank" rel="noopener" href="https://developer.android.com/kotlin/style-guide?authuser=2&amp;hl=zh-tw">Android 開發人員適用的 Kotlin 樣式指南</a>。</p>
 <h5 id="清理您的程式碼"><a href="#清理您的程式碼" class="headerlink" title="清理您的程式碼"></a>清理您的程式碼</h5><ol>
 <li>縮減程式碼<br>將程式碼縮減成較短行的程式碼，讓程式碼更精簡。以下範例是設定 <code>Button</code> 點擊事件監聽器的程式碼。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rollButton.setOnClickListener &#123;</span><br><span class="line">    rollDice()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>由於點擊事件監聽器的操作說明只有 1 行，因此您可以縮減 <code>rollDice()</code> 方法呼叫，將此呼叫和大括號全部置於一行。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rollButton.setOnClickListener &#123; rollDice() &#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>重新設定程式碼格式<br>現在，您必須重新設定程式碼格式，確保程式碼符合 Android 建議的程式碼格式規範。</li>
 </ol>
 <p>在 <code>MainActivity.kt</code> 類別中，用 Windows 的鍵盤快速鍵 <code>Control+A</code> (Mac 則是 <code>Command+A</code>) 就可選取檔案中的所有文字。或者您可以在 Android Studio 的選單中依序點選<code>「Edit」&gt;「Select All」</code>。</p>
@@ -767,13 +690,13 @@
 <ul>
 <li>這會更新程式碼的格式，包括空白字元、縮排等等。您可能還看不到任何變化，這很好。您的程式碼已正確格式化！</li>
 </ul>
-<ol start="3">
+<ol>
 <li>為程式碼加上註解<br>為每個類別 (<code>MainActivity</code> 和 <code>Dice</code> 是您的應用程式中僅有的類別) 和您撰寫的每個方法新增註解。請在註解的開頭和結尾使用 <code>/**</code> 和 <code>*/</code> 符號，告訴系統這不是程式碼。系統在執行程式碼時會忽略這些行。</li>
 </ol>
 <h4 id="自行練習-1"><a href="#自行練習-1" class="headerlink" title="自行練習"></a>自行練習</h4><p>在應用程式中新增另一個骰子。按一下「Roll」按鈕應擲 2 個骰子。螢幕上應在 2 個不同的 <code>TextViews</code> 中顯示結果。</p>
 <p>執行畫面：<br><img src="https://i.imgur.com/qUvahVG.png" width="30%" height="30%"></p>
-<p>程式碼：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * This activity allows the user to roll a dice and view the result</span><br><span class="line"> * on the screen.</span><br><span class="line"> */</span><br><span class="line">class MainActivity : <span class="function"><span class="title">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        val rollButton: Button = findViewById(R.id.button)</span><br><span class="line">        val rollButton2: Button = findViewById(R.id.button2)</span><br><span class="line"></span><br><span class="line">        val resultTextView: TextView = findViewById(R.id.textView)</span><br><span class="line">        val resultTextView2: TextView = findViewById(R.id.textView2)</span><br><span class="line"></span><br><span class="line">        //when click button</span><br><span class="line">        rollButton.setOnClickListener &#123;</span><br><span class="line">            // Update the screen with the dice roll</span><br><span class="line">            resultTextView.text = rollDice()</span><br><span class="line">        &#125;</span><br><span class="line">        rollButton2.setOnClickListener &#123;</span><br><span class="line">            // Update the screen with the dice roll</span><br><span class="line">            resultTextView2.text = rollDice()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Roll the dice and update the screen with the result.</span><br><span class="line">     */</span><br><span class="line">    private fun rollDice(): String &#123;</span><br><span class="line">        // Create new Dice object with 6 sides and roll it</span><br><span class="line">        val dice = Dice(6)</span><br><span class="line">        val diceRoll = dice.roll()</span><br><span class="line"></span><br><span class="line">        // <span class="built_in">return</span> random number</span><br><span class="line">        <span class="built_in">return</span> diceRoll.toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice(private val numSides: Int) &#123;</span><br><span class="line"></span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程式碼：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * This activity allows the user to roll a dice and view the result</span><br><span class="line"> * on the screen.</span><br><span class="line"> */</span><br><span class="line">class MainActivity : <span class="function"><span class="title">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        val rollButton: Button = findViewById(R.id.button)</span><br><span class="line">        val rollButton2: Button = findViewById(R.id.button2)</span><br><span class="line"></span><br><span class="line">        val resultTextView: TextView = findViewById(R.id.textView)</span><br><span class="line">        val resultTextView2: TextView = findViewById(R.id.textView2)</span><br><span class="line"></span><br><span class="line">        //when click button</span><br><span class="line">        rollButton.setOnClickListener &#123;</span><br><span class="line">            // Update the screen with the dice roll</span><br><span class="line">            resultTextView.text = rollDice()</span><br><span class="line">        &#125;</span><br><span class="line">        rollButton2.setOnClickListener &#123;</span><br><span class="line">            // Update the screen with the dice roll</span><br><span class="line">            resultTextView2.text = rollDice()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Roll the dice and update the screen with the result.</span><br><span class="line">     */</span><br><span class="line">    private fun rollDice(): String &#123;</span><br><span class="line">        // Create new Dice object with 6 sides and roll it</span><br><span class="line">        val dice = Dice(6)</span><br><span class="line">        val diceRoll = dice.roll()</span><br><span class="line"></span><br><span class="line">        // <span class="built_in">return</span> random number</span><br><span class="line">        <span class="built_in">return</span> diceRoll.toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice(private val numSides: Int) &#123;</span><br><span class="line"></span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
     </div>
 
     
@@ -983,6 +906,8 @@
 
 
 
+
+  
 
   
 

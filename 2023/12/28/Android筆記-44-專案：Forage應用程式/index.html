@@ -44,21 +44,21 @@
 <meta property="article:tag" content="RecyclerView">
 <meta property="article:tag" content="Data Class">
 <meta property="article:tag" content="companion object">
-<meta property="article:tag" content="singleton">
-<meta property="article:tag" content="Fragment">
 <meta property="article:tag" content="ViewModel">
 <meta property="article:tag" content="LiveData">
+<meta property="article:tag" content="Fragment">
 <meta property="article:tag" content="Coroutine">
 <meta property="article:tag" content="suspend function">
+<meta property="article:tag" content="singleton">
 <meta property="article:tag" content="SQL">
 <meta property="article:tag" content="Room">
+<meta property="article:tag" content="Flow">
 <meta property="article:tag" content="DAO">
 <meta property="article:tag" content="Entity">
-<meta property="article:tag" content="Factory">
-<meta property="article:tag" content="Flow">
-<meta property="article:tag" content="Database Class">
-<meta property="article:tag" content="Concurrency">
 <meta property="article:tag" content="SQLite">
+<meta property="article:tag" content="Database Class">
+<meta property="article:tag" content="Factory">
+<meta property="article:tag" content="Concurrency">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-forage/img/3edd87e63c387d88_1920.png?hl=zh-tw">
 
@@ -293,115 +293,92 @@
 <p>完成後的 Forage app 可讓使用者追蹤他們在自然界中搜尋到的物品，例如食物。通過使用 Room，可使這些資料在會話間<u>持久保存(persisted)</u>下來。運用您掌握的 Room 知識以及對 database 進行讀取、寫入、更新和刪除，以在 Forage app 中實現資料的<u>持久保留(persisted)</u>。</p>
 <p><strong>建構項目</strong><br>實作 <strong>entity</strong>、<strong>DAO</strong>、<strong>ViewModel</strong> 和 <strong>database class</strong>，以便透過 Room 在 app 中加入<u>持續性機制(persistence)</u>。</p>
 <span id="more"></span>
-
 <hr>
 <h3 id="完成的應用程式總覽"><a href="#完成的應用程式總覽" class="headerlink" title="完成的應用程式總覽"></a>完成的應用程式總覽</h3><p>完成後的 Forage app 可讓使用者<u>追蹤他們在自然界中覓得的 items</u>，例如食物(food)。在使用 Room 的工作階段之間會<u>保留(persisted)</u>此資料。您將運用所掌握的 Room 知識，以及對在 database 執行讀取、寫入、更新及刪除作業的瞭解，在 Forage app 中實現<u>持續性(persistence)</u>。下文說明完成後的 app 及其功能。</p>
 <p>App 初次啟動時，使用者會看到空白畫面，其中包含顯示 foraged items 的 recycler view，還有右下角可用來新增 items 的 floating button。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-forage/img/3edd87e63c387d88_1920.png?hl=zh-tw" width="40%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-forage/img/3edd87e63c387d88_1920.png?hl=zh-tw" width="40%"></p>
 <p>新增 item 時，使用者可以指定<u>名稱(name)</u>、<u>找到項目的地點(location)</u>，並加上<u>其他附註(notes)</u>。你也可以有 <strong>checkbox</strong>，以指定 <strong>food item</strong> 是否屬於當季。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-forage/img/6c0c739569bb3b4f_1920.png?hl=zh-tw" width="40%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-forage/img/6c0c739569bb3b4f_1920.png?hl=zh-tw" width="40%"></p>
 <p>新增的 item 將顯示在第一個畫面的 recycler view 中。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-forage/img/bcc75e60b70320e8_1920.png?hl=zh-tw" width="40%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-forage/img/bcc75e60b70320e8_1920.png?hl=zh-tw" width="40%"></p>
 <p>輕觸某個 item 就會開啟詳細資料(detail)畫面，並顯示名稱(name)、地點(location)和附註(notes)。</p>
 <imf src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-forage/img/5096995a4921dcac_1920.png?hl=zh-tw" width="40%">
 
 <p><u>浮動式按鈕(floating button)</u>也會從<u>加號</u>變更為<u>編輯</u> icon。輕觸此按鈕即可開啟畫面，以便編輯<u>名稱(name)</u>、<u>地點(location)</u>、<u>附註(notes)</u>和<u>當季(in season) checkbox</u>。輕觸 delete button 則可從 database 中移除 item。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-forage/img/f8c708fed3dede1a_1920.png?hl=zh-tw" width="40%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-forage/img/f8c708fed3dede1a_1920.png?hl=zh-tw" width="40%"></p>
 <p>雖然系統已導入此 app 的 UI 部分，但您的任務是運用對 Room 的瞭解來<u>實現持續性(persistence)</u>，讓 app 能夠讀取、寫入、更新及刪除 database 中的 items。</p>
 <hr>
 <h3 id="開始操作"><a href="#開始操作" class="headerlink" title="開始操作"></a>開始操作</h3><h4 id="下載專案程式碼"><a href="#下載專案程式碼" class="headerlink" title="下載專案程式碼"></a>下載專案程式碼</h4><p>請注意，資料夾名稱是 <code>android-basics-kotlin-forage-app</code>。在 Android Studio 中開啟專案時，請選取這個資料夾。</p>
 <div class="note success">
             <p><strong>範例程式碼網址：</strong><br><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-forage-app/tree/main">https://github.com/google-developer-training/android-basics-kotlin-forage-app/tree/main</a><br><strong>分支名稱：</strong><b>main</b></p>
           </div>
-
 <hr>
 <h3 id="設定專案以使用-Room"><a href="#設定專案以使用-Room" class="headerlink" title="設定專案以使用 Room"></a>設定專案以使用 Room</h3><h4 id="定義-Forageable-entity"><a href="#定義-Forageable-entity" class="headerlink" title="定義 Forageable entity"></a>定義 Forageable entity</h4><p>專案已有 <code>Forageable</code> class，可定義 app 的資料 (<code>model.Forageable.kt</code>)。此 class 有多個屬性：<code>id</code>、<code>name</code>、<code>address</code>、<code>inSeason</code> 和 <code>notes</code>。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Forageable</span>(</span><br><span class="line">   <span class="keyword">val</span> id: <span class="built_in">Long</span> = <span class="number">0</span>,</span><br><span class="line">   <span class="keyword">val</span> name: String,</span><br><span class="line">   <span class="keyword">val</span> address: String,</span><br><span class="line">   <span class="keyword">val</span> inSeason: <span class="built_in">Boolean</span>,</span><br><span class="line">   <span class="keyword">val</span> notes: String?</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
 <p>不過，若要使用此 class 儲存持續性資料，就需要將 class 轉換為 <code>Room</code> entity。</p>
 <ol>
 <li>使用這個 table 名稱為 <code>&quot;forageable_database&quot;</code> 的 <code>@Entity</code> 為 class 加上註解。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity(tableName = <span class="string">&quot;forageable_database&quot;</span>)</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Forageable</span>(</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>將 <code>id</code> 屬性設定為主鍵(primary key)。主鍵應由系統自動產生。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PrimaryKey(autoGenerate = true)</span></span><br><span class="line"><span class="keyword">val</span> id: <span class="built_in">Long</span> = <span class="number">0</span>,</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>將 <code>inSeason</code> 屬性的 column name 設定為 <code>&quot;in_season&quot;</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ColumnInfo(name = <span class="string">&quot;in_season&quot;</span>)</span></span><br><span class="line"><span class="keyword">val</span> inSeason: <span class="built_in">Boolean</span>,</span><br></pre></td></tr></table></figure>
-
 <h4 id="實作-DAO"><a href="#實作-DAO" class="headerlink" title="實作 DAO"></a>實作 DAO</h4><p>您將透過 view model 存取 database，而 <code>ForageableDao</code> (<code>data.ForageableDao.kt</code>) 可用來定義從 database 讀取及寫入 database 的方法，就如同您的猜像。由於 DAO 只是您定義的 interface，因此無需撰寫任何程式碼即可導入這些方法。您應該改用 Room 註解，視需要指定 SQL 查詢。</p>
 <p>在 <code>ForageableDao</code> interface 中，您必須新增五個方法。</p>
 <ol>
 <li><code>getForageables()</code> 方法會對 database 中的所有 row 傳回 <code>Flow&lt;List&lt;Forageable&gt;&gt;</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(<span class="string">&quot;SELECT * FROM forageable_database&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getForageables</span><span class="params">()</span></span>: Flow&lt;List&lt;Forageable&gt;&gt;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li><code>getForageable(id: Long)</code> 方法會傳回符合指定 <code>id</code> 的 <code>Flow&lt;Forageable&gt;</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(<span class="string">&quot;SELECT * FROM forageable_database WHERE id = :id&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getForageable</span><span class="params">(id: <span class="type">Long</span>)</span></span>: Flow&lt;Forageable&gt;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li><code>insert(forageable: Forageable)</code> 方法會將新的 <code>Forageable</code> 插入至 database 中。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Insert(onConflict = OnConflictStrategy.REPLACE)</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">insert</span><span class="params">(forageable: <span class="type">Forageable</span>)</span></span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li><code>update(forageable: Forageable)</code> 方法會採用現有 <code>Forageable</code> 作為參數，並據此更新 row。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Update</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">update</span><span class="params">(forageable: <span class="type">Forageable</span>)</span></span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li><code>delete(forageable: Forageable)</code> 方法會採用 <code>Forageable</code> 作為參數，然後從 database 中將其刪除。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Delete</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">delete</span><span class="params">(forageable: <span class="type">Forageable</span>)</span></span></span><br></pre></td></tr></table></figure>
-
 <h4 id="實作-view-model"><a href="#實作-view-model" class="headerlink" title="實作 view model"></a>實作 view model</h4><p><code>ForageableViewModel</code> (<code>ui.viewmodel.ForageableViewModel.kt</code>) 已部分導入，但您必須新增可存取 DAO 方法的功能，才能實際讀取及寫入資料。請按照下列步驟導入 <code>ForageableViewModel</code>。</p>
 <ol>
 <li>傳遞 <code>ForageableDao</code> instance 時，應以 class constructor 中參數的形式傳遞。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 將 ForageableDao object 做為參數傳遞至預設 constructor</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ForageableViewModel</span>(</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> forageableDao: ForageableDao</span><br><span class="line">): ViewModel() &#123;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>建立 <code>LiveData&lt;List&lt;Forageable&gt;&gt;</code> class 的變數，此變數會使用 DAO 取得完整的 <code>Forageable</code> entity list，並將結果轉換為 <code>LiveData</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> forageables: LiveData&lt;List&lt;Forageable&gt;&gt; = forageableDao.getForageables().asLiveData()</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>建立採用 id (<code>Long</code> type) 做為參數的方法，此方法會在 DAO 上呼叫 <code>getForageable()</code> 方法，並將結果轉換為 <code>LiveData</code>，藉此傳回 <code>LiveData&lt;Forageable&gt;</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">retrieveForageable</span><span class="params">(id: <span class="type">Long</span>)</span></span>: LiveData&lt;Forageable&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> forageableDao.getForageable(id).asLiveData()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>在 <code>addForageable()</code> 方法中，使用 <code>viewModelScope</code> 啟動 coroutine，並使用 DAO 將 <code>Forageable</code> instance 插入至 database 中。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">viewModelScope.launch &#123;</span><br><span class="line">    forageableDao.insert(forageable)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>在 <code>updateForageable()</code> 方法中，使用 DAO 更新 <code>Forageable</code> entity。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">viewModelScope.launch(Dispatchers.IO) &#123;</span><br><span class="line">    forageableDao.update(forageable)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>在 <code>deleteForageable()</code> 方法中，使用 DAO 更新 <code>Forageable</code> entity。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">viewModelScope.launch(Dispatchers.IO) &#123;</span><br><span class="line">    forageableDao.delete(forageable)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol>
 <li>建立可透過 <code>ForageableDao</code> constructor 參數建立 <code>ForageableViewModel</code> instance 的 <code>ViewModelFactory</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ForageableViewModelFactory</span>(<span class="keyword">private</span> <span class="keyword">val</span> forageableDao: ForageableDao): ViewModelProvider.Factory &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : ViewModel&gt;</span> <span class="title">create</span><span class="params">(modelClass: <span class="type">Class</span>&lt;<span class="type">T</span>&gt;)</span></span>: T &#123;</span><br><span class="line">        <span class="comment">// 檢查 modelClass 是否和 ForageableViewModel class 相同</span></span><br><span class="line">        <span class="keyword">if</span> (modelClass.isAssignableFrom(ForageableViewModel::<span class="keyword">class</span>.java)) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//  return 一個 instance</span></span><br><span class="line">            <span class="keyword">return</span> ForageableViewModel(forageableDao) <span class="keyword">as</span> T</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// throw exception</span></span><br><span class="line">        <span class="keyword">throw</span> IllegalArgumentException(<span class="string">&quot;Unknown ViewModel class&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 <h4 id="實作-Database-class"><a href="#實作-Database-class" class="headerlink" title="實作 Database class"></a>實作 Database class</h4><p><code>ForageDatabase</code> (<code>data.ForageDatabase.kt</code>) class 實際上是將 <strong>entities</strong> 和 <strong>DAO</strong> 公開給 Room。按照說明導入 <code>ForageDatabase</code> class。</p>
 <ol>
 <li>Entities：<code>Forageable</code></li>
@@ -409,22 +386,18 @@
 <li>exportSchema：<code>false</code></li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Database(entities = [Forageable::class], version = 1, exportSchema = false)</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">ForageDatabase</span> : <span class="type">RoomDatabase</span>()</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>在 <code>ForageDatabase</code> class 中，加入能夠傳回 <code>ForageableDao</code> 的抽象函式(abstract function)</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">forageableDao</span><span class="params">()</span></span>: ForageableDao</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>在 <code>ForageDatabase</code> class 中，用名為 <code>INSTANCE</code> 的 private 變數和傳回 <code>ForageDatabase</code> <b>單例模式(singleton)</b>的 <code>getDatabase()</code> 函式定義 <strong>companion object</strong>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義 companion object (可使用 class name 做為限定詞，建立或取得 database)</span></span><br><span class="line">   <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">var</span> INSTANCE: ForageDatabase? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// 使用 database builder 所需的 Context 參數定義 getDatabase() method</span></span><br><span class="line">       <span class="function"><span class="keyword">fun</span> <span class="title">getDatabase</span><span class="params">(context: <span class="type">Context</span>)</span></span>: ForageDatabase &#123;</span><br><span class="line">           <span class="keyword">return</span> INSTANCE ?: synchronized(<span class="keyword">this</span>) &#123; <span class="comment">// synchronized區塊中，一次只能執行一個 thread</span></span><br><span class="line">               <span class="comment">// 使用 database builder 取得 database instance</span></span><br><span class="line">               <span class="comment">// 將 application context、database class 以及 database name item_database 傳遞給 database builder</span></span><br><span class="line">               <span class="keyword">val</span> instance = Room.databaseBuilder(</span><br><span class="line">                   context.applicationContext,</span><br><span class="line">                   ForageDatabase::<span class="keyword">class</span>.java,</span><br><span class="line">                   <span class="string">&quot;forageable_database&quot;</span>)</span><br><span class="line">                   .fallbackToDestructiveMigration() <span class="comment">// 將遷移策略新增至 builder</span></span><br><span class="line">                   .build()</span><br><span class="line">               INSTANCE = instance <span class="comment">// 將 INSTANCE 設為剛才建立好的 instance</span></span><br><span class="line">               <span class="keyword">return</span> instance</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>在 <code>BaseApplication</code> class 中，建立使用<b>延遲(lazy)初始化</b>功能傳回 <code>ForageDatabase</code> instance 的 <code>database</code> 屬性。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BaseApplication</span> : <span class="type">Application</span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> provide a ForageDatabase value by lazy here</span></span><br><span class="line">    <span class="keyword">val</span> database: ForageDatabase <span class="keyword">by</span> lazy &#123; ForageDatabase.getDatabase(<span class="keyword">this</span>) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h3 id="保留及讀取-fragment-中的資料"><a href="#保留及讀取-fragment-中的資料" class="headerlink" title="保留及讀取 fragment 中的資料"></a>保留及讀取 fragment 中的資料</h3><p>設定 <b>entity</b>、<b>DAO</b>、<b>view model</b>，以及定義要在 Room 公開的 <strong>database class</strong> 後，您只需要修改 <code>Fragments</code>，即可存取 <strong>view model</strong>。您必須在三個檔案中進行變更，各檔案用於 app 中的各畫面。</p>
 <h4 id="Forageable-list"><a href="#Forageable-list" class="headerlink" title="Forageable list"></a>Forageable list</h4><p>Forageable list 畫面只需要兩個 item：</p>
@@ -436,38 +409,31 @@
 <li>class 中已有 <code>viewModel</code> 屬性。但不使用您在上一個步驟中定義的 Factory function。您必須先重構此宣告，才能使用 <code>ForageableViewModelFactory</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: ForageableViewModel <span class="keyword">by</span> activityViewModels &#123;</span><br><span class="line">   ForageableViewModelFactory(</span><br><span class="line">       (activity?.application <span class="keyword">as</span> BaseApplication).database.foragableDao()</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>然後在 <code>onViewCreated()</code> 中，從 <code>viewModel</code> 觀察(observe) <code>allForageables</code> 屬性，並視需要在 adapter 上呼叫 <code>submitList()</code> 來填入 list。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">viewModel.forageables.observe(<span class="keyword">this</span>.viewLifecycleOwner) &#123; forageables -&gt;</span><br><span class="line">    forageables.let &#123;</span><br><span class="line">        adapter.submitList(it)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="Forageable-detail-畫面"><a href="#Forageable-detail-畫面" class="headerlink" title="Forageable detail 畫面"></a>Forageable detail 畫面</h4><p>對於 <code>ui/ForageableDetailFragment.kt</code> 中的 detail list，您需要執行的動作幾乎完全相同。</p>
 <ol>
 <li>轉換 <code>viewModel</code> 屬性以正確初始化 <code>ForageableViewModelFactory</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: ForageableViewModel <span class="keyword">by</span> activityViewModels &#123;</span><br><span class="line">    ForageableViewModelFactory(</span><br><span class="line">        (activity?.application <span class="keyword">as</span> BaseApplication).database.forageableDao()</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>在 <code>onViewCreated()</code> 中，呼叫 view model 上的 <code>getForageable()</code>，並傳入 <code>id</code> 以取得 <code>Forageable</code> entity。觀察(observe) <code>LiveData</code> 並將結果設定為 <code>forageable</code> 屬性，然後呼叫 <code>bindForageable()</code> 來更新 UI。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">viewModel.getForageable(id).observe(<span class="keyword">this</span>.viewLifecycleOwner) &#123; selectedForageable -&gt;</span><br><span class="line">    forageable = selectedForageable</span><br><span class="line">    bindForageable()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="新增及編輯-Forageable-畫面"><a href="#新增及編輯-Forageable-畫面" class="headerlink" title="新增及編輯 Forageable 畫面"></a>新增及編輯 Forageable 畫面</h4><p>最後，您需要在 <code>ui.AddForageableFragment.kt</code> 中執行類似操作。請注意，此畫面也會負責更新及刪除 entity。不過，系統已從 view model 的正確位置呼叫這些方法。您只需在此檔案中進行兩項變更即可。</p>
 <ol>
 <li>再次重構 <code>viewModel</code> 屬性以使用 <code>ForageableViewModelFactory</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: ForageableViewModel <span class="keyword">by</span> activityViewModels &#123;</span><br><span class="line">    ForageableViewModelFactory(</span><br><span class="line">        (activity?.application <span class="keyword">as</span> BaseApplication).database.forageableDao()</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>在您調整 delete button 的顯示設定之前，請在 <code>onViewCreated()</code> 的 <code>if</code> statement 區塊中，呼叫 view model 上的 <code>getForageable()</code>，並傳入 <code>id</code>，然後將結果設定為 <code>forageable</code> 屬性。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">viewModel.getForageable(id).observe(<span class="keyword">this</span>.viewLifecycleOwner) &#123; selectedForageable -&gt;</span><br><span class="line">    forageable = selectedForageable</span><br><span class="line">    bindForageable(forageable)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>這就是您需要在 fragment 中執行的所有動作。您現在可以執行 app，藉此查看動作中的所有持續性(persistence)功能。</p>
 <hr>
 <h3 id="執行-App"><a href="#執行-App" class="headerlink" title="執行 App"></a>執行 App</h3><div class="video-container"><iframe src="https://player.vimeo.com/video/900157947" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
-
 <hr>
 <h3 id="執行自動化測試"><a href="#執行自動化測試" class="headerlink" title="執行自動化測試"></a>執行自動化測試</h3><p>執行結果：<br><img src="https://i.imgur.com/NTv4kMn.png"></p>
 
@@ -484,21 +450,21 @@
               <a href="/tags/RecyclerView/" rel="tag"># RecyclerView</a>
               <a href="/tags/Data-Class/" rel="tag"># Data Class</a>
               <a href="/tags/companion-object/" rel="tag"># companion object</a>
-              <a href="/tags/singleton/" rel="tag"># singleton</a>
-              <a href="/tags/Fragment/" rel="tag"># Fragment</a>
               <a href="/tags/ViewModel/" rel="tag"># ViewModel</a>
               <a href="/tags/LiveData/" rel="tag"># LiveData</a>
+              <a href="/tags/Fragment/" rel="tag"># Fragment</a>
               <a href="/tags/Coroutine/" rel="tag"># Coroutine</a>
               <a href="/tags/suspend-function/" rel="tag"># suspend function</a>
+              <a href="/tags/singleton/" rel="tag"># singleton</a>
               <a href="/tags/SQL/" rel="tag"># SQL</a>
               <a href="/tags/Room/" rel="tag"># Room</a>
+              <a href="/tags/Flow/" rel="tag"># Flow</a>
               <a href="/tags/DAO/" rel="tag"># DAO</a>
               <a href="/tags/Entity/" rel="tag"># Entity</a>
-              <a href="/tags/Factory/" rel="tag"># Factory</a>
-              <a href="/tags/Flow/" rel="tag"># Flow</a>
-              <a href="/tags/Database-Class/" rel="tag"># Database Class</a>
-              <a href="/tags/Concurrency/" rel="tag"># Concurrency</a>
               <a href="/tags/SQLite/" rel="tag"># SQLite</a>
+              <a href="/tags/Database-Class/" rel="tag"># Database Class</a>
+              <a href="/tags/Factory/" rel="tag"># Factory</a>
+              <a href="/tags/Concurrency/" rel="tag"># Concurrency</a>
           </div>
 
         
@@ -697,6 +663,8 @@
 
 
 
+
+  
 
   
 

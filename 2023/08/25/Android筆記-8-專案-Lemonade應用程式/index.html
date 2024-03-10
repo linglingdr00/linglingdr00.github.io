@@ -289,21 +289,16 @@
 <li>將您知道可順利執行的程式碼 (例如專案內提供的程式碼，或是您先前在單元 1 中學到的其他應用程式的解決方案程式碼) 與您編寫的程式碼進行比對。</li>
 </ul>
 <span id="more"></span>
-
 <hr>
 <h4 id="應用程式總覽"><a href="#應用程式總覽" class="headerlink" title="應用程式總覽"></a>應用程式總覽</h4><p>我們將建立簡單的互動式行動應用程式，讓您可以使用該應用程式榨取一杯檸檬汁。</p>
 <p>成品 Lemonade 應用程式將由單一畫面組成。使用者初次啟動應用程式時，系統會提示使用者輕觸檸檬樹的圖片，藉此挑選檸檬。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/1ce5b75b513d63c9_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/1ce5b75b513d63c9_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
 <p>使用者在輕觸檸檬樹後便會看到一顆檸檬，可以輕觸以「擠壓」檸檬數次 (次數不固定，系統將隨機產生所需的擠壓次數)，才會移動到下一個畫面。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/fb63b41d58a83af7_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/fb63b41d58a83af7_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
 <p>使用者輕觸擠壓至正確次數後，便會看到玻璃杯圖片，可以「喝下」檸檬水。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/f8882c1688a0e3e7_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/f8882c1688a0e3e7_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
 <p>按一下飲用檸檬汁之後，玻璃杯就會變成空的，使用者只要再次輕觸圖片，就能返回第一個畫面，再從檸檬樹中選取其他檸檬。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/951918f0c2d0464_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/951918f0c2d0464_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
 <p>這款應用程式的設計簡單，且提供單一活動。應用程式的不同狀態 (使用者選取檸檬、擠壓檸檬、喝檸檬汁、以及最後的空杯) 都會以「狀態機器」呈現。</p>
 <p>雖然這聽起來像是空泛的理論術語，但這僅表示應用程式的狀態 (也就是要向使用者顯示哪些文字和圖片) 是取決於包含應用程式狀態的變數 (select 和 squeeze等等)。系統會一併更新應用程式的狀態會連同任何其他必要的變數，並在完成所有更新後分別設定使用者介面 (設定圖片和文字)。</p>
 <p>系統已為您定義應用程式狀態的所有變數。您的工作是建構應用程式的版面配置並實作邏輯，讓使用者介面按預期在每個狀態之間轉換。</p>
@@ -314,7 +309,6 @@
 <div class="note success no-icon">
             <p>範例程式碼網址：</p><p><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-lemonade-app">https://github.com/google-developer-training/android-basics-kotlin-lemonade-app</a></p><p>具有範例程式碼的分支版本名稱：<b>main</b></p>
           </div>
-
 <p>然後在 Android Studio 中開啟剛才下載完成的專案</p>
 <hr>
 <h4 id="建立使用者介面"><a href="#建立使用者介面" class="headerlink" title="建立使用者介面"></a>建立使用者介面</h4><p>Lemonade 應用程式只需要基本的版面配置；您只需要兩個檢視畫面，就能實作所有功能。</p>
@@ -323,13 +317,11 @@
 <li>根據應用程式目前狀態 (例如要擠壓的檸檬) 顯示圖形的 <code>ImageView</code>。</li>
 </ol>
 <p>您的目標是運用您掌握的版面配置編輯器知識，建構如下版面配置：兩個檢視畫面都在畫面中央，且 <code>TextView</code> 位於 <code>ImageView</code> 上方。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/54581304e678827c_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/54581304e678827c_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
 <p>實際完成畫面：<br><img src="https://i.imgur.com/wIEw2fh.png" width="30%" height="30%"></p>
 <hr>
 <h4 id="讓應用程式與使用者互動"><a href="#讓應用程式與使用者互動" class="headerlink" title="讓應用程式與使用者互動"></a>讓應用程式與使用者互動</h4><p>版面配置完成之後，請開啟 <code>MainActivity.kt</code>。您可以在這裡實作所有應用程式的邏輯。您會發現已經有一些程式碼。且有許多標示為 <code>// TODO:</code> 的註解 (如以下範例所示)。這些都是您要完成的工作。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/b6c5858a42dec80_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/b6c5858a42dec80_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
 <p>您必須實作下列三項基本工作，才能讓檸檬汁應用程式正常運作。</p>
 <ol>
 <li>設定 <code>lemonImage</code> <code>ImageView</code> 以回應使用者輸入的內容。</li>
@@ -341,8 +333,7 @@
 <li><code>setOnClickListener()</code> 應更新應用程式的狀態。方法是 <code>clickLemonImage()</code>。</li>
 <li><code>setOnLongClickListener()</code> 會回應使用者長按圖片的事件 (例如，使用者輕觸圖片，而且沒有立即放開手指)。對於長按事件，畫面底部會顯示小工具 (稱為 Snackbar)，讓使用者知道他們擠壓檸檬的次數。這是透過 <code>showSnackbar()</code> 方法來完成。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/b07b78c6b607e94d_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lemonade/img/b07b78c6b607e94d_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
 <h5 id="步驟-2：實作-clickLemonImage"><a href="#步驟-2：實作-clickLemonImage" class="headerlink" title="步驟 2：實作 clickLemonImage()"></a>步驟 2：實作 clickLemonImage()</h5><p>完成前一個步驟後，每當使用者輕觸圖片時，系統就會呼叫 <code>clickLemonImage()</code> 方法。這個方法負責將應用程式從目前狀態移至下一個狀態，並視需要更新變數。有四種可能的狀態：<code>SELECT</code>、<code>SQUEEZE</code>、<code>DRINK</code> 和 <code>RESTART</code>；目前狀態會以 <code>lemonadeState</code> 變數呈現。這個方法需要針對每個狀態完成不同動作。</p>
 <p><code>SELECT</code>：轉換為 <code>SQUEEZE</code> 狀態，透過呼叫 <code>pick()</code> 方法並將 <code>squeezeCount</code> (使用者擠壓檸檬的次數) 設為 0 來設定 <code>lemonSize</code> (需要擠壓的次數)。<br><code>SQUEEZE</code>：將 <code>squeezeCount</code> 增加 1，並將 <code>lemonSize</code> 減少 1。別忘了檸檬需要不同次數的擠壓，應用程式才會轉換其狀態。只有在新的 <code>lemonSize</code> 等於 0 時，才轉換至 <code>DRINK</code> 狀態。否則應用程式應保持在 <code>SQUEEZE</code> 狀態。<br><code>DRINK</code>：轉換為 <code>RESTART</code> 狀態，並將 <code>lemonSize</code> 設為 -1。<br><code>RESTART</code>：切換回 <code>SELECT</code> 狀態。<br>處理完所有更新和狀態轉換後，請務必呼叫 <code>setViewElements()</code>，根據新狀態更新使用者介面。</p>
 <h5 id="步驟-3：實作-setViewElements"><a href="#步驟-3：實作-setViewElements" class="headerlink" title="步驟 3：實作 setViewElements()"></a>步驟 3：實作 setViewElements()</h5><p><code>setViewElements()</code> 方法負責根據應用程式的狀態更新使用者介面。文字和圖片應更新為下方顯示的值，以符合 <code>lemonadeState</code>。</p>
@@ -358,30 +349,19 @@
 <h4 id="如何使用字串資源"><a href="#如何使用字串資源" class="headerlink" title="如何使用字串資源"></a>如何使用字串資源</h4><p>資源可用於定義顏色、圖片、版面配置、選單和字串值。這種做法的好處是沒有硬式編碼。這些資源檔案中定義了所有內容，您可以在應用程式的程式碼中參照。這些資源最簡單 (且最常見) 的使用方式是使用字串資源，允許具有彈性的本地化文字。</p>
 <p>字串或靜態文字可儲存在稱為 <code>strings.xml</code> 的個別檔案中，<code>strings.xml</code> 位於 <code>res</code> 資料夾的值子資料夾內。</p>
 <p>針對您想要在應用程式中顯示的每段文字 (即按鈕標籤或 <code>TextView</code> 內的文字)，您必須先定義 <code>res/values/strings.xml</code> 檔案中的文字。每個項目都是<code>索引鍵</code> (代表文字 ID) 和<code>值</code> (文字本身)。</p>
-<p>舉例來說，如果您想讓按鈕顯示「Submit」(提交)，請在 res&#x2F;values&#x2F;strings.xml 中加入以下字串資源：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;resources&gt;</span><br><span class="line">    &lt;string name=<span class="string">&quot;hello&quot;</span>&gt;Hello!&lt;/string&gt;</span><br><span class="line">    &lt;string name=<span class="string">&quot;submit_label&quot;</span>&gt;Submit&lt;/string&gt;</span><br><span class="line">&lt;/resources&gt;</span><br></pre></td></tr></table></figure>
-
-<p>如要直接存取程式碼中的資源，只要使用 <code>getResources.getString()</code> 或 <code>getString()</code> 方法，即可依照資源 ID <code>R.string.submit_label</code> 來存取相應的值。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val submitText = getResources().getString(R.string.submit_label)</span><br></pre></td></tr></table></figure>
-
+<p>舉例來說，如果您想讓按鈕顯示「Submit」(提交)，請在 res/values/strings.xml 中加入以下字串資源：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span><br><span class="line">&lt;resources&gt;</span><br><span class="line">    &lt;string name=<span class="string">&quot;hello&quot;</span>&gt;Hello!&lt;/string&gt;</span><br><span class="line">    &lt;string name=<span class="string">&quot;submit_label&quot;</span>&gt;Submit&lt;/string&gt;</span><br><span class="line">&lt;/resources&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如要直接存取程式碼中的資源，只要使用 <code>getResources.getString()</code> 或 <code>getString()</code> 方法，即可依照資源 ID <code>R.string.submit_label</code> 來存取相應的值。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val submitText = getResources().getString(R.string.submit_label)</span><br></pre></td></tr></table></figure></p>
 <p>如要直接將字串資源中的文字設定為 <code>TextView</code>，您可以呼叫 <code>TextView</code> 物件上的 <code>setText()</code>，並傳入資源 ID。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val infoTextView: TextView = findViewById(R.id.info_textview)</span><br><span class="line"></span><br><span class="line">infoTextView.setText(R.string.info_text)</span><br></pre></td></tr></table></figure>
-
-<p>字串資源也可以包含特殊字元，以便設定文字格式。舉例來說，可能會有字串資源可讓您將其他文字插入字串。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;string name=<span class="string">&quot;ingredient_tablespoon&quot;</span>&gt;%1<span class="variable">$d</span> 歲是 %2<span class="variable">$s</span> 的年齡&lt;/string&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在程式碼中，您可以透過傳遞引數來存取字串資源，並設定字串資源的格式。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getResources().getString(R.string.ingredient_tablespoon, 3, <span class="string">&quot;Tina&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>字串資源也可以包含特殊字元，以便設定文字格式。舉例來說，可能會有字串資源可讓您將其他文字插入字串。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;string name=<span class="string">&quot;ingredient_tablespoon&quot;</span>&gt;%1<span class="variable">$d</span> 歲是 %2<span class="variable">$s</span> 的年齡&lt;/string&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在程式碼中，您可以透過傳遞引數來存取字串資源，並設定字串資源的格式。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getResources().getString(R.string.ingredient_tablespoon, 3, <span class="string">&quot;Tina&quot;</span>)</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>宣告字串資源時，每個引數都會<code>依照顯示的順序編號 (1、2 等)</code>，並<code>以字母表示不同類型 (d 代表小數，s 代表字串等等)</code>。正確類型的引數可傳遞至 getString() 的呼叫。</li>
 </ul>
-<p>輸出結果：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3 歲是 Tina 的年齡</span><br></pre></td></tr></table></figure>
-
+<p>輸出結果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3 歲是 Tina 的年齡</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h4 id="執行應用程式"><a href="#執行應用程式" class="headerlink" title="執行應用程式"></a>執行應用程式</h4><p>完成結果如下所示：</p>
-<img src="https://i.imgur.com/tjUqSOM.gif" width="30%" height="30%">
-
+<p><img src="https://i.imgur.com/tjUqSOM.gif" width="30%" height="30%"></p>
 <hr>
 <h4 id="測試應用程式"><a href="#測試應用程式" class="headerlink" title="測試應用程式"></a>測試應用程式</h4><ul>
 <li>測試套件(Test Suite) - 包含所有「測試案例」的目標(target)。</li>
@@ -603,6 +583,8 @@
 
 
 
+
+  
 
   
 

@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！  測試的重要性  當應用程式逐漸成長，進行手動測試會比編寫自動測試花費更多精力。 開始建構專業級的應用程式時，如果使用者數量龐大，測試也會變得十分重要。 必須考到許多不">
+  <meta name="description" content="您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！  測試的重要性 當應用程式逐漸成長，進行手動測試會比編寫自動測試花費更多精力。 開始建構專業級的應用程式時，如果使用者數量龐大，測試也會變得十分重要。 必須考到許多不同">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(6)-編寫單元測試">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/08/23/Android%E7%AD%86%E8%A8%98-6-%E7%B7%A8%E5%AF%AB%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！  測試的重要性  當應用程式逐漸成長，進行手動測試會比編寫自動測試花費更多精力。 開始建構專業級的應用程式時，如果使用者數量龐大，測試也會變得十分重要。 必須考到許多不">
+<meta property="og:description" content="您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！  測試的重要性 當應用程式逐漸成長，進行手動測試會比編寫自動測試花費更多精力。 開始建構專業級的應用程式時，如果使用者數量龐大，測試也會變得十分重要。 必須考到許多不同">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/f02b380da4e8f661_1920.png?authuser=2&hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/78c943e851a33644_1920.png?authuser=2&hl=zh-tw">
@@ -279,13 +279,9 @@
 
       
         <blockquote>
-<p>您已經編寫了一些 Android
-程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究
-Android 專案中自動產生的測試，最後再為 Dice Roller
-應用程式編寫您自己的測試！</p>
+<p>您已經編寫了一些 Android 程式碼，現在正好可以用一些測試程式碼來追蹤後續狀況。我們首先會看看一些測試的理念，然後深入研究 Android 專案中自動產生的測試，最後再為 Dice Roller 應用程式編寫您自己的測試！</p>
 </blockquote>
-<h4 id="測試的重要性">測試的重要性</h4>
-<ul>
+<h4 id="測試的重要性"><a href="#測試的重要性" class="headerlink" title="測試的重要性"></a>測試的重要性</h4><ul>
 <li>當應用程式逐漸成長，進行<code>手動測試</code>會比編寫<code>自動測試</code>花費更多精力。</li>
 <li>開始建構專業級的應用程式時，如果<code>使用者數量龐大</code>，測試也會變得十分重要。</li>
 <li>必須考到許多<code>不同類型的裝置</code>，而這些裝置又會執行<code>不同的 Android 版本</code>。</li>
@@ -293,130 +289,99 @@ Android 專案中自動產生的測試，最後再為 Dice Roller
 </ul>
 <p><code>自動化測試</code>是透過軟體執行的測試，而<code>人工測試</code>則是由會直接與裝置互動的人員執行。若要確保產品使用者都能獲得良好的體驗，自動化測試和手動測試都是非常重要的一環。不過，自動化測試的準確度較高，也可以提升團隊的工作效率，因為員工不必手動執行測試，因此自動化測試的執行速度會比手動測試還要快。</p>
 <span id="more"></span>
-<hr />
-<h4 id="深入探索單元測試">深入探索單元測試</h4>
-<p>單元測試一律位於 <code>test</code> 目錄中：
-<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/f02b380da4e8f661_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
-<ol type="1">
-<li>開啟 <code>app/build.gradle</code>
-檔案，然後查看依附元件。有部分依附元件會標記為
-<code>testImplementation</code> 和
-<code>androidTestImplementation</code>，分別是指<code>單元測試</code>和<code>檢測設備測試</code>。值得一提的是：</li>
+
+<hr>
+<h4 id="深入探索單元測試"><a href="#深入探索單元測試" class="headerlink" title="深入探索單元測試"></a>深入探索單元測試</h4><p>單元測試一律位於 <code>test</code> 目錄中：<br><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/f02b380da4e8f661_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
+<ol>
+<li>開啟 <code>app/build.gradle</code> 檔案，然後查看依附元件。有部分依附元件會標記為 <code>testImplementation</code> 和 <code>androidTestImplementation</code>，分別是指<code>單元測試</code>和<code>檢測設備測試</code>。值得一提的是：</li>
 </ol>
-<p><code>app/build.gradle</code> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">testImplementation <span class="string">&#x27;junit:junit:4.12&#x27;</span></span><br></pre></td></tr></table></figure></p>
-<p>用來驅動單元測試的 <code>JUnit</code>
-程式庫，可讓您將程式碼標示為測試，以便採用可以測試應用程式碼的方式編譯和執行應用程式。</p>
-<ol start="2" type="1">
-<li>在 <code>test</code> 目錄中，開啟 <code>ExampleUnitTest.kt</code>
-檔案。</li>
+<p><code>app/build.gradle</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">testImplementation <span class="string">&#x27;junit:junit:4.12&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>用來驅動單元測試的 <code>JUnit</code> 程式庫，可讓您將程式碼標示為測試，以便採用可以測試應用程式碼的方式編譯和執行應用程式。</p>
+<ol start="2">
+<li>在 <code>test</code> 目錄中，開啟 <code>ExampleUnitTest.kt</code> 檔案。</li>
 </ol>
-<p>以下是單元測試的範例： <code>ExampleUnitTest.kt</code>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ExampleUnitTest &#123;</span><br><span class="line">   @Test</span><br><span class="line">   fun <span class="function"><span class="title">addition_isCorrect</span></span>() &#123;</span><br><span class="line">       assertEquals(4, 2 + 2)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="註解">註解</h5>
-<p>雖然你已在 <code>Dice Roller</code>
-應用程式中新增了一些程式碼，但可能並未編寫任何測試。因此，這裡只有一些由
-Android Studio
-自動建立的一般程式碼。這個任意測試可做為預留位置，以便開發人員用來編寫更多相關的測試。
-這個程式碼區塊現在只會測試
-<code>2 + 2 = 4</code>。答案當然是正確的。讓我們進一步瞭解實際情況： +
-您必須先從 <code>org.junit.test</code> 程式庫匯入 <code>@</code>
-<code>Test</code>
-註解，然後為測試函式加上該註解。您可以將註解視為一段程式碼的中繼資料標記，可改變程式碼的編譯方式。在這個範例中，<code>@Test</code>
-註解可讓編譯器知道以下方法為測試，從而讓該方法據此執行。</p>
-<h5 id="函式宣告">函式宣告</h5>
-<p>註解之後是<code>函式宣告</code>，在這個範例中為
-<code>addition_isCorrect()</code>
-函式。在函式中，<code>assertEquals()</code>
-函式會宣告<code>預期值</code>應等於透過商業邏輯取得的<code>實際值</code>。宣告方法是單元測試的最終目標。</p>
+<p>以下是單元測試的範例：<br><code>ExampleUnitTest.kt</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ExampleUnitTest &#123;</span><br><span class="line">   @Test</span><br><span class="line">   fun <span class="function"><span class="title">addition_isCorrect</span></span>() &#123;</span><br><span class="line">       assertEquals(4, 2 + 2)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="註解"><a href="#註解" class="headerlink" title="註解"></a>註解</h5><p>雖然你已在 <code>Dice Roller</code> 應用程式中新增了一些程式碼，但可能並未編寫任何測試。因此，這裡只有一些由 Android Studio 自動建立的一般程式碼。這個任意測試可做為預留位置，以便開發人員用來編寫更多相關的測試。<br>這個程式碼區塊現在只會測試 <code>2 + 2 = 4</code>。答案當然是正確的。讓我們進一步瞭解實際情況：</p>
+<ul>
+<li>您必須先從 <code>org.junit.test</code> 程式庫匯入 <code>@</code> <code>Test</code> 註解，然後為測試函式加上該註解。您可以將註解視為一段程式碼的中繼資料標記，可改變程式碼的編譯方式。在這個範例中，<code>@Test</code> 註解可讓編譯器知道以下方法為測試，從而讓該方法據此執行。</li>
+</ul>
+<h5 id="函式宣告"><a href="#函式宣告" class="headerlink" title="函式宣告"></a>函式宣告</h5><p>註解之後是<code>函式宣告</code>，在這個範例中為 <code>addition_isCorrect()</code> 函式。在函式中，<code>assertEquals()</code> 函式會宣告<code>預期值</code>應等於透過商業邏輯取得的<code>實際值</code>。宣告方法是單元測試的最終目標。</p>
 <p>最後，您要宣告從程式碼取得的結果處於特定狀態。如果結果狀態與預期狀態相符，即表示測試通過；如果結果狀態與預期狀態不符，即表示測試失敗。</p>
-<p>在這個範例中，程式碼會比較兩個值，因此 <code>assertEquals()</code>
-方法會使用 2
-個參數，分別是<code>預期值</code>和<code>實際值</code>。顧名思義，<code>預期值是您預期出現的特定結果</code>，在本例中是
-<code>4</code>。<code>實際值代表實際程式碼片段的結果</code>。一般而言，這樣會測試應用程式本身的程式碼片段。這個範例只有任意的程式碼片段，例如
-<code>2 + 2</code>。請先執行這個測試，看看會發生什麼事。</p>
+<p>在這個範例中，程式碼會比較兩個值，因此 <code>assertEquals()</code> 方法會使用 2 個參數，分別是<code>預期值</code>和<code>實際值</code>。顧名思義，<code>預期值是您預期出現的特定結果</code>，在本例中是 <code>4</code>。<code>實際值代表實際程式碼片段的結果</code>。一般而言，這樣會測試應用程式本身的程式碼片段。這個範例只有任意的程式碼片段，例如 <code>2 + 2</code>。請先執行這個測試，看看會發生什麼事。</p>
 <div class="note info no-icon">
-            <p><strong>注意：JUnit程式庫有許多斷言(assertion)，常見的斷言(assertion)如下：</strong></p><table><thead><tr class="header"><th style="text-align: left;">Assert</th><th style="text-align: left;">Description</th></tr></thead><tbody><tr class="odd"><td style="text-align: left;">assertEquals()</td><td style="text-align: left;">檢查預期值和實際值是否相同</td></tr><tr class="even"><td style="text-align: left;">assertTrue()</td><td style="text-align: left;">檢查condition為true</td></tr><tr class="odd"><td style="text-align: left;">assertFalse()</td><td style="text-align: left;">檢查condition為false</td></tr><tr class="even"><td style="text-align: left;">assertNull()</td><td style="text-align: left;">檢查object為null</td></tr><tr class="odd"><td style="text-align: left;">assertNotNull()</td><td style="text-align: left;">檢查object不為null</td></tr></tbody></table><p>For more information, see <ahref="https://developer.android.com/reference/junit/framework/Assert?authuser=2">Assert</a>.</p>
+            <p><strong>注意：JUnit 程式庫有許多斷言(assertion)，常見的斷言(assertion)如下：</strong></p><table><thead><tr><th align="left">Assert</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left">assertEquals()</td><td align="left">檢查預期值和實際值是否相同</td></tr><tr><td align="left">assertTrue()</td><td align="left">檢查condition為true</td></tr><tr><td align="left">assertFalse()</td><td align="left">檢查condition為false</td></tr><tr><td align="left">assertNull()</td><td align="left">檢查object為null</td></tr><tr><td align="left">assertNotNull()</td><td align="left">檢查object不為null</td></tr></tbody></table><p>For more information, see <a target="_blank" rel="noopener" href="https://developer.android.com/reference/junit/framework/Assert?authuser=2">Assert</a>.</p>
           </div>
-<h5 id="測試成功">測試成功</h5>
-<p>您可透過多種方法在 Android Studio
-中執行測試，我們稍後會深入探討。不過，現在先以簡單明瞭為主。 按一下
-<code>addition_isCorrect</code> 方法宣告旁的箭頭，然後選取「Run
-‘ExampleUnitTest.addition_isCorrect'」。</p>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/78c943e851a33644_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%"></p>
-<p>這就是所謂的正向測試，也就是說，斷言獲得確認。<code>2 + 2</code> 等於
-<code>4</code>。或者，我們可以編寫負向測試，使斷言結果為負。例如：<code>2 + 2</code>
-不等於 <code>5</code>。</p>
+
+<h5 id="測試成功"><a href="#測試成功" class="headerlink" title="測試成功"></a>測試成功</h5><p>您可透過多種方法在 Android Studio 中執行測試，我們稍後會深入探討。不過，現在先以簡單明瞭為主。<br>按一下 <code>addition_isCorrect</code> 方法宣告旁的箭頭，然後選取「Run ‘ExampleUnitTest.addition_isCorrect’」。</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/78c943e851a33644_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%">
+
+<p>這就是所謂的正向測試，也就是說，斷言獲得確認。<code>2 + 2</code> 等於 <code>4</code>。或者，我們可以編寫負向測試，使斷言結果為負。例如：<code>2 + 2</code> 不等於 <code>5</code>。</p>
 <p>在「Run」窗格中，螢幕截圖會如下所示：</p>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/aa7d361d8e4826ef_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%"></p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/aa7d361d8e4826ef_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%">
+
 <p>許多指標都能表示測試成功，包括綠色勾號，以及所通過測試的數量。</p>
-<h5 id="測試失敗">測試失敗</h5>
-<p>修改測試來看看測試失敗的情形。請將 <code>2 + 2</code> 變更為
-<code>2 + 3</code>，然後再次執行測試。請注意，您只能以產生的程式碼進行實驗，進一步瞭解測試的運作方式。這些變更與
-<code>Dice Roller</code> 功能並無任何關聯性。 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ExampleUnitTest &#123;</span><br><span class="line">   @Test</span><br><span class="line">   fun <span class="function"><span class="title">addition_isCorrect</span></span>() &#123;</span><br><span class="line">       assertEquals(4, 2 + 3)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>完成其餘操作後，螢幕截圖會如下所示：
-<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/751ac8089cf4c47c_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%"></p>
-<p>紅色文字代表測試失敗。在測試結果選單中，按一下項目即會提供錯誤訊息，指出測試失敗的原因。
-<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/163708373e651ecc_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%"></p>
-<p>在這個例子中，錯誤訊息表示斷言失敗，因為預期結果為
-<code>4</code>，但實際值是 <code>5</code>。由於您將實際值變更為
-<code>2 + 3</code>，但預期值還是
-<code>4</code>，所以這是合理的狀況。您也會看到測試失敗的行。在這個例子中，第
-15 行測試失敗，註明為 <code>ExampleUnitTest.kt:15</code>。</p>
-<p>最後，為求測試徹底，請將預期值從 <code>4</code> 變更為
-<code>5</code>，然後再次執行測試。在出現問題的程式碼中，預期值與實際值相符，所以現在測試應已通過。</p>
-<hr />
-<h4 id="編寫第一個單元測試">編寫第一個單元測試</h4>
-<p>現在您已慢慢熟悉單元測試，您就可以自行編寫與 <code>Dice Roller</code>
-應用程式更相關的單元測試。</p>
-<p>您應該發現到，<code>Dice Roller</code>
-應用程式的主要功能是以隨機號碼產生器為基礎。不過，人所共知，隨機號碼產生器難於測試，因為您無法確定隨機產生號碼的結果。這項測試旨在確保你擲出骰子，或是呼叫
-<code>dice</code> 類別上的 <code>roll</code>
-方法時，能夠取得正確的數字。您編寫的測試只會測試<code>隨機號碼產生器的結果</code>不會超出您為<code>產生器指定的數字範圍</code>。</p>
-<ol type="1">
-<li><p>在 <code>ExampleUnitTest.kt</code>
-檔案中，刪除產生的測試方法並匯入陳述式。您的檔案應如下所示：
-<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/c06e8b402f293b5e_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p></li>
-<li><p>建立 <code>generates_number()</code> 函式：</p></li>
+<h5 id="測試失敗"><a href="#測試失敗" class="headerlink" title="測試失敗"></a>測試失敗</h5><p>修改測試來看看測試失敗的情形。請將 <code>2 + 2</code> 變更為 <code>2 + 3</code>，然後再次執行測試。請注意，您只能以產生的程式碼進行實驗，進一步瞭解測試的運作方式。這些變更與 <code>Dice Roller</code> 功能並無任何關聯性。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ExampleUnitTest &#123;</span><br><span class="line">   @Test</span><br><span class="line">   fun <span class="function"><span class="title">addition_isCorrect</span></span>() &#123;</span><br><span class="line">       assertEquals(4, 2 + 3)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成其餘操作後，螢幕截圖會如下所示：<br><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/751ac8089cf4c47c_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%"></p>
+<p>紅色文字代表測試失敗。在測試結果選單中，按一下項目即會提供錯誤訊息，指出測試失敗的原因。<br><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/163708373e651ecc_1920.png?authuser=2&hl=zh-tw" width="90%" height="90%"></p>
+<p>在這個例子中，錯誤訊息表示斷言失敗，因為預期結果為 <code>4</code>，但實際值是 <code>5</code>。由於您將實際值變更為 <code>2 + 3</code>，但預期值還是 <code>4</code>，所以這是合理的狀況。您也會看到測試失敗的行。在這個例子中，第 15 行測試失敗，註明為 <code>ExampleUnitTest.kt:15</code>。</p>
+<p>最後，為求測試徹底，請將預期值從 <code>4</code> 變更為 <code>5</code>，然後再次執行測試。在出現問題的程式碼中，預期值與實際值相符，所以現在測試應已通過。</p>
+<hr>
+<h4 id="編寫第一個單元測試"><a href="#編寫第一個單元測試" class="headerlink" title="編寫第一個單元測試"></a>編寫第一個單元測試</h4><p>現在您已慢慢熟悉單元測試，您就可以自行編寫與 <code>Dice Roller</code> 應用程式更相關的單元測試。</p>
+<p>您應該發現到，<code>Dice Roller</code> 應用程式的主要功能是以隨機號碼產生器為基礎。不過，人所共知，隨機號碼產生器難於測試，因為您無法確定隨機產生號碼的結果。這項測試旨在確保你擲出骰子，或是呼叫 <code>dice</code> 類別上的 <code>roll</code> 方法時，能夠取得正確的數字。您編寫的測試只會測試<code>隨機號碼產生器的結果</code>不會超出您為<code>產生器指定的數字範圍</code>。</p>
+<ol>
+<li><p>在 <code>ExampleUnitTest.kt</code> 檔案中，刪除產生的測試方法並匯入陳述式。您的檔案應如下所示：</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/c06e8b402f293b5e_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+</li>
+<li><p>建立 <code>generates_number()</code> 函式：</p>
+</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">generates_number</span></span>() &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>使用 <code>@Test</code> 註解為 <code>generates_number()</code>
-方法加上註解。請注意，嘗試呼叫 <code>@Test</code>
-時，文字會顯示為紅色。這是因為找不到這個註解的<code>斷言</code>，所以您需要匯入斷言。按下
-<code>Control+Enter</code>(在 Mac 上則為 <code>Options+Return</code>)
-即可自動執行這項操作。</li>
+
+<ol start="3">
+<li>使用 <code>@Test</code> 註解為 <code>generates_number()</code> 方法加上註解。請注意，嘗試呼叫 <code>@Test</code> 時，文字會顯示為紅色。這是因為找不到這個註解的<code>斷言</code>，所以您需要匯入斷言。按下 <code>Control+Enter</code>(在 Mac 上則為 <code>Options+Return</code>) 即可自動執行這項操作。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/bbe5791b9565588c_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/bbe5791b9565588c_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
 <p>程式碼現在應如下所示：</p>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/9a94c2bdf84adb61_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
-<ol start="4" type="1">
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/9a94c2bdf84adb61_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
+<ol start="4">
 <li>建立 <code>Dice</code> 物件的執行個體</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">fun <span class="function"><span class="title">generates_number</span></span>() &#123;</span><br><span class="line">   val dice = Dice(6)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
-<li><p>接下來，對這個執行個體呼叫 <code>roll()</code>
-方法，並儲存傳回的值。 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">fun <span class="function"><span class="title">generates_number</span></span>() &#123;</span><br><span class="line">   val dice = Dice(6)</span><br><span class="line">   val rollResult = dice.roll()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>最後提出實際斷言即可。換句話說，您需要聲明該方法傳回的值在您傳遞的側側邊數目以內。因此在這個例子中，<code>該值必須大於 0，且小於 7</code>。為符合此要求，請使用
-<code>assertTrue()</code> 方法。請注意，嘗試呼叫
-<code>assertTrue()</code>
-方法時，文字會先顯示為紅色。這是因為找不到這個方法的宣告，所以您必須匯入宣告，做法與處理註解時類似。</p></li>
+
+<ol start="5">
+<li><p>接下來，對這個執行個體呼叫 <code>roll()</code> 方法，並儲存傳回的值。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">fun <span class="function"><span class="title">generates_number</span></span>() &#123;</span><br><span class="line">   val dice = Dice(6)</span><br><span class="line">   val rollResult = dice.roll()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最後提出實際斷言即可。換句話說，您需要聲明該方法傳回的值在您傳遞的側側邊數目以內。因此在這個例子中，<code>該值必須大於 0，且小於 7</code>。為符合此要求，請使用 <code>assertTrue()</code> 方法。請注意，嘗試呼叫 <code>assertTrue()</code> 方法時，文字會先顯示為紅色。這是因為找不到這個方法的宣告，所以您必須匯入宣告，做法與處理註解時類似。</p>
+</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/10eea07fc21bf998_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/10eea07fc21bf998_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
 <p>然後選擇來自 <code>org.junit.Assert</code> 套件的選項：</p>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/5dbfba2ba0e37ac9_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
-<p>如果將游標放在兩個括號之間並按下 <code>Control+P</code> (在 Mac
-上則為
-<code>Command+P</code>)，系統會顯示工具提示，當中會顯示方法使用的參數：</p>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/865cf0ac47738e08_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
-<p><code>assertTrue()</code> 方法有兩個參數：<code>String</code> 和
-<code>Boolean</code>。如果斷言失敗，字串即是控制台中顯示的訊息。布林值是條件陳述式。請將訊息設為：
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;The value of rollResult was not between 1 and 6&quot;</span></span><br></pre></td></tr></table></figure></p>
-<p>如前文所述，測試隨機號碼是一大挑戰，因為是隨機產生的號碼，所以無法預測號碼的值。所有唯一能做的，就是確保值不會超出特定範圍。請將條件參數設為：
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rollResult <span class="keyword">in</span> 1..6</span><br></pre></td></tr></table></figure></p>
-<p>程式碼應該如下所示： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">fun <span class="function"><span class="title">generates_number</span></span>() &#123;</span><br><span class="line">   val dice = Dice(6)</span><br><span class="line">   val rollResult = dice.roll()</span><br><span class="line">   assertTrue(<span class="string">&quot;The value of rollResult was not between 1 and 6&quot;</span>, rollResult <span class="keyword">in</span> 1..6)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="7" type="1">
-<li>按一下函式旁邊的箭頭，然後選取「Run
-'ExampleUnitTest.generates_number()'」，結果應顯示測試成功。</li>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/5dbfba2ba0e37ac9_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
+<p>如果將游標放在兩個括號之間並按下 <code>Control+P</code> (在 Mac 上則為 <code>Command+P</code>)，系統會顯示工具提示，當中會顯示方法使用的參數：</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-unit-tests/img/865cf0ac47738e08_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
+
+<p><code>assertTrue()</code> 方法有兩個參數：<code>String</code> 和 <code>Boolean</code>。如果斷言失敗，字串即是控制台中顯示的訊息。布林值是條件陳述式。請將訊息設為：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;The value of rollResult was not between 1 and 6&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如前文所述，測試隨機號碼是一大挑戰，因為是隨機產生的號碼，所以無法預測號碼的值。所有唯一能做的，就是確保值不會超出特定範圍。請將條件參數設為：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rollResult <span class="keyword">in</span> 1..6</span><br></pre></td></tr></table></figure>
+
+<p>程式碼應該如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">fun <span class="function"><span class="title">generates_number</span></span>() &#123;</span><br><span class="line">   val dice = Dice(6)</span><br><span class="line">   val rollResult = dice.roll()</span><br><span class="line">   assertTrue(<span class="string">&quot;The value of rollResult was not between 1 and 6&quot;</span>, rollResult <span class="keyword">in</span> 1..6)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>按一下函式旁邊的箭頭，然後選取「Run ‘ExampleUnitTest.generates_number()’」，結果應顯示測試成功。</li>
 </ol>
 
     </div>
@@ -630,8 +595,6 @@ Android Studio
 
 
 
-
-  
 
   
 

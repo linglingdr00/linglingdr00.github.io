@@ -260,27 +260,22 @@
 
       
           <blockquote>
-<p><strong>天氣：威特 App</strong> 使用氣象局 API
-即時更新天氣資訊，並透過 GPS
-定位您的所在位置，顯示使用者所在區域之天氣狀況。</p>
+<p><strong>天氣：威特 App</strong> 使用氣象局 API 即時更新天氣資訊，並透過 GPS 定位您的所在位置，顯示使用者所在區域之天氣狀況。</p>
 </blockquote>
 <div style="display: flex;justify-content: center;">
-<pre><code>&lt;div style=&quot;width:20%;float:left;margin-right:10px;&quot;&gt;
-    &lt;img src=&quot;https://i.imgur.com/QMH3e52.png&quot;&gt;
-&lt;/div&gt;
-&lt;div style=&quot;width:20%;float:left;margin-right:10px;&quot;&gt;
-    &lt;img src=&quot;https://i.imgur.com/fVaRh2J.png&quot;&gt;
-&lt;/div&gt;
-&lt;div style=&quot;width:20%;float:left;margin-right:10px&quot;&gt;
-    &lt;img src=&quot;https://i.imgur.com/4KYdGOs.png&quot;&gt;
-&lt;/div&gt;
-&lt;div style=&quot;width:20%;float:left;&quot;&gt;
-    &lt;img src=&quot;https://i.imgur.com/5ZyOnRw.png&quot;&gt;
-&lt;/div&gt;</code></pre>
-<div style="clear:both;">
-
-</div>
-<!--這是用來清除上方的浮動效果-->
+    <div style="width:20%;float:left;margin-right:10px;">
+        <img src="https://i.imgur.com/QMH3e52.png">
+    </div>
+    <div style="width:20%;float:left;margin-right:10px;">
+        <img src="https://i.imgur.com/fVaRh2J.png">
+    </div>
+    <div style="width:20%;float:left;margin-right:10px">
+        <img src="https://i.imgur.com/4KYdGOs.png">
+    </div>
+    <div style="width:20%;float:left;">
+        <img src="https://i.imgur.com/5ZyOnRw.png">
+    </div>
+<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
 </div>
           <!--noindex-->
             <div class="post-button">
@@ -335,7 +330,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-03-10 13:43:18 / Modified: 17:05:34" itemprop="dateCreated datePublished" datetime="2024-03-10T13:43:18+08:00">2024-03-10</time>
+              <time title="Created: 2024-03-10 13:43:18 / Modified: 17:34:47" itemprop="dateCreated datePublished" datetime="2024-03-10T13:43:18+08:00">2024-03-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -359,9 +354,7 @@
 
       
           <blockquote>
-<p>為什麼<u>數字比對</u>比<u>字串比對</u>還要快？因為<b>暫存器</b>只能存放數字，所以做字串比對的話，必須先轉換成數字，再放到暫存器，接著才能比對。相較於將數字直接放進暫存器來說，速度會比較慢。<b>循環展開(loop
-unrolling)</b>為什麼能加速迴圈執行的速度？為什麼深度學習要交給 GPU
-來算？這些其實都跟計算機架構息息相關，而對軟體工程師來說，了解程式如何寫可以跑得更快就是最關鍵的議題。</p>
+<p>為什麼<u>數字比對</u>比<u>字串比對</u>還要快？因為<b>暫存器</b>只能存放數字，所以做字串比對的話，必須先轉換成數字，再放到暫存器，接著才能比對。相較於將數字直接放進暫存器來說，速度會比較慢。<b>循環展開(loop unrolling)</b>為什麼能加速迴圈執行的速度？為什麼深度學習要交給 GPU 來算？這些其實都跟計算機架構息息相關，而對軟體工程師來說，了解程式如何寫可以跑得更快就是最關鍵的議題。</p>
 </blockquote>
           <!--noindex-->
             <div class="post-button">
@@ -816,61 +809,6 @@ unrolling)</b>為什麼能加速迴圈執行的速度？為什麼深度學習要
 
 
   
-
-  
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 

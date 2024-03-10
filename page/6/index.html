@@ -260,28 +260,23 @@
 
       
           <blockquote>
-<p>將 <code>ViewModel</code> 中的應用程式資料轉換為
-<code>LiveData</code>，並觀察自動更新 UI 所出現的變化。</p>
+<p>將 <code>ViewModel</code> 中的應用程式資料轉換為 <code>LiveData</code>，並觀察自動更新 UI 所出現的變化。</p>
 </blockquote>
-<p>在先前的程式碼研究室中，您已瞭解如何使用 <code>ViewModel</code>
-儲存應用程式資料。<code>ViewModel</code>
-可在設定變更時保留應用程式資料。在本程式碼研究室中，您將瞭解如何整合
-<code>LiveData</code> 與 <code>ViewModel</code> 中的資料。</p>
-<p><code>LiveData</code> 類別也屬於 Android
-架構元件的一部分，為可觀察的資料容器類別。</p>
-<p><strong>學習目標</strong> + 如何在應用程式中使用
-<code>LiveData</code> 和 <code>MutableLiveData</code>。 + 如何使用
-<code>LiveData</code> 來封裝儲存在 <code>ViewModel</code> 中的資料。 +
-如何新增觀察器(observer)方法以觀察 <code>LiveData</code> 中的變化。 +
-如何在版面配置檔案中編寫 binding 表達式。</p>
-<p><strong>建構項目</strong> + 針對 <code>Unscramble</code>
-應用程式中的應用程式資料 (字詞、字詞計數和分數) 使用
-<code>LiveData</code>。 +
-新增觀察器(observer)方法，在資料變更時接收通知，並自動更新打散字詞的
-text view。 + 在 layout 檔案中編寫 binding 表達式，在基礎
-<code>LiveData</code> 變更時觸發。分數、字詞計數和打散字詞 text view
-會自動更新。</p>
-<h2 id="section">
+<p>在先前的程式碼研究室中，您已瞭解如何使用 <code>ViewModel</code> 儲存應用程式資料。<code>ViewModel</code> 可在設定變更時保留應用程式資料。在本程式碼研究室中，您將瞭解如何整合 <code>LiveData</code> 與 <code>ViewModel</code> 中的資料。</p>
+<p><code>LiveData</code> 類別也屬於 Android 架構元件的一部分，為可觀察的資料容器類別。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何在應用程式中使用 <code>LiveData</code> 和 <code>MutableLiveData</code>。</li>
+<li>如何使用 <code>LiveData</code> 來封裝儲存在 <code>ViewModel</code> 中的資料。</li>
+<li>如何新增觀察器(observer)方法以觀察 <code>LiveData</code> 中的變化。</li>
+<li>如何在版面配置檔案中編寫 binding 表達式。</li>
+</ul>
+<p><strong>建構項目</strong></p>
+<ul>
+<li>針對 <code>Unscramble</code> 應用程式中的應用程式資料 (字詞、字詞計數和分數) 使用 <code>LiveData</code>。</li>
+<li>新增觀察器(observer)方法，在資料變更時接收通知，並自動更新打散字詞的 text view。</li>
+<li>在 layout 檔案中編寫 binding 表達式，在基礎 <code>LiveData</code> 變更時觸發。分數、字詞計數和打散字詞 text view 會自動更新。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/11/06/Android%E7%AD%86%E8%A8%98-27-%E6%90%AD%E9%85%8DViewModel%E4%BD%BF%E7%94%A8LiveData/#more" rel="contents">
@@ -373,16 +368,17 @@ text view。 + 在 layout 檔案中編寫 binding 表達式，在基礎
 
       
           <blockquote>
-<p>瞭解如何使用 <code>ViewModel</code>
-架構元件來儲存應用程式資料。如果在設定變更或其他事件期間，刪除架構並重新建立
-activity 和 fragment，儲存的資料不會遺失。</p>
+<p>瞭解如何使用 <code>ViewModel</code> 架構元件來儲存應用程式資料。如果在設定變更或其他事件期間，刪除架構並重新建立 activity 和 fragment，儲存的資料不會遺失。</p>
 </blockquote>
-<p><strong>學習目標</strong> + Android 應用程式架構基本概念簡介。 +
-如何在應用程式中使用 <code>ViewModel</code> 類別。 + 如何使用
-<code>ViewModel</code>，透過裝置設定變更保留 UI 資料。 + Kotlin
-的幕後屬性。 + 如何使用質感設計元件庫中的
-<code>MaterialAlertDialog</code>。 + 建立 <code>Unscramble</code>
-遊戲應用程式，可讓使用者猜測打散的字詞。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>Android 應用程式架構基本概念簡介。</li>
+<li>如何在應用程式中使用 <code>ViewModel</code> 類別。</li>
+<li>如何使用 <code>ViewModel</code>，透過裝置設定變更保留 UI 資料。</li>
+<li>Kotlin 的幕後屬性。</li>
+<li>如何使用質感設計元件庫中的 <code>MaterialAlertDialog</code>。</li>
+<li>建立 <code>Unscramble</code> 遊戲應用程式，可讓使用者猜測打散的字詞。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/11/05/Android%E7%AD%86%E8%A8%98-26-%E5%B0%87%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%BCViewModel%E4%B8%AD/#more" rel="contents">
@@ -476,9 +472,11 @@ activity 和 fragment，儲存的資料不會遺失。</p>
           <blockquote>
 <p>學習如何測試 Navigation 元件。</p>
 </blockquote>
-<p><strong>學習目標</strong> + 如何利用
-<code>instrumentation test(設備測試)</code> 來測試 Navigation 元件。 +
-如何不使用重複的程式碼設定測試。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何利用 <code>instrumentation test(設備測試)</code> 來測試 Navigation 元件。</li>
+<li>如何不使用重複的程式碼設定測試。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/10/28/Android%E7%AD%86%E8%A8%98-25-%E6%B8%AC%E8%A9%A6Navigation-Component/#more" rel="contents">
@@ -570,12 +568,9 @@ activity 和 fragment，儲存的資料不會遺失。</p>
 
       
           <blockquote>
-<p>許多 Android
-應用程式不需個別為每個畫面設定活動。事實上，許多常見的使用者介面模式
-(如分頁標籤(tabs)) 均存在單一 activity
-內，並使用名為「fragment」的組成部分。</p>
+<p>許多 Android 應用程式不需個別為每個畫面設定活動。事實上，許多常見的使用者介面模式 (如分頁標籤(tabs)) 均存在單一 activity 內，並使用名為「fragment」的組成部分。</p>
 </blockquote>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/64100b59bb487856_1920.png?hl=zh-tw" width="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/64100b59bb487856_1920.png?hl=zh-tw" width="30%">
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/10/17/Android%E7%AD%86%E8%A8%98-24-Fragments%E5%92%8CNavigationComponent/#more" rel="contents">
@@ -667,17 +662,14 @@ activity 和 fragment，儲存的資料不會遺失。</p>
 
       
           <blockquote>
-<p>身為 Android 開發人員，您必須瞭解 <strong>activity
-生命週期(lifecycle)</strong> 。如果您的 activity
-未正確回應生命週期狀態變更，應用程式可能會產生<u>異常錯誤</u>、<u>造成使用者混淆行為</u>，或<u>耗用過多
-Android 系統資源</u>。瞭解 Android
-生命週期，並正確回應生命週期狀態變更，是成為 Android
-優良使用者的重要條件。</p>
+<p>身為 Android 開發人員，您必須瞭解 <strong>activity 生命週期(lifecycle)</strong> 。如果您的 activity 未正確回應生命週期狀態變更，應用程式可能會產生<u>異常錯誤</u>、<u>造成使用者混淆行為</u>，或<u>耗用過多 Android 系統資源</u>。瞭解 Android 生命週期，並正確回應生命週期狀態變更，是成為 Android 優良使用者的重要條件。</p>
 </blockquote>
-<p><strong>學習目標</strong> + 如何將記錄資訊列印至
-<code>Logcat</code>。 + <code>Activity</code> 生命週期的基本概念，以及
-activity 於狀態之間變動時叫用的 callback。 + 如何覆寫生命週期 callback
-方法，以在 activity 生命週期的不同時間點執行運算</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何將記錄資訊列印至 <code>Logcat</code>。</li>
+<li><code>Activity</code> 生命週期的基本概念，以及 activity 於狀態之間變動時叫用的 callback。</li>
+<li>如何覆寫生命週期 callback 方法，以在 activity 生命週期的不同時間點執行運算</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/10/16/Android%E7%AD%86%E8%A8%98-23-Activity%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E7%9A%84%E5%90%84%E5%80%8B%E9%9A%8E%E6%AE%B5/#more" rel="contents">
@@ -880,8 +872,6 @@ activity 於狀態之間變動時叫用的 callback。 + 如何覆寫生命週�
 
 
 
-
-  
 
   
 

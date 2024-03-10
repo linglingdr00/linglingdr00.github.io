@@ -260,24 +260,15 @@
 
       
           <blockquote>
-<p>在本程式碼研究室中，您將使用<u>離線快取(offline
-caching)</u>功能來改善 app 的使用者體驗。許多 app 都依賴來自網路的
-data。如果 app 在每次啟動時都從 server 擷取 data，並顯示 loading
-畫面，可能會造成使用者體驗不佳，導致使用者解除安裝 app。</p>
+<p>在本程式碼研究室中，您將使用<u>離線快取(offline caching)</u>功能來改善 app 的使用者體驗。許多 app 都依賴來自網路的 data。如果 app 在每次啟動時都從 server 擷取 data，並顯示 loading 畫面，可能會造成使用者體驗不佳，導致使用者解除安裝 app。</p>
 </blockquote>
-<p>使用者啟動 app 時，會希望 app 能快速顯示
-data。實作<u>離線快取(offline
-caching)</u>功能就能實現這個目標。<b>離線快取(offline caching)</b>是指
-app <u>將從網路擷取的 data 儲存到裝置的本機<b>儲存空間(local
-storage)</b></u>，進而<u>加快存取速度</u>。</p>
-<p>由於 app 將可從網路取得 data，並且保留先前下載結果的離線快取(offline
-cache)，因此您需要讓 app 透過某種方式<u>彙整來自多個來源的
-data</u>。做法是實作<b>repository class</b>，做為 app data
-的單一可靠資料來源，並從 view model 中提取資料來源
-(例如<u>網路(network)、快取(cache)</u>等)。</p>
-<p><strong>學習目標</strong> + 如何<u>實作 repository</u>，以便從 app
-的其他部分提取 data layer。 + 如何<u>使用 repository</u>
-載入<b>快取資料(cached data)</b>。</p>
+<p>使用者啟動 app 時，會希望 app 能快速顯示 data。實作<u>離線快取(offline caching)</u>功能就能實現這個目標。<b>離線快取(offline caching)</b>是指 app <u>將從網路擷取的 data 儲存到裝置的本機<b>儲存空間(local storage)</b></u>，進而<u>加快存取速度</u>。</p>
+<p>由於 app 將可從網路取得 data，並且保留先前下載結果的離線快取(offline cache)，因此您需要讓 app 透過某種方式<u>彙整來自多個來源的 data</u>。做法是實作<b>repository class</b>，做為 app data 的單一可靠資料來源，並從 view model 中提取資料來源 (例如<u>網路(network)、快取(cache)</u>等)。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何<u>實作 repository</u>，以便從 app 的其他部分提取 data layer。</li>
+<li>如何<u>使用 repository</u> 載入<b>快取資料(cached data)</b>。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/24/Android%E7%AD%86%E8%A8%98-42-Repository-Pattern/#more" rel="contents">
@@ -369,15 +360,13 @@ data</u>。做法是實作<b>repository class</b>，做為 app data
 
       
           <blockquote>
-<p>在本程式碼研究室中，您要為 Inventory app 新增更多功能，並學習如何使用
-<code>Room</code> <u>讀取、顯示、更新及刪除</u> <strong>SQLite
-database</strong> 中的 data。使用 <code>RecyclerView</code> 顯示
-database 中的 data，並在 database 中的<b>基礎資料(underlying
-data)</b>發生變更時<u>自動更新 data</u>。</p>
+<p>在本程式碼研究室中，您要為 Inventory app 新增更多功能，並學習如何使用 <code>Room</code> <u>讀取、顯示、更新及刪除</u> <strong>SQLite database</strong> 中的 data。使用 <code>RecyclerView</code> 顯示 database 中的 data，並在 database 中的<b>基礎資料(underlying data)</b>發生變更時<u>自動更新 data</u>。</p>
 </blockquote>
-<p><strong>學習目標</strong> + 如何<u>讀取及顯示</u> SQLite database
-中的 <strong>entities</strong>。 + 如何使用 <code>Room</code> library
-<u>更新和刪除</u> SQLite database 中的 <strong>entities</strong>。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何<u>讀取及顯示</u> SQLite database 中的 <strong>entities</strong>。</li>
+<li>如何使用 <code>Room</code> library <u>更新和刪除</u> SQLite database 中的 <strong>entities</strong>。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/22/Android%E7%AD%86%E8%A8%98-41-%E4%BD%BF%E7%94%A8Room%E8%AE%80%E5%8F%96%E5%92%8C%E6%9B%B4%E6%96%B0data/#more" rel="contents">
@@ -469,15 +458,12 @@ data)</b>發生變更時<u>自動更新 data</u>。</p>
 
       
           <blockquote>
-<p>建構一個 inventory app，使用 <strong>Room</strong> 將庫存商品儲存至
-<strong>SQLite database</strong>。</p>
+<p>建構一個 inventory app，使用 <strong>Room</strong> 將庫存商品儲存至 <strong>SQLite database</strong>。</p>
 </blockquote>
 <ul>
-<li>如何使用 <strong>Room library</strong> 建立 <strong>SQLite
-database</strong> 並與之互動。</li>
+<li>如何使用 <strong>Room library</strong> 建立 <strong>SQLite database</strong> 並與之互動。</li>
 <li>如何建立 <u>entity</u>、<u>DAO</u> 和 <u>database classes</u>。</li>
-<li>如何使用 <strong>data access object (DAO)</strong> 將 <u>Kotlin
-function</u> 對應至 <u>SQL 查詢(queries)</u>。</li>
+<li>如何使用 <strong>data access object (DAO)</strong> 將 <u>Kotlin function</u> 對應至 <u>SQL 查詢(queries)</u>。</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -570,31 +556,20 @@ function</u> 對應至 <u>SQL 查詢(queries)</u>。</li>
 
       
           <blockquote>
-<p>使用 <strong>Room library</strong> 即可輕鬆在 Android app 中使用
-database。<strong>Room</strong> 也稱為 <u>ORM (Object Relational
-Mapping) library</u>，顧名思義，就是<u>將 relational database 中的 table
-對應至可在 Kotlin 程式碼中使用的
-objects</u>。在本課程中，您只需要關注<u>讀取 data</u>。使用預先填入的
-database，您就能載入公車抵達時間 table 中的 data，並在
-<code>RecyclerView</code> 中呈現這些 data。</p>
+<p>使用 <strong>Room library</strong> 即可輕鬆在 Android app 中使用 database。<strong>Room</strong> 也稱為 <u>ORM (Object Relational Mapping) library</u>，顧名思義，就是<u>將 relational database 中的 table 對應至可在 Kotlin 程式碼中使用的 objects</u>。在本課程中，您只需要關注<u>讀取 data</u>。使用預先填入的 database，您就能載入公車抵達時間 table 中的 data，並在 <code>RecyclerView</code> 中呈現這些 data。</p>
 </blockquote>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/70c597851eba9518_1920.png?hl=zh-tw" width="40%"></p>
-<p>在課程中，您將瞭解使用 Room 的基礎知識，包括 <u>database
-class</u>、<u>DAO</u>、<u>實體(entities)</u>和 <u>view
-models</u>。此外，課程中也會介紹 <code>ListAdapter</code>
-class，讓您透過另一種方式在 <code>RecyclerView</code> 中呈現 data；以及
-<strong>Flow</strong>，這是一種<u>類似於 <code>LiveData</code></u> 的
-Kotlin 語言功能，<u>可使 UI 針對 database 變更做出 response</u>。</p>
-<p><strong>學習目標</strong> + 將 database table 以 <strong>Kotlin
-objects</strong> (<u>實體(entities)</u>) 表示。 + <u>定義</u>要用於在
-app 中<u>使用 Room 的 <strong>database
-class</strong></u>，並從檔案預先填入 database。 + 定義 <strong>DAO
-class</strong>，並<u>使用 SQL 查詢</u>從 <u>Kotlin 程式碼</u>存取
-database。 + 定義 <strong>view models</strong>，以允許 <u>UI 與 DAO
-互動</u>。 + 瞭解如何<u>在 recycler view 中使用
-<code>ListAdapter</code></u>。 + 瞭解 Kotlin <strong>Flow</strong>
-的基本概念，以及學習如何實際運用，<u>讓 UI 對基礎 data 的變更做出
-response</u>。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/70c597851eba9518_1920.png?hl=zh-tw" width="40%">
+
+<p>在課程中，您將瞭解使用 Room 的基礎知識，包括 <u>database class</u>、<u>DAO</u>、<u>實體(entities)</u>和 <u>view models</u>。此外，課程中也會介紹 <code>ListAdapter</code> class，讓您透過另一種方式在 <code>RecyclerView</code> 中呈現 data；以及 <strong>Flow</strong>，這是一種<u>類似於 <code>LiveData</code></u> 的 Kotlin 語言功能，<u>可使 UI 針對 database 變更做出 response</u>。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>將 database table 以 <strong>Kotlin  objects</strong> (<u>實體(entities)</u>) 表示。</li>
+<li><u>定義</u>要用於在 app 中<u>使用 Room 的 <strong>database class</strong></u>，並從檔案預先填入 database。</li>
+<li>定義 <strong>DAO class</strong>，並<u>使用 SQL 查詢</u>從 <u>Kotlin 程式碼</u>存取 database。</li>
+<li>定義 <strong>view models</strong>，以允許 <u>UI 與 DAO 互動</u>。</li>
+<li>瞭解如何<u>在 recycler view 中使用 <code>ListAdapter</code></u>。</li>
+<li>瞭解 Kotlin <strong>Flow</strong> 的基本概念，以及學習如何實際運用，<u>讓 UI 對基礎 data 的變更做出 response</u>。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/17/Android%E7%AD%86%E8%A8%98-39-Room%E8%88%87Flow%E7%B0%A1%E4%BB%8B/#more" rel="contents">
@@ -686,16 +661,14 @@ response</u>。</p>
 
       
           <blockquote>
-<p>瞭解<b>關聯資料庫(relational databases)</b>的基本概念，並練習使用
-Android Studio 中的<b>資料庫檢查器(Database Inspector)</b>執行 <u>SQL
-查詢(queries)</u>。</p>
+<p>瞭解<b>關聯資料庫(relational databases)</b>的基本概念，並練習使用 Android Studio 中的<b>資料庫檢查器(Database Inspector)</b>執行 <u>SQL 查詢(queries)</u>。</p>
 </blockquote>
-<p><strong>學習目標</strong> + 關聯資料庫(relational
-database)的結構：<b>資料表(tables)</b>、<b>資料欄(columns)</b> 和
-<b>資料列(rows)</b> + 包含
-<code>WHERE</code>、<code>ORDER BY</code>、<code>GROUP BY</code> 和
-<code>LIMIT</code> 子句的 <code>SELECT</code> 陳述式 + 如何使用 SQL
-<u>insert</u>、<u>update</u> 及 <u>delete</u> 資料列(rows)</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>關聯資料庫(relational database)的結構：<b>資料表(tables)</b>、<b>資料欄(columns)</b> 和 <b>資料列(rows)</b></li>
+<li>包含 <code>WHERE</code>、<code>ORDER BY</code>、<code>GROUP BY</code> 和 <code>LIMIT</code> 子句的 <code>SELECT</code> 陳述式</li>
+<li>如何使用 SQL <u>insert</u>、<u>update</u> 及 <u>delete</u> 資料列(rows)</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/16/Android%E7%AD%86%E8%A8%98-38-SQL%E5%9F%BA%E7%A4%8E/#more" rel="contents">
@@ -898,8 +871,6 @@ database)的結構：<b>資料表(tables)</b>、<b>資料欄(columns)</b> 和
 
 
 
-
-  
 
   
 

@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="建構一款名為「Lunch Tray」的新應用程式  建構項目 您會建構一個名為 Lunch Tray 的訂餐應用程式、透過 data binding 實作 ViewModel，並在 fragment 之間加入 navigation 功能。">
+  <meta name="description" content="建構一款名為「Lunch Tray」的新應用程式  建構項目您會建構一個名為 Lunch Tray 的訂餐應用程式、透過 data binding 實作 ViewModel，並在 fragment 之間加入 navigation 功能。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(32)-專案：Lunch Tray應用程式">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/12/04/Android%E7%AD%86%E8%A8%98-32-%E5%B0%88%E6%A1%88%EF%BC%9ALunch-Tray%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="建構一款名為「Lunch Tray」的新應用程式  建構項目 您會建構一個名為 Lunch Tray 的訂餐應用程式、透過 data binding 實作 ViewModel，並在 fragment 之間加入 navigation 功能。">
+<meta property="og:description" content="建構一款名為「Lunch Tray」的新應用程式  建構項目您會建構一個名為 Lunch Tray 的訂餐應用程式、透過 data binding 實作 ViewModel，並在 fragment 之間加入 navigation 功能。">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/20fa769d4ba93ef3_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/438b61180d690b3a_1920.png?hl=zh-tw">
@@ -294,258 +294,189 @@
         <blockquote>
 <p>建構一款名為「Lunch Tray」的新應用程式</p>
 </blockquote>
-<p><strong>建構項目</strong> 您會建構一個名為 Lunch Tray
-的訂餐應用程式、透過 data binding 實作 <code>ViewModel</code>，並在
-fragment 之間加入 navigation 功能。</p>
+<p><strong>建構項目</strong><br>您會建構一個名為 Lunch Tray 的訂餐應用程式、透過 data binding 實作 <code>ViewModel</code>，並在 fragment 之間加入 navigation 功能。</p>
 <span id="more"></span>
-<hr />
-<h3 id="專案說明">專案說明</h3>
-<p>本程式碼研究室將說明如何自行建構一款名為「Lunch
-Tray」的新應用程式。我們會引導您逐步完成 Lunch Tray 應用程式專案，包括在
-Android Studio 中設定和測試專案。</p>
+
+<hr>
+<h3 id="專案說明"><a href="#專案說明" class="headerlink" title="專案說明"></a>專案說明</h3><p>本程式碼研究室將說明如何自行建構一款名為「Lunch Tray」的新應用程式。我們會引導您逐步完成 Lunch Tray 應用程式專案，包括在 Android Studio 中設定和測試專案。</p>
 <p>本程式碼研究室與本課程中的其他部分不同。與先前的程式碼研究室不同，本程式碼研究室的目的並不是逐步說明如何建構應用程式，而是設定將由您獨力完成的專案，提供自行完成應用程式及檢查工作成果的相關指示。</p>
-<p>我們改為一併在您將下載的應用程式中提供測試套件，而非程式碼解答。您將在
-Android Studio 中執行這些測試
-(本程式碼研究室稍後會說明操作方法)，並查看程式碼是否通過測試。這可能需要多試幾次，即使是專業開發人員也很難第一次嘗試就通過所有測試！程式碼通過所有測試後，您就能將這項專案視為完成。</p>
-<p>我們瞭解，您可能只是想獲得解答來對照檢查。我們特意不提供程式碼解答，是因為希望您能透過練習，體驗專業開發人員的作業環境。您可能會需要用到較不嫻熟的其他技能，例如：
-+ 在 Google 上搜尋您在應用程式中不認得的字詞、錯誤訊息和程式碼片段。 +
-測試程式碼、解讀錯誤，然後變更程式碼並重複測試。 + 回去閱讀先前 Android
-基本概念中的內容，溫故知新。 + 將您知道可順利執行的程式碼
-(例如專案內提供的程式碼，或是單元 3 中其他應用程式先前的解決方案程式碼)
-與您編寫的程式碼進行比對。</p>
-<p>乍看之下可能很困難，但我們百分之百相信如果您能夠完成單元
-3，就已經對這項專案做好準備了。請按照自己的步調進行，不要放棄，我們對您有信心。</p>
-<hr />
-<h3 id="完成的應用程式總覽">完成的應用程式總覽</h3>
-<p>歡迎來到專案：Lunch Tray！</p>
-<p>您或許已經知道，navigation 是 Android
-開發作業的基本要素。無論是使用應用程式瀏覽食譜、尋找前往喜愛餐廳的路線，還是訂餐這件最重要的事，您都很有可能需要瀏覽多個畫面的內容。在這個專案中，您會運用在單元
-3 中學到的技巧，建構一個名為 Lunch Tray 的午餐訂購應用程式，並且<u>實作
-view model、data binding，以及多個畫面間的 navigation 功能</u>。</p>
-<p>以下是應用程式最終的螢幕截圖。初次啟動 Lunch Tray
-應用程式時，系統會向使用者顯示歡迎畫面，內含一個「Start
-Order」按鈕。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/20fa769d4ba93ef3_1920.png?hl=zh-tw" width="40%"></p>
-<p>按一下「Start
-Order」後，使用者就能從可用的選項中選擇主餐。使用者可以變更所選項目，進而更新底部顯示的「Subtotal」部分。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/438b61180d690b3a_1920.png?hl=zh-tw" width="40%"></p>
-<p>下一個畫面可讓使用者新增配菜。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/768352680759d3e2_1920.png?hl=zh-tw" width="40%"></p>
-<p>之後的畫面可讓使用者選取小菜。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/8ee2bf41e9844614_1920.png?hl=zh-tw" width="40%"></p>
-<p>最後，系統會向使用者顯示訂單費用的摘要，並細分為小計、銷售稅和總費用。使用者也可以提交或取消訂單。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/61c883c34d94b7f7_1920.png?hl=zh-tw" width="40%"></p>
-<p>這兩種選項都會帶使用者返回第一個畫面。如果使用者提交了訂單，畫面底部應會顯示浮動式訊息，讓他們知道訂單已提交。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/acb7d7a5d9843bac_1920.png?hl=zh-tw" width="40%"></p>
-<hr />
-<h3 id="開始操作">開始操作</h3>
-<h4 id="下載專案程式碼">下載專案程式碼</h4>
-<p>請注意，資料夾名稱是
-<code>android-basics-kotlin-lunch-tray-app</code>。在 Android Studio
-中開啟專案時，請選取這個資料夾。</p>
-<div class="note no-icon success">
-            <p><strong>範例程式碼網址：</strong>https://github.com/google-developer-training/android-basics-kotlin-lunch-tray-app/tree/main<strong>具有範例程式碼的分支版本名稱：</strong><b>main</b></p>
-          </div>
-<p>在開始實作 <code>ViewModel</code> 和 navigation
-功能前，請花點時間確認專案已順利完成建構，並熟悉該專案。首次執行應用程式時，您會看到空白畫面。這是因為您尚未設定
-navigation graph，因此 <code>MainActivity</code> 不會顯示任何
-fragment。</p>
-<p>專案結構應與您處理的其他專案類似。系統會提供 <u>data、model和 ui
-的個別 package</u>，以及 resource 的個別目錄。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/a19fd8a4bc92f2fc_1920.png?hl=zh-tw" width="80%"></p>
-<h4 id="data-class-menuitem">data class MenuItem</h4>
-<p>使用者可以訂購的所有午餐選項 (主餐、配菜和小菜) 會以「model」package
-的 <code>MenuItem</code> 類別呈現。<code>MenuItem</code>
-物件包含<u>菜品名稱(name)、菜品說明(description)、價格(price)和菜品類型(type)</u>。
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">MenuItem</span>(</span><br><span class="line">    <span class="keyword">val</span> name: String, <span class="comment">// 菜品名稱</span></span><br><span class="line">    <span class="keyword">val</span> description: String, <span class="comment">// 菜品說明</span></span><br><span class="line">    <span class="keyword">val</span> price: <span class="built_in">Double</span>, <span class="comment">// 價格</span></span><br><span class="line">    <span class="keyword">val</span> type: <span class="built_in">Int</span> <span class="comment">// 類型(主餐、配菜和小菜)</span></span><br><span class="line">) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getFormattedPrice</span><span class="params">()</span></span>: String = NumberFormat.getCurrencyInstance().format(price)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="object-itemtype">object ItemType</h4>
-<p>type 是以「constants」package 中 <code>ItemType</code> 物件的 Int
-呈現。 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> ItemType &#123;</span><br><span class="line">    <span class="keyword">val</span> ENTREE = <span class="number">1</span> <span class="comment">// 主餐</span></span><br><span class="line">    <span class="keyword">val</span> SIDE_DISH = <span class="number">2</span> <span class="comment">// 配菜</span></span><br><span class="line">    <span class="keyword">val</span> ACCOMPANIMENT = <span class="number">3</span> <span class="comment">// 小菜</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="object-datasource">object DataSource</h4>
-<p>您可以在 data package 的 <code>DataSource.kt</code> 中找到個別
-<code>MenuItem</code> 物件。 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> DataSource &#123;</span><br><span class="line">    <span class="keyword">val</span> menuItems = mapOf(</span><br><span class="line">        <span class="string">&quot;cauliflower&quot;</span> to</span><br><span class="line">        MenuItem(</span><br><span class="line">            name = <span class="string">&quot;Cauliflower&quot;</span>,</span><br><span class="line">            description = <span class="string">&quot;Whole cauliflower, brined, roasted, and deep fried&quot;</span>,</span><br><span class="line">            price = <span class="number">7.00</span>,</span><br><span class="line">            type = ItemType.ENTREE</span><br><span class="line">        ),</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>這個物件只包含一個 <strong>map</strong>，其中有<u>索引 key 以及對應的
-value <code>MenuItem</code></u>。您將從 <code>ObjectViewModel</code>
-存取 <code>DataSource</code>，您必須先實作
-<code>ObjectViewModel</code>。</p>
-<h4 id="viewmodel---class-orderviewmodel">ViewModel - class
-OrderViewModel</h4>
-<p>正如前一頁的螢幕截圖所示，應用程式會要求使用者提供以下三樣資訊：主餐、配菜和小菜。接著，訂單摘要畫面會顯示小計，並根據所選餐點計算銷售稅，然後用來算出訂單總金額。</p>
-<p>在「model」package 中開啟
-<code>OrderViewModel.kt</code>，您就會看到幾個已經定義的變數。<code>menuItems</code>
-屬性可讓您從 <code>ViewModel</code> 存取 <code>DataSource</code>。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DataSource 中 menuItems 的 Map</span></span><br><span class="line"><span class="keyword">val</span> menuItems = DataSource.menuItems</span><br></pre></td></tr></table></figure>
-<p>首先，<code>previousEntreePrice</code>、<code>previousSidePrice</code>
-和 <code>previousAccompanimentPrice</code>
-也有一些變數。小計會在使用者做出選擇時更新
-(而不是在最後加總)，因此如果使用者在前往下一個畫面之前變更了所選項目，系統就會透過這些變數來追蹤使用者先前的選項。這些變數可確保小計反映了先前和目前選取項目的價差。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> previousEntreePrice = <span class="number">0.0</span> <span class="comment">// 先前主餐價格</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> previousSidePrice = <span class="number">0.0</span> <span class="comment">// 先前配菜價格</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> previousAccompanimentPrice = <span class="number">0.0</span> <span class="comment">// 先前小菜價格</span></span><br></pre></td></tr></table></figure>
-<p>此外，還有<code>_entree</code>、<code>_side</code> 和
-<code>_accompaniment</code> 這類 private
-變數，可用於儲存目前選取的選項。這些都屬於
-<code>MutableLiveData&lt;MenuItem?&gt;</code> 類型。每個類型都伴隨
-public backing 屬性 <code>entree</code>、<code>side</code> 和
-<code>accompaniment</code> (屬於不可變動的
-<code>LiveData&lt;MenuItem?&gt;</code> 類型)。您可以透過 fragment 的
-layout 來存取這些內容，讓所選 item 顯示在畫面上。<code>LiveData</code>
-物件中包含的 <code>MenuItem</code>
-也可以是空值，因為使用者也可以不選取主餐、配菜和/或小菜。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用者選取的主餐</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _entree = MutableLiveData&lt;MenuItem?&gt;()</span><br><span class="line"><span class="keyword">val</span> entree: LiveData&lt;MenuItem?&gt; = _entree</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 使用者選取的配菜</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _side = MutableLiveData&lt;MenuItem?&gt;()</span><br><span class="line"><span class="keyword">val</span> side: LiveData&lt;MenuItem?&gt; = _side</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用者選取的小菜</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _accompaniment = MutableLiveData&lt;MenuItem?&gt;()</span><br><span class="line"><span class="keyword">val</span> accompaniment: LiveData&lt;MenuItem?&gt; = _accompaniment</span><br></pre></td></tr></table></figure>
-<p>小計、總計與稅金也有 <code>LiveData</code>
-變數，其採<u>數字格式(number formatting)</u>設定，因此能以貨幣形式顯示。
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 訂單小計(預設0.0元)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _subtotal = MutableLiveData(<span class="number">0.0</span>)</span><br><span class="line"><span class="comment">// 使用 Transformations.map() 設定 subtotal 顯示的格式(當地幣別)</span></span><br><span class="line"><span class="keyword">val</span> subtotal: LiveData&lt;String&gt; = Transformations.map(_subtotal) &#123;</span><br><span class="line">    NumberFormat.getCurrencyInstance().format(it)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 訂單總計(預設0.0元)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _total = MutableLiveData(<span class="number">0.0</span>)</span><br><span class="line"><span class="comment">// 使用 Transformations.map() 設定 total 顯示的格式(當地幣別)</span></span><br><span class="line"><span class="keyword">val</span> total: LiveData&lt;String&gt; = Transformations.map(_total) &#123;</span><br><span class="line">    NumberFormat.getCurrencyInstance().format(it)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 訂單稅金(預設0.0元)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _tax = MutableLiveData(<span class="number">0.0</span>)</span><br><span class="line"><span class="comment">// 使用 Transformations.map() 設定 tax 顯示的格式(當地幣別)</span></span><br><span class="line"><span class="keyword">val</span> tax: LiveData&lt;String&gt; = Transformations.map(_tax) &#123;</span><br><span class="line">    NumberFormat.getCurrencyInstance().format(it)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最後，tax rate 是硬式編碼(hardcoded)的 0.08 (8%)。 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> taxRate = <span class="number">0.08</span></span><br></pre></td></tr></table></figure></p>
-<p>您必須實作 <code>OrderViewModel</code> 中的六個方法。</p>
-<p>■ <code>setEntree()</code>、<code>setSide()</code> 和
-<code>setAccompaniment()</code>
-這些方法應該以相同方式適用於主餐、配菜和小菜。舉例來說，<code>setEntree()</code>
-應執行以下操作： 1. 如果 <code>_entree</code> 不是 <code>null</code>
-(也就是使用者已選取主餐，但後來變更了選項)，請將
-<code>previousEntreePrice</code> 設為 <code>current _entree</code>
-的價格。 2. 如果 <code>_subtotal</code> 不是 <code>null</code>，請從
-subtotal 減去 <code>previousEntreePrice</code>。 3. 將
-<code>_entree</code> 的值更新為傳遞至函式的 entree (使用
-<code>menuItems</code> 存取 <code>MenuItem</code>)。 4. 呼叫
-<code>updateSubtotal()</code>，傳遞新選取的主餐價格。</p>
-<p><code>setSide()</code> 和 <code>setAccompaniment()</code> 的邏輯與
-<code>setEntree()</code> 的實作相同。</p>
-<p>■ <code>updateSubtotal()</code> 系統會呼叫
-<code>updateSubtotal()</code>，並加上應加入小計的新價格參數。這個方法需要執行以下三件事：
-1. 如果 <code>_subtotal</code> 不是 <code>null</code>，請將
-<code>itemPrice</code> 新增至 <code>_subtotal</code>。 2. 如果
-<code>_subtotal</code> 是 <code>null</code>，請將 <code>_subtotal</code>
-設為 <code>itemPrice</code>。 3. 設定或更新 <code>_subtotal</code>
-後，呼叫 <code>calculateTaxAndTotal()</code>
-即可更新這些值，以反映新的小計。</p>
-<p>■ <code>calculateTaxAndTotal()</code>
-<code>calculateTaxAndTotal()</code>
-應根據小計(subtotal)來更新稅金(tax)的變數和總金額(total)。實作如下方法：
-1. 將 <code>_tax</code> 設為 tax rate 乘上 subtotal。 2. 將
-<code>_total</code> 設為 subtotal 加上 tax。</p>
-<p>■ <code>resetOrder()</code> 使用者提交或取消訂單時，系統會呼叫
-<code>resetOrder()</code>。當使用者建立新訂單時，請確保應用程式不會留下任何資料。
-建議您將在 <code>OrderViewModel</code> 修改的所有變數設回原始值 (0.0
-或空值)，藉此實作 <code>resetOrder()</code>。</p>
-<h4 id="建立-data-binding-變數">建立 data binding 變數</h4>
-<p>在 layout 檔案中實作 data binding。開啟 layout 檔案，並<u>新增
-<code>OrderViewModel</code> type</u> 和/或<u>對應 fragment class 的 data
-binding 變數</u>。</p>
-<p>您需要實作所有 <code>TODO</code> 註解，才能在四個 layout 檔案中設定
-<strong>text</strong> 和 <strong>click listeners</strong>： 1.
-<code>fragment_entree_menu.xml</code> 2.
-<code>fragment_side_menu.xml</code> 3.
-<code>fragment_accompaniment_menu.xml</code> 4.
-<code>fragment_checkout.xml</code></p>
-<p>系統會在 layout 檔案中的 <code>TODO</code>
-註解標示每個特定工作，步驟摘要如下。 1. 在
-<code>fragment_entree_menu.xml</code> 的 <code>&lt;data&gt;</code>
-標記中，新增 <code>EntreeMenuFragment</code> 的 binding 變數。對於每個
-radio button，您需在按鈕已選取的情況下，於 <code>ViewModel</code>
-中設定主餐。subtotal text view 的 text 應隨之更新。此外，您也需設定
-<code>cancel_button</code> 和 <code>next_button</code> 的
-<code>onClick</code> 屬性，以便分別取消訂單或前往下一個畫面。</p>
-<ol start="2" type="1">
-<li><p>在 <code>fragment_side_menu.xml</code> 中執行相同操作，新增
-<code>SideMenuFragment</code> 的 binding 變數，但在點選每個 radio button
-時，於 view model 中設定配菜。subtotal text 也會需要更新，而您也需為
-cancel 和 next button 設定 <code>onClick</code> 屬性。</p></li>
-<li><p>再次執行相同的操作，但在
-<code>fragment_accompaniment_menu.xml</code> 中，這次使用
-<code>AccompanimentMenuFragment</code> 的 binding 變數，在每個 radio
-button 皆已選取時設定小菜。此外，您也需設定 subtotal text、cancel button
-和 next button 的屬性。</p></li>
-<li><p>在 <code>fragment_checkout.xml</code> 中，您需要新增
-<code>&lt;data&gt;</code> 標記，以便定義 binding 變數。而在
-<code>&lt;data&gt;</code> 標記內，請新增兩個 binding 變數：一個用於
-<code>OrderViewModel</code>，另一個用於
-<code>CheckoutFragment</code>。在 text view 中，您需從
-<code>OrderViewModel</code>
-設定所選主餐、配菜和小菜的名稱與價格。您還需要設定
-<code>OrderViewModel</code> 中的小計、稅金和總金額。接著，使用
-<code>CheckoutFragment</code> 中的適當函式，設定訂單提交和取消時的
-<code>onClickAttributes</code>。</p></li>
-</ol>
-<h4 id="初始化-fragment-中的-data-binding-變數">初始化 fragment 中的
-data binding 變數</h4>
-<p>初始化 <code>onViewCreated()</code> 方法中對應 fragment 檔案內的 data
-binding 變數。 1. <code>EntreeMenuFragment</code> 2.
-<code>SideMenuFragment</code> 3. <code>AccompanimentMenuFragment</code>
-4. <code>CheckoutFragment</code></p>
-<h4 id="建立-navigation-graph">建立 navigation graph</h4>
-<p>單元 3 中已說明，activity 中的 <code>FragmentContainerView</code>
-會代管 navigation graph。開啟 <code>activity_main.xml</code>
-並使用以下程式碼來取代 <code>TODO</code>，以宣告
-<code>FragmentContainerView</code>。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.fragment.app.FragmentContainerView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/nav_host_fragment&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:name</span>=<span class="string">&quot;androidx.navigation.fragment.NavHostFragment&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:defaultNavHost</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:navGraph</span>=<span class="string">&quot;@navigation/mobile_navigation&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p><code>mobile_navigation.xml</code> navigation graph 位於
-<code>res/navigation</code> package 中。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/e3381215c35c1726_1920.png?hl=zh-tw" width="50%"></p>
-<p>這是應用程式的 navigation graph，但此檔案目前為空白。您的工作是為
-navigation graph 新增目的地，並建立以下在不同畫面之間導覽的模型。 1. 從
-<code>StartOrderFragment</code> 前往 <code>EntreeMenuFragment</code> 2.
-從 <code>EntreeMenuFragment</code> 前往 <code>SideMenuFragment</code> 3.
-從 <code>SideMenuFragment</code> 前往
-<code>AccompanimentMenuFragment</code> 4. 從
-<code>AccompanimentMenuFragment</code> 前往
-<code>CheckoutFragment</code> 5. 從 <code>CheckoutFragment</code> 前往
-<code>StartOrderFragment</code> 6. 從 <code>EntreeMenuFragment</code>
-前往 <code>StartOrderFragment</code> 7. 從 <code>SideMenuFragment</code>
-前往 <code>StartOrderFragment</code> 8. 從
-<code>AccompanimentMenuFragment</code> 前往
-<code>StartOrderFragment</code> 9. 起始目的地 應為
-<code>StartOrderFragment</code></p>
-<p>設定 navigation graph 後，您需在 fragment 類別中執行導覽。在 fragment
-中實作剩餘的 <code>TODO</code> 和 <code>MainActivity.kt</code> 註解。 1.
-針對 <code>EntreeMenuFragment</code>、<code>SideMenuFragment</code> 和
-<code>AccompanimentMenuFragment</code> 中的
-<code>goToNextScreen()</code> 方法，前往應用程式中的下一個畫面。 2. 針對
-<code>EntreeMenuFragment</code>、<code>SideMenuFragment</code>、<code>AccompanimentMenuFragment</code>
-和 <code>CheckoutFragment</code> 中的 <code>cancelOrder()</code>
-方法，首先在 <code>sharedViewModel</code> 上呼叫
-<code>resetOrder()</code>，然後前往 <code>StartOrderFragment</code>。 3.
-在 <code>StartOrderFragment</code> 中，實作
-<code>setOnClickListener()</code> 以前往
-<code>EntreeMenuFragment</code>。 4. 在 <code>CheckoutFragment</code>
-中實作 <code>submitOrder()</code> 方法。在 <code>sharedViewModel</code>
-上呼叫 <code>resetOrder()</code>，然後前往
-<code>StartOrderFragment</code>。 5. 最後在 <code>MainActivity.kt</code>
-中，將 <code>NavHostFragment</code> 的 <code>navController</code> 設為
-<code>navController</code>。</p>
-<div class="note no-icon success">
-            <p><strong>注意：</strong><b>OrderViewModel</b>會處理這個應用程式的所有資料。您不需要傳送任何參數給目的地fragment。</p>
-          </div>
-<h4 id="完成結果">完成結果</h4>
-<p>完成後的 Lunch Tray App 執行結果如下： <div class="video-container"><iframe src="https://player.vimeo.com/video/891345910" frameborder="0" loading="lazy" allowfullscreen></iframe></div></p>
-<div class="note no-icon primary">
-            <p>可以至我的 Github 查看程式碼：https://github.com/linglingdr00/Lunch-Tray-App-Practice</p>
-          </div>
-<hr />
-<h3 id="測試應用程式">測試應用程式</h3>
-<p>Lunch Tray
-專案包含一個「androidTest」目標，有多種測試案例：<code>MenuContentTests</code>、<code>NavigationTests</code>
-和 <code>OrderFunctionalityTests</code>。</p>
-<h4 id="執行測試">執行測試</h4>
-<p>如要執行測試，您可以執行下列其中一項操作：</p>
-<p>若是單一測試案例，請開啟測試案例類別，然後按一下類別宣告左側的綠色箭頭。接著從選單中選取「Run」選項。這麼做將會執行測試案例中的所有測試。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/8ddcbafb8ec14f9b_1920.png?hl=zh-tw" width="70%"></p>
-<p>您通常只需要執行一項測試，例如在只有一個測試失敗，而其他測試都通過時。執行單一測試的做法，與執行整個測試案例一樣。請按一下綠色箭頭，並選取「Run」選項。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/335664b7fc8b4fb5_1920.png?hl=zh-tw" width="80%"></p>
-<p>如果您有多個測試案例，也可以執行整個測試套件。就像執行應用程式一樣，您可以在「Run」選單中找到這個選項。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/80312efedf6e4dd3_1920.png?hl=zh-tw" width="80%"></p>
-<p>請注意，Android Studio 預設會執行您執行的最後一個目標
-(應用程式、測試目標等)，因此如果選單仍顯示「Run」&gt;「Run
-‘app'」，您可以依序選取「Run」&gt;「Run」執行測試目標。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/95aacc8f749dee8e_1920.png?hl=zh-tw" width="80%"></p>
-<p>然後從彈出式選單中選擇測試目標。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/8b702efbd4d21d3d_1920.png?hl=zh-tw" width="40%"></p>
-<h4 id="測試結果">測試結果</h4>
+<p>我們改為一併在您將下載的應用程式中提供測試套件，而非程式碼解答。您將在 Android Studio 中執行這些測試 (本程式碼研究室稍後會說明操作方法)，並查看程式碼是否通過測試。這可能需要多試幾次，即使是專業開發人員也很難第一次嘗試就通過所有測試！程式碼通過所有測試後，您就能將這項專案視為完成。</p>
+<p>我們瞭解，您可能只是想獲得解答來對照檢查。我們特意不提供程式碼解答，是因為希望您能透過練習，體驗專業開發人員的作業環境。您可能會需要用到較不嫻熟的其他技能，例如：</p>
 <ul>
-<li><p><code>MenuContentTests</code>
-<img src="https://i.imgur.com/gy2L4Fr.png" width="80%"></p></li>
-<li><p><code>NavigationTests</code>
-<img src="https://i.imgur.com/9zVYjnt.png" width="80%"></p></li>
-<li><p><code>OrderFunctionalityTests</code>
-<img src="https://i.imgur.com/Dbk8Q2C.png" width="80%"></p></li>
+<li>在 Google 上搜尋您在應用程式中不認得的字詞、錯誤訊息和程式碼片段。</li>
+<li>測試程式碼、解讀錯誤，然後變更程式碼並重複測試。</li>
+<li>回去閱讀先前 Android 基本概念中的內容，溫故知新。</li>
+<li>將您知道可順利執行的程式碼 (例如專案內提供的程式碼，或是單元 3 中其他應用程式先前的解決方案程式碼) 與您編寫的程式碼進行比對。</li>
+</ul>
+<p>乍看之下可能很困難，但我們百分之百相信如果您能夠完成單元 3，就已經對這項專案做好準備了。請按照自己的步調進行，不要放棄，我們對您有信心。</p>
+<hr>
+<h3 id="完成的應用程式總覽"><a href="#完成的應用程式總覽" class="headerlink" title="完成的應用程式總覽"></a>完成的應用程式總覽</h3><p>歡迎來到專案：Lunch Tray！</p>
+<p>您或許已經知道，navigation 是 Android 開發作業的基本要素。無論是使用應用程式瀏覽食譜、尋找前往喜愛餐廳的路線，還是訂餐這件最重要的事，您都很有可能需要瀏覽多個畫面的內容。在這個專案中，您會運用在單元 3 中學到的技巧，建構一個名為 Lunch Tray 的午餐訂購應用程式，並且<u>實作 view model、data binding，以及多個畫面間的 navigation 功能</u>。</p>
+<p>以下是應用程式最終的螢幕截圖。初次啟動 Lunch Tray 應用程式時，系統會向使用者顯示歡迎畫面，內含一個「Start Order」按鈕。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/20fa769d4ba93ef3_1920.png?hl=zh-tw" width="40%">
+
+<p>按一下「Start Order」後，使用者就能從可用的選項中選擇主餐。使用者可以變更所選項目，進而更新底部顯示的「Subtotal」部分。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/438b61180d690b3a_1920.png?hl=zh-tw" width="40%">
+
+<p>下一個畫面可讓使用者新增配菜。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/768352680759d3e2_1920.png?hl=zh-tw" width="40%">
+
+<p>之後的畫面可讓使用者選取小菜。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/8ee2bf41e9844614_1920.png?hl=zh-tw" width="40%">
+
+<p>最後，系統會向使用者顯示訂單費用的摘要，並細分為小計、銷售稅和總費用。使用者也可以提交或取消訂單。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/61c883c34d94b7f7_1920.png?hl=zh-tw" width="40%">
+
+<p>這兩種選項都會帶使用者返回第一個畫面。如果使用者提交了訂單，畫面底部應會顯示浮動式訊息，讓他們知道訂單已提交。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/acb7d7a5d9843bac_1920.png?hl=zh-tw" width="40%">
+
+<hr>
+<h3 id="開始操作"><a href="#開始操作" class="headerlink" title="開始操作"></a>開始操作</h3><h4 id="下載專案程式碼"><a href="#下載專案程式碼" class="headerlink" title="下載專案程式碼"></a>下載專案程式碼</h4><p>請注意，資料夾名稱是 <code>android-basics-kotlin-lunch-tray-app</code>。在 Android Studio 中開啟專案時，請選取這個資料夾。</p>
+<div class="note no-icon success">
+            <p><strong>範例程式碼網址：</strong><br><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-lunch-tray-app/tree/main">https://github.com/google-developer-training/android-basics-kotlin-lunch-tray-app/tree/main</a><br><strong>具有範例程式碼的分支版本名稱：</strong><b>main</b></p>
+          </div>
+
+<p>在開始實作 <code>ViewModel</code> 和 navigation 功能前，請花點時間確認專案已順利完成建構，並熟悉該專案。首次執行應用程式時，您會看到空白畫面。這是因為您尚未設定 navigation graph，因此 <code>MainActivity</code> 不會顯示任何 fragment。</p>
+<p>專案結構應與您處理的其他專案類似。系統會提供 <u>data、model和 ui 的個別 package</u>，以及 resource 的個別目錄。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/a19fd8a4bc92f2fc_1920.png?hl=zh-tw" width="80%">
+
+<h4 id="data-class-MenuItem"><a href="#data-class-MenuItem" class="headerlink" title="data class MenuItem"></a>data class MenuItem</h4><p>使用者可以訂購的所有午餐選項 (主餐、配菜和小菜) 會以「model」package 的 <code>MenuItem</code> 類別呈現。<code>MenuItem</code> 物件包含<u>菜品名稱(name)、菜品說明(description)、價格(price)和菜品類型(type)</u>。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">MenuItem</span>(</span><br><span class="line">    <span class="keyword">val</span> name: String, <span class="comment">// 菜品名稱</span></span><br><span class="line">    <span class="keyword">val</span> description: String, <span class="comment">// 菜品說明</span></span><br><span class="line">    <span class="keyword">val</span> price: <span class="built_in">Double</span>, <span class="comment">// 價格</span></span><br><span class="line">    <span class="keyword">val</span> type: <span class="built_in">Int</span> <span class="comment">// 類型(主餐、配菜和小菜)</span></span><br><span class="line">) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getFormattedPrice</span><span class="params">()</span></span>: String = NumberFormat.getCurrencyInstance().format(price)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="object-ItemType"><a href="#object-ItemType" class="headerlink" title="object ItemType"></a>object ItemType</h4><p>type 是以「constants」package 中 <code>ItemType</code> 物件的 Int 呈現。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> ItemType &#123;</span><br><span class="line">    <span class="keyword">val</span> ENTREE = <span class="number">1</span> <span class="comment">// 主餐</span></span><br><span class="line">    <span class="keyword">val</span> SIDE_DISH = <span class="number">2</span> <span class="comment">// 配菜</span></span><br><span class="line">    <span class="keyword">val</span> ACCOMPANIMENT = <span class="number">3</span> <span class="comment">// 小菜</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="object-DataSource"><a href="#object-DataSource" class="headerlink" title="object DataSource"></a>object DataSource</h4><p>您可以在 data package 的 <code>DataSource.kt</code> 中找到個別 <code>MenuItem</code> 物件。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> DataSource &#123;</span><br><span class="line">    <span class="keyword">val</span> menuItems = mapOf(</span><br><span class="line">        <span class="string">&quot;cauliflower&quot;</span> to</span><br><span class="line">        MenuItem(</span><br><span class="line">            name = <span class="string">&quot;Cauliflower&quot;</span>,</span><br><span class="line">            description = <span class="string">&quot;Whole cauliflower, brined, roasted, and deep fried&quot;</span>,</span><br><span class="line">            price = <span class="number">7.00</span>,</span><br><span class="line">            type = ItemType.ENTREE</span><br><span class="line">        ),</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這個物件只包含一個 <strong>map</strong>，其中有<u>索引 key 以及對應的 value <code>MenuItem</code></u>。您將從 <code>ObjectViewModel</code> 存取 <code>DataSource</code>，您必須先實作 <code>ObjectViewModel</code>。</p>
+<h4 id="ViewModel-class-OrderViewModel"><a href="#ViewModel-class-OrderViewModel" class="headerlink" title="ViewModel - class OrderViewModel"></a>ViewModel - class OrderViewModel</h4><p>正如前一頁的螢幕截圖所示，應用程式會要求使用者提供以下三樣資訊：主餐、配菜和小菜。接著，訂單摘要畫面會顯示小計，並根據所選餐點計算銷售稅，然後用來算出訂單總金額。</p>
+<p>在「model」package 中開啟 <code>OrderViewModel.kt</code>，您就會看到幾個已經定義的變數。<code>menuItems</code> 屬性可讓您從 <code>ViewModel</code> 存取 <code>DataSource</code>。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DataSource 中 menuItems 的 Map</span></span><br><span class="line"><span class="keyword">val</span> menuItems = DataSource.menuItems</span><br></pre></td></tr></table></figure>
+
+<p>首先，<code>previousEntreePrice</code>、<code>previousSidePrice</code> 和 <code>previousAccompanimentPrice</code> 也有一些變數。小計會在使用者做出選擇時更新 (而不是在最後加總)，因此如果使用者在前往下一個畫面之前變更了所選項目，系統就會透過這些變數來追蹤使用者先前的選項。這些變數可確保小計反映了先前和目前選取項目的價差。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> previousEntreePrice = <span class="number">0.0</span> <span class="comment">// 先前主餐價格</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> previousSidePrice = <span class="number">0.0</span> <span class="comment">// 先前配菜價格</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> previousAccompanimentPrice = <span class="number">0.0</span> <span class="comment">// 先前小菜價格</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，還有<code> _entree</code>、<code>_side</code> 和 <code>_accompaniment</code> 這類 private 變數，可用於儲存目前選取的選項。這些都屬於 <code>MutableLiveData&lt;MenuItem?&gt;</code> 類型。每個類型都伴隨 public backing 屬性 <code>entree</code>、<code>side</code> 和 <code>accompaniment</code> (屬於不可變動的 <code>LiveData&lt;MenuItem?&gt;</code> 類型)。您可以透過 fragment 的 layout 來存取這些內容，讓所選 item 顯示在畫面上。<code>LiveData</code> 物件中包含的 <code>MenuItem</code> 也可以是空值，因為使用者也可以不選取主餐、配菜和&#x2F;或小菜。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用者選取的主餐</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _entree = MutableLiveData&lt;MenuItem?&gt;()</span><br><span class="line"><span class="keyword">val</span> entree: LiveData&lt;MenuItem?&gt; = _entree</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 使用者選取的配菜</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _side = MutableLiveData&lt;MenuItem?&gt;()</span><br><span class="line"><span class="keyword">val</span> side: LiveData&lt;MenuItem?&gt; = _side</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用者選取的小菜</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _accompaniment = MutableLiveData&lt;MenuItem?&gt;()</span><br><span class="line"><span class="keyword">val</span> accompaniment: LiveData&lt;MenuItem?&gt; = _accompaniment</span><br></pre></td></tr></table></figure>
+
+<p>小計、總計與稅金也有 <code>LiveData</code> 變數，其採<u>數字格式(number formatting)</u>設定，因此能以貨幣形式顯示。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 訂單小計(預設0.0元)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _subtotal = MutableLiveData(<span class="number">0.0</span>)</span><br><span class="line"><span class="comment">// 使用 Transformations.map() 設定 subtotal 顯示的格式(當地幣別)</span></span><br><span class="line"><span class="keyword">val</span> subtotal: LiveData&lt;String&gt; = Transformations.map(_subtotal) &#123;</span><br><span class="line">    NumberFormat.getCurrencyInstance().format(it)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 訂單總計(預設0.0元)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _total = MutableLiveData(<span class="number">0.0</span>)</span><br><span class="line"><span class="comment">// 使用 Transformations.map() 設定 total 顯示的格式(當地幣別)</span></span><br><span class="line"><span class="keyword">val</span> total: LiveData&lt;String&gt; = Transformations.map(_total) &#123;</span><br><span class="line">    NumberFormat.getCurrencyInstance().format(it)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 訂單稅金(預設0.0元)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _tax = MutableLiveData(<span class="number">0.0</span>)</span><br><span class="line"><span class="comment">// 使用 Transformations.map() 設定 tax 顯示的格式(當地幣別)</span></span><br><span class="line"><span class="keyword">val</span> tax: LiveData&lt;String&gt; = Transformations.map(_tax) &#123;</span><br><span class="line">    NumberFormat.getCurrencyInstance().format(it)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最後，tax rate 是硬式編碼(hardcoded)的 0.08 (8%)。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> taxRate = <span class="number">0.08</span></span><br></pre></td></tr></table></figure>
+
+<p>您必須實作 <code>OrderViewModel</code> 中的六個方法。</p>
+<p>■ <code>setEntree()</code>、<code>setSide()</code> 和 <code>setAccompaniment()</code><br>這些方法應該以相同方式適用於主餐、配菜和小菜。舉例來說，<code>setEntree()</code> 應執行以下操作：</p>
+<ol>
+<li>如果 <code>_entree</code> 不是 <code>null</code> (也就是使用者已選取主餐，但後來變更了選項)，請將 <code>previousEntreePrice</code> 設為 <code>current _entree</code> 的價格。</li>
+<li>如果 <code>_subtotal</code> 不是 <code>null</code>，請從 subtotal 減去 <code>previousEntreePrice</code>。</li>
+<li>將 <code>_entree</code> 的值更新為傳遞至函式的 entree (使用 <code>menuItems</code> 存取 <code>MenuItem</code>)。</li>
+<li>呼叫 <code>updateSubtotal()</code>，傳遞新選取的主餐價格。</li>
+</ol>
+<p><code>setSide()</code> 和 <code>setAccompaniment()</code> 的邏輯與 <code>setEntree()</code> 的實作相同。</p>
+<p>■ <code>updateSubtotal()</code><br>系統會呼叫 <code>updateSubtotal()</code>，並加上應加入小計的新價格參數。這個方法需要執行以下三件事：</p>
+<ol>
+<li>如果 <code>_subtotal</code> 不是 <code>null</code>，請將 <code>itemPrice</code> 新增至 <code>_subtotal</code>。</li>
+<li>如果 <code>_subtotal</code> 是 <code>null</code>，請將 <code>_subtotal</code> 設為 <code>itemPrice</code>。</li>
+<li>設定或更新 <code>_subtotal</code> 後，呼叫 <code>calculateTaxAndTotal()</code> 即可更新這些值，以反映新的小計。</li>
+</ol>
+<p>■ <code>calculateTaxAndTotal()</code><br><code>calculateTaxAndTotal()</code> 應根據小計(subtotal)來更新稅金(tax)的變數和總金額(total)。實作如下方法：</p>
+<ol>
+<li>將 <code>_tax</code> 設為 tax rate 乘上 subtotal。</li>
+<li>將 <code>_total</code> 設為 subtotal 加上 tax。</li>
+</ol>
+<p>■ <code>resetOrder()</code><br>使用者提交或取消訂單時，系統會呼叫 <code>resetOrder()</code>。當使用者建立新訂單時，請確保應用程式不會留下任何資料。<br>建議您將在 <code>OrderViewModel</code> 修改的所有變數設回原始值 (0.0 或空值)，藉此實作 <code>resetOrder()</code>。</p>
+<h4 id="建立-data-binding-變數"><a href="#建立-data-binding-變數" class="headerlink" title="建立 data binding 變數"></a>建立 data binding 變數</h4><p>在 layout 檔案中實作 data binding。開啟 layout 檔案，並<u>新增 <code>OrderViewModel</code> type</u> 和&#x2F;或<u>對應 fragment class 的 data binding 變數</u>。</p>
+<p>您需要實作所有 <code>TODO</code> 註解，才能在四個 layout 檔案中設定 <strong>text</strong> 和 <strong>click listeners</strong>：</p>
+<ol>
+<li><code>fragment_entree_menu.xml</code></li>
+<li><code>fragment_side_menu.xml</code></li>
+<li><code>fragment_accompaniment_menu.xml</code></li>
+<li><code>fragment_checkout.xml</code></li>
+</ol>
+<p>系統會在 layout 檔案中的 <code>TODO</code> 註解標示每個特定工作，步驟摘要如下。</p>
+<ol>
+<li><p>在 <code>fragment_entree_menu.xml</code> 的 <code>&lt;data&gt;</code> 標記中，新增 <code>EntreeMenuFragment</code> 的 binding 變數。對於每個 radio button，您需在按鈕已選取的情況下，於 <code>ViewModel</code> 中設定主餐。subtotal text view 的 text 應隨之更新。此外，您也需設定 <code>cancel_button</code> 和 <code>next_button</code> 的 <code>onClick</code> 屬性，以便分別取消訂單或前往下一個畫面。</p>
+</li>
+<li><p>在 <code>fragment_side_menu.xml</code> 中執行相同操作，新增 <code>SideMenuFragment</code> 的 binding 變數，但在點選每個 radio button 時，於 view model 中設定配菜。subtotal text 也會需要更新，而您也需為 cancel 和 next button 設定 <code>onClick</code> 屬性。</p>
+</li>
+<li><p>再次執行相同的操作，但在 <code>fragment_accompaniment_menu.xml</code> 中，這次使用 <code>AccompanimentMenuFragment</code> 的 binding 變數，在每個 radio button 皆已選取時設定小菜。此外，您也需設定 subtotal text、cancel button 和 next button 的屬性。</p>
+</li>
+<li><p>在 <code>fragment_checkout.xml</code> 中，您需要新增 <code>&lt;data&gt;</code> 標記，以便定義 binding 變數。而在 <code>&lt;data&gt;</code> 標記內，請新增兩個 binding 變數：一個用於 <code>OrderViewModel</code>，另一個用於 <code>CheckoutFragment</code>。在 text view 中，您需從 <code>OrderViewModel</code> 設定所選主餐、配菜和小菜的名稱與價格。您還需要設定 <code>OrderViewModel</code> 中的小計、稅金和總金額。接著，使用 <code>CheckoutFragment</code> 中的適當函式，設定訂單提交和取消時的 <code>onClickAttributes</code>。</p>
+</li>
+</ol>
+<h4 id="初始化-fragment-中的-data-binding-變數"><a href="#初始化-fragment-中的-data-binding-變數" class="headerlink" title="初始化 fragment 中的 data binding 變數"></a>初始化 fragment 中的 data binding 變數</h4><p>初始化 <code>onViewCreated()</code> 方法中對應 fragment 檔案內的 data binding 變數。</p>
+<ol>
+<li><code>EntreeMenuFragment</code></li>
+<li><code>SideMenuFragment</code></li>
+<li><code>AccompanimentMenuFragment</code></li>
+<li><code>CheckoutFragment</code></li>
+</ol>
+<h4 id="建立-navigation-graph"><a href="#建立-navigation-graph" class="headerlink" title="建立 navigation graph"></a>建立 navigation graph</h4><p>單元 3 中已說明，activity 中的 <code>FragmentContainerView</code> 會代管 navigation graph。開啟 <code>activity_main.xml</code> 並使用以下程式碼來取代 <code>TODO</code>，以宣告 <code>FragmentContainerView</code>。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.fragment.app.FragmentContainerView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/nav_host_fragment&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:name</span>=<span class="string">&quot;androidx.navigation.fragment.NavHostFragment&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:defaultNavHost</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:navGraph</span>=<span class="string">&quot;@navigation/mobile_navigation&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>mobile_navigation.xml</code> navigation graph 位於 <code>res/navigation</code> package 中。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/e3381215c35c1726_1920.png?hl=zh-tw" width="50%">
+
+<p>這是應用程式的 navigation graph，但此檔案目前為空白。您的工作是為 navigation graph 新增目的地，並建立以下在不同畫面之間導覽的模型。</p>
+<ol>
+<li>從 <code>StartOrderFragment</code> 前往 <code>EntreeMenuFragment</code></li>
+<li>從 <code>EntreeMenuFragment</code> 前往 <code>SideMenuFragment</code></li>
+<li>從 <code>SideMenuFragment</code> 前往 <code>AccompanimentMenuFragment</code></li>
+<li>從 <code>AccompanimentMenuFragment</code> 前往 <code>CheckoutFragment</code></li>
+<li>從 <code>CheckoutFragment</code> 前往 <code>StartOrderFragment</code></li>
+<li>從 <code>EntreeMenuFragment</code> 前往 <code>StartOrderFragment</code></li>
+<li>從 <code>SideMenuFragment</code> 前往 <code>StartOrderFragment</code></li>
+<li>從 <code>AccompanimentMenuFragment</code> 前往 <code>StartOrderFragment</code></li>
+<li>起始目的地 應為 <code>StartOrderFragment</code></li>
+</ol>
+<p>設定 navigation graph 後，您需在 fragment 類別中執行導覽。在 fragment 中實作剩餘的 <code>TODO</code> 和 <code>MainActivity.kt</code> 註解。</p>
+<ol>
+<li>針對 <code>EntreeMenuFragment</code>、<code>SideMenuFragment</code> 和 <code>AccompanimentMenuFragment</code> 中的 <code>goToNextScreen()</code> 方法，前往應用程式中的下一個畫面。</li>
+<li>針對 <code>EntreeMenuFragment</code>、<code>SideMenuFragment</code>、<code>AccompanimentMenuFragment</code> 和 <code>CheckoutFragment</code> 中的 <code>cancelOrder()</code> 方法，首先在 <code>sharedViewModel</code> 上呼叫 <code>resetOrder()</code>，然後前往 <code>StartOrderFragment</code>。</li>
+<li>在 <code>StartOrderFragment</code> 中，實作 <code>setOnClickListener()</code> 以前往 <code>EntreeMenuFragment</code>。</li>
+<li>在 <code>CheckoutFragment</code> 中實作 <code>submitOrder()</code> 方法。在 <code>sharedViewModel</code> 上呼叫 <code>resetOrder()</code>，然後前往 <code>StartOrderFragment</code>。</li>
+<li>最後在 <code>MainActivity.kt</code> 中，將 <code>NavHostFragment</code> 的 <code>navController</code> 設為 <code>navController</code>。</li>
+</ol>
+<div class="note no-icon success">
+            <p><strong>注意：</strong><b>OrderViewModel</b> 會處理這個應用程式的所有資料。您不需要傳送任何參數給目的地 fragment。</p>
+          </div>
+
+<h4 id="完成結果"><a href="#完成結果" class="headerlink" title="完成結果"></a>完成結果</h4><p>完成後的 Lunch Tray App 執行結果如下：</p>
+<div class="video-container"><iframe src="https://player.vimeo.com/video/891345910" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
+
+<div class="note no-icon primary">
+            <p>可以至我的 Github 查看程式碼：<br><a target="_blank" rel="noopener" href="https://github.com/linglingdr00/Lunch-Tray-App-Practice">https://github.com/linglingdr00/Lunch-Tray-App-Practice</a></p>
+          </div>
+
+<hr>
+<h3 id="測試應用程式"><a href="#測試應用程式" class="headerlink" title="測試應用程式"></a>測試應用程式</h3><p>Lunch Tray 專案包含一個「androidTest」目標，有多種測試案例：<code>MenuContentTests</code>、<code>NavigationTests</code> 和 <code>OrderFunctionalityTests</code>。</p>
+<h4 id="執行測試"><a href="#執行測試" class="headerlink" title="執行測試"></a>執行測試</h4><p>如要執行測試，您可以執行下列其中一項操作：</p>
+<p>若是單一測試案例，請開啟測試案例類別，然後按一下類別宣告左側的綠色箭頭。接著從選單中選取「Run」選項。這麼做將會執行測試案例中的所有測試。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/8ddcbafb8ec14f9b_1920.png?hl=zh-tw" width="70%">
+
+<p>您通常只需要執行一項測試，例如在只有一個測試失敗，而其他測試都通過時。執行單一測試的做法，與執行整個測試案例一樣。請按一下綠色箭頭，並選取「Run」選項。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/335664b7fc8b4fb5_1920.png?hl=zh-tw" width="80%">
+
+<p>如果您有多個測試案例，也可以執行整個測試套件。就像執行應用程式一樣，您可以在「Run」選單中找到這個選項。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/80312efedf6e4dd3_1920.png?hl=zh-tw" width="80%">
+
+<p>請注意，Android Studio 預設會執行您執行的最後一個目標 (應用程式、測試目標等)，因此如果選單仍顯示「Run」&gt;「Run ‘app’」，您可以依序選取「Run」&gt;「Run」執行測試目標。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/95aacc8f749dee8e_1920.png?hl=zh-tw" width="80%">
+
+<p>然後從彈出式選單中選擇測試目標。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-lunch-tray/img/8b702efbd4d21d3d_1920.png?hl=zh-tw" width="40%">
+
+<h4 id="測試結果"><a href="#測試結果" class="headerlink" title="測試結果"></a>測試結果</h4><ul>
+<li><p><code>MenuContentTests</code></p>
+<img src="https://i.imgur.com/gy2L4Fr.png" width="80%">
+</li>
+<li><p><code>NavigationTests</code></p>
+<img src="https://i.imgur.com/9zVYjnt.png" width="80%">
+</li>
+<li><p><code>OrderFunctionalityTests</code></p>
+<img src="https://i.imgur.com/Dbk8Q2C.png" width="80%"></li>
 </ul>
 
     </div>
@@ -642,9 +573,7 @@ navigation graph 新增目的地，並建立以下在不同畫面之間導覽的
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%88%E6%A1%88%E8%AA%AA%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">專案說明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E7%9A%84%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">2.</span> <span class="nav-text">完成的應用程式總覽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E5%A7%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">開始操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E5%B0%88%E6%A1%88%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">3.1.</span> <span class="nav-text">下載專案程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data-class-menuitem"><span class="nav-number">3.2.</span> <span class="nav-text">data class MenuItem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#object-itemtype"><span class="nav-number">3.3.</span> <span class="nav-text">object ItemType</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#object-datasource"><span class="nav-number">3.4.</span> <span class="nav-text">object DataSource</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#viewmodel---class-orderviewmodel"><span class="nav-number">3.5.</span> <span class="nav-text">ViewModel - class
-OrderViewModel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-data-binding-%E8%AE%8A%E6%95%B8"><span class="nav-number">3.6.</span> <span class="nav-text">建立 data binding 變數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-fragment-%E4%B8%AD%E7%9A%84-data-binding-%E8%AE%8A%E6%95%B8"><span class="nav-number">3.7.</span> <span class="nav-text">初始化 fragment 中的
-data binding 變數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-navigation-graph"><span class="nav-number">3.8.</span> <span class="nav-text">建立 navigation graph</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E7%B5%90%E6%9E%9C"><span class="nav-number">3.9.</span> <span class="nav-text">完成結果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">測試應用程式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%B8%AC%E8%A9%A6"><span class="nav-number">4.1.</span> <span class="nav-text">執行測試</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E7%B5%90%E6%9E%9C"><span class="nav-number">4.2.</span> <span class="nav-text">測試結果</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%88%E6%A1%88%E8%AA%AA%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">專案說明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E7%9A%84%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">2.</span> <span class="nav-text">完成的應用程式總覽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E5%A7%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">開始操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E5%B0%88%E6%A1%88%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">3.1.</span> <span class="nav-text">下載專案程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data-class-MenuItem"><span class="nav-number">3.2.</span> <span class="nav-text">data class MenuItem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#object-ItemType"><span class="nav-number">3.3.</span> <span class="nav-text">object ItemType</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#object-DataSource"><span class="nav-number">3.4.</span> <span class="nav-text">object DataSource</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ViewModel-class-OrderViewModel"><span class="nav-number">3.5.</span> <span class="nav-text">ViewModel - class OrderViewModel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-data-binding-%E8%AE%8A%E6%95%B8"><span class="nav-number">3.6.</span> <span class="nav-text">建立 data binding 變數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-fragment-%E4%B8%AD%E7%9A%84-data-binding-%E8%AE%8A%E6%95%B8"><span class="nav-number">3.7.</span> <span class="nav-text">初始化 fragment 中的 data binding 變數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-navigation-graph"><span class="nav-number">3.8.</span> <span class="nav-text">建立 navigation graph</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E7%B5%90%E6%9E%9C"><span class="nav-number">3.9.</span> <span class="nav-text">完成結果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">測試應用程式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%B8%AC%E8%A9%A6"><span class="nav-number">4.1.</span> <span class="nav-text">執行測試</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E7%B5%90%E6%9E%9C"><span class="nav-number">4.2.</span> <span class="nav-text">測試結果</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -769,8 +698,6 @@ data binding 變數</span></a></li><li class="nav-item nav-level-4"><a class="na
 
 
 
-
-  
 
   
 

@@ -288,204 +288,154 @@
         <blockquote>
 <p>瞭解如何在 debugging 時使用中斷點(breakpoints)，並留意特定變數。</p>
 </blockquote>
-<p>到目前為止，大多數的新手 developers 可能已經會使用 Log statements
-進行 debugging。完成單元 1 後，您將學到如何解讀 <u>stack traces</u>
-和研究 <u>error messages</u>。雖然這兩種工具都是功能強大的 debugging
-工具，但現代 IDE 提供更多功能，讓您的 debugging 流程更有效率。</p>
-<p>在本課程中，您將瞭解 <u>Android Studio 整合的
-debugger</u>、如何<u>暫停執行 app</u>，以及<u>一次執行單行程式碼，找出
-bug 的確切來源</u>。此外，您將學會如何使用一項稱為
-<strong>Watches</strong>
-的功能以及<u>如何追蹤特定變數</u>，而不必新增特定的 log statements。</p>
-<p><strong>學習目標</strong> + 如何將 debugger 附加到運作中的 app。 +
-使用<b>中斷點(breakpoints)</b>來暫停執行中的 app，逐行檢查程式碼。 +
-將<u>條件運算式</u>加入<b>中斷點(breakpoints)</b>以節省 debugging 時間。
-+ 在 Watches 窗格中新增變數，以輔助 debugging。</p>
+<p>到目前為止，大多數的新手 developers 可能已經會使用 Log statements 進行 debugging。完成單元 1 後，您將學到如何解讀 <u>stack traces</u> 和研究 <u>error messages</u>。雖然這兩種工具都是功能強大的 debugging 工具，但現代 IDE 提供更多功能，讓您的 debugging 流程更有效率。</p>
+<p>在本課程中，您將瞭解 <u>Android Studio 整合的 debugger</u>、如何<u>暫停執行 app</u>，以及<u>一次執行單行程式碼，找出 bug 的確切來源</u>。此外，您將學會如何使用一項稱為 <strong>Watches</strong> 的功能以及<u>如何追蹤特定變數</u>，而不必新增特定的 log statements。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何將 debugger 附加到運作中的 app。</li>
+<li>使用<b>中斷點(breakpoints)</b>來暫停執行中的 app，逐行檢查程式碼。</li>
+<li>將<u>條件運算式</u>加入<b>中斷點(breakpoints)</b>以節省 debugging 時間。</li>
+<li>在 Watches 窗格中新增變數，以輔助 debugging。</li>
+</ul>
 <span id="more"></span>
-<hr />
-<h3 id="建立新-project">建立新 project</h3>
-<p>我們不會一開始就對複雜的大型 app
-進行偵錯，而是會從空白專案著手並介紹一些錯誤程式碼，藉此展示 Android
-Studio 中的偵錯工具。</p>
+
+<hr>
+<h3 id="建立新-project"><a href="#建立新-project" class="headerlink" title="建立新 project"></a>建立新 project</h3><p>我們不會一開始就對複雜的大型 app 進行偵錯，而是會從空白專案著手並介紹一些錯誤程式碼，藉此展示 Android Studio 中的偵錯工具。</p>
 <p>建立新的 Android Studio 專案，即可開始使用。</p>
-<ol type="1">
-<li><p>在「Select a Project Template」(選取專案範本) 畫面中選擇「Empty
-Views Activity」(空白活動)。</p></li>
-<li><p>將應用程式命名為「Debugging」，接著確認語言已設為
-Kotlin，其他項目則保持不變。</p></li>
-<li><p>系統將開啟一項新的 Android Studio 專案，並顯示一個名為
-<code>MainActivity.kt</code> 的檔案。</p></li>
+<ol>
+<li><p>在「Select a Project Template」(選取專案範本) 畫面中選擇「Empty Views Activity」(空白活動)。</p>
+</li>
+<li><p>將應用程式命名為「Debugging」，接著確認語言已設為 Kotlin，其他項目則保持不變。</p>
+</li>
+<li><p>系統將開啟一項新的 Android Studio 專案，並顯示一個名為 <code>MainActivity.kt</code> 的檔案。</p>
+</li>
 </ol>
-<h4 id="回報-bug">回報 bug</h4>
-<p>還記得單元 1 中 debugging
-課程的除以零範例嗎？在迴圈(loop)的最終迭代(iteration)中，app
-嘗試執行除以零時，因為不可能除以零，因此 app 當機，並彈出
-<code>java.langArithmeticException</code>。藉由檢查 stack trace 找出 bug
-並予以解決，並且使用 log statements 驗證該假設。</p>
-<p>由於您已經熟悉那個範例，因此將用於示範中斷點(breakpoints)的使用方式。breakpoints
-會逐行處理程式碼，不必先新增 log statements 或重新執行 app。</p>
-<ol type="1">
+<h4 id="回報-bug"><a href="#回報-bug" class="headerlink" title="回報 bug"></a>回報 bug</h4><p>還記得單元 1 中 debugging 課程的除以零範例嗎？在迴圈(loop)的最終迭代(iteration)中，app 嘗試執行除以零時，因為不可能除以零，因此 app 當機，並彈出 <code>java.langArithmeticException</code>。藉由檢查 stack trace 找出 bug 並予以解決，並且使用 log statements 驗證該假設。</p>
+<p>由於您已經熟悉那個範例，因此將用於示範中斷點(breakpoints)的使用方式。breakpoints 會逐行處理程式碼，不必先新增 log statements 或重新執行 app。</p>
+<ol>
 <li>開啟 <code>MainActivity.kt</code>，並將程式碼替換為以下程式碼：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.myapplication</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">val</span> TAG = <span class="string">&quot;MainActivity&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MainActivity</span> : <span class="type">AppCompatActivity</span>() &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">       setContentView(R.layout.activity_main)</span><br><span class="line">       division()</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">fun</span> <span class="title">division</span><span class="params">()</span></span> &#123;</span><br><span class="line">       <span class="keyword">val</span> numerator = <span class="number">60</span></span><br><span class="line">       <span class="keyword">var</span> denominator = <span class="number">4</span></span><br><span class="line">       repeat(<span class="number">5</span>) &#123;</span><br><span class="line">           Log.v(TAG, <span class="string">&quot;<span class="subst">$&#123;numerator / denominator&#125;</span>&quot;</span>)</span><br><span class="line">           denominator--</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
+
+<ol start="2">
 <li>執行 app。觀察 app 是否如預期當機。</li>
 </ol>
-<p><img src="https://i.imgur.com/HK62bEE.png"></p>
-<hr />
-<h3 id="使用-breakpoints-debug">使用 breakpoints debug</h3>
-<p>瞭解 logging 後，您已學會如何有策略地放置
-logs，以便識別錯誤及驗證問題是否已修正。然而，在面對並非您導入的 bugs
-時，我們<u>未必能明確得知要將 log statements
-放置在何處</u>，或是<u>要輸出哪些變數</u>。通常，您只能在<u>執行階段(runtime)</u>找到這項資訊。</p>
+<img src="https://i.imgur.com/HK62bEE.png">
+
+<hr>
+<h3 id="使用-breakpoints-debug"><a href="#使用-breakpoints-debug" class="headerlink" title="使用 breakpoints debug"></a>使用 breakpoints debug</h3><p>瞭解 logging 後，您已學會如何有策略地放置 logs，以便識別錯誤及驗證問題是否已修正。然而，在面對並非您導入的 bugs 時，我們<u>未必能明確得知要將 log statements 放置在何處</u>，或是<u>要輸出哪些變數</u>。通常，您只能在<u>執行階段(runtime)</u>找到這項資訊。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">division</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> numerator = <span class="number">60</span></span><br><span class="line">    <span class="keyword">var</span> denominator = <span class="number">4</span></span><br><span class="line">    repeat(<span class="number">5</span>) &#123;</span><br><span class="line">        Log.v(TAG, <span class="string">&quot;<span class="subst">$&#123;numerator / denominator&#125;</span>&quot;</span>)</span><br><span class="line">        denominator--</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此時，<u>中斷點(breakpoints)</u>就能發揮功效。即使您已根據<u>堆疊追蹤(stack
-trace)</u>中的資訊大致推斷出造成 bug 的原因，您仍可在某行程式碼<u>新增
-breakpoints 做為停止訊號</u>。一旦觸及
-breakpoints，系統就會暫停執行程式碼，讓您可以<u>在執行階段使用其他
-debugging 工具</u>，以便詳細瞭解實際情況並判斷問題。</p>
-<h4 id="附加-debugger">附加 debugger</h4>
-<p>Android Studio 會在背景使用名為 <b>Android Debug Bridge (ADB)</b>
-的工具。這項指令列工具已整合至 Android Studio，可為執行中的 app 提供
-<strong>breakpoints</strong> 等 debugging 功能。<u>進行 debugging
-的工具</u>通常稱為 <strong>debugger</strong>。</p>
-<p>如要將 debugger 用於或附加至
-app，您無法像往常一樣依序點選「Run」&gt;「Run 'app'」執行
-app，而是改為「Run」 &gt;「Debug 'app'」。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/340a8e850b3c86d3_1920.png?hl=zh-tw" width="80%"></p>
-<h4 id="在-project-中新增-breakpoints">在 project 中新增
-breakpoints</h4>
-<p>請執行下列步驟，觀察 breakpoints 的實際運作情形：</p>
-<ol type="1">
-<li>找到您希望中斷動作的 <strong>line
-number</strong>，<u>點選旁邊的空白以新增 breakpoint</u>。line number
-旁邊會出現一個點，且該行程式碼會被 <strong>highlighted</strong>。</li>
+
+<p>此時，<u>中斷點(breakpoints)</u>就能發揮功效。即使您已根據<u>堆疊追蹤(stack trace)</u>中的資訊大致推斷出造成 bug 的原因，您仍可在某行程式碼<u>新增 breakpoints 做為停止訊號</u>。一旦觸及 breakpoints，系統就會暫停執行程式碼，讓您可以<u>在執行階段使用其他 debugging 工具</u>，以便詳細瞭解實際情況並判斷問題。</p>
+<h4 id="附加-debugger"><a href="#附加-debugger" class="headerlink" title="附加 debugger"></a>附加 debugger</h4><p>Android Studio 會在背景使用名為 <b>Android Debug Bridge (ADB)</b> 的工具。這項指令列工具已整合至 Android Studio，可為執行中的 app 提供 <strong>breakpoints</strong> 等 debugging 功能。<u>進行 debugging 的工具</u>通常稱為 <strong>debugger</strong>。</p>
+<p>如要將 debugger 用於或附加至 app，您無法像往常一樣依序點選「Run」&gt;「Run ‘app’」執行 app，而是改為「Run」 &gt;「Debug ‘app’」。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/340a8e850b3c86d3_1920.png?hl=zh-tw" width="80%">
+
+<h4 id="在-project-中新增-breakpoints"><a href="#在-project-中新增-breakpoints" class="headerlink" title="在 project 中新增 breakpoints"></a>在 project 中新增 breakpoints</h4><p>請執行下列步驟，觀察 breakpoints 的實際運作情形：</p>
+<ol>
+<li>找到您希望中斷動作的 <strong>line number</strong>，<u>點選旁邊的空白以新增 breakpoint</u>。line number 旁邊會出現一個點，且該行程式碼會被 <strong>highlighted</strong>。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/629ac33dfb3873e_1920.png?hl=zh-tw" width="70%"></p>
-<ol start="2" type="1">
-<li>利用「Run」(執行) &gt;「Debug 'app'」或工具列中的圖示執行附有
-debugger 的 app：</li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/629ac33dfb3873e_1920.png?hl=zh-tw" width="70%">
+
+<ol start="2">
+<li>利用「Run」(執行) &gt;「Debug ‘app’」或工具列中的圖示執行附有 debugger 的 app：</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/a71c8b295db5927d_1920.png?hl=zh-tw">
-app 啟動後，您會看到像這樣的畫面：</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/3bd9cbe69d5a0d0e_1920.png?hl=zh-tw" width="40%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/a71c8b295db5927d_1920.png?hl=zh-tw"> 
+app 啟動後，您會看到像這樣的畫面：
+
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/3bd9cbe69d5a0d0e_1920.png?hl=zh-tw" width="40%">
+
 <p>一旦啟動 app，系統會 highlighted 有效的 breakpoint。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/928fc1194966c9_1920.png?hl=zh-tw" width="70%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/928fc1194966c9_1920.png?hl=zh-tw" width="70%">
+
 <p>先前已開啟 Logcat 視窗的某個畫面底部已開啟「Debug」分頁。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/447d9743c118babd_1920.png?hl=zh-tw" width="90%"></p>
-<p>左側是 functions list，與堆疊追蹤(stack trace)中顯示的 list
-相同。右側是一個窗格，可讓您查看目前 function (即
-<code>division()</code>)
-中個別變數(variables)的值(value)。您也可以透過頂端的按鈕，在程式暫停執行期間進行瀏覽。最常用的按鈕是「Step
-Over」(不進入)，用來執行 highlighted 的單行程式碼。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/48219b96d5ab6ba6_1920.png?hl=zh-tw" width="50%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/447d9743c118babd_1920.png?hl=zh-tw" width="90%">
+
+<p>左側是 functions list，與堆疊追蹤(stack trace)中顯示的 list 相同。右側是一個窗格，可讓您查看目前 function (即 <code>division()</code>) 中個別變數(variables)的值(value)。您也可以透過頂端的按鈕，在程式暫停執行期間進行瀏覽。最常用的按鈕是「Step Over」(不進入)，用來執行 highlighted 的單行程式碼。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/48219b96d5ab6ba6_1920.png?hl=zh-tw" width="50%">
+
 <p>請按照下列步驟操作，對程式碼進行 debug：</p>
-<ol type="1">
-<li>到達 breakpoint 後，第 19 行 (宣告 <code>numerator</code> 變數) 會
-highlighted，但尚未執行。使用「Step Over」(不進入) 按鈕執行第 19 行：
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/fbdcba647f9844c4_1920.png?hl=zh-tw" width="30px">
+<ol>
+<li>到達 breakpoint 後，第 19 行 (宣告 <code>numerator</code> 變數) 會 highlighted，但尚未執行。使用「Step Over」(不進入) 按鈕執行第 19 行：<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/fbdcba647f9844c4_1920.png?hl=zh-tw" width="30px"> 
 現在將 highlighted 第 20 行。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/eaacf76805166461_1920.png?hl=zh-tw" width="70%"></p>
-<ol start="2" type="1">
-<li>在第 22 行設定 breakpoint。這就是發生除法的位置，也是堆疊追蹤(stack
-trace)回報 exception 的一行。</li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/eaacf76805166461_1920.png?hl=zh-tw" width="70%">
+
+<ol start="2">
+<li>在第 22 行設定 breakpoint。這就是發生除法的位置，也是堆疊追蹤(stack trace)回報 exception 的一行。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/1f18ab31dc58a1a7_1920.png?hl=zh-tw" width="70%"></p>
-<ol start="3" type="1">
-<li>使用「Debug」視窗左側的「Resume Program」(繼續執行程式)
-按鈕，前往下一個 breakpoint：
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/616d16841834ae2a_1920.png?hl=zh-tw" width="30px"></li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/1f18ab31dc58a1a7_1920.png?hl=zh-tw" width="70%">
+
+<ol start="3">
+<li>使用「Debug」視窗左側的「Resume Program」(繼續執行程式) 按鈕，前往下一個 breakpoint：<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/616d16841834ae2a_1920.png?hl=zh-tw" width="30px"></li>
 </ol>
 <p>執行 <code>division()</code> 函式的其餘部分。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/3a9c3edc893f9720_1920.png?hl=zh-tw" width="50%"></p>
-<ol start="4" type="1">
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/3a9c3edc893f9720_1920.png?hl=zh-tw" width="50%">
+
+<ol start="4">
 <li>請注意，執行作業在第 17 行停止，未執行該行。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/aa56331ad870cd40_1920.png?hl=zh-tw" width="70%"></p>
-<ol start="5" type="1">
-<li>每個變數 <code>numerator</code> 和 <code>denominator</code>
-的值會顯示在其宣告旁邊。變數值會顯示在「Variables」分頁的 debug
-視窗中。</li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/aa56331ad870cd40_1920.png?hl=zh-tw" width="70%">
+
+<ol start="5">
+<li>每個變數 <code>numerator</code> 和 <code>denominator</code> 的值會顯示在其宣告旁邊。變數值會顯示在「Variables」分頁的 debug 視窗中。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/5b3515c5580ee7dd_1920.png?hl=zh-tw" width="50%"></p>
-<ol start="6" type="1">
-<li>再按下「Debug」視窗左側的「Resume Program」(繼續執行程式)
-按鈕四次。每次迴圈暫停時觀察 <code>numerator</code> 和
-<code>denominator</code>
-的值。在最後一個迭代作業中，<code>numerator</code> 應為
-<code>60</code>，而 <code>denominator</code> 應為 <code>0</code>。然而將
-<code>60</code> 除以 <code>0</code> 並不符合數學規則！</li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/5b3515c5580ee7dd_1920.png?hl=zh-tw" width="50%">
+
+<ol start="6">
+<li>再按下「Debug」視窗左側的「Resume Program」(繼續執行程式) 按鈕四次。每次迴圈暫停時觀察 <code>numerator</code> 和 <code>denominator</code> 的值。在最後一個迭代作業中，<code>numerator</code> 應為 <code>60</code>，而 <code>denominator</code> 應為 <code>0</code>。然而將 <code>60</code> 除以 <code>0</code> 並不符合數學規則！</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/56ea223612b88125_1920.png?hl=zh-tw" width="50%"></p>
-<p>這樣一來，您就能得知造成 bug
-的確切程式碼行，並瞭解確切原因。和先前一樣，只要將程式碼重複的次數從
-<code>5</code> 變更為 <code>4</code>，即可修正 bug。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/56ea223612b88125_1920.png?hl=zh-tw" width="50%">
+
+<p>這樣一來，您就能得知造成 bug 的確切程式碼行，並瞭解確切原因。和先前一樣，只要將程式碼重複的次數從 <code>5</code> 變更為 <code>4</code>，即可修正 bug。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">division</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> numerator = <span class="number">60</span></span><br><span class="line">    <span class="keyword">var</span> denominator = <span class="number">4</span></span><br><span class="line">    repeat(<span class="number">4</span>) &#123;</span><br><span class="line">        Log.v(TAG, <span class="string">&quot;<span class="subst">$&#123;numerator / denominator&#125;</span>&quot;</span>)</span><br><span class="line">        denominator--</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <div class="note no-icon success">
-            <p><strong>提示：</strong>如要移除<b>中斷點(breakpoints)</b>，請按一下<u>line number</u> 旁邊的點。</p>
+            <p><strong>提示：</strong>如要移除<b>中斷點(breakpoints)</b>，請按一下 <u>line number</u> 旁邊的點。</p>
           </div>
-<hr />
-<h3 id="設定-breakpoints-conditions">設定 breakpoints conditions</h3>
-<p>在上一節中，您必須逐一檢查迭代迴圈，直到分母為
-<code>0</code>。在較為複雜的 app
-中，如果您的錯誤資訊較少，可能會很繁瑣。不過，如果您有一個假設
-(例如，<u>app
-只有在分母為零時才會異常終止</u>)，則可以修改中斷點，<u>限制只有在符合假設時才會觸及中斷點</u>，這樣就不必逐一檢查迴圈迭代。</p>
-<ol type="1">
-<li>如有需要，請在重複迴圈中將 <code>4</code> 變更為
-<code>5</code>，以重新回報錯誤。</li>
+
+<hr>
+<h3 id="設定-breakpoints-conditions"><a href="#設定-breakpoints-conditions" class="headerlink" title="設定 breakpoints conditions"></a>設定 breakpoints conditions</h3><p>在上一節中，您必須逐一檢查迭代迴圈，直到分母為 <code>0</code>。在較為複雜的 app 中，如果您的錯誤資訊較少，可能會很繁瑣。不過，如果您有一個假設 (例如，<u>app 只有在分母為零時才會異常終止</u>)，則可以修改中斷點，<u>限制只有在符合假設時才會觸及中斷點</u>，這樣就不必逐一檢查迴圈迭代。</p>
+<ol>
+<li>如有需要，請在重複迴圈中將 <code>4</code> 變更為 <code>5</code>，以重新回報錯誤。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">repeat(<span class="number">5</span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
+
+<ol start="2">
 <li>在含有 <code>repeat</code> 陳述式的行上放置新的 breakpoints。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/47fcc3aeb814a9d7_1920.png?hl=zh-tw" width="70%"></p>
-<ol start="3" type="1">
-<li>在紅色中斷點圖示上按一下滑鼠右鍵。選單會顯示數個選項，例如是否已啟用中斷點。停用的中斷點仍然存在，但不會在執行階段觸發。您也可以選擇<u>新增
-Kotlin 運算式，如果運算結果為
-<strong>True</strong>，就會觸發中斷點</u>。例如，如果使用
-<code>denominator &gt; 3</code>
-運算式，則<u>只有在初次疊代迴圈時，才會觸發中斷點</u>。如果<u>只想在 app
-可能除以零時觸發中斷點</u>，請將運算式設為
-<code>denominator == 0</code>。中斷點的選項會如下所示：</li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/47fcc3aeb814a9d7_1920.png?hl=zh-tw" width="70%">
+
+<ol start="3">
+<li>在紅色中斷點圖示上按一下滑鼠右鍵。選單會顯示數個選項，例如是否已啟用中斷點。停用的中斷點仍然存在，但不會在執行階段觸發。您也可以選擇<u>新增 Kotlin 運算式，如果運算結果為 <strong>True</strong>，就會觸發中斷點</u>。例如，如果使用 <code>denominator &gt; 3</code> 運算式，則<u>只有在初次疊代迴圈時，才會觸發中斷點</u>。如果<u>只想在 app 可能除以零時觸發中斷點</u>，請將運算式設為 <code>denominator == 0</code>。中斷點的選項會如下所示：</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/76045ef783d5389b_1920.png?hl=zh-tw" width="70%"></p>
-<ol start="4" type="1">
-<li>依序點選「Run」&gt;「Debug 'app'」執行您的 app，並觀察是否已到達
-breakpoints。</li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/76045ef783d5389b_1920.png?hl=zh-tw" width="70%">
+
+<ol start="4">
+<li>依序點選「Run」&gt;「Debug ‘app’」執行您的 app，並觀察是否已到達 breakpoints。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/74ba264a6eab7db7_1920.png?hl=zh-tw" width="70%"></p>
-<p>如您所見，分母已是 <code>0</code>。只有符合條件時才會觸發
-breakpoints，因此您不必逐一檢查程式碼，可節省時間和精力。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/153be06e8a19e61d_1920.png?hl=zh-tw" width="50%"></p>
-<ol start="5" type="1">
-<li>和先前一樣，您會看到錯誤是因為循環執行一行程式碼太多次所造成，此時分母設為
-<code>0</code>。</li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/74ba264a6eab7db7_1920.png?hl=zh-tw" width="70%">
+
+<p>如您所見，分母已是 <code>0</code>。只有符合條件時才會觸發 breakpoints，因此您不必逐一檢查程式碼，可節省時間和精力。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/153be06e8a19e61d_1920.png?hl=zh-tw" width="50%">
+
+<ol start="5">
+<li>和先前一樣，您會看到錯誤是因為循環執行一行程式碼太多次所造成，此時分母設為 <code>0</code>。</li>
 </ol>
-<h4 id="新增-watches">新增 Watches</h4>
-<p>如果想在 debugging
-時監控<u>特定值</u>，並不需要在「Variables」分頁中搜尋該值，只要新增所謂的
-<strong>Watches</strong> 即可<u>監控特定變數</u>。這些變數會顯示在 debug
-窗格中。當<u>執行暫停</u>且<u>該變數位於範圍內</u>時，就會顯示在「Watches」窗格中。如此一來，處理大型
-projects 時，就能提高 debugging
-效率。您可以<u>集中追蹤所有相關變數</u>。</p>
-<ol type="1">
-<li>在「Debug」view
-中，「Variables」窗格右側會顯示另一個名為「Watches」的空白窗格。按一下左上角的加號按鈕：
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/c97b1f6a879b0563_1920.png?hl=zh-tw" width="30px">
+<h4 id="新增-Watches"><a href="#新增-Watches" class="headerlink" title="新增 Watches"></a>新增 Watches</h4><p>如果想在 debugging 時監控<u>特定值</u>，並不需要在「Variables」分頁中搜尋該值，只要新增所謂的 <strong>Watches</strong> 即可<u>監控特定變數</u>。這些變數會顯示在 debug 窗格中。當<u>執行暫停</u>且<u>該變數位於範圍內</u>時，就會顯示在「Watches」窗格中。如此一來，處理大型 projects 時，就能提高 debugging 效率。您可以<u>集中追蹤所有相關變數</u>。</p>
+<ol>
+<li>在「Debug」view 中，「Variables」窗格右側會顯示另一個名為「Watches」的空白窗格。按一下左上角的加號按鈕：<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/c97b1f6a879b0563_1920.png?hl=zh-tw" width="30px">
 您可能會看到顯示「New Watch」的選單選項。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/4d27cc7c5222377b_1920.png?hl=zh-tw" width="80%"></p>
-<ol start="2" type="1">
-<li><p>在提供的欄位中輸入變數名稱 <code>denominator</code>，接著按一下
-enter 鍵。</p></li>
-<li><p>依序按一下「Run &gt;「Debug 'app'」重新執行
-app，這時您會發現以下情況：遇到 breakpoint
-時，系統會在「Watches」窗格顯示 <code>denominator</code> 的值。</p></li>
-</ol>
-<p><img src="https://i.imgur.com/CjTjY3M.png"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-debugging-with-breakpoints/img/4d27cc7c5222377b_1920.png?hl=zh-tw" width="80%">
 
+<ol start="2">
+<li><p>在提供的欄位中輸入變數名稱 <code>denominator</code>，接著按一下 enter 鍵。</p>
+</li>
+<li><p>依序按一下「Run &gt;「Debug ‘app’」重新執行 app，這時您會發現以下情況：遇到 breakpoint 時，系統會在「Watches」窗格顯示 <code>denominator</code> 的值。</p>
+</li>
+</ol>
+<img src="https://i.imgur.com/CjTjY3M.png">
     </div>
 
     
@@ -573,8 +523,7 @@ app，這時您會發現以下情況：遇到 breakpoint
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0-project"><span class="nav-number">1.</span> <span class="nav-text">建立新 project</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%A0%B1-bug"><span class="nav-number">1.1.</span> <span class="nav-text">回報 bug</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-breakpoints-debug"><span class="nav-number">2.</span> <span class="nav-text">使用 breakpoints debug</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%8A%A0-debugger"><span class="nav-number">2.1.</span> <span class="nav-text">附加 debugger</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8-project-%E4%B8%AD%E6%96%B0%E5%A2%9E-breakpoints"><span class="nav-number">2.2.</span> <span class="nav-text">在 project 中新增
-breakpoints</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-breakpoints-conditions"><span class="nav-number">3.</span> <span class="nav-text">設定 breakpoints conditions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-watches"><span class="nav-number">3.1.</span> <span class="nav-text">新增 Watches</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0-project"><span class="nav-number">1.</span> <span class="nav-text">建立新 project</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%A0%B1-bug"><span class="nav-number">1.1.</span> <span class="nav-text">回報 bug</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-breakpoints-debug"><span class="nav-number">2.</span> <span class="nav-text">使用 breakpoints debug</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%8A%A0-debugger"><span class="nav-number">2.1.</span> <span class="nav-text">附加 debugger</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8-project-%E4%B8%AD%E6%96%B0%E5%A2%9E-breakpoints"><span class="nav-number">2.2.</span> <span class="nav-text">在 project 中新增 breakpoints</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-breakpoints-conditions"><span class="nav-number">3.</span> <span class="nav-text">設定 breakpoints conditions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Watches"><span class="nav-number">3.1.</span> <span class="nav-text">新增 Watches</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -699,8 +648,6 @@ breakpoints</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="
 
 
 
-
-  
 
   
 

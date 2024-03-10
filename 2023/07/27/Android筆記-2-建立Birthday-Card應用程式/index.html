@@ -24,17 +24,30 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="建構一個以文字格式顯示生日祝福語的 Android 應用程式。  學習目標 + 什麼是使用者介面元素，例如 Views 和 ViewGroups。 + 如何在應用程式的 TextView 中顯示文字。 + 如何在 TextView 上設定文字、字型和邊界等屬性。 + 使用 ImageView 將圖像新增至應用程式。">
+  <meta name="description" content="建構一個以文字格式顯示生日祝福語的 Android 應用程式。  學習目標  什麼是使用者介面元素，例如 Views 和 ViewGroups。 如何在應用程式的 TextView 中顯示文字。 如何在 TextView 上設定文字、字型和邊界等屬性。 使用 ImageView 將圖像新增至應用程式。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(2)-建立Birthday Card應用程式">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/07/27/Android%E7%AD%86%E8%A8%98-2-%E5%BB%BA%E7%AB%8BBirthday-Card%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="建構一個以文字格式顯示生日祝福語的 Android 應用程式。  學習目標 + 什麼是使用者介面元素，例如 Views 和 ViewGroups。 + 如何在應用程式的 TextView 中顯示文字。 + 如何在 TextView 上設定文字、字型和邊界等屬性。 + 使用 ImageView 將圖像新增至應用程式。">
+<meta property="og:description" content="建構一個以文字格式顯示生日祝福語的 Android 應用程式。  學習目標  什麼是使用者介面元素，例如 Views 和 ViewGroups。 如何在應用程式的 TextView 中顯示文字。 如何在 TextView 上設定文字、字型和邊界等屬性。 使用 ImageView 將圖像新增至應用程式。">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/b02cb13e267730fc_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/fc4828e6a783234_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/1f64a0a2623c9380_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/de37fe1f5ed1507e_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/e23ce742cec0ab41_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app/img/6bbcb1bbc39df93a.gif?authuser=2">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/b8811ae0b8d7acdf_1920.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/ea087eb3bdbc771b_1920.png?authuser=2&hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/f547c1b45045984a_1920.png?authuser=2&hl=zh-tw">
 <meta property="og:image" content="https://i.imgur.com/2Pkqa6r.png">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/e4a7e2568ab80e33.png?authuser=2&hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/25ab8b0401429ebd.gif?authuser=2">
 <meta property="og:image" content="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/f3b70726695ea8c9.gif?authuser=2">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/cdde37ea44d6bc1a.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/1c58fd4afe6f83bb.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/9fff7d632ac45a3d.png?authuser=2&hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/32350f1cf95adb1d.png?authuser=2&hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/b3ef159159143c95.png?authuser=2&hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/140649e77bd4f05b.gif?authuser=2">
 <meta property="og:image" content="https://i.imgur.com/91FX7SR.png">
@@ -48,7 +61,7 @@
 <meta property="article:tag" content="TextView">
 <meta property="article:tag" content="ImageView">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/f547c1b45045984a_1920.png?authuser=2&hl=zh-tw">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/b02cb13e267730fc_1920.png?authuser=2&hl=zh-tw">
 
 <link rel="canonical" href="https://linglingdr00.github.io/2023/07/27/Android%E7%AD%86%E8%A8%98-2-%E5%BB%BA%E7%AB%8BBirthday-Card%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/">
 
@@ -278,170 +291,98 @@
         <blockquote>
 <p>建構一個以文字格式顯示生日祝福語的 Android 應用程式。</p>
 </blockquote>
-<p><strong>學習目標</strong> + 什麼是使用者介面元素，例如 Views 和
-ViewGroups。 + 如何在應用程式的 TextView 中顯示文字。 + 如何在 TextView
-上設定文字、字型和邊界等屬性。 + 使用 ImageView
-將圖像新增至應用程式。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>什麼是使用者介面元素，例如 Views 和 ViewGroups。</li>
+<li>如何在應用程式的 TextView 中顯示文字。</li>
+<li>如何在 TextView 上設定文字、字型和邊界等屬性。</li>
+<li>使用 ImageView 將圖像新增至應用程式。</li>
+</ul>
 <span id="more"></span>
-<hr />
-<h3 id="設定happy-birthday應用程式">設定Happy Birthday應用程式</h3>
-<h4 id="使用者介面">使用者介面</h4>
-<p>為了在畫面上顯示文字，我們將使用一種用於顯示文字的<code>View</code>，也就是<code>TextView</code>。
-<code>ViewGroup</code>是可在其中放入<code>View</code>物件的容器，負責排列內部的<code>View</code>。
-<code>ConstraintLayout</code>是其中一種<code>ViewGroup</code>，可協助您靈活地排列內部的<code>View</code>。
-<img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/b02cb13e267730fc_1920.png?authuser=2&amp;hl=zh-tw"
-alt="1" /></p>
-<h4 id="版面配置編輯器">版面配置編輯器</h4>
-<p>Android Studio
-提供一個稱為<span class="label primary">版面配置編輯器</span>的工具，排列<code>Views</code>和<code>ViewGroups</code>來建立使用者介面。
-<img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/fc4828e6a783234_1920.png?authuser=2&amp;hl=zh-tw"
-alt="2" /> + 左側標記 (1) 的地方是您先前看過的「Project」(專案)
-視窗，其中列出專案組成的所有檔案。 + 畫面中央會顯示 (4) 和 (5)
-兩個繪圖，分別代表應用程式的螢幕版面配置。左側標記 (4)
-的視窗顯示應用程式執行時呈現的近似效果，也就是所謂的「Design」(設計)
-檢視畫面。 + 右側標記 (5) 的視窗代表「Blueprint」(藍圖)
-檢視畫面，在執行特定操作時會很有用。 + 標記 (2) 的「Palette」(區塊面板)
-視窗列出可新增到應用程式的各類 Views。 + 標記 (3) 的「Component
-Tree」(元件樹狀結構) 是另一種螢幕檢視畫面方式，列出螢幕的所有檢視畫面。
-+ 最右側標記 (6) 的視窗是「屬性」(Attributes)，顯示了 View
-的各種屬性，您可在這裡加以變更。</p>
-<h4 id="變更hello-world訊息">變更Hello World訊息</h4>
-<p>我們使用版面配置編輯器將「Hello
-World!」變更為「生日快樂！」，之後再設定文字的樣式。 1.
-展開「app」資料夾、「res」資料夾和「layout」資料夾。 2.
-按兩下<code>activity_main.xml</code>，系統隨即會在版面配置編輯器中開啟<code>activity_main.xml</code>。
-<img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/1f64a0a2623c9380_1920.png?authuser=2&amp;hl=zh-tw"
-alt="3" /> 3. 在「Component Tree」(元件樹狀結構)
-中，按一下<code>TextView</code>，找到右側的「Attributes」(屬性)。 4.
-將「Declared Attributes」(宣告屬性) 部分中的<code>text</code>從「Hello
-World!」修改成「生日快樂！」。 <img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/de37fe1f5ed1507e_1920.png?authuser=2&amp;hl=zh-tw"
-alt="4" /></p>
-<hr />
-<h3 id="在版面配置中新增textview">在版面配置中新增TextView</h3>
-<h4 id="刪除目前的textview">刪除目前的TextView</h4>
-<ol type="1">
-<li>在版面配置編輯器中，按一下以選取位於版面配置中央的<code>TextView</code>。</li>
-<li>按下 Delete 鍵。Android Studio
-會刪除<code>TextView</code>，而您的應用程式在版面配置編輯器和「Component
-Tree」(元件樹狀結構) 中只會顯示<code>ConstraintLayout</code>。</li>
+
+<hr>
+<h3 id="設定Happy-Birthday應用程式"><a href="#設定Happy-Birthday應用程式" class="headerlink" title="設定Happy Birthday應用程式"></a>設定Happy Birthday應用程式</h3><h4 id="使用者介面"><a href="#使用者介面" class="headerlink" title="使用者介面"></a>使用者介面</h4><p>為了在畫面上顯示文字，我們將使用一種用於顯示文字的<code>View</code>，也就是<code>TextView</code>。<br><code>ViewGroup</code>是可在其中放入<code>View</code>物件的容器，負責排列內部的<code>View</code>。<br><code>ConstraintLayout</code>是其中一種<code>ViewGroup</code>，可協助您靈活地排列內部的<code>View</code>。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/b02cb13e267730fc_1920.png?authuser=2&hl=zh-tw" alt="1"></p>
+<h4 id="版面配置編輯器"><a href="#版面配置編輯器" class="headerlink" title="版面配置編輯器"></a>版面配置編輯器</h4><p>Android Studio 提供一個稱為<span class="label primary">版面配置編輯器</span>的工具，排列<code>Views</code>和<code>ViewGroups</code>來建立使用者介面。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/fc4828e6a783234_1920.png?authuser=2&hl=zh-tw" alt="2"></p>
+<ul>
+<li>左側標記 (1) 的地方是您先前看過的「Project」(專案) 視窗，其中列出專案組成的所有檔案。</li>
+<li>畫面中央會顯示 (4) 和 (5) 兩個繪圖，分別代表應用程式的螢幕版面配置。左側標記 (4) 的視窗顯示應用程式執行時呈現的近似效果，也就是所謂的「Design」(設計) 檢視畫面。</li>
+<li>右側標記 (5) 的視窗代表「Blueprint」(藍圖) 檢視畫面，在執行特定操作時會很有用。</li>
+<li>標記 (2) 的「Palette」(區塊面板) 視窗列出可新增到應用程式的各類 Views。</li>
+<li>標記 (3) 的「Component Tree」(元件樹狀結構) 是另一種螢幕檢視畫面方式，列出螢幕的所有檢視畫面。</li>
+<li>最右側標記 (6) 的視窗是「屬性」(Attributes)，顯示了 View 的各種屬性，您可在這裡加以變更。</li>
+</ul>
+<h4 id="變更Hello-World訊息"><a href="#變更Hello-World訊息" class="headerlink" title="變更Hello World訊息"></a>變更Hello World訊息</h4><p>我們使用版面配置編輯器將「Hello World!」變更為「生日快樂！」，之後再設定文字的樣式。</p>
+<ol>
+<li>展開「app」資料夾、「res」資料夾和「layout」資料夾。</li>
+<li>按兩下<code>activity_main.xml</code>，系統隨即會在版面配置編輯器中開啟<code>activity_main.xml</code>。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/1f64a0a2623c9380_1920.png?authuser=2&hl=zh-tw" alt="3"></li>
+<li>在「Component Tree」(元件樹狀結構) 中，按一下<code>TextView</code>，找到右側的「Attributes」(屬性)。</li>
+<li>將「Declared Attributes」(宣告屬性) 部分中的<code>text</code>從「Hello World!」修改成「生日快樂！」。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/de37fe1f5ed1507e_1920.png?authuser=2&hl=zh-tw" alt="4"></li>
 </ol>
-<h4 id="新增textview">新增TextView</h4>
-<ol type="1">
-<li>找出<code>TextView</code>。可以在「Common」類別和「Text」類別中找到它。
-<img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/e23ce742cec0ab41_1920.png?authuser=2&amp;hl=zh-tw"
-alt="5" /></li>
-<li>將<code>TextView</code>從「Palette」(區塊面板)
-拖曳到版面配置編輯器設計平面的左上方。 <img
-src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app/img/6bbcb1bbc39df93a.gif?authuser=2"
-alt="6" /></li>
-<li>當新增了一個<code>TextView</code>，我們會注意到「Component
-Tree」(元件樹狀結構) 中有<span class="label danger">紅色驚嘆號</span>。</li>
+<hr>
+<h3 id="在版面配置中新增TextView"><a href="#在版面配置中新增TextView" class="headerlink" title="在版面配置中新增TextView"></a>在版面配置中新增TextView</h3><h4 id="刪除目前的TextView"><a href="#刪除目前的TextView" class="headerlink" title="刪除目前的TextView"></a>刪除目前的TextView</h4><ol>
+<li>在版面配置編輯器中，按一下以選取位於版面配置中央的<code>TextView</code>。</li>
+<li>按下 Delete 鍵。Android Studio 會刪除<code>TextView</code>，而您的應用程式在版面配置編輯器和「Component Tree」(元件樹狀結構) 中只會顯示<code>ConstraintLayout</code>。</li>
+</ol>
+<h4 id="新增TextView"><a href="#新增TextView" class="headerlink" title="新增TextView"></a>新增TextView</h4><ol>
+<li>找出<code>TextView</code>。可以在「Common」類別和「Text」類別中找到它。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/e23ce742cec0ab41_1920.png?authuser=2&hl=zh-tw" alt="5"></li>
+<li>將<code>TextView</code>從「Palette」(區塊面板) 拖曳到版面配置編輯器設計平面的左上方。<br><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app/img/6bbcb1bbc39df93a.gif?authuser=2" alt="6"></li>
+<li>當新增了一個<code>TextView</code>，我們會注意到「Component Tree」(元件樹狀結構) 中有<span class="label danger">紅色驚嘆號</span>。</li>
 <li>將滑鼠游標移到驚嘆號上，就會看到一則警示訊息，說明該檢視畫面未受到限制，且會在執行應用程式時跳到其他位置。接下來要修正這個問題。</li>
 </ol>
-<h4 id="放置textview">放置TextView</h4>
-<ol type="1">
-<li>點選新增的<code>TextView</code>，在右側的「Attributes」(屬性)
-中，找到「Layout」(版面配置) 部分中的<span class="label primary">「Constraint Widget」(限制小工具)</span>。 <img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/b8811ae0b8d7acdf_1920.png?authuser=2&amp;hl=zh-tw"
-alt="6" /></li>
+<h4 id="放置TextView"><a href="#放置TextView" class="headerlink" title="放置TextView"></a>放置TextView</h4><ol>
+<li>點選新增的<code>TextView</code>，在右側的「Attributes」(屬性) 中，找到「Layout」(版面配置) 部分中的<span class="label primary">「Constraint Widget」(限制小工具)</span>。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/b8811ae0b8d7acdf_1920.png?authuser=2&hl=zh-tw" alt="6"></li>
 <li>按一下正方形頂端的<code>+</code>，可設定上邊界的數字欄位。該邊界是指從<code>TextView</code>到<code>容器(即 ConstraintLayout)</code>邊緣的距離。</li>
-<li>將上邊界和左邊界變更為 16。 <img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/ea087eb3bdbc771b_1920.png?authuser=2&amp;hl=zh-tw"
-alt="7" /></li>
+<li>將上邊界和左邊界變更為 16。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/ea087eb3bdbc771b_1920.png?authuser=2&hl=zh-tw" alt="7"></li>
 <li>在「Attributes」(屬性) 中設定「text」(文字) 。</li>
 </ol>
-<h4 id="新增及放置另一個textview">新增及放置另一個TextView</h4>
-<ol type="1">
-<li>從「區塊面板」將新的 TextView
-拖曳到「版面配置編輯器」中的應用程式檢視畫面附近。</li>
+<h4 id="新增及放置另一個TextView"><a href="#新增及放置另一個TextView" class="headerlink" title="新增及放置另一個TextView"></a>新增及放置另一個TextView</h4><ol>
+<li>從「區塊面板」將新的 TextView 拖曳到「版面配置編輯器」中的應用程式檢視畫面附近。</li>
 <li>將右邊界和下邊界設為 16。</li>
-<li>在「Attributes」(屬性) 中設定「text」(文字) 。
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/f547c1b45045984a_1920.png?authuser=2&hl=zh-tw" width="35%" height="35%"></li>
+<li>在「Attributes」(屬性) 中設定「text」(文字) 。<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app/img/f547c1b45045984a_1920.png?authuser=2&hl=zh-tw" width="35%" height="35%"></li>
 </ol>
-<h3 id="新增文字樣式">新增文字樣式</h3>
-<p>在<code>TextView</code>「Attributes」(屬性) 視窗中的「Common
-Attributes」(一般屬性)
-點開<span class="label success">「textAppearance」</span>，修改<span class="label primary">fontFamily</span>、<span class="label primary">textSize</span>和<span class="label primary">textColor</span>。</p>
-<p>完成的畫面如下，可以根據自己的喜好修改：
-<img src="https://i.imgur.com/2Pkqa6r.png" width="35%" height="35%"></p>
-<hr />
-<h3 id="加入圖像">加入圖像</h3>
-<ol type="1">
-<li>按一下<a
-target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-birthday-card-with-image-app-solution/blob/master/androidparty.png">這裡</a>前往GitHub下載生日資訊卡的圖像。</li>
-<li>在 Android Studio 中，按一下選單中的「View」&gt;「Tool
-Windows」&gt;「Resource
-Manager」，或按一下「Project」視窗左側的「Resource
-Manager」分頁標籤。</li>
-<li>按一下「Resource Manager」下方的「+」圖示，然後選取「Import
-Drawables」，即可開啟檔案瀏覽器，選擇剛才下載的圖片檔。</li>
-<li>如果圖像已成功匯入，Android Studio 會將圖像新增至「Drawable」清單。
-<img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/e4a7e2568ab80e33.png?authuser=2&amp;hl=zh-tw"
-alt="8" /></li>
+<h3 id="新增文字樣式"><a href="#新增文字樣式" class="headerlink" title="新增文字樣式"></a>新增文字樣式</h3><p>在<code>TextView</code>「Attributes」(屬性) 視窗中的「Common Attributes」(一般屬性) 點開<span class="label success">「textAppearance」</span>，修改<span class="label primary">fontFamily</span>、<span class="label primary">textSize</span>和<span class="label primary">textColor</span>。</p>
+<p>完成的畫面如下，可以根據自己的喜好修改：<br><img src="https://i.imgur.com/2Pkqa6r.png" width="35%" height="35%"></p>
+<hr>
+<h3 id="加入圖像"><a href="#加入圖像" class="headerlink" title="加入圖像"></a>加入圖像</h3><ol>
+<li>按一下<a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-birthday-card-with-image-app-solution/blob/master/androidparty.png">這裡</a>前往GitHub下載生日資訊卡的圖像。</li>
+<li>在 Android Studio 中，按一下選單中的「View」&gt;「Tool Windows」&gt;「Resource Manager」，或按一下「Project」視窗左側的「Resource Manager」分頁標籤。</li>
+<li>按一下「Resource Manager」下方的「+」圖示，然後選取「Import Drawables」，即可開啟檔案瀏覽器，選擇剛才下載的圖片檔。</li>
+<li>如果圖像已成功匯入，Android Studio 會將圖像新增至「Drawable」清單。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/e4a7e2568ab80e33.png?authuser=2&hl=zh-tw" alt="8"></li>
 </ol>
-<hr />
-<h3 id="新增imageview">新增ImageView</h3>
-<h4 id="新增imageview並設定圖像">新增ImageView並設定圖像</h4>
-<ol type="1">
+<hr>
+<h3 id="新增ImageView"><a href="#新增ImageView" class="headerlink" title="新增ImageView"></a>新增ImageView</h3><h4 id="新增ImageView並設定圖像"><a href="#新增ImageView並設定圖像" class="headerlink" title="新增ImageView並設定圖像"></a>新增ImageView並設定圖像</h4><ol>
 <li>在「Project」視窗中開啟「activity_main.xml」(「App」&gt;「Res」&gt;「Layout」&gt;「activity_main.xml」)。</li>
 <li>在「版面配置編輯器」中，前往「Palette」，然後將<code>ImageView</code>拖曳至您的應用程式。請將其放在中央附近，且不要與任何文字重疊</li>
-<li>在「Choose a
-Resource」對話方塊中，於「Drawable」清單中找到蛋糕圖像。</li>
+<li>在「Choose a Resource」對話方塊中，於「Drawable」清單中找到蛋糕圖像。</li>
 </ol>
-<h4 id="設定imageview的位置和大小">設定ImageView的位置和大小</h4>
-<ol type="1">
-<li>在「版面配置編輯器」中按住並拖曳<code>ImageView</code>，但請注意，在「Design」檢視畫面內，應用程式畫面周圍會顯示粉紅色矩形。
-粉紅色矩形代表用來放置<code>ImageView</code>的螢幕邊界</li>
-<li>拖曳<code>ImageView</code>，讓左側和右側邊緣對齊粉紅色矩形。當您拉近時，Android
-Studio 會將圖像「貼齊」邊緣 (您將在稍後處理頂端和底端)。
-<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/25ab8b0401429ebd.gif?authuser=2" width="50%" height="50%"></li>
+<h4 id="設定ImageView的位置和大小"><a href="#設定ImageView的位置和大小" class="headerlink" title="設定ImageView的位置和大小"></a>設定ImageView的位置和大小</h4><ol>
+<li>在「版面配置編輯器」中按住並拖曳<code>ImageView</code>，但請注意，在「Design」檢視畫面內，應用程式畫面周圍會顯示粉紅色矩形。 粉紅色矩形代表用來放置<code>ImageView</code>的螢幕邊界</li>
+<li>拖曳<code>ImageView</code>，讓左側和右側邊緣對齊粉紅色矩形。當您拉近時，Android Studio 會將圖像「貼齊」邊緣 (您將在稍後處理頂端和底端)。<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/25ab8b0401429ebd.gif?authuser=2" width="50%" height="50%"></li>
 </ol>
 <blockquote>
-<p><code>ConstraintLayout</code>
-中的<code>View</code>需要水平和垂直限制，才能讓<code>ConstraintLayout</code>知道如何定位。</p>
+<p><code>ConstraintLayout</code> 中的<code>View</code>需要水平和垂直限制，才能讓<code>ConstraintLayout</code>知道如何定位。</p>
 </blockquote>
-<ol start="3" type="1">
-<li><p>將游標懸停於<code>ImageView</code>外框頂端的圓圈上，並以另一個圓圈醒目顯示。</p></li>
-<li><p>將圓圈拖曳到應用程式畫面頂端，當您拖曳圓圈時，會有箭頭連結圓圈與游標。在螢幕上拖曳，直到貼齊畫面頂端。您已新增從<code>ImageView</code>頂端至<code>ConstraintLayout</code>頂端的限制條件。
-<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/f3b70726695ea8c9.gif?authuser=2" width="50%" height="50%"></p></li>
-<li><p>新增從<code>ImageView</code>的底部到<code>ConstraintLayout</code>底部的限制。可能太靠近邊緣，無法像對頂端那樣拖動。這時可以在「Attributes」視窗的「Constraint
-Widget」中，點選底部的「+」來新增至限制條件。確保邊界為 0。 <img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/cdde37ea44d6bc1a.png?authuser=2&amp;hl=zh-tw"
-alt="11" /></p></li>
-<li><p>在「Attributes」窗格中，使用「Constraint Widget」在左側和右側新增
-0 的邊界。 這項操作會自動建立對該指令的限制。 <img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/1c58fd4afe6f83bb.png?authuser=2&amp;hl=zh-tw"
-alt="12" /></p></li>
+<ol start="3">
+<li><p>將游標懸停於<code>ImageView</code>外框頂端的圓圈上，並以另一個圓圈醒目顯示。</p>
+</li>
+<li><p>將圓圈拖曳到應用程式畫面頂端，當您拖曳圓圈時，會有箭頭連結圓圈與游標。在螢幕上拖曳，直到貼齊畫面頂端。您已新增從<code>ImageView</code>頂端至<code>ConstraintLayout</code>頂端的限制條件。</p>
+<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/f3b70726695ea8c9.gif?authuser=2" width="50%" height="50%">
+</li>
+<li><p>新增從<code>ImageView</code>的底部到<code>ConstraintLayout</code>底部的限制。可能太靠近邊緣，無法像對頂端那樣拖動。這時可以在「Attributes」視窗的「Constraint Widget」中，點選底部的「+」來新增至限制條件。確保邊界為 0。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/cdde37ea44d6bc1a.png?authuser=2&hl=zh-tw" alt="11"></p>
+</li>
+<li><p>在「Attributes」窗格中，使用「Constraint Widget」在左側和右側新增 0 的邊界。 這項操作會自動建立對該指令的限制。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/1c58fd4afe6f83bb.png?authuser=2&hl=zh-tw" alt="12"></p>
+</li>
 </ol>
 <blockquote>
 <p>此時圖像已置中，但還沒有佔滿整個螢幕畫面。</p>
 </blockquote>
-<ol start="7" type="1">
-<li>在「Constraint」部分的「Constraint
-Widget」下方，將「layout_width」和將「layout_height」設定為「0dp」。
-<img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/9fff7d632ac45a3d.png?authuser=2&amp;hl=zh-tw"
-alt="13" /></li>
-<li>找出「scaleType」屬性，將「scaleType」設定為「centerCrop」，這樣圖像就會填滿螢幕，不會扭曲變形。
-<img
-src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/32350f1cf95adb1d.png?authuser=2&amp;hl=zh-tw"
-alt="14" /></li>
+<ol start="7">
+<li>在「Constraint」部分的「Constraint Widget」下方，將「layout_width」和將「layout_height」設定為「0dp」。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/9fff7d632ac45a3d.png?authuser=2&hl=zh-tw" alt="13"></li>
+<li>找出「scaleType」屬性，將「scaleType」設定為「centerCrop」，這樣圖像就會填滿螢幕，不會扭曲變形。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/32350f1cf95adb1d.png?authuser=2&hl=zh-tw" alt="14"></li>
 </ol>
-<p>完成後圖片會填滿整個畫面：
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/b3ef159159143c95.png?authuser=2&hl=zh-tw" width="35%" height="35%"></p>
-<h4 id="將imageview移至文字後方">將ImageView移至文字後方</h4>
-<p>在「Component Tree」中點選並拖曳 ImageView 至 TextViews 正下方
-ConstraintLayout。系統隨即會顯示一條三角形的藍色線條，以代表 ImageView
-的位置。 將 ImageView 拖放到 ConstraintLayout 正下方即可。
-<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/140649e77bd4f05b.gif?authuser=2" width="50%" height="50%"></p>
-<p>最後完成如下圖：
-<img src="https://i.imgur.com/91FX7SR.png" width="35%" height="35%"></p>
+<p>完成後圖片會填滿整個畫面：<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/b3ef159159143c95.png?authuser=2&hl=zh-tw" width="35%" height="35%"></p>
+<h4 id="將ImageView移至文字後方"><a href="#將ImageView移至文字後方" class="headerlink" title="將ImageView移至文字後方"></a>將ImageView移至文字後方</h4><p>在「Component Tree」中點選並拖曳 ImageView 至 TextViews 正下方 ConstraintLayout。系統隨即會顯示一條三角形的藍色線條，以代表 ImageView 的位置。<br>將 ImageView 拖放到 ConstraintLayout 正下方即可。<br><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-birthday-card-app-image/img/140649e77bd4f05b.gif?authuser=2" width="50%" height="50%"></p>
+<p>最後完成如下圖：<br><img src="https://i.imgur.com/91FX7SR.png" width="35%" height="35%"></p>
 
     </div>
 
@@ -530,7 +471,7 @@ ConstraintLayout。系統隨即會顯示一條三角形的藍色線條，以代�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9Ahappy-birthday%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">設定Happy Birthday應用程式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%80%85%E4%BB%8B%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">使用者介面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE%E7%B7%A8%E8%BC%AF%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">版面配置編輯器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4hello-world%E8%A8%8A%E6%81%AF"><span class="nav-number">1.3.</span> <span class="nav-text">變更Hello World訊息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE%E4%B8%AD%E6%96%B0%E5%A2%9Etextview"><span class="nav-number">2.</span> <span class="nav-text">在版面配置中新增TextView</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%AA%E9%99%A4%E7%9B%AE%E5%89%8D%E7%9A%84textview"><span class="nav-number">2.1.</span> <span class="nav-text">刪除目前的TextView</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9Etextview"><span class="nav-number">2.2.</span> <span class="nav-text">新增TextView</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%BE%E7%BD%AEtextview"><span class="nav-number">2.3.</span> <span class="nav-text">放置TextView</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%8F%8A%E6%94%BE%E7%BD%AE%E5%8F%A6%E4%B8%80%E5%80%8Btextview"><span class="nav-number">2.4.</span> <span class="nav-text">新增及放置另一個TextView</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E6%96%87%E5%AD%97%E6%A8%A3%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">新增文字樣式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E5%9C%96%E5%83%8F"><span class="nav-number">4.</span> <span class="nav-text">加入圖像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9Eimageview"><span class="nav-number">5.</span> <span class="nav-text">新增ImageView</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9Eimageview%E4%B8%A6%E8%A8%AD%E5%AE%9A%E5%9C%96%E5%83%8F"><span class="nav-number">5.1.</span> <span class="nav-text">新增ImageView並設定圖像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9Aimageview%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%92%8C%E5%A4%A7%E5%B0%8F"><span class="nav-number">5.2.</span> <span class="nav-text">設定ImageView的位置和大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%87imageview%E7%A7%BB%E8%87%B3%E6%96%87%E5%AD%97%E5%BE%8C%E6%96%B9"><span class="nav-number">5.3.</span> <span class="nav-text">將ImageView移至文字後方</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9AHappy-Birthday%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">設定Happy Birthday應用程式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%80%85%E4%BB%8B%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">使用者介面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE%E7%B7%A8%E8%BC%AF%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">版面配置編輯器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4Hello-World%E8%A8%8A%E6%81%AF"><span class="nav-number">1.3.</span> <span class="nav-text">變更Hello World訊息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE%E4%B8%AD%E6%96%B0%E5%A2%9ETextView"><span class="nav-number">2.</span> <span class="nav-text">在版面配置中新增TextView</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%AA%E9%99%A4%E7%9B%AE%E5%89%8D%E7%9A%84TextView"><span class="nav-number">2.1.</span> <span class="nav-text">刪除目前的TextView</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9ETextView"><span class="nav-number">2.2.</span> <span class="nav-text">新增TextView</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%BE%E7%BD%AETextView"><span class="nav-number">2.3.</span> <span class="nav-text">放置TextView</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%8F%8A%E6%94%BE%E7%BD%AE%E5%8F%A6%E4%B8%80%E5%80%8BTextView"><span class="nav-number">2.4.</span> <span class="nav-text">新增及放置另一個TextView</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E6%96%87%E5%AD%97%E6%A8%A3%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">新增文字樣式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E5%9C%96%E5%83%8F"><span class="nav-number">4.</span> <span class="nav-text">加入圖像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9EImageView"><span class="nav-number">5.</span> <span class="nav-text">新增ImageView</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9EImageView%E4%B8%A6%E8%A8%AD%E5%AE%9A%E5%9C%96%E5%83%8F"><span class="nav-number">5.1.</span> <span class="nav-text">新增ImageView並設定圖像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9AImageView%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%92%8C%E5%A4%A7%E5%B0%8F"><span class="nav-number">5.2.</span> <span class="nav-text">設定ImageView的位置和大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%87ImageView%E7%A7%BB%E8%87%B3%E6%96%87%E5%AD%97%E5%BE%8C%E6%96%B9"><span class="nav-number">5.3.</span> <span class="nav-text">將ImageView移至文字後方</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -655,8 +596,6 @@ ConstraintLayout。系統隨即會顯示一條三角形的藍色線條，以代�
 
 
 
-
-  
 
   
 

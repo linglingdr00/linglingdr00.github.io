@@ -260,13 +260,9 @@
 
       
           <blockquote>
-<p>採用會顯示不同兩棲動物物種資訊的 app，再使用網路、JSON 剖析和 view
-model 的知識，讓該 app 使用來自網路的資料。App 會從這個專案的自訂 API
-中取得資料，然後顯示於 list view。</p>
+<p>採用會顯示不同兩棲動物物種資訊的 app，再使用網路、JSON 剖析和 view model 的知識，讓該 app 使用來自網路的資料。App 會從這個專案的自訂 API 中取得資料，然後顯示於 list view。</p>
 </blockquote>
-<p><strong>建構項目</strong> 使用 <strong>Retrofit</strong> 和
-<strong>Moshi</strong> 以及適當的 error 處理方式，在 app
-中實作網路。</p>
+<p><strong>建構項目</strong><br>使用 <strong>Retrofit</strong> 和 <strong>Moshi</strong> 以及適當的 error 處理方式，在 app 中實作網路。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/15/Android%E7%AD%86%E8%A8%98-37-%E5%B0%88%E6%A1%88%EF%BC%9AAmphibians%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/#more" rel="contents">
@@ -354,19 +350,15 @@ model 的知識，讓該 app 使用來自網路的資料。App 會從這個專�
           <blockquote>
 <p>瞭解如何在 debugging 時使用中斷點(breakpoints)，並留意特定變數。</p>
 </blockquote>
-<p>到目前為止，大多數的新手 developers 可能已經會使用 Log statements
-進行 debugging。完成單元 1 後，您將學到如何解讀 <u>stack traces</u>
-和研究 <u>error messages</u>。雖然這兩種工具都是功能強大的 debugging
-工具，但現代 IDE 提供更多功能，讓您的 debugging 流程更有效率。</p>
-<p>在本課程中，您將瞭解 <u>Android Studio 整合的
-debugger</u>、如何<u>暫停執行 app</u>，以及<u>一次執行單行程式碼，找出
-bug 的確切來源</u>。此外，您將學會如何使用一項稱為
-<strong>Watches</strong>
-的功能以及<u>如何追蹤特定變數</u>，而不必新增特定的 log statements。</p>
-<p><strong>學習目標</strong> + 如何將 debugger 附加到運作中的 app。 +
-使用<b>中斷點(breakpoints)</b>來暫停執行中的 app，逐行檢查程式碼。 +
-將<u>條件運算式</u>加入<b>中斷點(breakpoints)</b>以節省 debugging 時間。
-+ 在 Watches 窗格中新增變數，以輔助 debugging。</p>
+<p>到目前為止，大多數的新手 developers 可能已經會使用 Log statements 進行 debugging。完成單元 1 後，您將學到如何解讀 <u>stack traces</u> 和研究 <u>error messages</u>。雖然這兩種工具都是功能強大的 debugging 工具，但現代 IDE 提供更多功能，讓您的 debugging 流程更有效率。</p>
+<p>在本課程中，您將瞭解 <u>Android Studio 整合的 debugger</u>、如何<u>暫停執行 app</u>，以及<u>一次執行單行程式碼，找出 bug 的確切來源</u>。此外，您將學會如何使用一項稱為 <strong>Watches</strong> 的功能以及<u>如何追蹤特定變數</u>，而不必新增特定的 log statements。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何將 debugger 附加到運作中的 app。</li>
+<li>使用<b>中斷點(breakpoints)</b>來暫停執行中的 app，逐行檢查程式碼。</li>
+<li>將<u>條件運算式</u>加入<b>中斷點(breakpoints)</b>以節省 debugging 時間。</li>
+<li>在 Watches 窗格中新增變數，以輔助 debugging。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/13/Android%E7%AD%86%E8%A8%98-36-%E9%80%8F%E9%81%8Ebreakpoints%E4%BE%86debug/#more" rel="contents">
@@ -458,19 +450,21 @@ bug 的確切來源</u>。此外，您將學會如何使用一項稱為
 
       
           <blockquote>
-<p>了解如何使用 <a target="_blank" rel="noopener" href="https://coil-kt.github.io/coil/">Coil</a>
-library 從 URL 載入並顯示網路上的圖片。</p>
+<p>了解如何使用 <a target="_blank" rel="noopener" href="https://coil-kt.github.io/coil/">Coil</a> library 從 URL 載入並顯示網路上的圖片。</p>
 </blockquote>
-<p><strong>學習目標</strong> + 如何使用 <strong>Coil library</strong>
-<u>從 URL 載入及顯示 image</u>。 + 如何使用 <code>RecyclerView</code> 和
-<strong>grid adapter</strong> 顯示<u>格狀(grid) images</u>。 + 如何處理
-images <u>下載及顯示</u>時出現的<u>潛在 errors</u>。</p>
-<p><strong>建構項目</strong> + 修改 MarsPhotos app 以<u>取得 Mars data
-中的 image URL</u>，並<u>使用 Coil 載入並顯示該 image</u>。 + 在 app
-中加入 <u>loading animation</u> 和 <u>error icon</u>。 + 使用
-<code>RecyclerView</code> 顯示格狀(grid) Mars images。 + 為
-<code>RecyclerView</code> 加入<u>狀態和錯誤處理機制(status and error
-handling)</u>。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何使用 <strong>Coil library</strong> <u>從 URL 載入及顯示 image</u>。</li>
+<li>如何使用 <code>RecyclerView</code> 和 <strong>grid adapter</strong> 顯示<u>格狀(grid) images</u>。</li>
+<li>如何處理 images <u>下載及顯示</u>時出現的<u>潛在 errors</u>。</li>
+</ul>
+<p><strong>建構項目</strong></p>
+<ul>
+<li>修改 MarsPhotos app 以<u>取得 Mars data 中的 image URL</u>，並<u>使用 Coil 載入並顯示該 image</u>。</li>
+<li>在 app 中加入 <u>loading animation</u> 和 <u>error icon</u>。</li>
+<li>使用 <code>RecyclerView</code> 顯示格狀(grid) Mars images。</li>
+<li>為 <code>RecyclerView</code> 加入<u>狀態和錯誤處理機制(status and error handling)</u>。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/09/Android%E7%AD%86%E8%A8%98-35-%E8%BC%89%E5%85%A5%E4%B8%A6%E9%A1%AF%E7%A4%BAInternet%E4%B8%8A%E7%9A%84images/#more" rel="contents">
@@ -562,30 +556,22 @@ handling)</u>。</p>
 
       
           <blockquote>
-<p>使用第三方 library <code>Retrofit</code> 將 app 連線至後端
-server，並瞭解 <code>REST</code> web service。</p>
+<p>使用第三方 library <code>Retrofit</code> 將 app 連線至後端 server，並瞭解 <code>REST</code> web service。</p>
 </blockquote>
-<p>使用以 open source 開發的 libraries 建構<u>網路層(network
-layer)</u>，並<u>從後端 server 取得
-data</u>。這樣可大幅簡化資料擷取作業，還可讓 app 符合 Android
-最佳做法，例如在<u>背景執行緒(background
-thread)</u>上執行作業。若網際網路(internet)連線速度緩慢或無法使用，您也可更新
-app 的 UI，以讓使用者隨時掌握任何網路連線問題。</p>
-<p><strong>學習目標</strong> + 什麼是 <a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/REST"><code>REST</code></a> web
-service。 + 使用 <a
-target="_blank" rel="noopener" href="https://square.github.io/retrofit/"><code>Retrofit</code></a>
-library 連線至 internet 上的 <code>REST</code> web service 並取得
-response(回應)。 + 使用 <a
-target="_blank" rel="noopener" href="https://github.com/square/moshi"><code>Moshi</code></a> library 將
-<u><code>JSON</code> response</u> 解析(parse)成 <u>data object</u>。</p>
-<p><strong>建構項目</strong> + 修改 starter app，以發出 <strong>web
-service API</strong> 的<u>要求(request)</u>和<u>處理回應(response)</u>。
-+ 使用 <code>Retrofit</code> library 為 app 實作<u>網路層(network
-layer)</u>。 + 使用 <code>Moshi</code> library，將 web service 中的
-<u><code>JSON</code> response</u> 解析(parse)成 app 的
-<u><code>LiveData</code> objects</u>。 + 使用 <code>Retrofit</code>
-提供的 <b>coroutines(協程)</b>來簡化程式碼。</p>
+<p>使用以 open source 開發的 libraries 建構<u>網路層(network layer)</u>，並<u>從後端 server 取得 data</u>。這樣可大幅簡化資料擷取作業，還可讓 app 符合 Android 最佳做法，例如在<u>背景執行緒(background thread)</u>上執行作業。若網際網路(internet)連線速度緩慢或無法使用，您也可更新 app 的 UI，以讓使用者隨時掌握任何網路連線問題。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>什麼是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/REST"><code>REST</code></a> web service。</li>
+<li>使用 <a target="_blank" rel="noopener" href="https://square.github.io/retrofit/"><code>Retrofit</code></a> library 連線至 internet 上的 <code>REST</code> web service 並取得 response(回應)。</li>
+<li>使用 <a target="_blank" rel="noopener" href="https://github.com/square/moshi"><code>Moshi</code></a> library 將 <u><code>JSON</code> response</u> 解析(parse)成 <u>data object</u>。</li>
+</ul>
+<p><strong>建構項目</strong></p>
+<ul>
+<li>修改 starter app，以發出 <strong>web service API</strong> 的<u>要求(request)</u>和<u>處理回應(response)</u>。</li>
+<li>使用 <code>Retrofit</code> library 為 app 實作<u>網路層(network layer)</u>。</li>
+<li>使用 <code>Moshi</code> library，將 web service 中的 <u><code>JSON</code> response</u> 解析(parse)成 app 的 <u><code>LiveData</code> objects</u>。</li>
+<li>使用 <code>Retrofit</code> 提供的 <b>coroutines(協程)</b>來簡化程式碼。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/06/Android%E7%AD%86%E8%A8%98-34-%E5%BE%9EInternet%E5%8F%96%E5%BE%97Data/#more" rel="contents">
@@ -677,18 +663,16 @@ layer)</u>。 + 使用 <code>Moshi</code> library，將 web service 中的
 
       
           <blockquote>
-<p>瞭解關於<b>執行緒(threads)</b>的資訊，以及如何使用稱為<b>協程(coroutines)</b>的
-Kotlin
-功能撰寫<u>乾淨(clear)</u>、<u>非阻塞(non-blocking)</u>的<b>並行(concurrent)</b>程式碼。</p>
+<p>瞭解關於<b>執行緒(threads)</b>的資訊，以及如何使用稱為<b>協程(coroutines)</b>的 Kotlin 功能撰寫<u>乾淨(clear)</u>、<u>非阻塞(non-blocking)</u>的<b>並行(concurrent)</b>程式碼。</p>
 </blockquote>
-<p><strong>學習目標</strong> +
-何謂<b>並行(concurrency)</b>，以及其重要性 +
-如何使用<b>協程(coroutines)</b>和<b>執行緒(threads)</b>，撰寫<u>非阻塞(non-blocking)</u>的<u>並行(concurrent)</u>程式碼
-+ 如何在 background 工作(performing tasks)時存取 <b>main
-thread</b>，安全地更新<b>UI</b> + 不同<b>並行模式(concurrency
-pattern)</b>「<b> 範圍(Scope) / 調度工具(Dispatchers) /
-延遲(Deferred)</b> 」的使用方式與使用時機 +
-如何撰寫與<b>網路資源(network resources)</b>互動(interacts)的程式碼</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>何謂<b>並行(concurrency)</b>，以及其重要性</li>
+<li>如何使用<b>協程(coroutines)</b>和<b>執行緒(threads)</b>，撰寫<u>非阻塞(non-blocking)</u>的<u>並行(concurrent)</u>程式碼</li>
+<li>如何在 background 工作(performing tasks)時存取 <b>main thread</b>，安全地更新<b>UI</b></li>
+<li>不同<b>並行模式(concurrency pattern)</b>「<b> 範圍(Scope) &#x2F; 調度工具(Dispatchers) &#x2F; 延遲(Deferred)</b> 」的使用方式與使用時機</li>
+<li>如何撰寫與<b>網路資源(network resources)</b>互動(interacts)的程式碼</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/12/05/Android%E7%AD%86%E8%A8%98-33-Coroutines%E7%B0%A1%E4%BB%8B/#more" rel="contents">
@@ -891,8 +875,6 @@ pattern)</b>「<b> 範圍(Scope) / 調度工具(Dispatchers) /
 
 
 
-
-  
 
   
 

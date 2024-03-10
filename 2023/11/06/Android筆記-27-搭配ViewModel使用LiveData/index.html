@@ -33,6 +33,8 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/a20e6e45e0d5dc6f_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/80e118245bdde6df_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/7880e60dc0a6f95c_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/9ef2fdf21ffa5c99_1920.png?hl=zh-tw">
 <meta property="article:published_time" content="2023-11-06T03:49:17.000Z">
 <meta property="article:modified_time" content="2023-11-17T07:50:23.298Z">
 <meta property="article:author" content="Tina Tang">
@@ -274,487 +276,324 @@
 
       
         <blockquote>
-<p>將 <code>ViewModel</code> 中的應用程式資料轉換為
-<code>LiveData</code>，並觀察自動更新 UI 所出現的變化。</p>
+<p>將 <code>ViewModel</code> 中的應用程式資料轉換為 <code>LiveData</code>，並觀察自動更新 UI 所出現的變化。</p>
 </blockquote>
-<p>在先前的程式碼研究室中，您已瞭解如何使用 <code>ViewModel</code>
-儲存應用程式資料。<code>ViewModel</code>
-可在設定變更時保留應用程式資料。在本程式碼研究室中，您將瞭解如何整合
-<code>LiveData</code> 與 <code>ViewModel</code> 中的資料。</p>
-<p><code>LiveData</code> 類別也屬於 Android
-架構元件的一部分，為可觀察的資料容器類別。</p>
-<p><strong>學習目標</strong> + 如何在應用程式中使用
-<code>LiveData</code> 和 <code>MutableLiveData</code>。 + 如何使用
-<code>LiveData</code> 來封裝儲存在 <code>ViewModel</code> 中的資料。 +
-如何新增觀察器(observer)方法以觀察 <code>LiveData</code> 中的變化。 +
-如何在版面配置檔案中編寫 binding 表達式。</p>
-<p><strong>建構項目</strong> + 針對 <code>Unscramble</code>
-應用程式中的應用程式資料 (字詞、字詞計數和分數) 使用
-<code>LiveData</code>。 +
-新增觀察器(observer)方法，在資料變更時接收通知，並自動更新打散字詞的
-text view。 + 在 layout 檔案中編寫 binding 表達式，在基礎
-<code>LiveData</code> 變更時觸發。分數、字詞計數和打散字詞 text view
-會自動更新。</p>
-<h2 id="section"><span id="more"></span></h2>
-<h3 id="範例應用程式總覽">範例應用程式總覽</h3>
-<p>本程式碼研究室會使用您在先前程式碼研究室中熟悉的
-<code>Unscramble</code>
-解決方案程式碼。應用程式會顯示打散的字詞，讓玩家進行重組。玩家可以嘗試任意次數來猜測正確字詞。目前字詞、玩家分數和字詞計數等應用程式資料會儲存在
-<code>ViewModel</code> 中。不過，該應用程式的 UI
-不會反映新的分數和字詞計數值。在本程式碼研究室中，您將使用
-<code>LiveData</code> 實作缺少的功能。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/a20e6e45e0d5dc6f_1920.png?hl=zh-tw" width="30%"></p>
-<hr />
-<h3 id="什麼是-livedata">什麼是 Livedata</h3>
-<p><code>LiveData</code> 是可觀察的資料容器類別，可感知生命週期。</p>
+<p>在先前的程式碼研究室中，您已瞭解如何使用 <code>ViewModel</code> 儲存應用程式資料。<code>ViewModel</code> 可在設定變更時保留應用程式資料。在本程式碼研究室中，您將瞭解如何整合 <code>LiveData</code> 與 <code>ViewModel</code> 中的資料。</p>
+<p><code>LiveData</code> 類別也屬於 Android 架構元件的一部分，為可觀察的資料容器類別。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何在應用程式中使用 <code>LiveData</code> 和 <code>MutableLiveData</code>。</li>
+<li>如何使用 <code>LiveData</code> 來封裝儲存在 <code>ViewModel</code> 中的資料。</li>
+<li>如何新增觀察器(observer)方法以觀察 <code>LiveData</code> 中的變化。</li>
+<li>如何在版面配置檔案中編寫 binding 表達式。</li>
+</ul>
+<p><strong>建構項目</strong></p>
+<ul>
+<li>針對 <code>Unscramble</code> 應用程式中的應用程式資料 (字詞、字詞計數和分數) 使用 <code>LiveData</code>。</li>
+<li>新增觀察器(observer)方法，在資料變更時接收通知，並自動更新打散字詞的 text view。</li>
+<li>在 layout 檔案中編寫 binding 表達式，在基礎 <code>LiveData</code> 變更時觸發。分數、字詞計數和打散字詞 text view 會自動更新。</li>
+</ul>
+<span id="more"></span>
+<hr>
+<h3 id="範例應用程式總覽"><a href="#範例應用程式總覽" class="headerlink" title="範例應用程式總覽"></a>範例應用程式總覽</h3><p>本程式碼研究室會使用您在先前程式碼研究室中熟悉的 <code>Unscramble</code> 解決方案程式碼。應用程式會顯示打散的字詞，讓玩家進行重組。玩家可以嘗試任意次數來猜測正確字詞。目前字詞、玩家分數和字詞計數等應用程式資料會儲存在 <code>ViewModel</code> 中。不過，該應用程式的 UI 不會反映新的分數和字詞計數值。在本程式碼研究室中，您將使用 <code>LiveData</code> 實作缺少的功能。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/a20e6e45e0d5dc6f_1920.png?hl=zh-tw" width="30%">
+
+<hr>
+<h3 id="什麼是-Livedata"><a href="#什麼是-Livedata" class="headerlink" title="什麼是 Livedata"></a>什麼是 Livedata</h3><p><code>LiveData</code> 是可觀察的資料容器類別，可感知生命週期。</p>
 <div class="note no-icon success">
-            <p><strong>注意：</strong> 當 <b>LiveData</b> 的 <b>value</b>更新時，<b>UI</b> 會自動更新。</p>
+            <p><strong>注意：</strong> 當 <b>LiveData</b> 的 <b>value</b> 更新時，<b>UI</b> 會自動更新。</p>
           </div>
-<p><code>LiveData</code> 特性如下： + <code>LiveData</code>
-可保存資料；<code>LiveData</code> 包裝函式可與任何類型的資料搭配使用。 +
-<code>LiveData</code> 可觀察，這表示當 <code>LiveData</code>
-物件保存的資料變更時，<code>observer</code> 會接收通知。 +
-<code>LiveData</code> 可感知生命週期。將 <code>observer</code> 附加至
-<code>LiveData</code> 時，<code>observer</code> 會與
-<code>LifecycleOwner</code> 建立關聯 (通常是 activity 或 fragment
-)。<code>LiveData</code> 只會更新處於有效生命週期狀態 (例如
-<code>STARTED</code> 或 <code>RESUMED</code>) 的
-<code>observer</code>。如要進一步瞭解 <code>LiveData</code> 與
-<code>observer</code>，請參閱<a
-target="_blank" rel="noopener" href="https://developer.android.com/topic/libraries/architecture/livedata?hl=zh-cn">這篇文章</a>。</p>
-<h4 id="範例程式碼中的-ui-更新">範例程式碼中的 UI 更新</h4>
-<p>在範例程式碼中，每當您想在 UI 中顯示新的打散字詞時，系統都會明確呼叫
-<code>updateNextWordOnScreen()</code>
-方法。您可在遊戲初始化期間，以及玩家按下「提交」或「略過」按鈕時呼叫此方法。將從
-<code>onViewCreated()</code>、<code>restartGame()</code>、<code>onSkipWord()</code>
-和 <code>onSubmitWord()</code> 方法呼叫此方法。使用
-<code>Livedata</code> 時，您不必從多個位置呼叫此方法來更新 UI。您只會在
-observer 中執行一次。</p>
-<hr />
-<h3 id="將-livedata-新增至-currentscrambledword">將 LiveData 新增至
-currentScrambledWord</h3>
-<p>在這項工作中，您會學習如何將 <code>GameViewModel</code>
-中的目前字詞轉換為 <code>LiveData</code>，以使用 <code>LiveData</code>,
-包裝任何資料。在後續工作中，您會將 observer 新增至此類
-<code>LiveData</code> 物件，並瞭解如何觀察 <code>LiveData</code>。</p>
-<h4 id="mutablelivedata">MutableLiveData</h4>
-<p><code>MutableLiveData</code> 是 <code>LiveData</code>
-的可變動版本，也就是可以變更儲存在其中的資料值。</p>
-<ol type="1">
-<li><p>在 <code>GameViewModel</code>
-中，將變數<code>_currentScrambledWord</code> 的類型變更為
-<code>MutableLiveData&lt;String&gt;</code>。<code>LiveData</code> 和
-<code>MutableLiveData</code>
-屬於一般類別，因此您需要指定其保存的資料類型。</p></li>
-<li><p>將 <code>_currentScrambledWord</code> 的變數類型變更為
-<code>val</code>，因為 <code>LiveData/MutableLiveData</code>
-物件的值會保持不變，只有儲存在物件中的資料會改變。</p></li>
+
+<p><code>LiveData</code> 特性如下：</p>
+<ul>
+<li><code>LiveData</code> 可保存資料；<code>LiveData</code> 包裝函式可與任何類型的資料搭配使用。</li>
+<li><code>LiveData</code> 可觀察，這表示當 <code>LiveData</code> 物件保存的資料變更時，<code>observer</code> 會接收通知。</li>
+<li><code>LiveData</code> 可感知生命週期。將 <code>observer</code> 附加至 <code>LiveData</code> 時，<code>observer</code> 會與 <code>LifecycleOwner</code> 建立關聯 (通常是 activity 或 fragment )。<code>LiveData</code> 只會更新處於有效生命週期狀態 (例如 <code>STARTED</code> 或 <code>RESUMED</code>) 的 <code>observer</code>。如要進一步瞭解 <code>LiveData</code> 與 <code>observer</code>，請參閱<a target="_blank" rel="noopener" href="https://developer.android.com/topic/libraries/architecture/livedata?hl=zh-cn">這篇文章</a>。</li>
+</ul>
+<h4 id="範例程式碼中的-UI-更新"><a href="#範例程式碼中的-UI-更新" class="headerlink" title="範例程式碼中的 UI 更新"></a>範例程式碼中的 UI 更新</h4><p>在範例程式碼中，每當您想在 UI 中顯示新的打散字詞時，系統都會明確呼叫 <code>updateNextWordOnScreen()</code> 方法。您可在遊戲初始化期間，以及玩家按下「提交」或「略過」按鈕時呼叫此方法。將從 <code>onViewCreated()</code>、<code>restartGame()</code>、<code>onSkipWord()</code> 和 <code>onSubmitWord()</code> 方法呼叫此方法。使用 <code>Livedata</code> 時，您不必從多個位置呼叫此方法來更新 UI。您只會在 observer 中執行一次。</p>
+<hr>
+<h3 id="將-LiveData-新增至-currentScrambledWord"><a href="#將-LiveData-新增至-currentScrambledWord" class="headerlink" title="將 LiveData 新增至 currentScrambledWord"></a>將 LiveData 新增至 currentScrambledWord</h3><p>在這項工作中，您會學習如何將 <code>GameViewModel</code> 中的目前字詞轉換為 <code>LiveData</code>，以使用 <code>LiveData</code>, 包裝任何資料。在後續工作中，您會將 observer 新增至此類 <code>LiveData</code> 物件，並瞭解如何觀察 <code>LiveData</code>。</p>
+<h4 id="MutableLiveData"><a href="#MutableLiveData" class="headerlink" title="MutableLiveData"></a>MutableLiveData</h4><p><code>MutableLiveData</code> 是 <code>LiveData</code> 的可變動版本，也就是可以變更儲存在其中的資料值。</p>
+<ol>
+<li><p>在 <code>GameViewModel</code> 中，將變數<code> _currentScrambledWord</code> 的類型變更為 <code>MutableLiveData&lt;String&gt;</code>。<code>LiveData</code> 和 <code>MutableLiveData</code> 屬於一般類別，因此您需要指定其保存的資料類型。</p>
+</li>
+<li><p>將 <code>_currentScrambledWord</code> 的變數類型變更為 <code>val</code>，因為 <code>LiveData/MutableLiveData</code> 物件的值會保持不變，只有儲存在物件中的資料會改變。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String改成 LiveData</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _currentScrambledWord = MutableLiveData&lt;String&gt;()</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>將支援欄位 <code>currentScrambledWord</code> 類型變更為
-<code>LiveData&lt;String&gt;</code>，因為此欄位不可變動。Android Studio
-會顯示某些錯誤，您將在後續步驟中進行修正。</li>
+
+<ol start="3">
+<li>將支援欄位 <code>currentScrambledWord</code> 類型變更為 <code>LiveData&lt;String&gt;</code>，因為此欄位不可變動。Android Studio 會顯示某些錯誤，您將在後續步驟中進行修正。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String改成 LiveData</span></span><br><span class="line"><span class="keyword">val</span> currentScrambledWord: LiveData&lt;String&gt;</span><br><span class="line">   <span class="keyword">get</span>() = _currentScrambledWord</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>如要存取 <code>LiveData</code> 物件中的資料，請使用
-<code>value</code> 屬性。在 <code>getNextWord()</code> 方法的
-<code>GameViewModel</code> 中，於 <code>else</code> 區塊內，將
-<code>_currentScrambledWord</code> 引用變更為
-<code>_currentScrambledWord.value</code>。</li>
+
+<ol start="4">
+<li>如要存取 <code>LiveData</code> 物件中的資料，請使用 <code>value</code> 屬性。在 <code>getNextWord()</code> 方法的 <code>GameViewModel</code> 中，於 <code>else</code> 區塊內，將 <code>_currentScrambledWord</code> 引用變更為 <code>_currentScrambledWord.value</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getNextWord</span><span class="params">()</span></span> &#123;</span><br><span class="line"> ...</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="comment">// 因 _currentScrambledWord 為 LiveData，需使用 value 屬性來存取 LiveData 物件中的資料</span></span><br><span class="line">       _currentScrambledWord.value = String(tempWord)</span><br><span class="line">       ...</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr />
-<h3 id="將-observer-附加至-livedata-物件">將 Observer 附加至 LiveData
-物件</h3>
-<p>在這項工作中，您將會在應用程式元件 <code>GameFragment</code>
-中設定觀察器(observer)。您新增的 observer 會觀察應用程式資料
-<code>currentScrambledWord</code> 的變更。<code>LiveData</code>
-具備生命週期感知功能，代表其只會更新處於有效生命週期狀態的
-observer。因此，<code>GameFragment</code> 中的 observer 只會在
-<code>GameFragment</code> 處於 <code>STARTED</code> 或
-<code>RESUMED</code> 狀態時收到通知。</p>
-<ol type="1">
-<li><p>在 <code>GameFragment</code> 中，刪除
-<code>updateNextWordOnScreen()</code> 方法及其所有呼叫。您將會在
-<code>LiveData</code> 中附加 observer，因此不需要使用此方法。</p></li>
-<li><p>在 <code>onSubmitWord()</code> 中，按照下列步驟修改空的
-<code>if-else</code> 區塊。完整方法應如下所示。</p></li>
+
+<hr>
+<h3 id="將-Observer-附加至-LiveData-物件"><a href="#將-Observer-附加至-LiveData-物件" class="headerlink" title="將 Observer 附加至 LiveData 物件"></a>將 Observer 附加至 LiveData 物件</h3><p>在這項工作中，您將會在應用程式元件 <code>GameFragment</code> 中設定觀察器(observer)。您新增的 observer 會觀察應用程式資料 <code>currentScrambledWord</code> 的變更。<code>LiveData</code> 具備生命週期感知功能，代表其只會更新處於有效生命週期狀態的 observer。因此，<code>GameFragment</code> 中的 observer 只會在 <code>GameFragment</code> 處於 <code>STARTED</code> 或 <code>RESUMED</code> 狀態時收到通知。</p>
+<ol>
+<li><p>在 <code>GameFragment</code> 中，刪除 <code>updateNextWordOnScreen()</code> 方法及其所有呼叫。您將會在 <code>LiveData</code> 中附加 observer，因此不需要使用此方法。</p>
+</li>
+<li><p>在 <code>onSubmitWord()</code> 中，按照下列步驟修改空的 <code>if-else</code> 區塊。完整方法應如下所示。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSubmitWord</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> playerWord = binding.textInputEditText.text.toString()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (viewModel.isUserWordCorrect(playerWord)) &#123;</span><br><span class="line">        setErrorTextField(<span class="literal">false</span>)</span><br><span class="line">        <span class="keyword">if</span> (!viewModel.nextWord()) &#123;</span><br><span class="line">            showFinalScoreDialog()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        setErrorTextField(<span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>為 <code>currentScrambledWord</code> <code>LiveData</code> 附加
-observer。在 <code>GameFragment</code> 的 <code>onViewCreated()</code>
-callback 結尾中，於 <code>currentScrambledWord</code> 上呼叫
-<code>observe()</code> 方法。</li>
+
+<ol start="3">
+<li>為 <code>currentScrambledWord</code> <code>LiveData</code> 附加 observer。在 <code>GameFragment</code> 的 <code>onViewCreated()</code> callback 結尾中，於 <code>currentScrambledWord</code> 上呼叫 <code>observe()</code> 方法。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 觀察 currentScrambledWord 的 LiveData</span></span><br><span class="line">viewModel.currentScrambledWord.observe()</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Android Studio
-會顯示缺少參數的相關錯誤。您將在下一個步驟中修正錯誤。</li>
+<li>Android Studio 會顯示缺少參數的相關錯誤。您將在下一個步驟中修正錯誤。</li>
 </ul>
-<ol start="4" type="1">
-<li><p>將 <code>viewLifecycleOwner</code> 做為第一個參數傳遞至
-<code>observe()</code> 方法。<code>viewLifecycleOwner</code>
-代表fragment 的 view 生命週期。此參數可協助 <code>LiveData</code> 留意
-<code>GameFragment</code> 生命週期，且只有在 <code>GameFragment</code>
-處於有效狀態 (<code>STARTED</code> 或 <code>RESUMED</code>) 時，才通知
-observer。</p></li>
-<li><p>使用 <code>newWord</code> 函式參數將 <code>lambda</code>
-新增為第二個參數。<code>newWord</code> 將包含新的打散字詞值。</p></li>
+<ol start="4">
+<li><p>將 <code>viewLifecycleOwner</code> 做為第一個參數傳遞至 <code>observe()</code> 方法。<code>viewLifecycleOwner</code> 代表fragment 的 view 生命週期。此參數可協助 <code>LiveData</code> 留意 <code>GameFragment</code> 生命週期，且只有在 <code>GameFragment</code> 處於有效狀態 (<code>STARTED</code> 或 <code>RESUMED</code>) 時，才通知 observer。</p>
+</li>
+<li><p>使用 <code>newWord</code> 函式參數將 <code>lambda</code> 新增為第二個參數。<code>newWord</code> 將包含新的打散字詞值。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 觀察 scrambledCharArray LiveData，傳入 LifecycleOwner 和 observer</span></span><br><span class="line">viewModel.currentScrambledWord.observe(viewLifecycleOwner,</span><br><span class="line">   &#123; newWord -&gt;</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
 <ul>
-<li><code>lambda</code>
-運算式是未宣告的匿名函式，但會立即以運算式的形式傳遞。<code>lambda</code>
-運算式一律會加上大括號 <code>&#123; &#125;</code>。</li>
+<li><code>lambda</code> 運算式是未宣告的匿名函式，但會立即以運算式的形式傳遞。<code>lambda</code> 運算式一律會加上大括號 <code>&#123; &#125;</code>。</li>
 </ul>
-<ol start="6" type="1">
-<li>在 <code>lambda</code> 運算式的函式主體中，將 <code>newWord</code>
-指派至打散字詞 text view。</li>
+<ol start="6">
+<li>在 <code>lambda</code> 運算式的函式主體中，將 <code>newWord</code> 指派至打散字詞 text view。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Observe the scrambledCharArray LiveData, passing in the LifecycleOwner and the observer.</span></span><br><span class="line">viewModel.currentScrambledWord.observe(viewLifecycleOwner,</span><br><span class="line">    <span class="comment">// 使用 newWord 函式參數將 lambda 新增為第二個參數，將 newWord 設為打散字詞 text view 的文字</span></span><br><span class="line">   &#123; newWord -&gt;</span><br><span class="line">       binding.textViewUnscrambledWord.text = newWord</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
-<ol start="7" type="1">
-<li>編譯並執行應用程式。您的遊戲應用程式應可照常運作，但現在會在
-<code>LiveData</code> observer 中 (而非在
-<code>updateNextWordOnScreen()</code> 方法中) 自動更新打散字詞 text
-view。</li>
+
+<ol start="7">
+<li>編譯並執行應用程式。您的遊戲應用程式應可照常運作，但現在會在 <code>LiveData</code> observer 中 (而非在 <code>updateNextWordOnScreen()</code> 方法中) 自動更新打散字詞 text view。</li>
 </ol>
-<hr />
-<h3 id="將-observer-附加至分數和字詞計數">將 Observer
-附加至分數和字詞計數</h3>
-<p>如同前一個工作，在這項工作中，您會將 <code>LiveData</code>
-新增至應用程式的其他資料、分數和字詞計數中，使 UI
-在遊戲期間能夠更新分數和字詞計數的正確值。</p>
-<h4 id="步驟-1使用-livedata-包裝分數和字詞計數">步驟 1：使用 LiveData
-包裝分數和字詞計數</h4>
-<ol type="1">
-<li><p>在 <code>GameViewModel</code> 中，將 <code>_score</code> 和
-<code>_currentWordCount</code> 類別變數的類型變更為
-<code>val</code>。</p></li>
-<li><p>將變數 <code>_score</code> 和 <code>_currentWordCount</code>
-的資料類型變更為 <code>MutableLiveData</code>，並將其初始化為
-<code>0</code>。</p></li>
-<li><p>將支援欄位類型變更為 <code>LiveData&lt;Int&gt;</code>。</p></li>
+<hr>
+<h3 id="將-Observer-附加至分數和字詞計數"><a href="#將-Observer-附加至分數和字詞計數" class="headerlink" title="將 Observer 附加至分數和字詞計數"></a>將 Observer 附加至分數和字詞計數</h3><p>如同前一個工作，在這項工作中，您會將 <code>LiveData</code> 新增至應用程式的其他資料、分數和字詞計數中，使 UI 在遊戲期間能夠更新分數和字詞計數的正確值。</p>
+<h4 id="步驟-1：使用-LiveData-包裝分數和字詞計數"><a href="#步驟-1：使用-LiveData-包裝分數和字詞計數" class="headerlink" title="步驟 1：使用 LiveData 包裝分數和字詞計數"></a>步驟 1：使用 LiveData 包裝分數和字詞計數</h4><ol>
+<li><p>在 <code>GameViewModel</code> 中，將 <code>_score</code> 和 <code>_currentWordCount</code> 類別變數的類型變更為 <code>val</code>。</p>
+</li>
+<li><p>將變數 <code>_score</code> 和 <code>_currentWordCount</code> 的資料類型變更為 <code>MutableLiveData</code>，並將其初始化為 <code>0</code>。</p>
+</li>
+<li><p>將支援欄位類型變更為 <code>LiveData&lt;Int&gt;</code>。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _score = MutableLiveData(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">val</span> score: LiveData&lt;<span class="built_in">Int</span>&gt;</span><br><span class="line">   <span class="keyword">get</span>() = _score</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> _currentWordCount = MutableLiveData(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">val</span> currentWordCount: LiveData&lt;<span class="built_in">Int</span>&gt;</span><br><span class="line">   <span class="keyword">get</span>() = _currentWordCount</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>在 <code>reinitializeData()</code> 方法開頭的
-<code>GameViewModel</code> 中，將 <code>_score</code> 和
-<code>_currentWordCount</code> 的引用變更為 <code>_score.value</code> 和
-<code>_currentWordCount.value</code>。</li>
+
+<ol start="4">
+<li>在 <code>reinitializeData()</code> 方法開頭的 <code>GameViewModel</code> 中，將 <code>_score</code> 和 <code>_currentWordCount</code> 的引用變更為 <code>_score.value</code> 和 <code>_currentWordCount.value</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">reinitializeData</span><span class="params">()</span></span> &#123;</span><br><span class="line">   _score.value = <span class="number">0</span></span><br><span class="line">   _currentWordCount.value = <span class="number">0</span></span><br><span class="line">   wordsList.clear()</span><br><span class="line">   getNextWord()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
-<li>在 <code>nextWord()</code> 方法內的 <code>GameViewModel</code>
-中，將 <code>_currentWordCount</code> 的參照變更為
-<code>_currentWordCount.value!!</code>。</li>
+
+<ol start="5">
+<li>在 <code>nextWord()</code> 方法內的 <code>GameViewModel</code> 中，將 <code>_currentWordCount</code> 的參照變更為 <code>_currentWordCount.value!!</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">nextWord</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">if</span> (_currentWordCount.value!! &lt; MAX_NO_OF_WORDS) &#123;</span><br><span class="line">           getNextWord()</span><br><span class="line">           <span class="literal">true</span></span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<ol start="6" type="1">
-<li><p>在 <code>GameViewModel</code> 的 <code>increaseScore()</code> 和
-<code>getNextWord()</code> 方法中，分別將 <code>_score</code> 和
-<code>_currentWordCount</code> 的參照變更為 <code>_score.value</code> 和
-<code>_currentWordCount.value</code>。Android Studio 會顯示錯誤，因為
-<code>_score</code> 已不再是整數，而是
-<code>LiveData</code>，您將在後續步驟中修正此錯誤。</p></li>
-<li><p>使用 <a
-target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/plus.html"><code>plus()</code></a>
-Kotlin 函式增加 <code>_score</code>
-值，如此即可使用空值安全性執行加法。</p></li>
+
+<ol start="6">
+<li><p>在 <code>GameViewModel</code> 的 <code>increaseScore()</code> 和 <code>getNextWord()</code> 方法中，分別將 <code>_score</code> 和 <code>_currentWordCount</code> 的參照變更為 <code>_score.value</code> 和 <code>_currentWordCount.value</code>。Android Studio 會顯示錯誤，因為 <code>_score</code> 已不再是整數，而是 <code>LiveData</code>，您將在後續步驟中修正此錯誤。</p>
+</li>
+<li><p>使用 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/plus.html"><code>plus()</code></a> Kotlin 函式增加 <code>_score</code> 值，如此即可使用空值安全性執行加法。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">increaseScore</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 因 _score 改為 LiveData，使用 plus方法 取代「+」</span></span><br><span class="line">    _score.value = (_score.value)?.plus(SCORE_INCREASE)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="8" type="1">
-<li>同樣地，您也可以使用 <a
-target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/inc.html"><code>inc()</code></a>
-Kotlin 函式，使用空值安全性將值增加一。</li>
+
+<ol start="8">
+<li>同樣地，您也可以使用 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/inc.html"><code>inc()</code></a> Kotlin 函式，使用空值安全性將值增加一。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getNextWord</span><span class="params">()</span></span> &#123;</span><br><span class="line">   ...</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        _currentScrambledWord.value = String(tempWord)</span><br><span class="line">        <span class="comment">// 因 _currentWordCount 改為 LiveData，使用 .inc()方法 取代「++」</span></span><br><span class="line">        _currentWordCount.value = (_currentWordCount.value)?.inc()</span><br><span class="line">        wordsList.add(currentWord)</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<ol start="9" type="1">
-<li>在 <code>GameFragment</code> 中，使用 <code>value</code> 屬性存取
-<code>score</code> 的值。在 <code>showFinalScoreDialog()</code>
-方法中，將 <code>viewModel.score</code> 變更為
-<code>viewModel.score.value</code>。</li>
+
+<ol start="9">
+<li>在 <code>GameFragment</code> 中，使用 <code>value</code> 屬性存取 <code>score</code> 的值。在 <code>showFinalScoreDialog()</code> 方法中，將 <code>viewModel.score</code> 變更為 <code>viewModel.score.value</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">showFinalScoreDialog</span><span class="params">()</span></span> &#123;</span><br><span class="line">   MaterialAlertDialogBuilder(requireContext())</span><br><span class="line">       .setTitle(getString(R.string.congratulations))</span><br><span class="line">       .setMessage(getString(R.string.you_scored, viewModel.score.value))</span><br><span class="line">       ...</span><br><span class="line">       .show()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="步驟-2將-observer-附加至分數和字詞計數">步驟 2：將 Observer
-附加至分數和字詞計數</h4>
-<p>應用程式中的分數和字詞計數不會更新。在這項工作中，您將使用
-<code>LiveData</code> observer 進行更新。</p>
-<ol type="1">
-<li>在 <code>GameFragment</code> 的 <code>onViewCreated()</code> 方法中
-，刪除更新分數和字詞計數 text view 的程式碼。</li>
+
+<h4 id="步驟-2：將-Observer-附加至分數和字詞計數"><a href="#步驟-2：將-Observer-附加至分數和字詞計數" class="headerlink" title="步驟 2：將 Observer 附加至分數和字詞計數"></a>步驟 2：將 Observer 附加至分數和字詞計數</h4><p>應用程式中的分數和字詞計數不會更新。在這項工作中，您將使用 <code>LiveData</code> observer 進行更新。</p>
+<ol>
+<li>在 <code>GameFragment</code> 的 <code>onViewCreated()</code> 方法中 ，刪除更新分數和字詞計數 text view 的程式碼。</li>
 </ol>
-<p>移除： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binding.score.text = getString(R.string.score, <span class="number">0</span>)</span><br><span class="line">binding.wordCount.text = getString(R.string.word_count, <span class="number">0</span>, MAX_NO_OF_WORDS)</span><br></pre></td></tr></table></figure></p>
-<ol start="2" type="1">
-<li>在 <code>GameFragment</code> 中 <code>onViewCreated()</code>
-方法的結尾，為 <code>score</code> 附加 observer。將
-<code>viewLifecycleOwner</code> 做為第一個參數傳遞至 observer，並使用
-<code>lambda</code> 運算式做為第二個參數。在 <code>lambda</code>
-運算式中，將新的分數做為參數傳遞，並在函式主體中，將新分數設為 text view
-的文字。</li>
+<p>移除：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binding.score.text = getString(R.string.score, <span class="number">0</span>)</span><br><span class="line">binding.wordCount.text = getString(R.string.word_count, <span class="number">0</span>, MAX_NO_OF_WORDS)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 <code>GameFragment</code> 中 <code>onViewCreated()</code> 方法的結尾，為 <code>score</code> 附加 observer。將 <code>viewLifecycleOwner</code> 做為第一個參數傳遞至 observer，並使用 <code>lambda</code> 運算式做為第二個參數。在 <code>lambda</code> 運算式中，將新的分數做為參數傳遞，並在函式主體中，將新分數設為 text view 的文字。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">viewModel.score.observe(viewLifecycleOwner,</span><br><span class="line">   &#123; newScore -&gt;</span><br><span class="line">       binding.score.text = getString(R.string.score, newScore)</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>在 <code>onViewCreated()</code> 方法結尾，為
-<code>currentWordCount</code> <code>LiveData</code> 附加 observer。將
-<code>viewLifecycleOwner</code> 做為第一個參數傳遞至 observer，並使用
-<code>lambda</code> 運算式做為第二個參數。在 <code>lambda</code>
-運算式中，將新字詞計數做為參數傳遞，並在函式主體中，將新字詞計數與
-<code>MAX_NO_OF_WORDS</code> 設為 text view 的文字。</li>
+
+<ol start="3">
+<li>在 <code>onViewCreated()</code> 方法結尾，為 <code>currentWordCount</code> <code>LiveData</code> 附加 observer。將 <code>viewLifecycleOwner</code> 做為第一個參數傳遞至 observer，並使用 <code>lambda</code> 運算式做為第二個參數。在 <code>lambda</code> 運算式中，將新字詞計數做為參數傳遞，並在函式主體中，將新字詞計數與 <code>MAX_NO_OF_WORDS</code> 設為 text view 的文字。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">viewModel.currentWordCount.observe(viewLifecycleOwner,</span><br><span class="line">   &#123; newWordCount -&gt;</span><br><span class="line">       binding.wordCount.text =</span><br><span class="line">           getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
 <ul>
-<li>在生命週期擁有者的生命週期期間 (即 <code>GameFragment</code>)，當
-<code>ViewModel</code> 內的分數和字詞計數值發生變化時，就會觸發新的
-observer。</li>
+<li>在生命週期擁有者的生命週期期間 (即 <code>GameFragment</code>)，當 <code>ViewModel</code> 內的分數和字詞計數值發生變化時，就會觸發新的 observer。</li>
 </ul>
-<ol start="4" type="1">
-<li>執行應用程式即可見證其奧妙之處。使用一些字詞進行遊戲。畫面上的分數和字詞計數也會正確更新。請注意，這些
-text view 並不會根據程式碼的部分條件進行更新。<code>score</code> 和
-<code>currentWordCount</code> 為
-<code>LiveData</code>，且基礎值變更時，系統會自動呼叫對應的
-observer。</li>
+<ol start="4">
+<li>執行應用程式即可見證其奧妙之處。使用一些字詞進行遊戲。畫面上的分數和字詞計數也會正確更新。請注意，這些 text view 並不會根據程式碼的部分條件進行更新。<code>score</code> 和 <code>currentWordCount</code> 為 <code>LiveData</code>，且基礎值變更時，系統會自動呼叫對應的 observer。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/80e118245bdde6df_1920.png?hl=zh-tw" width="30%"></p>
-<hr />
-<h3 id="將-livedata-搭配-data-binding-使用">將 LiveData 搭配 Data
-Binding 使用</h3>
-<p>在先前的工作中，您的應用程式會監聽程式碼中的 data
-變更。同樣地，應用程式也可以監聽 layout 中的 data 變更。透過
-<u><strong>Data Binding</strong></u>，<span class="label primary">當可觀察的 <b>LiveData</b> 值變更時，系統也會通知其<b>綁定(bind)</b>的 <b>layout</b> 中的 <b>UI 元素</b>，且可從 <b>layout</b> 中更新 <b>UI</b></span>。</p>
-<h4 id="概念data-binding">概念：Data Binding</h4>
-<p>在先前的程式碼研究室中，您已瞭解單向的 view binding。您可以將 view
-綁定(bind)至程式碼，但無法將程式碼綁定(bind)至 view。</p>
-<h5 id="複習-view-binding">複習 View Binding：</h5>
-<p>view binding 是一項可讓您更輕鬆地在程式碼中訪問 view 的功能。它會為各
-XML layout 檔案產生 binding class。凡是在對應 layout 中具有 ID 的
-view，binding class 的例項都會包含指向這些 view
-的直接引用。舉例來說，Unscramble 應用程式目前使用 view
-binding，因此<u>使用產生的 binding class 可在程式碼中引用 view</u>。</p>
-<p>範例： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">binding.textViewUnscrambledWord.text = newWord</span><br><span class="line">binding.score.text = getString(R.string.score, newScore)</span><br><span class="line">binding.wordCount.text =</span><br><span class="line">                  getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)</span><br></pre></td></tr></table></figure> + 如果使用 view binding，就無法引用 view
-中的應用程式資料 (layout檔案)。您可以使用 data binding
-完成這項操作。</p>
-<h5 id="data-binding">Data Binding</h5>
-<p>Data Binding 程式庫也屬於 Android Jetpack 程式庫的一部分。Data
-Binding 使用宣告式格式<span class="label primary">將 layout 中的 UI 元件 bind 至應用程式中的資料(data)來源</span>，稍後將在程式碼研究室中說明。</p>
-<p>簡單來說，<strong>Data Binding</strong> 會將 <strong>data</strong>
-(從程式碼) <strong>bind</strong> 至 <span class="label primary"><b>View + View Binding</b></span> (將 view bind
-至程式碼)︰</p>
-<p>在 UI controller 中使用 view binding 的範例 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord</span><br></pre></td></tr></table></figure></p>
-<p>在 layout 檔案中使用 data binding 的範例 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:text=&quot;@&#123;gameViewModel.currentScrambledWord&#125;&quot;</span><br></pre></td></tr></table></figure> +
-以上範例說明如何使用 data binding 程式庫，直接將應用程式 data 指派至
-layout 檔案中的 view/widget(小工具)。請注意，指派運算式中使用
-<code>@&#123;&#125;</code> 語法。</p>
-<p>使用 data binding 的主要優點在於，您可以移除 activity 中的許多 UI
-架構呼叫，使其更加簡單且易於維護。這還可改善應用程式效能，避免發生記憶體流失及空值(null)指標例外狀況。</p>
-<h4 id="步驟-1變更資料繫結的檢視繫結">步驟
-1：變更資料繫結的檢視繫結</h4>
-<ol type="1">
-<li>在 <code>build.gradle(Module)</code> 檔案中，啟用
-<code>buildFeatures</code> 區段下的 <code>dataBinding</code> 屬性。</li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/80e118245bdde6df_1920.png?hl=zh-tw" width="30%">
+
+<hr>
+<h3 id="將-LiveData-搭配-Data-Binding-使用"><a href="#將-LiveData-搭配-Data-Binding-使用" class="headerlink" title="將 LiveData 搭配 Data Binding 使用"></a>將 LiveData 搭配 Data Binding 使用</h3><p>在先前的工作中，您的應用程式會監聽程式碼中的 data 變更。同樣地，應用程式也可以監聽 layout 中的 data 變更。透過 <u><strong>Data Binding</strong></u>，<span class="label primary">當可觀察的 <b>LiveData</b> 值變更時，系統也會通知其<b>綁定(bind)</b>的 <b>layout</b> 中的 <b>UI 元素</b>，且可從 <b>layout</b> 中更新 <b>UI</b></span>。</p>
+<h4 id="概念：Data-Binding"><a href="#概念：Data-Binding" class="headerlink" title="概念：Data Binding"></a>概念：Data Binding</h4><p>在先前的程式碼研究室中，您已瞭解單向的 view binding。您可以將 view 綁定(bind)至程式碼，但無法將程式碼綁定(bind)至 view。</p>
+<h5 id="複習-View-Binding："><a href="#複習-View-Binding：" class="headerlink" title="複習 View Binding："></a>複習 View Binding：</h5><p>view binding 是一項可讓您更輕鬆地在程式碼中訪問 view 的功能。它會為各 XML layout 檔案產生 binding class。凡是在對應 layout 中具有 ID 的 view，binding class 的例項都會包含指向這些 view 的直接引用。舉例來說，Unscramble 應用程式目前使用 view binding，因此<u>使用產生的 binding class 可在程式碼中引用 view</u>。</p>
+<p>範例：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">binding.textViewUnscrambledWord.text = newWord</span><br><span class="line">binding.score.text = getString(R.string.score, newScore)</span><br><span class="line">binding.wordCount.text =</span><br><span class="line">                  getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果使用 view binding，就無法引用 view 中的應用程式資料 (layout檔案)。您可以使用 data binding 完成這項操作。</li>
+</ul>
+<h5 id="Data-Binding"><a href="#Data-Binding" class="headerlink" title="Data Binding"></a>Data Binding</h5><p>Data Binding 程式庫也屬於 Android Jetpack 程式庫的一部分。Data Binding 使用宣告式格式<span class="label primary">將 layout 中的 UI 元件 bind 至應用程式中的資料(data)來源</span>，稍後將在程式碼研究室中說明。</p>
+<p>簡單來說，<strong>Data Binding</strong> 會將 <strong>data</strong> (從程式碼) <strong>bind</strong> 至 <span class="label primary"><b>View + View Binding</b></span> (將 view bind 至程式碼)︰</p>
+<p>在 UI controller 中使用 view binding 的範例</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord</span><br></pre></td></tr></table></figure>
+
+<p>在 layout 檔案中使用 data binding 的範例</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:text=&quot;@&#123;gameViewModel.currentScrambledWord&#125;&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>以上範例說明如何使用 data binding 程式庫，直接將應用程式 data 指派至 layout 檔案中的 view&#x2F;widget(小工具)。請注意，指派運算式中使用 <code>@&#123;&#125;</code> 語法。</li>
+</ul>
+<p>使用 data binding 的主要優點在於，您可以移除 activity 中的許多 UI 架構呼叫，使其更加簡單且易於維護。這還可改善應用程式效能，避免發生記憶體流失及空值(null)指標例外狀況。</p>
+<h4 id="步驟-1：變更資料繫結的檢視繫結"><a href="#步驟-1：變更資料繫結的檢視繫結" class="headerlink" title="步驟 1：變更資料繫結的檢視繫結"></a>步驟 1：變更資料繫結的檢視繫結</h4><ol>
+<li>在 <code>build.gradle(Module)</code> 檔案中，啟用 <code>buildFeatures</code> 區段下的 <code>dataBinding</code> 屬性。</li>
 </ol>
-<p>將 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">buildFeatures &#123;</span><br><span class="line">    viewBinding <span class="keyword">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>取代為 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">buildFeatures &#123;</span><br><span class="line">    dataBinding <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="2" type="1">
-<li>如要在任何 Kotlin 專案中使用 data binding，請套用
-<code>kotlin-kapt</code> 外掛程式。此步驟已在
-<code>build.gradle(Module)</code> 檔案中完成。</li>
+<p>將 </p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">buildFeatures &#123;</span><br><span class="line">    viewBinding <span class="keyword">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>取代為</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">buildFeatures &#123;</span><br><span class="line">    dataBinding <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>如要在任何 Kotlin 專案中使用 data binding，請套用 <code>kotlin-kapt</code> 外掛程式。此步驟已在 <code>build.gradle(Module)</code> 檔案中完成。</li>
 </ol>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">   id <span class="string">&#x27;com.android.application&#x27;</span></span><br><span class="line">   id <span class="string">&#x27;kotlin-android&#x27;</span></span><br><span class="line">   id <span class="string">&#x27;kotlin-kapt&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>上述步驟會自動為應用程式中的每個 layout XML 檔案產生 <strong>binding
-class</strong>，如果 layout 檔案名稱為
-<code>activity_main.xml</code>，則自動產生的 class 將會稱為
-<code>ActivityMainBinding</code>。</li>
+<li>上述步驟會自動為應用程式中的每個 layout XML 檔案產生 <strong>binding class</strong>，如果 layout 檔案名稱為 <code>activity_main.xml</code>，則自動產生的 class 將會稱為 <code>ActivityMainBinding</code>。</li>
 </ul>
-<h4 id="步驟-2將-layout-檔案轉換為-data-binding-layout">步驟 2：將
-layout 檔案轉換為 Data Binding layout</h4>
-<p>Data Binding layout 檔案略有不同，以 根(root) 標記
-<code>&lt;layout&gt;</code> 為開頭，後面接著可選的
-<code>&lt;data&gt;</code> 元素和 <code>view</code> 根(root) 元素。此
-view 元素就是非綁定(bind) layout 檔案中的根(root)。</p>
-<ol type="1">
-<li><p>開啟
-<code>game_fragment.xml</code>，選取「Code」分頁標籤。</p></li>
-<li><p>如要將 layout 轉換成 data binding layout，請將根(root)元素納入
-<code>&lt;layout&gt;</code> 標記中。您也必須將命名空間定義 (開頭為
-<code>xmlns:</code> 的屬性) 移至新的根(root)元素。在根(root)元素上方的
-<code>&lt;layout&gt;</code> 標記中加入
-<code>&lt;data&gt;&lt;/data&gt;</code> 標記。</p></li>
+<h4 id="步驟-2：將-layout-檔案轉換為-Data-Binding-layout"><a href="#步驟-2：將-layout-檔案轉換為-Data-Binding-layout" class="headerlink" title="步驟 2：將 layout 檔案轉換為 Data Binding layout"></a>步驟 2：將 layout 檔案轉換為 Data Binding layout</h4><p>Data Binding layout 檔案略有不同，以 根(root) 標記 <code>&lt;layout&gt;</code> 為開頭，後面接著可選的 <code>&lt;data&gt;</code> 元素和 <code>view</code> 根(root) 元素。此 view 元素就是非綁定(bind) layout 檔案中的根(root)。</p>
+<ol>
+<li><p>開啟 <code>game_fragment.xml</code>，選取「Code」分頁標籤。</p>
+</li>
+<li><p>如要將 layout 轉換成 data binding layout，請將根(root)元素納入 <code>&lt;layout&gt;</code> 標記中。您也必須將命名空間定義 (開頭為 <code>xmlns:</code> 的屬性) 移至新的根(root)元素。在根(root)元素上方的 <code>&lt;layout&gt;</code> 標記中加入 <code>&lt;data&gt;&lt;/data&gt;</code> 標記。</p>
+</li>
 </ol>
 <ul>
-<li>Android Studio 提供可自動執行此作業的便利方法：在根(root)元素
-<code>&lt;ScrollView&gt;</code>上按一下滑鼠右鍵，然後依序選取「Show
-Context Actions」&gt;「Convert to data binding layout」。</li>
+<li>Android Studio 提供可自動執行此作業的便利方法：在根(root)元素 <code>&lt;ScrollView&gt; </code>上按一下滑鼠右鍵，然後依序選取「Show Context Actions」&gt;「Convert to data binding layout」。</li>
 </ul>
-<ol start="3" type="1">
+<ol start="3">
 <li>layout 應如下所示：</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">layout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">data</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;/<span class="name">data</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">ScrollView</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">       <span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">         <span class="attr">...</span></span></span><br><span class="line"><span class="tag">       &lt;/<span class="attr">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">ScrollView</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>在 <code>GameFragment</code> 中，在 <code>onCreateView()</code>
-方法的一開始，變更 <code>binding</code> 變數的 instance，以使用 data
-binding。</li>
+
+<ol start="4">
+<li>在 <code>GameFragment</code> 中，在 <code>onCreateView()</code> 方法的一開始，變更 <code>binding</code> 變數的 instance，以使用 data binding。</li>
 </ol>
-<p>將 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binding = GameFragmentBinding.inflate(inflater, container, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure></p>
-<p>取代為 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure></p>
-<ol start="5" type="1">
-<li>編譯程式碼；您應能夠順利編譯。您的應用程式現在會使用 data
-binding，layout 中的 view 也可存取應用程式的 data。</li>
+<p>將</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binding = GameFragmentBinding.inflate(inflater, container, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+
+<p>取代為</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>編譯程式碼；您應能夠順利編譯。您的應用程式現在會使用 data binding，layout 中的 view 也可存取應用程式的 data。</li>
 </ol>
-<hr />
-<h3 id="新增-data-binding-變數">新增 Data Binding 變數</h3>
-<p>在這項工作中，您必須在 layout 檔案中加入屬性，以便存取
-<code>viewModel</code> 中的應用程式 data。您將初始化程式碼中的 layout
-變數。</p>
-<ol type="1">
-<li>在 <code>game_fragment.xml</code> 的 <code>&lt;data&gt;</code>
-標記中，新增名為 <code>&lt;variable&gt;</code> 的子標記，宣告名為
-<code>gameViewModel</code> 且類型(type)為 <code>GameViewModel</code>
-的屬性。您會使用此方法<span class="label primary">將 <b>ViewModel</b> 中的 <b>data</b> 綁定(bind)至 <b>layout</b></span>。</li>
+<hr>
+<h3 id="新增-Data-Binding-變數"><a href="#新增-Data-Binding-變數" class="headerlink" title="新增 Data Binding 變數"></a>新增 Data Binding 變數</h3><p>在這項工作中，您必須在 layout 檔案中加入屬性，以便存取 <code>viewModel</code> 中的應用程式 data。您將初始化程式碼中的 layout 變數。</p>
+<ol>
+<li>在 <code>game_fragment.xml</code> 的 <code>&lt;data&gt;</code> 標記中，新增名為 <code>&lt;variable&gt;</code> 的子標記，宣告名為 <code>gameViewModel</code> 且類型(type)為 <code>GameViewModel</code> 的屬性。您會使用此方法<span class="label primary">將 <b>ViewModel</b> 中的 <b>data</b> 綁定(bind)至 <b>layout</b></span>。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">data</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- 將 ViewModel 中的 data 綁定(bind)至 layout --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">variable</span></span></span><br><span class="line"><span class="tag">       <span class="attr">name</span>=<span class="string">&quot;gameViewModel&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">type</span>=<span class="string">&quot;com.example.android.unscramble.ui.game.GameViewModel&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">data</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>請注意，<code>gameViewModel</code> 的類型包含套件名稱(package
-name)。請確認此套件名稱與應用程式中的套件名稱相符。</li>
+<li>請注意，<code>gameViewModel</code> 的類型包含套件名稱(package name)。請確認此套件名稱與應用程式中的套件名稱相符。</li>
 </ul>
-<ol start="2" type="1">
-<li>在 <code>gameViewModel</code> 宣告下方，在 <code>&lt;data&gt;</code>
-標記中加入另一個變數，並將其命名為
-<code>maxNoOfWords</code>，類型(type)為
-<code>Integer</code>。您將使用此方法綁定(bind)至 <code>ViewModel</code>
-中的變數，以儲存每場遊戲的字詞數。</li>
+<ol start="2">
+<li>在 <code>gameViewModel</code> 宣告下方，在 <code>&lt;data&gt;</code> 標記中加入另一個變數，並將其命名為 <code>maxNoOfWords</code>，類型(type)為 <code>Integer</code>。您將使用此方法綁定(bind)至 <code>ViewModel</code> 中的變數，以儲存每場遊戲的字詞數。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">data</span>&gt;</span></span><br><span class="line">   ...</span><br><span class="line">   <span class="comment">&lt;!-- 每場遊戲的字詞數 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">variable</span></span></span><br><span class="line"><span class="tag">       <span class="attr">name</span>=<span class="string">&quot;maxNoOfWords&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">type</span>=<span class="string">&quot;int&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">data</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>在 <code>onViewCreated()</code> 方法的開頭的
-<code>GameFragment</code> 中，初始化 layout 變數
-<code>gameViewModel</code> 和 <code>maxNoOfWords</code>。</li>
+
+<ol start="3">
+<li>在 <code>onViewCreated()</code> 方法的開頭的 <code>GameFragment</code> 中，初始化 layout 變數 <code>gameViewModel</code> 和 <code>maxNoOfWords</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onViewCreated</span><span class="params">(view: <span class="type">View</span>, savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onViewCreated(view, savedInstanceState)</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 初始化 layout 變數 gameViewModel 和 maxNoOfWords</span></span><br><span class="line">   binding.gameViewModel = viewModel</span><br><span class="line">   binding.maxNoOfWords = MAX_NO_OF_WORDS</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li><code>LiveData</code>
-可觀察生命週期，因此您必須將生命週期擁有者傳遞給 layout。在
-<code>onViewCreated()</code> 方法內的 <code>GameFragment</code>
-中，在綁定(bind)變數的初始化下方新增下列程式碼。</li>
+
+<ol start="4">
+<li><code>LiveData</code> 可觀察生命週期，因此您必須將生命週期擁有者傳遞給 layout。在 <code>onViewCreated()</code> 方法內的 <code>GameFragment</code> 中，在綁定(bind)變數的初始化下方新增下列程式碼。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 將 fragment view 指定為 binding 的 lifecycle owner，以觀察 LiveData 更新</span></span><br><span class="line">binding.lifecycleOwner = viewLifecycleOwner</span><br></pre></td></tr></table></figure>
 <ul>
-<li>提醒您，您在實作 <code>LiveData</code> observer
-時，也實作類似功能。您已將 <code>viewLifecycleOwner</code>
-做為其中一個參數傳遞給 <code>LiveData</code> observer。</li>
+<li>提醒您，您在實作 <code>LiveData</code> observer 時，也實作類似功能。您已將 <code>viewLifecycleOwner</code> 做為其中一個參數傳遞給 <code>LiveData</code> observer。</li>
 </ul>
-<hr />
-<h3 id="使用-binding-運算式">使用 binding 運算式</h3>
-<p>binding 運算式會寫入屬性 (例如 <code>android:text</code>) layout
-內，並參照 layout 屬性。layout 屬性會透過 <code>&lt;variable&gt;</code>
-標記在 data binding layout
-檔案的頂部進行宣告。當任何相依變數有所變更時，「DB Library」將執行
-binding 運算式 (進而更新 view)。使用 data binding
-library時，此變更偵測是無須付費的最佳化功能。</p>
-<h5 id="binding-運算式的語法">binding 運算式的語法</h5>
-<p>binding 運算式以 <code>@</code> 符號開頭，並加上大括號
-<code>&#123;&#125;</code>。在以下範例中，將<code>TextView</code> 文字設為
-<code>user</code> 變數的 <code>firstName</code> 屬性：</p>
-<p>範例： <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span> <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:text</span>=<span class="string">&quot;@&#123;user.firstName&#125;&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="步驟-1將-binding-運算式新增至目前字詞">步驟 1：將 binding
-運算式新增至目前字詞</h4>
-<p>在此步驟中，您可以將目前的<u>字詞 text view</u> 綁定(bind)至
-<u><code>ViewModel</code></u> 中的 <u><code>LiveData</code>
-物件</u>。</p>
-<ol type="1">
-<li>在 <code>game_fragment.xml</code> 中，請將 <code>text</code>
-屬性新增至 <code>textView_unscrambled_word</code> text view。使用新的
-layout 變數 <code>gameViewModel</code>，並將
-<code>@&#123;gameViewModel.currentScrambledWord&#125;</code> 指派給
-<code>text</code> 屬性。</li>
+<hr>
+<h3 id="使用-binding-運算式"><a href="#使用-binding-運算式" class="headerlink" title="使用 binding 運算式"></a>使用 binding 運算式</h3><p>binding 運算式會寫入屬性 (例如 <code>android:text</code>) layout 內，並參照 layout 屬性。layout 屬性會透過 <code>&lt;variable&gt;</code> 標記在 data binding layout 檔案的頂部進行宣告。當任何相依變數有所變更時，「DB Library」將執行 binding 運算式 (進而更新 view)。使用 data binding library時，此變更偵測是無須付費的最佳化功能。</p>
+<h5 id="binding-運算式的語法"><a href="#binding-運算式的語法" class="headerlink" title="binding 運算式的語法"></a>binding 運算式的語法</h5><p>binding 運算式以 <code>@</code> 符號開頭，並加上大括號 <code>&#123;&#125;</code>。在以下範例中，將<code>TextView</code> 文字設為 <code>user</code> 變數的 <code>firstName</code> 屬性：</p>
+<p>範例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span> <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:text</span>=<span class="string">&quot;@&#123;user.firstName&#125;&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="步驟-1：將-binding-運算式新增至目前字詞"><a href="#步驟-1：將-binding-運算式新增至目前字詞" class="headerlink" title="步驟 1：將 binding 運算式新增至目前字詞"></a>步驟 1：將 binding 運算式新增至目前字詞</h4><p>在此步驟中，您可以將目前的<u>字詞 text view</u> 綁定(bind)至 <u><code>ViewModel</code></u> 中的 <u><code>LiveData</code> 物件</u>。</p>
+<ol>
+<li>在 <code>game_fragment.xml</code> 中，請將 <code>text</code> 屬性新增至 <code>textView_unscrambled_word</code> text view。使用新的 layout 變數 <code>gameViewModel</code>，並將 <code>@&#123;gameViewModel.currentScrambledWord&#125;</code> 指派給 <code>text</code> 屬性。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/textView_unscrambled_word&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:text</span>=<span class="string">&quot;@&#123;gameViewModel.currentScrambledWord&#125;&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>在 <code>GameFragment</code> 中，移除
-<code>currentScrambledWord</code> 的 <code>LiveData</code> observer
-程式碼： fragment 中不再需要使用 observer 程式碼。layout 會直接收到
-<code>LiveData</code> 的變更更新。</li>
+
+<ol start="2">
+<li>在 <code>GameFragment</code> 中，移除 <code>currentScrambledWord</code> 的 <code>LiveData</code> observer 程式碼： fragment 中不再需要使用 observer 程式碼。layout 會直接收到 <code>LiveData</code> 的變更更新。</li>
 </ol>
-<p>移除： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">viewModel.currentScrambledWord.observe(viewLifecycleOwner,</span><br><span class="line">   &#123; newWord -&gt;</span><br><span class="line">       binding.textViewUnscrambledWord.text = newWord</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure></p>
-<ol start="3" type="1">
-<li>執行您的應用程式，應用程式應可照常運作。不過，打散字詞 text view
-目前使用 binding 運算式更新 UI，而非 <code>LiveData</code>
-observer。</li>
+<p>移除：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">viewModel.currentScrambledWord.observe(viewLifecycleOwner,</span><br><span class="line">   &#123; newWord -&gt;</span><br><span class="line">       binding.textViewUnscrambledWord.text = newWord</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>執行您的應用程式，應用程式應可照常運作。不過，打散字詞 text view 目前使用 binding 運算式更新 UI，而非 <code>LiveData</code> observer。</li>
 </ol>
-<h4 id="步驟-2將-binding-運算式新增至分數和字詞計數">步驟 2：將 binding
-運算式新增至分數和字詞計數</h4>
-<h5 id="data-binding-運算式的資源">data binding 運算式的資源</h5>
-<p>data binding 運算式可透過下列語法引用應用程式資源。</p>
-<p>範例： <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:padding=&quot;@&#123;@dimen/largePadding&#125;&quot;</span><br></pre></td></tr></table></figure> + 在上述範例中，系統會為 <code>padding</code>
-屬性指派 <code>dimen.xml</code> 資源檔案的 <code>largePadding</code>
-值。</p>
+<h4 id="步驟-2：將-binding-運算式新增至分數和字詞計數"><a href="#步驟-2：將-binding-運算式新增至分數和字詞計數" class="headerlink" title="步驟 2：將 binding 運算式新增至分數和字詞計數"></a>步驟 2：將 binding 運算式新增至分數和字詞計數</h4><h5 id="data-binding-運算式的資源"><a href="#data-binding-運算式的資源" class="headerlink" title="data binding 運算式的資源"></a>data binding 運算式的資源</h5><p>data binding 運算式可透過下列語法引用應用程式資源。</p>
+<p>範例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:padding=&quot;@&#123;@dimen/largePadding&#125;&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在上述範例中，系統會為 <code>padding</code> 屬性指派 <code>dimen.xml</code> 資源檔案的 <code>largePadding</code> 值。</li>
+</ul>
 <p>您也可以傳遞 layout 屬性做為資源參數。</p>
-<p>範例： <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:text=&quot;@&#123;@string/example_resource(user.lastName)&#125;&quot;</span><br></pre></td></tr></table></figure></p>
-<p><code>strings.xml</code> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;example_resource&quot;</span>&gt;</span>Last Name: %s<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure> +
-在上述範例中，<code>example_resource</code> 是具有<code>%s</code>
-預留位置的字串資源。您會將 <code>user.lastName</code> 做為資源參數傳入
-binding 運算式，其中 <code>user</code> 是 layout 變數。</p>
-<p>在此步驟中，您會將 binding 運算式新增至分數和字詞計數 text
-view，並傳入資源參數。這個步驟與您為上述
-<code>textView_unscrambled_word</code> 所做操作類似。</p>
-<ol type="1">
-<li>在 <code>game_fragment.xml</code> 中，使用以下 binidng 運算式更新
-<code>word_count</code> text view 的 <code>text</code> 屬性。使用
-<code>word_count</code> 字串資源，並將
-<code>gameViewModel.currentWordCount</code> 和 <code>maxNoOfWords</code>
-做為資源參數傳入。</li>
+<p>範例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:text=&quot;@&#123;@string/example_resource(user.lastName)&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p><code>strings.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;example_resource&quot;</span>&gt;</span>Last Name: %s<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在上述範例中，<code>example_resource</code> 是具有<code> %s</code> 預留位置的字串資源。您會將 <code>user.lastName</code> 做為資源參數傳入 binding 運算式，其中 <code>user</code> 是 layout 變數。</li>
+</ul>
+<p>在此步驟中，您會將 binding 運算式新增至分數和字詞計數 text view，並傳入資源參數。這個步驟與您為上述 <code>textView_unscrambled_word</code> 所做操作類似。</p>
+<ol>
+<li>在 <code>game_fragment.xml</code> 中，使用以下 binidng 運算式更新 <code>word_count</code> text view 的 <code>text</code> 屬性。使用 <code>word_count</code> 字串資源，並將 <code>gameViewModel.currentWordCount</code> 和 <code>maxNoOfWords</code> 做為資源參數傳入。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/word_count&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:text</span>=<span class="string">&quot;@&#123;@string/word_count(gameViewModel.currentWordCount, maxNoOfWords)&#125;&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>使用以下 binding 運算式更新 <code>score</code> text view 的
-<code>text</code> 屬性。使用 <code>score</code> 字串資源，並傳入
-<code>gameViewModel.score</code> 做為資源參數。</li>
+
+<ol start="2">
+<li>使用以下 binding 運算式更新 <code>score</code> text view 的 <code>text</code> 屬性。使用 <code>score</code> 字串資源，並傳入 <code>gameViewModel.score</code> 做為資源參數。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/score&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:text</span>=<span class="string">&quot;@&#123;@string/score(gameViewModel.score)&#125;&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>從 <code>GameFragment</code> 中移除 <code>LiveData</code>
-observer。您已無需使用這些 observer，binding 運算式會在對應
-<code>LiveData</code> 變更時更新 UI。</li>
+
+<ol start="3">
+<li>從 <code>GameFragment</code> 中移除 <code>LiveData</code> observer。您已無需使用這些 observer，binding 運算式會在對應 <code>LiveData</code> 變更時更新 UI。</li>
 </ol>
-<p>移除： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">viewModel.score.observe(viewLifecycleOwner,</span><br><span class="line">   &#123; newScore -&gt;</span><br><span class="line">       binding.score.text = getString(R.string.score, newScore)</span><br><span class="line">   &#125;)</span><br><span class="line"></span><br><span class="line">viewModel.currentWordCount.observe(viewLifecycleOwner,</span><br><span class="line">   &#123; newWordCount -&gt;</span><br><span class="line">       binding.wordCount.text =</span><br><span class="line">           getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure></p>
-<ol start="4" type="1">
-<li>執行應用程式，使用一些字詞進行遊戲。現在，您的程式碼會使用
-<code>LiveData</code> 和 binding 運算式更新 UI。</li>
+<p>移除：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">viewModel.score.observe(viewLifecycleOwner,</span><br><span class="line">   &#123; newScore -&gt;</span><br><span class="line">       binding.score.text = getString(R.string.score, newScore)</span><br><span class="line">   &#125;)</span><br><span class="line"></span><br><span class="line">viewModel.currentWordCount.observe(viewLifecycleOwner,</span><br><span class="line">   &#123; newWordCount -&gt;</span><br><span class="line">       binding.wordCount.text =</span><br><span class="line">           getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>執行應用程式，使用一些字詞進行遊戲。現在，您的程式碼會使用 <code>LiveData</code> 和 binding 運算式更新 UI。</li>
 </ol>
 <div style="display: flex;justify-content: center;">
-<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
-    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/7880e60dc0a6f95c_1920.png?hl=zh-tw&quot;&gt;
-&lt;/div&gt;
-&lt;div style=&quot;width:30%;float:left;&quot;&gt;
-    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/9ef2fdf21ffa5c99_1920.png?hl=zh-tw&quot;&gt;
-&lt;/div&gt;</code></pre>
-<div style="clear:both;">
+    <div style="width:30%;float:left;margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/7880e60dc0a6f95c_1920.png?hl=zh-tw">
+    </div>
+    <div style="width:30%;float:left;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-livedata/img/9ef2fdf21ffa5c99_1920.png?hl=zh-tw">
+    </div>
+<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+</div>
 
-</div>
-<!--這是用來清除上方的浮動效果-->
-</div>
-<p>恭喜！您已瞭解如何將 <code>LiveData</code> observer 搭配
-<code>LiveData</code> 使用，以及將 <code>LiveData</code> 搭配 binding
-運算式使用。</p>
-<hr />
-<h3 id="總結">總結</h3>
-<ul>
-<li><code>LiveData</code> 可保存資料；<code>LiveData</code>
-包裝函式可與任何資料搭配使用</li>
-<li><code>LiveData</code> 可觀察，這表示當 <code>LiveData</code>
-物件保存的資料變更時，observer 會接收通知。</li>
-<li><code>LiveData</code> 可感知生命週期。將 observer 附加至
-<code>LiveData</code> 時，observer 會與 <code>LifecycleOwner</code>
-建立關聯 (通常是 activity 或 fragment)。<code>LiveData</code>
-只會更新處於有效生命週期狀態 (例如 <code>STARTED</code> 或
-<code>RESUMED</code>) 的 observer。</li>
-<li>應用程式可以透過 data binding 和 binding 運算式監聽 layout 中的
-<code>LiveData</code> 變更。</li>
-<li>binding 運算式會寫入屬性 (例如 <code>android:text</code>) layout
-內，並引用 layout 屬性。</li>
+<p>恭喜！您已瞭解如何將 <code>LiveData</code> observer 搭配 <code>LiveData</code> 使用，以及將 <code>LiveData</code> 搭配 binding 運算式使用。</p>
+<hr>
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li><code>LiveData</code> 可保存資料；<code>LiveData</code> 包裝函式可與任何資料搭配使用</li>
+<li><code>LiveData</code> 可觀察，這表示當 <code>LiveData</code> 物件保存的資料變更時，observer 會接收通知。</li>
+<li><code>LiveData</code> 可感知生命週期。將 observer 附加至 <code>LiveData</code> 時，observer 會與 <code>LifecycleOwner</code> 建立關聯 (通常是 activity 或 fragment)。<code>LiveData</code> 只會更新處於有效生命週期狀態 (例如 <code>STARTED</code> 或 <code>RESUMED</code>) 的 observer。</li>
+<li>應用程式可以透過 data binding 和 binding 運算式監聽 layout 中的 <code>LiveData</code> 變更。</li>
+<li>binding 運算式會寫入屬性 (例如 <code>android:text</code>) layout 內，並引用 layout 屬性。</li>
 </ul>
 
     </div>
@@ -847,17 +686,7 @@ observer。您已無需使用這些 observer，binding 運算式會在對應
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#section"><span class="nav-number">1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.1.</span> <span class="nav-text">範例應用程式總覽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-livedata"><span class="nav-number">1.2.</span> <span class="nav-text">什麼是 Livedata</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC%E4%B8%AD%E7%9A%84-ui-%E6%9B%B4%E6%96%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">範例程式碼中的 UI 更新</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87-livedata-%E6%96%B0%E5%A2%9E%E8%87%B3-currentscrambledword"><span class="nav-number">1.3.</span> <span class="nav-text">將 LiveData 新增至
-currentScrambledWord</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mutablelivedata"><span class="nav-number">1.3.1.</span> <span class="nav-text">MutableLiveData</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87-observer-%E9%99%84%E5%8A%A0%E8%87%B3-livedata-%E7%89%A9%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">將 Observer 附加至 LiveData
-物件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87-observer-%E9%99%84%E5%8A%A0%E8%87%B3%E5%88%86%E6%95%B8%E5%92%8C%E5%AD%97%E8%A9%9E%E8%A8%88%E6%95%B8"><span class="nav-number">1.5.</span> <span class="nav-text">將 Observer
-附加至分數和字詞計數</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-1%E4%BD%BF%E7%94%A8-livedata-%E5%8C%85%E8%A3%9D%E5%88%86%E6%95%B8%E5%92%8C%E5%AD%97%E8%A9%9E%E8%A8%88%E6%95%B8"><span class="nav-number">1.5.1.</span> <span class="nav-text">步驟 1：使用 LiveData
-包裝分數和字詞計數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-2%E5%B0%87-observer-%E9%99%84%E5%8A%A0%E8%87%B3%E5%88%86%E6%95%B8%E5%92%8C%E5%AD%97%E8%A9%9E%E8%A8%88%E6%95%B8"><span class="nav-number">1.5.2.</span> <span class="nav-text">步驟 2：將 Observer
-附加至分數和字詞計數</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87-livedata-%E6%90%AD%E9%85%8D-data-binding-%E4%BD%BF%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">將 LiveData 搭配 Data
-Binding 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5data-binding"><span class="nav-number">1.6.1.</span> <span class="nav-text">概念：Data Binding</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A4%87%E7%BF%92-view-binding"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">複習 View Binding：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#data-binding"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">Data Binding</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-1%E8%AE%8A%E6%9B%B4%E8%B3%87%E6%96%99%E7%B9%AB%E7%B5%90%E7%9A%84%E6%AA%A2%E8%A6%96%E7%B9%AB%E7%B5%90"><span class="nav-number">1.6.2.</span> <span class="nav-text">步驟
-1：變更資料繫結的檢視繫結</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-2%E5%B0%87-layout-%E6%AA%94%E6%A1%88%E8%BD%89%E6%8F%9B%E7%82%BA-data-binding-layout"><span class="nav-number">1.6.3.</span> <span class="nav-text">步驟 2：將
-layout 檔案轉換為 Data Binding layout</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-data-binding-%E8%AE%8A%E6%95%B8"><span class="nav-number">1.7.</span> <span class="nav-text">新增 Data Binding 變數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-binding-%E9%81%8B%E7%AE%97%E5%BC%8F"><span class="nav-number">1.8.</span> <span class="nav-text">使用 binding 運算式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#binding-%E9%81%8B%E7%AE%97%E5%BC%8F%E7%9A%84%E8%AA%9E%E6%B3%95"><span class="nav-number">1.8.0.1.</span> <span class="nav-text">binding 運算式的語法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-1%E5%B0%87-binding-%E9%81%8B%E7%AE%97%E5%BC%8F%E6%96%B0%E5%A2%9E%E8%87%B3%E7%9B%AE%E5%89%8D%E5%AD%97%E8%A9%9E"><span class="nav-number">1.8.1.</span> <span class="nav-text">步驟 1：將 binding
-運算式新增至目前字詞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-2%E5%B0%87-binding-%E9%81%8B%E7%AE%97%E5%BC%8F%E6%96%B0%E5%A2%9E%E8%87%B3%E5%88%86%E6%95%B8%E5%92%8C%E5%AD%97%E8%A9%9E%E8%A8%88%E6%95%B8"><span class="nav-number">1.8.2.</span> <span class="nav-text">步驟 2：將 binding
-運算式新增至分數和字詞計數</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#data-binding-%E9%81%8B%E7%AE%97%E5%BC%8F%E7%9A%84%E8%B3%87%E6%BA%90"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">data binding 運算式的資源</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">1.9.</span> <span class="nav-text">總結</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.</span> <span class="nav-text">範例應用程式總覽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-Livedata"><span class="nav-number">2.</span> <span class="nav-text">什麼是 Livedata</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC%E4%B8%AD%E7%9A%84-UI-%E6%9B%B4%E6%96%B0"><span class="nav-number">2.1.</span> <span class="nav-text">範例程式碼中的 UI 更新</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87-LiveData-%E6%96%B0%E5%A2%9E%E8%87%B3-currentScrambledWord"><span class="nav-number">3.</span> <span class="nav-text">將 LiveData 新增至 currentScrambledWord</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MutableLiveData"><span class="nav-number">3.1.</span> <span class="nav-text">MutableLiveData</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87-Observer-%E9%99%84%E5%8A%A0%E8%87%B3-LiveData-%E7%89%A9%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">將 Observer 附加至 LiveData 物件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87-Observer-%E9%99%84%E5%8A%A0%E8%87%B3%E5%88%86%E6%95%B8%E5%92%8C%E5%AD%97%E8%A9%9E%E8%A8%88%E6%95%B8"><span class="nav-number">5.</span> <span class="nav-text">將 Observer 附加至分數和字詞計數</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-1%EF%BC%9A%E4%BD%BF%E7%94%A8-LiveData-%E5%8C%85%E8%A3%9D%E5%88%86%E6%95%B8%E5%92%8C%E5%AD%97%E8%A9%9E%E8%A8%88%E6%95%B8"><span class="nav-number">5.1.</span> <span class="nav-text">步驟 1：使用 LiveData 包裝分數和字詞計數</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-2%EF%BC%9A%E5%B0%87-Observer-%E9%99%84%E5%8A%A0%E8%87%B3%E5%88%86%E6%95%B8%E5%92%8C%E5%AD%97%E8%A9%9E%E8%A8%88%E6%95%B8"><span class="nav-number">5.2.</span> <span class="nav-text">步驟 2：將 Observer 附加至分數和字詞計數</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87-LiveData-%E6%90%AD%E9%85%8D-Data-Binding-%E4%BD%BF%E7%94%A8"><span class="nav-number">6.</span> <span class="nav-text">將 LiveData 搭配 Data Binding 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%EF%BC%9AData-Binding"><span class="nav-number">6.1.</span> <span class="nav-text">概念：Data Binding</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A4%87%E7%BF%92-View-Binding%EF%BC%9A"><span class="nav-number">6.1.1.</span> <span class="nav-text">複習 View Binding：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Data-Binding"><span class="nav-number">6.1.2.</span> <span class="nav-text">Data Binding</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-1%EF%BC%9A%E8%AE%8A%E6%9B%B4%E8%B3%87%E6%96%99%E7%B9%AB%E7%B5%90%E7%9A%84%E6%AA%A2%E8%A6%96%E7%B9%AB%E7%B5%90"><span class="nav-number">6.2.</span> <span class="nav-text">步驟 1：變更資料繫結的檢視繫結</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-2%EF%BC%9A%E5%B0%87-layout-%E6%AA%94%E6%A1%88%E8%BD%89%E6%8F%9B%E7%82%BA-Data-Binding-layout"><span class="nav-number">6.3.</span> <span class="nav-text">步驟 2：將 layout 檔案轉換為 Data Binding layout</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Data-Binding-%E8%AE%8A%E6%95%B8"><span class="nav-number">7.</span> <span class="nav-text">新增 Data Binding 變數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-binding-%E9%81%8B%E7%AE%97%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">使用 binding 運算式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#binding-%E9%81%8B%E7%AE%97%E5%BC%8F%E7%9A%84%E8%AA%9E%E6%B3%95"><span class="nav-number">8.0.1.</span> <span class="nav-text">binding 運算式的語法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-1%EF%BC%9A%E5%B0%87-binding-%E9%81%8B%E7%AE%97%E5%BC%8F%E6%96%B0%E5%A2%9E%E8%87%B3%E7%9B%AE%E5%89%8D%E5%AD%97%E8%A9%9E"><span class="nav-number">8.1.</span> <span class="nav-text">步驟 1：將 binding 運算式新增至目前字詞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F-2%EF%BC%9A%E5%B0%87-binding-%E9%81%8B%E7%AE%97%E5%BC%8F%E6%96%B0%E5%A2%9E%E8%87%B3%E5%88%86%E6%95%B8%E5%92%8C%E5%AD%97%E8%A9%9E%E8%A8%88%E6%95%B8"><span class="nav-number">8.2.</span> <span class="nav-text">步驟 2：將 binding 運算式新增至分數和字詞計數</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#data-binding-%E9%81%8B%E7%AE%97%E5%BC%8F%E7%9A%84%E8%B3%87%E6%BA%90"><span class="nav-number">8.2.1.</span> <span class="nav-text">data binding 運算式的資源</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">9.</span> <span class="nav-text">總結</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -982,8 +811,6 @@ layout 檔案轉換為 Data Binding layout</span></a></li></ol></li><li class="n
 
 
 
-
-  
 
   
 

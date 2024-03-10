@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="在先前的程式碼研究室中，您已學會如何建立及執行單元測試(Unit Test)，本程式碼研究室著重於檢測設備測試(Instrumentation Test)。  學習目標 + 檢測設備測試(Instrumentation Test)的樣貌。 + 如何執行檢測設備測試(Instrumentation Test)。 + 如何撰寫檢測設備測試(Instrumentation Test)。">
+  <meta name="description" content="在先前的程式碼研究室中，您已學會如何建立及執行單元測試(Unit Test)，本程式碼研究室著重於檢測設備測試(Instrumentation Test)。  學習目標  檢測設備測試(Instrumentation Test)的樣貌。 如何執行檢測設備測試(Instrumentation Test)。 如何撰寫檢測設備測試(Instrumentation Test)。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(15)-編寫檢測設備測試">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/09/19/Android%E7%AD%86%E8%A8%98-15-%E7%B7%A8%E5%AF%AB%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="在先前的程式碼研究室中，您已學會如何建立及執行單元測試(Unit Test)，本程式碼研究室著重於檢測設備測試(Instrumentation Test)。  學習目標 + 檢測設備測試(Instrumentation Test)的樣貌。 + 如何執行檢測設備測試(Instrumentation Test)。 + 如何撰寫檢測設備測試(Instrumentation Test)。">
+<meta property="og:description" content="在先前的程式碼研究室中，您已學會如何建立及執行單元測試(Unit Test)，本程式碼研究室著重於檢測設備測試(Instrumentation Test)。  學習目標  檢測設備測試(Instrumentation Test)的樣貌。 如何執行檢測設備測試(Instrumentation Test)。 如何撰寫檢測設備測試(Instrumentation Test)。">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://i.imgur.com/ztAXhLI.png">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/73b014c84f89b0f0_1920.png?hl=zh-tw">
@@ -277,173 +277,130 @@
         <blockquote>
 <p>在先前的程式碼研究室中，您已學會如何建立及執行<code>單元測試(Unit Test)</code>，本程式碼研究室著重於<code>檢測設備測試(Instrumentation Test)</code>。</p>
 </blockquote>
-<p><strong>學習目標</strong> +
-<code>檢測設備測試(Instrumentation Test)</code>的樣貌。 +
-如何執行<code>檢測設備測試(Instrumentation Test)</code>。 +
-如何撰寫<code>檢測設備測試(Instrumentation Test)</code>。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li><code>檢測設備測試(Instrumentation Test)</code>的樣貌。</li>
+<li>如何執行<code>檢測設備測試(Instrumentation Test)</code>。</li>
+<li>如何撰寫<code>檢測設備測試(Instrumentation Test)</code>。</li>
+</ul>
 <span id="more"></span>
-<table style="width:6%;">
-<colgroup>
-<col style="width: 5%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>#### 下載本程式碼研究室的範例程式碼 在本程式碼研究室中，您將使用
-<code>Tip Time</code> 應用程式進行檢測設備測試。</td>
-</tr>
-<tr class="even">
-<td><div class="note no-icon success">
-            <p><strong>範例程式碼網址：</strong>https://github.com/google-developer-training/android-basics-kotlin-tip-compute-app-solutions</p><p><strong>含有範例程式碼的模組名稱：</strong> <b>main</b></p>
-          </div></td>
-</tr>
-</tbody>
-</table>
-<h4 id="範例應用程式總覽">範例應用程式總覽</h4>
-<ol type="1">
+
+<hr>
+<h4 id="下載本程式碼研究室的範例程式碼"><a href="#下載本程式碼研究室的範例程式碼" class="headerlink" title="下載本程式碼研究室的範例程式碼"></a>下載本程式碼研究室的範例程式碼</h4><p>在本程式碼研究室中，您將使用 <code>Tip Time</code> 應用程式進行檢測設備測試。</p>
+<div class="note no-icon success">
+            <p><strong>範例程式碼網址：</strong><br><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-tip-compute-app-solutions">https://github.com/google-developer-training/android-basics-kotlin-tip-compute-app-solutions</a></p><p><strong>含有範例程式碼的模組名稱：</strong> <b>main</b></p>
+          </div>
+
+<hr>
+<h4 id="範例應用程式總覽"><a href="#範例應用程式總覽" class="headerlink" title="範例應用程式總覽"></a>範例應用程式總覽</h4><ol>
 <li>開啟 <code>Tip Time</code> 應用程式。</li>
-<li><code>Tip Time</code>
-應用程式有一個畫面，會顯示供使用者輸入<strong>帳單金額的文字輸入方塊</strong>、<strong>選取小費百分比的圓形按鈕</strong>，以及<strong>計算小費的按鈕</strong>。</li>
+<li><code>Tip Time</code> 應用程式有一個畫面，會顯示供使用者輸入<strong>帳單金額的文字輸入方塊</strong>、<strong>選取小費百分比的圓形按鈕</strong>，以及<strong>計算小費的按鈕</strong>。</li>
 </ol>
-<p><img src="https://i.imgur.com/ztAXhLI.png" width="30%" height="30%"></p>
-<hr />
-<h4 id="建立檢測設備測試目錄">建立檢測設備測試目錄</h4>
-<p>本程式碼研究室的範例程式碼可以正常運作，但缺少測試和測試目錄。我們必須先新增目錄，之後再撰寫任何類型的測試，才能進行檢測設備測試。下載範例程式碼後，請按照下列步驟新增檢測設備測試的類別。</p>
+<img src="https://i.imgur.com/ztAXhLI.png" width="30%" height="30%">
+
+<hr>
+<h4 id="建立檢測設備測試目錄"><a href="#建立檢測設備測試目錄" class="headerlink" title="建立檢測設備測試目錄"></a>建立檢測設備測試目錄</h4><p>本程式碼研究室的範例程式碼可以正常運作，但缺少測試和測試目錄。我們必須先新增目錄，之後再撰寫任何類型的測試，才能進行檢測設備測試。下載範例程式碼後，請按照下列步驟新增檢測設備測試的類別。</p>
 <div class="note no-icon success">
             <p>注意： 建立新專案時會自動產生這些測試目錄。</p>
           </div>
-<ol type="1">
+
+<ol>
 <li>最簡單的做法是先從「Android」檢視畫面切換至「Project」檢視畫面。在左上方的專案窗格中，按一下「Android」下拉式選單，然後選取「Project」(專案)。</li>
 <li>按一下第一個下拉式選單，然後依序點選「app」-&gt;「src」。</li>
 <li>用滑鼠右鍵按一下「src」，然後選取「New」-&gt;「Directory」。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/73b014c84f89b0f0_1920.png?hl=zh-tw" width="80%" height="80%"></p>
-<ol start="4" type="1">
-<li>選取「androidTest/java」。</li>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/73b014c84f89b0f0_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<ol start="4">
+<li>選取「androidTest&#x2F;java」。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/c4b99c44611ae609_1920.png?hl=zh-tw" width="80%" height="80%"></p>
-<ol start="5" type="1">
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/c4b99c44611ae609_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<ol start="5">
 <li>現在會在專案結構中看到「src」-&gt;「androidTest」目錄。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/5f6643d80a7ef0f8_1920.png?hl=zh-tw" width="80%" height="80%"></p>
-<ol start="6" type="1">
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/5f6643d80a7ef0f8_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<ol start="6">
 <li>用滑鼠右鍵按一下「java」目錄，然後依序選取「New」-&gt;「Package」。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/8f8a590b7bdc01b3_1920.png?hl=zh-tw" width="80%" height="80%"></p>
-<ol start="7" type="1">
-<li><p>在視窗中輸入<code>com.example.tiptime</code>，然後按下 Return
-鍵。</p></li>
-<li><p>最後，用滑鼠右鍵按一下「com.example.tiptime」，然後依序選取「New」-&gt;「Kotlin
-Class/File」。</p></li>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/8f8a590b7bdc01b3_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<ol start="7">
+<li><p>在視窗中輸入<code>com.example.tiptime</code>，然後按下 Return 鍵。</p>
+</li>
+<li><p>最後，用滑鼠右鍵按一下「com.example.tiptime」，然後依序選取「New」-&gt;「Kotlin Class&#x2F;File」。</p>
+</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/26ff162c120e18d1_1920.png?hl=zh-tw" width="80%" height="80%"></p>
-<ol start="9" type="1">
-<li>在出現的視窗中輸入
-<code>CalculatorTests</code>，然後從下拉式選單中選取「Class」，並按下
-Return 鍵。</li>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/26ff162c120e18d1_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<ol start="9">
+<li>在出現的視窗中輸入 <code>CalculatorTests</code>，然後從下拉式選單中選取「Class」，並按下 Return 鍵。</li>
 </ol>
-<hr />
-<h4 id="撰寫第一個檢測設備測試">撰寫第一個檢測設備測試</h4>
-<p>現在請撰寫檢測設備測試。請按照下列步驟測試 20% 小費的功能。</p>
-<ol type="1">
+<hr>
+<h4 id="撰寫第一個檢測設備測試"><a href="#撰寫第一個檢測設備測試" class="headerlink" title="撰寫第一個檢測設備測試"></a>撰寫第一個檢測設備測試</h4><p>現在請撰寫檢測設備測試。請按照下列步驟測試 20% 小費的功能。</p>
+<ol>
 <li>開啟您剛剛建立的檔案，該程式碼會看起來像這樣：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.tiptime</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CalculatorTests</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>檢測設備測試需要用到 <a
-target="_blank" rel="noopener" href="https://developer.android.com/reference/android/test/InstrumentationTestRunner">InstrumentationTestRunner</a>，才能在裝置或模擬器上執行測試。有其他數個檢測執行工具，但在這個測試中，我們將使用
-<code>AndroidJUnit4</code>
-測試執行工具。如要指定測試執行工具，我們必須使用以下項目為類別加上註解：</li>
+
+<ol start="2">
+<li>檢測設備測試需要用到 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/test/InstrumentationTestRunner">InstrumentationTestRunner</a>，才能在裝置或模擬器上執行測試。有其他數個檢測執行工具，但在這個測試中，我們將使用 <code>AndroidJUnit4</code> 測試執行工具。如要指定測試執行工具，我們必須使用以下項目為類別加上註解：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(AndroidJUnit4::class)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CalculatorTests</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li><strong>Tip Time</strong> 應用程式是由單一活動
-<code>MainActivity</code>
-組成。若要與活動互動，您必須先啟動測試案例(Test Case)。在
-<code>CalculatorTests</code> 類別中加入以下內容。</li>
+
+<ol start="3">
+<li><strong>Tip Time</strong> 應用程式是由單一活動 <code>MainActivity</code> 組成。若要與活動互動，您必須先啟動測試案例(Test Case)。在 <code>CalculatorTests</code> 類別中加入以下內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@get:Rule</span>()</span><br><span class="line"><span class="keyword">val</span> activity = ActivityScenarioRule(MainActivity::<span class="keyword">class</span>.java)</span><br></pre></td></tr></table></figure>
-<p><code>ActivityScenarioRule</code> 來自 <code>AndroidX</code>
-測試程式庫。並指示裝置啟動開發人員指定的活動。您需要使用
-<code>@get:Rule</code>
-加上註解，指定應在各項測試之前於類別中執行後續規則。在本例中，該規則為啟動活動。測試規則是測試所需的基本工具，最終，您也會學到如何自行撰寫。</p>
-<ol start="4" type="1">
-<li>接下來，您需要撰寫測試邏輯本身。建立函式並呼叫
-<code>calculate_20_percent_tip()</code>，並透過 <code>@Test</code>
-註解加上註解。</li>
+
+<p><code>ActivityScenarioRule</code> 來自 <code>AndroidX</code> 測試程式庫。並指示裝置啟動開發人員指定的活動。您需要使用 <code>@get:Rule</code> 加上註解，指定應在各項測試之前於類別中執行後續規則。在本例中，該規則為啟動活動。測試規則是測試所需的基本工具，最終，您也會學到如何自行撰寫。</p>
+<ol start="4">
+<li>接下來，您需要撰寫測試邏輯本身。建立函式並呼叫 <code>calculate_20_percent_tip()</code>，並透過 <code>@Test</code> 註解加上註解。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">calculate_20_percent_tip</span><span class="params">()</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="espresso">Espresso</h5>
-<p>本課程主要使用 <code>Espresso</code>
-進行檢測設備測試。<code>Espresso</code> 是一種程式庫，可供您在用 Android
-Studio 建立 Android 專案時立即使用，並可讓您透過程式碼與 UI
-元件互動。</p>
-<p>此刻，您可能已注意到 Android Studio 提供許多自動完成功能。使用
-<code>Espresso</code>
-的一大挑戰，就是如果尚未匯入程式庫，系統便無法自動完成方法。所以，如果您未研究說明文件，您會很難在
-<code>Espresso</code>
-中瀏覽可用方法。在這些課程中，我們將提供完成測試所需的方法。</p>
-<p>首先，您必須撰寫程式碼，才能在「Cost of
-Service」輸入文字檢視區塊中輸入帳單金額。依序前往「app」-&gt;「src」-&gt;「main」-&gt;「res」-&gt;「layout」-&gt;「activity_main.xml」，指示
-<code>TextInputEditText</code> 的 ID 為
-<code>cost_of_service_edit_text</code>。複製 ID
-名稱，稍後將用於測試。</p>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/a113fb63b50f7674_1920.png?hl=zh-tw" width="80%" height="80%"></p>
-<h5 id="實作測試函式">實作測試函式</h5>
-<p>您現在可以在測試類別的 <code>calculate_20_percent_tip()</code>
-函式中撰寫測試邏輯。</p>
-<ol type="1">
-<li>首先，請使用 <code>onView()</code> 函式尋找可互動的使用者介面元件
-(在此案例中為 <code>TextInputEditText</code>)。<code>onView()</code>
-函式採用 <code>ViewMatcher</code> 物件參數。<code>ViewMatcher</code>
-基本上是符合特定條件的 UI 元件，在此例中則是具有
-<code>R.id.cost_of_service_edit_text</code> ID 的元件。</li>
+
+<h5 id="Espresso"><a href="#Espresso" class="headerlink" title="Espresso"></a>Espresso</h5><p>本課程主要使用 <code>Espresso</code> 進行檢測設備測試。<code>Espresso</code> 是一種程式庫，可供您在用 Android Studio 建立 Android 專案時立即使用，並可讓您透過程式碼與 UI 元件互動。</p>
+<p>此刻，您可能已注意到 Android Studio 提供許多自動完成功能。使用 <code>Espresso</code> 的一大挑戰，就是如果尚未匯入程式庫，系統便無法自動完成方法。所以，如果您未研究說明文件，您會很難在 <code>Espresso</code> 中瀏覽可用方法。在這些課程中，我們將提供完成測試所需的方法。</p>
+<p>首先，您必須撰寫程式碼，才能在「Cost of Service」輸入文字檢視區塊中輸入帳單金額。依序前往「app」-&gt;「src」-&gt;「main」-&gt;「res」-&gt;「layout」-&gt;「activity_main.xml」，指示 <code>TextInputEditText</code> 的 ID 為 <code>cost_of_service_edit_text</code>。複製 ID 名稱，稍後將用於測試。</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-write-instrumentation-tests/img/a113fb63b50f7674_1920.png?hl=zh-tw" width="80%" height="80%">
+
+<h5 id="實作測試函式"><a href="#實作測試函式" class="headerlink" title="實作測試函式"></a>實作測試函式</h5><p>您現在可以在測試類別的 <code>calculate_20_percent_tip()</code> 函式中撰寫測試邏輯。</p>
+<ol>
+<li>首先，請使用 <code>onView()</code> 函式尋找可互動的使用者介面元件 (在此案例中為 <code>TextInputEditText</code>)。<code>onView()</code> 函式採用 <code>ViewMatcher</code> 物件參數。<code>ViewMatcher</code> 基本上是符合特定條件的 UI 元件，在此例中則是具有 <code>R.id.cost_of_service_edit_text</code> ID 的元件。</li>
 </ol>
-<p>函式 <code>withId()</code> 會傳回 <code>ViewMatcher</code>，這是 ID
-傳遞至其的使用者介面元件。<code>onView()</code> 會傳回
-<code>ViewInteraction</code>，我們可以與該物件互動，就像在操控裝置一樣。若要輸入文字，請在
-<code>ViewInteraction</code> 上呼叫
-<code>perform()</code>。然後，<code>perform()</code> 會採用
-<code>ViewAction</code> 物件。有許多方法會傳回
-<code>ViewAction</code>，但現在我們正在使用 <code>typeText()</code>
-方法。在 <code>activity_main.xml</code> 中，可以看到預設的小費選項為
-20%，因此目前您不必指定要選取的小費選項。</p>
+<p>函式 <code>withId()</code> 會傳回 <code>ViewMatcher</code>，這是 ID 傳遞至其的使用者介面元件。<code>onView()</code> 會傳回 <code>ViewInteraction</code>，我們可以與該物件互動，就像在操控裝置一樣。若要輸入文字，請在 <code>ViewInteraction</code> 上呼叫 <code>perform()</code>。然後，<code>perform()</code> 會採用 <code>ViewAction</code> 物件。有許多方法會傳回 <code>ViewAction</code>，但現在我們正在使用 <code>typeText()</code> 方法。在 <code>activity_main.xml</code> 中，可以看到預設的小費選項為 20%，因此目前您不必指定要選取的小費選項。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onView(withId(R.id.cost_of_service_edit_text))</span><br><span class="line">    .perform(typeText(<span class="string">&quot;50.00&quot;</span>))</span><br></pre></td></tr></table></figure>
+
 <div class="note no-icon success">
-            <p><strong>注意：</strong>在較小的裝置上，因上一個步驟需輸入文字而開啟的鍵盤可能會擋住按鈕。如果您使用較小的裝置，可以將此方法鏈結至上述指示，藉此關閉鍵盤：<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.perform(ViewActions.closeSoftKeyboard())</span><br></pre></td></tr></table></figure></p>
+            <p><strong>注意：</strong> 在較小的裝置上，因上一個步驟需輸入文字而開啟的鍵盤可能會擋住按鈕。如果您使用較小的裝置，可以將此方法鏈結至上述指示，藉此關閉鍵盤：</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.perform(ViewActions.closeSoftKeyboard())</span><br></pre></td></tr></table></figure>
           </div>
-<ol start="2" type="1">
-<li>現在按一下「Calculate」(計算)
-按鈕進行測試。此程式碼的格式類似於我們用來輸入文字的格式。使用者介面元件並不相同，因此傳遞至
-<code>withId()</code> 函式的 ID
-名稱會不同。但在方法中的唯一差別是，<code>ViewAction</code> 不同；會以
-<code>click()</code> 函式取代 <code>typeText()</code>。</li>
+
+<ol start="2">
+<li>現在按一下「Calculate」(計算) 按鈕進行測試。此程式碼的格式類似於我們用來輸入文字的格式。使用者介面元件並不相同，因此傳遞至 <code>withId()</code> 函式的 ID 名稱會不同。但在方法中的唯一差別是，<code>ViewAction</code> 不同；會以 <code>click()</code> 函式取代 <code>typeText()</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onView(withId(R.id.calculate_button))</span><br><span class="line">    .perform(click())</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>最後，您必須宣告顯示正確的小費。我們預計小費為
-$10.00。在這項測試中，請確認 ID 為 <code>tip_result</code> 的
-<code>TextView</code> 包含字串形式的預期小費值。</li>
+
+<ol start="3">
+<li>最後，您必須宣告顯示正確的小費。我們預計小費為 $10.00。在這項測試中，請確認 ID 為 <code>tip_result</code> 的 <code>TextView</code> 包含字串形式的預期小費值。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onView(withId(R.id.tip_result))</span><br><span class="line">    .check(matches(withText(containsString(<span class="string">&quot;$10.00&quot;</span>))))</span><br></pre></td></tr></table></figure>
-<p>當系統顯示提示時，請選取下列匯入： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> androidx.test.espresso.assertion.ViewAssertions.matches</span><br><span class="line"><span class="keyword">import</span> org.hamcrest.Matchers.containsString</span><br></pre></td></tr></table></figure></p>
-<p>在本例中，您使用名為 <code>check()</code> 的不同互動，採用
-<code>ViewAssertion</code>。您可以將 <code>ViewAssertion</code> 視為 UI
-元件使用的特殊 <code>Espresso</code> 斷言。斷言是指
-<code>TextView</code> 的內容與包含 "$10.00" 字串的文字相符。</p>
-<p>執行測試前，請確認匯入內容和程式碼正確無誤，看起來應如下所示
-(匯入順序不同並無影響)： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.tiptime</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.Espresso.onView</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.action.ViewActions.click</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.action.ViewActions.typeText</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.assertion.ViewAssertions.matches</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.matcher.ViewMatchers.withId</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.matcher.ViewMatchers.withText</span><br><span class="line"><span class="keyword">import</span> androidx.test.ext.junit.rules.ActivityScenarioRule</span><br><span class="line"><span class="keyword">import</span> androidx.test.ext.junit.runners.AndroidJUnit4</span><br><span class="line"><span class="keyword">import</span> org.hamcrest.Matchers.containsString</span><br><span class="line"><span class="keyword">import</span> org.junit.Rule</span><br><span class="line"><span class="keyword">import</span> org.junit.Test</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith(AndroidJUnit4::class)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CalculatorTests</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@get:Rule</span>()</span><br><span class="line">   <span class="keyword">val</span> activity = ActivityScenarioRule(MainActivity::<span class="keyword">class</span>.java)</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">fun</span> <span class="title">calculate_20_percent_tip</span><span class="params">()</span></span> &#123;</span><br><span class="line">       onView(withId(R.id.cost_of_service_edit_text))</span><br><span class="line">           .perform(typeText(<span class="string">&quot;50.00&quot;</span>))</span><br><span class="line"></span><br><span class="line">       onView(withId(R.id.calculate_button)).perform(click())</span><br><span class="line"></span><br><span class="line">       onView(withId(R.id.tip_result))</span><br><span class="line">           .check(matches(withText(containsString(<span class="string">&quot;$10.00&quot;</span>))))</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果您正在使用模擬器，請務必同時查看模擬器和 Android Studio
-的視窗。請以執行單元測試的相同做法執行單元測試，也就是用滑鼠右鍵按一下函式左邊的紅色/綠色箭頭按鈕，然後選取第一個選項。看看會發生什麼事吧！</p>
-<p><img src="https://i.imgur.com/Pt0hv4o.gif" width="30%" height="30%"></p>
-<hr />
-<h4 id="總結">總結</h4>
-<ul>
-<li>Android Studio
-會在建立專案時產生必要的測試類別。不過，如果您的專案沒有這些類別，您可以手動建立。</li>
+
+<p>當系統顯示提示時，請選取下列匯入：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> androidx.test.espresso.assertion.ViewAssertions.matches</span><br><span class="line"><span class="keyword">import</span> org.hamcrest.Matchers.containsString</span><br></pre></td></tr></table></figure>
+
+<p>在本例中，您使用名為 <code>check()</code> 的不同互動，採用 <code>ViewAssertion</code>。您可以將 <code>ViewAssertion</code> 視為 UI 元件使用的特殊 <code>Espresso</code> 斷言。斷言是指 <code>TextView</code> 的內容與包含 “$10.00” 字串的文字相符。</p>
+<p>執行測試前，請確認匯入內容和程式碼正確無誤，看起來應如下所示 (匯入順序不同並無影響)：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.tiptime</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.Espresso.onView</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.action.ViewActions.click</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.action.ViewActions.typeText</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.assertion.ViewAssertions.matches</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.matcher.ViewMatchers.withId</span><br><span class="line"><span class="keyword">import</span> androidx.test.espresso.matcher.ViewMatchers.withText</span><br><span class="line"><span class="keyword">import</span> androidx.test.ext.junit.rules.ActivityScenarioRule</span><br><span class="line"><span class="keyword">import</span> androidx.test.ext.junit.runners.AndroidJUnit4</span><br><span class="line"><span class="keyword">import</span> org.hamcrest.Matchers.containsString</span><br><span class="line"><span class="keyword">import</span> org.junit.Rule</span><br><span class="line"><span class="keyword">import</span> org.junit.Test</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith(AndroidJUnit4::class)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CalculatorTests</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@get:Rule</span>()</span><br><span class="line">   <span class="keyword">val</span> activity = ActivityScenarioRule(MainActivity::<span class="keyword">class</span>.java)</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">fun</span> <span class="title">calculate_20_percent_tip</span><span class="params">()</span></span> &#123;</span><br><span class="line">       onView(withId(R.id.cost_of_service_edit_text))</span><br><span class="line">           .perform(typeText(<span class="string">&quot;50.00&quot;</span>))</span><br><span class="line"></span><br><span class="line">       onView(withId(R.id.calculate_button)).perform(click())</span><br><span class="line"></span><br><span class="line">       onView(withId(R.id.tip_result))</span><br><span class="line">           .check(matches(withText(containsString(<span class="string">&quot;$10.00&quot;</span>))))</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果您正在使用模擬器，請務必同時查看模擬器和 Android Studio 的視窗。請以執行單元測試的相同做法執行單元測試，也就是用滑鼠右鍵按一下函式左邊的紅色&#x2F;綠色箭頭按鈕，然後選取第一個選項。看看會發生什麼事吧！</p>
+<img src="https://i.imgur.com/Pt0hv4o.gif" width="30%" height="30%">
+
+<hr>
+<h4 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h4><ul>
+<li>Android Studio 會在建立專案時產生必要的測試類別。不過，如果您的專案沒有這些類別，您可以手動建立。</li>
 <li>測試規則會在每次在測試類別中進行測試之前執行。</li>
-<li><a
-target="_blank" rel="noopener" href="https://developer.android.com/training/testing/espresso/basics"><code>Espresso</code></a>
-是檢測設備測試的基本元件，使得使用程式碼就能與使用者介面元件互動。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/training/testing/espresso/basics"><code>Espresso</code></a> 是檢測設備測試的基本元件，使得使用程式碼就能與使用者介面元件互動。</li>
 </ul>
 
     </div>
@@ -531,7 +488,7 @@ target="_blank" rel="noopener" href="https://developer.android.com/training/test
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.</span> <span class="nav-text">範例應用程式總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6%E7%9B%AE%E9%8C%84"><span class="nav-number">2.</span> <span class="nav-text">建立檢測設備測試目錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%92%B0%E5%AF%AB%E7%AC%AC%E4%B8%80%E5%80%8B%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6"><span class="nav-number">3.</span> <span class="nav-text">撰寫第一個檢測設備測試</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#espresso"><span class="nav-number">3.1.</span> <span class="nav-text">Espresso</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E6%B8%AC%E8%A9%A6%E5%87%BD%E5%BC%8F"><span class="nav-number">3.2.</span> <span class="nav-text">實作測試函式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">4.</span> <span class="nav-text">總結</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E6%9C%AC%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%A0%94%E7%A9%B6%E5%AE%A4%E7%9A%84%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.</span> <span class="nav-text">下載本程式碼研究室的範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">2.</span> <span class="nav-text">範例應用程式總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6%E7%9B%AE%E9%8C%84"><span class="nav-number">3.</span> <span class="nav-text">建立檢測設備測試目錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%92%B0%E5%AF%AB%E7%AC%AC%E4%B8%80%E5%80%8B%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6"><span class="nav-number">4.</span> <span class="nav-text">撰寫第一個檢測設備測試</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Espresso"><span class="nav-number">4.1.</span> <span class="nav-text">Espresso</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E6%B8%AC%E8%A9%A6%E5%87%BD%E5%BC%8F"><span class="nav-number">4.2.</span> <span class="nav-text">實作測試函式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">5.</span> <span class="nav-text">總結</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -656,8 +613,6 @@ target="_blank" rel="noopener" href="https://developer.android.com/training/test
 
 
 
-
-  
 
   
 

@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="使用 Android 版 Material 元件程式庫中的 MaterialCardView 小工具，在資訊卡(cards)中顯示各個肯定字詞的文字和圖片。   學習目標 + 如何將圖像新增至 RecyclerView 顯示的肯定字詞清單中。 + 如何在 RecyclerView 項目的版面配置中使用 MaterialCardView。 + 在使用者介面中進行視覺調整，讓應用程式看起來更精美。">
+  <meta name="description" content="使用 Android 版 Material 元件程式庫中的 MaterialCardView 小工具，在資訊卡(cards)中顯示各個肯定字詞的文字和圖片。    學習目標  如何將圖像新增至 RecyclerView 顯示的肯定字詞清單中。 如何在 RecyclerView 項目的版面配置中使用 MaterialCardView。 在使用者介面中進行視覺調整，讓應用程式看起來更精美。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(18)-使用Cards顯示圖像List">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/09/22/Android%E7%AD%86%E8%A8%98-18-%E4%BD%BF%E7%94%A8Cards%E9%A1%AF%E7%A4%BA%E5%9C%96%E5%83%8FList/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="使用 Android 版 Material 元件程式庫中的 MaterialCardView 小工具，在資訊卡(cards)中顯示各個肯定字詞的文字和圖片。   學習目標 + 如何將圖像新增至 RecyclerView 顯示的肯定字詞清單中。 + 如何在 RecyclerView 項目的版面配置中使用 MaterialCardView。 + 在使用者介面中進行視覺調整，讓應用程式看起來更精美。">
+<meta property="og:description" content="使用 Android 版 Material 元件程式庫中的 MaterialCardView 小工具，在資訊卡(cards)中顯示各個肯定字詞的文字和圖片。    學習目標  如何將圖像新增至 RecyclerView 顯示的肯定字詞清單中。 如何在 RecyclerView 項目的版面配置中使用 MaterialCardView。 在使用者介面中進行視覺調整，讓應用程式看起來更精美。">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/8d7a20a5d7a079ce_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/a5cb4349a970c992_1920.png?hl=zh-tw">
@@ -41,15 +41,17 @@
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/8c437aa925887439_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/ddac89ef587fba99_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/c0c1986d1887afdb_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://i.imgur.com/jYLTnPm.png">
+<meta property="og:image" content="https://i.imgur.com/VXkomNz.png">
 <meta property="og:image" content="https://i.imgur.com/1aEU8Mg.gif">
 <meta property="article:published_time" content="2023-09-22T05:29:14.000Z">
 <meta property="article:modified_time" content="2024-03-10T09:16:56.353Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
-<meta property="article:tag" content="Material Component">
 <meta property="article:tag" content="Card">
 <meta property="article:tag" content="MaterialCardView">
+<meta property="article:tag" content="Material Component">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/8d7a20a5d7a079ce_1920.png?hl=zh-tw">
 
@@ -279,300 +281,214 @@
 
       
         <blockquote>
-<p>使用 Android 版 Material 元件程式庫中的 <code>MaterialCardView</code>
-小工具，在資訊卡(cards)中顯示各個肯定字詞的文字和圖片。</p>
+<p>使用 Android 版 Material 元件程式庫中的 <code>MaterialCardView</code> 小工具，在資訊卡(cards)中顯示各個肯定字詞的文字和圖片。</p>
 </blockquote>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/8d7a20a5d7a079ce_1920.png?hl=zh-tw" width="30%" height="30%"></p>
-<p><strong>學習目標</strong> + 如何將圖像新增至
-<code>RecyclerView</code> 顯示的肯定字詞清單中。 + 如何在
-<code>RecyclerView</code> 項目的版面配置中使用
-<code>MaterialCardView</code>。 +
-在使用者介面中進行視覺調整，讓應用程式看起來更精美。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/8d7a20a5d7a079ce_1920.png?hl=zh-tw" width="30%" height="30%">
+
+<p><strong>學習目標</strong></p>
+<ul>
+<li>如何將圖像新增至 <code>RecyclerView</code> 顯示的肯定字詞清單中。</li>
+<li>如何在 <code>RecyclerView</code> 項目的版面配置中使用 <code>MaterialCardView</code>。</li>
+<li>在使用者介面中進行視覺調整，讓應用程式看起來更精美。</li>
+</ul>
 <span id="more"></span>
-<hr />
-<h3 id="將圖像新增至list項目">將圖像新增至List項目</h3>
-<p>您目前建立了一個適配器 <code>ItemAdapter</code>，可顯示
-<code>RecyclerView</code>
-中的肯定字詞字串。功能運作良好，但視覺上沒有吸引力。在這項工作中，您將修改List項目的版面配置和適配器的程式碼，顯示包含肯定字詞的圖片。</p>
-<h4 id="下載圖像">下載圖像</h4>
-<ol type="1">
-<li>在 Android Studio 中開啟 <code>Affirmations</code>
-應用程式專案。</li>
-<li>接著，請將<a
-target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-affirmations-app-solution/raw/main/images.zip">圖像檔</a>下載到電腦上。應用程式中應有十張圖片，每張各代表一個肯定字詞。檔案名稱應介於
-<code>image1.jpg</code> 至 <code>image10.jpg</code> 之間。</li>
-<li>將電腦中的圖像複製到 Android Studio 中專案的「Res」(解析度)
-&gt;「drawable」(可繪項目) 資料夾
-(<code>app/src/main/res/drawable</code>)。將這些資源新增至應用程式後，您就能使用資源資源
-ID (例如 <code>R.drawable.image1</code>)，從程式碼存取這些圖片
-(您可能需要重新建立程式碼，才能讓 Android Studio 找到這個圖像)。</li>
+
+<hr>
+<h3 id="將圖像新增至List項目"><a href="#將圖像新增至List項目" class="headerlink" title="將圖像新增至List項目"></a>將圖像新增至List項目</h3><p>您目前建立了一個適配器 <code>ItemAdapter</code>，可顯示 <code>RecyclerView</code> 中的肯定字詞字串。功能運作良好，但視覺上沒有吸引力。在這項工作中，您將修改List項目的版面配置和適配器的程式碼，顯示包含肯定字詞的圖片。</p>
+<h4 id="下載圖像"><a href="#下載圖像" class="headerlink" title="下載圖像"></a>下載圖像</h4><ol>
+<li>在 Android Studio 中開啟 <code>Affirmations</code> 應用程式專案。</li>
+<li>接著，請將<a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-affirmations-app-solution/raw/main/images.zip">圖像檔</a>下載到電腦上。應用程式中應有十張圖片，每張各代表一個肯定字詞。檔案名稱應介於 <code>image1.jpg</code> 至 <code>image10.jpg</code> 之間。</li>
+<li>將電腦中的圖像複製到 Android Studio 中專案的「Res」(解析度) &gt;「drawable」(可繪項目) 資料夾 (<code>app/src/main/res/drawable</code>)。將這些資源新增至應用程式後，您就能使用資源資源 ID (例如 <code>R.drawable.image1</code>)，從程式碼存取這些圖片 (您可能需要重新建立程式碼，才能讓 Android Studio 找到這個圖像)。</li>
 </ol>
-<h4 id="新增對-affirmation-肯定字詞-類別中圖像的支援">新增對 Affirmation
-(肯定字詞) 類別中圖像的支援</h4>
-<p>在這個步驟中，您將在 <code>Affirmation</code>
-資料類別中新增屬性，用來保存圖片資源 ID 的值。這樣一來，單一
-<code>Affirmation</code> 物件例項就會包含肯定字詞的<strong>文字資源
-ID</strong> 和<strong>圖片資源 ID</strong>。</p>
-<ol type="1">
-<li>開啟 <code>model</code> 套件中的 <code>Affirmation.kt</code>
-檔案。</li>
-<li>新增命名為 <code>imageResourceId</code> 的參數
-<code>Int</code>，即可修改 <code>Affirmation</code>
-類別的建構函式。</li>
+<h4 id="新增對-Affirmation-肯定字詞-類別中圖像的支援"><a href="#新增對-Affirmation-肯定字詞-類別中圖像的支援" class="headerlink" title="新增對 Affirmation (肯定字詞) 類別中圖像的支援"></a>新增對 Affirmation (肯定字詞) 類別中圖像的支援</h4><p>在這個步驟中，您將在 <code>Affirmation</code> 資料類別中新增屬性，用來保存圖片資源 ID 的值。這樣一來，單一 <code>Affirmation</code> 物件例項就會包含肯定字詞的<strong>文字資源 ID</strong> 和<strong>圖片資源 ID</strong>。</p>
+<ol>
+<li>開啟 <code>model</code> 套件中的 <code>Affirmation.kt</code> 檔案。</li>
+<li>新增命名為 <code>imageResourceId</code> 的參數 <code>Int</code>，即可修改 <code>Affirmation</code> 類別的建構函式。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Affirmation</span>(<span class="keyword">val</span> stringResourceId: <span class="built_in">Int</span>, <span class="keyword">val</span> imageResourceId: <span class="built_in">Int</span>) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="使用資源註解">使用資源註解</h5>
-<p><code>stringResourceId</code> 和 <code>imageResourceId</code> 都是
-<strong>Int(整數)</strong>
-值。雖然看起來沒問題，但呼叫端可能會不小心以錯誤的順序傳入引數，即先傳入
-<code>imageResourceId</code>，而不是 <code>stringResourceId</code>。</p>
-<p>若要避免這種情況發生，您可以使用<strong>資源註解</strong>。註解相當實用，因為會新增至其他資訊至類別、方法或參數中。系統一律會使用
-<code>@</code> 符號宣告註解。在此情況下，請將 <code>@StringRes</code>
-註解新增至<strong>字串資源 ID</strong> 屬性，並將
-<code>@DrawableRes</code> 註解新增至<strong>可繪製資源 ID</strong>
-屬性。如果提供的資源 ID 類型有誤，您會收到警告。</p>
-<ol type="1">
-<li>將 <code>@StringRes</code> 註解新增至
-<code>stringResourceId</code>。</li>
-<li>將 <code>@DrawableRes</code> 註解新增至
-<code>imageResourceId</code>。</li>
-<li>套件宣告完成後，確認匯入的
-<code>androidx.annotation.DrawableRes</code> 和
-<code>androidx.annotation.StringRes</code>　新增至檔案頂端。</li>
+
+<h5 id="使用資源註解"><a href="#使用資源註解" class="headerlink" title="使用資源註解"></a>使用資源註解</h5><p><code>stringResourceId</code> 和 <code>imageResourceId</code> 都是 <strong>Int(整數)</strong> 值。雖然看起來沒問題，但呼叫端可能會不小心以錯誤的順序傳入引數，即先傳入 <code>imageResourceId</code>，而不是 <code>stringResourceId</code>。</p>
+<p>若要避免這種情況發生，您可以使用<strong>資源註解</strong>。註解相當實用，因為會新增至其他資訊至類別、方法或參數中。系統一律會使用 <code>@</code> 符號宣告註解。在此情況下，請將 <code>@StringRes</code> 註解新增至<strong>字串資源 ID</strong> 屬性，並將 <code>@DrawableRes</code> 註解新增至<strong>可繪製資源 ID</strong> 屬性。如果提供的資源 ID 類型有誤，您會收到警告。</p>
+<ol>
+<li>將 <code>@StringRes</code> 註解新增至 <code>stringResourceId</code>。</li>
+<li>將 <code>@DrawableRes</code> 註解新增至 <code>imageResourceId</code>。</li>
+<li>套件宣告完成後，確認匯入的 <code>androidx.annotation.DrawableRes</code> 和 <code>androidx.annotation.StringRes</code>　新增至檔案頂端。</li>
 </ol>
-<p><code>Affirmation.kt</code> <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Affirmation</span>(</span><br><span class="line">   <span class="meta">@StringRes</span> <span class="keyword">val</span> stringResourceId: <span class="built_in">Int</span>, <span class="meta">@DrawableRes</span> <span class="keyword">val</span> imageResourceId: <span class="built_in">Int</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<h4 id="初始化內含圖像的肯定字詞清單">初始化內含圖像的肯定字詞清單</h4>
-<p>您已變更 <code>Affirmation</code> 類別的建構函式，因此必須更新
-<code>Datasource</code> 類別。將圖像資源 ID 傳遞至每個初始化的
-<code>Affirmation</code> 物件。</p>
-<ol type="1">
-<li>開啟 <code>Datasource.kt</code>。您應該會看到
-<code>Affirmation</code> 的每個執行個體化錯誤。</li>
-<li>請為每個 <code>Affirmation</code> 新增圖像的資源 ID 做為引數，例如
-<code>R.drawable.image1</code>。</li>
+<p><code>Affirmation.kt</code></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Affirmation</span>(</span><br><span class="line">   <span class="meta">@StringRes</span> <span class="keyword">val</span> stringResourceId: <span class="built_in">Int</span>, <span class="meta">@DrawableRes</span> <span class="keyword">val</span> imageResourceId: <span class="built_in">Int</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化內含圖像的肯定字詞清單"><a href="#初始化內含圖像的肯定字詞清單" class="headerlink" title="初始化內含圖像的肯定字詞清單"></a>初始化內含圖像的肯定字詞清單</h4><p>您已變更 <code>Affirmation</code> 類別的建構函式，因此必須更新 <code>Datasource</code> 類別。將圖像資源 ID 傳遞至每個初始化的 <code>Affirmation</code> 物件。</p>
+<ol>
+<li>開啟 <code>Datasource.kt</code>。您應該會看到 <code>Affirmation</code> 的每個執行個體化錯誤。</li>
+<li>請為每個 <code>Affirmation</code> 新增圖像的資源 ID 做為引數，例如 <code>R.drawable.image1</code>。</li>
 </ol>
-<p><code>Datasource.kt</code> <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Datasource</span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">loadAffirmations</span><span class="params">()</span></span>: List&lt;Affirmation&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> listOf&lt;Affirmation&gt;(</span><br><span class="line">            Affirmation(R.string.affirmation1, R.drawable.image1),</span><br><span class="line">            Affirmation(R.string.affirmation2, R.drawable.image2),</span><br><span class="line">            Affirmation(R.string.affirmation3, R.drawable.image3),</span><br><span class="line">            Affirmation(R.string.affirmation4, R.drawable.image4),</span><br><span class="line">            Affirmation(R.string.affirmation5, R.drawable.image5),</span><br><span class="line">            Affirmation(R.string.affirmation6, R.drawable.image6),</span><br><span class="line">            Affirmation(R.string.affirmation7, R.drawable.image7),</span><br><span class="line">            Affirmation(R.string.affirmation8, R.drawable.image8),</span><br><span class="line">            Affirmation(R.string.affirmation9, R.drawable.image9),</span><br><span class="line">            Affirmation(R.string.affirmation10, R.drawable.image10)</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="新增-imageview-至list項目版面配置">新增 ImageView
-至List項目版面配置</h4>
-<p>若要顯示這份List中各項肯定字詞的圖像，您必須新增
-<code>ImageView</code> 至項目版面配置。由於您現在有
-<code>TextView</code> 和 <code>ImageView</code>
-兩個檢視畫面，因此需要將這兩個檢視畫面放置為 <code>ViewGroup</code>
-內的子項檢視畫面。若要排列垂直欄的檢視畫面，請使用
-<code>LinearLayout</code>。<code>LinearLayout</code> 會在單一方向
-(垂直或水平) 對齊所有子項檢視畫面。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/a5cb4349a970c992_1920.png?hl=zh-tw" width="35%" height="35%"></p>
-<ol type="1">
-<li>依序開啟「Res」&gt;「Layout」&gt;「list_item.xml」。在現有
-<code>TextView</code> 周圍新增 <code>LinearLayout</code>，並將
-<code>orientation</code> 屬性設定為 <code>vertical</code>。</li>
-<li>將 <code>xmlns schema</code> 宣告行從 <code>TextView</code> 元素移至
-<code>LinearLayout</code> 元素，以避免錯誤。</li>
+<p><code>Datasource.kt</code></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Datasource</span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">loadAffirmations</span><span class="params">()</span></span>: List&lt;Affirmation&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> listOf&lt;Affirmation&gt;(</span><br><span class="line">            Affirmation(R.string.affirmation1, R.drawable.image1),</span><br><span class="line">            Affirmation(R.string.affirmation2, R.drawable.image2),</span><br><span class="line">            Affirmation(R.string.affirmation3, R.drawable.image3),</span><br><span class="line">            Affirmation(R.string.affirmation4, R.drawable.image4),</span><br><span class="line">            Affirmation(R.string.affirmation5, R.drawable.image5),</span><br><span class="line">            Affirmation(R.string.affirmation6, R.drawable.image6),</span><br><span class="line">            Affirmation(R.string.affirmation7, R.drawable.image7),</span><br><span class="line">            Affirmation(R.string.affirmation8, R.drawable.image8),</span><br><span class="line">            Affirmation(R.string.affirmation9, R.drawable.image9),</span><br><span class="line">            Affirmation(R.string.affirmation10, R.drawable.image10)</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="新增-ImageView-至List項目版面配置"><a href="#新增-ImageView-至List項目版面配置" class="headerlink" title="新增 ImageView 至List項目版面配置"></a>新增 ImageView 至List項目版面配置</h4><p>若要顯示這份List中各項肯定字詞的圖像，您必須新增 <code>ImageView</code> 至項目版面配置。由於您現在有 <code>TextView</code> 和 <code>ImageView</code> 兩個檢視畫面，因此需要將這兩個檢視畫面放置為 <code>ViewGroup</code> 內的子項檢視畫面。若要排列垂直欄的檢視畫面，請使用 <code>LinearLayout</code>。<code>LinearLayout</code> 會在單一方向 (垂直或水平) 對齊所有子項檢視畫面。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/a5cb4349a970c992_1920.png?hl=zh-tw" width="35%" height="35%">
+
+<ol>
+<li>依序開啟「Res」&gt;「Layout」&gt;「list_item.xml」。在現有 <code>TextView</code> 周圍新增 <code>LinearLayout</code>，並將 <code>orientation</code> 屬性設定為 <code>vertical</code>。</li>
+<li>將 <code>xmlns schema</code> 宣告行從 <code>TextView</code> 元素移至 <code>LinearLayout</code> 元素，以避免錯誤。</li>
 </ol>
-<p><code>list_item.xml</code> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/item_title&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<ol start="3" type="1">
-<li>在 <code>TextView</code>, 之前的 <code>LinearLayout</code>,
-內，新增資源 ID 為 <code>item_image</code> 的
-<code>ImageView</code>。</li>
-<li>將 <code>ImageView</code> 的寬度設定為
-<code>match_parent</code>，高度設定為
-<code>194dp</code>。視螢幕大小而定，這個值應會隨時在螢幕上顯示幾張資訊卡(card)。</li>
+<p><code>list_item.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/item_title&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 <code>TextView</code>, 之前的 <code>LinearLayout</code>, 內，新增資源 ID 為 <code>item_image</code> 的 <code>ImageView</code>。</li>
+<li>將 <code>ImageView</code> 的寬度設定為 <code>match_parent</code>，高度設定為 <code>194dp</code>。視螢幕大小而定，這個值應會隨時在螢幕上顯示幾張資訊卡(card)。</li>
 <li>將 <code>scaleType</code> 設定為 <code>centerCrop</code>.</li>
-<li>將 <code>importantForAccessibility</code> 屬性設定為
-<code>no</code>，因為該圖像用於裝飾用途。</li>
+<li>將 <code>importantForAccessibility</code> 屬性設定為 <code>no</code>，因為該圖像用於裝飾用途。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;194dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/item_image&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:importantForAccessibility</span>=<span class="string">&quot;no&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:scaleType</span>=<span class="string">&quot;centerCrop&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="更新-itemadapter-以設定圖像">更新 ItemAdapter 以設定圖像</h4>
-<ol type="1">
-<li>開啟 <code>adapter/ItemAdapter.kt</code> (「App」(應用程式)
-&gt;「Java」 &gt; 「adapter 」(適配器) &gt;「ItemAdapter」)</li>
+
+<h4 id="更新-ItemAdapter-以設定圖像"><a href="#更新-ItemAdapter-以設定圖像" class="headerlink" title="更新 ItemAdapter 以設定圖像"></a>更新 ItemAdapter 以設定圖像</h4><ol>
+<li>開啟 <code>adapter/ItemAdapter.kt</code> (「App」(應用程式) &gt;「Java」 &gt; 「adapter 」(適配器) &gt;「ItemAdapter」)</li>
 <li>前往 <code>ItemViewHolder</code> 類別。</li>
-<li>在清單項目版面配置中，<code>ItemViewHolder</code> 執行個體應保留對
-<code>TextView</code> 的參照及對 <code>ImageView</code>
-的參照。進行以下變更。</li>
+<li>在清單項目版面配置中，<code>ItemViewHolder</code> 執行個體應保留對 <code>TextView</code> 的參照及對 <code>ImageView</code> 的參照。進行以下變更。</li>
 </ol>
-<p>在 <code>textView</code> 屬性的初始化下方，新增名為
-<code>imageView</code> 的 <code>val</code>。使用
-<code>findViewById()</code> 找出對 ID 為 <code>item_image</code> 的
-<code>ImageView</code> 的參照，並指派給 <code>imageView</code>
-屬性。</p>
-<p><code>ItemAdapter.kt</code> <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ItemViewHolder</span>(<span class="keyword">private</span> <span class="keyword">val</span> view: View): RecyclerView.ViewHolder(view) &#123;</span><br><span class="line">    <span class="keyword">val</span> textView: TextView = view.findViewById(R.id.item_title)</span><br><span class="line">    <span class="keyword">val</span> imageView: ImageView = view.findViewById(R.id.item_image)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="4" type="1">
-<li>在 <code>ItemAdapter</code> 中找出 <code>onBindViewHolder()</code>
-函式。</li>
-<li>您先前在 <code>ItemViewHolder</code> 中的 <code>textView</code>
-上設定肯定字詞的
-<code>stringResourceId</code>。現在，請在List項目檢視畫面的
-<code>ImageView</code> 上設定肯定字詞項目的
-<code>imageResourceId</code>。</li>
+<p>在 <code>textView</code> 屬性的初始化下方，新增名為 <code>imageView</code> 的 <code>val</code>。使用 <code>findViewById()</code> 找出對 ID 為 <code>item_image</code> 的 <code>ImageView</code> 的參照，並指派給 <code>imageView</code> 屬性。</p>
+<p><code>ItemAdapter.kt</code></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ItemViewHolder</span>(<span class="keyword">private</span> <span class="keyword">val</span> view: View): RecyclerView.ViewHolder(view) &#123;</span><br><span class="line">    <span class="keyword">val</span> textView: TextView = view.findViewById(R.id.item_title)</span><br><span class="line">    <span class="keyword">val</span> imageView: ImageView = view.findViewById(R.id.item_image)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在 <code>ItemAdapter</code> 中找出 <code>onBindViewHolder()</code> 函式。</li>
+<li>您先前在 <code>ItemViewHolder</code> 中的 <code>textView</code> 上設定肯定字詞的 <code>stringResourceId</code>。現在，請在List項目檢視畫面的 <code>ImageView</code> 上設定肯定字詞項目的 <code>imageResourceId</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">ItemViewHolder</span>, position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> item = dataset[position]</span><br><span class="line">        holder.textView.text = context.resources.getString(item.stringResourceId)</span><br><span class="line">        holder.imageView.setImageResource(item.imageResourceId)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<ol start="6" type="1">
+
+<ol start="6">
 <li>執行應用程式，然後捲動肯定字詞清單。</li>
 </ol>
-<p><img src="https://i.imgur.com/lAPUKyN.png" width="30%" height="30%"></p>
-<hr />
-<h3 id="製作精美的使用者介面">製作精美的使用者介面</h3>
-<p>到目前為止，您已經建構出功能完備的應用程式，內含肯定字詞字串和圖像List
-本節將說明如何微調程式碼與 XML，讓應用程式看起來更精美。</p>
-<h4 id="新增邊框間距">新增邊框間距</h4>
-<p>一開始，請先在List中的項目(Item)之間新增空白字元。</p>
+<img src="https://i.imgur.com/lAPUKyN.png" width="30%" height="30%">
+
+<hr>
+<h3 id="製作精美的使用者介面"><a href="#製作精美的使用者介面" class="headerlink" title="製作精美的使用者介面"></a>製作精美的使用者介面</h3><p>到目前為止，您已經建構出功能完備的應用程式，內含肯定字詞字串和圖像List 本節將說明如何微調程式碼與 XML，讓應用程式看起來更精美。</p>
+<h4 id="新增邊框間距"><a href="#新增邊框間距" class="headerlink" title="新增邊框間距"></a>新增邊框間距</h4><p>一開始，請先在List中的項目(Item)之間新增空白字元。</p>
 <div class="note no-icon success">
-            <p><strong>提示：</strong> 您可以依照本節所述，在 XML中調整版面配置，也可以按個人偏好，前往「Design」檢視畫面中的「Attributes」面板進行變更。</p>
+            <p><strong>提示：</strong> 您可以依照本節所述，在 XML 中調整版面配置，也可以按個人偏好，前往「Design」檢視畫面中的「Attributes」面板進行變更。</p>
           </div>
-<ol type="1">
-<li>開啟 <code>item_list.xml</code>
-(「App」&gt;「Res」&gt;「Layout」&gt;「activity_main.xml」)，並將
-<code>16dp</code> 邊框間距新增至現有的 <code>LinearLayout</code>。</li>
+
+<ol>
+<li>開啟 <code>item_list.xml</code> (「App」&gt;「Res」&gt;「Layout」&gt;「activity_main.xml」)，並將 <code>16dp</code> 邊框間距新增至現有的 <code>LinearLayout</code>。</li>
 </ol>
-<p><code>list_item.xml</code> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<ol start="2" type="1">
-<li>將 <code>16dp</code> 邊框間距新增至 <code>item_title</code>
-<code>TextView</code>。</li>
-<li>在 <code>TextView</code> 中，將 <code>textAppearance</code>
-屬性設定為 <code>?attr/textAppearanceHeadline6</code>。<a
-target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/ui/look-and-feel/themes?hl=zh-tw#textappearance"><code>textAppearance</code></a>
-是可讓您定義<strong>文字專屬樣式</strong>的屬性。若要瞭解其他預先定義的文字外觀值，請參閱此<a
-target="_blank" rel="noopener" href="https://medium.com/androiddevelopers/android-styling-common-theme-attributes-8f7c50c9eaba">常見主題屬性網誌</a>文章中的「TextAppearances」章節。</li>
+<p><code>list_item.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>將 <code>16dp</code> 邊框間距新增至 <code>item_title</code> <code>TextView</code>。</li>
+<li>在 <code>TextView</code> 中，將 <code>textAppearance</code> 屬性設定為 <code>?attr/textAppearanceHeadline6</code>。<a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/ui/look-and-feel/themes?hl=zh-tw#textappearance"><code>textAppearance</code></a> 是可讓您定義<strong>文字專屬樣式</strong>的屬性。若要瞭解其他預先定義的文字外觀值，請參閱此<a target="_blank" rel="noopener" href="https://medium.com/androiddevelopers/android-styling-common-theme-attributes-8f7c50c9eaba">常見主題屬性網誌</a>文章中的「TextAppearances」章節。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/item_title&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textAppearance</span>=<span class="string">&quot;?attr/textAppearanceHeadline6&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
+
+<ol start="4">
 <li>執行應用程式。</li>
 </ol>
-<p><img src="https://i.imgur.com/W3EoBO9.png" width="30%" height="30%"></p>
-<h4 id="使用資訊卡card">使用資訊卡(Card)</h4>
-<p>但很難判斷圖像是否屬於圖像上方或下方的肯定字詞文字。若要解決這個問題，您可以使用<code>「Card」(資訊卡)</code>
-檢視畫面。<code>「Card」(資訊卡)</code>
-檢視畫面可讓您輕鬆納入一組檢視畫面，並為容器提供一致的樣式。若要進一步瞭解使用資訊卡的
-<code>Material Design (質感設計)</code> 指南，請參閱這篇<a
-target="_blank" rel="noopener" href="https://m2.material.io/develop/android/components/cards/">資訊卡指南</a>。</p>
-<ol type="1">
-<li>在現有的<code>LinearLayout</code> 四周新增
-<code>MaterialCardView</code>。</li>
-<li>再次將結構定義宣告從 <code>LinearLayout</code> 移到
-<code>MaterialCardView</code>。</li>
-<li>將 <code>MaterialCardView</code> 的 <code>layout_width</code> 設定為
-<code>match_parent</code>，並將 <code>layout_height</code> 設定為
-<code>wrap_content</code>。</li>
+<img src="https://i.imgur.com/W3EoBO9.png" width="30%" height="30%">
+
+<h4 id="使用資訊卡-Card"><a href="#使用資訊卡-Card" class="headerlink" title="使用資訊卡(Card)"></a>使用資訊卡(Card)</h4><p>但很難判斷圖像是否屬於圖像上方或下方的肯定字詞文字。若要解決這個問題，您可以使用<code>「Card」(資訊卡)</code> 檢視畫面。<code>「Card」(資訊卡)</code> 檢視畫面可讓您輕鬆納入一組檢視畫面，並為容器提供一致的樣式。若要進一步瞭解使用資訊卡的 <code>Material Design (質感設計)</code> 指南，請參閱這篇<a target="_blank" rel="noopener" href="https://m2.material.io/develop/android/components/cards/">資訊卡指南</a>。</p>
+<ol>
+<li>在現有的<code> LinearLayout</code> 四周新增 <code>MaterialCardView</code>。</li>
+<li>再次將結構定義宣告從 <code>LinearLayout</code> 移到 <code>MaterialCardView</code>。</li>
+<li>將 <code>MaterialCardView</code> 的 <code>layout_width</code> 設定為 <code>match_parent</code>，並將 <code>layout_height</code> 設定為 <code>wrap_content</code>。</li>
 <li>新增 <code>8dp</code> 的 <code>layout_margin</code>。</li>
-<li>移除 <code>LinearLayout</code>
-中的邊框間距，以免有太多空白字元。</li>
-<li>現在再次執行應用程式。您可以運用<code>MaterialCardView</code>
-明確分辨每個肯定字詞嗎？</li>
+<li>移除 <code>LinearLayout</code> 中的邊框間距，以免有太多空白字元。</li>
+<li>現在再次執行應用程式。您可以運用<code> MaterialCardView</code> 明確分辨每個肯定字詞嗎？</li>
 </ol>
-<p><code>list_item.xml</code> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">com.google.android.material.card.MaterialCardView</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_margin</span>=<span class="string">&quot;8dp&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/item_image&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;194dp&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:importantForAccessibility</span>=<span class="string">&quot;no&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:scaleType</span>=<span class="string">&quot;centerCrop&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/item_title&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textAppearance</span>=<span class="string">&quot;?attr/textAppearanceHeadline6&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">com.google.android.material.card.MaterialCardView</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="https://i.imgur.com/QgqaqGC.png" width="30%" height="30%"></p>
-<h4 id="變更應用程式佈景主題色彩">變更應用程式佈景主題色彩</h4>
-<p>預設的應用程式佈景主題色彩可能不如您自己做的其他選擇。在這項工作中，您必須將應用程式佈景主題色彩變更為藍色。如此一來，您就可以使用自己的想法再次變更！</p>
-<p>您可以從這個<a
-target="_blank" rel="noopener" href="https://m3.material.io/styles/color/overview#!/?view.left=0&amp;view.right=0">連結</a>找到
-Material Design 調色盤提供的預先定義不同層次的藍色。</p>
-<p>在本程式碼研究室中，您將使用 Material Design 調色盤中的下列色彩： +
-blue_200: <code>#FF90CAF9</code> + blue_500: <code>#FF2196F3</code> +
-blue_700: <code>#FF1976D2</code></p>
-<h5 id="新增色彩資源">新增色彩資源</h5>
-<p>集中定義應用程式內使用的色彩：<code>colors.xml</code> 檔案。</p>
-<ol type="1">
-<li>開啟 <code>colors.xml</code>
-(「Res」&gt;「values」&gt;「colors.xml」)。</li>
+<p><code>list_item.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">com.google.android.material.card.MaterialCardView</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_margin</span>=<span class="string">&quot;8dp&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/item_image&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;194dp&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:importantForAccessibility</span>=<span class="string">&quot;no&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:scaleType</span>=<span class="string">&quot;centerCrop&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/item_title&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textAppearance</span>=<span class="string">&quot;?attr/textAppearanceHeadline6&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">com.google.android.material.card.MaterialCardView</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="https://i.imgur.com/QgqaqGC.png" width="30%" height="30%">
+
+<h4 id="變更應用程式佈景主題色彩"><a href="#變更應用程式佈景主題色彩" class="headerlink" title="變更應用程式佈景主題色彩"></a>變更應用程式佈景主題色彩</h4><p>預設的應用程式佈景主題色彩可能不如您自己做的其他選擇。在這項工作中，您必須將應用程式佈景主題色彩變更為藍色。如此一來，您就可以使用自己的想法再次變更！</p>
+<p>您可以從這個<a target="_blank" rel="noopener" href="https://m3.material.io/styles/color/overview#!/?view.left=0&view.right=0">連結</a>找到 Material Design 調色盤提供的預先定義不同層次的藍色。</p>
+<p>在本程式碼研究室中，您將使用 Material Design 調色盤中的下列色彩：</p>
+<ul>
+<li>blue_200: <code>#FF90CAF9</code></li>
+<li>blue_500: <code>#FF2196F3</code></li>
+<li>blue_700: <code>#FF1976D2</code></li>
+</ul>
+<h5 id="新增色彩資源"><a href="#新增色彩資源" class="headerlink" title="新增色彩資源"></a>新增色彩資源</h5><p>集中定義應用程式內使用的色彩：<code>colors.xml</code> 檔案。</p>
+<ol>
+<li>開啟 <code>colors.xml</code> (「Res」&gt;「values」&gt;「colors.xml」)。</li>
 <li>針對以下定義的藍色，將新的色彩資源新增至檔案：</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;blue_200&quot;</span>&gt;</span>#FF90CAF9<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;blue_500&quot;</span>&gt;</span>#FF2196F3<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;blue_700&quot;</span>&gt;</span>#FF1976D2<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h5 id="變更佈景主題色彩">變更佈景主題色彩</h5>
-<p>現在，您已擁有可用於主題的新色彩資源。</p>
-<ol type="1">
-<li>開啟 <code>themes.xml</code> (「Res」(解析度) &gt;「Values」(設定值)
-&gt;「themes」(佈景主題) &gt;「themes.xml」)。</li>
+
+<h5 id="變更佈景主題色彩"><a href="#變更佈景主題色彩" class="headerlink" title="變更佈景主題色彩"></a>變更佈景主題色彩</h5><p>現在，您已擁有可用於主題的新色彩資源。</p>
+<ol>
+<li>開啟 <code>themes.xml</code> (「Res」(解析度) &gt;「Values」(設定值) &gt;「themes」(佈景主題) &gt;「themes.xml」)。</li>
 <li>找到　<code>&lt;!-- Primary brand color. --&gt;</code>　部分。</li>
-<li>若要使用 <code>@color/blue_500</code>，請新增或變更
-<code>colorPrimary</code>。</li>
-<li>若要使用 <code>@color/blue_700</code>，請新增或變更
-<code>colorPrimaryVariant</code>。</li>
+<li>若要使用 <code>@color/blue_500</code>，請新增或變更 <code>colorPrimary</code>。</li>
+<li>若要使用 <code>@color/blue_700</code>，請新增或變更 <code>colorPrimaryVariant</code>。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorPrimary&quot;</span>&gt;</span>@color/blue_500<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorPrimaryVariant&quot;</span>&gt;</span>@color/blue_700<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
+
+<ol start="5">
 <li>執行應用程式。應用程式列的色彩應該會變成藍色。</li>
 </ol>
-<p><img src="https://i.imgur.com/3wY3jMu.png" width="30%" height="30%"></p>
-<h5 id="更新深色佈景主題色彩">更新深色佈景主題色彩</h5>
-<p>建議您為應用程式的深色佈景主題選擇更飽和的色彩。</p>
-<ol type="1">
-<li>開啟深色佈景主題 <code>themes.xml (night)</code> 檔案
-(「themes」(佈景主題) &gt;「themes.xml (night)」 (themes.xml
-(night))。</li>
-<li>新增或變更 <code>colorPrimary</code> 和
-<code>colorPrimaryVariant</code> 佈景主題屬性如下：</li>
+<img src="https://i.imgur.com/3wY3jMu.png" width="30%" height="30%">
+
+<h5 id="更新深色佈景主題色彩"><a href="#更新深色佈景主題色彩" class="headerlink" title="更新深色佈景主題色彩"></a>更新深色佈景主題色彩</h5><p>建議您為應用程式的深色佈景主題選擇更飽和的色彩。</p>
+<ol>
+<li>開啟深色佈景主題 <code>themes.xml (night)</code> 檔案 (「themes」(佈景主題) &gt;「themes.xml (night)」 (themes.xml (night))。</li>
+<li>新增或變更 <code>colorPrimary</code> 和 <code>colorPrimaryVariant</code> 佈景主題屬性如下：</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorPrimary&quot;</span>&gt;</span>@color/blue_200<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorPrimaryVariant&quot;</span>&gt;</span>@color/blue_500<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
+
+<ol start="3">
 <li>執行應用程式</li>
 <li>在裝置的「設定」中，開啟「深色主題」。</li>
 <li>您的應用程式會切換為「深色主題」。</li>
 </ol>
-<p><img src="https://i.imgur.com/jd0rdwp.png" width="30%" height="30%"></p>
+<img src="https://i.imgur.com/jd0rdwp.png" width="30%" height="30%">
+
 <div class="note no-icon success">
-            <p><strong>注意：</strong>應用程式列色彩。您可能不知道為什麼應用程式列無法指定的顯示深色佈景主題的主要色彩。深色應用程式列是依據設計。在深色主題中，應用程式列和其他大型區域會以<b>深色背景(colorSurface)</b> 顯示，而非主要色彩。這是因為 Material深色主題會建議在大型表面使用明亮色彩。按鈕或其他小型強調色會顯示定義的主要色彩。</p>
+            <p><strong>注意：</strong> 應用程式列色彩。您可能不知道為什麼應用程式列無法指定的顯示深色佈景主題的主要色彩。深色應用程式列是依據設計。在深色主題中，應用程式列和其他大型區域會以<b>深色背景 (colorSurface)</b> 顯示，而非主要色彩。這是因為 Material 深色主題會建議在大型表面使用明亮色彩。按鈕或其他小型強調色會顯示定義的主要色彩。</p>
           </div>
-<h4 id="變更應用程式圖示">變更應用程式圖示</h4>
-<p>最後一個步驟是更新應用程式圖示。</p>
-<ol type="1">
-<li>下載應用程式圖示檔案 <a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/google-developer-training/android-basics-kotlin-affirmations-app-solution/main/app/src/main/res/drawable/ic_launcher_foreground.xml"><code>ic_launcher_foreground.xml</code></a>
-和 <a
-target="_blank" rel="noopener" href="https://raw.githubusercontent.com/google-developer-training/android-basics-kotlin-affirmations-app-solution/main/app/src/main/res/drawable-v24/ic_launcher_background.xml"><code>ic_launcher_background.xml</code></a>。如果瀏覽器只是顯示檔案，而並未下載，請選取「File」&gt;「Save
-Page As...」，將檔案儲存到您的電腦。</li>
-<li>在 Android Studio
-中，刪除用於先前應用程式圖示的　<code>drawable/ic_launcher_background.xml</code>
-和 <code>drawable-v24/ic_launcher_foreground.xml</code>
-這兩個檔案。您可以取消勾選「Safe delete (with usage search)」(安全刪除
-(使用搜尋功能)。</li>
-<li>接著，用滑鼠右鍵依序點選「Res」&gt;「drawable」資料夾，然後依序選取「New」&gt;「Image
-Asset」。</li>
-<li>在「Configure Image Asset」視窗中，確認已選取「Foreground
-Layer」。</li>
+
+<h4 id="變更應用程式圖示"><a href="#變更應用程式圖示" class="headerlink" title="變更應用程式圖示"></a>變更應用程式圖示</h4><p>最後一個步驟是更新應用程式圖示。</p>
+<ol>
+<li>下載應用程式圖示檔案 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/google-developer-training/android-basics-kotlin-affirmations-app-solution/main/app/src/main/res/drawable/ic_launcher_foreground.xml"><code>ic_launcher_foreground.xml</code></a> 和 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/google-developer-training/android-basics-kotlin-affirmations-app-solution/main/app/src/main/res/drawable-v24/ic_launcher_background.xml"><code>ic_launcher_background.xml</code></a>。如果瀏覽器只是顯示檔案，而並未下載，請選取「File」&gt;「Save Page As…」，將檔案儲存到您的電腦。</li>
+<li>在 Android Studio 中，刪除用於先前應用程式圖示的　<code>drawable/ic_launcher_background.xml</code> 和 <code>drawable-v24/ic_launcher_foreground.xml</code> 這兩個檔案。您可以取消勾選「Safe delete (with usage search)」(安全刪除 (使用搜尋功能)。</li>
+<li>接著，用滑鼠右鍵依序點選「Res」&gt;「drawable」資料夾，然後依序選取「New」&gt;「Image Asset」。</li>
+<li>在「Configure Image Asset」視窗中，確認已選取「Foreground Layer」。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/8c437aa925887439_1920.png?hl=zh-tw" width="50%" height="50%"></p>
-<ol start="5" type="1">
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/8c437aa925887439_1920.png?hl=zh-tw" width="50%" height="50%">
+
+<ol start="5">
 <li>在下方找出「Path」標籤。</li>
 <li>按一下「Path」文字方塊內的資料夾圖示。</li>
-<li>在電腦上尋找並開啟所下載的 <code>ic_launcher_foreground.xml</code>
-檔案。</li>
+<li>在電腦上尋找並開啟所下載的 <code>ic_launcher_foreground.xml</code> 檔案。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/ddac89ef587fba99_1920.png?hl=zh-tw" width="50%" height="50%"></p>
-<ol start="8" type="1">
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/ddac89ef587fba99_1920.png?hl=zh-tw" width="50%" height="50%">
+
+<ol start="8">
 <li>切換至「Background Layer」分頁。</li>
 <li>按一下「Path」文字方塊中的「Browse」圖示。</li>
-<li>在電腦上找出並開啟 <code>ic_launcher_background.xml</code>
-檔案。不需要其他變更。 按一下「Next」。</li>
+<li>在電腦上找出並開啟 <code>ic_launcher_background.xml</code> 檔案。不需要其他變更。<br>按一下「Next」。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/c0c1986d1887afdb_1920.png?hl=zh-tw" width="70%" height="70%"></p>
-<ol start="11" type="1">
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-display-list-cards/img/c0c1986d1887afdb_1920.png?hl=zh-tw" width="70%" height="70%">
+
+<ol start="11">
 <li>在「Confirm Icon Path」對話方塊中，按一下「Finish」。</li>
-<li>根據最佳做法，您可以將新的向量可繪項目
-<code>ic_launcher_foreground.xml</code> 和
-<code>ic_launcher_background.xml</code>，移至名為
-<code>drawable-anydpi-v26</code> 的新資源目錄。<a
-target="_blank" rel="noopener" href="https://developer.android.com/develop/ui/views/launch/icon_design_adaptive">自動調整圖示</a>已在
-<strong>API 26</strong> 中推出，因此這些資源只能在搭載 API 26
-以上版本的裝置 (任何 dpi) 使用。</li>
+<li>根據最佳做法，您可以將新的向量可繪項目 <code>ic_launcher_foreground.xml</code> 和 <code>ic_launcher_background.xml</code>，移至名為 <code>drawable-anydpi-v26</code> 的新資源目錄。<a target="_blank" rel="noopener" href="https://developer.android.com/develop/ui/views/launch/icon_design_adaptive">自動調整圖示</a>已在 <strong>API 26</strong> 中推出，因此這些資源只能在搭載 API 26 以上版本的裝置 (任何 dpi) 使用。</li>
 <li>如果 <code>drawable-v24</code> 目錄沒有內容，則刪除。</li>
 <li>執行應用程式，然後在應用程式導覽匣中看到精美的新應用程式圖示！</li>
 </ol>
 <div style="display: flex;justify-content: center;">
-<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
-    &lt;img src=&quot;https://i.imgur.com/jYLTnPm.png&quot;&gt;
-&lt;/div&gt;
-&lt;div style=&quot;width:30%;float:left;&quot;&gt;
-    &lt;img src=&quot;https://i.imgur.com/VXkomNz.png&quot;&gt;
-&lt;/div&gt;</code></pre>
-<div style="clear:both;">
+    <div style="width:30%;float:left;margin-right:10px;">
+        <img src="https://i.imgur.com/jYLTnPm.png">
+    </div>
+    <div style="width:30%;float:left;">
+        <img src="https://i.imgur.com/VXkomNz.png">
+    </div>
+<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+</div>
 
-</div>
-<!--這是用來清除上方的浮動效果-->
-</div>
 <p>完成如下！</p>
-<p><img src="https://i.imgur.com/1aEU8Mg.gif" width="30%" height="30%"></p>
-
+<img src="https://i.imgur.com/1aEU8Mg.gif" width="30%" height="30%">
     </div>
 
     
@@ -583,9 +499,9 @@ target="_blank" rel="noopener" href="https://developer.android.com/develop/ui/vi
           <div class="post-tags">
               <a href="/tags/Android/" rel="tag"># Android</a>
               <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
-              <a href="/tags/Material-Component/" rel="tag"># Material Component</a>
               <a href="/tags/Card/" rel="tag"># Card</a>
               <a href="/tags/MaterialCardView/" rel="tag"># MaterialCardView</a>
+              <a href="/tags/Material-Component/" rel="tag"># Material Component</a>
           </div>
 
         
@@ -659,9 +575,7 @@ target="_blank" rel="noopener" href="https://developer.android.com/develop/ui/vi
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87%E5%9C%96%E5%83%8F%E6%96%B0%E5%A2%9E%E8%87%B3list%E9%A0%85%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">將圖像新增至List項目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E5%9C%96%E5%83%8F"><span class="nav-number">1.1.</span> <span class="nav-text">下載圖像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%B0%8D-affirmation-%E8%82%AF%E5%AE%9A%E5%AD%97%E8%A9%9E-%E9%A1%9E%E5%88%A5%E4%B8%AD%E5%9C%96%E5%83%8F%E7%9A%84%E6%94%AF%E6%8F%B4"><span class="nav-number">1.2.</span> <span class="nav-text">新增對 Affirmation
-(肯定字詞) 類別中圖像的支援</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%B3%87%E6%BA%90%E8%A8%BB%E8%A7%A3"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用資源註解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%85%A7%E5%90%AB%E5%9C%96%E5%83%8F%E7%9A%84%E8%82%AF%E5%AE%9A%E5%AD%97%E8%A9%9E%E6%B8%85%E5%96%AE"><span class="nav-number">1.3.</span> <span class="nav-text">初始化內含圖像的肯定字詞清單</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-imageview-%E8%87%B3list%E9%A0%85%E7%9B%AE%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.</span> <span class="nav-text">新增 ImageView
-至List項目版面配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-itemadapter-%E4%BB%A5%E8%A8%AD%E5%AE%9A%E5%9C%96%E5%83%8F"><span class="nav-number">1.5.</span> <span class="nav-text">更新 ItemAdapter 以設定圖像</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E7%B2%BE%E7%BE%8E%E7%9A%84%E4%BD%BF%E7%94%A8%E8%80%85%E4%BB%8B%E9%9D%A2"><span class="nav-number">2.</span> <span class="nav-text">製作精美的使用者介面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E9%82%8A%E6%A1%86%E9%96%93%E8%B7%9D"><span class="nav-number">2.1.</span> <span class="nav-text">新增邊框間距</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%B3%87%E8%A8%8A%E5%8D%A1card"><span class="nav-number">2.2.</span> <span class="nav-text">使用資訊卡(Card)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E4%BD%88%E6%99%AF%E4%B8%BB%E9%A1%8C%E8%89%B2%E5%BD%A9"><span class="nav-number">2.3.</span> <span class="nav-text">變更應用程式佈景主題色彩</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E8%89%B2%E5%BD%A9%E8%B3%87%E6%BA%90"><span class="nav-number">2.3.1.</span> <span class="nav-text">新增色彩資源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4%E4%BD%88%E6%99%AF%E4%B8%BB%E9%A1%8C%E8%89%B2%E5%BD%A9"><span class="nav-number">2.3.2.</span> <span class="nav-text">變更佈景主題色彩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%B7%B1%E8%89%B2%E4%BD%88%E6%99%AF%E4%B8%BB%E9%A1%8C%E8%89%B2%E5%BD%A9"><span class="nav-number">2.3.3.</span> <span class="nav-text">更新深色佈景主題色彩</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E5%9C%96%E7%A4%BA"><span class="nav-number">2.4.</span> <span class="nav-text">變更應用程式圖示</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87%E5%9C%96%E5%83%8F%E6%96%B0%E5%A2%9E%E8%87%B3List%E9%A0%85%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">將圖像新增至List項目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E5%9C%96%E5%83%8F"><span class="nav-number">1.1.</span> <span class="nav-text">下載圖像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%B0%8D-Affirmation-%E8%82%AF%E5%AE%9A%E5%AD%97%E8%A9%9E-%E9%A1%9E%E5%88%A5%E4%B8%AD%E5%9C%96%E5%83%8F%E7%9A%84%E6%94%AF%E6%8F%B4"><span class="nav-number">1.2.</span> <span class="nav-text">新增對 Affirmation (肯定字詞) 類別中圖像的支援</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%B3%87%E6%BA%90%E8%A8%BB%E8%A7%A3"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用資源註解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%85%A7%E5%90%AB%E5%9C%96%E5%83%8F%E7%9A%84%E8%82%AF%E5%AE%9A%E5%AD%97%E8%A9%9E%E6%B8%85%E5%96%AE"><span class="nav-number">1.3.</span> <span class="nav-text">初始化內含圖像的肯定字詞清單</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-ImageView-%E8%87%B3List%E9%A0%85%E7%9B%AE%E7%89%88%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.</span> <span class="nav-text">新增 ImageView 至List項目版面配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-ItemAdapter-%E4%BB%A5%E8%A8%AD%E5%AE%9A%E5%9C%96%E5%83%8F"><span class="nav-number">1.5.</span> <span class="nav-text">更新 ItemAdapter 以設定圖像</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E7%B2%BE%E7%BE%8E%E7%9A%84%E4%BD%BF%E7%94%A8%E8%80%85%E4%BB%8B%E9%9D%A2"><span class="nav-number">2.</span> <span class="nav-text">製作精美的使用者介面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E9%82%8A%E6%A1%86%E9%96%93%E8%B7%9D"><span class="nav-number">2.1.</span> <span class="nav-text">新增邊框間距</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%B3%87%E8%A8%8A%E5%8D%A1-Card"><span class="nav-number">2.2.</span> <span class="nav-text">使用資訊卡(Card)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E4%BD%88%E6%99%AF%E4%B8%BB%E9%A1%8C%E8%89%B2%E5%BD%A9"><span class="nav-number">2.3.</span> <span class="nav-text">變更應用程式佈景主題色彩</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E8%89%B2%E5%BD%A9%E8%B3%87%E6%BA%90"><span class="nav-number">2.3.1.</span> <span class="nav-text">新增色彩資源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4%E4%BD%88%E6%99%AF%E4%B8%BB%E9%A1%8C%E8%89%B2%E5%BD%A9"><span class="nav-number">2.3.2.</span> <span class="nav-text">變更佈景主題色彩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%B7%B1%E8%89%B2%E4%BD%88%E6%99%AF%E4%B8%BB%E9%A1%8C%E8%89%B2%E5%BD%A9"><span class="nav-number">2.3.3.</span> <span class="nav-text">更新深色佈景主題色彩</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%8A%E6%9B%B4%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E5%9C%96%E7%A4%BA"><span class="nav-number">2.4.</span> <span class="nav-text">變更應用程式圖示</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -786,8 +700,6 @@ target="_blank" rel="noopener" href="https://developer.android.com/develop/ui/vi
 
 
 
-
-  
 
   
 

@@ -24,13 +24,16 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="瞭解如何使用 ViewModel 架構元件來儲存應用程式資料。如果在設定變更或其他事件期間，刪除架構並重新建立 activity 和 fragment，儲存的資料不會遺失。  學習目標 + Android 應用程式架構基本概念簡介。 + 如何在應用程式中使用 ViewModel 類別。 + 如何使用 ViewModel，透過裝置設定變更保留 UI 資料。 + Kotlin 的幕後屬性。 + 如何">
+  <meta name="description" content="瞭解如何使用 ViewModel 架構元件來儲存應用程式資料。如果在設定變更或其他事件期間，刪除架構並重新建立 activity 和 fragment，儲存的資料不會遺失。  學習目標  Android 應用程式架構基本概念簡介。 如何在應用程式中使用 ViewModel 類別。 如何使用 ViewModel，透過裝置設定變更保留 UI 資料。 Kotlin 的幕後屬性。 如何使用質感設計元件庫">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(26)-將資料儲存於ViewModel中">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/11/05/Android%E7%AD%86%E8%A8%98-26-%E5%B0%87%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%BCViewModel%E4%B8%AD/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="瞭解如何使用 ViewModel 架構元件來儲存應用程式資料。如果在設定變更或其他事件期間，刪除架構並重新建立 activity 和 fragment，儲存的資料不會遺失。  學習目標 + Android 應用程式架構基本概念簡介。 + 如何在應用程式中使用 ViewModel 類別。 + 如何使用 ViewModel，透過裝置設定變更保留 UI 資料。 + Kotlin 的幕後屬性。 + 如何">
+<meta property="og:description" content="瞭解如何使用 ViewModel 架構元件來儲存應用程式資料。如果在設定變更或其他事件期間，刪除架構並重新建立 activity 和 fragment，儲存的資料不會遺失。  學習目標  Android 應用程式架構基本概念簡介。 如何在應用程式中使用 ViewModel 類別。 如何使用 ViewModel，透過裝置設定變更保留 UI 資料。 Kotlin 的幕後屬性。 如何使用質感設計元件庫">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/8edd6191a40a57e1_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/992bf57f066caf49_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/b82a9817b5ec4d11_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/597074ed0d08947b_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/2b29a13dde3481c3_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/d48361a4f73d4acb_1920.png?hl=zh-tw">
@@ -38,8 +41,12 @@
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/8edd6191a40a57e1_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/62aa368820ffbe31_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/f8650ca15e854fe4_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/a4c660e212ce2c31_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/12a42987a0edd2c4_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/520cc685ae1317ac_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/a10c7d77aa26b9db_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/f332979d6f63d0e5_1920.png?hl=zh-tw">
+<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/2803d4855f5d401f_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/d8e0111f5f160ead_1920.png?hl=zh-tw">
 <meta property="article:published_time" content="2023-11-05T06:44:53.000Z">
 <meta property="article:modified_time" content="2023-11-06T03:46:34.290Z">
@@ -49,7 +56,7 @@
 <meta property="article:tag" content="UI Controller">
 <meta property="article:tag" content="ViewModel">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/597074ed0d08947b_1920.png?hl=zh-tw">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/8edd6191a40a57e1_1920.png?hl=zh-tw">
 
 <link rel="canonical" href="https://linglingdr00.github.io/2023/11/05/Android%E7%AD%86%E8%A8%98-26-%E5%B0%87%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%BCViewModel%E4%B8%AD/">
 
@@ -277,734 +284,506 @@
 
       
         <blockquote>
-<p>瞭解如何使用 <code>ViewModel</code>
-架構元件來儲存應用程式資料。如果在設定變更或其他事件期間，刪除架構並重新建立
-activity 和 fragment，儲存的資料不會遺失。</p>
+<p>瞭解如何使用 <code>ViewModel</code> 架構元件來儲存應用程式資料。如果在設定變更或其他事件期間，刪除架構並重新建立 activity 和 fragment，儲存的資料不會遺失。</p>
 </blockquote>
-<p><strong>學習目標</strong> + Android 應用程式架構基本概念簡介。 +
-如何在應用程式中使用 <code>ViewModel</code> 類別。 + 如何使用
-<code>ViewModel</code>，透過裝置設定變更保留 UI 資料。 + Kotlin
-的幕後屬性。 + 如何使用質感設計元件庫中的
-<code>MaterialAlertDialog</code>。 + 建立 <code>Unscramble</code>
-遊戲應用程式，可讓使用者猜測打散的字詞。</p>
+<p><strong>學習目標</strong></p>
+<ul>
+<li>Android 應用程式架構基本概念簡介。</li>
+<li>如何在應用程式中使用 <code>ViewModel</code> 類別。</li>
+<li>如何使用 <code>ViewModel</code>，透過裝置設定變更保留 UI 資料。</li>
+<li>Kotlin 的幕後屬性。</li>
+<li>如何使用質感設計元件庫中的 <code>MaterialAlertDialog</code>。</li>
+<li>建立 <code>Unscramble</code> 遊戲應用程式，可讓使用者猜測打散的字詞。</li>
+</ul>
 <span id="more"></span>
-<hr />
-<h3 id="範例應用程式總覽">範例應用程式總覽</h3>
-<h4 id="遊戲總覽">遊戲總覽</h4>
-<p><code>Unscramble</code>
-應用程式為單人字詞重組遊戲。本應用程式一次會顯示一個打散的字詞，且玩家必須使用打散的所有字母猜出這個字詞。只要字詞正確無誤，玩家即可得分，否則玩家可任意進行嘗試。應用程式也具備略過目前字詞的選項。應用程式左上角會顯示字詞計數，也就是目前遊戲中已遊玩過的字詞數。每場遊戲共有
-10 字。</p>
-<div style="display: flex;justify-content: center;">
-<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
-    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/8edd6191a40a57e1_1920.png?hl=zh-tw&quot;&gt;
-&lt;/div&gt;
-&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
-    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/992bf57f066caf49_1920.png?hl=zh-tw&quot;&gt;
-&lt;/div&gt;
-&lt;div style=&quot;width:30%;float:left;&quot;&gt;
-    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/b82a9817b5ec4d11_1920.png?hl=zh-tw&quot;&gt;
-&lt;/div&gt;</code></pre>
-<div style="clear:both;">
 
+<hr>
+<h3 id="範例應用程式總覽"><a href="#範例應用程式總覽" class="headerlink" title="範例應用程式總覽"></a>範例應用程式總覽</h3><h4 id="遊戲總覽"><a href="#遊戲總覽" class="headerlink" title="遊戲總覽"></a>遊戲總覽</h4><p><code>Unscramble</code> 應用程式為單人字詞重組遊戲。本應用程式一次會顯示一個打散的字詞，且玩家必須使用打散的所有字母猜出這個字詞。只要字詞正確無誤，玩家即可得分，否則玩家可任意進行嘗試。應用程式也具備略過目前字詞的選項。應用程式左上角會顯示字詞計數，也就是目前遊戲中已遊玩過的字詞數。每場遊戲共有 10 字。</p>
+<div style="display: flex;justify-content: center;">
+    <div style="width:30%;float:left;margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/8edd6191a40a57e1_1920.png?hl=zh-tw">
+    </div>
+    <div style="width:30%;float:left;margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/992bf57f066caf49_1920.png?hl=zh-tw">
+    </div>
+    <div style="width:30%;float:left;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/b82a9817b5ec4d11_1920.png?hl=zh-tw">
+    </div>
+<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
 </div>
-<!--這是用來清除上方的浮動效果-->
-</div>
-<h4 id="下載範例程式碼">下載範例程式碼</h4>
-<p>如果您使用 GitHub 中的範例程式碼，請注意資料夾名稱是
-<code>android-basics-kotlin-unscramble-app-starter</code>。在 Android
-Studio 中開啟專案時，請選取這個資料夾。</p>
+
+<h4 id="下載範例程式碼"><a href="#下載範例程式碼" class="headerlink" title="下載範例程式碼"></a>下載範例程式碼</h4><p>如果您使用 GitHub 中的範例程式碼，請注意資料夾名稱是 <code>android-basics-kotlin-unscramble-app-starter</code>。在 Android Studio 中開啟專案時，請選取這個資料夾。</p>
 <div class="note no-icon success">
-            <p><strong>範例程式碼網址：</strong>https://github.com/google-developer-training/android-basics-kotlin-unscramble-app/tree/starter<strong>含有範例程式碼的模組名稱：</strong> <b>starter</b></p>
+            <p><strong>範例程式碼網址：</strong><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-unscramble-app/tree/starter">https://github.com/google-developer-training/android-basics-kotlin-unscramble-app/tree/starter</a><br><strong>含有範例程式碼的模組名稱：</strong> <b>starter</b></p>
           </div>
-<h4 id="範例程式碼總覽">範例程式碼總覽</h4>
-<ol type="1">
+
+<h4 id="範例程式碼總覽"><a href="#範例程式碼總覽" class="headerlink" title="範例程式碼總覽"></a>範例程式碼總覽</h4><ol>
 <li>在 Android Studio 中開啟含有範例程式碼的專案。</li>
 <li>在 Android 裝置或模擬器上執行應用程式。</li>
-<li>透過數個字詞進行遊戲，請輕觸「提交」和「略過」按鈕。
-請注意，輕觸按鈕時會顯示下一個字詞，並增加字詞計數。</li>
+<li>透過數個字詞進行遊戲，請輕觸「提交」和「略過」按鈕。 請注意，輕觸按鈕時會顯示下一個字詞，並增加字詞計數。</li>
 <li>請留意，分數只會在輕觸「Submit」按鈕時提升。</li>
 </ol>
-<h4 id="範例程式碼相關問題">範例程式碼相關問題</h4>
-<p>玩遊戲時，您可能已注意到下列錯誤： 1.
-按一下「Submit」按鈕時，應用程式不會檢查玩家的字詞。玩家總是可以得分。
-2. 無法結束遊戲。應用程式可讓您遊玩超過 10 個字詞。 3.
-遊戲畫面會顯示打散的字詞、玩家分數和字詞計數。旋轉裝置或模擬器變更螢幕方向。請注意，目前的字詞、分數和字詞計數都會消失，遊戲也會重新開始。</p>
-<h5 id="應用程式的主要問題">應用程式的主要問題</h5>
-<p>設定變更時
-(例如裝置螢幕方向變更)，範例應用程式不會儲存及還原應用程式狀態和資料。
-您可以使用 <code>onSaveInstanceState()</code> callback
-解決此問題。不過，使用 <code>onSaveInstanceState()</code>
-方法時，您必須編寫額外的程式碼將狀態儲存在套件中，並實作邏輯以擷取該狀態。此外，可儲存的資料量極少。
-您可以使用在本課程所學到的 Android 架構元件來解決這些問題。</p>
-<h4 id="範例程式碼逐步操作說明">範例程式碼逐步操作說明</h4>
-<p>您下載的範例程式碼包含已為您預先設計的遊戲畫面版面配置。本課程重點為實作遊戲邏輯。您需要使用架構元件來實作建議的應用程式架構，並解決上述問題。以下是部分檔案的簡要逐步操作說明，可協助您快速上手。</p>
-<p><code>game_fragment.xml</code> + 在「設計」檢視畫面中開啟
-<code>res/layout/game_fragment.xml</code>。 +
-這包含應用程式中唯一畫面的版面配置，也就是遊戲畫面。 +
-此版面配置包含玩家字詞的文字欄位，以及顯示分數和字詞計數的
-<code>TextViews</code>。另外還提供說明、「Submit」按鈕和「Skip」按鈕，方便玩遊戲。</p>
-<p><code>main_activity.xml</code> 以單一遊戲片段定義主要 activity
-版面配置。</p>
-<p><code>res/values</code> 資料夾 + <code>colors.xml</code>
-包含應用程式中使用的主題色彩 + <code>strings.xml</code>
-包含應用程式所需的所有字串 + <code>themes</code> 和 <code>styles</code>
-資料夾內含應用程式的 UI 自訂項目</p>
-<p><code>MainActivity.kt</code> 包含預設範本產生的程式碼，可將 activity
-的內容檢視畫面設為 <code>main_activity.xml</code>。</p>
-<p><code>ListOfWords.kt</code>
-此檔案內含遊戲中使用的字詞清單、每場遊戲字詞數量上限，以及玩家針對每個正確字詞所得分數的常數。</p>
-<p><code>GameFragment.kt</code> 這是應用程式中唯一的
-fragment，也是大部分遊戲動作發生處： + 變數是根據目前打散的字詞
-(<code>currentScrambledWord</code>)、字詞計數
-(<code>currentWordCount</code>) 和分數 (<code>score</code>) 所定義。 +
-已定義可存取名為 <code>binding</code> 之 <code>game_fragment</code>
-檢視畫面的 binding 物件 instance。 + <code>onCreateView()</code>
-函式會使用 binding 物件加載 <code>game_fragment</code> 版面配置 XML。 +
-<code>onViewCreated()</code> 函式會設定按鈕點選監聽器，並更新 UI。 +
-<code>onSubmitWord()</code>
-是「提交」按鈕的點擊事件監聽器，此函式會顯示下一個打散的字詞、清除文字欄位，並在未驗證玩家字詞的情況下增加分數和字詞計數。
-+ <code>onSkipWord()</code>
-是「略過」按鈕的點擊事件監聽器，此函式會更新與
-<code>onSubmitWord()</code> 類似的 UI (分數除外)。 +
-<code>getNextScrambledWord()</code>
-是一項輔助函式，其可從字詞清單中挑選隨機字詞，並隨機排序這些字母。 +
-系統會分別使用 <code>restartGame()</code> 和 <code>exitGame()</code>
-函式重新啟動及結束遊戲，您稍後將會使用這些函式。 +
-<code>setErrorTextField()</code> 可清除文字欄位內容，並重設錯誤狀態。 +
-<code>updateNextWordOnScreen()</code> 函式可顯示新的打散字詞。</p>
-<hr />
-<h3 id="瞭解應用程式架構">瞭解應用程式架構</h3>
-<p>架構可提供相關規範，協助您在應用程式內分配類別間的責任。設計良好的應用程式架構可協助您擴大應用程式，並於日後擴充其他功能。此外，也能讓團隊更輕鬆進行協作。
-最常見的<a
-target="_blank" rel="noopener" href="https://developer.android.com/jetpack/guide?hl=zh-tw#common-principles">架構原則</a>為：關注點分離，以及透過模型使用
-UI。</p>
-<p><strong>關注點分離</strong>
-關注點分離的設計原則為，應用程式應區分成不同類別，每個類別具有不同責任。</p>
-<p><strong>透過模型使用 UI</strong> 另一個重要原則是，您應透過模型
-(建議為持續性模型) 使用
-UI。模型是負責處理應用程式資料的元件。模型與應用程式中的
-<code>Views</code>
-和應用程式元件無關，因此不受應用程式的生命週期和相關關注點影響。</p>
-<p>Android 架構中的主要類別或元件包括 UI controller
-(activity/fragment)、<code>ViewModel</code>、<code>LiveData</code> 和
-<code>Room</code>。這些元件負責生命週期的部分複雜度，且可避免發生生命週期相關問題。您將在後續的程式碼研究室中學習
-<code>LiveData</code> 和 <code>Room</code>。</p>
-<p>下圖為架構的基本部分：
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/597074ed0d08947b_1920.png?hl=zh-tw" width="80%"></p>
-<h4 id="ui-controller-activityfragment">UI Controller
-(activity/fragment)</h4>
-<p>activity 和 fragment 為 UI controller。UI controller 可控制
-UI，方法包括<u>在畫面產生
-view</u>、<u>擷取使用者事件</u>，以及<u>與使用者互動之 UI
-相關的任何其他內容</u>。App 中的資料或與這些資料相關的決策邏輯不應屬於
-UI controller 類別。</p>
-<p>Android
-系統可能會因為特定使用者互動或記憶體不足等系統情況，而隨時刪除 UI
-controller。由於這些事件不在您的控管之下，您<u>不應在 UI controller
-中儲存任何應用程式資料或狀態</u>。反之，<u>應該在 <code>ViewModel</code>
-中新增資料相關的決策邏輯</u>。</p>
-<p>舉例來說，Unscramble 應用程式中的打散字詞、分數和字詞計數會顯示於
-fragment (UI controller) 中。<u>決策程式碼應位於 <code>ViewModel</code>
-中</u>，例如判斷下一個打散的字詞，以及分數和字詞計數的計算。</p>
-<h4 id="viewmodel">ViewModel</h4>
-<p><code>ViewModel</code> 是 view
-中顯示的應用程式資料(data)模型。模型是負責處理應用程式資料的元件。其可讓您的應用程式遵循<u>透過模型使用
-UI </u>的架構原則。</p>
-<p>activity 或 fragment 遭到 Android
-架構刪除並重新建立時，未刪除的應用程式相關資料會由
-<code>ViewModel</code> 進行儲存。在設定變更期間，系統會自動保留
-<code>ViewModel</code> 物件 (不會像 activity 或 fragment
-instance一般遭到刪除)，讓處於保留狀態的資料立即用於下一個 activity 或
-fragment instance。</p>
-<p>如要在應用程式中實作 <code>ViewModel</code>，請擴充架構元件庫中的
-<code>ViewModel</code> 類別，並將應用程式資料儲存在該類別中。</p>
-<p><strong>★總結：</strong> |fragment/activity (UI controller) 責任 |
-ViewModel 責任 | | :-- | :-- | | activity 和 fragment
-應負責<strong>在畫面中產生 view 和資料(data)</strong>
-，並回應使用者事件。 | ViewModel 負責<strong>保留及處理 UI
-所需的所有資料</strong>。其不得存取 view 階層 (例如 view binding
-物件)，或保留 activity/fragment 的引用。 |</p>
-<hr />
-<h3 id="新增-viewmodel">新增 ViewModel</h3>
-<p>在這項工作中，您需將 <code>ViewModel</code>
-新增至應用程式，以儲存應用程式資料 (打散的字詞、字詞計數和分數)。</p>
-<p>您的應用程式架構如下。<code>MainActivity</code> 包含
-<code>GameFragment</code>，而 <code>GameFragment</code> 會從
-<code>GameViewModel</code> 存取遊戲的相關資訊。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/2b29a13dde3481c3_1920.png?hl=zh-tw" width="40%"></p>
-<ol type="1">
-<li><p>在 Android Studio 中，「Android」 視窗的「Gradle
-Scripts」資料夾下，開啟 <code>build.gradle(Module:Unscramble.app)</code>
-檔案。</p></li>
-<li><p>如要在應用程式中使用 <code>ViewModel</code>，請確認
-<code>dependencies</code> 區塊中具有 ViewModel
-程式庫依附元件。此步驟已經完成。視程式庫的最新版本而定，所產生程式碼中的程式庫版本編號可能有所不同。</p></li>
+<h4 id="範例程式碼相關問題"><a href="#範例程式碼相關問題" class="headerlink" title="範例程式碼相關問題"></a>範例程式碼相關問題</h4><p>玩遊戲時，您可能已注意到下列錯誤：</p>
+<ol>
+<li>按一下「Submit」按鈕時，應用程式不會檢查玩家的字詞。玩家總是可以得分。</li>
+<li>無法結束遊戲。應用程式可讓您遊玩超過 10 個字詞。</li>
+<li>遊戲畫面會顯示打散的字詞、玩家分數和字詞計數。旋轉裝置或模擬器變更螢幕方向。請注意，目前的字詞、分數和字詞計數都會消失，遊戲也會重新開始。</li>
+</ol>
+<h5 id="應用程式的主要問題"><a href="#應用程式的主要問題" class="headerlink" title="應用程式的主要問題"></a>應用程式的主要問題</h5><p>設定變更時 (例如裝置螢幕方向變更)，範例應用程式不會儲存及還原應用程式狀態和資料。<br>您可以使用 <code>onSaveInstanceState()</code> callback 解決此問題。不過，使用 <code>onSaveInstanceState()</code> 方法時，您必須編寫額外的程式碼將狀態儲存在套件中，並實作邏輯以擷取該狀態。此外，可儲存的資料量極少。<br>您可以使用在本課程所學到的 Android 架構元件來解決這些問題。</p>
+<h4 id="範例程式碼逐步操作說明"><a href="#範例程式碼逐步操作說明" class="headerlink" title="範例程式碼逐步操作說明"></a>範例程式碼逐步操作說明</h4><p>您下載的範例程式碼包含已為您預先設計的遊戲畫面版面配置。本課程重點為實作遊戲邏輯。您需要使用架構元件來實作建議的應用程式架構，並解決上述問題。以下是部分檔案的簡要逐步操作說明，可協助您快速上手。</p>
+<p><code>game_fragment.xml</code></p>
+<ul>
+<li>在「設計」檢視畫面中開啟 <code>res/layout/game_fragment.xml</code>。</li>
+<li>這包含應用程式中唯一畫面的版面配置，也就是遊戲畫面。</li>
+<li>此版面配置包含玩家字詞的文字欄位，以及顯示分數和字詞計數的 <code>TextViews</code>。另外還提供說明、「Submit」按鈕和「Skip」按鈕，方便玩遊戲。</li>
+</ul>
+<p><code>main_activity.xml</code><br>以單一遊戲片段定義主要 activity 版面配置。</p>
+<p><code>res/values</code> 資料夾</p>
+<ul>
+<li><code>colors.xml</code> 包含應用程式中使用的主題色彩</li>
+<li><code>strings.xml</code> 包含應用程式所需的所有字串</li>
+<li><code>themes</code> 和 <code>styles</code> 資料夾內含應用程式的 UI 自訂項目</li>
+</ul>
+<p><code>MainActivity.kt</code><br>包含預設範本產生的程式碼，可將 activity 的內容檢視畫面設為 <code>main_activity.xml</code>。</p>
+<p><code>ListOfWords.kt</code><br>此檔案內含遊戲中使用的字詞清單、每場遊戲字詞數量上限，以及玩家針對每個正確字詞所得分數的常數。</p>
+<p><code>GameFragment.kt</code><br>這是應用程式中唯一的 fragment，也是大部分遊戲動作發生處：</p>
+<ul>
+<li>變數是根據目前打散的字詞 (<code>currentScrambledWord</code>)、字詞計數 (<code>currentWordCount</code>) 和分數 (<code>score</code>) 所定義。</li>
+<li>已定義可存取名為 <code>binding</code> 之 <code>game_fragment</code> 檢視畫面的 binding 物件 instance。</li>
+<li><code>onCreateView()</code> 函式會使用 binding 物件加載 <code>game_fragment</code> 版面配置 XML。</li>
+<li><code>onViewCreated()</code> 函式會設定按鈕點選監聽器，並更新 UI。</li>
+<li><code>onSubmitWord()</code> 是「提交」按鈕的點擊事件監聽器，此函式會顯示下一個打散的字詞、清除文字欄位，並在未驗證玩家字詞的情況下增加分數和字詞計數。</li>
+<li><code>onSkipWord()</code> 是「略過」按鈕的點擊事件監聽器，此函式會更新與 <code>onSubmitWord()</code> 類似的 UI (分數除外)。</li>
+<li><code>getNextScrambledWord()</code> 是一項輔助函式，其可從字詞清單中挑選隨機字詞，並隨機排序這些字母。</li>
+<li>系統會分別使用 <code>restartGame()</code> 和 <code>exitGame()</code> 函式重新啟動及結束遊戲，您稍後將會使用這些函式。</li>
+<li><code>setErrorTextField()</code> 可清除文字欄位內容，並重設錯誤狀態。</li>
+<li><code>updateNextWordOnScreen()</code> 函式可顯示新的打散字詞。</li>
+</ul>
+<hr>
+<h3 id="瞭解應用程式架構"><a href="#瞭解應用程式架構" class="headerlink" title="瞭解應用程式架構"></a>瞭解應用程式架構</h3><p>架構可提供相關規範，協助您在應用程式內分配類別間的責任。設計良好的應用程式架構可協助您擴大應用程式，並於日後擴充其他功能。此外，也能讓團隊更輕鬆進行協作。<br>最常見的<a target="_blank" rel="noopener" href="https://developer.android.com/jetpack/guide?hl=zh-tw#common-principles">架構原則</a>為：關注點分離，以及透過模型使用 UI。</p>
+<p><strong>關注點分離</strong><br>關注點分離的設計原則為，應用程式應區分成不同類別，每個類別具有不同責任。</p>
+<p><strong>透過模型使用 UI</strong><br>另一個重要原則是，您應透過模型 (建議為持續性模型) 使用 UI。模型是負責處理應用程式資料的元件。模型與應用程式中的 <code>Views</code> 和應用程式元件無關，因此不受應用程式的生命週期和相關關注點影響。</p>
+<p>Android 架構中的主要類別或元件包括 UI controller (activity&#x2F;fragment)、<code>ViewModel</code>、<code>LiveData</code> 和 <code>Room</code>。這些元件負責生命週期的部分複雜度，且可避免發生生命週期相關問題。您將在後續的程式碼研究室中學習 <code>LiveData</code> 和 <code>Room</code>。</p>
+<p>下圖為架構的基本部分：<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/597074ed0d08947b_1920.png?hl=zh-tw" width="80%"></p>
+<h4 id="UI-Controller-activity-fragment"><a href="#UI-Controller-activity-fragment" class="headerlink" title="UI Controller (activity&#x2F;fragment)"></a>UI Controller (activity&#x2F;fragment)</h4><p>activity 和 fragment 為 UI controller。UI controller 可控制 UI，方法包括<u>在畫面產生 view</u>、<u>擷取使用者事件</u>，以及<u>與使用者互動之 UI 相關的任何其他內容</u>。App 中的資料或與這些資料相關的決策邏輯不應屬於 UI controller 類別。</p>
+<p>Android 系統可能會因為特定使用者互動或記憶體不足等系統情況，而隨時刪除 UI controller。由於這些事件不在您的控管之下，您<u>不應在 UI controller 中儲存任何應用程式資料或狀態</u>。反之，<u>應該在 <code>ViewModel</code> 中新增資料相關的決策邏輯</u>。</p>
+<p>舉例來說，Unscramble 應用程式中的打散字詞、分數和字詞計數會顯示於 fragment (UI controller) 中。<u>決策程式碼應位於 <code>ViewModel</code> 中</u>，例如判斷下一個打散的字詞，以及分數和字詞計數的計算。</p>
+<h4 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h4><p><code>ViewModel</code> 是 view 中顯示的應用程式資料(data)模型。模型是負責處理應用程式資料的元件。其可讓您的應用程式遵循<u>透過模型使用 UI </u>的架構原則。</p>
+<p>activity 或 fragment 遭到 Android 架構刪除並重新建立時，未刪除的應用程式相關資料會由 <code>ViewModel</code> 進行儲存。在設定變更期間，系統會自動保留 <code>ViewModel</code> 物件 (不會像 activity 或 fragment instance一般遭到刪除)，讓處於保留狀態的資料立即用於下一個 activity 或 fragment instance。</p>
+<p>如要在應用程式中實作 <code>ViewModel</code>，請擴充架構元件庫中的 <code>ViewModel</code> 類別，並將應用程式資料儲存在該類別中。</p>
+<p><strong>★總結：</strong> </p>
+<table>
+<thead>
+<tr>
+<th align="left">fragment&#x2F;activity (UI controller) 責任</th>
+<th align="left">ViewModel 責任</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">activity 和 fragment 應負責<strong>在畫面中產生 view 和資料(data)</strong> ，並回應使用者事件。</td>
+<td align="left">ViewModel 負責<strong>保留及處理 UI 所需的所有資料</strong>。其不得存取 view 階層 (例如 view binding 物件)，或保留 activity&#x2F;fragment 的引用。</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="新增-ViewModel"><a href="#新增-ViewModel" class="headerlink" title="新增 ViewModel"></a>新增 ViewModel</h3><p>在這項工作中，您需將 <code>ViewModel</code> 新增至應用程式，以儲存應用程式資料 (打散的字詞、字詞計數和分數)。</p>
+<p>您的應用程式架構如下。<code>MainActivity</code> 包含 <code>GameFragment</code>，而 <code>GameFragment</code> 會從 <code>GameViewModel</code> 存取遊戲的相關資訊。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/2b29a13dde3481c3_1920.png?hl=zh-tw" width="40%">
+
+<ol>
+<li><p>在 Android Studio 中，「Android」 視窗的「Gradle Scripts」資料夾下，開啟 <code>build.gradle(Module:Unscramble.app)</code> 檔案。</p>
+</li>
+<li><p>如要在應用程式中使用 <code>ViewModel</code>，請確認 <code>dependencies</code> 區塊中具有 ViewModel 程式庫依附元件。此步驟已經完成。視程式庫的最新版本而定，所產生程式碼中的程式庫版本編號可能有所不同。</p>
+</li>
 </ol>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ViewModel</span></span><br><span class="line">implementation <span class="string">&#x27;androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1&#x27;</span></span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>建立名為 <code>GameViewModel</code> 的新 Kotlin
-類別檔案。在「Android」視窗中，於「ui.game」資料夾上按一下滑鼠右鍵。選取「New」&gt;「Kotlin
-File/Class」。</li>
+
+<ol start="3">
+<li>建立名為 <code>GameViewModel</code> 的新 Kotlin 類別檔案。在「Android」視窗中，於「ui.game」資料夾上按一下滑鼠右鍵。選取「New」&gt;「Kotlin File&#x2F;Class」。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/d48361a4f73d4acb_1920.png?hl=zh-tw"></p>
-<ol start="4" type="1">
-<li><p>輸入名稱
-<code>GameViewModel</code>，然後從清單中選取「Class」。</p></li>
-<li><p>將 <code>GameViewModel</code> 變更為 <code>ViewModel</code>
-的子類別。<code>ViewModel</code>
-為抽象類別，因此您必須將其擴充，才能在應用程式中使用。請參閱下方的
-<code>GameViewModel</code> 類別定義。</p></li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/d48361a4f73d4acb_1920.png?hl=zh-tw">
+
+<ol start="4">
+<li><p>輸入名稱 <code>GameViewModel</code>，然後從清單中選取「Class」。</p>
+</li>
+<li><p>將 <code>GameViewModel</code> 變更為 <code>ViewModel</code> 的子類別。<code>ViewModel</code> 為抽象類別，因此您必須將其擴充，才能在應用程式中使用。請參閱下方的 <code>GameViewModel</code> 類別定義。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">GameViewModel</span> : <span class="type">ViewModel</span>() &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="將-viewmodel-附加至-fragment">將 ViewModel 附加至 fragment</h4>
-<p>如要建立 <code>ViewModel</code> 與 UI controller (activity/fragment)
-的關聯，請在 UI controller 內建立 <code>ViewModel</code> 的引用
-(物件)。</p>
-<p>在這個步驟中，您會在對應的 UI controller (GameFragment) 中建立
-<code>GameViewModel</code> 的 object instance。 1. 在
-<code>GameFragment</code> 類別頂部新增 <code>GameViewModel</code>
-類型的屬性。 2. 使用 <code>by viewModels()</code> Kotlin 屬性委派功能將
-<code>GameViewModel</code> 初始化。您將在下一節深入瞭解。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: GameViewModel <span class="keyword">by</span> viewModels()</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>如果 Android Studio 顯示提示，請匯入
-<code>androidx.fragment.app.viewModels</code>。</li>
+
+<h4 id="將-ViewModel-附加至-fragment"><a href="#將-ViewModel-附加至-fragment" class="headerlink" title="將 ViewModel 附加至 fragment"></a>將 ViewModel 附加至 fragment</h4><p>如要建立 <code>ViewModel</code> 與 UI controller (activity&#x2F;fragment) 的關聯，請在 UI controller 內建立 <code>ViewModel</code> 的引用 (物件)。</p>
+<p>在這個步驟中，您會在對應的 UI controller (GameFragment) 中建立 <code>GameViewModel</code> 的 object instance。</p>
+<ol>
+<li>在 <code>GameFragment</code> 類別頂部新增 <code>GameViewModel</code> 類型的屬性。</li>
+<li>使用 <code>by viewModels()</code> Kotlin 屬性委派功能將 <code>GameViewModel</code> 初始化。您將在下一節深入瞭解。</li>
 </ol>
-<h4 id="kotlin-屬性委派">Kotlin 屬性委派</h4>
-<p>在 Kotlin 中，每個<u>可變動 (var) 屬性</u>都會<u>自動產生屬性的
-<code>getter</code> 和 <code>setter</code>
-函式</u>。當您<u>指派值或讀取屬性值</u>時，系統將會呼叫
-<code>setter</code> 和 <code>getter</code> 函式。</p>
-<p><u>唯讀屬性 (val)</u> 與可變動屬性稍有不同。根據預設，<u>只會產生
-getter 函式</u>。<u>讀取唯讀屬性的值</u>時，系統會呼叫 getter 函式。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: GameViewModel <span class="keyword">by</span> viewModels()</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>如果 Android Studio 顯示提示，請匯入 <code>androidx.fragment.app.viewModels</code>。</li>
+</ol>
+<h4 id="Kotlin-屬性委派"><a href="#Kotlin-屬性委派" class="headerlink" title="Kotlin 屬性委派"></a>Kotlin 屬性委派</h4><p>在 Kotlin 中，每個<u>可變動 (var) 屬性</u>都會<u>自動產生屬性的 <code>getter</code> 和 <code>setter</code> 函式</u>。當您<u>指派值或讀取屬性值</u>時，系統將會呼叫 <code>setter</code> 和 <code>getter</code> 函式。</p>
+<p><u>唯讀屬性 (val)</u> 與可變動屬性稍有不同。根據預設，<u>只會產生 getter 函式</u>。<u>讀取唯讀屬性的值</u>時，系統會呼叫 getter 函式。</p>
 <ul>
-<li>Kotlin 中的屬性委派功能可協助您將 <code>getter-setter</code>
-責任移交給其他類別。</li>
-<li>此類別 (稱為「委派類別」) 可提供屬性的 <code>getter</code> 和
-<code>setter</code> 函式，並處理其變更。</li>
+<li>Kotlin 中的屬性委派功能可協助您將 <code>getter-setter</code> 責任移交給其他類別。</li>
+<li>此類別 (稱為「委派類別」) 可提供屬性的 <code>getter</code> 和 <code>setter</code> 函式，並處理其變更。</li>
 </ul>
-<p>委派屬性是使用 <code>by</code> 子句和委派類別 instance 來定義：
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Syntax for property delegation</span></span><br><span class="line"><span class="keyword">var</span> &lt;property-name&gt; : &lt;property-type&gt; <span class="keyword">by</span> &lt;delegate-<span class="keyword">class</span>&gt;()</span><br></pre></td></tr></table></figure></p>
-<p>在應用程式中，如使用預設的 <code>GameViewModel</code> 建構函式初始化
-view model，則如下所示： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel = GameViewModel()</span><br></pre></td></tr></table></figure></p>
-<p>裝置經過設定變更後，應用程式將失去 <code>viewModel</code>
-引用的狀態。舉例來說，如果您旋轉裝置，系統就會刪除並重新建立
-activity，而您將再次擁有具備初始狀態的新 view model。</p>
-<p>請改用屬性委派方法，並將 <code>viewModel</code>
-物件的責任委派給另一個名為 <code>viewModels</code>
-的類別。這代表當您存取 <code>viewModel</code> 物件時，該物件會由委派類別
-<code>viewModels</code> 於內部進行處理。委派類別會在第一次存取時為您建立
-<code>viewModel</code>
-物件，並透過設定變更保留其值，並在要求時傳回該值。</p>
-<hr />
-<h3 id="將資料移至-viewmodel">將資料移至 ViewModel</h3>
-<p>將應用程式的 UI data 與 UI controller (Activity / Fragment 類別)
-分離，以便您充分遵循上述單一責任原則。您的 activity 和 fragment
-負責在畫面中產生 view 和 data，ViewModel 則負責保留及處理 UI
-所需的所有資料。</p>
-<p>在這項工作中，您必須將資料變數從 <code>GameFragment</code> 移至
-<code>GameViewModel</code> 類別。</p>
-<ol type="1">
-<li>將資料變數
-<code>score</code>、<code>currentWordCount</code>、<code>currentScrambledWord</code>
-移至 <code>GameViewModel</code> 類別。</li>
+<p>委派屬性是使用 <code>by</code> 子句和委派類別 instance 來定義：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Syntax for property delegation</span></span><br><span class="line"><span class="keyword">var</span> &lt;property-name&gt; : &lt;property-type&gt; <span class="keyword">by</span> &lt;delegate-<span class="keyword">class</span>&gt;()</span><br></pre></td></tr></table></figure>
+
+<p>在應用程式中，如使用預設的 <code>GameViewModel</code> 建構函式初始化 view model，則如下所示：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel = GameViewModel()</span><br></pre></td></tr></table></figure>
+
+<p>裝置經過設定變更後，應用程式將失去 <code>viewModel</code> 引用的狀態。舉例來說，如果您旋轉裝置，系統就會刪除並重新建立 activity，而您將再次擁有具備初始狀態的新 view model。</p>
+<p>請改用屬性委派方法，並將 <code>viewModel</code> 物件的責任委派給另一個名為 <code>viewModels</code> 的類別。這代表當您存取 <code>viewModel</code> 物件時，該物件會由委派類別 <code>viewModels</code> 於內部進行處理。委派類別會在第一次存取時為您建立 <code>viewModel</code> 物件，並透過設定變更保留其值，並在要求時傳回該值。</p>
+<hr>
+<h3 id="將資料移至-ViewModel"><a href="#將資料移至-ViewModel" class="headerlink" title="將資料移至 ViewModel"></a>將資料移至 ViewModel</h3><p>將應用程式的 UI data 與 UI controller (Activity &#x2F; Fragment 類別) 分離，以便您充分遵循上述單一責任原則。您的 activity 和 fragment 負責在畫面中產生 view 和 data，ViewModel 則負責保留及處理 UI 所需的所有資料。</p>
+<p>在這項工作中，您必須將資料變數從 <code>GameFragment</code> 移至 <code>GameViewModel</code> 類別。</p>
+<ol>
+<li>將資料變數 <code>score</code>、<code>currentWordCount</code>、<code>currentScrambledWord</code> 移至 <code>GameViewModel</code> 類別。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">GameViewModel</span> : <span class="type">ViewModel</span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> score = <span class="number">0</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> currentWordCount = <span class="number">0</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> currentScrambledWord = <span class="string">&quot;test&quot;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>請注意未解決的參照錯誤。這是因為屬性僅供 <code>ViewModel</code>
-使用，且無法由 UI 控制器進行存取。您將在下一個步驟修正這些錯誤。</li>
+
+<ol start="2">
+<li>請注意未解決的參照錯誤。這是因為屬性僅供 <code>ViewModel</code> 使用，且無法由 UI 控制器進行存取。您將在下一個步驟修正這些錯誤。</li>
 </ol>
-<p>如要解決這個問題，屬性的可見度修飾符不得為
-<code>public</code>，資料不可由其他類別編輯。此操作具有風險，因為外部類別可能會以非預期的方式，變更未遵循檢視模式中指定遊戲規則的資料。舉例來說，外部類別可以將
-<code>score</code> 變更為負值。</p>
-<p><code>ViewModel</code> 內的資料應可編輯，因此應為
-<code>private</code> 和 <code>var</code>。在 <code>ViewModel</code>
-外部，資料應可供讀取，但無法編輯，因此資料應以 <code>public</code> 和
-<code>val</code> 的形式呈現。為了達成這個行為，Kotlin 提供名為<a
-target="_blank" rel="noopener" href="https://kotlinlang.org/docs/properties.html#backing-properties">幕後屬性(Backing
-properties)</a>的功能。</p>
-<h4 id="幕後屬性">幕後屬性</h4>
-<p>幕後屬性可讓您從 <code>getter</code> 傳回確切物件以外的項目。
-您已瞭解 Kotlin 架構會為每個屬性產生 <code>getter</code> 和
-<code>setter</code>。 <code>getter</code> 和 <code>setter</code>
-方法可覆寫此類方法
-(一或兩種)，並提供您自訂的行為。如要實作幕後屬性，您將會覆寫
-<code>getter</code> 方法，以傳回唯讀資料版本。幕後屬性範例：
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Declare private mutable variable that can only be modified</span></span><br><span class="line"><span class="comment">// within the class it is declared.</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> _count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Declare another public immutable field and override its getter method.</span></span><br><span class="line"><span class="comment">// Return the private property&#x27;s value in the getter method.</span></span><br><span class="line"><span class="comment">// When count is accessed, the get() function is called and</span></span><br><span class="line"><span class="comment">// the value of _count is returned.</span></span><br><span class="line"><span class="keyword">val</span> count: <span class="built_in">Int</span></span><br><span class="line">   <span class="keyword">get</span>() = _count</span><br></pre></td></tr></table></figure></p>
-<p>舉例來說，假設您想在應用程式內，將應用程式資料設為僅供
-<code>ViewModel</code> 使用：</p>
-<p>在 <code>ViewModel</code> 類別中： + <code>_count</code> 屬性為
-<code>private</code>，且可變動。因此，只能在 <code>ViewModel</code>
-類別中進行存取及編輯。慣例是在 <code>private</code>
-屬性字首加上底線。</p>
-<p><code>ViewModel</code> 類別外： + Kotlin 中的預設瀏覽權限修飾符為
-<code>public</code>，因此 <code>count</code> 是公開狀態，且可從 UI
-controller 等其他類別存取。由於只有 <code>get()</code>
-方法遭到覆寫，因此這個屬性不可變動且為唯讀。外部類別存取這個屬性時，系統會傳回
-<code>_count</code> 的值，且該值無法修改。這種做法可確保
-<code>ViewModel</code>
-中的應用程式資料不會受到外部類別非必要和不安全的變更，但可讓外部呼叫者安全地存取其值。</p>
-<h4 id="將幕後屬性新增至-currentscrambledword">將幕後屬性新增至
-currentScrambledWord</h4>
-<ol type="1">
-<li>在 <code>GameViewModel</code> 中，變更
-<code>currentScrambledWord</code> 宣告以新增幕後屬性。目前您只能在
-<code>GameViewModel</code> 中存取及編輯
-<code>_currentScrambledWord</code>。UI controller
-<code>GameFragment</code> 可以使用唯讀屬性
-<code>currentScrambledWord</code> 讀取其值。</li>
+<p>如要解決這個問題，屬性的可見度修飾符不得為 <code>public</code>，資料不可由其他類別編輯。此操作具有風險，因為外部類別可能會以非預期的方式，變更未遵循檢視模式中指定遊戲規則的資料。舉例來說，外部類別可以將 <code>score</code> 變更為負值。</p>
+<p><code>ViewModel</code> 內的資料應可編輯，因此應為 <code>private</code> 和 <code>var</code>。在 <code>ViewModel</code> 外部，資料應可供讀取，但無法編輯，因此資料應以 <code>public</code> 和 <code>val</code> 的形式呈現。為了達成這個行為，Kotlin 提供名為<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/properties.html#backing-properties">幕後屬性(Backing properties)</a>的功能。</p>
+<h4 id="幕後屬性"><a href="#幕後屬性" class="headerlink" title="幕後屬性"></a>幕後屬性</h4><p>幕後屬性可讓您從 <code>getter</code> 傳回確切物件以外的項目。<br>您已瞭解 Kotlin 架構會為每個屬性產生 <code>getter</code> 和 <code>setter</code>。<br><code>getter</code> 和 <code>setter</code> 方法可覆寫此類方法 (一或兩種)，並提供您自訂的行為。如要實作幕後屬性，您將會覆寫 <code>getter</code> 方法，以傳回唯讀資料版本。幕後屬性範例：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Declare private mutable variable that can only be modified</span></span><br><span class="line"><span class="comment">// within the class it is declared.</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> _count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Declare another public immutable field and override its getter method.</span></span><br><span class="line"><span class="comment">// Return the private property&#x27;s value in the getter method.</span></span><br><span class="line"><span class="comment">// When count is accessed, the get() function is called and</span></span><br><span class="line"><span class="comment">// the value of _count is returned.</span></span><br><span class="line"><span class="keyword">val</span> count: <span class="built_in">Int</span></span><br><span class="line">   <span class="keyword">get</span>() = _count</span><br></pre></td></tr></table></figure>
+
+<p>舉例來說，假設您想在應用程式內，將應用程式資料設為僅供 <code>ViewModel</code> 使用：</p>
+<p>在 <code>ViewModel</code> 類別中：</p>
+<ul>
+<li><code>_count</code> 屬性為 <code>private</code>，且可變動。因此，只能在 <code>ViewModel</code> 類別中進行存取及編輯。慣例是在 <code>private</code> 屬性字首加上底線。</li>
+</ul>
+<p><code>ViewModel</code> 類別外：</p>
+<ul>
+<li>Kotlin 中的預設瀏覽權限修飾符為 <code>public</code>，因此 <code>count</code> 是公開狀態，且可從 UI controller 等其他類別存取。由於只有 <code>get()</code> 方法遭到覆寫，因此這個屬性不可變動且為唯讀。外部類別存取這個屬性時，系統會傳回 <code>_count</code> 的值，且該值無法修改。這種做法可確保 <code>ViewModel</code> 中的應用程式資料不會受到外部類別非必要和不安全的變更，但可讓外部呼叫者安全地存取其值。</li>
+</ul>
+<h4 id="將幕後屬性新增至-currentScrambledWord"><a href="#將幕後屬性新增至-currentScrambledWord" class="headerlink" title="將幕後屬性新增至 currentScrambledWord"></a>將幕後屬性新增至 currentScrambledWord</h4><ol>
+<li>在 <code>GameViewModel</code> 中，變更 <code>currentScrambledWord</code> 宣告以新增幕後屬性。目前您只能在 <code>GameViewModel</code> 中存取及編輯 <code>_currentScrambledWord</code>。UI controller <code>GameFragment</code> 可以使用唯讀屬性 <code>currentScrambledWord</code> 讀取其值。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> _currentScrambledWord = <span class="string">&quot;test&quot;</span></span><br><span class="line"><span class="keyword">val</span> currentScrambledWord: String</span><br><span class="line">   <span class="keyword">get</span>() = _currentScrambledWord</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>在 <code>GameFragment</code> 中，更新
-<code>updateNextWordOnScreen()</code> 方法，以使用唯讀的
-<code>viewModel</code> 屬性 <code>currentScrambledWord</code>。</li>
+
+<ol start="2">
+<li>在 <code>GameFragment</code> 中，更新 <code>updateNextWordOnScreen()</code> 方法，以使用唯讀的 <code>viewModel</code> 屬性 <code>currentScrambledWord</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">updateNextWordOnScreen</span><span class="params">()</span></span> &#123;</span><br><span class="line">   binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>在 <code>GameFragment</code> 中，刪除 <code>onSubmitWord()</code> 和
-<code>onSkipWord()</code>
-方法中的程式碼。您將於稍後實作這些方法。您現在應該能夠正確編譯程式碼，而不會產生錯誤。</li>
+
+<ol start="3">
+<li>在 <code>GameFragment</code> 中，刪除 <code>onSubmitWord()</code> 和 <code>onSkipWord()</code> 方法中的程式碼。您將於稍後實作這些方法。您現在應該能夠正確編譯程式碼，而不會產生錯誤。</li>
 </ol>
 <div class="note no-icon danger">
-            <p><strong>警告：</strong> 請勿揭露 <b>ViewModel</b>中的可變動資料欄位。請確認此資料無法從其他類別進行修改。<b>ViewModel</b>中的可變動資料一律為 <b>private</b>。</p>
+            <p><strong>警告：</strong> 請勿揭露 <b>ViewModel</b> 中的可變動資料欄位。請確認此資料無法從其他類別進行修改。<b>ViewModel</b> 中的可變動資料一律為 <b>private</b>。</p>
           </div>
-<hr />
-<h3 id="viewmodel-的生命週期">ViewModel 的生命週期</h3>
-<p>只要 activity 或 fragment 的範圍保持運作，該架構就會使
-<code>ViewModel</code> 保持運作。如果 <code>ViewModel</code>
-的擁有者因設定變更 (例如螢幕旋轉)
-而遭到刪除，系統並不會將其刪除。擁有者的新 instance 會重新連線至現有的
-<code>ViewModel</code> instance，如下圖所示：</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/91227008b74bf4bb_1920.png?hl=zh-tw"></p>
-<h4 id="瞭解-viewmodel-生命週期">瞭解 ViewModel 生命週期</h4>
-<p>在 <code>GameViewModel</code> 和 <code>GameFragment</code>
-中新增記錄功能，以進一步瞭解 <code>ViewModel</code> 的生命週期。</p>
-<ol type="1">
-<li>在 <code>GameViewModel.kt</code> 中，新增含有記錄陳述式的
-<code>init</code> 區塊。</li>
+
+<hr>
+<h3 id="ViewModel-的生命週期"><a href="#ViewModel-的生命週期" class="headerlink" title="ViewModel 的生命週期"></a>ViewModel 的生命週期</h3><p>只要 activity 或 fragment 的範圍保持運作，該架構就會使 <code>ViewModel</code> 保持運作。如果 <code>ViewModel</code> 的擁有者因設定變更 (例如螢幕旋轉) 而遭到刪除，系統並不會將其刪除。擁有者的新 instance 會重新連線至現有的 <code>ViewModel</code> instance，如下圖所示：</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/91227008b74bf4bb_1920.png?hl=zh-tw">
+
+<h4 id="瞭解-ViewModel-生命週期"><a href="#瞭解-ViewModel-生命週期" class="headerlink" title="瞭解 ViewModel 生命週期"></a>瞭解 ViewModel 生命週期</h4><p>在 <code>GameViewModel</code> 和 <code>GameFragment</code> 中新增記錄功能，以進一步瞭解 <code>ViewModel</code> 的生命週期。</p>
+<ol>
+<li>在 <code>GameViewModel.kt</code> 中，新增含有記錄陳述式的 <code>init</code> 區塊。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">GameViewModel</span> : <span class="type">ViewModel</span>() &#123;</span><br><span class="line">   <span class="keyword">init</span> &#123;</span><br><span class="line">       Log.d(<span class="string">&quot;GameFragment&quot;</span>, <span class="string">&quot;GameViewModel created!&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Kotlin 會提供初始化器區塊 (也稱為 <code>init</code> 區塊)，做為物件
-instance 初始化期間，所需初始設定程式碼的位置。初始化器區塊的前面會加上
-<code>init</code> 關鍵字，後為大括號
-{}。這個程式碼區塊會在首次建立並初始化物件 instance 時執行。</li>
+<li>Kotlin 會提供初始化器區塊 (也稱為 <code>init</code> 區塊)，做為物件 instance 初始化期間，所需初始設定程式碼的位置。初始化器區塊的前面會加上 <code>init</code> 關鍵字，後為大括號 {}。這個程式碼區塊會在首次建立並初始化物件 instance 時執行。</li>
 </ul>
-<ol start="2" type="1">
-<li><p>在 <code>GameViewModel</code> 類別中，覆寫
-<code>onCleared()</code> 方法(Control+o)。在您卸離相關 fragment 或
-activity 完成後，系統會將 <code>ViewModel</code> 刪除。在
-<code>ViewModel</code> 刪除之前，系統會呼叫 <code>onCleared()</code>
-callback。</p></li>
-<li><p>在 <code>onCleared()</code> 中新增記錄(log)陳述式，以追蹤
-<code>GameViewModel</code> 生命週期。</p></li>
+<ol start="2">
+<li><p>在 <code>GameViewModel</code> 類別中，覆寫 <code>onCleared()</code> 方法(Control+o)。在您卸離相關 fragment 或 activity 完成後，系統會將 <code>ViewModel</code> 刪除。在 <code>ViewModel</code> 刪除之前，系統會呼叫 <code>onCleared()</code> callback。</p>
+</li>
+<li><p>在 <code>onCleared()</code> 中新增記錄(log)陳述式，以追蹤 <code>GameViewModel</code> 生命週期。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCleared</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onCleared()</span><br><span class="line">    Log.d(<span class="string">&quot;GameFragment&quot;</span>, <span class="string">&quot;GameViewModel destroyed!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>在 <code>GameFragment</code> 的 <code>onCreateView()</code> 中找到
-binding 物件引用後，請新增 log 陳述式以記錄 fragment
-的建立作業。初次建立及每次重新建立 (例如設定變更等事件) fragment
-時，系統會觸發 <code>onCreateView()</code> callback。</li>
+
+<ol start="4">
+<li>在 <code>GameFragment</code> 的 <code>onCreateView()</code> 中找到 binding 物件引用後，請新增 log 陳述式以記錄 fragment 的建立作業。初次建立及每次重新建立 (例如設定變更等事件) fragment 時，系統會觸發 <code>onCreateView()</code> callback。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateView</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">   inflater: <span class="type">LayoutInflater</span>, container: <span class="type">ViewGroup</span>?,</span></span></span><br><span class="line"><span class="params"><span class="function">   savedInstanceState: <span class="type">Bundle</span>?</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>: View &#123;</span><br><span class="line">   binding = GameFragmentBinding.inflate(inflater, container, <span class="literal">false</span>)</span><br><span class="line">   Log.d(<span class="string">&quot;GameFragment&quot;</span>, <span class="string">&quot;GameFragment created/re-created!&quot;</span>)</span><br><span class="line">   <span class="keyword">return</span> binding.root</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
-<li>在 <code>GameFragment</code> 中覆寫 <code>onDetach()</code> callback
-方法，以在對應的 activity 和 fragment 刪除時呼叫此方法。</li>
+
+<ol start="5">
+<li>在 <code>GameFragment</code> 中覆寫 <code>onDetach()</code> callback 方法，以在對應的 activity 和 fragment 刪除時呼叫此方法。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDetach</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onDetach()</span><br><span class="line">    Log.d(<span class="string">&quot;GameFragment&quot;</span>, <span class="string">&quot;GameFragment destroyed!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="6" type="1">
-<li>在 Android Studio 中執行應用程式，開啟「Logcat」視窗，然後篩選
-<code>GameFragment</code>。請注意，<code>GameFragment</code> 和
-<code>GameViewModel</code> 已建立。</li>
+
+<ol start="6">
+<li>在 Android Studio 中執行應用程式，開啟「Logcat」視窗，然後篩選 <code>GameFragment</code>。請注意，<code>GameFragment</code> 和 <code>GameViewModel</code> 已建立。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameViewModel created!</span><br></pre></td></tr></table></figure>
-<ol start="7" type="1">
-<li>在裝置或模擬器上啟用自動旋轉設定，並變更螢幕方向數次。每次都會刪除並重新建立
-<code>GameFragment</code>，但 <code>GameViewModel</code>
-只會建立一次，而且不會在每次呼叫時重新建立或刪除。</li>
+
+<ol start="7">
+<li>在裝置或模擬器上啟用自動旋轉設定，並變更螢幕方向數次。每次都會刪除並重新建立 <code>GameFragment</code>，但 <code>GameViewModel</code> 只會建立一次，而且不會在每次呼叫時重新建立或刪除。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameViewModel created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment destroyed!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment destroyed!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment destroyed!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment destroyed!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br></pre></td></tr></table></figure>
-<ol start="8" type="1">
-<li>離開遊戲，或使用返回箭頭離開應用程式。<code>GameViewModel</code>
-已刪除，並呼叫 <code>onCleared()</code>
-callback。<code>GameFragment</code> 已刪除。</li>
+
+<ol start="8">
+<li>離開遊戲，或使用返回箭頭離開應用程式。<code>GameViewModel</code> 已刪除，並呼叫 <code>onCleared()</code> callback。<code>GameFragment</code> 已刪除。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">com.example.android.unscramble D/GameFragment: GameViewModel destroyed!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment destroyed!</span><br></pre></td></tr></table></figure>
-<hr />
-<h3 id="填入-viewmodel">填入 ViewModel</h3>
-<p>在這項工作中，您將使用輔助方法進一步填入
-<code>GameViewModel</code>，以便取得下一個字詞、驗證玩家的字詞能否增加分數，並檢查字詞計數來結束遊戲。</p>
-<h4 id="延遲初始化">延遲初始化</h4>
-<p>通常在宣告變數時，您必須先提供初始值。不過，如果您還沒準備好指派值，可以稍後再進行初始化。為了延遲在
-Kotlin 中初始化屬性，您可以使用關鍵字
-<code>lateinit</code>，表示延遲初始化。如果您確保在使用前先初始化屬性，可以使用
-<code>lateinit</code>
-宣告屬性。記憶體必須先初始化，才能分配給變數。如果您在初始化之前就嘗試存取變數，應用程式將會異常終止。</p>
-<h4 id="取得下一個字詞">取得下一個字詞</h4>
-<p>在 <code>GameViewModel</code> 類別中建立 <code>getNextWord()</code>
-方法，且具備下列功能： + 從 <code>allWordsList</code>
-取得隨機字詞，並將其指派給 <code>currentWord</code>. + 將
-<code>currentWord</code> 中的字母打散，以產生打散的字詞，並將其指派給
-<code>currentScrambledWord</code> + 處理打散與未打散字詞相同的情形。 +
-請確定您在遊戲期間不會重複出現相同的字詞。</p>
-<p>請在 <code>GameViewModel</code> 類別中執行下列步驟： 1. 於
-<code>GameViewModel</code>, 中，新增
-<code>MutableList&lt;String&gt;</code> 類型的新類別變數 (名為
-<code>wordsList</code>)，以保留遊戲中使用的字詞清單，避免重複出現。 2.
-新增另一個名為 <code>currentWord</code>
-的類別變數，以保留玩家嘗試重組的字詞。由於您稍後會初始化此屬性，請使用
-<code>lateinit</code> 關鍵字。</p>
+
+<hr>
+<h3 id="填入-ViewModel"><a href="#填入-ViewModel" class="headerlink" title="填入 ViewModel"></a>填入 ViewModel</h3><p>在這項工作中，您將使用輔助方法進一步填入 <code>GameViewModel</code>，以便取得下一個字詞、驗證玩家的字詞能否增加分數，並檢查字詞計數來結束遊戲。</p>
+<h4 id="延遲初始化"><a href="#延遲初始化" class="headerlink" title="延遲初始化"></a>延遲初始化</h4><p>通常在宣告變數時，您必須先提供初始值。不過，如果您還沒準備好指派值，可以稍後再進行初始化。為了延遲在 Kotlin 中初始化屬性，您可以使用關鍵字 <code>lateinit</code>，表示延遲初始化。如果您確保在使用前先初始化屬性，可以使用 <code>lateinit</code> 宣告屬性。記憶體必須先初始化，才能分配給變數。如果您在初始化之前就嘗試存取變數，應用程式將會異常終止。</p>
+<h4 id="取得下一個字詞"><a href="#取得下一個字詞" class="headerlink" title="取得下一個字詞"></a>取得下一個字詞</h4><p>在 <code>GameViewModel</code> 類別中建立 <code>getNextWord()</code> 方法，且具備下列功能：</p>
+<ul>
+<li>從 <code>allWordsList</code> 取得隨機字詞，並將其指派給 <code>currentWord</code>.</li>
+<li>將 <code>currentWord</code> 中的字母打散，以產生打散的字詞，並將其指派給 <code>currentScrambledWord</code></li>
+<li>處理打散與未打散字詞相同的情形。</li>
+<li>請確定您在遊戲期間不會重複出現相同的字詞。</li>
+</ul>
+<p>請在 <code>GameViewModel</code> 類別中執行下列步驟：</p>
+<ol>
+<li>於 <code>GameViewModel</code>, 中，新增 <code>MutableList&lt;String&gt;</code> 類型的新類別變數 (名為 <code>wordsList</code>)，以保留遊戲中使用的字詞清單，避免重複出現。</li>
+<li>新增另一個名為 <code>currentWord</code> 的類別變數，以保留玩家嘗試重組的字詞。由於您稍後會初始化此屬性，請使用 <code>lateinit</code> 關鍵字。</li>
+</ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> wordsList: MutableList&lt;String&gt; = mutableListOf()</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> currentWord: String</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>在 <code>init</code> 區塊上新增名為 <code>getNextWord()</code> 的新
-<code>private</code> 方法，且無不會傳回任何內容的參數。</li>
-<li>從 <code>allWordsList</code> 取得隨機字詞，並將其指派給
-<code>currentWord</code>。</li>
+
+<ol start="3">
+<li>在 <code>init</code> 區塊上新增名為 <code>getNextWord()</code> 的新 <code>private</code> 方法，且無不會傳回任何內容的參數。</li>
+<li>從 <code>allWordsList</code> 取得隨機字詞，並將其指派給 <code>currentWord</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getNextWord</span><span class="params">()</span></span> &#123;</span><br><span class="line">   currentWord = allWordsList.random()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
-<li>在 <code>getNextWord()</code> 中，將 <code>currentWord</code>
-字串轉換為字元陣列，並將其指派給名為 <code>tempWord</code> 的新
-<code>val</code>。如要打散字詞，請使用 Kotlin 方法
-<code>shuffle()</code> 隨機變換此陣列中的字元。</li>
+
+<ol start="5">
+<li>在 <code>getNextWord()</code> 中，將 <code>currentWord</code> 字串轉換為字元陣列，並將其指派給名為 <code>tempWord</code> 的新 <code>val</code>。如要打散字詞，請使用 Kotlin 方法 <code>shuffle()</code> 隨機變換此陣列中的字元。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> tempWord = currentWord.toCharArray()</span><br><span class="line">tempWord.shuffle()</span><br></pre></td></tr></table></figure>
 <ul>
-<li><code>Array</code> 與 <code>MutableList</code>
-相似，但其初始化時有固定的大小。<code>Array</code> 無法展開或縮減大小
-(您必須複製陣列才能調整大小)，而 <code>MutableList</code> 具有
-<code>add()</code> 和 <code>remove()</code>
-函式，因此可以調整大小。</li>
+<li><code>Array</code> 與 <code>MutableList</code> 相似，但其初始化時有固定的大小。<code>Array</code> 無法展開或縮減大小 (您必須複製陣列才能調整大小)，而 <code>MutableList</code> 具有 <code>add()</code> 和 <code>remove()</code> 函式，因此可以調整大小。</li>
 </ul>
-<ol start="6" type="1">
-<li>有時，隨機變換後的字元順序會與原始字詞相同。在要隨機變換的呼叫周圍加上下列
-<code>while</code> 迴圈，以在打散字詞不同於原始字詞前持續進行迴圈。</li>
+<ol start="6">
+<li>有時，隨機變換後的字元順序會與原始字詞相同。在要隨機變換的呼叫周圍加上下列 <code>while</code> 迴圈，以在打散字詞不同於原始字詞前持續進行迴圈。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (String(tempWord).equals(currentWord, <span class="literal">false</span>)) &#123;</span><br><span class="line">    tempWord.shuffle()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="7" type="1">
-<li>新增 <code>if-else</code> 區塊，以確認是否已使用字詞。如果
-<code>wordsList</code> 包含 <code>currentWord</code>，請呼叫
-<code>getNextWord()</code>。如果沒有，請以剛打散的字詞更新
-<code>_currentScrambledWord</code> 值、增加字詞計數，並將新字詞新增至
-<code>wordsList</code>。</li>
+
+<ol start="7">
+<li>新增 <code>if-else</code> 區塊，以確認是否已使用字詞。如果 <code>wordsList</code> 包含 <code>currentWord</code>，請呼叫 <code>getNextWord()</code>。如果沒有，請以剛打散的字詞更新 <code>_currentScrambledWord</code> 值、增加字詞計數，並將新字詞新增至 <code>wordsList</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (wordsList.contains(currentWord)) &#123;</span><br><span class="line">    getNextWord()</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    _currentScrambledWord = String(tempWord)</span><br><span class="line">    ++currentWordCount</span><br><span class="line">    wordsList.add(currentWord)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="8" type="1">
+
+<ol start="8">
 <li>以下是完整的 <code>getNextWord()</code> 方法，供您參考。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* Updates currentWord and currentScrambledWord with the next word.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getNextWord</span><span class="params">()</span></span> &#123;</span><br><span class="line">   currentWord = allWordsList.random()</span><br><span class="line">   <span class="keyword">val</span> tempWord = currentWord.toCharArray()</span><br><span class="line">   tempWord.shuffle()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">while</span> (String(tempWord).equals(currentWord, <span class="literal">false</span>)) &#123;</span><br><span class="line">       tempWord.shuffle()</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (wordsList.contains(currentWord)) &#123;</span><br><span class="line">       getNextWord()</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       _currentScrambledWord = String(tempWord)</span><br><span class="line">       ++currentWordCount</span><br><span class="line">       wordsList.add(currentWord)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="延遲初始化-currentscrambledword">延遲初始化
-currentScrambledWord</h4>
-<p>現在您已建立 <code>getNextWord()</code>
-方法，以取得下一個打散的字詞。初次初始化 <code>GameViewModel</code>
-時，系統會呼叫此方法。使用 <code>init</code> 區塊初始化類別中的
-<code>lateinit</code> 屬性
-(例如目前字詞)。如此一來，畫面上顯示的第一個字詞會是打散的字詞，而不是「test」。</p>
-<ol type="1">
+
+<h4 id="延遲初始化-currentScrambledWord"><a href="#延遲初始化-currentScrambledWord" class="headerlink" title="延遲初始化 currentScrambledWord"></a>延遲初始化 currentScrambledWord</h4><p>現在您已建立 <code>getNextWord()</code> 方法，以取得下一個打散的字詞。初次初始化 <code>GameViewModel</code> 時，系統會呼叫此方法。使用 <code>init</code> 區塊初始化類別中的 <code>lateinit</code> 屬性 (例如目前字詞)。如此一來，畫面上顯示的第一個字詞會是打散的字詞，而不是「test」。</p>
+<ol>
 <li>執行應用程式。請注意，第一個字詞一律為「test」。</li>
-<li>如要在應用程式起始處顯示打散的字詞，請呼叫
-<code>getNextWord()</code> 方法，藉此讓系統更新
-<code>currentScrambledWord</code>。呼叫 <code>GameViewModel</code>
-<code>init</code> 區塊中的 <code>getNextWord()</code> 方法。</li>
+<li>如要在應用程式起始處顯示打散的字詞，請呼叫 <code>getNextWord()</code> 方法，藉此讓系統更新 <code>currentScrambledWord</code>。呼叫 <code>GameViewModel</code> <code>init</code> 區塊中的 <code>getNextWord()</code> 方法。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">init</span> &#123;</span><br><span class="line">    Log.d(<span class="string">&quot;GameFragment&quot;</span>, <span class="string">&quot;GameViewModel created!&quot;</span>)</span><br><span class="line">    getNextWord()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>在 <code>_currentScrambledWord</code> 屬性中加入
-<code>lateinit</code> 修飾符。由於未提供初始值，請明確提及
-<code>String</code> 資料類型。</li>
+
+<ol start="3">
+<li>在 <code>_currentScrambledWord</code> 屬性中加入 <code>lateinit</code> 修飾符。由於未提供初始值，請明確提及 <code>String</code> 資料類型。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> _currentScrambledWord: String</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
+
+<ol start="4">
 <li>執行應用程式。請注意，應用程式啟動時會顯示新的打散字詞。太棒了！</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/8edd6191a40a57e1_1920.png?hl=zh-tw" width="30%"></p>
-<h4 id="新增-helper-方法">新增 Helper 方法</h4>
-<p>接下來，請加入 Helper 方法來處理和修改 <code>ViewModel</code>
-中的資料。您將在後續工作中使用此方法。</p>
-<p>在 <code>GameViewModel</code> 類別中，新增另一個
-<code>nextWord()</code>.
-方法。接著從清單中取得下一個字詞，並在字詞計數少於
-<code>MAX_NO_OF_WORDS</code> 時傳回 <code>true</code>。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/8edd6191a40a57e1_1920.png?hl=zh-tw" width="30%">
+
+<h4 id="新增-Helper-方法"><a href="#新增-Helper-方法" class="headerlink" title="新增 Helper 方法"></a>新增 Helper 方法</h4><p>接下來，請加入 Helper 方法來處理和修改 <code>ViewModel</code> 中的資料。您將在後續工作中使用此方法。</p>
+<p>在 <code>GameViewModel</code> 類別中，新增另一個 <code>nextWord()</code>. 方法。接著從清單中取得下一個字詞，並在字詞計數少於 <code>MAX_NO_OF_WORDS</code> 時傳回 <code>true</code>。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* Returns true if the current word count is less than MAX_NO_OF_WORDS.</span></span><br><span class="line"><span class="comment">* Updates the next word.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">nextWord</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">if</span> (currentWordCount &lt; MAX_NO_OF_WORDS) &#123;</span><br><span class="line">        getNextWord()</span><br><span class="line">        <span class="literal">true</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr />
-<h3 id="對話方塊">對話方塊</h3>
-<p>在範例程式碼中，即使已遊玩 10
-個字詞，遊戲也不會結束。請修改應用程式，在使用者遊玩 10
-個字詞後結束遊戲，並顯示含有最終分數的對話方塊。使用者還可以選擇重新遊玩或離開遊戲。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/62aa368820ffbe31_1920.png?hl=zh-tw" width="50%"></p>
-<p>這是您初次在應用程式中新增對話方塊。對話方塊是一個小視窗
-(畫面)，可提示使用者做出決定或輸入額外資訊。一般而言，如果對話方塊未填滿整個畫面，則使用者必須執行操作才能繼續操作。Android
-提供不同類型的對話方塊。在本程式碼研究室中，您將瞭解「快訊對話方塊」。</p>
-<p><strong>快訊對話方塊剖析</strong>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/f8650ca15e854fe4_1920.png?hl=zh-tw" width="80%"></p>
-<ol type="1">
+
+<hr>
+<h3 id="對話方塊"><a href="#對話方塊" class="headerlink" title="對話方塊"></a>對話方塊</h3><p>在範例程式碼中，即使已遊玩 10 個字詞，遊戲也不會結束。請修改應用程式，在使用者遊玩 10 個字詞後結束遊戲，並顯示含有最終分數的對話方塊。使用者還可以選擇重新遊玩或離開遊戲。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/62aa368820ffbe31_1920.png?hl=zh-tw" width="50%">
+
+<p>這是您初次在應用程式中新增對話方塊。對話方塊是一個小視窗 (畫面)，可提示使用者做出決定或輸入額外資訊。一般而言，如果對話方塊未填滿整個畫面，則使用者必須執行操作才能繼續操作。Android 提供不同類型的對話方塊。在本程式碼研究室中，您將瞭解「快訊對話方塊」。</p>
+<p><strong>快訊對話方塊剖析</strong><br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/f8650ca15e854fe4_1920.png?hl=zh-tw" width="80%"></p>
+<ol>
 <li>快訊對話方塊</li>
 <li>標題 (選填)</li>
 <li>訊息</li>
 <li>文字按鈕</li>
 </ol>
-<h4 id="實作最終分數對話方塊">實作最終分數對話方塊</h4>
-<p>使用質感設計元件庫中的
-<code>MaterialAlertDialog</code>，在應用程式中加入符合質感設計指南的對話方塊。由於對話方塊與
-UI 相關，因此 <code>GameFragment</code>
-將負責建立並顯示最終分數對話方塊。</p>
-<ol type="1">
-<li>首先，在 <code>score</code> 變數中新增幕後屬性。在
-<code>GameViewModel</code> 中，將 <code>score</code>
-變數宣告變更為以下內容。</li>
+<h4 id="實作最終分數對話方塊"><a href="#實作最終分數對話方塊" class="headerlink" title="實作最終分數對話方塊"></a>實作最終分數對話方塊</h4><p>使用質感設計元件庫中的 <code>MaterialAlertDialog</code>，在應用程式中加入符合質感設計指南的對話方塊。由於對話方塊與 UI 相關，因此 <code>GameFragment</code> 將負責建立並顯示最終分數對話方塊。</p>
+<ol>
+<li>首先，在 <code>score</code> 變數中新增幕後屬性。在 <code>GameViewModel</code> 中，將 <code>score</code> 變數宣告變更為以下內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> _score = <span class="number">0</span></span><br><span class="line"><span class="keyword">val</span> score: <span class="built_in">Int</span></span><br><span class="line">   <span class="keyword">get</span>() = _score</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>在 <code>GameFragment</code> 中，新增名為
-<code>showFinalScoreDialog()</code> 的私人函式。如要建立
-<code>MaterialAlertDialog</code>，請使用
-<code>MaterialAlertDialogBuilder</code> 類別逐步建立對話方塊的內容。使用
-fragment 的 <code>requireContext()</code> 方法呼叫傳遞內容的
-<code>MaterialAlertDialogBuilder</code>
-建構函式。<code>requireContext()</code> 方法會傳回非空值的
-<code>Context</code>。</li>
+
+<ol start="2">
+<li>在 <code>GameFragment</code> 中，新增名為 <code>showFinalScoreDialog()</code> 的私人函式。如要建立 <code>MaterialAlertDialog</code>，請使用 <code>MaterialAlertDialogBuilder</code> 類別逐步建立對話方塊的內容。使用 fragment 的 <code>requireContext()</code> 方法呼叫傳遞內容的 <code>MaterialAlertDialogBuilder</code> 建構函式。<code>requireContext()</code> 方法會傳回非空值的 <code>Context</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* Creates and shows an AlertDialog with the final score.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">showFinalScoreDialog</span><span class="params">()</span></span> &#123;</span><br><span class="line">   MaterialAlertDialogBuilder(requireContext())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>顧名思義，<code>Context</code> 是指應用程式、activity 或 fragment
-的結構定義或目前狀態。其包含與 activity、fragment
-或應用程式相關的資訊。其通常用於存取資源、資料庫和其他系統服務。在這個步驟中，您必須傳遞
-fragment 結構定義，以建立快訊對話方塊。</li>
-<li>如果 Android Studio 顯示提示，請 <code>import</code>
-<code>com.google.android.material.dialog.MaterialAlertDialogBuilder</code>。</li>
+<li>顧名思義，<code>Context</code> 是指應用程式、activity 或 fragment 的結構定義或目前狀態。其包含與 activity、fragment 或應用程式相關的資訊。其通常用於存取資源、資料庫和其他系統服務。在這個步驟中，您必須傳遞 fragment 結構定義，以建立快訊對話方塊。</li>
+<li>如果 Android Studio 顯示提示，請 <code>import</code> <code>com.google.android.material.dialog.MaterialAlertDialogBuilder</code>。</li>
 </ul>
-<ol start="3" type="1">
-<li>加入程式碼以設定快訊對話方塊的標題，請使用 <code>strings.xml</code>
-的字串資源。</li>
+<ol start="3">
+<li>加入程式碼以設定快訊對話方塊的標題，請使用 <code>strings.xml</code> 的字串資源。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MaterialAlertDialogBuilder(requireContext())</span><br><span class="line">   .setTitle(getString(R.string.congratulations))</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>設定訊息以顯示最終分數，並使用先前新增的分數變數
-(<code>viewModel.score</code>) 唯讀版本。</li>
+
+<ol start="4">
+<li>設定訊息以顯示最終分數，並使用先前新增的分數變數 (<code>viewModel.score</code>) 唯讀版本。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.setMessage(getString(R.string.you_scored, viewModel.score))</span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
-<li><p>使用 <code>setCancelable()</code> 方法並傳遞
-<code>false</code>，使快訊對話方塊在按下返回鍵時無法取消。</p></li>
-<li><p>使用 <code>setNegativeButton()</code> 和
-<code>setPositiveButton()</code>
-方法新增「離開」和「再玩一次」兩個文字按鈕。從 lambda 分別呼叫
-<code>exitGame()</code> 和 <code>restartGame()</code>。</p></li>
+
+<ol start="5">
+<li><p>使用 <code>setCancelable()</code> 方法並傳遞 <code>false</code>，使快訊對話方塊在按下返回鍵時無法取消。</p>
+</li>
+<li><p>使用 <code>setNegativeButton()</code> 和 <code>setPositiveButton()</code> 方法新增「離開」和「再玩一次」兩個文字按鈕。從 lambda 分別呼叫 <code>exitGame()</code> 和 <code>restartGame()</code>。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.setNegativeButton(getString(R.string.exit)) &#123; _, _ -&gt;</span><br><span class="line">    exitGame()</span><br><span class="line">&#125;</span><br><span class="line">.setPositiveButton(getString(R.string.play_again)) &#123; _, _ -&gt;</span><br><span class="line">    restartGame()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>這個語法對您來說可能較陌生，但其為
-<code>setNegativeButton(getString(R.string.exit), &#123; _, _ -&gt; exitGame()&#125;)</code>
-的簡寫，其中 <code>setNegativeButton()</code>
-方法會納入兩個參數：<code>String</code> 及可用 lambda 表示的
-<code>DialogInterface.OnClickListener()</code>
-函式。如果傳入的最後一個引數是函式，您可以將 lambda
-運算式放在括號外。這就是所謂的結尾 lambda
-語法。系統接受這兩種程式碼編寫方式 (lambda 位於括號內或外)。這同樣適用於
-<code>setPositiveButton</code> 函式。</li>
+<li>這個語法對您來說可能較陌生，但其為 <code>setNegativeButton(getString(R.string.exit), &#123; _, _ -&gt; exitGame()&#125;)</code> 的簡寫，其中 <code>setNegativeButton()</code> 方法會納入兩個參數：<code>String</code> 及可用 lambda 表示的 <code>DialogInterface.OnClickListener()</code> 函式。如果傳入的最後一個引數是函式，您可以將 lambda 運算式放在括號外。這就是所謂的結尾 lambda 語法。系統接受這兩種程式碼編寫方式 (lambda 位於括號內或外)。這同樣適用於 <code>setPositiveButton</code> 函式。</li>
 </ul>
-<ol start="7" type="1">
+<ol start="7">
 <li>最後加入 <code>show()</code>，即可建立並顯示快訊對話方塊。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.show()</span><br></pre></td></tr></table></figure>
-<ol start="8" type="1">
-<li>以下是完整的 <code>showFinalScoreDialog()</code>
-方法，供您參考。</li>
+
+<ol start="8">
+<li>以下是完整的 <code>showFinalScoreDialog()</code> 方法，供您參考。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* Creates and shows an AlertDialog with the final score.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">showFinalScoreDialog</span><span class="params">()</span></span> &#123;</span><br><span class="line">   MaterialAlertDialogBuilder(requireContext())</span><br><span class="line">       .setTitle(getString(R.string.congratulations))</span><br><span class="line">       .setMessage(getString(R.string.you_scored, viewModel.score))</span><br><span class="line">       .setCancelable(<span class="literal">false</span>)</span><br><span class="line">       .setNegativeButton(getString(R.string.exit)) &#123; _, _ -&gt;</span><br><span class="line">           exitGame()</span><br><span class="line">       &#125;</span><br><span class="line">       .setPositiveButton(getString(R.string.play_again)) &#123; _, _ -&gt;</span><br><span class="line">           restartGame()</span><br><span class="line">       &#125;</span><br><span class="line">       .show()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr />
-<h3 id="實作submit按鈕的-onclicklistener">實作「Submit」按鈕的
-OnClickListener</h3>
-<p>在這項工作中，您要使用 <code>ViewModel</code>
-和新增的快訊對話方塊，實作「Submit」按鈕點擊事件監聽器的遊戲邏輯。</p>
-<h4 id="顯示打散的字詞">顯示打散的字詞</h4>
-<ol type="1">
-<li>如果您尚未在 <code>GameFragment</code> 中刪除
-<code>onSubmitWord()</code> 內的程式碼
-(輕觸「Submit」按鈕時會呼叫此程式碼)，請先完成這項操作。</li>
-<li>請在 <code>viewModel.nextWord()</code> 方法的傳回值新增檢查。如果為
-<code>true</code>，則可以使用其他字詞，因此請使用
-<code>updateNextWordOnScreen()</code>
-更新畫面上打散的字詞。否則遊戲將會結束，並顯示含有最終分數的快訊對話方塊。</li>
+
+<hr>
+<h3 id="實作「Submit」按鈕的-OnClickListener"><a href="#實作「Submit」按鈕的-OnClickListener" class="headerlink" title="實作「Submit」按鈕的 OnClickListener"></a>實作「Submit」按鈕的 OnClickListener</h3><p>在這項工作中，您要使用 <code>ViewModel</code> 和新增的快訊對話方塊，實作「Submit」按鈕點擊事件監聽器的遊戲邏輯。</p>
+<h4 id="顯示打散的字詞"><a href="#顯示打散的字詞" class="headerlink" title="顯示打散的字詞"></a>顯示打散的字詞</h4><ol>
+<li>如果您尚未在 <code>GameFragment</code> 中刪除 <code>onSubmitWord()</code> 內的程式碼 (輕觸「Submit」按鈕時會呼叫此程式碼)，請先完成這項操作。</li>
+<li>請在 <code>viewModel.nextWord()</code> 方法的傳回值新增檢查。如果為 <code>true</code>，則可以使用其他字詞，因此請使用 <code>updateNextWordOnScreen()</code> 更新畫面上打散的字詞。否則遊戲將會結束，並顯示含有最終分數的快訊對話方塊。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSubmitWord</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (viewModel.nextWord()) &#123;</span><br><span class="line">        updateNextWordOnScreen()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        showFinalScoreDialog()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li><p>執行應用程式！使用一些字詞進行遊戲。別忘了，您尚未實作「Skip」按鈕，因此無法略過該字詞。</p></li>
-<li><p>請注意，文字欄位不會更新，因此玩家必須手動刪除上一個字詞。快訊對話方塊中的最終分數永遠為零。您將在後續步驟中修正這些錯誤。</p></li>
+
+<ol start="3">
+<li><p>執行應用程式！使用一些字詞進行遊戲。別忘了，您尚未實作「Skip」按鈕，因此無法略過該字詞。</p>
+</li>
+<li><p>請注意，文字欄位不會更新，因此玩家必須手動刪除上一個字詞。快訊對話方塊中的最終分數永遠為零。您將在後續步驟中修正這些錯誤。</p>
+</li>
 </ol>
 <div style="display: flex;justify-content: center;">
-<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
-    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/a4c660e212ce2c31_1920.png?hl=zh-tw&quot;&gt;
-&lt;/div&gt;
-&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
-    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/12a42987a0edd2c4_1920.png?hl=zh-tw&quot;&gt;
-&lt;/div&gt;</code></pre>
-<div style="clear:both;">
+    <div style="width:30%;float:left;margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/a4c660e212ce2c31_1920.png?hl=zh-tw">
+    </div>
+    <div style="width:30%;float:left;margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/12a42987a0edd2c4_1920.png?hl=zh-tw">
+    </div>
+<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+</div>
 
-</div>
-<!--這是用來清除上方的浮動效果-->
-</div>
-<h4 id="新增-helper-方法以驗證玩家字詞">新增 Helper
-方法以驗證玩家字詞</h4>
-<ol type="1">
-<li>在 <code>GameViewModel</code> 中，新增名為
-<code>increaseScore()</code> 的新私人方法，且不含參數和傳回值。透過
-<code>SCORE_INCREASE</code> 將 <code>score</code> 變數提高。</li>
+<h4 id="新增-Helper-方法以驗證玩家字詞"><a href="#新增-Helper-方法以驗證玩家字詞" class="headerlink" title="新增 Helper 方法以驗證玩家字詞"></a>新增 Helper 方法以驗證玩家字詞</h4><ol>
+<li>在 <code>GameViewModel</code> 中，新增名為 <code>increaseScore()</code> 的新私人方法，且不含參數和傳回值。透過 <code>SCORE_INCREASE</code> 將 <code>score</code> 變數提高。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">increaseScore</span><span class="params">()</span></span> &#123;</span><br><span class="line">   _score += SCORE_INCREASE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li><p>在 <code>GameViewModel</code> 中，新增名為
-<code>isUserWordCorrect()</code> 的 Helper 方法，其會傳回
-<code>Boolean</code> 並將玩家字詞 <code>String</code>
-做為參數。</p></li>
-<li><p>在 <code>isUserWordCorrect()</code>
-中驗證玩家的字詞，如果答案正確無誤，則增加分數。這會更新快訊對話方塊中的最終分數。</p></li>
+
+<ol start="2">
+<li><p>在 <code>GameViewModel</code> 中，新增名為 <code>isUserWordCorrect()</code> 的 Helper 方法，其會傳回 <code>Boolean</code> 並將玩家字詞 <code>String</code> 做為參數。</p>
+</li>
+<li><p>在 <code>isUserWordCorrect()</code> 中驗證玩家的字詞，如果答案正確無誤，則增加分數。這會更新快訊對話方塊中的最終分數。</p>
+</li>
 </ol>
-<h4 id="更新文字欄位">更新文字欄位</h4>
-<p><strong>顯示文字欄位中的錯誤</strong> 針對 Material
-文字欄位，<code>TextInputLayout</code>
-內建能顯示錯誤訊息的功能。舉例來說，在下列文字欄位中，標籤顏色有所變更、顯示錯誤圖示、顯示錯誤訊息等。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/520cc685ae1317ac_1920.png?hl=zh-tw" width="50%"></p>
-<p>如要在文字欄位中顯示錯誤，您可以在程式碼中以動態方式設定錯誤訊息，或在版面配置檔案中以靜態方式設定錯誤訊息。設定及重設程式碼中錯誤的範例如下：
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Set error text</span></span><br><span class="line">passwordLayout.error = getString(R.string.error)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Clear error text</span></span><br><span class="line">passwordLayout.error = <span class="literal">null</span></span><br></pre></td></tr></table></figure></p>
-<p>在範例程式碼中，您會發現已定義
-<code>setErrorTextField(error: Boolean)</code> Helper
-方法，以協助您設定及重設文字欄位中的錯誤。根據是否要在文字欄位中顯示錯誤，使用
-<code>true</code> 或 <code>false</code> 做為輸入參數，呼叫此方法。</p>
-<p>範例程式碼中的程式碼片段 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">setErrorTextField</span><span class="params">(error: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (error) &#123;</span><br><span class="line">       binding.textField.isErrorEnabled = <span class="literal">true</span></span><br><span class="line">       binding.textField.error = getString(R.string.try_again)</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       binding.textField.isErrorEnabled = <span class="literal">false</span></span><br><span class="line">       binding.textInputEditText.text = <span class="literal">null</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在這項工作中，您會實作 <code>onSubmitWord()</code>
-方法。使用者提交字詞時，您可透過檢查原始字詞，驗證使用者的答案。如果字詞正確無誤，請前往下一個字詞
-(如果遊戲已結束，則顯示對話方塊)。如果字詞有誤，請在文字欄位中顯示錯誤，並繼續使用目前的字詞。</p>
-<ol type="1">
-<li>在 <code>GameFragment</code> 中（<code>onSubmitWord()</code>
-開始的部分），建立名為 <code>playerWord</code> 的 <code>val</code>。從
-<code>binding</code>
-變數的文字欄位中擷取文字，將玩家的字詞儲存在其中。</li>
+<h4 id="更新文字欄位"><a href="#更新文字欄位" class="headerlink" title="更新文字欄位"></a>更新文字欄位</h4><p><strong>顯示文字欄位中的錯誤</strong><br>針對 Material 文字欄位，<code>TextInputLayout</code> 內建能顯示錯誤訊息的功能。舉例來說，在下列文字欄位中，標籤顏色有所變更、顯示錯誤圖示、顯示錯誤訊息等。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/520cc685ae1317ac_1920.png?hl=zh-tw" width="50%">
+
+<p>如要在文字欄位中顯示錯誤，您可以在程式碼中以動態方式設定錯誤訊息，或在版面配置檔案中以靜態方式設定錯誤訊息。設定及重設程式碼中錯誤的範例如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Set error text</span></span><br><span class="line">passwordLayout.error = getString(R.string.error)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Clear error text</span></span><br><span class="line">passwordLayout.error = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<p>在範例程式碼中，您會發現已定義 <code>setErrorTextField(error: Boolean)</code> Helper 方法，以協助您設定及重設文字欄位中的錯誤。根據是否要在文字欄位中顯示錯誤，使用 <code>true</code> 或 <code>false</code> 做為輸入參數，呼叫此方法。</p>
+<p>範例程式碼中的程式碼片段</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">setErrorTextField</span><span class="params">(error: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (error) &#123;</span><br><span class="line">       binding.textField.isErrorEnabled = <span class="literal">true</span></span><br><span class="line">       binding.textField.error = getString(R.string.try_again)</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       binding.textField.isErrorEnabled = <span class="literal">false</span></span><br><span class="line">       binding.textInputEditText.text = <span class="literal">null</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在這項工作中，您會實作 <code>onSubmitWord()</code> 方法。使用者提交字詞時，您可透過檢查原始字詞，驗證使用者的答案。如果字詞正確無誤，請前往下一個字詞 (如果遊戲已結束，則顯示對話方塊)。如果字詞有誤，請在文字欄位中顯示錯誤，並繼續使用目前的字詞。</p>
+<ol>
+<li>在 <code>GameFragment</code> 中（<code>onSubmitWord()</code> 開始的部分），建立名為 <code>playerWord</code> 的 <code>val</code>。從 <code>binding</code> 變數的文字欄位中擷取文字，將玩家的字詞儲存在其中。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSubmitWord</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> playerWord = binding.textInputEditText.text.toString()</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li><p>在 <code>onSubmitWord()</code> 中的 <code>playerWord</code>
-宣告下方，驗證玩家的字詞。新增 if 陳述式，以使用
-<code>isUserWordCorrect()</code> 方法檢查玩家的字詞，並傳入
-<code>playerWord</code>。</p></li>
-<li><p>在 if 區塊中，重設文字欄位，呼叫 <code>setErrorTextField</code>
-傳入 <code>false</code>。</p></li>
-<li><p>將現有程式碼移至 if 區塊中。</p></li>
+
+<ol start="2">
+<li><p>在 <code>onSubmitWord()</code> 中的 <code>playerWord</code> 宣告下方，驗證玩家的字詞。新增 if 陳述式，以使用 <code>isUserWordCorrect()</code> 方法檢查玩家的字詞，並傳入 <code>playerWord</code>。</p>
+</li>
+<li><p>在 if 區塊中，重設文字欄位，呼叫 <code>setErrorTextField</code> 傳入 <code>false</code>。</p>
+</li>
+<li><p>將現有程式碼移至 if 區塊中。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSubmitWord</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> playerWord = binding.textInputEditText.text.toString()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (viewModel.isUserWordCorrect(playerWord)) &#123;</span><br><span class="line">        setErrorTextField(<span class="literal">false</span>)</span><br><span class="line">        <span class="keyword">if</span> (viewModel.nextWord()) &#123;</span><br><span class="line">            updateNextWordOnScreen()</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            showFinalScoreDialog()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
-<li>如果使用者字詞不正確，請在文字欄位中顯示錯誤訊息。將 else
-區塊新增至上述 if 區塊，並呼叫 <code>setErrorTextField()</code> 傳入
-<code>true</code>。已完成的 <code>onSubmitWord()</code>
-方法應如下所示：</li>
+
+<ol start="5">
+<li>如果使用者字詞不正確，請在文字欄位中顯示錯誤訊息。將 else 區塊新增至上述 if 區塊，並呼叫 <code>setErrorTextField()</code> 傳入 <code>true</code>。已完成的 <code>onSubmitWord()</code> 方法應如下所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSubmitWord</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> playerWord = binding.textInputEditText.text.toString()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (viewModel.isUserWordCorrect(playerWord)) &#123;</span><br><span class="line">        setErrorTextField(<span class="literal">false</span>)</span><br><span class="line">        <span class="keyword">if</span> (viewModel.nextWord()) &#123;</span><br><span class="line">            updateNextWordOnScreen()</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            showFinalScoreDialog()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        setErrorTextField(<span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="6" type="1">
-<li>執行應用程式，並透過一些字詞進行遊戲。如果玩家的字詞正確無誤，按一下「Submit」按鈕即可清除字詞，否則系統會顯示「Try
-again!」的訊息。請注意，「略過」按鈕目前仍未運作。您將在下一個工作中加入此實作。</li>
+
+<ol start="6">
+<li>執行應用程式，並透過一些字詞進行遊戲。如果玩家的字詞正確無誤，按一下「Submit」按鈕即可清除字詞，否則系統會顯示「Try again!」的訊息。請注意，「略過」按鈕目前仍未運作。您將在下一個工作中加入此實作。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/a10c7d77aa26b9db_1920.png?hl=zh-tw" width="30%"></p>
-<hr />
-<h3 id="實作略過按鈕">實作略過按鈕</h3>
-<p>在這項工作中，您要新增 <code>onSkipWord()</code>
-實作，用於處理使用者輕觸「Skip」按鈕時的情況。</p>
-<ol type="1">
-<li>與 <code>onSubmitWord()</code> 類似，請在 <code>onSkipWord()</code>
-方法中新增條件。如為
-<code>true</code>，請在畫面上顯示文字並重設文字欄位。如為
-<code>false</code>，且這回合沒有其他字詞，則顯示含有最終分數的快訊對話方塊。</li>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/a10c7d77aa26b9db_1920.png?hl=zh-tw" width="30%">
+
+<hr>
+<h3 id="實作略過按鈕"><a href="#實作略過按鈕" class="headerlink" title="實作略過按鈕"></a>實作略過按鈕</h3><p>在這項工作中，您要新增 <code>onSkipWord()</code> 實作，用於處理使用者輕觸「Skip」按鈕時的情況。</p>
+<ol>
+<li>與 <code>onSubmitWord()</code> 類似，請在 <code>onSkipWord()</code> 方法中新增條件。如為 <code>true</code>，請在畫面上顯示文字並重設文字欄位。如為 <code>false</code>，且這回合沒有其他字詞，則顯示含有最終分數的快訊對話方塊。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* Skips the current word without changing the score.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSkipWord</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (viewModel.nextWord()) &#123;</span><br><span class="line">        setErrorTextField(<span class="literal">false</span>)</span><br><span class="line">        updateNextWordOnScreen()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        showFinalScoreDialog()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
+
+<ol start="2">
 <li>執行您的應用程式。遊玩遊戲。請注意，「略過」和「提交」按鈕可正常運作。非常好！</li>
 </ol>
-<hr />
-<h3 id="確認-viewmodel-將會保留資料">確認 ViewModel 將會保留資料</h3>
-<p>在這項工作中，於 <code>GameFragment</code> 中新增
-log，以觀察在設定變更期間，您的應用程式資料是否會保留在
-<code>ViewModel</code> 中。如要存取 <code>GameFragment</code> 中的
-<code>currentWordCount</code>，您必須使用幕後屬性公開唯讀版本。</p>
-<ol type="1">
-<li><p>在 <code>GameViewModel</code> 中，在
-<code>currentWordCount</code>
-變數上按一下滑鼠右鍵，然後選取「Refactor」&gt;「Rename...」。在新名稱前加上底線
-<code>_currentWordCount</code>。</p></li>
-<li><p>新增支援欄位。</p></li>
+<hr>
+<h3 id="確認-ViewModel-將會保留資料"><a href="#確認-ViewModel-將會保留資料" class="headerlink" title="確認 ViewModel 將會保留資料"></a>確認 ViewModel 將會保留資料</h3><p>在這項工作中，於 <code>GameFragment</code> 中新增 log，以觀察在設定變更期間，您的應用程式資料是否會保留在 <code>ViewModel</code> 中。如要存取 <code>GameFragment</code> 中的 <code>currentWordCount</code>，您必須使用幕後屬性公開唯讀版本。</p>
+<ol>
+<li><p>在 <code>GameViewModel</code> 中，在 <code>currentWordCount</code> 變數上按一下滑鼠右鍵，然後選取「Refactor」&gt;「Rename…」。在新名稱前加上底線 <code>_currentWordCount</code>。</p>
+</li>
+<li><p>新增支援欄位。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> _currentWordCount = <span class="number">0</span></span><br><span class="line"><span class="keyword">val</span> currentWordCount: <span class="built_in">Int</span></span><br><span class="line">   <span class="keyword">get</span>() = _currentWordCount</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>在 <code>GameFragment</code> 內的 <code>onCreateView()</code>
-中，在回傳敘述上方新增另一個
-log，以列印應用程式資料、字詞、分數和字詞計數。</li>
+
+<ol start="3">
+<li>在 <code>GameFragment</code> 內的 <code>onCreateView()</code> 中，在回傳敘述上方新增另一個 log，以列印應用程式資料、字詞、分數和字詞計數。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Log.d(<span class="string">&quot;GameFragment&quot;</span>, <span class="string">&quot;Word: <span class="subst">$&#123;viewModel.currentScrambledWord&#125;</span> &quot;</span> +</span><br><span class="line">       <span class="string">&quot;Score: <span class="subst">$&#123;viewModel.score&#125;</span> WordCount: <span class="subst">$&#123;viewModel.currentWordCount&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>在 Android Studio 中，開啟「Logcat」，並篩選
-<code>GameFragment</code>。執行應用程式，使用一些字詞進行遊戲。變更裝置的螢幕方向。fragment
-(UI controller)
-會刪除並重新建立。觀察記錄。您現在可以看到分數和字詞計數增加！</li>
+
+<ol start="4">
+<li>在 Android Studio 中，開啟「Logcat」，並篩選 <code>GameFragment</code>。執行應用程式，使用一些字詞進行遊戲。變更裝置的螢幕方向。fragment (UI controller) 會刪除並重新建立。觀察記錄。您現在可以看到分數和字詞計數增加！</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameViewModel created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: Word: oimfnru Score: 0 WordCount: 1</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment destroyed!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: Word: ofx Score: 80 WordCount: 5</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment destroyed!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: Word: ofx Score: 80 WordCount: 5</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment destroyed!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: Word: nvoiil Score: 160 WordCount: 9</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment destroyed!</span><br><span class="line">com.example.android.unscramble D/GameFragment: GameFragment created/re-created!</span><br><span class="line">com.example.android.unscramble D/GameFragment: Word: nvoiil Score: 160 WordCount: 9</span><br></pre></td></tr></table></figure>
 <ul>
-<li>請注意，螢幕方向變更時，應用程式資料會保存在 <code>ViewModel</code>
-中。您將在後續的程式碼研究室中使用 <code>LiveData</code> 和 data
-biniding，更新 UI 上的分數值和字詞計數。</li>
+<li>請注意，螢幕方向變更時，應用程式資料會保存在 <code>ViewModel</code> 中。您將在後續的程式碼研究室中使用 <code>LiveData</code> 和 data biniding，更新 UI 上的分數值和字詞計數。</li>
 </ul>
-<hr />
-<h3 id="更新遊戲重新啟動邏輯">更新遊戲重新啟動邏輯</h3>
-<ol type="1">
-<li><p>再次執行應用程式，使用所有字詞進行遊戲。在「Congratulations!」快訊對話方塊中，按一下「PLAY
-AGAIN」。由於字詞計數現已達到 <code>MAX_NO_OF_WORDS</code>
-值，因此應用程式無法讓您再玩一次。您必須將字詞計數重設為
-0，才能再次從頭開始遊戲。</p></li>
-<li><p>如要重設應用程式資料，請在 <code>GameViewModel</code> 中新增名為
-<code>reinitializeData()</code> 的方法。將分數和字詞計數設為
-<code>0</code>。清除字詞清單並呼叫 <code>getNextWord()</code>
-方法。</p></li>
+<hr>
+<h3 id="更新遊戲重新啟動邏輯"><a href="#更新遊戲重新啟動邏輯" class="headerlink" title="更新遊戲重新啟動邏輯"></a>更新遊戲重新啟動邏輯</h3><ol>
+<li><p>再次執行應用程式，使用所有字詞進行遊戲。在「Congratulations!」快訊對話方塊中，按一下「PLAY AGAIN」。由於字詞計數現已達到 <code>MAX_NO_OF_WORDS</code> 值，因此應用程式無法讓您再玩一次。您必須將字詞計數重設為 0，才能再次從頭開始遊戲。</p>
+</li>
+<li><p>如要重設應用程式資料，請在 <code>GameViewModel</code> 中新增名為 <code>reinitializeData()</code> 的方法。將分數和字詞計數設為 <code>0</code>。清除字詞清單並呼叫 <code>getNextWord()</code> 方法。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* Re-initializes the game data to restart the game.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">reinitializeData</span><span class="params">()</span></span> &#123;</span><br><span class="line">   _score = <span class="number">0</span></span><br><span class="line">   _currentWordCount = <span class="number">0</span></span><br><span class="line">   wordsList.clear()</span><br><span class="line">   getNextWord()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>在 <code>GameFragment</code> 頂端的方法 <code>restartGame()</code>
-中，呼叫新建立的方法 <code>reinitializeData()</code>。</li>
+
+<ol start="3">
+<li>在 <code>GameFragment</code> 頂端的方法 <code>restartGame()</code> 中，呼叫新建立的方法 <code>reinitializeData()</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">restartGame</span><span class="params">()</span></span> &#123;</span><br><span class="line">   viewModel.reinitializeData()</span><br><span class="line">   setErrorTextField(<span class="literal">false</span>)</span><br><span class="line">   updateNextWordOnScreen()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>再次執行應用程式。開始遊戲。看到祝賀對話方塊時，請按一下「Play
-Again」。現在，您應該可以成功再次遊玩遊戲！</li>
+
+<ol start="4">
+<li>再次執行應用程式。開始遊戲。看到祝賀對話方塊時，請按一下「Play Again」。現在，您應該可以成功再次遊玩遊戲！</li>
 </ol>
 <p>應用程式最終畫面應如下所示。這個遊戲會顯示十個隨機打散的字詞，讓玩家進行重組。您可選擇「略過」字詞，或猜測字詞，然後輕觸「提交」。如果答案正確，分數將會增加。答案不正確會在文字欄位中顯示錯誤狀態。隨著每個新字詞的進行，字詞計數也會增加。</p>
-<p>請注意，畫面上顯示的分數和字詞計數尚未更新。但這些資訊仍會儲存在檢視模型中，並在設定變更
-(例如裝置旋轉)
-期間保留。您將在後續的程式碼研究室中，更新畫面上的分數和字詞計數。</p>
+<p>請注意，畫面上顯示的分數和字詞計數尚未更新。但這些資訊仍會儲存在檢視模型中，並在設定變更 (例如裝置旋轉) 期間保留。您將在後續的程式碼研究室中，更新畫面上的分數和字詞計數。</p>
 <div style="display: flex;justify-content: center;">
-<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
-    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/f332979d6f63d0e5_1920.png?hl=zh-tw&quot;&gt;
-&lt;/div&gt;
-&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
-    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/2803d4855f5d401f_1920.png?hl=zh-tw&quot;&gt;
-&lt;/div&gt;</code></pre>
-<div style="clear:both;">
+    <div style="width:30%;float:left;margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/f332979d6f63d0e5_1920.png?hl=zh-tw">
+    </div>
+    <div style="width:30%;float:left;margin-right:10px;">
+        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/2803d4855f5d401f_1920.png?hl=zh-tw">
+    </div>
+<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+</div>
 
-</div>
-<!--這是用來清除上方的浮動效果-->
-</div>
-<p>遊戲將在 10
-個字詞後結束，畫面上會出現快訊對話方塊，顯示最終分數和結束遊戲或再玩一次的選項。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/d8e0111f5f160ead_1920.png?hl=zh-tw" width="30%"></p>
+<p>遊戲將在 10 個字詞後結束，畫面上會出現快訊對話方塊，顯示最終分數和結束遊戲或再玩一次的選項。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-viewmodel/img/d8e0111f5f160ead_1920.png?hl=zh-tw" width="30%">
+
 <p>恭喜！您已建立第一個 <code>ViewModel</code>，並成功儲存資料！</p>
-<hr />
-<h3 id="總結">總結</h3>
-<ul>
-<li>Android 應用程式架構指南建議將具有不同責任的類別分離，並透過模型使用
-UI。</li>
-<li>UI Controller 是一種 UI 類別，例如 <code>Activity</code> 或
-<code>Fragment</code>。UI 控制器只能包含處理 UI
-和作業系統互動的邏輯；其不應做為在 UI
-中顯示的資料來源。將該資料和任何相關的邏輯存放在 <code>ViewModel</code>
-中。</li>
-<li><code>ViewModel</code> 類別會儲存和管理 UI
-相關資料。<code>ViewModel</code> 類別可在螢幕旋轉等變更時保留資料。</li>
+<hr>
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li>Android 應用程式架構指南建議將具有不同責任的類別分離，並透過模型使用 UI。</li>
+<li>UI Controller 是一種 UI 類別，例如 <code>Activity</code> 或 <code>Fragment</code>。UI 控制器只能包含處理 UI 和作業系統互動的邏輯；其不應做為在 UI 中顯示的資料來源。將該資料和任何相關的邏輯存放在 <code>ViewModel</code> 中。</li>
+<li><code>ViewModel</code> 類別會儲存和管理 UI 相關資料。<code>ViewModel</code> 類別可在螢幕旋轉等變更時保留資料。</li>
 <li><code>ViewModel</code> 是建議使用的 Android 架構元件之一。</li>
 </ul>
 
@@ -1093,12 +872,7 @@ UI。</li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.</span> <span class="nav-text">範例應用程式總覽</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8A%E6%88%B2%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.1.</span> <span class="nav-text">遊戲總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.2.</span> <span class="nav-text">下載範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.3.</span> <span class="nav-text">範例程式碼總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%9B%B8%E9%97%9C%E5%95%8F%E9%A1%8C"><span class="nav-number">1.4.</span> <span class="nav-text">範例程式碼相關問題</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%9A%84%E4%B8%BB%E8%A6%81%E5%95%8F%E9%A1%8C"><span class="nav-number">1.4.1.</span> <span class="nav-text">應用程式的主要問題</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC%E9%80%90%E6%AD%A5%E6%93%8D%E4%BD%9C%E8%AA%AA%E6%98%8E"><span class="nav-number">1.5.</span> <span class="nav-text">範例程式碼逐步操作說明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9E%AD%E8%A7%A3%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E6%9E%B6%E6%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">瞭解應用程式架構</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ui-controller-activityfragment"><span class="nav-number">2.1.</span> <span class="nav-text">UI Controller
-(activity&#x2F;fragment)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#viewmodel"><span class="nav-number">2.2.</span> <span class="nav-text">ViewModel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-viewmodel"><span class="nav-number">3.</span> <span class="nav-text">新增 ViewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%87-viewmodel-%E9%99%84%E5%8A%A0%E8%87%B3-fragment"><span class="nav-number">3.1.</span> <span class="nav-text">將 ViewModel 附加至 fragment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kotlin-%E5%B1%AC%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">3.2.</span> <span class="nav-text">Kotlin 屬性委派</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87%E8%B3%87%E6%96%99%E7%A7%BB%E8%87%B3-viewmodel"><span class="nav-number">4.</span> <span class="nav-text">將資料移至 ViewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%95%E5%BE%8C%E5%B1%AC%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">幕後屬性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%87%E5%B9%95%E5%BE%8C%E5%B1%AC%E6%80%A7%E6%96%B0%E5%A2%9E%E8%87%B3-currentscrambledword"><span class="nav-number">4.2.</span> <span class="nav-text">將幕後屬性新增至
-currentScrambledWord</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#viewmodel-%E7%9A%84%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F"><span class="nav-number">5.</span> <span class="nav-text">ViewModel 的生命週期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9E%AD%E8%A7%A3-viewmodel-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F"><span class="nav-number">5.1.</span> <span class="nav-text">瞭解 ViewModel 生命週期</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A1%AB%E5%85%A5-viewmodel"><span class="nav-number">6.</span> <span class="nav-text">填入 ViewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%B6%E9%81%B2%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">6.1.</span> <span class="nav-text">延遲初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E4%B8%8B%E4%B8%80%E5%80%8B%E5%AD%97%E8%A9%9E"><span class="nav-number">6.2.</span> <span class="nav-text">取得下一個字詞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%B6%E9%81%B2%E5%88%9D%E5%A7%8B%E5%8C%96-currentscrambledword"><span class="nav-number">6.3.</span> <span class="nav-text">延遲初始化
-currentScrambledWord</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-helper-%E6%96%B9%E6%B3%95"><span class="nav-number">6.4.</span> <span class="nav-text">新增 Helper 方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8D%E8%A9%B1%E6%96%B9%E5%A1%8A"><span class="nav-number">7.</span> <span class="nav-text">對話方塊</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E6%9C%80%E7%B5%82%E5%88%86%E6%95%B8%E5%B0%8D%E8%A9%B1%E6%96%B9%E5%A1%8A"><span class="nav-number">7.1.</span> <span class="nav-text">實作最終分數對話方塊</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9Csubmit%E6%8C%89%E9%88%95%E7%9A%84-onclicklistener"><span class="nav-number">8.</span> <span class="nav-text">實作「Submit」按鈕的
-OnClickListener</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E6%89%93%E6%95%A3%E7%9A%84%E5%AD%97%E8%A9%9E"><span class="nav-number">8.1.</span> <span class="nav-text">顯示打散的字詞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-helper-%E6%96%B9%E6%B3%95%E4%BB%A5%E9%A9%97%E8%AD%89%E7%8E%A9%E5%AE%B6%E5%AD%97%E8%A9%9E"><span class="nav-number">8.2.</span> <span class="nav-text">新增 Helper
-方法以驗證玩家字詞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%96%87%E5%AD%97%E6%AC%84%E4%BD%8D"><span class="nav-number">8.3.</span> <span class="nav-text">更新文字欄位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E7%95%A5%E9%81%8E%E6%8C%89%E9%88%95"><span class="nav-number">9.</span> <span class="nav-text">實作略過按鈕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A2%BA%E8%AA%8D-viewmodel-%E5%B0%87%E6%9C%83%E4%BF%9D%E7%95%99%E8%B3%87%E6%96%99"><span class="nav-number">10.</span> <span class="nav-text">確認 ViewModel 將會保留資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E9%81%8A%E6%88%B2%E9%87%8D%E6%96%B0%E5%95%9F%E5%8B%95%E9%82%8F%E8%BC%AF"><span class="nav-number">11.</span> <span class="nav-text">更新遊戲重新啟動邏輯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">12.</span> <span class="nav-text">總結</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.</span> <span class="nav-text">範例應用程式總覽</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8A%E6%88%B2%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.1.</span> <span class="nav-text">遊戲總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.2.</span> <span class="nav-text">下載範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.3.</span> <span class="nav-text">範例程式碼總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%9B%B8%E9%97%9C%E5%95%8F%E9%A1%8C"><span class="nav-number">1.4.</span> <span class="nav-text">範例程式碼相關問題</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%9A%84%E4%B8%BB%E8%A6%81%E5%95%8F%E9%A1%8C"><span class="nav-number">1.4.1.</span> <span class="nav-text">應用程式的主要問題</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC%E9%80%90%E6%AD%A5%E6%93%8D%E4%BD%9C%E8%AA%AA%E6%98%8E"><span class="nav-number">1.5.</span> <span class="nav-text">範例程式碼逐步操作說明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9E%AD%E8%A7%A3%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E6%9E%B6%E6%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">瞭解應用程式架構</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UI-Controller-activity-fragment"><span class="nav-number">2.1.</span> <span class="nav-text">UI Controller (activity&#x2F;fragment)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ViewModel"><span class="nav-number">2.2.</span> <span class="nav-text">ViewModel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-ViewModel"><span class="nav-number">3.</span> <span class="nav-text">新增 ViewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%87-ViewModel-%E9%99%84%E5%8A%A0%E8%87%B3-fragment"><span class="nav-number">3.1.</span> <span class="nav-text">將 ViewModel 附加至 fragment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kotlin-%E5%B1%AC%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">3.2.</span> <span class="nav-text">Kotlin 屬性委派</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87%E8%B3%87%E6%96%99%E7%A7%BB%E8%87%B3-ViewModel"><span class="nav-number">4.</span> <span class="nav-text">將資料移至 ViewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%95%E5%BE%8C%E5%B1%AC%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">幕後屬性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%87%E5%B9%95%E5%BE%8C%E5%B1%AC%E6%80%A7%E6%96%B0%E5%A2%9E%E8%87%B3-currentScrambledWord"><span class="nav-number">4.2.</span> <span class="nav-text">將幕後屬性新增至 currentScrambledWord</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewModel-%E7%9A%84%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F"><span class="nav-number">5.</span> <span class="nav-text">ViewModel 的生命週期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9E%AD%E8%A7%A3-ViewModel-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F"><span class="nav-number">5.1.</span> <span class="nav-text">瞭解 ViewModel 生命週期</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A1%AB%E5%85%A5-ViewModel"><span class="nav-number">6.</span> <span class="nav-text">填入 ViewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%B6%E9%81%B2%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">6.1.</span> <span class="nav-text">延遲初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E4%B8%8B%E4%B8%80%E5%80%8B%E5%AD%97%E8%A9%9E"><span class="nav-number">6.2.</span> <span class="nav-text">取得下一個字詞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%B6%E9%81%B2%E5%88%9D%E5%A7%8B%E5%8C%96-currentScrambledWord"><span class="nav-number">6.3.</span> <span class="nav-text">延遲初始化 currentScrambledWord</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Helper-%E6%96%B9%E6%B3%95"><span class="nav-number">6.4.</span> <span class="nav-text">新增 Helper 方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8D%E8%A9%B1%E6%96%B9%E5%A1%8A"><span class="nav-number">7.</span> <span class="nav-text">對話方塊</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E6%9C%80%E7%B5%82%E5%88%86%E6%95%B8%E5%B0%8D%E8%A9%B1%E6%96%B9%E5%A1%8A"><span class="nav-number">7.1.</span> <span class="nav-text">實作最終分數對話方塊</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E3%80%8CSubmit%E3%80%8D%E6%8C%89%E9%88%95%E7%9A%84-OnClickListener"><span class="nav-number">8.</span> <span class="nav-text">實作「Submit」按鈕的 OnClickListener</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%AF%E7%A4%BA%E6%89%93%E6%95%A3%E7%9A%84%E5%AD%97%E8%A9%9E"><span class="nav-number">8.1.</span> <span class="nav-text">顯示打散的字詞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Helper-%E6%96%B9%E6%B3%95%E4%BB%A5%E9%A9%97%E8%AD%89%E7%8E%A9%E5%AE%B6%E5%AD%97%E8%A9%9E"><span class="nav-number">8.2.</span> <span class="nav-text">新增 Helper 方法以驗證玩家字詞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%96%87%E5%AD%97%E6%AC%84%E4%BD%8D"><span class="nav-number">8.3.</span> <span class="nav-text">更新文字欄位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E7%95%A5%E9%81%8E%E6%8C%89%E9%88%95"><span class="nav-number">9.</span> <span class="nav-text">實作略過按鈕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A2%BA%E8%AA%8D-ViewModel-%E5%B0%87%E6%9C%83%E4%BF%9D%E7%95%99%E8%B3%87%E6%96%99"><span class="nav-number">10.</span> <span class="nav-text">確認 ViewModel 將會保留資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E9%81%8A%E6%88%B2%E9%87%8D%E6%96%B0%E5%95%9F%E5%8B%95%E9%82%8F%E8%BC%AF"><span class="nav-number">11.</span> <span class="nav-text">更新遊戲重新啟動邏輯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">12.</span> <span class="nav-text">總結</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1223,8 +997,6 @@ OnClickListener</span></a><ol class="nav-child"><li class="nav-item nav-level-4"
 
 
 
-
-  
 
   
 

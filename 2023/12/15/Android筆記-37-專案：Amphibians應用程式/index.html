@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="採用會顯示不同兩棲動物物種資訊的 app，再使用網路、JSON 剖析和 view model 的知識，讓該 app 使用來自網路的資料。App 會從這個專案的自訂 API 中取得資料，然後顯示於 list view。  建構項目 使用 Retrofit 和 Moshi 以及適當的 error 處理方式，在 app 中實作網路。">
+  <meta name="description" content="採用會顯示不同兩棲動物物種資訊的 app，再使用網路、JSON 剖析和 view model 的知識，讓該 app 使用來自網路的資料。App 會從這個專案的自訂 API 中取得資料，然後顯示於 list view。  建構項目使用 Retrofit 和 Moshi 以及適當的 error 處理方式，在 app 中實作網路。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(37)-專案：Amphibians應用程式">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/12/15/Android%E7%AD%86%E8%A8%98-37-%E5%B0%88%E6%A1%88%EF%BC%9AAmphibians%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="採用會顯示不同兩棲動物物種資訊的 app，再使用網路、JSON 剖析和 view model 的知識，讓該 app 使用來自網路的資料。App 會從這個專案的自訂 API 中取得資料，然後顯示於 list view。  建構項目 使用 Retrofit 和 Moshi 以及適當的 error 處理方式，在 app 中實作網路。">
+<meta property="og:description" content="採用會顯示不同兩棲動物物種資訊的 app，再使用網路、JSON 剖析和 view model 的知識，讓該 app 使用來自網路的資料。App 會從這個專案的自訂 API 中取得資料，然後顯示於 list view。  建構項目使用 Retrofit 和 Moshi 以及適當的 error 處理方式，在 app 中實作網路。">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-amphibians/img/7697a4e0c9bb5a76_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-amphibians/img/9797605a20dc68d1_1920.png?hl=zh-tw">
@@ -284,132 +284,76 @@
 
       
         <blockquote>
-<p>採用會顯示不同兩棲動物物種資訊的 app，再使用網路、JSON 剖析和 view
-model 的知識，讓該 app 使用來自網路的資料。App 會從這個專案的自訂 API
-中取得資料，然後顯示於 list view。</p>
+<p>採用會顯示不同兩棲動物物種資訊的 app，再使用網路、JSON 剖析和 view model 的知識，讓該 app 使用來自網路的資料。App 會從這個專案的自訂 API 中取得資料，然後顯示於 list view。</p>
 </blockquote>
-<p><strong>建構項目</strong> 使用 <strong>Retrofit</strong> 和
-<strong>Moshi</strong> 以及適當的 error 處理方式，在 app
-中實作網路。</p>
+<p><strong>建構項目</strong><br>使用 <strong>Retrofit</strong> 和 <strong>Moshi</strong> 以及適當的 error 處理方式，在 app 中實作網路。</p>
 <span id="more"></span>
-<hr />
-<h3 id="完成的-app-overview">完成的 app overview</h3>
-<p>歡迎參與專案：Amphibians！</p>
-<p>到目前為止，您建構的所有 app 都依賴儲存在本機的
-data。這次，您會採用顯示不同<u>兩棲動物(amphibian)物種(species)資訊</u>的
-app，並運用您對<u>網路</u>、<u>JSON 剖析(parsing)</u>及 <u>view
-models</u> 的知識，讓該 app 能夠<u>使用來自網路的資料</u>。App
-會從這個專案的<u>自訂 API 中取得 data</u>，然後顯示於 <strong>list
-view</strong>。</p>
-<p>在最後一個 app 中，使用者看到的第一個畫面，會顯示 <strong>recycler
-view</strong> 中各個<u>物種(species)的名稱</u>。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-amphibians/img/7697a4e0c9bb5a76_1920.png?hl=zh-tw" width="40%"></p>
-<p>輕觸 <strong>list item</strong>
-即可前往<u>詳細資料(detail)畫面</u>，當中也會顯示<u>物種名稱(species'
-name)</u>和<u>詳細描述(detailed description)</u>。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-amphibians/img/9797605a20dc68d1_1920.png?hl=zh-tw" width="40%"></p>
-<p>雖然已為您建立這個 app 的 UI 部分，但執行範例專案並不會顯示任何
-data。您必須實作 app 的網路(networking)部分，layout 中才會顯示已下載的
-data。</p>
-<hr />
-<h3 id="開始操作">開始操作</h3>
-<h4 id="下載專案程式碼">下載專案程式碼</h4>
-<p>請注意，資料夾名稱是
-<code>android-basics-kotlin-amphibians-app</code>。在 Android Studio
-中開啟專案時，請選取這個資料夾。</p>
+
+<hr>
+<h3 id="完成的-app-overview"><a href="#完成的-app-overview" class="headerlink" title="完成的 app overview"></a>完成的 app overview</h3><p>歡迎參與專案：Amphibians！</p>
+<p>到目前為止，您建構的所有 app 都依賴儲存在本機的 data。這次，您會採用顯示不同<u>兩棲動物(amphibian)物種(species)資訊</u>的 app，並運用您對<u>網路</u>、<u>JSON 剖析(parsing)</u>及 <u>view models</u> 的知識，讓該 app 能夠<u>使用來自網路的資料</u>。App 會從這個專案的<u>自訂 API 中取得 data</u>，然後顯示於 <strong>list view</strong>。</p>
+<p>在最後一個 app 中，使用者看到的第一個畫面，會顯示 <strong>recycler view</strong> 中各個<u>物種(species)的名稱</u>。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-amphibians/img/7697a4e0c9bb5a76_1920.png?hl=zh-tw" width="40%">
+
+<p>輕觸 <strong>list item</strong> 即可前往<u>詳細資料(detail)畫面</u>，當中也會顯示<u>物種名稱(species’ name)</u>和<u>詳細描述(detailed description)</u>。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-project-amphibians/img/9797605a20dc68d1_1920.png?hl=zh-tw" width="40%">
+
+<p>雖然已為您建立這個 app 的 UI 部分，但執行範例專案並不會顯示任何 data。您必須實作 app 的網路(networking)部分，layout 中才會顯示已下載的 data。</p>
+<hr>
+<h3 id="開始操作"><a href="#開始操作" class="headerlink" title="開始操作"></a>開始操作</h3><h4 id="下載專案程式碼"><a href="#下載專案程式碼" class="headerlink" title="下載專案程式碼"></a>下載專案程式碼</h4><p>請注意，資料夾名稱是 <code>android-basics-kotlin-amphibians-app</code>。在 Android Studio 中開啟專案時，請選取這個資料夾。</p>
 <div class="note no-icon success">
-            <p><strong>範例程式碼網址：</strong>https://github.com/google-developer-training/android-basics-kotlin-amphibians-app/tree/main<strong>具有範例程式碼的分支版本名稱：</strong><b>main</b></p>
+            <p><strong>範例程式碼網址：</strong><br><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-amphibians-app/tree/main">https://github.com/google-developer-training/android-basics-kotlin-amphibians-app/tree/main</a><br><strong>具有範例程式碼的分支版本名稱：</strong><b>main</b></p>
           </div>
-<h4 id="實作-api-服務">實作 API 服務</h4>
-<p>App 會列出 network 中的<b>兩棲動物資料(amphibian data)</b>，這些
-amphibian data 來自 <u>API 傳回的 JSON object</u>。請看看
-<code>network</code> package 中的 <code>Amphibian.kt</code> 檔案。這個
-class 會建立單一 amphibian object 的 models，並會由 API 傳回該 object 的
-list。每種兩棲動物(amphibian)都有三個屬性：<u>名稱(name)</u>、<u>類型(type)</u>和<u>說明(description)</u>。</p>
+
+<h4 id="實作-API-服務"><a href="#實作-API-服務" class="headerlink" title="實作 API 服務"></a>實作 API 服務</h4><p>App 會列出 network 中的<b>兩棲動物資料(amphibian data)</b>，這些 amphibian data 來自 <u>API 傳回的 JSON object</u>。請看看 <code>network</code> package 中的 <code>Amphibian.kt</code> 檔案。這個 class 會建立單一 amphibian object 的 models，並會由 API 傳回該 object 的 list。每種兩棲動物(amphibian)都有三個屬性：<u>名稱(name)</u>、<u>類型(type)</u>和<u>說明(description)</u>。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Amphibian</span>(</span><br><span class="line">    <span class="keyword">val</span> name: String,</span><br><span class="line">    <span class="keyword">val</span> type: String,</span><br><span class="line">    <span class="keyword">val</span> description: String</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>此 API 的後端相當簡單。您需要取得兩項重要資訊，才能存取 amphibians
-data，一個是 <u><strong>base URL</strong></u>，另一個則是<u>用於取得
-<strong>amphibians list</strong> 的 <strong>endpoint</strong></u>。</p>
-<ol type="1">
-<li>Base
-URL：https://developer.android.com/courses/pathways/android-basics-kotlin-unit-4-pathway-2/</li>
-<li>GET amphibians
-list：<code>android-basics-kotlin-unit-4-pathway-2-project-api.json</code></li>
+
+<p>此 API 的後端相當簡單。您需要取得兩項重要資訊，才能存取 amphibians data，一個是 <u><strong>base URL</strong></u>，另一個則是<u>用於取得 <strong>amphibians list</strong> 的 <strong>endpoint</strong></u>。</p>
+<ol>
+<li>Base URL：<a target="_blank" rel="noopener" href="https://developer.android.com/courses/pathways/android-basics-kotlin-unit-4-pathway-2/">https://developer.android.com/courses/pathways/android-basics-kotlin-unit-4-pathway-2/</a></li>
+<li>GET amphibians list：<code>android-basics-kotlin-unit-4-pathway-2-project-api.json</code></li>
 </ol>
 <div class="note no-icon success">
-            <p><strong>提示：</strong>您可以在瀏覽器中檢視<ahref="https://developer.android.com/courses/pathways/android-basics-kotlin-unit-4-pathway-2/android-basics-kotlin-unit-4-pathway-2-project-api.json">原始JSON</a>。</p>
+            <p><strong>提示：</strong>您可以在瀏覽器中檢視<a target="_blank" rel="noopener" href="https://developer.android.com/courses/pathways/android-basics-kotlin-unit-4-pathway-2/android-basics-kotlin-unit-4-pathway-2-project-api.json">原始 JSON</a>。</p>
           </div>
-<p>Project 已有 <strong>Retrofit</strong> 和 <strong>Moshi</strong>
-dependencies。您可在 <code>network</code> package 中找到
-<code>AmphibianApiService.kt</code> 檔案。檔案含有幾則 <code>TODO</code>
-留言。請執行以下五項工作，以實作 amphibians app： 1.
-建立變數(variable)來儲存 API 的 <strong>base URL</strong>。 2. 使用
-<strong>Kotlin Adapter Factory</strong> 建構 <b>Moshi
-object</b>，此模式會利用 Retrofit 來剖析 JSON。 3. 使用 <strong>Moshi
-converter</strong> 建構 Retrofit instance。 4. 使用 <code>suspend</code>
-函式為每個 API 方法實作 <code>AmphibianApiService</code> interface (這個
-app 只有一個方法，即用於取得 amphibians list)。 5. 建立
-<code>AmphibianApi</code> object 以顯示採用
-<code>AmphibianApiService</code> interface
-的延遲初始化(lazy-initialized) Retrofit service。</p>
-<h4 id="實作-viewmodel">實作 ViewModel</h4>
-<p>實作 API 後，您要向 ampimbians API 發出
-request，然後儲存所有需要顯示的 values。您需要在 <code>ui</code> package
-中的 <code>AmphibianViewModel.kt</code> class 中執行這項操作。</p>
-<p>您會發現，class 宣告上方是名為 <code>AmphibianApiStatus</code> 的
-enum。 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="title class_">AmphibianApiStatus</span> &#123;LOADING, ERROR, DONE&#125;</span><br></pre></td></tr></table></figure> + 三個可能的 values 為
-<code>LOADING</code>、<code>ERROR</code> 和
-<code>DONE</code>，用來向使用者顯示要求的 status。</p>
-<p>在 <code>AmphibianViewModel.kt</code> class 中，您必須<u>實作部分
-<code>LiveData</code> 變數</u>、<u>與 API
-互動的函式</u>，以及用於<u>處理 detail 頁面上設定 amphibian 的函式</u>。
-1. 新增一個 <code>_status</code> private <code>MutableLiveData</code>
-變數，可用於保留 <code>AmphibianApiStatus</code> enum 和相關狀態的
-backing 屬性 <code>status</code>。 2. 對 type
-<code>List&lt;Amphibian&gt;</code> 的 amphibians list 新增
-<code>amphibians</code> 變數和 private backing 屬性
-<code>_amphibians</code>。 3. 為所選的 type
-<code>LiveData&lt;Amphibian&gt;</code> amphibian object 新增 type
-<code>MutableLiveData&lt;Amphibian&gt;</code> 的 <code>_amphibian</code>
-變數和 backing 屬性 <code>amphibian</code>。此變數會用於儲存 detail
-畫面上已選定的 amphibian。 4. 定義名為 <code>getAmphibianList()</code>
-的函式。使用 <code>ViewModelScope</code> 啟動 coroutine，在 coroutine
-中，透過呼叫 Retrofit service 的 <code>getAmphibians()</code> 方法來執行
-GET request 下載 amphibian data。您需要使用 <code>try</code> 和
-<code>catch</code> 來妥善處理 errors。在提出 request 之前，請將
-<code>_status</code> 的 value 設為
-<code>AmphibianApiStatus.LOADING</code>。如果 request
-成功，<code>_amphibians</code> 應設為來自 server 的 amphibians list，而
-<code>_status</code> 應設為
-<code>AmphibianApiStatus.DONE</code>。如果發生
-error，<code>_amphibians</code> 應設為 empty list，而
-<code>_status</code> 應設為 <code>AmphibianApiStatus.ERROR</code>。 5.
-實作 <code>onAmphibianClicked()</code> 方法，將您定義的
-<code>_amphibian</code> 屬性設為傳遞到 function
-的<u>引數(argument)</u>。在選取 amphibian 時已呼叫此方法，因此 amphibian
-的資訊便會顯示在 detail 畫面上。</p>
-<h3 id="從-viewmodel-更新-ui">從 ViewModel 更新 UI</h3>
-<p>實作 <code>ViewModel</code> 後，您只需要編輯 fragment classes 和
-layout 檔案，即可使用 <strong>data bindings</strong>。 1.
-<code>AmphibianListFragment</code> 中已引用 <code>ViewModel</code>。在
-<code>onCreateView()</code> 方法中，加載 layout 後，只需從
-<code>ViewModel</code> 呼叫 <code>getAmphibianList()</code> 方法即可。
-2. 在 <code>fragment_amphibian_list.xml</code> 中，data binding
-變數的<code>&lt;data&gt;</code> tags 已新增到 layout 檔案。只需實作
-<code>TODO</code>，UI 就會根據 view model 更新。為 <code>listData</code>
-和 <code>apiStatus</code> 設定適當的 bindings。 3. 在
-<code>fragment_amphibian_detail.xml</code> 中實作 <code>TODO</code>，為
-amphibian 的名稱(name)和描述(description) 設定適當的 text 屬性。</p>
-<hr />
-<h3 id="執行-app">執行 app</h3>
-<div class="video-container"><iframe src="https://player.vimeo.com/video/895222504" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
-<div class="note danger">
-            <p><strong>當編譯失敗時：</strong> + 更新 <code>compileSdkVersion</code>和 <code>targetSdkVersion</code> + 更新 <code>dependencies</code> 中的library version + 點開 Project Structure -&gt; 更新 <strong>GradleVersion</strong> + 點開 Upgrade Assistant -&gt; 更新 <strong>AndroidGradle Plugin(AGP) Version</strong></p>
-          </div>
-<hr />
-<h3 id="執行測試">執行測試</h3>
-<p><img src="https://i.imgur.com/KuHSJgw.png"></p>
 
+<p>Project 已有 <strong>Retrofit</strong> 和 <strong>Moshi</strong> dependencies。您可在 <code>network</code> package 中找到 <code>AmphibianApiService.kt</code> 檔案。檔案含有幾則 <code>TODO</code> 留言。請執行以下五項工作，以實作 amphibians app：</p>
+<ol>
+<li>建立變數(variable)來儲存 API 的 <strong>base URL</strong>。</li>
+<li>使用 <strong>Kotlin Adapter Factory</strong> 建構 <b>Moshi object</b>，此模式會利用 Retrofit 來剖析 JSON。</li>
+<li>使用 <strong>Moshi converter</strong> 建構 Retrofit instance。</li>
+<li>使用 <code>suspend</code> 函式為每個 API 方法實作 <code>AmphibianApiService</code> interface (這個 app 只有一個方法，即用於取得 amphibians list)。</li>
+<li>建立 <code>AmphibianApi</code> object 以顯示採用 <code>AmphibianApiService</code> interface 的延遲初始化(lazy-initialized) Retrofit service。</li>
+</ol>
+<h4 id="實作-ViewModel"><a href="#實作-ViewModel" class="headerlink" title="實作 ViewModel"></a>實作 ViewModel</h4><p>實作 API 後，您要向 ampimbians API 發出 request，然後儲存所有需要顯示的 values。您需要在 <code>ui</code> package 中的 <code>AmphibianViewModel.kt</code> class 中執行這項操作。</p>
+<p>您會發現，class 宣告上方是名為 <code>AmphibianApiStatus</code> 的 enum。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="keyword">class</span> <span class="title class_">AmphibianApiStatus</span> &#123;LOADING, ERROR, DONE&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>三個可能的 values 為 <code>LOADING</code>、<code>ERROR</code> 和 <code>DONE</code>，用來向使用者顯示要求的 status。</li>
+</ul>
+<p>在 <code>AmphibianViewModel.kt</code> class 中，您必須<u>實作部分 <code>LiveData</code> 變數</u>、<u>與 API 互動的函式</u>，以及用於<u>處理 detail 頁面上設定 amphibian 的函式</u>。</p>
+<ol>
+<li>新增一個 <code>_status</code> private <code>MutableLiveData</code> 變數，可用於保留 <code>AmphibianApiStatus</code> enum 和相關狀態的 backing 屬性 <code>status</code>。</li>
+<li>對 type <code>List&lt;Amphibian&gt;</code> 的 amphibians list 新增 <code>amphibians</code> 變數和 private backing 屬性 <code>_amphibians</code>。</li>
+<li>為所選的 type <code>LiveData&lt;Amphibian&gt;</code> amphibian object 新增 type <code>MutableLiveData&lt;Amphibian&gt;</code> 的 <code>_amphibian</code> 變數和 backing 屬性 <code>amphibian</code>。此變數會用於儲存 detail 畫面上已選定的 amphibian。</li>
+<li>定義名為 <code>getAmphibianList()</code> 的函式。使用 <code>ViewModelScope</code> 啟動 coroutine，在 coroutine 中，透過呼叫 Retrofit service 的 <code>getAmphibians()</code> 方法來執行 GET request 下載 amphibian data。您需要使用 <code>try</code> 和 <code>catch</code> 來妥善處理 errors。在提出 request 之前，請將 <code>_status</code> 的 value 設為 <code>AmphibianApiStatus.LOADING</code>。如果 request 成功，<code>_amphibians</code> 應設為來自 server 的 amphibians list，而 <code>_status</code> 應設為 <code>AmphibianApiStatus.DONE</code>。如果發生 error，<code>_amphibians</code> 應設為 empty list，而 <code>_status</code> 應設為 <code>AmphibianApiStatus.ERROR</code>。</li>
+<li>實作 <code>onAmphibianClicked()</code> 方法，將您定義的 <code>_amphibian</code> 屬性設為傳遞到 function 的<u>引數(argument)</u>。在選取 amphibian 時已呼叫此方法，因此 amphibian 的資訊便會顯示在 detail 畫面上。</li>
+</ol>
+<h3 id="從-ViewModel-更新-UI"><a href="#從-ViewModel-更新-UI" class="headerlink" title="從 ViewModel 更新 UI"></a>從 ViewModel 更新 UI</h3><p>實作 <code>ViewModel</code> 後，您只需要編輯 fragment classes 和 layout 檔案，即可使用 <strong>data bindings</strong>。</p>
+<ol>
+<li><code>AmphibianListFragment</code> 中已引用 <code>ViewModel</code>。在 <code>onCreateView()</code> 方法中，加載 layout 後，只需從 <code>ViewModel</code> 呼叫 <code>getAmphibianList()</code> 方法即可。</li>
+<li>在 <code>fragment_amphibian_list.xml</code> 中，data binding 變數的<code> &lt;data&gt;</code> tags 已新增到 layout 檔案。只需實作 <code>TODO</code>，UI 就會根據 view model 更新。為 <code>listData</code> 和 <code>apiStatus</code> 設定適當的 bindings。</li>
+<li>在 <code>fragment_amphibian_detail.xml</code> 中實作 <code>TODO</code>，為 amphibian 的名稱(name)和描述(description) 設定適當的 text 屬性。</li>
+</ol>
+<hr>
+<h3 id="執行-app"><a href="#執行-app" class="headerlink" title="執行 app"></a>執行 app</h3><div class="video-container"><iframe src="https://player.vimeo.com/video/895222504" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
+
+<div class="note danger">
+            <p><strong>當編譯失敗時：</strong></p><ul><li>更新 <code>compileSdkVersion</code> 和 <code>targetSdkVersion</code></li><li>更新 <code>dependencies</code> 中的 library version</li><li>點開 Project Structure -&gt; 更新 <strong>Gradle Version</strong></li><li>點開 Upgrade Assistant -&gt; 更新 <strong>Android Gradle Plugin(AGP) Version</strong></li></ul>
+          </div>
+
+<hr>
+<h3 id="執行測試"><a href="#執行測試" class="headerlink" title="執行測試"></a>執行測試</h3><img src="https://i.imgur.com/KuHSJgw.png">
     </div>
 
     
@@ -509,7 +453,7 @@ amphibian 的名稱(name)和描述(description) 設定適當的 text 屬性。</
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E7%9A%84-app-overview"><span class="nav-number">1.</span> <span class="nav-text">完成的 app overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E5%A7%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">開始操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E5%B0%88%E6%A1%88%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">2.1.</span> <span class="nav-text">下載專案程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C-api-%E6%9C%8D%E5%8B%99"><span class="nav-number">2.2.</span> <span class="nav-text">實作 API 服務</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C-viewmodel"><span class="nav-number">2.3.</span> <span class="nav-text">實作 ViewModel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%9E-viewmodel-%E6%9B%B4%E6%96%B0-ui"><span class="nav-number">3.</span> <span class="nav-text">從 ViewModel 更新 UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C-app"><span class="nav-number">4.</span> <span class="nav-text">執行 app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%B8%AC%E8%A9%A6"><span class="nav-number">5.</span> <span class="nav-text">執行測試</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E7%9A%84-app-overview"><span class="nav-number">1.</span> <span class="nav-text">完成的 app overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E5%A7%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">開始操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E5%B0%88%E6%A1%88%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">2.1.</span> <span class="nav-text">下載專案程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C-API-%E6%9C%8D%E5%8B%99"><span class="nav-number">2.2.</span> <span class="nav-text">實作 API 服務</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C-ViewModel"><span class="nav-number">2.3.</span> <span class="nav-text">實作 ViewModel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%9E-ViewModel-%E6%9B%B4%E6%96%B0-UI"><span class="nav-number">3.</span> <span class="nav-text">從 ViewModel 更新 UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C-app"><span class="nav-number">4.</span> <span class="nav-text">執行 app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%B8%AC%E8%A9%A6"><span class="nav-number">5.</span> <span class="nav-text">執行測試</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -634,8 +578,6 @@ amphibian 的名稱(name)和描述(description) 設定適當的 text 屬性。</
 
 
 
-
-  
 
   
 

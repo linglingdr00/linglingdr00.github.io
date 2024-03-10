@@ -266,13 +266,11 @@
         <blockquote>
 <p>Kotlin為Google宣布的Android官方開發語言</p>
 </blockquote>
-<p><a
-target="_blank" rel="noopener" href="https://developer.android.com/training/kotlinplayground">點此可以線上練習編寫Kotlin</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.com/training/kotlinplayground">點此可以線上練習編寫Kotlin</a></p>
 <span id="more"></span>
-<hr />
-<h3 id="kotlin練習">Kotlin練習</h3>
-<h4 id="hello-world">Hello World</h4>
-<p>首先我們看到第一個範例：印出Hello, world!</p>
+
+<hr>
+<h3 id="Kotlin練習"><a href="#Kotlin練習" class="headerlink" title="Kotlin練習"></a>Kotlin練習</h3><h4 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h4><p>首先我們看到第一個範例：印出Hello, world!</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;Hello, world!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>其中，<span class="label success">fun</span>代表函式(function)，<span class="label primary">main</span>則是這個函式的名稱，也是Kotlin所需的主函式。</li>
@@ -281,228 +279,249 @@ target="_blank" rel="noopener" href="https://developer.android.com/training/kotl
 <li>而括號後方的大括號<code>&#123;&#125;</code>包起來的程式，是函式內部用於完成工作的程式碼。</li>
 <li><code>println</code>是列印+換行的意思，會指示系統列印一行文字並換行。</li>
 </ul>
-<h4 id="建立生日訊息">建立生日訊息</h4>
-<h5 id="加入範例程式">加入範例程式</h5>
-<ol type="1">
-<li>在瀏覽器中開啟
-https://developer.android.com/training/kotlinplayground。</li>
+<h4 id="建立生日訊息"><a href="#建立生日訊息" class="headerlink" title="建立生日訊息"></a>建立生日訊息</h4><h5 id="加入範例程式"><a href="#加入範例程式" class="headerlink" title="加入範例程式"></a>加入範例程式</h5><ol>
+<li>在瀏覽器中開啟 <a target="_blank" rel="noopener" href="https://developer.android.com/training/kotlinplayground%E3%80%82">https://developer.android.com/training/kotlinplayground。</a></li>
 <li>加入範例程式碼：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, Rover!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already 5!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;5 is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="建立及使用變數">建立及使用變數</h5>
-<ol type="1">
+
+<h5 id="建立及使用變數"><a href="#建立及使用變數" class="headerlink" title="建立及使用變數"></a>建立及使用變數</h5><ol>
 <li>將 Rover 的年齡儲存在變數中。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val age = 5</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><code>val</code> 是 Kotlin
-使用的特殊字詞，稱為「關鍵字」，<code>age</code> 為變數名稱。</li>
+<li><code>val</code> 是 Kotlin 使用的特殊字詞，稱為「關鍵字」，<code>age</code> 為變數名稱。</li>
 </ul>
 <p>如要輸出該變數的值，而不是文字，只要在前面加上美元符號的大括號內放入變數即可。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;variable&#125;</span></span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>將程式碼中兩個輸出陳述式的數字 5 改成 <code>age</code>
-變數，如下所示</li>
+<ol start="2">
+<li>將程式碼中兩個輸出陳述式的數字 5 改成 <code>age</code> 變數，如下所示</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span>!&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> is the very best age to celebrate!&quot;</span>)</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
+<ol start="3">
 <li>更改 <code>age</code> 的值為天數來表示 Rover 的年齡(年齡x365)</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val age = 5 * 365</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
+<ol start="4">
 <li>再次執行程式碼，您會發現兩條訊息現在都以天數顯示年齡。</li>
 <li>最後調整一下訊息的文字</li>
 </ol>
-<p>現在程式碼： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, Rover!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old!!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>執行結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old!!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br></pre></td></tr></table></figure></p>
-<h5 id="將文字放入變數">將文字放入變數</h5>
-<ol type="1">
-<li>在 <code>age</code> 的變數下方，新增名為 <code>name</code>
-的變數代表壽星名字，並將值設為 "Rover"。</li>
+<p>現在程式碼：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, Rover!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old!!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>執行結果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old!!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br></pre></td></tr></table></figure>
+
+<h5 id="將文字放入變數"><a href="#將文字放入變數" class="headerlink" title="將文字放入變數"></a>將文字放入變數</h5><ol>
+<li>在 <code>age</code> 的變數下方，新增名為 <code>name</code> 的變數代表壽星名字，並將值設為 “Rover”。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val name = <span class="string">&quot;Rover&quot;</span></span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
+
+<ol start="2">
 <li>用變數取代生日訊息中的名字 Rover，如下所示。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
+
+<ol start="3">
 <li>使用 <code>name</code> 變數將 Rover 加入年齡訊息中，如下所示。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>現在程式碼： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>執行結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br></pre></td></tr></table></figure></p>
-<h5 id="使用函式加上生日橫幅的邊框">使用函式加上生日橫幅的邊框</h5>
-<ol type="1">
+
+<p>現在程式碼：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>執行結果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br></pre></td></tr></table></figure>
+
+<h5 id="使用函式加上生日橫幅的邊框"><a href="#使用函式加上生日橫幅的邊框" class="headerlink" title="使用函式加上生日橫幅的邊框"></a>使用函式加上生日橫幅的邊框</h5><ol>
 <li>建立函式來輸出邊框</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;================================================&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>在 <code>main()</code> 函式中呼叫 <code>printBorder()</code>
-函式</li>
+
+<ol start="2">
+<li>在 <code>main()</code> 函式中呼叫 <code>printBorder()</code> 函式</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    printBorder()</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    println(<span class="string">&quot;================================================&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>在 <code>printBorder()</code> 函式中，使用 <code>repeat()</code>
-重複邊框格式，最後加入 println() 來換行。</li>
+
+<ol start="3">
+<li>在 <code>printBorder()</code> 函式中，使用 <code>repeat()</code> 重複邊框格式，最後加入 println() 來換行。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>現在程式碼： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    printBorder()</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>執行結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">================================================</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">================================================</span><br></pre></td></tr></table></figure></p>
-<ol start="4" type="1">
+
+<p>現在程式碼：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">    printBorder()</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun <span class="function"><span class="title">printBorder</span></span>() &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>執行結果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">================================================</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">================================================</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
 <li>使用引數變更邊框</li>
 <li>新增名為 <code>border</code> 的變數。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val border = <span class="string">&quot;%&quot;</span></span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>將 <code>border</code> 變數做為引數，傳遞至對
-<code>printBorder()</code> 函式的呼叫中。</li>
+
+<ol start="2">
+<li>將 <code>border</code> 變數做為引數，傳遞至對 <code>printBorder()</code> 函式的呼叫中。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printBorder(border)</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>修改 <code>printBorder()</code> 函式中的引數，並使用 border
-作為函式中的變數。</li>
+
+<ol start="3">
+<li>修改 <code>printBorder()</code> 函式中的引數，並使用 border 作為函式中的變數。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun printBorder(border: String) &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>引數的名稱是 <code>border</code>、名稱後方有冒號 <code>:</code> 以及
-<code>String</code> (引數的類型)。</li>
+<li>引數的名稱是 <code>border</code>、名稱後方有冒號 <code>:</code> 以及 <code>String</code> (引數的類型)。</li>
 </ul>
-<p>現在程式碼： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">   	val border = <span class="string">&quot;%&quot;</span></span><br><span class="line">    printBorder(border)</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder(border)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun printBorder(border: String) &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>執行結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span><br></pre></td></tr></table></figure></p>
-<ol start="4" type="1">
-<li>將邊框變更為 <code>"'-._,-'"</code> 格式，並新增新變數
-<code>timesToRepeat</code> 調整重複次數</li>
+<p>現在程式碼：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">   	val border = <span class="string">&quot;%&quot;</span></span><br><span class="line">    printBorder(border)</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder(border)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun printBorder(border: String) &#123;</span><br><span class="line">    repeat(48) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>執行結果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>將邊框變更為 <code>&quot;&#39;-._,-&#39;&quot;</code> 格式，並新增新變數 <code>timesToRepeat</code> 調整重複次數</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val border = <span class="string">&quot;`-._,-&#x27;&quot;</span></span><br><span class="line">val timesToRepeat = 7</span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
+
+<ol start="5">
 <li>呼叫 <code>printBorder</code> 函式時，變成需要2個引數</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printBorder(border, timesToRepeat)</span><br></pre></td></tr></table></figure>
-<ol start="6" type="1">
+
+<ol start="6">
 <li>新曾 <code>printBorder</code> 函式中的引數</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun printBorder(border: String, timesToRepeat: Int) &#123;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>有多個引數時，以半形逗號 <code>,</code> 分隔引數。</li>
 </ul>
-<p>現在程式碼： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">   	val border = <span class="string">&quot;`-._,-&#x27;&quot;</span></span><br><span class="line">    val timesToRepeat = 7</span><br><span class="line">    printBorder(border, timesToRepeat)</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder(border, timesToRepeat)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun printBorder(border: String, timesToRepeat: Int) &#123;</span><br><span class="line">    repeat(timesToRepeat) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>執行結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;</span><br></pre></td></tr></table></figure></p>
-<hr />
-<h4 id="建立一個多層且點上蠟燭的蛋糕">建立一個多層且點上蠟燭的蛋糕</h4>
-<ul>
+<p>現在程式碼：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 5 * 365</span><br><span class="line">    val name = <span class="string">&quot;Rover&quot;</span></span><br><span class="line">   	val border = <span class="string">&quot;`-._,-&#x27;&quot;</span></span><br><span class="line">    val timesToRepeat = 7</span><br><span class="line">    printBorder(border, timesToRepeat)</span><br><span class="line">    println(<span class="string">&quot;Happy Birthday, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;You are already <span class="variable">$&#123;age&#125;</span> days old, <span class="variable">$&#123;name&#125;</span>!&quot;</span>)</span><br><span class="line">	println(<span class="string">&quot;<span class="variable">$&#123;age&#125;</span> days old is the very best age to celebrate!&quot;</span>)</span><br><span class="line">    printBorder(border, timesToRepeat)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun printBorder(border: String, timesToRepeat: Int) &#123;</span><br><span class="line">    repeat(timesToRepeat) &#123;</span><br><span class="line">        <span class="built_in">print</span>(border)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>執行結果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;</span><br><span class="line">Happy Birthday, Rover!</span><br><span class="line">You are already 1825 days old, Rover!</span><br><span class="line">1825 days old is the very best age to celebrate!</span><br><span class="line">`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;`-._,-&#x27;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="建立一個多層且點上蠟燭的蛋糕"><a href="#建立一個多層且點上蠟燭的蛋糕" class="headerlink" title="建立一個多層且點上蠟燭的蛋糕"></a>建立一個多層且點上蠟燭的蛋糕</h4><ul>
 <li>建立三個函式來繪製一個點上蠟燭的多層蛋糕。</li>
 <li>在一個 repeat() 內部使用另一個 repeat()，建立「巢狀迴圈」。</li>
 <li>先從大方向開始，再加入細節。這就是所謂的「由上而下開發」。</li>
 </ul>
 <p>最後需要完成的蛋糕如下：</p>
-<h2 id="section"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br></pre></td></tr></table></figure></h2>
-<h5 id="建立-main-函式">建立 main() 函式</h5>
-<ol type="1">
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="建立-main-函式"><a href="#建立-main-函式" class="headerlink" title="建立 main() 函式"></a>建立 main() 函式</h5><ol>
 <li>建立變數 <code>age</code>，並將其設為 24。</li>
 <li>建立第二個變數 <code>layers</code>，並將其設為 5。</li>
 <li>呼叫函式 <code>printCakeCandles()</code>，並傳遞 age。</li>
 <li>呼叫函式 <code>printCakeTop()</code>，並傳遞 age。</li>
-<li>呼叫函式 <code>printCakeBottom()</code>，並傳遞 age 和 layers
-的數量。</li>
+<li>呼叫函式 <code>printCakeBottom()</code>，並傳遞 age 和 layers 的數量。</li>
 </ol>
 <ul>
 <li>先將函式註解</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 24</span><br><span class="line">    val layers = 5</span><br><span class="line">    // printCakeCandles(age)</span><br><span class="line">    // printCakeTop(age)</span><br><span class="line">    // printCakeBottom(age, layers)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="建立-printcaketop">建立 printCakeTop()</h5>
-<p>printCakeTop() 函式是一行等號，用於輸出蛋糕頂端。
-<code>==========================</code> 1. 建立函式
-<code>printCakeTop()</code>，接收 <code>Int</code> 類型的
-<code>age</code> 引數。 2. 使用 repeat() 陳述式輸出單一等號
-<code>age</code>+2
-次。額外的兩個等號是為了讓蠟燭不會從蛋糕的側面掉下來。 3. repeat()
-完成後，請在結尾輸出一行空白行(換行)。 4. 移除 main() 中
-<code>printCakeTop()</code> 的註解，因為該函式已存在</p>
+<h5 id="建立-printCakeTop"><a href="#建立-printCakeTop" class="headerlink" title="建立 printCakeTop()"></a>建立 printCakeTop()</h5><p>printCakeTop() 函式是一行等號，用於輸出蛋糕頂端。<br><code>==========================</code></p>
+<ol>
+<li>建立函式 <code>printCakeTop()</code>，接收 <code>Int</code> 類型的 <code>age</code> 引數。</li>
+<li>使用 repeat() 陳述式輸出單一等號 <code>age</code>+2 次。額外的兩個等號是為了讓蠟燭不會從蛋糕的側面掉下來。</li>
+<li>repeat() 完成後，請在結尾輸出一行空白行(換行)。</li>
+<li>移除 main() 中 <code>printCakeTop()</code> 的註解，因為該函式已存在</li>
+</ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeTop(age: Int) &#123;</span><br><span class="line">    repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="建立-printcakecandles">建立 printCakeCandles()</h5>
-<p>每支蠟燭都由兩個符號組成：半形逗號 (,) 代表燭焰，豎線號 (|)
-代表燭體。 <code>,,,,,,,,,,,,,,,,,,,,,,,,</code>
-<code>||||||||||||||||||||||||</code> 1. 建立一個新函式
-<code>printCakeCandles()</code>，接收 <code>Int</code> 類型的
-<code>age</code> 引數。 2. 印出一個空格，使蠟燭呈現以下的樣子</p>
+<h5 id="建立-printCakeCandles"><a href="#建立-printCakeCandles" class="headerlink" title="建立 printCakeCandles()"></a>建立 printCakeCandles()</h5><p>每支蠟燭都由兩個符號組成：半形逗號 (,) 代表燭焰，豎線號 (|) 代表燭體。<br><code>,,,,,,,,,,,,,,,,,,,,,,,,</code><br><code>||||||||||||||||||||||||</code></p>
+<ol>
+<li>建立一個新函式 <code>printCakeCandles()</code>，接收 <code>Int</code> 類型的 <code>age</code> 引數。</li>
+<li>印出一個空格，使蠟燭呈現以下的樣子</li>
+</ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>使用 repeat() 陳述式輸出一個半形逗號 <code>,</code> 來代表燭焰(重複
-<code>age</code> 次)，最後換行。</li>
-<li>重複上述步驟來建立第二個 repeat() 陳述式，用來使用豎線號
-<code>|</code> 輸出燭體。</li>
+
+<ol start="3">
+<li>使用 repeat() 陳述式輸出一個半形逗號 <code>,</code> 來代表燭焰(重複 <code>age</code> 次)，最後換行。</li>
+<li>重複上述步驟來建立第二個 repeat() 陳述式，用來使用豎線號 <code>|</code> 輸出燭體。</li>
 <li>在結尾使用 println() 輸出新的一行。</li>
 <li>移除 main() 中 <code>printCakeCandles()</code> 的註解。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeCandles(age: Int) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;|&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="建立-printcakebottom">建立 printCakeBottom()</h5>
-<p>使用這個函式繪製與 <code>age + 2</code>
-等寬的蛋糕底部，且畫出的高度包含特定層數。 +
-函式需要兩個引數，一個用於寬度 <code>age</code>，一個用於高度
-<code>layers</code>。 + 如要顯示蛋糕底部，請先重複 @ 符號
-<code>age + 2</code> 次，即可顯示一層蛋糕。接著，重複輸出一層蛋糕 layers
-次。</p>
-<p>重複 @ 符號 age + 2 次，繪製一層蛋糕： 1. 建立內含引數 age 和 layers
-的函式 <code>printCakeBottom()</code>，兩個引數都是 Int 類型。 2. 使用
-repeat() 陳述式輸出一層<code>@</code> 符號 <code>age + 2</code>
-次。在結尾輸出空白行。 如下所示：</p>
+
+<h5 id="建立-printCakeBottom"><a href="#建立-printCakeBottom" class="headerlink" title="建立 printCakeBottom()"></a>建立 printCakeBottom()</h5><p>使用這個函式繪製與 <code>age + 2</code> 等寬的蛋糕底部，且畫出的高度包含特定層數。</p>
+<ul>
+<li>函式需要兩個引數，一個用於寬度 <code>age</code>，一個用於高度 <code>layers</code>。</li>
+<li>如要顯示蛋糕底部，請先重複 @ 符號 <code>age + 2</code> 次，即可顯示一層蛋糕。接著，重複輸出一層蛋糕 layers 次。</li>
+</ul>
+<p>重複 @ 符號 age + 2 次，繪製一層蛋糕：</p>
+<ol>
+<li>建立內含引數 age 和 layers 的函式 <code>printCakeBottom()</code>，兩個引數都是 Int 類型。</li>
+<li>使用 repeat() 陳述式輸出一層<code>@</code> 符號 <code>age + 2</code> 次。在結尾輸出空白行。<br>如下所示：</li>
+</ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeBottom(age: Int, layers: Int) &#123;</span><br><span class="line">    repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>使用巢狀 repeat() 輸出蛋糕層 -&gt;
-在函式中的所有程式碼周圍放置第二個 repeat() 陳述式。重複此循環 layers 次
-如下所示：</li>
+
+<ol start="3">
+<li>使用巢狀 repeat() 輸出蛋糕層 -&gt; 在函式中的所有程式碼周圍放置第二個 repeat() 陳述式。重複此循環 layers 次<br>如下所示：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun printCakeBottom(age: Int, layers: Int) &#123;</span><br><span class="line">    repeat(layers) &#123;</span><br><span class="line">        repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        println()  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
+
+<ol start="4">
 <li>移除 main() 中 <code>printCakeBottom()</code> 的註解。</li>
 </ol>
-<p>現在程式碼： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 24</span><br><span class="line">    val layers = 5</span><br><span class="line">    printCakeCandles(age)</span><br><span class="line">    printCakeTop(age)</span><br><span class="line">    printCakeBottom(age, layers)</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeTop(age: Int) &#123;</span><br><span class="line">    repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeCandles(age: Int) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;|&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeBottom(age: Int, layers: Int) &#123;</span><br><span class="line">    repeat(layers) &#123;</span><br><span class="line">        repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        println()  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>執行結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br></pre></td></tr></table></figure></p>
-<hr />
-<h3 id="重要名詞">重要名詞</h3>
-<h4 id="函式">1. 函式</h4>
-<p><strong>函式</strong> +
-<strong>函式</strong>是獨立的程式碼區塊，會執行運算作業並傳回值。在
-Kotlin
-中，系統會使用<code>fun</code>關鍵字宣告函式，您可以在函式中置入指定或預設的引數。與特定<strong>類別</strong>相關聯的函式稱為<strong>方法</strong>。</p>
-<p><strong>建構函式</strong> +
-在建立<strong>類別</strong>的<strong>執行個體</strong>時，系統會自動執行名為建構函式的方法。建構函式會負責執行所有必要作業，讓應用程式的其餘部分能使用該物件。舉例來說，針對您要建構的物件，建構函式通常會初始化
-(將第一個值填入) 該物件的所有欄位。建立物件的唯一方法是呼叫 (執行)
-該物件的建構函式。 +
-建構函式名稱與其所屬的類別名稱相同。一個類別可以有多個建構函式，前提是每個建構函式都要有不同的參數清單。</p>
-<p><strong>main()函式</strong> + Kotlin 程式的 <strong>main()
-函式</strong>是指執行程式的進入點。執行 Kotlin
-程式時，開頭一律是<code>main()</code>函式。在 <strong>Android
-應用程式</strong>中，由於您的應用程式程式碼是由 Android
-系統執行，因此不必在程式碼中特別指定<code>main()</code>函式。</p>
-<p><strong>方法</strong> +
-方法是類別中定義的函式，且與類別的物件執行個體行為相關聯。</p>
-<p><strong>參數和引數的差異</strong> + 在<strong>函式</strong>
-(或<strong>方法</strong>)
-中，參數是指函式定義中的變數宣告。呼叫函式時，引數是指您傳送至參數的資料。</p>
-<hr />
-<h4 id="類別">2. 類別</h4>
-<p><strong>類別</strong> +
-<strong>類別</strong>如同<strong>物件</strong>的藍圖，可對類別中敘述的所有物件定義通用的<strong>屬性</strong>
-(為<strong>變數</strong>)，以及這些物件的動作
-(為名為<strong>方法</strong>的<strong>函式</strong>)。您必須以 Kotlin
-中的<code>class</code>關鍵字來定義類別。 + 類別就像是建築師的藍圖設計
-(而不是房屋本身)，也就是建造房屋的指示說明。房屋則是根據該藍圖而建立的實體或<strong>物件執行個體</strong>。舉例來說，您可能會設定<code>PetDog</code>類別，其中包含寵物名稱和品種的屬性。接著就能建立物件執行個體
-<code>myPetDog</code>和<code>myFriendsPetDog</code>。這兩個執行個體的名稱和品種並不相同，但都屬於<code>PetDog</code>類別。</p>
-<p><strong>物件</strong> +
-在<strong>物件導向程式設計</strong>中，<strong>物件</strong>是指<strong>類別</strong>的特定<strong>執行個體</strong>，其中物件可以是<strong>變數</strong>、<strong>函式</strong>和資料結構的組合。</p>
-<p><strong>public和private</strong> +
-系統會將類別成員預設為<code>public</code>，表示其他程式碼也能存取。不過，建議您限制對外存取權，僅供必要程式碼進行存取。如果將方法或屬性標記為<code>private</code>，則表示僅供該類別的內部元素存取。這個作法可避免不慎暴露實作部分讓其他呼叫端存取或參照。</p>
-<p><strong>抽象類別</strong> + <strong>抽象類別是</strong> Kotlin
-中標示為<code>abstract</code>關鍵字的類別。抽象類別可包含尚未實作的屬性或方法。在這種情況下，您只能在子類別中初始化抽象屬性或實作抽象方法。因此，您無法直接對抽象類別執行個體化。</p>
-<p><strong>封裝</strong> +
-<strong>封裝</strong>是指將邏輯相關的功能整合為同一處。其中一個封裝範例就是<strong>類別</strong>。</p>
-<hr />
-<h4 id="命名">3. 命名</h4>
-<p><strong>駝峰式大小寫</strong> +
-<strong>駝峰式大小寫</strong>是指將每個字的首字母大寫，並移除每個字之間的所有空格。這是
-Kotlin
-中對<strong>函式</strong>、<strong>變數</strong>和<strong>類別</strong>的命名慣例，例如<code>LinearLayout</code>、<code>MainActivity</code>或<code>setOnClickListener</code>。</p>
+<p>現在程式碼：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val age = 24</span><br><span class="line">    val layers = 5</span><br><span class="line">    printCakeCandles(age)</span><br><span class="line">    printCakeTop(age)</span><br><span class="line">    printCakeBottom(age, layers)</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeTop(age: Int) &#123;</span><br><span class="line">    repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeCandles(age: Int) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    repeat(age) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;|&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println()</span><br><span class="line">&#125;</span><br><span class="line">fun printCakeBottom(age: Int, layers: Int) &#123;</span><br><span class="line">    repeat(layers) &#123;</span><br><span class="line">        repeat(age+2) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        println()  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>執行結果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> ,,,,,,,,,,,,,,,,,,,,,,,,</span><br><span class="line"> ||||||||||||||||||||||||</span><br><span class="line">==========================</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="重要名詞"><a href="#重要名詞" class="headerlink" title="重要名詞"></a>重要名詞</h3><h4 id="1-函式"><a href="#1-函式" class="headerlink" title="1. 函式"></a>1. 函式</h4><p><strong>函式</strong></p>
+<ul>
+<li><strong>函式</strong>是獨立的程式碼區塊，會執行運算作業並傳回值。在 Kotlin 中，系統會使用<code>fun</code>關鍵字宣告函式，您可以在函式中置入指定或預設的引數。與特定<strong>類別</strong>相關聯的函式稱為<strong>方法</strong>。</li>
+</ul>
+<p><strong>建構函式</strong></p>
+<ul>
+<li>在建立<strong>類別</strong>的<strong>執行個體</strong>時，系統會自動執行名為建構函式的方法。建構函式會負責執行所有必要作業，讓應用程式的其餘部分能使用該物件。舉例來說，針對您要建構的物件，建構函式通常會初始化 (將第一個值填入) 該物件的所有欄位。建立物件的唯一方法是呼叫 (執行) 該物件的建構函式。</li>
+<li>建構函式名稱與其所屬的類別名稱相同。一個類別可以有多個建構函式，前提是每個建構函式都要有不同的參數清單。</li>
+</ul>
+<p><strong>main()函式</strong></p>
+<ul>
+<li>Kotlin 程式的 <strong>main() 函式</strong>是指執行程式的進入點。執行 Kotlin 程式時，開頭一律是<code>main()</code>函式。在 <strong>Android 應用程式</strong>中，由於您的應用程式程式碼是由 Android 系統執行，因此不必在程式碼中特別指定<code>main()</code>函式。</li>
+</ul>
+<p><strong>方法</strong></p>
+<ul>
+<li>方法是類別中定義的函式，且與類別的物件執行個體行為相關聯。</li>
+</ul>
+<p><strong>參數和引數的差異</strong></p>
+<ul>
+<li>在<strong>函式</strong> (或<strong>方法</strong>) 中，參數是指函式定義中的變數宣告。呼叫函式時，引數是指您傳送至參數的資料。</li>
+</ul>
+<hr>
+<h4 id="2-類別"><a href="#2-類別" class="headerlink" title="2. 類別"></a>2. 類別</h4><p><strong>類別</strong></p>
+<ul>
+<li><strong>類別</strong>如同<strong>物件</strong>的藍圖，可對類別中敘述的所有物件定義通用的<strong>屬性</strong> (為<strong>變數</strong>)，以及這些物件的動作 (為名為<strong>方法</strong>的<strong>函式</strong>)。您必須以 Kotlin 中的<code>class</code>關鍵字來定義類別。</li>
+<li>類別就像是建築師的藍圖設計 (而不是房屋本身)，也就是建造房屋的指示說明。房屋則是根據該藍圖而建立的實體或<strong>物件執行個體</strong>。舉例來說，您可能會設定<code>PetDog</code>類別，其中包含寵物名稱和品種的屬性。接著就能建立物件執行個體 <code>myPetDog</code>和<code>myFriendsPetDog</code>。這兩個執行個體的名稱和品種並不相同，但都屬於<code>PetDog</code>類別。</li>
+</ul>
+<p><strong>物件</strong></p>
+<ul>
+<li>在<strong>物件導向程式設計</strong>中，<strong>物件</strong>是指<strong>類別</strong>的特定<strong>執行個體</strong>，其中物件可以是<strong>變數</strong>、<strong>函式</strong>和資料結構的組合。</li>
+</ul>
+<p><strong>public和private</strong></p>
+<ul>
+<li>系統會將類別成員預設為<code>public</code>，表示其他程式碼也能存取。不過，建議您限制對外存取權，僅供必要程式碼進行存取。如果將方法或屬性標記為<code>private</code>，則表示僅供該類別的內部元素存取。這個作法可避免不慎暴露實作部分讓其他呼叫端存取或參照。</li>
+</ul>
+<p><strong>抽象類別</strong></p>
+<ul>
+<li><strong>抽象類別是</strong> Kotlin 中標示為<code>abstract</code>關鍵字的類別。抽象類別可包含尚未實作的屬性或方法。在這種情況下，您只能在子類別中初始化抽象屬性或實作抽象方法。因此，您無法直接對抽象類別執行個體化。</li>
+</ul>
+<p><strong>封裝</strong></p>
+<ul>
+<li><strong>封裝</strong>是指將邏輯相關的功能整合為同一處。其中一個封裝範例就是<strong>類別</strong>。</li>
+</ul>
+<hr>
+<h4 id="3-命名"><a href="#3-命名" class="headerlink" title="3. 命名"></a>3. 命名</h4><p><strong>駝峰式大小寫</strong></p>
+<ul>
+<li><strong>駝峰式大小寫</strong>是指將每個字的首字母大寫，並移除每個字之間的所有空格。這是 Kotlin 中對<strong>函式</strong>、<strong>變數</strong>和<strong>類別</strong>的命名慣例，例如<code>LinearLayout</code>、<code>MainActivity</code>或<code>setOnClickListener</code>。</li>
+</ul>
 
     </div>
 
@@ -587,7 +606,7 @@ Kotlin
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#kotlin%E7%B7%B4%E7%BF%92"><span class="nav-number">1.</span> <span class="nav-text">Kotlin練習</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hello-world"><span class="nav-number">1.1.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E7%94%9F%E6%97%A5%E8%A8%8A%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">建立生日訊息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">加入範例程式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%8F%8A%E4%BD%BF%E7%94%A8%E8%AE%8A%E6%95%B8"><span class="nav-number">1.2.2.</span> <span class="nav-text">建立及使用變數</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%87%E6%96%87%E5%AD%97%E6%94%BE%E5%85%A5%E8%AE%8A%E6%95%B8"><span class="nav-number">1.2.3.</span> <span class="nav-text">將文字放入變數</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%87%BD%E5%BC%8F%E5%8A%A0%E4%B8%8A%E7%94%9F%E6%97%A5%E6%A9%AB%E5%B9%85%E7%9A%84%E9%82%8A%E6%A1%86"><span class="nav-number">1.2.4.</span> <span class="nav-text">使用函式加上生日橫幅的邊框</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%80%E5%80%8B%E5%A4%9A%E5%B1%A4%E4%B8%94%E9%BB%9E%E4%B8%8A%E8%A0%9F%E7%87%AD%E7%9A%84%E8%9B%8B%E7%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">建立一個多層且點上蠟燭的蛋糕</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#section"><span class="nav-number"></span> <span class="nav-text">12345678 ,,,,,,,,,,,,,,,,,,,,,,,, ||||||||||||||||||||||||&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-main-%E5%87%BD%E5%BC%8F"><span class="nav-number">0.0.1.</span> <span class="nav-text">建立 main() 函式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-printcaketop"><span class="nav-number">0.0.2.</span> <span class="nav-text">建立 printCakeTop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-printcakecandles"><span class="nav-number">0.0.3.</span> <span class="nav-text">建立 printCakeCandles()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-printcakebottom"><span class="nav-number">0.0.4.</span> <span class="nav-text">建立 printCakeBottom()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%90%8D%E8%A9%9E"><span class="nav-number">1.</span> <span class="nav-text">重要名詞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1. 函式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%9E%E5%88%A5"><span class="nav-number">1.2.</span> <span class="nav-text">2. 類別</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E5%90%8D"><span class="nav-number">1.3.</span> <span class="nav-text">3. 命名</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kotlin%E7%B7%B4%E7%BF%92"><span class="nav-number">1.</span> <span class="nav-text">Kotlin練習</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hello-World"><span class="nav-number">1.1.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E7%94%9F%E6%97%A5%E8%A8%8A%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">建立生日訊息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">加入範例程式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%8F%8A%E4%BD%BF%E7%94%A8%E8%AE%8A%E6%95%B8"><span class="nav-number">1.2.2.</span> <span class="nav-text">建立及使用變數</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%87%E6%96%87%E5%AD%97%E6%94%BE%E5%85%A5%E8%AE%8A%E6%95%B8"><span class="nav-number">1.2.3.</span> <span class="nav-text">將文字放入變數</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%87%BD%E5%BC%8F%E5%8A%A0%E4%B8%8A%E7%94%9F%E6%97%A5%E6%A9%AB%E5%B9%85%E7%9A%84%E9%82%8A%E6%A1%86"><span class="nav-number">1.2.4.</span> <span class="nav-text">使用函式加上生日橫幅的邊框</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%80%E5%80%8B%E5%A4%9A%E5%B1%A4%E4%B8%94%E9%BB%9E%E4%B8%8A%E8%A0%9F%E7%87%AD%E7%9A%84%E8%9B%8B%E7%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">建立一個多層且點上蠟燭的蛋糕</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-main-%E5%87%BD%E5%BC%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">建立 main() 函式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-printCakeTop"><span class="nav-number">1.3.2.</span> <span class="nav-text">建立 printCakeTop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-printCakeCandles"><span class="nav-number">1.3.3.</span> <span class="nav-text">建立 printCakeCandles()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-printCakeBottom"><span class="nav-number">1.3.4.</span> <span class="nav-text">建立 printCakeBottom()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%90%8D%E8%A9%9E"><span class="nav-number">2.</span> <span class="nav-text">重要名詞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%87%BD%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">1. 函式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%A1%9E%E5%88%A5"><span class="nav-number">2.2.</span> <span class="nav-text">2. 類別</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%91%BD%E5%90%8D"><span class="nav-number">2.3.</span> <span class="nav-text">3. 命名</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -712,8 +731,6 @@ Kotlin
 
 
 
-
-  
 
   
 

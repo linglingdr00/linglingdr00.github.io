@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="學習如何測試 Navigation 元件。  學習目標 + 如何利用 instrumentation test(設備測試) 來測試 Navigation 元件。 + 如何不使用重複的程式碼設定測試。">
+  <meta name="description" content="學習如何測試 Navigation 元件。  學習目標  如何利用 instrumentation test(設備測試) 來測試 Navigation 元件。 如何不使用重複的程式碼設定測試。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(25)-測試Navigation Component">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/10/28/Android%E7%AD%86%E8%A8%98-25-%E6%B8%AC%E8%A9%A6Navigation-Component/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="學習如何測試 Navigation 元件。  學習目標 + 如何利用 instrumentation test(設備測試) 來測試 Navigation 元件。 + 如何不使用重複的程式碼設定測試。">
+<meta property="og:description" content="學習如何測試 Navigation 元件。  學習目標  如何利用 instrumentation test(設備測試) 來測試 Navigation 元件。 如何不使用重複的程式碼設定測試。">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-test-navigation-components/img/b023023a2ccc3813_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/android-basics-kotlin-test-navigation-components/img/78b4a72f75134ded_1920.png?hl=zh-tw">
@@ -273,132 +273,86 @@
         <blockquote>
 <p>學習如何測試 Navigation 元件。</p>
 </blockquote>
-<p><strong>學習目標</strong> + 如何利用
-<code>instrumentation test(設備測試)</code> 來測試 Navigation 元件。 +
-如何不使用重複的程式碼設定測試。</p>
-<span id="more"></span>
-<hr />
-<h4
-id="下載本程式碼研究室的範例程式碼">下載本程式碼研究室的範例程式碼</h4>
-<p>在本程式碼研究室中，您將新增設備測試到 Words 應用程式的程式碼。</p>
-<div class="note no-icon success">
-            <p><strong>範例程式碼網址：</strong>https://github.com/google-developer-training/android-basics-kotlin-words-app含有範例程式碼的模組名稱：<b>main</b></p>
-          </div>
-<hr />
-<h4 id="範例應用程式總覽">範例應用程式總覽</h4>
-<p>Words
-應用程式的主畫面會顯示一份清單，每個清單項目都是字母表中的一個字母。按一下其中一個字母，螢幕上會顯示該字母開頭的字詞清單。</p>
-<hr />
-<h4 id="建立測試目錄">建立測試目錄</h4>
-<p>如有需要，請按照之前的程式碼研究室步驟，建立 Words
-應用程式的設備測試(instrumentation test
-)目錄。如果您已完成這個步驟，請直接跳到「新增必要的依附元件(dependencies)」。</p>
+<p><strong>學習目標</strong></p>
 <ul>
-<li>可以參考<a
-href="https://linglingdr00.github.io/2023/09/19/Android%E7%AD%86%E8%A8%98-15-%E7%B7%A8%E5%AF%AB%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6">Android筆記(15)-編寫檢測設備測試</a>這篇文章。</li>
+<li>如何利用 <code>instrumentation test(設備測試)</code> 來測試 Navigation 元件。</li>
+<li>如何不使用重複的程式碼設定測試。</li>
 </ul>
-<hr />
-<h4 id="建立設備測試類別">建立設備測試類別</h4>
-<p>在「androidTest」資料夾中，建立名為 <code>NavigationTests.kt</code>
-的新類別。</p>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-test-navigation-components/img/b023023a2ccc3813_1920.png?hl=zh-tw" width="80%"></p>
-<hr />
-<h4 id="新增必要的-dependencies">新增必要的 Dependencies</h4>
-<p>測試 Navigation Component 時，會需要某些特定的 Gradle
-dependencies。另外，我們會提供 dependencies，以特定方式測試
-fragments。前往應用程式模組的「build.gradle」檔案，並新增下列
-dependencies：</p>
+<span id="more"></span>
+
+<hr>
+<h4 id="下載本程式碼研究室的範例程式碼"><a href="#下載本程式碼研究室的範例程式碼" class="headerlink" title="下載本程式碼研究室的範例程式碼"></a>下載本程式碼研究室的範例程式碼</h4><p>在本程式碼研究室中，您將新增設備測試到 Words 應用程式的程式碼。</p>
+<div class="note no-icon success">
+            <p><strong>範例程式碼網址：</strong> <a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-words-app">https://github.com/google-developer-training/android-basics-kotlin-words-app</a><br>含有範例程式碼的模組名稱：<b>main</b></p>
+          </div>
+
+<hr>
+<h4 id="範例應用程式總覽"><a href="#範例應用程式總覽" class="headerlink" title="範例應用程式總覽"></a>範例應用程式總覽</h4><p>Words 應用程式的主畫面會顯示一份清單，每個清單項目都是字母表中的一個字母。按一下其中一個字母，螢幕上會顯示該字母開頭的字詞清單。</p>
+<hr>
+<h4 id="建立測試目錄"><a href="#建立測試目錄" class="headerlink" title="建立測試目錄"></a>建立測試目錄</h4><p>如有需要，請按照之前的程式碼研究室步驟，建立 Words 應用程式的設備測試(instrumentation test )目錄。如果您已完成這個步驟，請直接跳到「新增必要的依附元件(dependencies)」。</p>
+<ul>
+<li>可以參考<a href="https://linglingdr00.github.io/2023/09/19/Android%E7%AD%86%E8%A8%98-15-%E7%B7%A8%E5%AF%AB%E6%AA%A2%E6%B8%AC%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6">Android筆記(15)-編寫檢測設備測試</a>這篇文章。</li>
+</ul>
+<hr>
+<h4 id="建立設備測試類別"><a href="#建立設備測試類別" class="headerlink" title="建立設備測試類別"></a>建立設備測試類別</h4><p>在「androidTest」資料夾中，建立名為 <code>NavigationTests.kt</code> 的新類別。</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-test-navigation-components/img/b023023a2ccc3813_1920.png?hl=zh-tw" width="80%">
+
+<hr>
+<h4 id="新增必要的-Dependencies"><a href="#新增必要的-Dependencies" class="headerlink" title="新增必要的 Dependencies"></a>新增必要的 Dependencies</h4><p>測試 Navigation Component 時，會需要某些特定的 Gradle dependencies。另外，我們會提供 dependencies，以特定方式測試 fragments。前往應用程式模組的「build.gradle」檔案，並新增下列 dependencies：</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">androidTestImplementation <span class="string">&#x27;androidx.test.ext:junit:1.1.3&#x27;</span></span><br><span class="line">androidTestImplementation <span class="string">&#x27;androidx.test.espresso:espresso-core:3.4.0&#x27;</span></span><br><span class="line">androidTestImplementation <span class="string">&#x27;com.android.support.test.espresso:espresso-contrib:3.4.0&#x27;</span></span><br><span class="line">androidTestImplementation <span class="string">&#x27;androidx.navigation:navigation-testing:2.5.2&#x27;</span></span><br><span class="line"></span><br><span class="line">debugImplementation <span class="string">&#x27;androidx.fragment:fragment-testing:1.5.3&#x27;</span></span><br></pre></td></tr></table></figure>
-<hr />
-<h4 id="撰寫-navigation-component-測試">撰寫 Navigation Component
-測試</h4>
-<p>測試 Navigation Component 不同於測試一般 navigation。測試一般
-navigation 時，我們會在裝置或模擬器上觸發 navigation 操作來執行。但測試
-Navigation Component 時，我們實際上並未讓裝置/模擬器執行明顯的
-navigation 操作，而是會以不實際變更裝置或模擬器上顯示的內容為前提，強制
-Navigation Controller 來瀏覽，然後才確認其是否抵達正確的目的地。</p>
-<ol type="1">
-<li><p>建立名為 <code>navigate_to_words_nav_component()</code>
-的測試函式。</p></li>
-<li><p>在測試中使用 Navigation Component 需要進行一些設定。請在
-<code>navigate_to_words_nav_component()</code> 方法中，建立 Navigation
-Controller 的測試執行個體(instance)。</p></li>
+
+<hr>
+<h4 id="撰寫-Navigation-Component-測試"><a href="#撰寫-Navigation-Component-測試" class="headerlink" title="撰寫 Navigation Component 測試"></a>撰寫 Navigation Component 測試</h4><p>測試 Navigation Component 不同於測試一般 navigation。測試一般 navigation 時，我們會在裝置或模擬器上觸發 navigation 操作來執行。但測試 Navigation Component 時，我們實際上並未讓裝置&#x2F;模擬器執行明顯的 navigation 操作，而是會以不實際變更裝置或模擬器上顯示的內容為前提，強制 Navigation Controller 來瀏覽，然後才確認其是否抵達正確的目的地。</p>
+<ol>
+<li><p>建立名為 <code>navigate_to_words_nav_component()</code> 的測試函式。</p>
+</li>
+<li><p>在測試中使用 Navigation Component 需要進行一些設定。請在 <code>navigate_to_words_nav_component()</code> 方法中，建立 Navigation Controller 的測試執行個體(instance)。</p>
+</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> navController = TestNavHostController(</span><br><span class="line">   ApplicationProvider.getApplicationContext()</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>Navigation Component 會使用 Fragment 驅動 UI。其中一個相當於
-<code>ActivityScenarioRule</code> 的 fragment，可用來隔離要測試的
-fragment，所以需要 fragment 專屬的 dependencies。</li>
+
+<ol start="3">
+<li>Navigation Component 會使用 Fragment 驅動 UI。其中一個相當於 <code>ActivityScenarioRule</code> 的 fragment，可用來隔離要測試的 fragment，所以需要 fragment 專屬的 dependencies。</li>
 </ol>
 <ul>
-<li>測試需要大量導覽的fragment時，這個做法很實用，因為啟動不必額外的程式碼處理
-navigation 目的地。</li>
+<li>測試需要大量導覽的fragment時，這個做法很實用，因為啟動不必額外的程式碼處理 navigation 目的地。</li>
 </ul>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> letterListScenario = launchFragmentInContainer&lt;LetterListFragment&gt;(themeResId =</span><br><span class="line">R.style.Theme_Words)</span><br></pre></td></tr></table></figure>
-<p>這裡會指出我們想要啟動
-<code>LetterListFragment</code>。我們必須傳遞應用程式的主題(theme)，讓
-UI 元件知道要使用哪個主題(theme)，否則測試可能異常終止。</p>
-<ol start="4" type="1">
-<li>最後，我們需要明確宣告 fragment 啟動後，Navigation Controller
-要使用哪個 Navigation Graph。</li>
+
+<p>這裡會指出我們想要啟動 <code>LetterListFragment</code>。我們必須傳遞應用程式的主題(theme)，讓 UI 元件知道要使用哪個主題(theme)，否則測試可能異常終止。</p>
+<ol start="4">
+<li>最後，我們需要明確宣告 fragment 啟動後，Navigation Controller 要使用哪個 Navigation Graph。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">letterListScenario.onFragment &#123; fragment -&gt;</span><br><span class="line"></span><br><span class="line">   navController.setGraph(R.navigation.nav_graph)</span><br><span class="line"></span><br><span class="line">   Navigation.setViewNavController(fragment.requireView(), navController)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
+
+<ol start="5">
 <li>接著觸發提示 navigaton 的事件。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onView(withId(R.id.recycler_view))</span><br><span class="line">   .perform(RecyclerViewActions</span><br><span class="line">       .actionOnItemAtPosition&lt;RecyclerView.ViewHolder&gt;(<span class="number">2</span>, click()))</span><br></pre></td></tr></table></figure>
-<p>使用 <code>launchFragmentInContainer()</code> 方法時，實際 navigation
-是不可能的，因為容器不知道我們可能前往的其他 fragment 或
-activity。容器只知道我們指定啟動的
-fragment。因此，在裝置或模擬器上執行測試時，您不會看到實際的
-navigation。或許這不符合直覺，但我們可以根據目前的目的地，做出更直接的判斷。與其尋找已知會顯示在特定畫面的
-UI 元件，我們可以直接檢查目前 navigation controller
-的目的地，確認是否包含預期的 fragment ID。此方法比上述做法可靠許多。</p>
+
+<p>使用 <code>launchFragmentInContainer()</code> 方法時，實際 navigation 是不可能的，因為容器不知道我們可能前往的其他 fragment 或 activity。容器只知道我們指定啟動的 fragment。因此，在裝置或模擬器上執行測試時，您不會看到實際的 navigation。或許這不符合直覺，但我們可以根據目前的目的地，做出更直接的判斷。與其尋找已知會顯示在特定畫面的 UI 元件，我們可以直接檢查目前 navigation controller 的目的地，確認是否包含預期的 fragment ID。此方法比上述做法可靠許多。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(navController.currentDestination?.id, R.id.wordListFragment)</span><br></pre></td></tr></table></figure>
+
 <p>您的測試看起來應像這樣：</p>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-test-navigation-components/img/78b4a72f75134ded_1920.png?hl=zh-tw"></p>
-<hr />
-<h4 id="避免包含備註的重複程式碼">避免包含備註的重複程式碼</h4>
-<p>在 Android
-中，設備測試和單元測試都有功能可以不必重複程式碼，即可設定類別中每個測試相同的設定。
-假設我們使用包含 10 個按鈕的 fragment。按一下按鈕後，按鈕會導向特定的
-fragment。 如果我們按照上述測試的模式，可能必須分別為這 10
-次測試重複使用下列程式碼
-(請注意，此程式碼只是範例，不會在本程式碼研究室使用的應用程式中編譯)：</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-test-navigation-components/img/78b4a72f75134ded_1920.png?hl=zh-tw">
+
+<hr>
+<h4 id="避免包含備註的重複程式碼"><a href="#避免包含備註的重複程式碼" class="headerlink" title="避免包含備註的重複程式碼"></a>避免包含備註的重複程式碼</h4><p>在 Android 中，設備測試和單元測試都有功能可以不必重複程式碼，即可設定類別中每個測試相同的設定。<br>假設我們使用包含 10 個按鈕的 fragment。按一下按鈕後，按鈕會導向特定的 fragment。<br>如果我們按照上述測試的模式，可能必須分別為這 10 次測試重複使用下列程式碼 (請注意，此程式碼只是範例，不會在本程式碼研究室使用的應用程式中編譯)：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> navController = TestNavHostController(</span><br><span class="line">    ApplicationProvider.getApplicationContext()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> exampleFragmentScenario = launchFragmentInContainer&lt;ExampleFragment&gt;(themeResId =</span><br><span class="line">R.style.Theme_Example)</span><br><span class="line"></span><br><span class="line">exampleFragmentScenario.onFragment &#123; fragment -&gt;</span><br><span class="line"></span><br><span class="line">   navController.setGraph(R.navigation.example_nav_graph)</span><br><span class="line"></span><br><span class="line">   Navigation.setViewNavController(fragment.requireView(), navController)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重複 10 次的程式碼非常冗長。在這個案例中，我們可以使用
-<strong>JUnit</strong> 提供的 <code>@Before</code>
-註解來節省寶貴的時間。即在一個方法上加上註解，並於其中提供測試設定所需的程式碼。我們可以隨意命名這個方法，但名稱必須有關連性。我們不必重複設定相同的
-fragment 10 次，而是按照以下範例撰寫設定程式碼：</p>
+
+<p>重複 10 次的程式碼非常冗長。在這個案例中，我們可以使用 <strong>JUnit</strong> 提供的 <code>@Before</code> 註解來節省寶貴的時間。即在一個方法上加上註解，並於其中提供測試設定所需的程式碼。我們可以隨意命名這個方法，但名稱必須有關連性。我們不必重複設定相同的 fragment 10 次，而是按照以下範例撰寫設定程式碼：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lateinit</span> <span class="keyword">var</span> navController: TestNavHostController</span><br><span class="line"></span><br><span class="line"><span class="keyword">lateinit</span> <span class="keyword">var</span> exampleFragmentScenario: FragmentScenario&lt;ExampleFragment&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Before</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">    navController = TestNavHostController(</span><br><span class="line">        ApplicationProvider.getApplicationContext()</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    exampleFragmentScenario =  launchFragmentInContainer(themeResId=R.style.Theme_Example)</span><br><span class="line"></span><br><span class="line">    exampleFragmentScenario.onFragment &#123; fragment -&gt;</span><br><span class="line"></span><br><span class="line">       navController.setGraph(R.navigation.example_nav_graph)</span><br><span class="line"></span><br><span class="line">       Navigation.setViewNavController(fragment.requireView(),  navController)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>現在，此方法會對我們在這個類別中編寫的每項測試執行，且我們可從任何一項測試存取必要的變數。</p>
-<p>以此類推，若要每次測試後執行程式碼，也可使用 <code>@After</code>
-註解。例如，<code>@After</code>
-可用來清理用於測試的資源，對設備測試來說，也可用來將裝置回復至特定狀態。</p>
-<p><strong>JUnit</strong> 也提供 <code>@BeforeClass</code> 和
-<code>@AfterClass</code>
-註解。不同之處在於此註解的方法<u>僅執行一次</u>，但已執行的程式碼仍會套用至每個方法。如果您的設定或中止方法涉及消耗大量資源的作業，建議您改用這些註解。使用
-<code>@BeforeClass</code> 和 <code>@AfterClass</code> 註解的方法必須搭配
-<code>@JvmStatic</code> 註解，放在 companion object
-中。若要示範這些註解的執行順序，請參考下列程式碼：</p>
-<p><img src="https://developer.android.com/static/codelabs/android-basics-kotlin-test-navigation-components/img/5157ab00a9b7fb84_1920.png?hl=zh-tw"></p>
-<p>請記得，<code>@BeforeClass</code>
-會針對類別執行，<code>@Before</code>
-會在函式執行前執行，<code>@After</code>
-會在函式執行後執行，<code>@AfterClass</code>
-也會針對類別執行。您能預測以下內容的輸出結果嗎？</p>
-<p>函式的執行順序為
-<code>setupClass()</code>、<code>setupFunction()</code>、<code>test_a()</code>、<code>tearDownFunction()</code>、<code>setupFunction()</code>、<code>test_b()</code>、<code>tearDownFunction()</code>、<code>setupFunction()</code>、<code>test_c()</code>、<code>tearDownFunction()</code>、<code>tearDownClass()</code>。這個執行順序很合理，因為
-<code>@Before</code> 和 <code>@After</code>
-會分別在每個方法前後執行。<code>@BeforeClass</code>
-會在類別中的任何項目執行前執行一次，<code>@AfterClass</code>
-則在類別的所有其他項目執行後執行一次。</p>
-<h4 id="總結">總結</h4>
-<ul>
+<p>以此類推，若要每次測試後執行程式碼，也可使用 <code>@After</code> 註解。例如，<code>@After</code> 可用來清理用於測試的資源，對設備測試來說，也可用來將裝置回復至特定狀態。</p>
+<p><strong>JUnit</strong> 也提供 <code>@BeforeClass</code> 和 <code>@AfterClass</code> 註解。不同之處在於此註解的方法<u>僅執行一次</u>，但已執行的程式碼仍會套用至每個方法。如果您的設定或中止方法涉及消耗大量資源的作業，建議您改用這些註解。使用 <code>@BeforeClass</code> 和 <code>@AfterClass</code> 註解的方法必須搭配 <code>@JvmStatic</code> 註解，放在 companion object 中。若要示範這些註解的執行順序，請參考下列程式碼：</p>
+<img src="https://developer.android.com/static/codelabs/android-basics-kotlin-test-navigation-components/img/5157ab00a9b7fb84_1920.png?hl=zh-tw">
+
+<p>請記得，<code>@BeforeClass</code> 會針對類別執行，<code>@Before</code> 會在函式執行前執行，<code>@After</code> 會在函式執行後執行，<code>@AfterClass</code> 也會針對類別執行。您能預測以下內容的輸出結果嗎？</p>
+<p>函式的執行順序為 <code>setupClass()</code>、<code>setupFunction()</code>、<code>test_a()</code>、<code>tearDownFunction()</code>、<code>setupFunction()</code>、<code>test_b()</code>、<code>tearDownFunction()</code>、<code>setupFunction()</code>、<code>test_c()</code>、<code>tearDownFunction()</code>、<code>tearDownClass()</code>。這個執行順序很合理，因為 <code>@Before</code> 和 <code>@After</code> 會分別在每個方法前後執行。<code>@BeforeClass</code> 會在類別中的任何項目執行前執行一次，<code>@AfterClass</code> 則在類別的所有其他項目執行後執行一次。</p>
+<h4 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h4><ul>
 <li>學習測試 Navigation Component 的方法。</li>
-<li>瞭解如何使用
-<code>@Before</code>、<code>@BeforeClass</code>、<code>@After</code> 和
-<code>@AfterClass</code> 註解，避免重複的程式碼。</li>
+<li>瞭解如何使用 <code>@Before</code>、<code>@BeforeClass</code>、<code>@After</code> 和 <code>@AfterClass</code> 註解，避免重複的程式碼。</li>
 </ul>
 
     </div>
@@ -487,8 +441,7 @@ fragment 10 次，而是按照以下範例撰寫設定程式碼：</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E6%9C%AC%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%A0%94%E7%A9%B6%E5%AE%A4%E7%9A%84%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.</span> <span class="nav-text">下載本程式碼研究室的範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">2.</span> <span class="nav-text">範例應用程式總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%B8%AC%E8%A9%A6%E7%9B%AE%E9%8C%84"><span class="nav-number">3.</span> <span class="nav-text">建立測試目錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6%E9%A1%9E%E5%88%A5"><span class="nav-number">4.</span> <span class="nav-text">建立設備測試類別</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%BF%85%E8%A6%81%E7%9A%84-dependencies"><span class="nav-number">5.</span> <span class="nav-text">新增必要的 Dependencies</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%92%B0%E5%AF%AB-navigation-component-%E6%B8%AC%E8%A9%A6"><span class="nav-number">6.</span> <span class="nav-text">撰寫 Navigation Component
-測試</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E5%8C%85%E5%90%AB%E5%82%99%E8%A8%BB%E7%9A%84%E9%87%8D%E8%A4%87%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">7.</span> <span class="nav-text">避免包含備註的重複程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">8.</span> <span class="nav-text">總結</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E6%9C%AC%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%A0%94%E7%A9%B6%E5%AE%A4%E7%9A%84%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.</span> <span class="nav-text">下載本程式碼研究室的範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">2.</span> <span class="nav-text">範例應用程式總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%B8%AC%E8%A9%A6%E7%9B%AE%E9%8C%84"><span class="nav-number">3.</span> <span class="nav-text">建立測試目錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%A8%AD%E5%82%99%E6%B8%AC%E8%A9%A6%E9%A1%9E%E5%88%A5"><span class="nav-number">4.</span> <span class="nav-text">建立設備測試類別</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%BF%85%E8%A6%81%E7%9A%84-Dependencies"><span class="nav-number">5.</span> <span class="nav-text">新增必要的 Dependencies</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%92%B0%E5%AF%AB-Navigation-Component-%E6%B8%AC%E8%A9%A6"><span class="nav-number">6.</span> <span class="nav-text">撰寫 Navigation Component 測試</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E5%8C%85%E5%90%AB%E5%82%99%E8%A8%BB%E7%9A%84%E9%87%8D%E8%A4%87%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">7.</span> <span class="nav-text">避免包含備註的重複程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">8.</span> <span class="nav-text">總結</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -613,8 +566,6 @@ fragment 10 次，而是按照以下範例撰寫設定程式碼：</p>
 
 
 
-
-  
 
   
 

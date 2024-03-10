@@ -268,6 +268,7 @@
 <p>比較 Android 架構(MVC、MVP、MVVM、Clean Architecture、MVI)</p>
 </blockquote>
 <span id="more"></span>
+
 <hr>
 <h3 id="MVC-Model-View-Controller"><a href="#MVC-Model-View-Controller" class="headerlink" title="MVC(Model-View-Controller)"></a>MVC(Model-View-Controller)</h3><p>MVC 是最古老和最廣為人知的架構模式之一。 </p>
 <ul>
@@ -275,9 +276,30 @@
 <li>它在 <b>data(Model)</b>、<b>UI(View)</b>和<b>邏輯(Controller)</b>之間提供了明確的分離。 </li>
 <li>但是 MVC 會導致元件之間的<u>高耦合</u>和<u>單元測試</u>的困難。</li>
 </ul>
-<p>MVC 將程式碼劃分為三個部分：<br>| | 說明 |<br>| :— | :— |<br>| <strong>View</strong> | Layout XML 文件。 |<br>| <strong>Model</strong> | 負責管理商業資料邏輯，如網絡請求、資料庫處理。 |<br>| <strong>Controller</strong> | Activity 負責處理表現邏輯。 |</p>
-<p><img src="https://imgur.com/UZjDO3d.png" width="80%"></p>
-<p>MVC 希望 Activity / Fragment 是只處理表現邏輯的部分 ，但現實是 Activity 不可避免要處理 UI，也要處理和使用者的互動，說明 Activity 也承擔了 View 的角色。那麼這個架構就會造成 Activity 中融合了 view 和 logic 的代碼，分離程度不夠。</p>
+<p>MVC 將程式碼劃分為三個部分：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>View</strong></td>
+<td align="left">Layout XML 文件。</td>
+</tr>
+<tr>
+<td align="left"><strong>Model</strong></td>
+<td align="left">負責管理商業資料邏輯，如網絡請求、資料庫處理。</td>
+</tr>
+<tr>
+<td align="left"><strong>Controller</strong></td>
+<td align="left">Activity 負責處理表現邏輯。</td>
+</tr>
+</tbody></table>
+<img src="https://imgur.com/UZjDO3d.png" width="80%">
+
+<p>MVC 希望 Activity &#x2F; Fragment 是只處理表現邏輯的部分 ，但現實是 Activity 不可避免要處理 UI，也要處理和使用者的互動，說明 Activity 也承擔了 View 的角色。那麼這個架構就會造成 Activity 中融合了 view 和 logic 的代碼，分離程度不夠。</p>
 <hr>
 <h3 id="MVP-Model-View-Presenter"><a href="#MVP-Model-View-Presenter" class="headerlink" title="MVP(Model-View-Presenter)"></a>MVP(Model-View-Presenter)</h3><p>MVP 是 MVC 的演變，它進一步分離了 UI 和商業邏輯(business logic)的關注點。 </p>
 <ul>
@@ -287,12 +309,33 @@
 <li>但是，它仍然可能受到過多的樣板程式碼的影響，並且隨著專案的擴展而變得複雜。</li>
 </ul>
 <p>為了將 Activity 中的表現邏輯徹底分離出來，業界提出了 MVP 的設計。</p>
-<p>MVP 將程式碼劃分為三個部分：<br>| | 說明 |<br>| :— | :— |<br>| <strong>View</strong> | Activity 和 Layout XML 文件。 |<br>| <strong>Model</strong> | 負責管理商業資料邏輯，如網絡請求、資料庫處理。 |<br>| <strong>Presenter</strong> | 負責處理表現邏輯。 |</p>
-<p><img src="https://imgur.com/CdbisGM.png"></p>
+<p>MVP 將程式碼劃分為三個部分：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>View</strong></td>
+<td align="left">Activity 和 Layout XML 文件。</td>
+</tr>
+<tr>
+<td align="left"><strong>Model</strong></td>
+<td align="left">負責管理商業資料邏輯，如網絡請求、資料庫處理。</td>
+</tr>
+<tr>
+<td align="left"><strong>Presenter</strong></td>
+<td align="left">負責處理表現邏輯。</td>
+</tr>
+</tbody></table>
+<img src="https://imgur.com/CdbisGM.png">
+
 <p>在實現細節上，View 和 Presenter 中間會定義一個協議介面 Contract，這個介面會約定 View 如何向 Presenter 發指令和 Presenter 如何 Callback 給 View。這樣的架構里 Activity 不再有表現邏輯的部分，Activity 作為 View 的角色只處理和 UI 有關的事情。但還是存在一些缺點：</p>
 <ul>
 <li>雙向依賴： View 和 Presenter 是雙向依賴的，一旦 View 層做出改變，相應地 Presenter 也需要做出調整。在業務語境下，View 層變化是大概率事件；</li>
-<li>內存泄漏風險： Presenter 持有 View 層的引用，當用戶關閉了 View 層，但 Model 層仍然在進行耗時操作，就會有內存泄漏風險。雖然有解決辦法，但還是存在風險點和複雜度（弱引用 / onDestroy() 回收 Presenter）。</li>
+<li>內存泄漏風險： Presenter 持有 View 層的引用，當用戶關閉了 View 層，但 Model 層仍然在進行耗時操作，就會有內存泄漏風險。雖然有解決辦法，但還是存在風險點和複雜度（弱引用 &#x2F; onDestroy() 回收 Presenter）。</li>
 <li>協議介面類膨脹： View 層和 Presenter 層的交互需要定義介面方法，當交互非常複雜時，需要定義很多介面方法和 callback 方法，也不好維護。</li>
 </ul>
 <hr>
@@ -304,8 +347,29 @@
 <li>這種架構允許更好的解耦、可測試性和可維護性。 </li>
 <li>但是，採用 MVVM 需要對響應式程式設計和 data binding 概念有很好的理解。</li>
 </ul>
-<p>MVVM 將程式碼劃分為三個部分：<br>| | 說明 |<br>| :— | :— |<br>| <strong>View</strong> | Activity 和 Layout XML 文件，與 MVP 中 View 的概念相同。 |<br>| <strong>Model</strong> | 負責管理業務數據邏輯，如網絡請求、資料庫處理，與 MVP 中 Model 的概念相同。 |<br>| <strong>ViewModel</strong> | 存儲視圖狀態，負責處理表現邏輯，並將數據設置給可觀察數據容器。 |</p>
-<p><img src="https://imgur.com/za9JdgN.png"></p>
+<p>MVVM 將程式碼劃分為三個部分：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>View</strong></td>
+<td align="left">Activity 和 Layout XML 文件，與 MVP 中 View 的概念相同。</td>
+</tr>
+<tr>
+<td align="left"><strong>Model</strong></td>
+<td align="left">負責管理業務數據邏輯，如網絡請求、資料庫處理，與 MVP 中 Model 的概念相同。</td>
+</tr>
+<tr>
+<td align="left"><strong>ViewModel</strong></td>
+<td align="left">存儲視圖狀態，負責處理表現邏輯，並將數據設置給可觀察數據容器。</td>
+</tr>
+</tbody></table>
+<img src="https://imgur.com/za9JdgN.png">
+
 <p>在實現細節上，View 和 Presenter 從雙向依賴變成 View 可以向 ViewModel 發指令，但 ViewModel 不會直接向 View 回調，而是讓 View 通過觀察者的模式去監聽數據的變化，有效規避了 MVP 雙向依賴的缺點。但 MVVM 本身也存在一些缺點：</p>
 <ul>
 <li>多數據流： View 與 ViewModel 的交互分散，缺少唯一修改源，不易於追蹤。</li>
@@ -314,6 +378,7 @@
 <div class="note primary">
             <p>DataBinding、ViewModel 和 LiveData 等組件是 Google 為了幫助我們實現 MVVM 模式提供的架構組件，它們並不是 MVVM 的本質，只是實現上的工具。</p><ul><li>Lifecycle： 生命周期狀態回調。</li><li>LiveData： 可觀察的數據存儲類。</li><li>DataBinding： 可以自動同步 UI 和 data。</li><li>ViewModel： 存儲界面相關的數據，這些數據不會在手機旋轉等配置改變時丟失。</li></ul>
           </div>
+
 <hr>
 <h3 id="Clean-Architecture"><a href="#Clean-Architecture" class="headerlink" title="Clean Architecture"></a>Clean Architecture</h3><p>Clean Architecture 強調關注點和依賴關係規則的分離。</p>
 <ul>
@@ -331,8 +396,33 @@
 <li>但是，MVI 可能會帶來額外的複雜性，尤其是對於簡單的專案。</li>
 </ul>
 <p>MVI 模式的改動在於將 View 和 ViewModel 之間的多數據流改為基於 ViewState 的單數據流。</p>
-<p>MVI 將程式碼劃分為四個部分：<br>| | 說明 |<br>| :— | :— |<br>| <strong>View</strong> | Activity 和 Layout XML 文件，與 MVVM 中 View 的概念相同。 |<br>| <strong>Intent</strong> | 定義數據操作，是將數據傳到 Model 的唯一來源，相比 MVVM 是新的概念。 |<br>| <strong>ViewModel</strong> | 存儲視圖狀態，負責處理表現邏輯，並將 ViewState 設置給可觀察數據容器。 |<br>| <strong>ViewState</strong> | 一個數據類，包含頁面狀態和對應的數據。 |</p>
-<p><img src="https://imgur.com/RkvcUAT.png"></p>
+<p>MVI 將程式碼劃分為四個部分：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>View</strong></td>
+<td align="left">Activity 和 Layout XML 文件，與 MVVM 中 View 的概念相同。</td>
+</tr>
+<tr>
+<td align="left"><strong>Intent</strong></td>
+<td align="left">定義數據操作，是將數據傳到 Model 的唯一來源，相比 MVVM 是新的概念。</td>
+</tr>
+<tr>
+<td align="left"><strong>ViewModel</strong></td>
+<td align="left">存儲視圖狀態，負責處理表現邏輯，並將 ViewState 設置給可觀察數據容器。</td>
+</tr>
+<tr>
+<td align="left"><strong>ViewState</strong></td>
+<td align="left">一個數據類，包含頁面狀態和對應的數據。</td>
+</tr>
+</tbody></table>
+<img src="https://imgur.com/RkvcUAT.png">
+
 <p>在實現細節上，View 和 ViewModel 之間的多個交互（多 LiveData 數據流）變成了單數據流。無論 View 有多少個視圖狀態，只需要訂閱一個 ViewState 便可以獲取所有狀態，再根據 ViewState 去響應。當然，實踐中應該根據狀態之間的關聯程度來決定數據流的個數，不應該為了使用 MVI 模式而強行將多個無關的狀態壓縮在同一個數據流中。</p>
 <ul>
 <li>唯一可信源： 數據只有一個來源（ViewModel），與 MVVM 的思想相同；</li>

@@ -55,9 +55,9 @@
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
-<meta property="article:tag" content="Activity">
-<meta property="article:tag" content="Navigation">
 <meta property="article:tag" content="companion object">
+<meta property="article:tag" content="Navigation">
+<meta property="article:tag" content="Activity">
 <meta property="article:tag" content="Fragment">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/64100b59bb487856_1920.png?hl=zh-tw">
@@ -290,11 +290,14 @@
         <blockquote>
 <p>許多 Android 應用程式不需個別為每個畫面設定活動。事實上，許多常見的使用者介面模式 (如分頁標籤(tabs)) 均存在單一 activity 內，並使用名為「fragment」的組成部分。</p>
 </blockquote>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/64100b59bb487856_1920.png?hl=zh-tw" width="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/64100b59bb487856_1920.png?hl=zh-tw" width="30%">
+
 <span id="more"></span>
+
 <p><a target="_blank" rel="noopener" href="https://developer.android.com/guide/fragments?hl=zh-tw">fragment</a>是可重複使用的使用者介面，並可嵌入一或多個 activity 中。在上方的螢幕截圖中，輕觸 tabs 並不會觸發顯示下一個畫面的 intent。而是，切換 tabs 僅僅是在先前 fragment 與原先 fragment 之間調換。這些事項都不需要啟動其他 activity。</p>
 <p>您甚至可以在單一畫面上一次顯示多個 fragment，例如平板電腦裝置的主控制項詳細資料 layout。在以下範例中，左邊的導覽使用者介面和右側的內容都可以包含在不同的 fragment 中。兩個 fragment 在同一個 activity 中並存。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/b5711344c5795d55_1920.png"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/b5711344c5795d55_1920.png">
+
 <p>如您所見，fragment 是建構高品質應用程式的關鍵要素。在本程式碼研究室中，您將瞭解 fragment 的基本概念，並轉換 Word 應用程式來使用 fragment。也會瞭解如何使用 Jetpack Navigation component，以及使用名為 <strong>Navigation Graph</strong> 的新資源檔案，以在同一主機活動中導覽不同 fragment。完成本程式碼研究室後，您將獲得在下一個應用程式中導入 fragment 的基本技能。</p>
 <p><strong>學習目標</strong></p>
 <ul>
@@ -309,6 +312,7 @@
 <div class="note no-icon success">
             <p><strong>範例程式碼網址：</strong> <a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-words-app">https://github.com/google-developer-training/android-basics-kotlin-words-app</a><br><strong>含有範例程式碼的模組名稱：</strong> <b>activities</b></p>
           </div>
+
 <hr>
 <h3 id="Fragment-與-Fragment-生命週期"><a href="#Fragment-與-Fragment-生命週期" class="headerlink" title="Fragment 與 Fragment 生命週期"></a>Fragment 與 Fragment 生命週期</h3><p>片段(fragment)僅僅是一段可重複使用的應用程式使用者介面 如同 activity，fragment 具有生命週期且可回應使用者輸入。在畫面上顯示 activity 的 view 區塊階層內始終包含 fragment。由於 fragment 強調可重用性和模組化，甚至可以由單一 activity 同時代管多個 fragment，所以每個 fragment 都有各自的生命週期。</p>
 <h4 id="Fragment-生命週期"><a href="#Fragment-生命週期" class="headerlink" title="Fragment 生命週期"></a>Fragment 生命週期</h4><p>如同 activity，您也可以從記憶體初始化及移除 fragment，並且在 fragment 存在期間，會在螢幕上顯示、消失和重新顯示。此外，如同 activity，fragment 的生命週期有數個狀態，並提供多種覆寫方法，以回應 fragment 之間的轉換。fragment 生命週期為五個狀態，以 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle.State">Lifecycle.State</a> 列舉表示。</p>
@@ -332,7 +336,8 @@
 <li><code>onDestroy()</code>：fragment 進入 <code>DESTROYED</code> 狀態。</li>
 </ul>
 <p>下圖概述各種片段生命週期，以及各狀態之間的轉換。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/8dc30a4c12ab71b_1920.png?hl=zh-tw" width="50%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/8dc30a4c12ab71b_1920.png?hl=zh-tw" width="50%">
+
 <p>生命週期狀態和 callback 方法非常類似於 activity 中使用的方法。不過，請記住與 <code>onCreate()</code> 方法的差異。配合 activity，使用此方法加載 layout 並 bind views。不過，在 fragment 生命週期內，系統會在建立 view 之前呼叫 <code>onCreate()</code>，因此您無法在這裡加載 layout。請改為在 <code>onCreateView()</code> 中執行這項操作。建立 view 之後，系統會呼叫 <code>onViewCreated()</code> 方法，然後將屬性綁定(bind)至特定 view。</p>
 <p>儘管似乎很理論，但您現在已經瞭解 fragment 的基本運作方式，以及與各 activity 的相似及相異之處。在本程式碼研究室的其餘部分，您將充分學以致用。首先，您必須遷移先前使用 Words 應用程式至使用 fragment 為基礎的版面配置。接下來，導入在單一 activity 中不同 fragment 之間的導覽(navigation)功能。</p>
 <hr>
@@ -341,24 +346,34 @@
 <li>在「Project Navigator」(專案導覽器) 中選取「app」(應用程式)，並加入下列片段 (「File」(檔案) &gt;「New」(新增) &gt;「Fragment」(片段) &gt;「Fragment (Blank)」(片段 (空白)))，應該會產生各 fragment 的<u>類別</u>和 <u>layout 檔案</u>。</li>
 </ol>
 <ul>
-<li>將第一個 fragment 的「Fragment Name」(fragment名稱) 設定為<code>LetterListFragment</code>。「Fragment Layout Name」(fragment layout 名稱) 應填入 <code>fragment_letter_list</code>。</li>
+<li>將第一個 fragment 的「Fragment Name」(fragment名稱) 設定為<code> LetterListFragment</code>。「Fragment Layout Name」(fragment layout 名稱) 應填入 <code>fragment_letter_list</code>。</li>
 </ul>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/4a1729f01d62e65e_1920.png?hl=zh-tw" width="70%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/4a1729f01d62e65e_1920.png?hl=zh-tw" width="70%">
+
 <ul>
 <li>將第二個 fragment 的「Fragment Name」(片段名稱) 設定為 <code>WordListFragment</code>。「Fragment Layout Name」(fragment layout 名稱) 應填入 <code>fragment_word_list.xml</code>。</li>
 </ul>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/5b86ff3a94833b5a_1920.png?hl=zh-tw" width="70%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/5b86ff3a94833b5a_1920.png?hl=zh-tw" width="70%">
+
+<ol start="2">
 <li>為這兩個 fragment 產生的 Kotlin 類別都包含許多範例程式碼，通常用於實作 fragment。不過，由於您是第一次使用 fragment，請從這兩個檔案中刪除所有內容，惟 <code>LetterListFragment</code> 和 <code>WordListFragment</code> 的類別宣告除外。我們會引導您您從頭開始逐步實作片段，使您瞭解所有程式碼的運作方式。刪除範例程式碼後，Kotlin 檔案應像如下所示。</li>
 </ol>
-<p><code>LetterListFragment.kt</code><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.wordsapp</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.fragment.app.Fragment</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LetterListFragment</span> : <span class="type">Fragment</span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>WordListFragment.kt</code><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.wordsapp</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.fragment.app.Fragment</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">WordListFragment</span> : <span class="type">Fragment</span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol>
+<p><code>LetterListFragment.kt</code></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.wordsapp</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.fragment.app.Fragment</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LetterListFragment</span> : <span class="type">Fragment</span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>WordListFragment.kt</code></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.wordsapp</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> androidx.fragment.app.Fragment</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">WordListFragment</span> : <span class="type">Fragment</span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
 <li>將 <code>activity_main.xml</code> 的內容複製到 <code>fragment_letter_list.xml</code>，並將 <code>activity_detail.xml</code> 的內容複製到 <code>fragment_word_list.xml</code>。將 <code>fragment_letter_list.xml</code> 中的 <code>tools:context</code> 更新為 <code>.LetterListFragment</code>，並將 <code>fragment_word_list.xml</code> 中的 <code>tools:context</code> 更新為 <code>.WordListFragment</code>。</li>
 </ol>
 <p>變更後，片段版面配置檔案應像如下所示。</p>
-<p><code>fragment_letter_list.xml</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">tools:context</span>=<span class="string">&quot;.LetterListFragment&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/recycler_view&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:clipToPadding</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>fragment_word_list.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">tools:context</span>=<span class="string">&quot;.WordListFragment&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/recycler_view&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:clipToPadding</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">tools:listitem</span>=<span class="string">&quot;@layout/item_view&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>fragment_letter_list.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">tools:context</span>=<span class="string">&quot;.LetterListFragment&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/recycler_view&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:clipToPadding</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>fragment_word_list.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">tools:context</span>=<span class="string">&quot;.WordListFragment&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/recycler_view&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:clipToPadding</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">tools:listitem</span>=<span class="string">&quot;@layout/item_view&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <hr>
 <h3 id="導入-LetterListFragment"><a href="#導入-LetterListFragment" class="headerlink" title="導入 LetterListFragment"></a>導入 LetterListFragment</h3><p>如同 activity，您需要加載 layout 置並綁定(bind)個別 view。使用 fragment 生命週期時，還是有些許差異。我們會引導您逐步完成 <code>LetterListFragment</code> 的設定程序，讓您有機會為 <code>WordListFragment</code> 進行相同設定。</p>
 <p>若要在 <code>LetterListFragment</code> 中<u>導入 view binding</u>，您必須先<u>取得 <code>FragmentLetterListBinding</code> 可為空值(nullable)的 reference(引用)</u>。在 <strong>build.gradle</strong> 檔案的 <code>buildFeatures</code> 區段下<u>啟用 <code>viewBinding</code> 屬性</u>時，Android Studio 會為<u>每個 layout 檔案</u>產生與此類似的 <u><strong>Binding classes</strong></u>。您只需要為 <code>FragmentLetterListBinding</code> 中的每個 <u>view</u> 指派 <u>fragment class 中的屬性</u>。</p>
@@ -367,112 +382,139 @@
 <li>在 <code>LetterListFragment.kt</code> 中，首先獲取對 <code>FragmentLetterListBinding</code> 的引用(reference)，並將引用(reference)命名為 <code>_binding</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> _binding: FragmentLetterListBinding? = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
 <p>它可為空值，因此每次存取 <code>_binding</code> 的屬性 (例如 <code>_binding?.someView</code>) 時，您都必須納入 <code>?</code> 來提供空值安全(null safety)。然而，這並不意謂您會因為一個空值，而捨棄有問號的程式碼。如果您確定某值在存取時不會為空值，則可以在類型名稱中附加 <code>!!</code>。於是您就不需使用 <code>?</code> 運算子，也能和任何其他屬性一樣進行存取。</p>
 <div class="note no-icon success">
             <p><strong>注意：</strong> 使用 <b>!!</b> 使變數可為空值時，限制只能在<u>已知值不會是空值</u>的一處或幾處使用該變數，就像您知道在 <b>onCreateView()</b> 中指派 <b>_binding</b> 之後將具有的值。以這種方式存取可為空值的值會有危險，並可能導致當機，因此請謹慎使用。</p>
           </div>
-<ol>
+
+<ol start="2">
 <li>建立名為 <code>binding</code> 的新屬性 (不含底線)，並將其設為等於 <code>_binding!!</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> binding <span class="keyword">get</span>() = _binding!!</span><br></pre></td></tr></table></figure>
+
 <p>此處，<code>get()</code> 意指屬性是「get-only」。這意指您可以「get」(取得) 這個值，但一旦指派 (如此處)，就無法指派後給其他。</p>
 <div class="note no-icon success">
             <p><strong>注意：</strong> 在 Kotlin 中或一般而言在程式設計時，您通常會看到<u>屬性名稱後面接著底線</u>。這通常意指<u>屬性不適合直接存取</u>。就您的情況而言，您會用 binding 屬性來存取 <b>LetterListFragment</b> 中的 view binding。不過，您不一定要在 <b>LetterListFragment</b> 外存取 <b>_binding</b> 屬性。</p>
           </div>
-<ol>
+
+<ol start="3">
 <li>如要顯示 options menu，請覆寫 <code>onCreate()</code>。在 <code>onCreate()</code> 內呼叫 <code>setHasOptionsMenu()</code> 並傳入 <code>true</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">   setHasOptionsMenu(<span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="4">
 <li>請記住，使用 fragment 時，系統會在 <code>onCreateView()</code> 中加載 layout。加載 view、設定 <code>_binding</code> 的值，並傳回 root view，就可導入 <code>onCreateView()</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateView</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">   inflater: <span class="type">LayoutInflater</span>, container: <span class="type">ViewGroup</span>?,</span></span></span><br><span class="line"><span class="params"><span class="function">   savedInstanceState: <span class="type">Bundle</span>?</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>: View? &#123;</span><br><span class="line">   _binding = FragmentLetterListBinding.inflate(inflater, container, <span class="literal">false</span>)</span><br><span class="line">   <span class="keyword">val</span> view = binding.root</span><br><span class="line">   <span class="keyword">return</span> view</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="5">
 <li>在 <code>binding</code> 屬性下方，建立 recycler view 的屬性(property)。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> recyclerView: RecyclerView</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="6">
 <li>然後在 <code>onViewCreated()</code> 中設定 <code>recyclerView</code> 屬性的值，並呼叫 <code>chooseLayout()</code>，就像您在 <code>MainActivity</code> 中的做法一樣。您很快就會將 <code>chooseLayout()</code> 方法移到 <code>LetterListFragment</code>，所以不需擔心有錯誤。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onViewCreated</span><span class="params">(view: <span class="type">View</span>, savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   recyclerView = binding.recyclerView</span><br><span class="line">   chooseLayout()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>請注意，binding class 已經建立 <code>recyclerView</code> 的屬性，因此您不需要針對每個 view 呼叫 <code>findViewById()</code>。</p>
-<ol>
+<ol start="7">
 <li>最後在 <code>onDestroyView()</code> 中，將 <code>_binding</code> 屬性重設為 <code>null</code>，因為 view 已不存在。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroyView</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onDestroyView()</span><br><span class="line">   _binding = <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="8">
 <li>另外要注意的是，使用 fragment 時，<code>onCreateOptionsMenu()</code> 方法有些微的差異。雖然 <code>Activity</code> class 具有名為 <code>menuInflater</code> 的全域屬性(global property)，但 <code>Fragment</code> 並未提供這項屬性(property)，而是將 menu inflater 傳遞至 <code>onCreateOptionsMenu()</code> 中。另請注意，搭配 fragment 使用的 <code>onCreateOptionsMenu()</code> 方法不需要回傳 statement。實作方法如下所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateOptionsMenu</span><span class="params">(menu: <span class="type">Menu</span>, inflater: <span class="type">MenuInflater</span>)</span></span> &#123;</span><br><span class="line">   inflater.inflate(R.menu.layout_menu, menu)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">val</span> layoutButton = menu.findItem(R.id.action_switch_layout)</span><br><span class="line">   setIcon(layoutButton)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="9">
 <li>從 <code>MainActivity</code> 中按原樣移動 <code>chooseLayout()</code>、<code>setIcon()</code> 和 <code>onOptionsItemSelected()</code> 的其餘程式碼。應注意的唯一差別在於，與 activity 不同，fragment 不是 <code>Context</code>。您無法傳入 <code>this</code> (指 fragment object) 做為 layout manager 的 context。但是，fragment 會提供 <code>context</code> 屬性，您可以改用該屬性。程式碼的其餘部分與 <code>MainActivity</code> 相同。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">chooseLayout</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">when</span> (isLinearLayoutManager) &#123;</span><br><span class="line">       <span class="literal">true</span> -&gt; &#123;</span><br><span class="line">           recyclerView.layoutManager = LinearLayoutManager(context)</span><br><span class="line">           recyclerView.adapter = LetterAdapter()</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="literal">false</span> -&gt; &#123;</span><br><span class="line">           recyclerView.layoutManager = GridLayoutManager(context, <span class="number">4</span>)</span><br><span class="line">           recyclerView.adapter = LetterAdapter()</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">setIcon</span><span class="params">(menuItem: <span class="type">MenuItem</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (menuItem == <span class="literal">null</span>)</span><br><span class="line">       <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">   menuItem.icon =</span><br><span class="line">       <span class="keyword">if</span> (isLinearLayoutManager)</span><br><span class="line">           ContextCompat.getDrawable(<span class="keyword">this</span>.requireContext(), R.drawable.ic_grid_layout)</span><br><span class="line">       <span class="keyword">else</span> ContextCompat.getDrawable(<span class="keyword">this</span>.requireContext(), R.drawable.ic_linear_layout)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onOptionsItemSelected</span><span class="params">(item: <span class="type">MenuItem</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">when</span> (item.itemId) &#123;</span><br><span class="line">       R.id.action_switch_layout -&gt; &#123;</span><br><span class="line">           isLinearLayoutManager = !isLinearLayoutManager</span><br><span class="line">           chooseLayout()</span><br><span class="line">           setIcon(item)</span><br><span class="line"></span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">else</span> -&gt; <span class="keyword">super</span>.onOptionsItemSelected(item)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <div class="note no-icon success">
-            <p><strong>注意：</strong> <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/fragment/app/Fragment#requireContext(">requireContext()</a>) 會傳回目前與此 fragment 相關聯的 <b>Context</b>。</p>
+            <p><strong>注意：</strong> <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/fragment/app/Fragment#requireContext()">requireContext()</a> 會傳回目前與此 fragment 相關聯的 <b>Context</b>。</p>
           </div>
-<ol>
+
+<ol start="10">
 <li>最後，複製 <code>MainActivity</code> 的 <code>isLinearLayoutManager</code> 屬性。將此屬性放在 <code>recyclerView</code> 屬性的宣告正下方。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> isLinearLayoutManager = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="11">
 <li>現在所有功能都已經移至 <code>LetterListFragment</code>，<code>MainActivity</code> class 所需要做的只是<u>加載 layout</u>，使得 <u>fragment 顯示在 view</u> 中。繼續從 <code>MainActivity</code> 刪除所有內容，惟 <code>onCreate()</code> 除外。變更後，<code>MainActivity</code> 只能包含下列項目。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">val</span> binding = ActivityMainBinding.inflate(layoutInflater)</span><br><span class="line">   setContentView(binding.root)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="將-DetailActivity-轉換為-WordListFragment"><a href="#將-DetailActivity-轉換為-WordListFragment" class="headerlink" title="將 DetailActivity 轉換為 WordListFragment"></a>將 DetailActivity 轉換為 WordListFragment</h4><p>就是將 <code>DetailActivity</code> 轉換為 <code>WordListFragment</code> 和將 <code>MainActivity</code> 遷移至 <code>LettersListFragment</code> 的遷移作業幾乎相同。請執行下列步驟，將程式碼遷移至 <code>WordListFragment</code>。</p>
 <ol>
 <li>首先，請將 companion object 複製到 <code>WordListFragment</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">   <span class="keyword">val</span> LETTER = <span class="string">&quot;letter&quot;</span></span><br><span class="line">   <span class="keyword">val</span> SEARCH_PREFIX = <span class="string">&quot;https://www.google.com/search?q=&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>然後在 <code>LetterAdapter</code> 中，在執行 intent 的 <code>onClickListener()</code> 中，您必須將呼叫更新為 <code>putExtra()</code>，將 <code>DetailActivity.LETTER</code> 替換為 <code>WordListFragment.LETTER</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intent.putExtra(WordListFragment.LETTER, holder.button.text.toString())</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>同樣地，在 <code>WordAdapter</code> 中，在您前往字詞的搜尋結果時必須更新出現 <code>onClickListener()</code>，並將 <code>DetailActivity.SEARCH_PREFIX</code> 替換為 <code>WordListFragment.SEARCH_PREFIX</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> queryUrl: Uri = Uri.parse(<span class="string">&quot;<span class="subst">$&#123;WordListFragment.SEARCH_PREFIX&#125;</span><span class="subst">$&#123;item&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="4">
 <li>返回 <code>WordListFragment</code>，新增 type 為 <code>FragmentWordListBinding?</code> 的 <code>_binding</code> 變數。變數應可為空值，並將 <code>null</code> 作為初始值。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> _binding: FragmentWordListBinding? = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="5">
 <li>然後新增名為 <code>binding</code> 的 <strong>get-only</strong> 變數，這樣無需使用 <code>?</code> 就能引用 view。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> binding <span class="keyword">get</span>() = _binding!!</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="6">
 <li>接著，請調整 layout，指派 <code>_binding</code> 變數並傳回 root view。請記得，對於 fragment，您在 <code>onCreateView()</code> 中執行此作業，而不是 <code>onCreate()</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateView</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">   inflater: <span class="type">LayoutInflater</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">   container: <span class="type">ViewGroup</span>?,</span></span></span><br><span class="line"><span class="params"><span class="function">   savedInstanceState: <span class="type">Bundle</span>?</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>: View? &#123;</span><br><span class="line">    <span class="comment">// 設定 _binding 的值</span></span><br><span class="line">   _binding = FragmentWordListBinding.inflate(inflater, container, <span class="literal">false</span>)</span><br><span class="line">    <span class="comment">// 傳回 root view</span></span><br><span class="line">   <span class="keyword">return</span> binding.root</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="7">
 <li>接下來，您要導入 <code>onViewCreated()</code>。這幾乎和在 <code>DetailActivity</code> 中的 <code>onCreate()</code> 中設定 <code>recyclerView</code> 相同。不過，由於 fragment 無法直接存取 intent，因此您必須使用 <code>activity.intent</code> 進行引用。但是，您必須在 <code>onViewCreated()</code> 中執行此作業，因為無法保證在生命週期早期已存在 activity。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onViewCreated</span><span class="params">(view: <span class="type">View</span>, savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> recyclerView = binding.recyclerView</span><br><span class="line">   recyclerView.layoutManager = LinearLayoutManager(requireContext())</span><br><span class="line">   recyclerView.adapter = WordAdapter(activity?.intent?.extras?.getString(LETTER).toString(), requireContext())</span><br><span class="line"></span><br><span class="line">   recyclerView.addItemDecoration(</span><br><span class="line">       DividerItemDecoration(context, DividerItemDecoration.VERTICAL)</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="8">
 <li>最後，您可以在 <code>onDestroyView()</code> 中將 <code>_binding</code> 重設為空值(null)。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onDestroy()</span><br><span class="line">    <span class="comment">// 將 _binding 屬性重設為 null，因為 view 已不存在</span></span><br><span class="line">    _binding = <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="9">
 <li>刪除 <code>DetailActivity</code> 中的其餘程式碼，只保留 <code>onCreate()</code> 方法。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">val</span> binding = ActivityDetailBinding.inflate(layoutInflater)</span><br><span class="line">   setContentView(binding.root)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="移除-DetailActivity"><a href="#移除-DetailActivity" class="headerlink" title="移除 DetailActivity"></a>移除 DetailActivity</h4><p>現在，您已順利將 <code>DetailActivity</code> 的功能遷移至 <code>WordListFragment</code>，所以不再需要 <code>DetailActivity</code>。您可以繼續刪除 <code>DetailActivity.kt</code> 和 <code>activity_detail.xml</code>，也可以對資訊清單進行小幅變更。</p>
 <ol>
 <li>首先，請刪除 <code>DetailActivity.kt</code></li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/2b13b08ac9442ae5_1920.png?hl=zh-tw" width="60%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/2b13b08ac9442ae5_1920.png?hl=zh-tw" width="60%">
+
+<ol start="2">
 <li>確認已取消勾選「Safe Delete」，然後按一下「OK」。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/239f048d945ab1f9_1920.png?hl=zh-tw" width="80%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/239f048d945ab1f9_1920.png?hl=zh-tw" width="80%">
+
+<ol start="3">
 <li>接著刪除 <code>activity_detail.xml</code>。再次確認已取消勾選「Safe Delete」(安全刪除)。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/774c8b152c5bff6b_1920.png?hl=zh-tw" width="50%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/774c8b152c5bff6b_1920.png?hl=zh-tw" width="50%">
+
+<ol start="4">
 <li>最後，由於 <code>DetailActivity</code> 已不存在，請將下列項目從 <code>AndroidManifest.xml</code> 中移除。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:name</span>=<span class="string">&quot;.DetailActivity&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:parentActivityName</span>=<span class="string">&quot;.MainActivity&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>刪除 <code>DetailActivity</code> 後，剩下兩個 fragment ( <code>LetterListFragment</code> 和 <code>WordListFragment</code> ) 和單一 activity ( <code>MainActivity</code> )。下一節將介紹 <strong>Jetpack 導覽元件(navigation component)</strong> 並編輯 <code>activity_main.xml</code>，使得能夠顯示 fragment 及在 fragment 之間導覽，而不是代管靜態 layout。</p>
 <hr>
 <h3 id="Jetpack-導覽元件"><a href="#Jetpack-導覽元件" class="headerlink" title="Jetpack 導覽元件"></a>Jetpack 導覽元件</h3><p>Android Jetpack 提供<u>導覽元件(Navigation component)</u>，可協助您在應用程式中處理任何簡易或複雜的導覽(navigation)實作。Navigation component 包含三個主要部分，可供您在 Words 應用程式中導入 navigation 功能。</p>
@@ -485,10 +527,12 @@
 <li>在 project-level 的 <code>build.gradle</code> 檔案中，於 <strong>buildscript &gt; ext</strong> 的 <code>material_version</code> 下方，將 <code>nav_version</code> 設為等於 <code>2.5.2</code>。</li>
 </ol>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    ext &#123;</span><br><span class="line">        appcompat_version = <span class="string">&quot;1.5.1&quot;</span></span><br><span class="line">        constraintlayout_version = <span class="string">&quot;2.1.4&quot;</span></span><br><span class="line">        core_ktx_version = <span class="string">&quot;1.9.0&quot;</span></span><br><span class="line">        kotlin_version = <span class="string">&quot;1.7.10&quot;</span></span><br><span class="line">        material_version = <span class="string">&quot;1.7.0-alpha2&quot;</span></span><br><span class="line">        nav_version = <span class="string">&quot;2.5.2&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>在 app-level 的 <code>build.gradle</code> 檔案中，將以下內容加入 dependencies 群組：</li>
 </ol>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&quot;androidx.navigation:navigation-fragment-ktx:$nav_version&quot;</span></span><br><span class="line">implementation <span class="string">&quot;androidx.navigation:navigation-ui-ktx:$nav_version&quot;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="Safe-Args-Plugin-外掛程式"><a href="#Safe-Args-Plugin-外掛程式" class="headerlink" title="Safe Args Plugin(外掛程式)"></a>Safe Args Plugin(外掛程式)</h3><p>初次在 Words 應用程式中導入 navigation 時，您使用這兩種 activity 之間的 explicit intent(明確意圖)。若要在兩個 activity 之間傳遞資料，您必須呼叫 <code>putExtra()</code> 方法，並傳入所選字母。</p>
 <p>將 navigation component 導入至 Words 應用程式之前，建議您也新增名為 <strong>Safe Args</strong> 的 Gradle plugin(外掛程式)，協助您在 fragment 之間傳遞資料時確保 type 安全。</p>
 <p>請執行下列步驟，將 SafeArgs 整合至您的專案</p>
@@ -496,14 +540,17 @@
 <li>在 project-level 的 <code>build.gradle</code> 檔案中，於 buildscript &gt; dependencies 新增下列類別路徑。</li>
 </ol>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">classpath</span> <span class="string">&quot;androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version&quot;</span></span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>在 app-level 的 <code>build.gradle</code> 檔案中，在 <code>plugins</code> 內的頂端新增 <code>androidx.navigation.safeargs.kotlin</code>。</li>
 </ol>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">&#x27;com.android.application&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;kotlin-android&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;kotlin-kapt&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;androidx.navigation.safeargs.kotlin&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>編輯 Gradle 檔案後，頁面頂端會顯示黃色橫幅，要求您同步處理專案。按一下「Sync Now」，等待一兩分鐘讓 Gradle 更新專案的 dependencies，反映所做變更。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/854d44a6f7c4c080_1920.png?hl=zh-tw"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/854d44a6f7c4c080_1920.png?hl=zh-tw">
+
 <p>同步完成後，您就可以進行下一步來新增 navigation graph。</p>
 <hr>
 <h3 id="使用-Navigation-Graph"><a href="#使用-Navigation-Graph" class="headerlink" title="使用 Navigation Graph"></a>使用 Navigation Graph</h3><p>現在您對 fragments 和生命週期都有基本瞭解，接著就要開始更有趣的事情。下一步是納入 Navigation component。<u>Navigation component 只是一系列導入尤其在 fragments 之間 navigation 的工具集合</u>。您將使用新的 <strong>visual editor</strong> 協助<u>導入 fragments 之間的 navigation</u>；<code>Navigation Graph</code> (簡稱 <code>NavGraph</code>)。</p>
@@ -513,75 +560,95 @@
 <ol>
 <li>將 <code>activity_main.xml</code> (即 <code>androidx.recyclerview.widget.RecyclerView</code>) 中的 <code>FrameLayout</code> 內容替換為 <code>FragmentContainerView</code>。將此 ID 設定為 <code>nav_host_fragment</code>，並將高度和寬度設定為 <code>match_parent</code>，即可填滿整個 frame layout。</li>
 </ol>
-<p>將下面的 code：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/recycler_view&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>替換為此：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.fragment.app.FragmentContainerView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/nav_host_fragment&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
-<ol>
+<p>將下面的 code：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/recycler_view&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>替換為此：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.fragment.app.FragmentContainerView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/nav_host_fragment&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
 <li>在 ID 屬性下方新增 <code>name</code> 屬性，並設定為 <code>androidx.navigation.fragment.NavHostFragment</code>。雖然您可以針對此屬性指定特定 fragment，但設定為 <code>NavHostFragment</code> 即可讓 <code>FragmentContainerView</code> 在 fragment 之間導覽。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:name=&quot;androidx.navigation.fragment.NavHostFragment&quot;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>在 <code>layout_height</code> 和 <code>layout_width</code> 屬性下方新增 <code>app:defaultNavHost</code> 屬性，並設定為等於 “true”。如此一來，fragment container 就可以與 navigation 階層互動。舉例來說，按下系統返回(back)按鈕後，container 就會回到先前顯示的 fragment，就像顯示新 activity 時的情況一樣。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:defaultNavHost=&quot;true&quot;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>新增名為 <code>app:navGraph</code> 的屬性，並將該屬性設定為等於 “@navigation/nav_graph”。這會指向一個 XML 檔案，用於定義應用程式 fragment 之間的導覽方式。Android Studio 暫時會顯示尚未解決的符號錯誤。您會在接下來的工作中解決這個問題。</li>
+
+<ol start="4">
+<li>新增名為 <code>app:navGraph</code> 的屬性，並將該屬性設定為等於 “@navigation&#x2F;nav_graph”。這會指向一個 XML 檔案，用於定義應用程式 fragment 之間的導覽方式。Android Studio 暫時會顯示尚未解決的符號錯誤。您會在接下來的工作中解決這個問題。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app:navGraph=&quot;@navigation/nav_graph&quot;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="5">
 <li>最後，由於您使用應用程式 namespace 新增了兩項屬性，因此務必在 <code>FrameLayout</code> 中加入 <code>xmlns:app</code> 屬性。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">tools:context</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>這些就是 <code>activity_main.xml</code> 中的所有變更。接下來，您將建立 <code>nav_graph</code> 檔案。</p>
 <h3 id="設定-Navigation-Graph"><a href="#設定-Navigation-Graph" class="headerlink" title="設定 Navigation Graph"></a>設定 Navigation Graph</h3><p>新增 navigation graph 檔案 (「File」(檔案)&gt;「New」(新增) &gt;「Android Resource File」(Android 資源檔案))，並按照以下方式填寫各欄位。</p>
 <ul>
 <li>檔案名稱：<code>nav_graph.xml</code> 這個名稱與您為 <code>app:navGraph</code> 屬性設定的名稱相同。</li>
 <li>資源類型：「Navigation」。系統隨即會將「Directory Name」自動變更為 navigation，然後建立名為「navigation」的新資源資料夾。</li>
 </ul>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/6812c83aa1e9cea6_1920.png"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/6812c83aa1e9cea6_1920.png">
+
 <p>建立 XML 檔案時，系統會顯示新的視覺編輯器。由於您已引用 <code>FragmentContainerView</code> 的 <code>navGraph</code> 屬性中的 <code>nav_graph</code>，如要新增目的地，請按一下畫面左上方的新增按鈕，然後為每個 fragment 建立目的地 (一個用於 <code>fragment_letter_list</code>，另一個用於 <code>fragment_word_list</code>)。</p>
-<p><img src="https://developer.android.com/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/dc2b53782de5e143.gif"></p>
+<img src="https://developer.android.com/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/dc2b53782de5e143.gif">
+
 <p>新增完成後，這些片段應該就會顯示在畫面中央的 navigation gragh 上。您也可以使用左側顯示的元件樹狀結構來選取特定目的地。</p>
 <h4 id="建立-Navigation-action-動作"><a href="#建立-Navigation-action-動作" class="headerlink" title="建立 Navigation action(動作)"></a>建立 Navigation action(動作)</h4><p>如要建立 <code>letterListFragment</code> 到 <code>wordListFragment</code> 目的地之間的導覽動作，請將滑鼠游標懸停在 <code>letterListFragment</code> 目的地上，然後從右側顯示的圓圈拖曳至 <code>wordListFragment</code> 目的地。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/980cb34d800c7155.gif?hl=zh-tw"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/980cb34d800c7155.gif?hl=zh-tw">
+
 <p>現在您應該會看到已建立的箭頭，用來表示兩個目的地之間的動作。按一下箭頭，您就會在屬性窗格中看到可在程式碼中引用名稱為 <code>action_letterListFragment_to_wordListFragment</code> 的動作。</p>
 <h3 id="指定-WordListFragment-的-Arguments-參數"><a href="#指定-WordListFragment-的-Arguments-參數" class="headerlink" title="指定 WordListFragment 的 Arguments(參數)"></a>指定 WordListFragment 的 Arguments(參數)</h3><p>使用 intent 在 activity 之間導覽(navigation)時，您指定了「extra」(額外項目)，使得所選字母可傳遞到 <code>wordListFragment</code>。Navigation 也支援在目的地之間傳遞<u>參數</u>，並以 type 安全的方式完成這項操作。</p>
 <p>選取 <code>wordListFragment</code> 目的地，然後在屬性窗格的 <strong>Arguments</strong>下方，按一下「＋」按鈕建立新的參數(argument)。</p>
 <p>參數(argument)應名為 <code>letter</code>，型別應為 <code>String</code>。您先前新增的 Safe Args 外掛程式就能派上用場。將這個引數(argument)指定為字串(String)，可確保在程式碼中執行 navigation 動作時，String 會如預期運作。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/f1541e01d3462f3e_1920.png?hl=zh-tw" width="60%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/f1541e01d3462f3e_1920.png?hl=zh-tw" width="60%">
+
 <h3 id="設定起始目的地"><a href="#設定起始目的地" class="headerlink" title="設定起始目的地"></a>設定起始目的地</h3><p>當您的 <code>NavGraph</code> 知道所有需要的目的地時，<code>FragmentContainerView</code> 如何知道首先要顯示哪個 fragment？ 在 <code>NavGraph</code> 中，您需要將字母列表設定為起始目的地。</p>
 <p>如要設定起始目的地，請選取 <code>letterListFragment</code>，然後按一下「Assign start destination」按鈕。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/3fdb226894152fb0_1920.png?hl=zh-tw" width="60%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/3fdb226894152fb0_1920.png?hl=zh-tw" width="60%">
+
 <p>這就是您目前需要在 <code>NavGraph</code> 編輯器執行的所有操作。此時，您就可以繼續並建立專案。在 Android Studio 中，從選單列依序選取「Build」&gt;「Rebuild Project」。系統會根據您的 navigation graph 產生一些程式碼，方便您使用剛建立的 navigation 動作。</p>
 <h3 id="執行-Navigation-Action"><a href="#執行-Navigation-Action" class="headerlink" title="執行 Navigation Action"></a>執行 Navigation Action</h3><p>開啟 <code>LetterAdapter.kt</code> 以執行 navigation action(動作)。只需要兩個步驟即可完成。</p>
 <ol>
 <li>刪除按鈕 <code>setOnClickListener()</code> 的內容。您必須改為擷取剛建立的 navigation action。將以下內容新增至 <code>setOnClickListener()</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> action = LetterListFragmentDirections.actionLetterListFragmentToWordListFragment(letter = holder.button.text.toString())</span><br></pre></td></tr></table></figure>
+
 <p>系統可能無法辨識部分的類別和函式名稱，原因是在建構專案後已自動產生這些名稱。如此一來，您在第一個步驟新增的 <strong>Safe Args</strong> 外掛程式就能派上用場，而在 <code>NavGraph</code> 中建立的動作(action)會轉為您可以使用的程式碼。然而，這些名稱應該要相當直覺易懂。<code>LetterListFragmentDirections</code> 表示從 <code>letterListFragment</code> 為起點開始的所有可能 navigation 路徑。</p>
 <p><code>actionLetterListFragmentToWordListFragment()</code> 函式是前往 <code>wordListFragment</code> 的特定動作。</p>
 <p>對 navigation action 進行引用後，只需要取得「NavController」(可用來執行 navigation action 的物件) 的引用並呼叫 <code>navigate()</code> 傳入該動作(action)即可。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">holder.view.findNavController().navigate(action)</span><br></pre></td></tr></table></figure>
+
 <h4 id="設定-MainActivity"><a href="#設定-MainActivity" class="headerlink" title="設定 MainActivity"></a>設定 MainActivity</h4><p>最後一段設定位於 <code>MainActivity</code> 中。僅需要少許變更 <code>MainActivity</code> 就可確保一切運作正常。</p>
 <ol>
 <li>建立 <code>navController</code> 屬性。此標記為 <code>lateinit</code>，因為它會在 <code>onCreate</code> 中進行設定。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> navController: NavController</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>然後，在 <code>onCreate()</code> 中呼叫 <code>setContentView()</code> 後，引用 <code>nav_host_fragment</code> (這是 <code>FragmentContainerView</code> 的 ID)，並指派給 <code>navController</code> 屬性。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> navHostFragment = supportFragmentManager</span><br><span class="line">    .findFragmentById(R.id.nav_host_fragment) <span class="keyword">as</span> NavHostFragment</span><br><span class="line">navController = navHostFragment.navController</span><br></pre></td></tr></table></figure>
-<ol>
-<li>然後，在 <code>onCreate()</code> 中呼叫 <code>setupActionBarWithNavController()</code>，並傳入 <code>navController</code>。這可確保畫面上會顯示動作列(action bar/app bar) 按鈕（例如 <code>LetterListFragment</code> 中的 menu 選項）可見。</li>
+
+<ol start="3">
+<li>然後，在 <code>onCreate()</code> 中呼叫 <code>setupActionBarWithNavController()</code>，並傳入 <code>navController</code>。這可確保畫面上會顯示動作列(action bar&#x2F;app bar) 按鈕（例如 <code>LetterListFragment</code> 中的 menu 選項）可見。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setupActionBarWithNavController(navController)</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="4">
 <li>最後，導入 <code>onSupportNavigateUp()</code>。除了在 XML 中將 <code>defaultNavHost</code> 設定為 <code>true</code> 之外，此方法也可用來處理 up 按鈕。不過，您的 activity 必須提供實作。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSupportNavigateUp</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> navController.navigateUp() || <span class="keyword">super</span>.onSupportNavigateUp()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>到目前為止，所有元件就緒，可以使用 fragment 進行導覽(navigation)。不過，現在 navigation 功能是使用 fragment 而非 intent 執行，因此您在 <code>WordListFragment</code> 中使用的字母的 intent extras 將不再有效。在下一個步驟中，您必須更新 <code>WordListFragment</code> 以取得 <code>letter</code> 參數。</p>
 <div class="note no-icon success">
             <p><strong>注意：</strong> 由於 ，<b>navigateUp()</b> 函式可能會失敗，因此會傳回 <b>Boolean</b> 以指示是否成功。不過，只有在 <b>navigateUp()</b> 傳回 <b>false</b> 時，您才需要呼叫 <b>super.onSupportNavigateUp()</b>。由於 <code>||</code> 運算子只需要符合其中一個條件就為 <b>true</b>，所以仍然適用，因此如果 <b>navigateUp()</b> 傳回 <b>true</b>，則不會執行 <code>||</code> 運算式的右側。不過，如果 <b>navigateUp()</b> 為 <b>false</b>，則會呼叫父項類別的實作。這稱為<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Short-circuit_evaluation">短路求值 (Short-circuit evaluation)</a>，是程式設計的必備小技巧。</p>
           </div>
+
 <hr>
 <h3 id="獲取-WordListFragment-中的參數"><a href="#獲取-WordListFragment-中的參數" class="headerlink" title="獲取 WordListFragment 中的參數"></a>獲取 WordListFragment 中的參數</h3><p>您先前曾在 <code>WordListFragment</code> 中引用 <code>activity?.intent</code> 以存取 <code>letter</code> extra。這雖然有效，但不是最佳做法，因為 fragment 可以嵌入在其他 layout 中及大型應用程式中，這會很難假設 fragment 屬於哪個 activity。此外，使用 <code>nav_graph</code> 執行導覽且使用安全參數時是沒有 intent 的，因此嘗試存取 intent extra 並不可行。</p>
 <p>幸好，存取安全參數非常簡單，無須等到 <code>onViewCreated()</code> 呼叫完畢。</p>
@@ -589,37 +656,46 @@
 <li>在 <code>WordListFragment</code> 中建立 <code>letterId</code> 屬性。您可以將此屬性標記為 <code>lateinit</code>，這樣就不必將它設為可為 null 了。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> letterId: String</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>接著覆寫 <code>onCreate()</code> (不是 <code>onCreateView()</code> 或 <code>onViewCreated()！</code>)，並加入以下內容：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">    arguments?.let &#123;</span><br><span class="line">        letterId = it.getString(LETTER).toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>由於 <code>arguments</code> 有可能是可選的，因此請務必呼叫 <code>let()</code> 並傳入 <code>lambda</code>。這段程式碼會假設 <code>arguments</code> 不是空值(null)，並傳入 <code>it</code> 參數的非空值(null)參數。不過，如果 <code>arguments</code> 是 <code>null</code>，則 lambda 將不會執行。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/96a6a3253cea35b0_1920.png?hl=zh-tw" width="70%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/96a6a3253cea35b0_1920.png?hl=zh-tw" width="70%">
+
 <p>雖然 Android Studio 不是實際程式碼之部分，但還提供實用的提示，讓您瞭解 <code>it</code> 參數。</p>
-<p><code>Bundle</code> 到底是什麼？可將其視為用在類別 (例如 activity 和 fragment) 之間傳遞資料的 key/value 組合。實際上，當您在這個應用程式的第一個版本中執行 intent 時，呼叫 <code>intent?.extras?.getString()</code> 時使用的就是 bundle。和使用 fragment 時，從參數中取得字串的方式完全相同。</p>
-<ol>
+<p><code>Bundle</code> 到底是什麼？可將其視為用在類別 (例如 activity 和 fragment) 之間傳遞資料的 key&#x2F;value 組合。實際上，當您在這個應用程式的第一個版本中執行 intent 時，呼叫 <code>intent?.extras?.getString()</code> 時使用的就是 bundle。和使用 fragment 時，從參數中取得字串的方式完全相同。</p>
+<ol start="3">
 <li>最後，您可以在設定 recycler view 的 adapter 時存取 <code>letterId</code>。將 <code>onViewCreated()</code> 中的 <code>activity?.intent?.extras?.getString(LETTER).toString()</code> 替換成 <code>letterId</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">recyclerView.adapter = WordAdapter(letterId, requireContext())</span><br></pre></td></tr></table></figure>
+
 <p>您成功了！請花點時間執行應用程式。現在，您可以在一個 activity 中，在兩個畫面之間進行導覽(navigation)，而不需要使用任何 intent。</p>
 <hr>
 <h3 id="更新-Fragment-Label"><a href="#更新-Fragment-Label" class="headerlink" title="更新 Fragment Label"></a>更新 Fragment Label</h3><p>您已成功將這兩個畫面轉換成使用 fragment。在進行變更之前，每個 fragment 的 app bar 都會針對 app bar 中的每個 activity 提供描述性標題(descriptive title)。然而，一旦轉換成使用 fragment，這個標題就不會出現在 detail activity 中。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/c385595994ba91b5_1920.png?hl=zh-tw" width="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/c385595994ba91b5_1920.png?hl=zh-tw" width="30%">
+
 <p>fragment 有一個名為 <code>label</code> 的屬性，您可以在其中設定父項 activity 要在 app bar 中使用的標題。</p>
 <ol>
 <li>在 <code>strings.xml</code> 中，在 app 名稱之後，新增下列常數。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;word_list_fragment_label&quot;</span>&gt;</span>Words That Start With &#123;letter&#125;<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>您可以在 navigation graph 中設定每個 fragment 的 label。返回 <code>nav_graph.xml</code> 中，在 component 樹狀結構中選取 <code>letterListFragment</code>，然後前往屬性窗格將 label 設定為 <code>app_name</code> 字串：</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/a5ffe7a27aa03750_1920.png?hl=zh-tw" width="70%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/a5ffe7a27aa03750_1920.png?hl=zh-tw" width="70%">
+
+<ol start="3">
 <li>選取 <code>wordListFragment</code>，並將 label 設定為 <code>word_list_fragment_label</code>：</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/29c206f03a97557b_1920.png?hl=zh-tw" width="70%"> </p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-fragments-navigation-component/img/29c206f03a97557b_1920.png?hl=zh-tw" width="70%"> 
+
 <p>恭喜您完成目前為止的工作！請再執行一次應用程式，您應該會看到程式碼研究室開始時呈現的原貌，不過現在所有 navigation 動作都已透過單一 activity 代管，且每個畫面都設有獨立的 fragment。</p>
-<p><img src="https://i.imgur.com/eEIGXji.png" width="30%"></p>
+<img src="https://i.imgur.com/eEIGXji.png" width="30%">
+
 <hr>
 <h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
 <li>fragment 是可嵌入 activity 中可重複使用的使用者介面。</li>
@@ -648,9 +724,9 @@
           <div class="post-tags">
               <a href="/tags/Android/" rel="tag"># Android</a>
               <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
-              <a href="/tags/Activity/" rel="tag"># Activity</a>
-              <a href="/tags/Navigation/" rel="tag"># Navigation</a>
               <a href="/tags/companion-object/" rel="tag"># companion object</a>
+              <a href="/tags/Navigation/" rel="tag"># Navigation</a>
+              <a href="/tags/Activity/" rel="tag"># Activity</a>
               <a href="/tags/Fragment/" rel="tag"># Fragment</a>
           </div>
 

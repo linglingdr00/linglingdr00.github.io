@@ -311,21 +311,26 @@
 <li>如何覆寫生命週期 callback 方法，以在 activity 生命週期的不同時間點執行運算</li>
 </ul>
 <span id="more"></span>
+
 <p><strong>Activity 生命週期</strong> 是 <span class="label primary">activity 在其生命週期內可呈現的狀態組合</span>。<strong>生命週期(lifecycle)</strong> 是指 <span class="label primary">activity 從最初建立到刪除的這段期間</span>，且<u>系統會回收該 activity 的資源</u>。當使用者在應用程式 (包括應用程式內外) 的 activity 間進行瀏覽時，這些 activity 會在 activity 生命週期中的不同狀態之間進行轉換。</p>
 <hr>
 <h3 id="應用程式總覽"><a href="#應用程式總覽" class="headerlink" title="應用程式總覽"></a>應用程式總覽</h3><p>在本程式碼研究室中，您將使用名為 DessertClicker 的範例應用程式。在此應用程式中，每當使用者輕觸畫面上的甜點，應用程式就會為使用者「購買」甜點。這款應用程式會更新 layout 中的值，包括<u>已購買的甜點數量</u>，以及<u>使用者花費的總金額</u>。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/8216c20f5571fc04_1920.png?hl=zh-tw" width="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/8216c20f5571fc04_1920.png?hl=zh-tw" width="30%">
+
 <p>此應用程式含有數個與 <strong>Android 生命週期相關的錯誤</strong> ：舉例來說，應用程式會在特定情況下將甜點值重設為 0。瞭解 Android 生命週期有助於瞭解問題發生的原因與修正方法。</p>
 <h4 id="取得範例應用程式"><a href="#取得範例應用程式" class="headerlink" title="取得範例應用程式"></a>取得範例應用程式</h4><p>下載 <a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-dessert-clicker-app/tree/starter">DessertClicker範例程式碼</a>，並在 Android Studio 中開啟。</p>
 <p>如果您使用 GitHub 中的範例程式碼，請注意資料夾名稱是 <code>android-basics-kotlin-dessert-clicker-app-starter</code>。在 Android Studio 中開啟專案時，請選取這個資料夾。</p>
 <hr>
 <h3 id="探索生命週期方法並新增基本記錄"><a href="#探索生命週期方法並新增基本記錄" class="headerlink" title="探索生命週期方法並新增基本記錄"></a>探索生命週期方法並新增基本記錄</h3><p>每個 activity 都具有生命週期。這是植物和動物生命週期的影射，如同這隻蝴蝶的生命週期。蝴蝶的不同狀態，顯示其從出生到完全成熟的成蟲，再到死亡的成長過程。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/c685f48ff799f0c9_1920.png?hl=zh-tw" width="60%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/c685f48ff799f0c9_1920.png?hl=zh-tw" width="60%">
+
 <p>同樣地，<strong>activity 生命週期</strong> 由 activity 可能經歷的<u>不同狀態</u>組成，從 <span class="label primary">activity 首次初始化到最終刪除，且系統回收其記憶體的這段時間</span>。當使用者啟動您的應用程式、在 activity 間瀏覽、在應用程式內部或外部瀏覽時，activity 皆會改變狀態。下圖顯示所有 activity 生命週期狀態。顧名思義，這些狀態代表 activity 的狀態。</p>
-<p><img src="https://i.imgur.com/JTwpN3o.png" width="70%"></p>
+<img src="https://i.imgur.com/JTwpN3o.png" width="70%">
+
 <p>通常，當 activity 生命週期狀態變更時，您會想變更部分行為或執行某些程式碼。因此，Activity 類別本身和 Activity 的任何子類別 (例如 <code>AppCompatActivity</code>) 會實作一系列生命週期 <span class="label primary">回調(callback)</span> 方法。</p>
 <p>當 activity <u>狀態改變</u>時，Android 會叫用這些 <u>callback</u>，而您可以在自己的 activity 中覆寫此類方法，並執行任務來回應生命週期狀態變更。下圖顯示生命週期狀態，以及可用的可覆寫 callback。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/f6b25a71cec4e401_1920.png?hl=zh-tw" width="70%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/f6b25a71cec4e401_1920.png?hl=zh-tw" width="70%">
+
 <p>請務必瞭解這些 callback 的叫用時機，以及每個 callback 方法的處理方式。但兩個圖表都很複雜，可能會令人感到困惑。在本程式碼研究室中，您不僅將瞭解每個狀態和 callback 的意義，還會進行一些偵測工作並瞭解實際情況。</p>
 <h4 id="步驟-1：檢查-onCreate-方法並新增記錄"><a href="#步驟-1：檢查-onCreate-方法並新增記錄" class="headerlink" title="步驟 1：檢查 onCreate() 方法並新增記錄"></a>步驟 1：檢查 onCreate() 方法並新增記錄</h4><p>如要瞭解 Android 生命週期發生的情況，瞭解呼叫各種生命週期方法的時機相當實用。這有助於您找出 DessertClicker 中的問題。</p>
 <p>最簡單的方法就是使用 Android <strong>紀錄(logging)功能</strong>。<strong>紀錄(logging)功能</strong>可讓您<span class="label primary">在應用程式執行期間，將簡短訊息寫入主控台，以便顯示不同 callback 觸發的時間</span>。</p>
@@ -336,20 +341,25 @@
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>在活動生命週期圖表中，您可能已認出 <code>onCreate()</code> 方法，因為您先前使用過此 callback。這是每項 activity 都必須實作的方法。<code>onCreate()</code> 是您為 activity 執行任何一次性<u>初始化</u>作業的方法。舉例來說，在 <code>onCreate()</code> 中，您會<u>加載 layout</u>、<u>定義 click listeners</u>，或是<u>設定 view binding</u>。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/9be2255ff49e0af8_1920.png?hl=zh-tw" width="70%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/9be2255ff49e0af8_1920.png?hl=zh-tw" width="70%">
+
 <p>當 activity 初始化後 (在記憶體中建立新的 Activity 物件時)，系統會呼叫 <code>onCreate()</code> 生命週期方法一次。執行 <code>onCreate()</code> 後，系統會<u>將 activity 視為已建立</u>。</p>
 <div class="note no-icon success">
             <p><strong>注意事項：</strong> 覆寫 <b>onCreate()</b> 方法時，您必須<u>呼叫父類別實作</u>來完成 activity 建立，因此您必須立即在其內部呼叫 <b>super.onCreate()</b>。其他生命週期 callback 方法也是如此。</p>
           </div>
-<ol>
+
+<ol start="3">
 <li>在 <code>onCreate()</code> 方法中，於呼叫 <code>super.onCreate()</code> 後新增下列程式碼：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;onCreate Called&quot;</span>)</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="4">
 <li>視需要匯入 <code>Log</code> 類別 (Mac 上請按 Alt+Enter 或 Option+Enter，然後選取「Import」)。如果您已啟用自動匯入功能，系統會自動執行這項操作。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.util.Log</span><br></pre></td></tr></table></figure>
+
 <p><code>Log</code> 類別會將訊息寫入「Logcat」。「Logcat」是記錄訊息的主控台。此處會顯示來自 Android 的應用程式相關訊息，包括您透過 <code>Log.d()</code> 方法或其他 <code>Log</code> 類別方法明確傳送至記錄的訊息。</p>
 <p>這個指令包含三個部分：</p>
 <ul>
@@ -358,62 +368,77 @@
 <li><strong>log message (第二個參數)</strong> 是 <span class="label primary">簡短字串</span>，在本範例中為 “onCreate called”。</li>
 </ul>
 <div class="note no-icon success">
-            <p>注意：在類別中宣告 <b>TAG 常數</b>是良好慣例：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">val</span> TAG = <span class="string">&quot;MainActivity&quot;</span></span><br></pre></td></tr></table></figure><br>並在記錄(logging)方法的後續呼叫中使用，如下所示：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Log.d(TAG, <span class="string">&quot;onCreate Called&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+            <p>注意：在類別中宣告 <b>TAG 常數</b>是良好慣例：</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">val</span> TAG = <span class="string">&quot;MainActivity&quot;</span></span><br></pre></td></tr></table></figure><p>並在記錄(logging)方法的後續呼叫中使用，如下所示：</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Log.d(TAG, <span class="string">&quot;onCreate Called&quot;</span>)</span><br></pre></td></tr></table></figure>
           </div>
+
 <p><a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/properties.html#backing-properties">編譯時間常數(compile-time constant)</a>是不會改變的值。在變數宣告之前使用 <code>const</code>，以將其標示為編譯時間常數(compile-time constant)。</p>
-<ol>
+<ol start="5">
 <li>編譯並執行 DessertClicker 應用程式。輕觸甜點時，就不會在應用程式中看到任何行為差異。在 Android Studio 中，按一下畫面底部的「Logcat」分頁標籤。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/6463f587ac6997fe_1920.png?hl=zh-tw"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/6463f587ac6997fe_1920.png?hl=zh-tw">
+
+<ol start="6">
 <li>在「Logcat」視窗的搜尋欄位中輸入 <code>D/MainActivity</code>。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/bb0b78600cd47789_1920.png?hl=zh-tw"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/bb0b78600cd47789_1920.png?hl=zh-tw">
+
 <p>Logcat 可包含許多訊息，其中大部分無法派上用場。篩選 Logcat 項目的方法相當多樣，但搜尋是最簡單的方法。由於您在程式碼中使用 <code>MainActivity</code> 做為log tag，因此您可以使用該 tag 篩選記錄(log)。<del>在開頭加上 <code>D/</code>，表示這是由 <code>Log.d()</code> 建立的偵錯(debug)訊息</del>。</p>
 <div class="note no-icon danger">
-            <p><code>D/</code>已無法使用 —&gt; 改成使用 <code>level:debug</code> 來篩選偵錯(debug)訊息、使用 <code>tag: MainActivity</code> 來篩選 <code>MainActivity</code>。</p>
+            <p><code>D/</code>已無法使用 –&gt; 改成使用 <code>level:debug</code> 來篩選偵錯(debug)訊息、使用 <code>tag: MainActivity</code> 來篩選 <code>MainActivity</code>。</p>
           </div>
-<p><img src="https://i.imgur.com/64lFOcy.png"></p>
+
+<img src="https://i.imgur.com/64lFOcy.png">
+
 <p>您的 log message 包括日期和時間、套件名稱 (<code>com.example.android.dessertclicker</code>)、log tag，以及實際訊息。由於這則訊息會出現在記錄(log)中，但您知道系統已執行該 <code>onCreate()</code>。</p>
 <h4 id="步驟-2：實作-onStart-方法"><a href="#步驟-2：實作-onStart-方法" class="headerlink" title="步驟 2：實作 onStart() 方法"></a>步驟 2：實作 onStart() 方法</h4><p>系統將在 <code>onCreate()</code> 之後呼叫 <code>onStart()</code> 生命週期方法。<code>onStart()</code> 開始執行後，螢幕上會顯示您的 activity。<code>onCreate()</code> 僅可呼叫一次以初始化 activity，與之不同的是，<code>onStart()</code> 在 activity 生命週期中<span class="label primary">可呼叫多次</span>。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/385df4ce82ae2de9_1920.png?hl=zh-tw" width="70%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/385df4ce82ae2de9_1920.png?hl=zh-tw" width="70%">
+
 <p>請注意，<code>onStart()</code> 已和對應的 <code>onStop()</code> 生命週期方法配對。<span class="label primary">如果使用者啟動應用程式，然後返回裝置的主畫面，activity 就會停止，且不再顯示於螢幕上</span>。</p>
 <ol>
 <li>在 Android Studio，於 <code>MainActivity.kt</code> 開啟且游標位於 MainActivity 類別內時選取「Code」(程式碼) &gt;「Override Methods」(覆寫方法)，或按下 <strong>Control+o</strong> 。顯示的對話方塊會列出您可在此類別中覆寫的所有方法。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/e1f2460242b2ae_1920.png?hl=zh-tw" width="60%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/e1f2460242b2ae_1920.png?hl=zh-tw" width="60%">
+
+<ol start="2">
 <li>輸入 <code>onStart</code> 以搜尋正確方法。如要捲動至下一個相符的項目，請使用向下鍵。從清單中選擇 <code>onStart()</code>，然後按一下「OK」，插入樣板覆寫程式碼。程式碼如下所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStart</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onStart()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>在 <code>MainActivity.kt</code> (位於類別宣告 <code>class</code> <code>MainActivity.</code> 上方) 頂層新增下列常數</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">val</span> TAG = <span class="string">&quot;MainActivity&quot;</span></span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="4">
 <li>在 <code>onStart()</code> 方法中加入記錄(log)訊息：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStart</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onStart()</span><br><span class="line">   Log.d(TAG, <span class="string">&quot;onStart Called&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="5">
 <li>編譯並執行 DessertClicker 應用程式，然後開啟「Logcat」窗格。在搜尋欄位中輸入 <code>tag: MainActivity level:debug</code> ，以篩選記錄。請注意，將逐一呼叫 <code>onCreate()</code> 和 <code>onStart()</code> 方法，且您的 activity 會顯示在螢幕上。</li>
 </ol>
-<p><img src="https://i.imgur.com/O0gMjxZ.png"></p>
-<ol>
+<img src="https://i.imgur.com/O0gMjxZ.png">
+
+<ol start="6">
 <li>按下裝置的主畫面按鈕，然後使用「最近使用」畫面返回 activity。請注意，activity 會從上次中斷的地方接續進行，所有值皆相同，且系統會將 <code>onStart()</code> 再次記錄到 Logcat。另請注意，通常不會再次呼叫 <code>onCreate()</code> 方法。</li>
 </ol>
-<p><img src="https://i.imgur.com/avSaQzf.png"></p>
+<img src="https://i.imgur.com/avSaQzf.png">
+
 <div class="note no-icon success">
             <p><strong>注意：</strong> 在測試裝置並觀察生命週期 callback 時，可能會在裝置旋轉時發現異常行為。稍後您將在本程式碼研究室中學習相關行為。</p>
           </div>
+
 <h4 id="步驟-3：新增更多記錄陳述式"><a href="#步驟-3：新增更多記錄陳述式" class="headerlink" title="步驟 3：新增更多記錄陳述式"></a>步驟 3：新增更多記錄陳述式</h4><p>在這個步驟中，您會實作所有其他生命週期方法的記錄(logging)功能。</p>
 <ol>
 <li>覆寫 MainActivity 中的其餘生命週期方法，並為每個方法新增陳述式。程式碼如下：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onResume</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onResume()</span><br><span class="line">   Log.d(TAG, <span class="string">&quot;onResume Called&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPause</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onPause()</span><br><span class="line">   Log.d(TAG, <span class="string">&quot;onPause Called&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStop</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onStop()</span><br><span class="line">   Log.d(TAG, <span class="string">&quot;onStop Called&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onDestroy()</span><br><span class="line">   Log.d(TAG, <span class="string">&quot;onDestroy Called&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onRestart</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onRestart()</span><br><span class="line">   Log.d(TAG, <span class="string">&quot;onRestart Called&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>再次編譯並執行 DessertClicker，並檢查 Logcat。這次請注意，除了 <code>onCreate()</code> 和 <code>onStart()</code> 以外，系統也會提供 <code>onResume()</code> 生命週期 callback 的記錄(log)訊息。</li>
 </ol>
-<p><img src="https://i.imgur.com/Z49Q817.png"></p>
+<img src="https://i.imgur.com/Z49Q817.png">
+
 <p>activity 從頭開始時，系統會依序呼叫下列三個生命週期 callback：</p>
 <ul>
 <li><code>onCreate()</code> 可建立應用程式。</li>
@@ -421,28 +446,33 @@
 <li><code>onResume()</code> 可<u>聚焦(focus)</u>在 activity，並使其<u>準備與使用者進行互動</u>。</li>
 </ul>
 <p>儘管有名稱，即使沒有可繼續進行的操作，啟動時仍會呼叫 <code>onResume()</code> 方法。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/160054d59f67519_1920.png?hl=zh-tw" width="70%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/160054d59f67519_1920.png?hl=zh-tw" width="70%">
+
 <hr>
 <h3 id="探索生命週期用途"><a href="#探索生命週期用途" class="headerlink" title="探索生命週期用途"></a>探索生命週期用途</h3><p>現在，DessertClicker 應用程式已進行記錄設定，您可以透過各種方式開始使用該應用程式，並探索如何觸發生命週期回呼來回應用途。</p>
 <h4 id="用途-1：開啟及關閉-activity"><a href="#用途-1：開啟及關閉-activity" class="headerlink" title="用途 1：開啟及關閉 activity"></a>用途 1：開啟及關閉 activity</h4><p>您將從最基本的用途開始，也就是初次啟動應用程式，然後完全關閉應用程式。</p>
 <ol>
 <li>編譯並執行 DessertClicker 應用程式 (如果尚未執行)。如您所見，活動初次開始時，就會呼叫 <code>onCreate()</code>、<code>onStart()</code>，以及 <code>onResume()</code> 回呼。</li>
 </ol>
-<p><img src="https://i.imgur.com/LBdn6B0.png"></p>
-<ol>
+<img src="https://i.imgur.com/LBdn6B0.png">
+
+<ol start="2">
 <li><p>輕觸杯子蛋糕數次。</p>
 </li>
 <li><p>關閉應用程式。請注意，Logcat 中會依序呼叫 <code>onPause()</code>、<code>onStop()</code> 和 <code>onDestroy()</code>。</p>
 </li>
 </ol>
-<p><img src="https://i.imgur.com/0QqTifY.png"></p>
-<ol>
+<img src="https://i.imgur.com/0QqTifY.png">
+
+<ol start="4">
 <li>重新開啟 DessertClicker 應用程式。Logcat 如下：</li>
 </ol>
-<p><img src="https://i.imgur.com/TJacVYl.png"></p>
+<img src="https://i.imgur.com/TJacVYl.png">
+
 <div class="note no-icon success">
             <p><strong>注意：</strong> 此處重點為 <b>onCreate()</b> 和 <b>onDestroy()</b> 在單一活動執行個體的生命週期中只呼叫一次：<b>onCreate()</b> 會首次初始化應用程式，<b>onDestroy()</b> 會清除應用程式使用的資源。</p>
           </div>
+
 <h4 id="用途-2：離開後再返回-activity"><a href="#用途-2：離開後再返回-activity" class="headerlink" title="用途 2：離開後再返回 activity"></a>用途 2：離開後再返回 activity</h4><p>現在，您已啟動並完全關閉應用程式，您可看到 activity 首次建立時的大部分生命週期狀態。此外，您也會看到 activity 完全關閉且刪除後經歷的所有生命週期狀態。然而，當使用者與 Android 裝置互動時，會在應用程式間切換、返回主畫面、啟動新的應用程式，並處理因其他 activity (例如來電) 而中斷的 activity。</p>
 <p>每次使用者離開該 activity 時，activity 都<u>不會完全關閉</u>：</p>
 <ul>
@@ -454,32 +484,38 @@
 <ol>
 <li>開啟 DessertClicker 應用程式，並點選杯子蛋糕數次。</li>
 </ol>
-<p><img src="https://i.imgur.com/SJvsRRm.png"></p>
-<ol>
+<img src="https://i.imgur.com/SJvsRRm.png">
+
+<ol start="2">
 <li>按下裝置上的「主畫面」按鈕，然後觀察 Android Studio 中的 Logcat。返回主畫面會讓應用程式進入背景，而非完全關閉應用程式。請注意，系統會呼叫 <code>onPause()</code> 方法和 <code>onStop()</code> 方法，但不會呼叫 <code>onDestroy()</code> 方法。</li>
 </ol>
-<p><img src="https://i.imgur.com/3r6awdd.png"></p>
+<img src="https://i.imgur.com/3r6awdd.png">
+
 <p>呼叫 <code>onPause()</code> 後，應用程式就<u>不再有焦點</u>。<code>onStop()</code> 後，應用程式就<u>不會再顯示於螢幕上</u>。儘管 activity 已經停止，但 Activity 物件仍位於背景的記憶體中。系統並未刪除該 activity。使用者可能會返回應用程式，因此 Android 會保留您的 activity 資源。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/b488b32801220b79_1920.png?hl=zh-tw" width="70%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/b488b32801220b79_1920.png?hl=zh-tw" width="70%">
+
+<ol start="3">
 <li>使用最近使用畫面返回應用程式。請注意，activity 會在 Logcat 中使用 <code>onRestart()</code> 和 <code>onStart()</code> 重新啟動，然後使用 <code>onResume()</code> 重新啟用。</li>
 </ol>
 <p>當 activity 返回前景時，就不會再次呼叫 <code>onCreate()</code> 方法。activity 物件並未刪除，因此不需要重新建立。系統會呼叫 <code>onRestart()</code> 方法，而不是 <code>onCreate()</code>。請注意，當 activity 返回前景時，系統會保留「Desserts Sold」數量。</p>
-<p><img src="https://i.imgur.com/NETWqlA.png"></p>
-<ol>
+<img src="https://i.imgur.com/NETWqlA.png">
+
+<ol start="4">
 <li><p>至少啟動一個 DessertClicker 以外的應用程式，使裝置的最近使用畫面中含有多個應用程式。</p>
 </li>
 <li><p>開啟最近使用畫面，並開啟其他最近 activity。接著返回最近使用的應用程式，並將 DessertClicker 移回前景。</p>
 </li>
 </ol>
-<p><img src="https://i.imgur.com/NeVrydM.png"></p>
-<ol>
-<li>來回切換應用程式<br><img src="https://i.imgur.com/M6k6pzu.png"></li>
+<img src="https://i.imgur.com/NeVrydM.png">
+
+<ol start="6">
+<li>來回切換應用程式<img src="https://i.imgur.com/M6k6pzu.png"></li>
 </ol>
 <p>請注意，此處 Logcat 中顯示的回呼與按下主畫面按鈕時相同。應用程式進入背景時，系統會呼叫 <code>onPause()</code> 和 <code>onStop()</code>，並在應用程式返回時呼叫 <code>onRestart()</code>、<code>onStart()</code> 和 <code>onResume()</code>。</p>
 <div class="note no-icon success">
             <p><strong>注意：</strong> 此處重點是，當使用者往返瀏覽 activity 時，系統會多次呼叫 <b>onStart()</b> 和 <b>onStop()</b>。</p>
           </div>
+
 <p>當應用程式停止並移至背景，或應用程式返回前景並再次啟動時，系統就會呼叫這些方法。如果遇到這類情況，而您必須在應用程式中執行工作，請覆寫相關的生命週期 callback 方法。</p>
 <p>那麼，<code>onRestart()</code> 呢？<code>onRestart()</code> 方法與 <code>onCreate()</code> 類似。在 activity 顯示之前，系統會呼叫 <code>onCreate()</code> 或 <code>onRestart()</code>。第一次僅會呼叫 <code>onCreate()</code> 方法，<code>onRestart()</code> 則在後續呼叫。<code>onRestart()</code> 方法是放置程式碼的地方，<span class="label primary">只有在活動為「非」初次啟動時才會呼叫該程式碼</span>。</p>
 <h4 id="用途-3：部分隱藏-activity"><a href="#用途-3：部分隱藏-activity" class="headerlink" title="用途 3：部分隱藏 activity"></a>用途 3：部分隱藏 activity</h4><p>您已經瞭解應用程式啟動且呼叫 <code>onStart()</code> 時，螢幕上會顯示該應用程式。重新啟用應用程式並呼叫 <code>onResume()</code> 時，應用程式會取得使用者焦點，即使用者可與應用程式互動。應用程式完全顯示在畫面上，且有使用者焦點時，這個生命週期部分便是「互動」生命週期。</p>
@@ -490,17 +526,19 @@
 </ol>
 <p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/9ddc8b1dc79b1bff_1920.png?hl=zh-tw"
 width="30%"></p>
-<ol>
+<ol start="2">
 <li>檢查 Logcat，且注意僅呼叫 <code>onPause()</code>。</li>
 </ol>
-<p><img src="https://i.imgur.com/A1BHLmX.png"></p>
+<img src="https://i.imgur.com/A1BHLmX.png">
+
 <p>在此用途中，系統不會呼叫 <code>onStop()</code>，因為 activity 仍部分顯示。不過，這類 activity 沒有使用者焦點，且使用者無法與其互動，因為位於前景的「分享」activity 具有使用者焦點。</p>
 <p>為什麼這個差異很重要？僅使用 <code>onPause()</code> 的干擾通常只會持續一小段時間，然後使用者便會返回 activity 或前往其他 activity 或應用程式。一般而言，您需要持續更新 UI，應用程式的其餘部分便不會停止運作。</p>
 <p>在 <code>onPause()</code> 中執行的程式碼會使其他內容無法顯示，因此請將程式碼保存在輕量 <code>onPause()</code> 中。例如，如果有來電，<code>onPause()</code> 中的程式碼可能會延遲來電通知。</p>
-<ol>
+<ol start="3">
 <li>按一下分享對話方塊以外的地方，返回應用程式，並留意系統已呼叫 <code>onResume()</code>。</li>
 </ol>
-<p><img src="https://i.imgur.com/o77e1Is.png"></p>
+<img src="https://i.imgur.com/o77e1Is.png">
+
 <p><code>onResume()</code> 和 <code>onPause()</code> 都必須與焦點有關。活動有焦點時，系統會呼叫 <code>onResume()</code> 方法，而活動失去聚焦時，就會呼叫 <code>onPause()</code>。</p>
 <hr>
 <h3 id="探索設定變更"><a href="#探索設定變更" class="headerlink" title="探索設定變更"></a>探索設定變更</h3><p>管理 activity 生命週期的另一個用例也十分重要：設定變更對 activity 生命週期的影響。</p>
@@ -511,63 +549,75 @@ width="30%"></p>
 <li><p>將裝置或模擬器旋轉至橫向模式。您可以使用旋轉按鈕或 Control 方向鍵，將模擬器向左或向右旋轉。</p>
 </li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/623fce7c623d42bd_1920.png?hl=zh-tw" width="30%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/623fce7c623d42bd_1920.png?hl=zh-tw" width="30%">
+
+<ol start="3">
 <li>檢查 Logcat 中的輸出內容。在 MainActivity 上篩選輸出內容。</li>
 </ol>
-<p><img src="https://i.imgur.com/SBJSsym.png"></p>
+<img src="https://i.imgur.com/SBJSsym.png">
+
 <p>請注意，當裝置或模擬器旋轉螢幕時，系統會呼叫所有生命週期 callback 來<u>關閉 activity</u>。接著，當您重新建立 activity 時，系統會呼叫所有生命週期 callback 來<u>啟動 activity</u>。</p>
 <p>裝置旋轉且關閉並重新建立 activity 後，activity 就會以預設值啟動，也就是將甜點售出數量和收益重設為零。</p>
 <h4 id="使用-onSaveInstanceState-儲存套件資料"><a href="#使用-onSaveInstanceState-儲存套件資料" class="headerlink" title="使用 onSaveInstanceState() 儲存套件資料"></a>使用 onSaveInstanceState() 儲存套件資料</h4><p><code>onSaveInstanceState()</code> 方法為 callback，可用於在 Activity 刪除時儲存您需要的任何資料。在生命週期 callback 圖中，系統會在 activity 停止後呼叫 <code>onSaveInstanceState()</code>。每當應用程式進入背景時就會呼叫此方法。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/c259ab6beca0ca88_1920.png?hl=zh-tw" width="70%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activity-lifecycle/img/c259ab6beca0ca88_1920.png?hl=zh-tw" width="70%">
+
 <p>您可以將 <code>onSaveInstanceState()</code> 呼叫視為安全防護措施；此呼叫會在 activity 離開前景時，將少量資訊儲存至套件。系統會在此時儲存資料，因為若等待直到應用程式關閉，系統可能會有資源壓力。</p>
 <div class="note no-icon success">
             <p><strong>注意：</strong> Android 有時會關閉整個應用程式處理程序，包括與該應用程式相關的所有活動。Android 會在系統處於壓力且發生視覺延遲問題時執行此類關閉程序，因此目前不會執行其他 callback 或程式碼。應用程式處理程序只是在背景中自動關閉。但對使用者而言，應用程式似乎沒有關閉。當使用者返回 Android 系統已關閉的應用程式時，Android 就會重新啟動該應用程式。您必須<u>確保使用者不會在此情況下發生任何資料遺失情形</u>。</p>
           </div>
+
 <p>每次儲存資料可確保套件中的已更新資料能夠視需要還原。</p>
 <ol>
 <li>在 MainActivity 中覆寫 <code>onSaveInstanceState()</code> callback，並新增 log 陳述式。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSaveInstanceState</span><span class="params">(outState: <span class="type">Bundle</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onSaveInstanceState(outState)</span><br><span class="line"></span><br><span class="line">   Log.d(TAG, <span class="string">&quot;onSaveInstanceState Called&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <div class="note no-icon success">
             <p><strong>注意：</strong> <b>onSaveInstanceState()</b> 有兩種覆寫設定，一種只有 <b>outState</b> 參數，另一種則包含 <b>outState</b> 和 <b>outPersistentState</b> 參數。請使用上述程式碼中顯示的單一 <b>outState</b> 參數。</p>
           </div>
-<ol>
+
+<ol start="2">
 <li>編譯並執行應用程式，然後按一下「Home」按鈕，讓應用程式進入背景。請注意，<code>onSaveInstanceState()</code> callback 緊接在 <code>onPause()</code> 和 <code>onStop()</code> 之後：</li>
 </ol>
-<p><img src="https://i.imgur.com/MzqhfVQ.png"></p>
-<ol>
+<img src="https://i.imgur.com/MzqhfVQ.png">
+
+<ol start="3">
 <li>在檔案頂端的類別定義前方，加入以下常數：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">val</span> KEY_REVENUE = <span class="string">&quot;revenue_key&quot;</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">val</span> KEY_DESSERT_SOLD = <span class="string">&quot;dessert_sold_key&quot;</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>您將使用這些鍵儲存與擷取執行個體狀態套件(instance state bundle)中的資料。</li>
 </ul>
-<ol>
+<ol start="4">
 <li><p>向下捲動至 <code>onSaveInstanceState()</code>，並注意 <code>outState</code> 參數為 <code>Bundle</code> 類型。<code>Bundle</code> 是一系列 <strong>key-value</strong> 組合，其中 <strong>key</strong> 一律為字串(<code>String</code>)。您可以將簡易的資料 (例如 <code>Int</code> 和 <code>Boolean</code> 值) 加入套件中。由於系統會將此套件儲存在記憶體中，因此最佳做法是讓套件中的資料保持精簡。此套件的大小有限，但尺寸會因裝置而異。如果儲存過多資料，應用程式可能會因為 <code>TransactionTooLargeException</code> error 而異常終止。</p>
 </li>
 <li><p>在 <code>onSaveInstanceState()</code> 中，使用 <code>putInt()</code> 方法將 <code>revenue</code> 值 (Int) 加入套件中：</p>
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outState.putInt(KEY_REVENUE, revenue)</span><br></pre></td></tr></table></figure>
+
 <p><code>putInt()</code> 方法 (以及 <code>Bundle</code> 類別中的類似方法，例如 <code>putFloat()</code> 和 <code>putString()</code>) 使用兩個引數：<u>key 字串</u> (<code>KEY_REVENUE</code> 常數)，以及<u>要儲存的實際值(value)</u>。</p>
-<ol>
+<ol start="6">
 <li>按照相同的甜點售出數量重複上述步驟：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outState.putInt(KEY_DESSERT_SOLD, dessertsSold)</span><br></pre></td></tr></table></figure>
+
 <h4 id="使用-onCreate-還原套件資料"><a href="#使用-onCreate-還原套件資料" class="headerlink" title="使用 onCreate() 還原套件資料"></a>使用 onCreate() 還原套件資料</h4><p>您可以在 <code>onCreate(Bundle)</code> 或 <code>onRestoreInstanceState(Bundle)</code> 中還原 activity 狀態 (由 <code>onSaveInstanceState()</code> 方法填入的 <code>Bundle</code> 會傳遞至這兩個生命週期 callback 方法)。</p>
 <ol>
 <li>向上捲動至 <code>onCreate()</code>，並檢查方法簽章(signature)：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br></pre></td></tr></table></figure>
+
 <p>請注意，每次呼叫時，<code>onCreate()</code> 都會獲得一個 <code>Bundle</code>。當您的 activity 因程序關閉而重新啟動時，您儲存的套件會傳遞至 <code>onCreate()</code>。如果您的 activity 重新啟動，<code>onCreate()</code> 中的此 <code>Bundle</code> 為 <code>null</code>。因此，如果套件並非 <code>null</code>，表示您是從先前的已知點「重新建立」activity。</p>
 <div class="note no-icon success">
             <p><strong>注意：</strong> 如果正在重新建立 activity，系統會在 <b>onStart()</b> 後呼叫含有套件的 <b>onRestoreInstanceState()</b> callback。在大多數情況下，您可以還原 <b>onCreate()</b> 的 activity 狀態。不過，由於在 <b>onStart()</b> 之後呼叫 <b>onRestoreInstanceState()</b>，如果您需要在呼叫 <b>onCreate()</b> 後還原部分狀態，可以使用 <b>onRestoreInstanceState()</b>。</p>
           </div>
-<ol>
+
+<ol start="2">
 <li>在設定 <code>binding</code> 變數後，將此程式碼新增至 <code>onCreate()</code>：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (savedInstanceState != <span class="literal">null</span>) &#123;</span><br><span class="line">   revenue = savedInstanceState.getInt(KEY_REVENUE, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><code>null</code> 的測試可判斷套件中是否含有資料，或套件是否為 <code>null</code>，以讓您瞭解應用程式是否已重新啟動，或在關閉後重新建立。這項測試是從套件還原資料的常見模式。</p>
 <p>請注意，您在此處使用的 <code>key (KEY_REVENUE)</code> 與您在 <code>putInt()</code> 中使用的 key 相同。為確保每次都使用相同的鍵，最佳做法是將這些 key 定義為常數。請使用 <code>getInt()</code> 將資料移出套件，如同使用 <code>putInt()</code> 將資料放入套件一樣。<code>getInt()</code> 方法使用兩個引數：</p>
 <ul>
@@ -575,36 +625,42 @@ width="30%"></p>
 <li>預設值，假如套件中沒有該 key 的任何值。</li>
 </ul>
 <p>系統會將從套件中取得的整數指派給 <code>revenue</code> 變數，且 UI 會使用該值。</p>
-<ol>
+<ol start="3">
 <li>新增 <code>getInt()</code> 方法，還原收益和甜點售出數量。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (savedInstanceState != <span class="literal">null</span>) &#123;</span><br><span class="line">   revenue = savedInstanceState.getInt(KEY_REVENUE, <span class="number">0</span>)</span><br><span class="line">   dessertsSold = savedInstanceState.getInt(KEY_DESSERT_SOLD, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="4">
 <li>編譯並執行應用程式。按下杯子蛋糕至少五次，直到切換成甜甜圈為止。</li>
 </ol>
-<p><img src="https://i.imgur.com/qZallCm.png" width="30%"></p>
-<ol>
+<img src="https://i.imgur.com/qZallCm.png" width="30%">
+
+<ol start="5">
 <li>旋轉裝置。請注意，應用程式現在可以顯示正確的收益，以及套件中的甜點售出值。另請注意，甜點已恢復為杯子蛋糕。</li>
 </ol>
-<p><img src="https://i.imgur.com/wREAUdC.png" width="70%"></p>
-<ol>
+<img src="https://i.imgur.com/wREAUdC.png" width="70%">
+
+<ol start="6">
 <li>在 MainActivity 中檢查 <code>showCurrentDessert()</code> 方法。請注意，此方法會根據目前的甜點售出數量和 <code>allDesserts</code> 變數中的甜點清單，判斷要在 activity 中顯示的甜點圖片。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (dessert <span class="keyword">in</span> allDesserts) &#123;</span><br><span class="line">   <span class="keyword">if</span> (dessertsSold &gt;= dessert.startProductionAmount) &#123;</span><br><span class="line">       newDessert = dessert</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">break</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>此方法仰賴甜點的售出數量來選擇正確的圖片。因此，您無須採取任何行動，以儲存 <code>onSaveInstanceState()</code> 中套件的圖片參照。您已在該套件中儲存甜點售出數量。</p>
-<ol>
+<ol start="7">
 <li>在 <code>onCreate()</code> 中，從套件還原狀態的區塊呼叫 <code>showCurrentDessert()</code>：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (savedInstanceState != <span class="literal">null</span>) &#123;</span><br><span class="line">   revenue = savedInstanceState.getInt(KEY_REVENUE, <span class="number">0</span>)</span><br><span class="line">   dessertsSold = savedInstanceState.getInt(KEY_DESSERT_SOLD, <span class="number">0</span>)</span><br><span class="line">   showCurrentDessert()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="8">
 <li>編譯並執行應用程式，然後旋轉畫面。請注意，甜點售出值、總收益和甜點圖片已順利還原。</li>
 </ol>
-<p><img src="https://i.imgur.com/naBOnos.gif" width="30%"></p>
+<img src="https://i.imgur.com/naBOnos.gif" width="30%">
+
 <hr>
 <h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><h4 id="activity-生命週期"><a href="#activity-生命週期" class="headerlink" title="activity 生命週期"></a>activity 生命週期</h4><ul>
 <li>activity 生命週期是一組 activity 轉移的狀態。activity 生命週期是從首次建立時開始，並在 activity 刪除時結束。</li>
 <li>使用者在不同 activity 之間及應用程式內外瀏覽時，每個 activity 會在 activity 生命週期中的狀態間切換。</li>
-<li>activity 生命週期中的每個狀態都有相應的 <u>callback 方法</u>，可在 Activity 類別中<u>覆寫</u>，如下：<a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onCreate(android.os.Bundle"><code>onCreate()</code></a>) <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onStart("><code>onStart()</code></a>) <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onPause("><code>onPause()</code></a>) <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onRestart("><code>onRestart()</code></a>) <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onResume("><code>onResume()</code></a>) <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onStop("><code>onStop()</code></a>) <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onDestroy("><code>onDestroy()</code></a>)</li>
+<li>activity 生命週期中的每個狀態都有相應的 <u>callback 方法</u>，可在 Activity 類別中<u>覆寫</u>，如下：<a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onCreate(android.os.Bundle)"><code>onCreate()</code></a> <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onStart()"><code>onStart()</code></a> <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onPause()"><code>onPause()</code></a> <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onRestart()"><code>onRestart()</code></a> <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onResume()"><code>onResume()</code></a> <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onStop()"><code>onStop()</code></a> <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/app/Activity#onDestroy()"><code>onDestroy()</code></a></li>
 <li>如要新增在 activity 轉換為生命週期狀態時發生的行為，請<u>覆寫狀態的 callback 方法</u>。</li>
 <li>如要在 Android Studio 中為類別新增架構覆寫方法，請依序選取「Code」&gt;「Override Methods」，或按下 <code>Control+o</code>。</li>
 </ul>
@@ -625,7 +681,7 @@ width="30%"></p>
 <li>設定變更於裝置狀態改變時發生，因此基本上，使系統解決變更的最簡單方法就是<u>刪除</u>，然後<u>重新建立 activity</u>。</li>
 <li>最常見的設定變更範例為，使用者將裝置從直向轉為橫向模式，或從橫向轉為直向模式時。裝置語言變更或外接硬體鍵盤時，也可能會發生設定變更。</li>
 <li>發生設定變更時，Android 會叫用所有 activity 生命週期的<u>關閉 callback</u>。接著，Android 會從頭<u>重新啟動 activity</u>，並執行所有生命週期啟動 callback。</li>
-<li>Android 因設定變更而關閉應用程式時，Android 會以<code>onCreate()</code> 可用的狀態套件來重新啟動 activity。</li>
+<li>Android 因設定變更而關閉應用程式時，Android 會以<code> onCreate()</code> 可用的狀態套件來重新啟動 activity。</li>
 <li>如同程序中斷，請將應用程式的狀態儲存到 <code>onSaveInstanceState()</code> 的套件中。</li>
 </ul>
 

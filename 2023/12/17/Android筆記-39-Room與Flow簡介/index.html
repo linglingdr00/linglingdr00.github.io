@@ -47,8 +47,8 @@
 <meta property="article:tag" content="Kotlin">
 <meta property="article:tag" content="RecyclerView">
 <meta property="article:tag" content="Data Class">
-<meta property="article:tag" content="Navigation">
 <meta property="article:tag" content="companion object">
+<meta property="article:tag" content="Navigation">
 <meta property="article:tag" content="ViewModel">
 <meta property="article:tag" content="suspend function">
 <meta property="article:tag" content="CoroutineScope">
@@ -57,12 +57,12 @@
 <meta property="article:tag" content="App Inspector">
 <meta property="article:tag" content="ListAdapter">
 <meta property="article:tag" content="Room">
-<meta property="article:tag" content="Flow">
+<meta property="article:tag" content="ORM">
 <meta property="article:tag" content="DAO">
 <meta property="article:tag" content="Entity">
-<meta property="article:tag" content="Database Class">
 <meta property="article:tag" content="Factory">
-<meta property="article:tag" content="ORM">
+<meta property="article:tag" content="Flow">
+<meta property="article:tag" content="Database Class">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/70c597851eba9518_1920.png?hl=zh-tw">
 
@@ -294,7 +294,8 @@
         <blockquote>
 <p>使用 <strong>Room library</strong> 即可輕鬆在 Android app 中使用 database。<strong>Room</strong> 也稱為 <u>ORM (Object Relational Mapping) library</u>，顧名思義，就是<u>將 relational database 中的 table 對應至可在 Kotlin 程式碼中使用的 objects</u>。在本課程中，您只需要關注<u>讀取 data</u>。使用預先填入的 database，您就能載入公車抵達時間 table 中的 data，並在 <code>RecyclerView</code> 中呈現這些 data。</p>
 </blockquote>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/70c597851eba9518_1920.png?hl=zh-tw" width="40%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/70c597851eba9518_1920.png?hl=zh-tw" width="40%">
+
 <p>在課程中，您將瞭解使用 Room 的基礎知識，包括 <u>database class</u>、<u>DAO</u>、<u>實體(entities)</u>和 <u>view models</u>。此外，課程中也會介紹 <code>ListAdapter</code> class，讓您透過另一種方式在 <code>RecyclerView</code> 中呈現 data；以及 <strong>Flow</strong>，這是一種<u>類似於 <code>LiveData</code></u> 的 Kotlin 語言功能，<u>可使 UI 針對 database 變更做出 response</u>。</p>
 <p><strong>學習目標</strong></p>
 <ul>
@@ -306,32 +307,39 @@
 <li>瞭解 Kotlin <strong>Flow</strong> 的基本概念，以及學習如何實際運用，<u>讓 UI 對基礎 data 的變更做出 response</u>。</li>
 </ul>
 <span id="more"></span>
+
 <hr>
 <h3 id="開始操作"><a href="#開始操作" class="headerlink" title="開始操作"></a>開始操作</h3><p>在本程式碼研究室中，您要使用的 app 稱為 Bus Schedule。此 app 會顯示<u>公車站(bus stops) list</u>，以及<u>從最早到最晚的抵達時間(arrival times)</u>。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/70c597851eba9518_1920.png?hl=zh-tw" width="40%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/70c597851eba9518_1920.png?hl=zh-tw" width="40%">
+
 <p>輕觸第一個畫面中的任意一列可開啟新畫面，只顯示所選公車站的公車即將抵達時間。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/f477c0942746e584_1920.png?hl=zh-tw" width="40%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/f477c0942746e584_1920.png?hl=zh-tw" width="40%">
+
 <p><b>bus stop data</b> 來自 app <u><b>預先封裝(prepackaged)</b>的 database</u>。不過，在目前的狀態下，app 首次執行時不會顯示任何內容。您的工作是<u>整合 <strong>Room</strong></u>，讓 app 顯示<u><b>預先填入(prepopulated)</b>的 <b>arrival times database</b></u>。</p>
 <div class="note success">
             <p><strong>範例程式碼網址：</strong><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-bus-schedule-app/tree/starter">https://github.com/google-developer-training/android-basics-kotlin-bus-schedule-app/tree/starter</a><br><strong>分支版本：</strong><b>starter</b></p>
           </div>
+
 <hr>
 <h3 id="新增-Room-dependency"><a href="#新增-Room-dependency" class="headerlink" title="新增 Room dependency"></a>新增 Room dependency</h3><p>和任何其他 library 一樣，您必須先新增必要的 <strong>dependency</strong>，才能在 Bus Schedule app 中使用 Room。這只需要兩個小幅變更，每個 Gradle 檔案中各一個。</p>
 <ol>
 <li>在 project-level 的 <code>build.gradle</code> 檔案中，請在 <code>ext</code> 區塊中定義 <code>room_version</code>。</li>
 </ol>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ext &#123;</span><br><span class="line">   kotlin_version = <span class="string">&quot;1.6.20&quot;</span></span><br><span class="line">   nav_version = <span class="string">&quot;2.4.1&quot;</span></span><br><span class="line">   room_version = <span class="string">&#x27;2.4.2&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>在 app-level 的 <code>build.gradle</code> 檔案中，請於 dependency list 的結尾新增下列 dependency。</li>
 </ol>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&quot;androidx.room:room-runtime:$room_version&quot;</span></span><br><span class="line">kapt <span class="string">&quot;androidx.room:room-compiler:$room_version&quot;</span></span><br><span class="line"><span class="comment">// optional - Kotlin Extensions and Coroutines support for Room</span></span><br><span class="line">implementation <span class="string">&quot;androidx.room:room-ktx:$room_version&quot;</span></span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>請同步(sync)處理變更並建構 project，確認是否已正確新增 dependency。</li>
 </ol>
 <p>sync 後會產生以下 error：<br><img src="https://i.imgur.com/5DcJfZr.png"></p>
 <div class="note danger">
-            <p><strong>重要：</strong>sync 後，會產生 <font color="red">Could not find method kapt() for arguments</font> error。參考 <a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-bus-schedule-app/issues/92">issue</a>，需要在 app-level <code>build.gradle</code> 檔案的 plugins 中新增 <code>id &#39;kotlin-kapt&#39;</code>：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    ...</span><br><span class="line">    id <span class="string">&#x27;kotlin-kapt&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>最後重新 sync 即可解決。</p>
+            <p><strong>重要：</strong>sync 後，會產生 <font color="red">Could not find method kapt() for arguments</font> error。參考 <a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-bus-schedule-app/issues/92">issue</a>，需要在 app-level <code>build.gradle</code> 檔案的 plugins 中新增 <code>id &#39;kotlin-kapt&#39;</code>：</p><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    ...</span><br><span class="line">    id <span class="string">&#x27;kotlin-kapt&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最後重新 sync 即可解決。</p>
           </div>
+
 <p>在接下來的幾個頁面中，我們會介紹將 Room 整合至 app 所需的 <strong>components</strong>：</p>
 <ul>
 <li>models</li>
@@ -350,68 +358,86 @@
 </ul>
 <p>請注意， database 中使用的 SQL type 實際上對於 <code>Int</code> 是 <code>INTEGER</code>，對於 <code>String</code> 是 <code>TEXT</code>。不過，使用 Room 時，您應該<u>只在定義 <strong>model classes</strong> 時考慮 <strong>Kotlin type</strong></u>。系統會<u>自動將 <b>model class 的 data type</b> 對應至 <b>database 使用的 data type</b></u>。</p>
 <p>如果 project 含有多個檔案，建議您將檔案整理成不同的 <strong>packages</strong>，以便為各個 class 提供更好的<u>存取權控管(access control)</u>，並更輕鬆地找出相關 class。</p>
-<p>如要為 <code>schedule</code> table 建立<u>實體(entity)</u>，請在 <code>com.example.busschedule</code> package 中加入名為 <code>database</code> 的新 package。在這個 package 中，為<b>實體(entity)</b>新增名為 <code>schedule</code> 的新 package。接著，在 <code>database.schedule</code> package 中建立名為 <code>Schedule.kt</code> 的新檔案，並定義名為 <code>Schedule</code> 的 data class。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Schedule</span>(</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>如 SQL 基礎課程所述，table 應有一個<b>主鍵(primary key)</b>，用來<u>識別每個 rows</u>。您要新增至 <code>Schedule</code> class 的第一個屬性是 <strong>integer</strong>，代表<u>專屬 ID(uniquely identify)</u>。新增一個新屬性，並為其<u>標示 <code>@PrimaryKey</code> 註解</u>。此項操作會<u>指示 Room 在插入<b>新 row</b> 時，將這個屬性視為<b>主鍵(primary key)</b></u>。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PrimaryKey</span> <span class="keyword">val</span> id: <span class="built_in">Int</span></span><br></pre></td></tr></table></figure></p>
-<p>為 <u>bus stop 的名稱</u> 新增一欄(column)。該 column 的 type 應為 <code>String</code>。如果是新 column，則需要新增 <code>@ColumnInfo</code> 註解來<u>指定該 column 的 <strong>name</strong></u>。通常，與 Kotlin 屬性使用的 <code>lowerCamelCase</code> 不同，<strong>SQL column name</strong> 的字詞<u>以<b>底線</b>分隔</u>。我們也<u>不允許這個 column 中的 value 為<b>空值(null)</b></u>，請<u>使用 <code>@NonNull</code> 註解</u>加以標示。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NonNull</span> <span class="meta">@ColumnInfo(name = <span class="string">&quot;stop_name&quot;</span>)</span> <span class="keyword">val</span> stopName: String,</span><br></pre></td></tr></table></figure></p>
+<p>如要為 <code>schedule</code> table 建立<u>實體(entity)</u>，請在 <code>com.example.busschedule</code> package 中加入名為 <code>database</code> 的新 package。在這個 package 中，為<b>實體(entity)</b>新增名為 <code>schedule</code> 的新 package。接著，在 <code>database.schedule</code> package 中建立名為 <code>Schedule.kt</code> 的新檔案，並定義名為 <code>Schedule</code> 的 data class。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Schedule</span>(</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>如 SQL 基礎課程所述，table 應有一個<b>主鍵(primary key)</b>，用來<u>識別每個 rows</u>。您要新增至 <code>Schedule</code> class 的第一個屬性是 <strong>integer</strong>，代表<u>專屬 ID(uniquely identify)</u>。新增一個新屬性，並為其<u>標示 <code>@PrimaryKey</code> 註解</u>。此項操作會<u>指示 Room 在插入<b>新 row</b> 時，將這個屬性視為<b>主鍵(primary key)</b></u>。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PrimaryKey</span> <span class="keyword">val</span> id: <span class="built_in">Int</span></span><br></pre></td></tr></table></figure>
+
+<p>為 <u>bus stop 的名稱</u> 新增一欄(column)。該 column 的 type 應為 <code>String</code>。如果是新 column，則需要新增 <code>@ColumnInfo</code> 註解來<u>指定該 column 的 <strong>name</strong></u>。通常，與 Kotlin 屬性使用的 <code>lowerCamelCase</code> 不同，<strong>SQL column name</strong> 的字詞<u>以<b>底線</b>分隔</u>。我們也<u>不允許這個 column 中的 value 為<b>空值(null)</b></u>，請<u>使用 <code>@NonNull</code> 註解</u>加以標示。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NonNull</span> <span class="meta">@ColumnInfo(name = <span class="string">&quot;stop_name&quot;</span>)</span> <span class="keyword">val</span> stopName: String,</span><br></pre></td></tr></table></figure>
+
 <div class="note success">
             <p><strong>注意：</strong>在 <u>SQL 中，根據預設，column 的 value 可以是空值(null)</u>，但您可以視需要另外將 value 標示為非空值(non null)。這不同於 Kotlin 的運作方式，<u>在 Kotlin 中，根據預設，value 不可為<b>空值(null)</b></u>。</p>
           </div>
-<p><strong>Arrival times</strong> 會在 database 中以 <strong>integers</strong> 表示。這是 <a target="_blank" rel="noopener" href="https://www.unixtimestamp.com/">Unix timestamp</a>，可轉換成可用<b>日期(date)</b>。雖然不同版本的 SQL 都提供了<u>轉換日期(dates)</u>的方式，但您仍可按照自己的需要使用 <strong>Kotlin date formatting functions</strong>。將下列 <code>@NonNull</code> column 新增至 <strong>model class</strong>。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NonNull</span> <span class="meta">@ColumnInfo(name = <span class="string">&quot;arrival_time&quot;</span>)</span> <span class="keyword">val</span> arrivalTime: <span class="built_in">Int</span></span><br></pre></td></tr></table></figure></p>
+
+<p><strong>Arrival times</strong> 會在 database 中以 <strong>integers</strong> 表示。這是 <a target="_blank" rel="noopener" href="https://www.unixtimestamp.com/">Unix timestamp</a>，可轉換成可用<b>日期(date)</b>。雖然不同版本的 SQL 都提供了<u>轉換日期(dates)</u>的方式，但您仍可按照自己的需要使用 <strong>Kotlin date formatting functions</strong>。將下列 <code>@NonNull</code> column 新增至 <strong>model class</strong>。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NonNull</span> <span class="meta">@ColumnInfo(name = <span class="string">&quot;arrival_time&quot;</span>)</span> <span class="keyword">val</span> arrivalTime: <span class="built_in">Int</span></span><br></pre></td></tr></table></figure>
+
 <p>最後，為了讓 <strong>Room</strong> <u>辨識出這個 class 可用於定義 <strong>database table</strong></u>，您需要為 class 本身新增一個<u>註解</u>。在 <u>class name 之前的行</u>中新增 <code>@Entity</code>。</p>
 <p>根據預設，Room 會<u>使用 <strong>class name</strong> 做為 <strong>database table name</strong></u>。因此，目前 class 定義的 table name 就是 <code>Schedule</code>。另外，您也可以選擇指定 <code>@Entity(tableName=&quot;schedule&quot;)</code>，但由於 <u>Room 查詢不區分大小寫</u>，因此可以不使用明確定義小寫的 table 名稱。</p>
-<p>現在，schedule 實體(entity)的 class 應如下所示。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Schedule</span>(</span><br><span class="line">   <span class="meta">@PrimaryKey</span> <span class="keyword">val</span> id: <span class="built_in">Int</span>,</span><br><span class="line">   <span class="meta">@NonNull</span> <span class="meta">@ColumnInfo(name = <span class="string">&quot;stop_name&quot;</span>)</span> <span class="keyword">val</span> stopName: String,</span><br><span class="line">   <span class="meta">@NonNull</span> <span class="meta">@ColumnInfo(name = <span class="string">&quot;arrival_time&quot;</span>)</span> <span class="keyword">val</span> arrivalTime: <span class="built_in">Int</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>現在，schedule 實體(entity)的 class 應如下所示。  </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Schedule</span>(</span><br><span class="line">   <span class="meta">@PrimaryKey</span> <span class="keyword">val</span> id: <span class="built_in">Int</span>,</span><br><span class="line">   <span class="meta">@NonNull</span> <span class="meta">@ColumnInfo(name = <span class="string">&quot;stop_name&quot;</span>)</span> <span class="keyword">val</span> stopName: String,</span><br><span class="line">   <span class="meta">@NonNull</span> <span class="meta">@ColumnInfo(name = <span class="string">&quot;arrival_time&quot;</span>)</span> <span class="keyword">val</span> arrivalTime: <span class="built_in">Int</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
 <hr>
 <h3 id="定義-DAO"><a href="#定義-DAO" class="headerlink" title="定義 DAO"></a>定義 DAO</h3><p>需要新增以整合 Room 的下一個 <strong>class</strong> 是 <strong>DAO</strong>。DAO 代表 <strong>Data Access Object</strong>，是一種可供存取 data 的 Kotlin class 。具體來說，DAO 包含<u>用來讀取及操控 data 的 function</u>。<u>在 DAO 上呼叫 function</u> 相當於<u>在 database 上執行 SQL 指令</u>。事實上，<strong>DAO function</strong> 就像您在此 app 中定義的 function 一樣，通常會指定 SQL 指令，以便您準確指定希望該 function 執行的操作。定義 DAO 時，在先前程式碼研究室中瞭解的 SQL 知識可派上用場。</p>
 <ol>
 <li>請為 <strong>Schedule entity</strong> 新增 <strong>DAO class</strong>。在 <code>database.schedule</code> package 中，建立名為 <code>ScheduleDao.kt</code> 的新檔案，並<u>定義名為 <code>ScheduleDao</code> 的 interface</u>。與 <code>Schedule</code> class 相似，您必須加上<u>註解 <code>@Dao</code></u>，才能在 Room 中使用 interface。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Dao</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">ScheduleDao</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <div class="note success">
             <p>注意：雖然 DAO 是首字母縮寫，但 Kotlin 程式碼的命名慣例只會將首字母縮寫中的第一個字母大寫，因此請使用 <b>ScheduleDao</b> 名稱，而非 <b>ScheduleDAO</b> 名稱。</p>
           </div>
-<ol>
+
+<ol start="2">
 <li><ul>
-<li>App 有兩個畫面，每個畫面都需要不同的查詢。第一個畫面會<u>依 <strong>arrival time</strong> 遞增排序所有 <strong>bus stops</strong></u>。在這種情況下，查詢只需要<u>取得所有 columns</u>，並加入適當的 <u><code>ORDER BY</code> 子句</u>。查詢以傳遞至 <code>@Query</code> 註解的 <u>string</u> 形式指定。<ul>
+<li>App 有兩個畫面，每個畫面都需要不同的查詢。第一個畫面會<u>依 <strong>arrival time</strong> 遞增排序所有 <strong>bus stops</strong></u>。在這種情況下，查詢只需要<u>取得所有 columns</u>，並加入適當的 <u><code>ORDER BY</code> 子句</u>。查詢以傳遞至 <code>@Query</code> 註解的 <u>string</u> 形式指定。</li>
 <li>定義 function <code>getAll()</code>，該 function 會 return <u><code>Schedule</code> list</u>，其中包括 <code>@Query</code> 註解，如下所示。</li>
-</ul>
-</li>
 </ul>
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(<span class="string">&quot;SELECT * FROM schedule ORDER BY arrival_time ASC&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getAll</span><span class="params">()</span></span>: List&lt;Schedule&gt;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li><ul>
-<li>對於第二個查詢，同樣建議您，<u>從 schedule table 中選取所有 columns</u>。不過請注意，您只需符合<u>所選(selected) stop name</u> 的結果，因此請新增 <code>WHERE</code> 子句。如要<u>引用查詢的 <strong>Kotlin value</strong></u>，請在查詢前加上<b>冒號 <code>:</code></b> (例如來自 function 參數的 <code>:stopName</code>)。和以前一樣，結果會<u>依 <strong>arrival time</strong> 遞增排序</u>。<ul>
+<li>對於第二個查詢，同樣建議您，<u>從 schedule table 中選取所有 columns</u>。不過請注意，您只需符合<u>所選(selected) stop name</u> 的結果，因此請新增 <code>WHERE</code> 子句。如要<u>引用查詢的 <strong>Kotlin value</strong></u>，請在查詢前加上<b>冒號 <code>:</code></b> (例如來自 function 參數的 <code>:stopName</code>)。和以前一樣，結果會<u>依 <strong>arrival time</strong> 遞增排序</u>。</li>
 <li>定義 <code>getByStopName()</code> function ，該 function 採用名為 <code>stopName</code> 的參數 <code>String</code>，並 return <code>Schedule</code> object 的 <code>List</code>，包含 <code>@Query</code> 註解，如下所示。</li>
-</ul>
-</li>
 </ul>
 </li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(<span class="string">&quot;SELECT * FROM schedule WHERE stop_name = :stopName ORDER BY arrival_time ASC&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getByStopName</span><span class="params">(stopName: <span class="type">String</span>)</span></span>: List&lt;Schedule&gt;</span><br></pre></td></tr></table></figure>
+
 <hr>
-<h3 id="定義-ViewModel"><a href="#定義-ViewModel" class="headerlink" title="定義 ViewModel"></a>定義 ViewModel</h3><p>現在，DAO 已設定完畢，從技術面來說，您已備齊所有必要項目，必須開始<u>透過 fragments 存取 database</u>。然而，雖然這在理論上可行，但通常<u>不被視為最佳做法</u>。這是因為在較複雜的 app 中，可能有多個畫面只會存取 data 的特定部分。雖然 <code>ScheduleDao</code> 相對簡單，但在面對兩個或更多不同的畫面時，很容易會失控。舉例來說，DAO 看起來大致如下：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Dao</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">ScheduleDao</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(...)</span></span><br><span class="line">    getForScreenOne() ...</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(...)</span></span><br><span class="line">    getForScreenTwo() ...</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(...)</span></span><br><span class="line">    getForScreenThree()</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="定義-ViewModel"><a href="#定義-ViewModel" class="headerlink" title="定義 ViewModel"></a>定義 ViewModel</h3><p>現在，DAO 已設定完畢，從技術面來說，您已備齊所有必要項目，必須開始<u>透過 fragments 存取 database</u>。然而，雖然這在理論上可行，但通常<u>不被視為最佳做法</u>。這是因為在較複雜的 app 中，可能有多個畫面只會存取 data 的特定部分。雖然 <code>ScheduleDao</code> 相對簡單，但在面對兩個或更多不同的畫面時，很容易會失控。舉例來說，DAO 看起來大致如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Dao</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">ScheduleDao</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(...)</span></span><br><span class="line">    getForScreenOne() ...</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(...)</span></span><br><span class="line">    getForScreenTwo() ...</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(...)</span></span><br><span class="line">    getForScreenThree()</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>雖然畫面 1 的程式碼可以存取 <code>getForScreenOne()</code>，但該程式碼不適合存取其他 method。最佳做法是<u>將顯示在 view 的 DAO 部分分隔成獨立 class</u> ，稱為「<strong>view model</strong>」。這是行動 app 中常見的架構模式。使用 view model 有助於<u>更清晰地區分 app <strong>UI</strong> 及其 <strong>data model</strong> 的程式碼</u>。也有助於單獨測試程式碼的各個部分，隨著您繼續 Android 開發之旅，之後便會深入探索這個主題。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/ee2524be13171538_1920.png?hl=zh-tw" width="40%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/ee2524be13171538_1920.png?hl=zh-tw" width="40%">
+
 <p>如果使用 view model，您可以利用 <code>ViewModel</code> class。<code>ViewModel</code> class 用於<u>儲存與 app UI 相關的 <strong>data</strong></u>，並且具有<u>生命週期感知</u>特性，對於 <u>lifecycle events 的 response</u> 與 activity 或 fragments 極為相似。如果畫面旋轉等 lifecycle events 會導致 activity 或 fragments 被刪除並重新建立，則不需要重新建立相關聯的 <code>ViewModel</code>。您無法直接存取 DAO class，因此最好使用 <code>ViewModel</code> 子類別，<u>將 <strong>loading data</strong> 工作與 activity 或 fragments 區分開</u>。</p>
 <div class="note success">
             <p><strong>注意：</strong>Bus Schedule 是一個相對簡單的 app ，只包含兩個畫面且內容大致相同。基於教學目的，我們將建立單個 view model class，可供兩個畫面使用，但在大型 app 中，則可以針對各個 fragments 使用單獨的 view model。</p>
           </div>
+
 <ol>
 <li>如要建立 view model class，請在名為 <code>viewmodels</code> 的新 package 中建立名為 <code>BusScheduleViewModel.kt</code> 的新檔案。<u>定義 view model 的 class</u>。該 class 應採用 <u><code>ScheduleDao</code> type</u> 的單一參數。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BusScheduleViewModel</span>(<span class="keyword">private</span> <span class="keyword">val</span> scheduleDao: ScheduleDao): ViewModel() &#123;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>由於這個 view model 會同時用於兩個畫面，因此您需要新增 <strong>method</strong> 來取得<u>完整 schedule</u> 和<u>依照 <strong>stop name</strong> 進行篩選的 schedule</u>。做法是<u>呼叫 <code>ScheduleDao</code> 的對應 method</u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">fullSchedule</span><span class="params">()</span></span>: List&lt;Schedule&gt; = scheduleDao.getAll()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">scheduleForStopName</span><span class="params">(name: <span class="type">String</span>)</span></span>: List&lt;Schedule&gt; = scheduleDao.getByStopName(name)</span><br></pre></td></tr></table></figure>
+
 <p>雖然已經完成 view model 的定義，但您不能直接將 <code>BusScheduleViewModel</code> 實例化(instantiate)，並預期一切運作正常。由於 <code>ViewModel</code> class <code>BusScheduleViewModel</code> 必須有<u>生命週期感知</u>特性，因此應<u>以可回應 <strong>lifecycle events</strong> 的 <strong>object</strong> 進行實例化(instantiate)</u>。</p>
 <p>如果直接在其中一個 fragments 中執行實例化(instantiate)，則 fragments object 必須處理一切 (包括所有記憶體管理工作)，而這超出 app 程式碼的工作範圍。您可以改為<u>建立名為 <strong>factory</strong> 的 class</u>，該 class 會替您<u>將 <strong>view model object</strong> 實例化(instantiate)</u>。</p>
 <ol>
 <li>如要建立 factory，請在 view model class 下方建立繼承自 <code>ViewModelProvider.Factory</code> 的新 class <code>BusScheduleViewModelFactory</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BusScheduleViewModelFactory</span>(</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">val</span> scheduleDao: ScheduleDao</span><br><span class="line">) : ViewModelProvider.Factory &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>您只需要一個樣板程式碼，就能正確<u>對 view model 執行實例化(instantiate)</u>。您不必直接初始化 class，而是可以<u>覆寫名為 <code>create()</code> 的 method</u>，該 method 會 <u>return <code>BusScheduleViewModelFactory</code> 以及一些錯誤檢查(error checking)</u>。在 <code>BusScheduleViewModelFactory</code> class 中實作 <code>create()</code>，如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : ViewModel&gt;</span> <span class="title">create</span><span class="params">(modelClass: <span class="type">Class</span>&lt;<span class="type">T</span>&gt;)</span></span>: T &#123;</span><br><span class="line">       <span class="keyword">if</span> (modelClass.isAssignableFrom(BusScheduleViewModel::<span class="keyword">class</span>.java)) &#123;</span><br><span class="line">           <span class="meta">@Suppress(<span class="string">&quot;UNCHECKED_CAST&quot;</span>)</span></span><br><span class="line">           <span class="keyword">return</span> BusScheduleViewModel(scheduleDao) <span class="keyword">as</span> T</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">throw</span> IllegalArgumentException(<span class="string">&quot;Unknown ViewModel class&quot;</span>)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
@@ -431,55 +457,65 @@
 <li>如要新增 <code>AppDatabase</code> class，請在 <code>database</code> package 中，建立名為 <code>AppDatabase.kt</code> 的新檔案，並定義繼承自 <code>RoomDatabase</code> 的新 abstract class <code>AppDatabase</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AppDatabase</span>: <span class="type">RoomDatabase</span>() &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>database class 可方便其他 class 存取 <code>DAO</code> class。新增一個 abstract function，該 function 會 return  <code>ScheduleDao</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">scheduleDao</span><span class="params">()</span></span>: ScheduleDao</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>使用 <code>AppDatabase</code> class時，建議您<u>確保畫面上只有一個 database instance</u>，以避免出現競爭狀況或其他潛在問題。instance 儲存在 <strong>companion object</strong> 中，您也必須備妥一個 method，該方法不是 <u>return 現有 instance</u>，就是<u>首次建立 database</u>。必須在 companion object 中定義此項。請在 <code>scheduleDao()</code> function 正下方新增下列 <code>companion object</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <div class="note primary">
             <p><strong>筆記：</strong><u><strong>companion object</strong> 只會存在一個 <strong>instance</strong></u>，也稱為 <a target="_blank" rel="noopener" href="https://skyyen999.gitbooks.io/-study-design-pattern-in-java/content/singleton.html">Singleton Pattern</a>，目的為保證<u>一個 <strong>class</strong> 只會產生一個 <strong>object</strong></u>，而且要提供<u>存取該 object 的 <strong>method</strong></u>。</p>
           </div>
+
 <p>在 <code>companion object</code> 中，新增 type 為 <code>AppDatabase</code> 的屬性 <code>INSTANCE</code>。這個 value 最初設為 <code>null</code>，因此 type 標有 <code>?</code> 標記。此外還標有 <code>@Volatile</code> 標記。本課程將詳細說明如何使用 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-volatile/">volatile</a> 屬性。不過，還是建議您將其用於 <code>AppDatabase</code> instance，以免發生潛在錯誤。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Volatile</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> INSTANCE: AppDatabase? = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
 <p>在 <code>INSTANCE</code> 屬性下方，定義一個 function 以 return <code>AppDatabase</code> instance：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getDatabase</span><span class="params">(context: <span class="type">Context</span>)</span></span>: AppDatabase &#123;</span><br><span class="line">    <span class="keyword">return</span> INSTANCE ?: synchronized(<span class="keyword">this</span>) &#123;</span><br><span class="line">        <span class="keyword">val</span> instance = Room.databaseBuilder(</span><br><span class="line">            context,</span><br><span class="line">            AppDatabase::<span class="keyword">class</span>.java,</span><br><span class="line">            <span class="string">&quot;app_database&quot;</span>)</span><br><span class="line">            .createFromAsset(<span class="string">&quot;database/bus_schedule.db&quot;</span>)</span><br><span class="line">            .build()</span><br><span class="line">        INSTANCE = instance</span><br><span class="line"></span><br><span class="line">        instance</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>在 <code>getDatabase()</code> 的實作中，<u>如果已有 instance</u>，可以<u>使用 Elvis 運算子 return database 的現有 instance</u>，<u>如果尚未有 instance</u> 則<u>首次建立 database</u>。在這個 app 中，由於系統已預先填入 data，您也可<u>呼叫 <code>createFromAsset()</code> 來載入現有 data</u>。您可以在 project 的 <code>assets.database</code> package 中找到 <code>bus_schedule.db</code> 檔案。</p>
-<ol>
+<ol start="4">
 <li><strong>database class</strong> 就像 model class 和 <code>DAO</code> 一樣，需要<u>註解</u>來提供特定資訊。所有 <strong>entities type</strong> (<u>使用 <code>ClassName::class</code> 存取 type 本身</u>) 都會列在 <strong>array</strong> 中。database 也會提供 <strong>version number</strong>，請將這個 value 設為 <code>1</code>。請按照下列方式新增 <code>@Database</code> 註解。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Database(entities = arrayOf(Schedule::class), version = 1)</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AppDatabase</span>: <span class="type">RoomDatabase</span>() &#123;</span><br></pre></td></tr></table></figure>
+
 <div class="note success">
             <p><strong>注意：</strong><u>每次變更 database 結構時，<b>version number</b> 就會遞增</u>。app 會檢查這個版本與 database 中的版本，判斷是否應執行遷移(migration)以及遷移(migration)方式。</p>
           </div>
+
 <p>您已建立 <code>AppDatabase</code> class，只要再完成一個步驟就能開始使用。您需要提供 <u><code>Application</code> class 的自訂子類別</u>，並<u>建立 <code>lazy</code> 屬性來存放 <code>getDatabase()</code> 的結果</u>。</p>
-<ol>
+<ol start="5">
 <li>在 <code>com.example.busschedule</code> package 中，新增名為 <code>BusScheduleApplication.kt</code> 的 class，並繼承 <code>Application</code> class。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BusScheduleApplication</span> : <span class="type">Application</span>() &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="6">
 <li>新增 <code>database</code> 屬性(type 為 <code>AppDatabase</code>)。這個屬性應<u>延遲處理</u>，並 <u>return 在 <code>AppDatabase</code> class 上呼叫 <code>getDatabase()</code> 的結果</u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BusScheduleApplication</span> : <span class="type">Application</span>() &#123;</span><br><span class="line">   <span class="keyword">val</span> database: AppDatabase <span class="keyword">by</span> lazy &#123; AppDatabase.getDatabase(<span class="keyword">this</span>) &#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="7">
 <li>最後，為了<u>確保使用 <code>BusScheduleApplication</code> class</u> (而非預設的 base class <code>Application</code>)，您必須稍微<u>變更 <strong>manifest</strong></u>。在 <code>AndroidMainifest.xml</code> 中，將 <code>android:name</code> 屬性設為 <code>com.example.busschedule.BusScheduleApplication</code>。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">&quot;com.example.busschedule.BusScheduleApplication&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span></span></span><br></pre></td></tr></table></figure>
+
 <p>這時就可以設定 app 的 <strong>model</strong> 了。您可以開始<u>透過 UI 使用 Room 的 data</u>。在接下來幾頁中，您需要<u>為 app 的 <code>RecyclerView</code> 建立 <code>ListAdapter</code></u>，藉此顯示 <strong>bus schedule data</strong>，並以<u>動態(dynamically)</u>方式<u>回應 data 變更</u>。</p>
 <hr>
 <h3 id="建立-ListAdapter"><a href="#建立-ListAdapter" class="headerlink" title="建立 ListAdapter"></a>建立 ListAdapter</h3><p>現在，我們需要完成一些艱鉅的工作，並<u>將 model 彙整到 view 中</u>。以往使用 <code>RecyclerView</code> 時，您需要使用 <code>RecyclerView</code>。<code>Adapter</code> 可顯示<u>靜態(static) data list</u>。儘管特別適用於 Bus Schedule 等 app，但使用 database 時，往往遇到的都是<u>即時(real time)處理 data 的變更</u>。即使只有<u>一個 item 的內容有變更</u>，系統仍會<u>重新整理整個 recycler view</u>。但對大多數使用持續性的 app 來說，這種做法並不夠。</p>
 <p><u>動態變更 list</u> 的替代方案稱為 <code>ListAdapter</code>。<code>ListAdapter</code> 使用 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/recyclerview/widget/AsyncListDiffer">AsyncListDiffer</a> 來<u>判斷<b>舊 data list</b> 和<b>新 data list</b> 之間的差異</u>。之後，系統再<u>根據這兩份 list 之間的差異來更新 recycler view</u>。因此，處理頻繁更新的 data 時，recycler view 的執行效能會較高，就像在 database app 中經常遇到的情況一樣。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/f59cc2fd4d72c551_1920.png?hl=zh-tw" width="80%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-room-flow/img/f59cc2fd4d72c551_1920.png?hl=zh-tw" width="80%">
+
 <p>由於這兩個畫面的 UI 都相同，因此您只需要<u>建立可同時用於這兩個畫面的單個 <code>ListAdapter</code></u> 即可。</p>
 <ol>
 <li><ul>
-<li>建立新 class <code>BusStopAdapter.kt</code>。該 class 會繼承一個 generic  <code>ListAdapter</code>，其中會列出 UI 的 <u><code>Schedule</code> object list</u> 和 <u><code>BusStopViewHolder</code> class</u>。<ul>
+<li>建立新 class <code>BusStopAdapter.kt</code>。該 class 會繼承一個 generic  <code>ListAdapter</code>，其中會列出 UI 的 <u><code>Schedule</code> object list</u> 和 <u><code>BusStopViewHolder</code> class</u>。</li>
 <li>對於 <code>BusStopViewHolder</code>，您也會<u>傳遞即將定義的 <code>DiffCallback</code> type</u>。</li>
 <li><code>BusStopAdapter</code> class 本身也會<u>採用參數 <code>onItemClicked()</code></u>。系統會<u>在第一個畫面選取 item 時，使用此功能來處理 <strong>navigation</strong></u>，但在第二個畫面中，您只需<u>傳遞 <strong>empty function</strong></u> 即可。</li>
-</ul>
-</li>
 </ul>
 </li>
 </ol>
@@ -487,52 +523,63 @@
 <ul>
 <li>import <code>androidx.recyclerview.widget.ListAdapter</code></li>
 </ul>
-<ol>
+<ol start="2">
 <li>與 recycler view adapter 類似，您需要具備 <strong>view holder</strong>，才能在程式碼中<u>存取透過 layout 檔案建立的 view</u>。接著只要建立 <code>BusStopViewHolder</code> class 並實作 <code>bind()</code> function，即可<u>將 <code>stopNameTextView</code> 的 text 設為 <strong>stop name</strong></u>，並<u>將 <code>arrivalTimeTextView</code> 的 text 設為<b>格式化日期(formatted date)</b></u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BusStopViewHolder</span>(<span class="keyword">private</span> <span class="keyword">var</span> binding: BusStopItemBinding): RecyclerView.ViewHolder(binding.root) &#123;</span><br><span class="line">    <span class="meta">@SuppressLint(<span class="string">&quot;SimpleDateFormat&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(schedule: <span class="type">Schedule</span>)</span></span> &#123;</span><br><span class="line">        binding.stopNameTextView.text = schedule.stopName</span><br><span class="line">        binding.arrivalTimeTextView.text = SimpleDateFormat(</span><br><span class="line">            <span class="string">&quot;h:mm a&quot;</span>).format(Date(schedule.arrivalTime.toLong() * <span class="number">1000</span>)</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>覆寫並實作 <code>onCreateViewHolder()</code>，加載 layout，並<u>將 <code>onClickListener()</code> 設定為針對目前位置(position)的 item 呼叫 <code>onItemClicked()</code></u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(parent: <span class="type">ViewGroup</span>, viewType: <span class="type">Int</span>)</span></span>: BusStopViewHolder &#123;</span><br><span class="line">   <span class="keyword">val</span> viewHolder = BusStopViewHolder(</span><br><span class="line">       BusStopItemBinding.inflate(</span><br><span class="line">           LayoutInflater.from( parent.context),</span><br><span class="line">           parent,</span><br><span class="line">           <span class="literal">false</span></span><br><span class="line">       )</span><br><span class="line">   )</span><br><span class="line">   viewHolder.itemView.setOnClickListener &#123;</span><br><span class="line">       <span class="keyword">val</span> position = viewHolder.adapterPosition</span><br><span class="line">       onItemClicked(getItem(position))</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> viewHolder</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="4">
 <li>覆寫並實作 <code>onBindViewHolder()</code>，同時<u>在指定位置(position) bind <strong>view</strong></u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">BusStopViewHolder</span>, position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">   holder.bind(getItem(position))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="5">
 <li>記得您為 <code>ListAdapter</code> 指定的 <code>DiffCallback</code> class 嗎？這只是一個 <strong>object</strong>，能夠協助 <code>ListAdapter</code> 在<u>更新 list 時確定新舊 list 中哪些 item 不同</u>。為此，有以下兩種 method：</li>
 </ol>
 <ul>
 <li><code>areItemsTheSame()</code> 透過僅<u>檢查 <strong>ID</strong> 來確認 <strong>object</strong> (database 的 <strong>row</strong>) 是否相同</u>。</li>
 <li><code>areContentsTheSame()</code> 會<u>檢查所有屬性 (不只是 ID) 是否相同</u>。這些方法可讓 <code>ListAdapter</code> <u>判斷 <strong>inserted</strong>、<strong>updated</strong> 及 <strong>deleted</strong> 哪些 item</u>，以便更新相應 UI。</li>
 </ul>
-<p>新增 <strong>companion object</strong>，然後實作 <code>DiffCallback</code>，如下所示。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">val</span> DiffCallback = <span class="keyword">object</span> : DiffUtil.ItemCallback&lt;Schedule&gt;() &#123;</span><br><span class="line">       <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areItemsTheSame</span><span class="params">(oldItem: <span class="type">Schedule</span>, newItem: <span class="type">Schedule</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> oldItem.id == newItem.id</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areContentsTheSame</span><span class="params">(oldItem: <span class="type">Schedule</span>, newItem: <span class="type">Schedule</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> oldItem == newItem</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>新增 <strong>companion object</strong>，然後實作 <code>DiffCallback</code>，如下所示。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">val</span> DiffCallback = <span class="keyword">object</span> : DiffUtil.ItemCallback&lt;Schedule&gt;() &#123;</span><br><span class="line">       <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areItemsTheSame</span><span class="params">(oldItem: <span class="type">Schedule</span>, newItem: <span class="type">Schedule</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> oldItem.id == newItem.id</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">areContentsTheSame</span><span class="params">(oldItem: <span class="type">Schedule</span>, newItem: <span class="type">Schedule</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> oldItem == newItem</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>這就是設定 adapter 的全部內容。您將在 app 的兩個畫面中使用。</p>
 <ol>
 <li>首先，您需要在 <code>FullScheduleFragment.kt</code> 中<u>取得 <strong>view model</strong> 的引用</u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: BusScheduleViewModel <span class="keyword">by</span> activityViewModels &#123;</span><br><span class="line">   BusScheduleViewModelFactory(</span><br><span class="line">       (activity?.application <span class="keyword">as</span> BusScheduleApplication).database.scheduleDao()</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li>接著在 <code>onViewCreated()</code> 中，加入以下程式碼，以<u>設定 recycler view，並指派其 <strong>layout manager</strong></u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">recyclerView = binding.recyclerView</span><br><span class="line">recyclerView.layoutManager = LinearLayoutManager(requireContext())</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>然後<u>指派 adapter 屬性</u>。傳入的<b>動作(action)</b>會使用 <u><code>stopName</code> navigate 所選的下一個畫面</u>，以便篩選 <strong>bus stops list</strong>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> busStopAdapter = BusStopAdapter(&#123;</span><br><span class="line">   <span class="keyword">val</span> action = FullScheduleFragmentDirections.actionFullScheduleFragmentToStopScheduleFragment(</span><br><span class="line">       stopName = it.stopName</span><br><span class="line">   )</span><br><span class="line">   view.findNavController().navigate(action)</span><br><span class="line">&#125;)</span><br><span class="line">recyclerView.adapter = busStopAdapter</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="4">
 <li>最後，如要<u>更新 <strong>list view</strong></u>，請<u>呼叫 <code>submitList()</code></u>，然後<u>傳入該 <strong>view model</strong> 的 <strong>bus stops list</strong></u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// submitList() is a call that accesses the database. To prevent the</span></span><br><span class="line"><span class="comment">// call from potentially locking the UI, you should use a</span></span><br><span class="line"><span class="comment">// coroutine scope to launch the function. Using GlobalScope is not</span></span><br><span class="line"><span class="comment">// best practice, and in the next step we&#x27;ll see how to improve this.</span></span><br><span class="line">GlobalScope.launch(Dispatchers.IO) &#123;</span><br><span class="line">   busStopAdapter.submitList(viewModel.fullSchedule())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="5">
 <li>在 <code>StopScheduleFragment</code> 中執行相同動作。首先，<u>取得 <strong>view model</strong> 的引用</u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> viewModel: BusScheduleViewModel <span class="keyword">by</span> activityViewModels &#123;</span><br><span class="line">   BusScheduleViewModelFactory(</span><br><span class="line">       (activity?.application <span class="keyword">as</span> BusScheduleApplication).database.scheduleDao()</span><br><span class="line">   )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="6">
 <li>然後在 <code>onViewCreated()</code> 中<u>設定 recycler view</u>。這次，您只要使用 <code>&#123;&#125;</code> 傳入 <strong>empty block</strong> (function) 即可。輕觸這個畫面中的 row 時，最好不會出現任何動作。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">recyclerView = binding.recyclerView</span><br><span class="line">recyclerView.layoutManager = LinearLayoutManager(requireContext())</span><br><span class="line"><span class="keyword">val</span> busStopAdapter = BusStopAdapter(&#123;&#125;)</span><br><span class="line">recyclerView.adapter = busStopAdapter</span><br><span class="line"><span class="comment">// submitList() is a call that accesses the database. To prevent the</span></span><br><span class="line"><span class="comment">// call from potentially locking the UI, you should use a</span></span><br><span class="line"><span class="comment">// coroutine scope to launch the function. Using GlobalScope is not</span></span><br><span class="line"><span class="comment">// best practice, and in the next step we&#x27;ll see how to improve this.</span></span><br><span class="line">GlobalScope.launch(Dispatchers.IO) &#123;</span><br><span class="line">   busStopAdapter.submitList(viewModel.scheduleForStopName(stopName))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="7">
 <li>Adapter 設定完畢之後，Room 便整合到 Bus Schedule app 中。花點時間執行該 app，畫面中會顯示 <strong>arrival times list</strong>。只要<u>輕觸任一 <strong>row</strong>，即可前往 <strong>detail</strong> 畫面</u>。</li>
 </ol>
 <div style="display:flex; justify-content:center;">
@@ -561,29 +608,37 @@
 <ul>
 <li>import <code>kotlinx.coroutines.flow.Flow</code></li>
 </ul>
-<ol>
+<ol start="2">
 <li>同樣地，請更新 <code>getByStopName()</code> function 的 return value。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用 Flow&lt;&gt; 包起來，使 DAO 持續從 database 發出 data</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getByStopName</span><span class="params">(stopName: <span class="type">String</span>)</span></span>: Flow&lt;List&lt;Schedule&gt;&gt;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>此外，也要更新 view model 中存取 <code>DAO</code> 的 function。將 <code>fullSchedule()</code> 和 <code>scheduleForStopName()</code> 的 return value 更新為 <code>Flow&lt;List&lt;Schedule&gt;&gt;</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BusScheduleViewModel</span>(<span class="keyword">private</span> <span class="keyword">val</span> scheduleDao: ScheduleDao): ViewModel() &#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">fun</span> <span class="title">fullSchedule</span><span class="params">()</span></span>: Flow&lt;List&lt;Schedule&gt;&gt; = scheduleDao.getAll()</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">fun</span> <span class="title">scheduleForStopName</span><span class="params">(name: <span class="type">String</span>)</span></span>: Flow&lt;List&lt;Schedule&gt;&gt; = scheduleDao.getByStopName(name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="4">
 <li>最後，在 <code>FullScheduleFragment.kt</code> 中，當您<u>根據查詢結果呼叫 <code>collect()</code> 時，系統應更新 <code>busStopAdapter</code></u>。<u>由於 <code>fullSchedule()</code> 是 <strong>suspend function</strong>，因此需要從 <strong>coroutine</strong> 中呼叫</u>。取代這一行內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">busStopAdapter.submitList(viewModel.fullSchedule())</span><br></pre></td></tr></table></figure>
-<p>這段程式碼會使用 <code>fullSchedule()</code> return 的 Flow。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lifecycle.coroutineScope.launch &#123;</span><br><span class="line">   viewModel.fullSchedule().collect() &#123;</span><br><span class="line">       busStopAdapter.submitList(it)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol>
+
+<p>這段程式碼會使用 <code>fullSchedule()</code> return 的 Flow。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lifecycle.coroutineScope.launch &#123;</span><br><span class="line">   viewModel.fullSchedule().collect() &#123;</span><br><span class="line">       busStopAdapter.submitList(it)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
 <li>在 <code>StopScheduleFragment</code> 中執行相同作業，但請將 <code>scheduleForStopName()</code> 呼叫改成以下內容。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lifecycle.coroutineScope.launch &#123;</span><br><span class="line">   viewModel.scheduleForStopName(stopName).collect() &#123;</span><br><span class="line">       busStopAdapter.submitList(it)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="6">
 <li>完成上述變更後，您可以重新執行 app，驗證系統現在是否<u>即時(real time)處理 data 變更</u>。App 執行完畢後，請返回 App Inspector，並傳送下列查詢，<u>在 11:00 PM 前插入新的 arrival time</u>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO schedule</span><br><span class="line">VALUES (<span class="literal">null</span>, <span class="string">&#x27;Winding Way&#x27;</span>, <span class="number">1617202500</span>)</span><br></pre></td></tr></table></figure>
+
 <p>新 item 隨即會顯示在 list 頂端。</p>
-<p><img src="https://i.imgur.com/SRXR0FP.png" width="40%"></p>
+<img src="https://i.imgur.com/SRXR0FP.png" width="40%">
+
 <hr>
 <h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
 <li>SQL database 中的 tables 會在 <strong>Room</strong> 中<u>以稱為 <strong>entities</strong> 的 Kotlin classes 表示</u>。</li>
@@ -606,8 +661,8 @@
               <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
               <a href="/tags/RecyclerView/" rel="tag"># RecyclerView</a>
               <a href="/tags/Data-Class/" rel="tag"># Data Class</a>
-              <a href="/tags/Navigation/" rel="tag"># Navigation</a>
               <a href="/tags/companion-object/" rel="tag"># companion object</a>
+              <a href="/tags/Navigation/" rel="tag"># Navigation</a>
               <a href="/tags/ViewModel/" rel="tag"># ViewModel</a>
               <a href="/tags/suspend-function/" rel="tag"># suspend function</a>
               <a href="/tags/CoroutineScope/" rel="tag"># CoroutineScope</a>
@@ -616,12 +671,12 @@
               <a href="/tags/App-Inspector/" rel="tag"># App Inspector</a>
               <a href="/tags/ListAdapter/" rel="tag"># ListAdapter</a>
               <a href="/tags/Room/" rel="tag"># Room</a>
-              <a href="/tags/Flow/" rel="tag"># Flow</a>
+              <a href="/tags/ORM/" rel="tag"># ORM</a>
               <a href="/tags/DAO/" rel="tag"># DAO</a>
               <a href="/tags/Entity/" rel="tag"># Entity</a>
-              <a href="/tags/Database-Class/" rel="tag"># Database Class</a>
               <a href="/tags/Factory/" rel="tag"># Factory</a>
-              <a href="/tags/ORM/" rel="tag"># ORM</a>
+              <a href="/tags/Flow/" rel="tag"># Flow</a>
+              <a href="/tags/Database-Class/" rel="tag"># Database Class</a>
           </div>
 
         

@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="將新增骰子的圖片至現有的Dice RollerAndroid應用程式。   學習目標  如何在應用程式執行時更新ImageView。 如何根據不同條件自訂應用程式行為(使用when陳述式)。">
+  <meta name="description" content="將新增骰子的圖片至現有的Dice RollerAndroid應用程式。    學習目標  如何在應用程式執行時更新ImageView。 如何根據不同條件自訂應用程式行為(使用when陳述式)。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(5)-新增圖片至Dice Roller應用程式">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/08/22/Android%E7%AD%86%E8%A8%98-5-%E6%96%B0%E5%A2%9E%E5%9C%96%E7%89%87%E8%87%B3Dice-Roller%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="將新增骰子的圖片至現有的Dice RollerAndroid應用程式。   學習目標  如何在應用程式執行時更新ImageView。 如何根據不同條件自訂應用程式行為(使用when陳述式)。">
+<meta property="og:description" content="將新增骰子的圖片至現有的Dice RollerAndroid應用程式。    學習目標  如何在應用程式執行時更新ImageView。 如何根據不同條件自訂應用程式行為(使用when陳述式)。">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/c7f0d42525da7431_1920.png?authuser=2&hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2e8416293e597725_1920.png?authuser=2&hl=zh-tw">
@@ -283,48 +283,57 @@
         <blockquote>
 <p>將新增骰子的圖片至現有的<code>Dice Roller</code>Android應用程式。</p>
 </blockquote>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/c7f0d42525da7431_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/c7f0d42525da7431_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
 <p><strong>學習目標</strong></p>
 <ul>
 <li>如何在應用程式執行時更新<code>ImageView</code>。</li>
 <li>如何根據不同條件自訂應用程式行為(使用<code>when</code>陳述式)。</li>
 </ul>
 <span id="more"></span>
+
 <hr>
 <h4 id="更新應用程式的版面配置"><a href="#更新應用程式的版面配置" class="headerlink" title="更新應用程式的版面配置"></a>更新應用程式的版面配置</h4><p>新增顯示擲骰子結果圖片的<code>ImageView</code>，以取代版面配置中的<code>TextView</code>。</p>
 <ol>
 <li>在 Android Studio 中，開啟並執行先前程式碼研究室的 Dice Roller 應用程式。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2e8416293e597725_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2e8416293e597725_1920.png?authuser=2&hl=zh-tw" width="30%" height="30%">
+
+<ol start="2">
 <li><p>刪除<code>TextView</code>，新增<code>ImageView</code>並放置在<code>Button</code>上方。</p>
 </li>
 <li><p>在「Pick a Resource」對話方塊中，選取「Sample data」下的「avatars」。這是您在下一項工作中新增骰子圖片前，暫時使用的圖片。</p>
 </li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/91f6e2be0a01fbf_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/91f6e2be0a01fbf_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%">
+
+<ol start="4">
 <li>在「Component Tree」中，您會看到兩項錯誤。<code>Button</code>不受垂直限制，<code>ImageView</code>則不受垂直或水平限制。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b8c3b83124c31ff_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b8c3b83124c31ff_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%">
+
 <hr>
 <h4 id="調整-ImageView-和-Button-的位置"><a href="#調整-ImageView-和-Button-的位置" class="headerlink" title="調整 ImageView 和 Button 的位置"></a>調整 ImageView 和 Button 的位置</h4><p>無論 Button 在什麼位置，ImageView 都必須垂直置於畫面中間。</p>
 <ol>
 <li>在<code>ImageView</code>中加入水平限制條件。將<code>ImageView</code>的左側連結至父項<code>ConstraintLayout</code>的左側邊緣，右側連結至父項的右側邊緣，使<code>ImageView</code>水平置中。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/9848bb6319e11777_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/9848bb6319e11777_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<ol start="2">
 <li>在<code>ImageView</code>加入垂直限制，然後連結<code>ImageView</code>的頂端與父項的頂端。<code>ImageView</code>會向上滑動至 <code>ConstraintLayout</code>的頂端。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2d8d134e6292d48f_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%"></p>
-<ol>
-<li><p>在<code>Button</code>中加入垂直限制，然後連結<code>Button</code>的頂端與<code>ImageView</code>底部。<code>Button</code>會向上滑動至 <code>ImageView</code>下方。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b6d3dcee6c7a51fc_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/2d8d134e6292d48f_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<ol start="3">
+<li><p>在<code>Button</code>中加入垂直限制，然後連結<code>Button</code>的頂端與<code>ImageView</code>底部。<code>Button</code>會向上滑動至 <code>ImageView</code>下方。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b6d3dcee6c7a51fc_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
 </li>
 <li><p>再次選取<code>ImageView</code>並加入垂直限制，然後連結<code>ImageView</code>的底部與父項的底部。這會讓<code>ImageView</code>在 <code>ConstraintLayout</code>中垂直置中。</p>
 </li>
 </ol>
 <p>完成所有操作後，「Design」(設計) 檢視畫面應該如下所示，<code>ImageView</code>位於中央，<code>Button</code>則緊靠在下方。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/1b05a6d2fd56459f_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/1b05a6d2fd56459f_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
 <hr>
 <h4 id="新增骰子圖片"><a href="#新增骰子圖片" class="headerlink" title="新增骰子圖片"></a>新增骰子圖片</h4><h5 id="下載骰子圖片"><a href="#下載骰子圖片" class="headerlink" title="下載骰子圖片"></a>下載骰子圖片</h5><ol>
 <li>開啟<a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-dice-roller-with-images-app-solution/raw/master/dice_images.zip">這個網址</a>下載骰子圖片的 ZIP 檔案至電腦上。</li>
@@ -334,16 +343,19 @@
 <li>依序按一下選單中的「View」&gt;「Tool Windows」&gt;「Resource Manager」，或點選「Project」視窗左側的「Resource Manager」分頁標籤。</li>
 <li>按一下「Resource Manager」下方的「+」圖示，然後選取「Import Drawables」，即可開啟檔案瀏覽器。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/67186ea5d631bc8a_1920.png?authuser=2&hl=zh-tw" width="40%" heught="40%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/67186ea5d631bc8a_1920.png?authuser=2&hl=zh-tw" width="40%" heught="40%">
+
+<ol start="3">
 <li>找出並選取這 6 個骰子圖片檔案。您可以選取第一個檔案，然後按住 Shift 鍵並選取其他檔案。</li>
 <li>按一下「Open」。依序點選「Next」和「Import」，確認要匯入這 6 項資源。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/a45dff94a19e2722_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/a45dff94a19e2722_1920.png?authuser=2&hl=zh-tw" width="70%" heught="70%">
+
+<ol start="5">
 <li>如果成功匯入檔案，應用程式的「Resource Manager」(資源管理員) (「app」(應用程式) &gt;「res」(解析度) &gt;「drawable」(可繪項目)) 中會顯示 6 張圖片。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/ab68f82b385fc83e_1920.png?authuser=2&hl=zh-tw"  width="30%" heught="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/ab68f82b385fc83e_1920.png?authuser=2&hl=zh-tw"  width="30%" heught="30%">
+
 <hr>
 <h4 id="使用骰子圖片"><a href="#使用骰子圖片" class="headerlink" title="使用骰子圖片"></a>使用骰子圖片</h4><h5 id="更換範例顯示圖片"><a href="#更換範例顯示圖片" class="headerlink" title="更換範例顯示圖片"></a>更換範例顯示圖片</h5><ol>
 <li>在「設計編輯器」中，選取<code>ImageView</code>。</li>
@@ -352,26 +364,29 @@
 <ul>
 <li>工具「srcCompat」屬性只會在建構應用程式時向開發人員顯示，所以在模擬器或裝置上執行應用程式時不會顯示。</li>
 </ul>
-<ol>
+<ol start="3">
 <li>按一下顯示圖片的縮圖預覽。系統會開啟對話方塊，請選擇<code>ImageView</code>使用的新資源。</li>
 <li>選取<code>dice_1</code>可繪項目，然後按一下「OK」。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/1072e9fdd637afd9_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/1072e9fdd637afd9_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
 <p>接著，調整<code>ImageView</code>的寬度和高度，避免遮掩<code>Button</code>。</p>
-<ol>
+<ol start="5">
 <li>在「Constraints Widget」下方的「Attributes」視窗中，找出「layout_width」和「layout_height」屬性。</li>
 </ol>
 <ul>
 <li>這兩項屬性目前設為「wrap_content」，即 ImageView 的高度和寬度與其中的內容 (來源圖片) 相同。</li>
 </ul>
-<ol>
+<ol start="6">
 <li>將<code>ImageView</code>的寬度改設為固定的<code>160 dp</code>，並將高度設為固定的<code>200 dp</code>。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/9579582d8775e688_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%"></p>
-<ol>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/9579582d8775e688_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
+<ol start="7">
 <li>最後，由於<code>Button</code>太靠近圖片，在「限制小工具」中，設定上邊界 16dp。</li>
 </ol>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b53f7379bfba8c27_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-dice-roller-images/img/b53f7379bfba8c27_1920.png?authuser=2&hl=zh-tw" width="30%" heught="30%">
+
 <hr>
 <h4 id="按下按鈕時變更骰子圖片"><a href="#按下按鈕時變更骰子圖片" class="headerlink" title="按下按鈕時變更骰子圖片"></a>按下按鈕時變更骰子圖片</h4><p>更新 MainActivity 類別才能使用骰子圖片。</p>
 <ol>
@@ -379,21 +394,32 @@
 <li>建立名為類型<code>ImageView</code>的<code>diceImage</code>的新變數。使用<code>findViewById()</code>方法，傳入<code>ImageView</code>、<code>R.id.imageView</code>的資源識別碼作為輸入引數。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val diceImage: ImageView = findViewById(R.id.imageView)</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>設定顯示骰子圖片</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diceImage.setImageResource(R.drawable.dice_2)</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="3">
 <li>使用<code>if/else</code>或<code>when</code>陳述式，根據擲骰子的結果顯示正確的骰子圖片。</li>
 </ol>
-<p>if/else：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (diceRoll == 1) &#123;</span><br><span class="line">   diceImage.setImageResource(R.drawable.dice_1)</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (diceRoll == 2) &#123;</span><br><span class="line">   diceImage.setImageResource(R.drawable.dice_2)</span><br><span class="line">&#125;</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure></p>
-<p>when：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">when (diceRoll) &#123;</span><br><span class="line">   1 -&gt; diceImage.setImageResource(R.drawable.dice_1)</span><br><span class="line">   2 -&gt; diceImage.setImageResource(R.drawable.dice_2)</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure></p>
-<p>完成後如下方所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private fun <span class="function"><span class="title">rollDice</span></span>() &#123;</span><br><span class="line">    // Create new Dice object with 6 sides and roll it</span><br><span class="line">    val dice = Dice(6)</span><br><span class="line">    val diceRoll = dice.roll()</span><br><span class="line"></span><br><span class="line">    val diceImage: ImageView = findViewById(R.id.imageView)</span><br><span class="line"></span><br><span class="line">    // Update the dice image with the dice roll</span><br><span class="line">    when (diceRoll) &#123;</span><br><span class="line">        1 -&gt; diceImage.setImageResource(R.drawable.dice_1)</span><br><span class="line">        2 -&gt; diceImage.setImageResource(R.drawable.dice_2)</span><br><span class="line">        3 -&gt; diceImage.setImageResource(R.drawable.dice_3)</span><br><span class="line">        4 -&gt; diceImage.setImageResource(R.drawable.dice_4)</span><br><span class="line">        5 -&gt; diceImage.setImageResource(R.drawable.dice_5)</span><br><span class="line">        6 -&gt; diceImage.setImageResource(R.drawable.dice_6)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>if&#x2F;else：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (diceRoll == 1) &#123;</span><br><span class="line">   diceImage.setImageResource(R.drawable.dice_1)</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (diceRoll == 2) &#123;</span><br><span class="line">   diceImage.setImageResource(R.drawable.dice_2)</span><br><span class="line">&#125;</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+
+<p>when：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">when (diceRoll) &#123;</span><br><span class="line">   1 -&gt; diceImage.setImageResource(R.drawable.dice_1)</span><br><span class="line">   2 -&gt; diceImage.setImageResource(R.drawable.dice_2)</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+
+<p>完成後如下方所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private fun <span class="function"><span class="title">rollDice</span></span>() &#123;</span><br><span class="line">    // Create new Dice object with 6 sides and roll it</span><br><span class="line">    val dice = Dice(6)</span><br><span class="line">    val diceRoll = dice.roll()</span><br><span class="line"></span><br><span class="line">    val diceImage: ImageView = findViewById(R.id.imageView)</span><br><span class="line"></span><br><span class="line">    // Update the dice image with the dice roll</span><br><span class="line">    when (diceRoll) &#123;</span><br><span class="line">        1 -&gt; diceImage.setImageResource(R.drawable.dice_1)</span><br><span class="line">        2 -&gt; diceImage.setImageResource(R.drawable.dice_2)</span><br><span class="line">        3 -&gt; diceImage.setImageResource(R.drawable.dice_3)</span><br><span class="line">        4 -&gt; diceImage.setImageResource(R.drawable.dice_4)</span><br><span class="line">        5 -&gt; diceImage.setImageResource(R.drawable.dice_5)</span><br><span class="line">        6 -&gt; diceImage.setImageResource(R.drawable.dice_6)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <hr>
 <h4 id="最佳化程式碼"><a href="#最佳化程式碼" class="headerlink" title="最佳化程式碼"></a>最佳化程式碼</h4><p>呼叫<code>diceImage.setImageResource()</code>在陳述式中出現 6 次。<br>我們可以建立變數，儲存使用的資源識別碼。</p>
-<p>更換程式碼，以下列取代。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">val drawableResource = when (diceRoll) &#123;</span><br><span class="line">   1 -&gt; R.drawable.dice_1</span><br><span class="line">   2 -&gt; R.drawable.dice_2</span><br><span class="line">   3 -&gt; R.drawable.dice_3</span><br><span class="line">   4 -&gt; R.drawable.dice_4</span><br><span class="line">   5 -&gt; R.drawable.dice_5</span><br><span class="line">   6 -&gt; R.drawable.dice_6</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">diceImage.setImageResource(drawableResource)</span><br></pre></td></tr></table></figure></p>
+<p>更換程式碼，以下列取代。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">val drawableResource = when (diceRoll) &#123;</span><br><span class="line">   1 -&gt; R.drawable.dice_1</span><br><span class="line">   2 -&gt; R.drawable.dice_2</span><br><span class="line">   3 -&gt; R.drawable.dice_3</span><br><span class="line">   4 -&gt; R.drawable.dice_4</span><br><span class="line">   5 -&gt; R.drawable.dice_5</span><br><span class="line">   6 -&gt; R.drawable.dice_6</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">diceImage.setImageResource(drawableResource)</span><br></pre></td></tr></table></figure>
+
 <p>這時<code>when</code>會顯示錯誤訊息：「‘when’ expression must be exhaustive, add necessary ‘else’ branch」。<br>原因在於 when 運算式的值已指派給 drawableResource，因此 when 必須詳盡無遺，也就是說，這個運算式必須處理所有可能的情況，以確保即使您變更為有 12 面的骰子，仍一律會傳回值。<br>若要修正錯誤，請將案例的 6 變更為 else。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">val drawableResource = when (diceRoll) &#123;</span><br><span class="line">   1 -&gt; R.drawable.dice_1</span><br><span class="line">   2 -&gt; R.drawable.dice_2</span><br><span class="line">   3 -&gt; R.drawable.dice_3</span><br><span class="line">   4 -&gt; R.drawable.dice_4</span><br><span class="line">   5 -&gt; R.drawable.dice_5</span><br><span class="line">   <span class="keyword">else</span> -&gt; R.drawable.dice_6</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">diceImage.setImageResource(drawableResource)</span><br></pre></td></tr></table></figure>
+
 <hr>
 <h4 id="在-ImageView-上設定適當的內容說明"><a href="#在-ImageView-上設定適當的內容說明" class="headerlink" title="在 ImageView 上設定適當的內容說明"></a>在 ImageView 上設定適當的內容說明</h4><p>更新 <code>ImageView</code>的內容說明，有助螢幕閱讀器說明內容。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diceImage.contentDescription = diceRoll.toString()</span><br></pre></td></tr></table></figure>
@@ -403,9 +429,9 @@
 <hr>
 <h4 id="採用完善的程式設計做法"><a href="#採用完善的程式設計做法" class="headerlink" title="採用完善的程式設計做法"></a>採用完善的程式設計做法</h4><p>使用者首次開啟應用程式時，應用程式顯示的空白畫面 (「Roll」按鈕除外) 看來很突兀。這可能會導致使用者不清楚應用程式的功能，因此您需要變更使用者介面，在首次啟動應用程式時顯示隨機擲骰子的畫面，並建立 Activity。這樣一來，使用者就較有可能理解，只要輕觸「Roll」按鈕就能擲骰子。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">    val rollButton: Button = findViewById(R.id.button)</span><br><span class="line">    rollButton.setOnClickListener &#123; rollDice() &#125;</span><br><span class="line"></span><br><span class="line">    // Do a dice roll when the app starts</span><br><span class="line">    rollDice()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最終顯示的畫面：</p>
-<p><img src="https://i.imgur.com/2ekxDp1.gif" width="30%" height="30%"></p>
 
+<p>最終顯示的畫面：</p>
+<img src="https://i.imgur.com/2ekxDp1.gif" width="30%" height="30%">
     </div>
 
     

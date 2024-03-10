@@ -290,6 +290,7 @@
 <li>瞭解色彩對比的重要性</li>
 </ul>
 <span id="more"></span>
+
 <hr>
 <h4 id="設計與顏色"><a href="#設計與顏色" class="headerlink" title="設計與顏色"></a>設計與顏色</h4><h5 id="Material-Design"><a href="#Material-Design" class="headerlink" title="Material Design"></a>Material Design</h5><ul>
 <li><a target="_blank" rel="noopener" href="https://m2.material.io/design/introduction">Material Design</a>以現實世界及物質紋理為靈感來源，包括物體反映光線和產生陰影的樣態。這套系統提供指南，協助您瞭解如何以具備可讀性、吸引力和一致性的方式建構應用程式 UI。</li>
@@ -297,15 +298,19 @@
 <li>Material Design 提供內建的基準主題，您可以直接套用，然後視需求微幅或大幅自訂，根據應用程式情況調整使用 Material 的方式。</li>
 </ul>
 <h5 id="顏色相關資訊"><a href="#顏色相關資訊" class="headerlink" title="顏色相關資訊"></a>顏色相關資訊</h5><p>無論是在現實世界或數位領域中，色彩無所不在。首先必須知道，並不是每個人都以相同方式看見顏色，因此您必須選擇可讓使用者有效使用應用程式的顏色。選用具備適當色彩對比度的顏色只是打造<a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/ui/accessibility?hl=zh-tw">無障礙應用程式</a>的一環。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/55f93a1ea75d644a_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/55f93a1ea75d644a_1920.png?hl=zh-tw" width="30%" height="30%">
+
 <p><a target="_blank" rel="noopener" href="https://developer.android.com/reference/kotlin/android/graphics/Color">顏色</a>可用 3 個十六進位數字表示，#00-#FF (0-255) 代表該色彩的紅色、綠色和藍色 (RGB) 元件。數字越高，元件成分就越多。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/e0349c33dd6fbafe_1920.png?hl=zh-tw" width="30%" height="30%"></p>
-<p>請注意，您也可以定義顏色，包括 Alpha 值 #00-#FF，其代表透明度 (#00 = 0% = 完全透明，#FF = 100% = 完全不透明)。如果包含 Alpha 值，其為 4 個十六進位數字 (ARGB) 中的第一個。如果沒有 Alpha 值，系統會假設 #FF = 100% 不透明。</p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/e0349c33dd6fbafe_1920.png?hl=zh-tw" width="30%" height="30%">
+
+<p>請注意，您也可以定義顏色，包括 Alpha 值 #00-#FF，其代表透明度 (#00 &#x3D; 0% &#x3D; 完全透明，#FF &#x3D; 100% &#x3D; 完全不透明)。如果包含 Alpha 值，其為 4 個十六進位數字 (ARGB) 中的第一個。如果沒有 Alpha 值，系統會假設 #FF &#x3D; 100% 不透明。</p>
 <p>不過，您不需要自行產生十六進位數字。您可透過幾款工具挑選顏色，讓系統為您產生數字。</p>
-<p>您可能曾在 Android 應用程式的 <code>colors.xml</code> 檔案中看過某些範例，例如 100% 黑色 (R=#00，G=#00，B=#00) 和 100% 白色 (R=#FF，G=#FF，B=#FF)：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>&gt;</span>#FF000000<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;white&quot;</span>&gt;</span>#FFFFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>您可能曾在 Android 應用程式的 <code>colors.xml</code> 檔案中看過某些範例，例如 100% 黑色 (R&#x3D;#00，G&#x3D;#00，B&#x3D;#00) 和 100% 白色 (R&#x3D;#FF，G&#x3D;#FF，B&#x3D;#FF)：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>&gt;</span>#FF000000<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;white&quot;</span>&gt;</span>#FFFFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <hr>
 <h4 id="主題"><a href="#主題" class="headerlink" title="主題"></a>主題</h4><p>樣式可指定 <code>View</code> 的屬性，例如字型顏色、字型大小、背景顏色等。</p>
-<p><strong>主題(Theme)</strong>是套用至整個應用程式、活動或檢視區塊階層 (而不只是個別 <code>View</code>) 的樣式集合。將主題套用至應用程式、活動、檢視畫面或檢視區塊群組時，該主題會套用至該元素及其所有子項。主題也可以將樣式套用至非檢視元素，例如狀態列和視窗背景。</p>
+<p>**主題(Theme)**是套用至整個應用程式、活動或檢視區塊階層 (而不只是個別 <code>View</code>) 的樣式集合。將主題套用至應用程式、活動、檢視畫面或檢視區塊群組時，該主題會套用至該元素及其所有子項。主題也可以將樣式套用至非檢視元素，例如狀態列和視窗背景。</p>
 <h5 id="建立Empty-Activity專案"><a href="#建立Empty-Activity專案" class="headerlink" title="建立Empty Activity專案"></a>建立Empty Activity專案</h5><p>如果您使用自己的應用程式，則可略過此部分。如果需要應用程式進行作業，請按照下列步驟建立「Empty Activity」應用程式。</p>
 <ol>
 <li>開啟 Android Studio。</li>
@@ -317,95 +322,96 @@
 <li>請將所有文字替換為此 XML：</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_margin</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;48dp&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">&quot;center_horizontal&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:gravity</span>=<span class="string">&quot;center_vertical&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;@string/primary_color&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textAllCaps</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textSize</span>=<span class="string">&quot;12sp&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">&quot;center_horizontal&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;@string/button&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;48dp&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">&quot;center_horizontal&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginTop</span>=<span class="string">&quot;8dp&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:gravity</span>=<span class="string">&quot;center_vertical&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;@string/secondary_color&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textAllCaps</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textSize</span>=<span class="string">&quot;12sp&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.google.android.material.floatingactionbutton.FloatingActionButton</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">&quot;center_horizontal&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:contentDescription</span>=<span class="string">&quot;@string/email_icon&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:srcCompat</span>=<span class="string">&quot;@android:drawable/ic_dialog_email&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="8">
 <li>開啟 <code>strings.xml</code> (依序點選「app」&gt;「res」&gt;「values」&gt;「strings.xml」)。</li>
 <li>請將所有文字替換為此 XML：</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;app_name&quot;</span>&gt;</span>TipTime<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;primary_color&quot;</span>&gt;</span>Primary color<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;button&quot;</span>&gt;</span>Button<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;secondary_color&quot;</span>&gt;</span>Secondary color<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;email_icon&quot;</span>&gt;</span>email icon<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="10">
 <li>執行您的應用程式。應用程式應如以下螢幕截圖所示。</li>
 </ol>
-<p><img src="https://i.imgur.com/OigfAN0.png" width="30%" height="30%"></p>
+<img src="https://i.imgur.com/OigfAN0.png" width="30%" height="30%">
+
 <p>應用程式包含 <code>TextView</code> 和 <code>Button</code>，可讓您查看顏色選項在實際 Android 應用程式中的呈現效果。在後續步驟中，我們會將按鈕顏色變更為主題的主要顏色。</p>
 <h5 id="瞭解主題顏色"><a href="#瞭解主題顏色" class="headerlink" title="瞭解主題顏色"></a>瞭解主題顏色</h5><p>Android 應用程式 UI 的不同部分使用不同的顏色。為協助您在應用程式中以有意義的方式使用顏色，並一致地進行套用，主題系統會將顏色分為 <a target="_blank" rel="noopener" href="https://m2.material.io/design/material-theming/implementing-your-theme.html#color">12 個已命名屬性</a> (與文字、圖示等項目使用的顏色相關)。您的主題不需指定所有屬性。您將會選擇主要和次要顏色，以及透過這些顏色繪製的文字和圖示顏色。</p>
-<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/af6c8e0d93135130_1920.png?hl=zh-tw" width="70%" height="70%"></p>
+<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/af6c8e0d93135130_1920.png?hl=zh-tw" width="70%" height="70%">
+
 <p>「上層」顏色會用於繪製在不同介面上的文字和圖示。</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
-<th style="text-align:left">#</th>
-<th style="text-align:left">名稱</th>
-<th style="text-align:left">主題屬性</th>
+<th align="left">#</th>
+<th align="left">名稱</th>
+<th align="left">主題屬性</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:left">1</td>
-<td style="text-align:left">Primary(主要)</td>
-<td style="text-align:left">colorPrimary</td>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">Primary(主要)</td>
+<td align="left">colorPrimary</td>
 </tr>
 <tr>
-<td style="text-align:left">2</td>
-<td style="text-align:left">Primary Variant(主要變化版本)</td>
-<td style="text-align:left">colorPrimaryVariant</td>
+<td align="left">2</td>
+<td align="left">Primary Variant(主要變化版本)</td>
+<td align="left">colorPrimaryVariant</td>
 </tr>
 <tr>
-<td style="text-align:left">3</td>
-<td style="text-align:left">Secondary(次要)</td>
-<td style="text-align:left">colorSecondary</td>
+<td align="left">3</td>
+<td align="left">Secondary(次要)</td>
+<td align="left">colorSecondary</td>
 </tr>
 <tr>
-<td style="text-align:left">4</td>
-<td style="text-align:left">Secondary Variant(次要變化版本)</td>
-<td style="text-align:left">colorSecondaryVariant</td>
+<td align="left">4</td>
+<td align="left">Secondary Variant(次要變化版本)</td>
+<td align="left">colorSecondaryVariant</td>
 </tr>
 <tr>
-<td style="text-align:left">5</td>
-<td style="text-align:left">Background(背景)</td>
-<td style="text-align:left">colorBackground</td>
+<td align="left">5</td>
+<td align="left">Background(背景)</td>
+<td align="left">colorBackground</td>
 </tr>
 <tr>
-<td style="text-align:left">6</td>
-<td style="text-align:left">Surface(介面)</td>
-<td style="text-align:left">colorSurface</td>
+<td align="left">6</td>
+<td align="left">Surface(介面)</td>
+<td align="left">colorSurface</td>
 </tr>
 <tr>
-<td style="text-align:left">7</td>
-<td style="text-align:left">Error(錯誤)</td>
-<td style="text-align:left">colorError</td>
+<td align="left">7</td>
+<td align="left">Error(錯誤)</td>
+<td align="left">colorError</td>
 </tr>
 <tr>
-<td style="text-align:left">8</td>
-<td style="text-align:left">On Primary(上層主要)</td>
-<td style="text-align:left">colorOnPrimary</td>
+<td align="left">8</td>
+<td align="left">On Primary(上層主要)</td>
+<td align="left">colorOnPrimary</td>
 </tr>
 <tr>
-<td style="text-align:left">9</td>
-<td style="text-align:left">On Secondary(上層次要)</td>
-<td style="text-align:left">colorOnSecondary</td>
+<td align="left">9</td>
+<td align="left">On Secondary(上層次要)</td>
+<td align="left">colorOnSecondary</td>
 </tr>
 <tr>
-<td style="text-align:left">10</td>
-<td style="text-align:left">On Background(上層背景)</td>
-<td style="text-align:left">colorOnBackground</td>
+<td align="left">10</td>
+<td align="left">On Background(上層背景)</td>
+<td align="left">colorOnBackground</td>
 </tr>
 <tr>
-<td style="text-align:left">11</td>
-<td style="text-align:left">On Surface(上層介面)</td>
-<td style="text-align:left">colorOnSurface</td>
+<td align="left">11</td>
+<td align="left">On Surface(上層介面)</td>
+<td align="left">colorOnSurface</td>
 </tr>
 <tr>
-<td style="text-align:left">12</td>
-<td style="text-align:left">On Error(上層錯誤)</td>
-<td style="text-align:left">colorOnError</td>
+<td align="left">12</td>
+<td align="left">On Error(上層錯誤)</td>
+<td align="left">colorOnError</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>查看預設主題中定義的顏色。</p>
 <ol>
-<li>在 Android Studio 中開啟 <code>themes.xml</code> (「app」&gt;「res」&gt;「value」&gt;「topics」&gt;「topics.xml」)。</li>
+<li><p>在 Android Studio 中開啟 <code>themes.xml</code> (「app」&gt;「res」&gt;「value」&gt;「topics」&gt;「topics.xml」)。</p>
+</li>
 <li><p>請注意，主題名稱 (<code>Theme.TipTime</code>) 是依據您的應用程式名稱命名。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span> <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Base application theme. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Base.Theme.TipTime&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Theme.Material3.DayNight.NoActionBar&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Customize your light theme here. --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- &lt;item name=&quot;colorPrimary&quot;&gt;@color/my_light_primary&lt;/item&gt; --&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Theme.TipTime&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Base.Theme.TipTime&quot;</span> /&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 </li>
@@ -415,25 +421,32 @@
 <div class="note no-icon success">
             <p><strong>注意：</strong> 主題中未定義主題顏色屬性會採用父項主題的顏色。</p>
           </div>
-<ol>
+
+<ol start="4">
 <li>瀏覽檔案中的項目。請注意，名稱與上圖中的名稱類似：<code>colorPrimary</code>、<code>colorSecondary</code> 等。</li>
 </ol>
-<p><code>themes.xml</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span> <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Base application theme. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Base.Theme.TipTime&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Theme.Material3.DayNight.NoActionBar&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Customize your light theme here. --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- &lt;item name=&quot;colorPrimary&quot;&gt;@color/my_light_primary&lt;/item&gt; --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Primary brand color. --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorPrimary&quot;</span>&gt;</span>@color/purple_500<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorPrimaryVariant&quot;</span>&gt;</span>@color/purple_700<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorOnPrimary&quot;</span>&gt;</span>@color/white<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Secondary brand color. --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorSecondary&quot;</span>&gt;</span>@color/teal_200<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorSecondaryVariant&quot;</span>&gt;</span>@color/teal_700<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorOnSecondary&quot;</span>&gt;</span>@color/black<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Status bar color. --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:statusBarColor&quot;</span> <span class="attr">tools:targetApi</span>=<span class="string">&quot;l&quot;</span>&gt;</span>?attr/colorPrimaryVariant<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Customize your theme here. --&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Theme.TipTime&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Base.Theme.TipTime&quot;</span> /&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p><code>themes.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span> <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Base application theme. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Base.Theme.TipTime&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Theme.Material3.DayNight.NoActionBar&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Customize your light theme here. --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- &lt;item name=&quot;colorPrimary&quot;&gt;@color/my_light_primary&lt;/item&gt; --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Primary brand color. --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorPrimary&quot;</span>&gt;</span>@color/purple_500<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorPrimaryVariant&quot;</span>&gt;</span>@color/purple_700<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorOnPrimary&quot;</span>&gt;</span>@color/white<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Secondary brand color. --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorSecondary&quot;</span>&gt;</span>@color/teal_200<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorSecondaryVariant&quot;</span>&gt;</span>@color/teal_700<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;colorOnSecondary&quot;</span>&gt;</span>@color/black<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Status bar color. --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:statusBarColor&quot;</span> <span class="attr">tools:targetApi</span>=<span class="string">&quot;l&quot;</span>&gt;</span>?attr/colorPrimaryVariant<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Customize your theme here. --&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Theme.TipTime&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Base.Theme.TipTime&quot;</span> /&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
 <p>另請注意，Android Studio 會在左側邊界繪製一小塊顏色範例。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/fe8f8c774074ca13_1920.png?hl=zh-tw" width="70%" height="70%"></p>
-<ol>
+<ol start="6">
 <li>最後請注意，系統會將顏色指定為顏色資源 (例如 <code>@color/purple_500</code>)，而非直接使用 RGB 值。</li>
 <li>開啟 <code>colors.xml</code> (「app」(應用程式) &gt;「res」&gt;「values」(值) &gt;「colors.xml」)，您會看到每個顏色資源的十六進位值。提醒您，開頭的 <code>#FF</code> 為 Alpha 值，表示顏色為 100% 不透明。</li>
 </ol>
-<p><code>colors.xml</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;purple_200&quot;</span>&gt;</span>#FFBB86FC<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;purple_500&quot;</span>&gt;</span>#FF6200EE<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;purple_700&quot;</span>&gt;</span>#FF3700B3<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;teal_200&quot;</span>&gt;</span>#FF03DAC5<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;teal_700&quot;</span>&gt;</span>#FF018786<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>&gt;</span>#FF000000<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;white&quot;</span>&gt;</span>#FFFFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>colors.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;purple_200&quot;</span>&gt;</span>#FFBB86FC<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;purple_500&quot;</span>&gt;</span>#FF6200EE<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;purple_700&quot;</span>&gt;</span>#FF3700B3<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;teal_200&quot;</span>&gt;</span>#FF03DAC5<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;teal_700&quot;</span>&gt;</span>#FF018786<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>&gt;</span>#FF000000<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;white&quot;</span>&gt;</span>#FFFFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <hr>
 <h4 id="選擇應用程式主題顏色"><a href="#選擇應用程式主題顏色" class="headerlink" title="選擇應用程式主題顏色"></a>選擇應用程式主題顏色</h4><p>您已大致上瞭解主題屬性，現在讓我們挑選顏色！最簡單的方法就是使用<a target="_blank" rel="noopener" href="https://m3.material.io/theme-builder#/custom">色彩工具</a>，也就是 Material 團隊提供的網頁式應用程式。</p>
 <ol>
-<li><p>左側選取Core Color，右側會自動生成Light Scheme和Dark Scheme。<br><img src="https://i.imgur.com/qPQOqot.png"></p>
+<li><p>左側選取Core Color，右側會自動生成Light Scheme和Dark Scheme。</p>
+<img src="https://i.imgur.com/qPQOqot.png">
 </li>
-<li><p>點選右上角的Export，可產出 <code>material-theme.zip</code> 檔案，在這邊我們選擇產生Android Views(XML)<br><img src="https://i.imgur.com/37S03RF.png"></p>
+<li><p>點選右上角的Export，可產出 <code>material-theme.zip</code> 檔案，在這邊我們選擇產生Android Views(XML)</p>
+<img src="https://i.imgur.com/37S03RF.png">
 </li>
-<li><p>下載後，即可將資料夾內的 <code>values &gt; colors.xml、themes.xml</code> 和 <code>values-night &gt; themes.xml</code> 檔案套用到應用程式當中。<br><img src="https://i.imgur.com/eZNKqHs.png" width="70%" height="70%"></p>
-</li>
+<li><p>下載後，即可將資料夾內的 <code>values &gt; colors.xml、themes.xml</code> 和 <code>values-night &gt; themes.xml</code> 檔案套用到應用程式當中。</p>
+<img src="https://i.imgur.com/eZNKqHs.png" width="70%" height="70%"></li>
 </ol>
 <hr>
 <h4 id="深色主題"><a href="#深色主題" class="headerlink" title="深色主題"></a>深色主題</h4><p>應用程式範本包含預設的淺色主題，以及<a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/ui/look-and-feel/darktheme?hl=zh-tw">深色主題</a>變化版本。深色主題使用較深、較柔和的色彩，且：</p>
@@ -446,18 +459,19 @@
 <div class="note no-icon success">
             <p><strong>注意：</strong> 深色主題僅適用於搭載 API 28 (Android 9) 或 API 29 (Android 10) 以上版本的裝置或模擬器。</p>
           </div>
+
 <p>API 28 (Android 9)</p>
 <ol>
 <li>再次執行應用程式。</li>
 <li>切換至「設定」應用程式。</li>
-<li>在「電池」部分中，尋找「省電模式」。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/5f5098d8d63acfa9_1920.png?hl=zh-tw" width="50%" height="50%"></li>
+<li>在「電池」部分中，尋找「省電模式」。<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/5f5098d8d63acfa9_1920.png?hl=zh-tw" width="50%" height="50%"></li>
 <li>按下「立即開啟」。</li>
 </ol>
 <p>API 29 (Android 10) 以上版本</p>
 <ol>
 <li>再次執行應用程式。</li>
 <li>切換至「設定」應用程式。</li>
-<li>在「顯示」部分中，尋找「深色主題」切換按鈕。<br><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/6d9dc1ab3d19f8e6_1920.png?hl=zh-tw" width="50%" height="50%"></li>
+<li>在「顯示」部分中，尋找「深色主題」切換按鈕。<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-change-app-theme/img/6d9dc1ab3d19f8e6_1920.png?hl=zh-tw" width="50%" height="50%"></li>
 <li>將「深色主題」切換至「開啟」位置，裝置將會切換至夜間模式。</li>
 </ol>
 <p>返回您的應用程式，看看兩者間的差異。<br><img src="https://i.imgur.com/DGUydto.png" width="50%" height="50%"></p>

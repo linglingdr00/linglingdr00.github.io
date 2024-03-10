@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="在這個程式碼研究室中，您將進一步了解集合(collection)，以及 Kotlin 中的 lambdas 和高階函式。  學習目標  如何使用 sets 和 maps 等集合(collection) 瞭解 lambdas 的基本概念 高階函式的基本概念">
+  <meta name="description" content="在這個程式碼研究室中，您將進一步了解集合(collection)，以及 Kotlin 中的 lambdas 和高階函式。  學習目標 + 如何使用 sets 和 maps 等集合(collection) + 瞭解 lambdas 的基本概念 + 高階函式的基本概念">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(21)-Kotlin中的Collections">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/09/28/Android%E7%AD%86%E8%A8%98-21-Kotlin%E4%B8%AD%E7%9A%84Collections/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="在這個程式碼研究室中，您將進一步了解集合(collection)，以及 Kotlin 中的 lambdas 和高階函式。  學習目標  如何使用 sets 和 maps 等集合(collection) 瞭解 lambdas 的基本概念 高階函式的基本概念">
+<meta property="og:description" content="在這個程式碼研究室中，您將進一步了解集合(collection)，以及 Kotlin 中的 lambdas 和高階函式。  學習目標 + 如何使用 sets 和 maps 等集合(collection) + 瞭解 lambdas 的基本概念 + 高階函式的基本概念">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/b55b9042a75c56c0_1920.png">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/252712172e539fe2_1920.png?hl=zh-tw">
@@ -279,359 +279,460 @@
 
       
         <blockquote>
-<p>在這個程式碼研究室中，您將進一步了解集合(collection)，以及 Kotlin 中的 lambdas 和高階函式。</p>
+<p>在這個程式碼研究室中，您將進一步了解集合(collection)，以及 Kotlin
+中的 lambdas 和高階函式。</p>
 </blockquote>
-<p><strong>學習目標</strong></p>
-<ul>
-<li>如何使用 sets 和 maps 等集合(collection)</li>
-<li>瞭解 lambdas 的基本概念</li>
-<li>高階函式的基本概念</li>
-</ul>
+<p><strong>學習目標</strong> + 如何使用 sets 和 maps 等集合(collection)
++ 瞭解 lambdas 的基本概念 + 高階函式的基本概念</p>
 <span id="more"></span>
-
-<hr>
-<h3 id="了解Collection"><a href="#了解Collection" class="headerlink" title="了解Collection"></a>了解Collection</h3><p><a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/collections-overview.html">集合(collection)</a>是指一組相關項目，例如字詞清單或一組員工記錄。集合可以包含排序或未排序的項目，這些項目可以是獨一無二的或重複的。您已經瞭解一種類型的集合，那就是list。list 中 item 是有序的，但 item 可以重複。</p>
-<p>如同 list，Kotlin 可區分可變(mutable)集合和不可變(immutable)集合。Kotlin 提供多項功能，可用於新增或刪除項目、檢視及操控集合。</p>
-<h4 id="建立List"><a href="#建立List" class="headerlink" title="建立List"></a>建立List</h4><p>在這項工作中，您會建立數字列表(list)，然後加以排序。</p>
-<ol>
-<li>開啟 <a target="_blank" rel="noopener" href="https://developer.android.com/training/kotlinplayground?hl=zh-tw">Kotlin Playground</a>。</li>
+<hr />
+<h3 id="了解collection">了解Collection</h3>
+<p><a
+target="_blank" rel="noopener" href="https://kotlinlang.org/docs/collections-overview.html">集合(collection)</a>是指一組相關項目，例如字詞清單或一組員工記錄。集合可以包含排序或未排序的項目，這些項目可以是獨一無二的或重複的。您已經瞭解一種類型的集合，那就是list。list
+中 item 是有序的，但 item 可以重複。</p>
+<p>如同 list，Kotlin
+可區分可變(mutable)集合和不可變(immutable)集合。Kotlin
+提供多項功能，可用於新增或刪除項目、檢視及操控集合。</p>
+<h4 id="建立list">建立List</h4>
+<p>在這項工作中，您會建立數字列表(list)，然後加以排序。</p>
+<ol type="1">
+<li>開啟 <a
+target="_blank" rel="noopener" href="https://developer.android.com/training/kotlinplayground?hl=zh-tw">Kotlin
+Playground</a>。</li>
 <li>使用下列程式碼取代所有程式碼：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> numbers = listOf(<span class="number">0</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>)</span><br><span class="line">    println(<span class="string">&quot;list:   <span class="subst">$&#123;numbers&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol start="3" type="1">
 <li>如要執行程式，請輕觸綠色箭頭，然後查看畫面上顯示的結果：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list:   [<span class="number">0</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li><p>這個 list 包含 0 到 9 這 10 個數字。某些數字會重複出現數次，而有些則一次也沒有出現。</p>
-</li>
-<li><p>在這個 list 中，item 的順序很重要：第一個 item 是 0，第二個 item 是 3，依此類推。除非您變更順序，否則這些 item 都會按照這個順序顯示。</p>
-</li>
-<li><p>回想一下，先前的程式碼研究室中提到過，list 有許多內建函式 (例如 <code>sorted()</code> 函式，會傳回遞增排序后的 list )。在 <code>println()</code> 之後，為程式新增一行以列印排序後的 list：</p>
-</li>
+<ol start="4" type="1">
+<li><p>這個 list 包含 0 到 9 這 10
+個數字。某些數字會重複出現數次，而有些則一次也沒有出現。</p></li>
+<li><p>在這個 list 中，item 的順序很重要：第一個 item 是 0，第二個 item
+是 3，依此類推。除非您變更順序，否則這些 item
+都會按照這個順序顯示。</p></li>
+<li><p>回想一下，先前的程式碼研究室中提到過，list 有許多內建函式 (例如
+<code>sorted()</code> 函式，會傳回遞增排序后的 list )。在
+<code>println()</code> 之後，為程式新增一行以列印排序後的
+list：</p></li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;sorted: <span class="subst">$&#123;numbers.sorted()&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol start="7" type="1">
 <li>再次執行程式並查看結果：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list:   [0, 3, 8, 4, 0, 5, 5, 8, 9, 2]</span><br><span class="line">sorted: [0, 0, 2, 3, 4, 5, 5, 8, 8, 9]</span><br></pre></td></tr></table></figure>
-
 <p>將數字排序，方便您查看個別數字在 list 中出現的次數。</p>
-<h4 id="了解Set"><a href="#了解Set" class="headerlink" title="了解Set"></a>了解Set</h4><p>Kotlin 中的另一種集合類型為<a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/">集(Set)</a>。這是由相關 item 組成的一個群組，但和 list 不同，set中不允許出現重複的 item，但是 item 之間是無序的。一個 item 可以包含於一個 set 或不包含與一個 set，只要位於組合中，則該 item 僅能在該 set 中出現一次。這與數學中的集合概念類似。舉例來說，有一組您已讀的書籍。閲讀某本書多次並不影響您閱讀過的書籍這一集合。</p>
-<ol>
+<h4 id="了解set">了解Set</h4>
+<p>Kotlin 中的另一種集合類型為<a
+target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/">集(Set)</a>。這是由相關
+item 組成的一個群組，但和 list 不同，set中不允許出現重複的 item，但是
+item 之間是無序的。一個 item 可以包含於一個 set 或不包含與一個
+set，只要位於組合中，則該 item 僅能在該 set
+中出現一次。這與數學中的集合概念類似。舉例來說，有一組您已讀的書籍。閲讀某本書多次並不影響您閱讀過的書籍這一集合。</p>
+<ol type="1">
 <li>將以下幾行指令新增至程式，即可將 list 轉換成 set：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> setOfNumbers = numbers.toSet()</span><br><span class="line">println(<span class="string">&quot;set:    <span class="subst">$&#123;setOfNumbers&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol start="2" type="1">
 <li>執行程式並查看結果：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list:   [<span class="number">0</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>]</span><br><span class="line">sorted: [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="keyword">set</span>:    [<span class="number">0</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
-
-<p>結果包含原始 list 中的所有數字，但每個數字只會出現一次。請注意，這些數字的順序與原始 list 中的順序相同，但這個順序對 set 來說無關緊要。</p>
-<ol start="3">
-<li>定義可變(mutable)集合和不可變(immutable)集合，並以相同的數字組初始化這些 set，方法是新增下列幾行程式碼：</li>
+<p>結果包含原始 list
+中的所有數字，但每個數字只會出現一次。請注意，這些數字的順序與原始 list
+中的順序相同，但這個順序對 set 來說無關緊要。</p>
+<ol start="3" type="1">
+<li>定義可變(mutable)集合和不可變(immutable)集合，並以相同的數字組初始化這些
+set，方法是新增下列幾行程式碼：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> set1 = setOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="keyword">val</span> set2 = mutableSetOf(<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol start="4" type="1">
 <li>新增一行以列印二者是否相等：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;<span class="variable">$set1</span> == <span class="variable">$set2</span>: <span class="subst">$&#123;set1 == set2&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol start="5" type="1">
 <li>執行您的程式並查看新的結果：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3] == [3, 2, 1]: true</span><br></pre></td></tr></table></figure>
-
-<p>即使只有一個 set 是可變的，而當中的 item 順序也不同，系統仍然會將其視為相同的 set，因為這二者包含完全相同的 item 組合。</p>
-<p>您對 set 執行的主要作業之一是，透過 <code>contains()</code> 函式檢查特定 item 是否包含於某個 set 中。</p>
-<ol start="6">
+<p>即使只有一個 set 是可變的，而當中的 item
+順序也不同，系統仍然會將其視為相同的 set，因為這二者包含完全相同的 item
+組合。</p>
+<p>您對 set 執行的主要作業之一是，透過 <code>contains()</code>
+函式檢查特定 item 是否包含於某個 set 中。</p>
+<ol start="6" type="1">
 <li>如果 set 中包含 7，新增如下一行以列印：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;contains 7: <span class="subst">$&#123;setOfNumbers.contains(<span class="number">7</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol start="7" type="1">
 <li>執行您的程式並查看額外的結果：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">contains 7: false</span><br></pre></td></tr></table></figure>
-
-<p>上述所有程式碼：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> numbers = listOf(<span class="number">0</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>)</span><br><span class="line">    println(<span class="string">&quot;list:   <span class="subst">$&#123;numbers&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;sorted: <span class="subst">$&#123;numbers.sorted()&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> setOfNumbers = numbers.toSet()</span><br><span class="line">    println(<span class="string">&quot;set:    <span class="subst">$&#123;setOfNumbers&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> set1 = setOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">val</span> set2 = mutableSetOf(<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">    println(<span class="string">&quot;<span class="variable">$set1</span> == <span class="variable">$set2</span>: <span class="subst">$&#123;set1 == set2&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;contains 7: <span class="subst">$&#123;setOfNumbers.contains(<span class="number">7</span>)&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>和數學中的集合一樣，在 Kotlin 中，您也可以運用 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/intersect.html">intersect()</a> 或 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/union.html">union()</a> 對兩個集合執行 <strong>交集(Intersection) (∩)</strong> 或 <strong>聯集(Union) (∪)</strong> 運算。</p>
-<h4 id="了解Map"><a href="#了解Map" class="headerlink" title="了解Map"></a>了解Map</h4><p>在本程式碼研究室中，您要了解的最後一個集合類型是 Map 或 Dictionary(字典)。Map 是一組 <strong>鍵&#x2F;值(key-value)</strong> 組合，可讓您以特定 key 輕鬆查詢 value。key 不得重複，每個 key 只能對應至一個 value，但 value 可以重複。Map 中的 value 可以是字串(strings)、數字(numbers)或物件(objects)，甚至是列表( list)或一組 set 等其他集合。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/b55b9042a75c56c0_1920.png" width="70%" height="70%">
-
-<p>如果您有成對的 data，map 就相當實用，您可以基於它的 value 辨別出每一對 data。該 key 會對應到相對應的 value。</p>
-<ol>
-<li>在 Kotlin playground 中，請將所有程式碼替換成這段程式碼，以建立可修改的 map 來儲存使用者名稱和年齡：</li>
+<p>上述所有程式碼： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> numbers = listOf(<span class="number">0</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>)</span><br><span class="line">    println(<span class="string">&quot;list:   <span class="subst">$&#123;numbers&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;sorted: <span class="subst">$&#123;numbers.sorted()&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> setOfNumbers = numbers.toSet()</span><br><span class="line">    println(<span class="string">&quot;set:    <span class="subst">$&#123;setOfNumbers&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> set1 = setOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">val</span> set2 = mutableSetOf(<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">    println(<span class="string">&quot;<span class="variable">$set1</span> == <span class="variable">$set2</span>: <span class="subst">$&#123;set1 == set2&#125;</span>&quot;</span>)</span><br><span class="line">    println(<span class="string">&quot;contains 7: <span class="subst">$&#123;setOfNumbers.contains(<span class="number">7</span>)&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>和數學中的集合一樣，在 Kotlin 中，您也可以運用 <a
+target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/intersect.html">intersect()</a>
+或 <a
+target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/union.html">union()</a>
+對兩個集合執行 <strong>交集(Intersection) (∩)</strong> 或
+<strong>聯集(Union) (∪)</strong> 運算。</p>
+<h4 id="了解map">了解Map</h4>
+<p>在本程式碼研究室中，您要了解的最後一個集合類型是 Map 或
+Dictionary(字典)。Map 是一組 <strong>鍵/值(key-value)</strong>
+組合，可讓您以特定 key 輕鬆查詢 value。key 不得重複，每個 key
+只能對應至一個 value，但 value 可以重複。Map 中的 value
+可以是字串(strings)、數字(numbers)或物件(objects)，甚至是列表(
+list)或一組 set 等其他集合。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/b55b9042a75c56c0_1920.png" width="70%" height="70%"></p>
+<p>如果您有成對的 data，map 就相當實用，您可以基於它的 value
+辨別出每一對 data。該 key 會對應到相對應的 value。</p>
+<ol type="1">
+<li>在 Kotlin playground
+中，請將所有程式碼替換成這段程式碼，以建立可修改的 map
+來儲存使用者名稱和年齡：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> peopleAges = mutableMapOf&lt;String, <span class="built_in">Int</span>&gt;(</span><br><span class="line">        <span class="string">&quot;Fred&quot;</span> to <span class="number">30</span>,</span><br><span class="line">        <span class="string">&quot;Ann&quot;</span> to <span class="number">23</span></span><br><span class="line">    )</span><br><span class="line">    println(peopleAges)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>這項操作會將 <code>String (key)</code> 的 mutable map 對應到 <code>Int (value)</code>、將兩個 item 初始化，然後列印 item。</p>
-<ol start="2">
+<p>這項操作會將 <code>String (key)</code> 的 mutable map 對應到
+<code>Int (value)</code>、將兩個 item 初始化，然後列印 item。</p>
+<ol start="2" type="1">
 <li>執行程式並查看結果：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;Fred=30, Ann=23&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>如要在 map 中加入更多 item，您可以使用 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/put.html">put()</a> 函式傳入 key和 value：</li>
+<ol start="3" type="1">
+<li>如要在 map 中加入更多 item，您可以使用 <a
+target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/put.html">put()</a>
+函式傳入 key和 value：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peopleAges.put(<span class="string">&quot;Barbara&quot;</span>, <span class="number">42</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol start="4" type="1">
 <li>您也可以使用簡寫標記來新增 item：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peopleAges[<span class="string">&quot;Joe&quot;</span>] = <span class="number">51</span></span><br></pre></td></tr></table></figure>
-
-<p>以下是上述所有程式碼：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> peopleAges = mutableMapOf&lt;String, <span class="built_in">Int</span>&gt;(</span><br><span class="line">        <span class="string">&quot;Fred&quot;</span> to <span class="number">30</span>,</span><br><span class="line">        <span class="string">&quot;Ann&quot;</span> to <span class="number">23</span></span><br><span class="line">    )</span><br><span class="line">    peopleAges.put(<span class="string">&quot;Barbara&quot;</span>, <span class="number">42</span>)</span><br><span class="line">    peopleAges[<span class="string">&quot;Joe&quot;</span>] = <span class="number">51</span></span><br><span class="line">    println(peopleAges)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<p>以下是上述所有程式碼： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> peopleAges = mutableMapOf&lt;String, <span class="built_in">Int</span>&gt;(</span><br><span class="line">        <span class="string">&quot;Fred&quot;</span> to <span class="number">30</span>,</span><br><span class="line">        <span class="string">&quot;Ann&quot;</span> to <span class="number">23</span></span><br><span class="line">    )</span><br><span class="line">    peopleAges.put(<span class="string">&quot;Barbara&quot;</span>, <span class="number">42</span>)</span><br><span class="line">    peopleAges[<span class="string">&quot;Joe&quot;</span>] = <span class="number">51</span></span><br><span class="line">    println(peopleAges)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="5" type="1">
 <li>執行程式並查看結果：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;Fred=30, Ann=23, Barbara=42, Joe=51&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如上所述，key (姓名) 不得重複，但value (年齡) 可以重複。當您嘗試使用同一個鍵新增 item 時，會發生什麼情況？</p>
-<ol start="6">
+<p>如上所述，key (姓名) 不得重複，但value (年齡)
+可以重複。當您嘗試使用同一個鍵新增 item 時，會發生什麼情況？</p>
+<ol start="6" type="1">
 <li>在 <code>println()</code> 之前加入這行程式碼：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peopleAges[<span class="string">&quot;Fred&quot;</span>] = <span class="number">31</span></span><br></pre></td></tr></table></figure>
-
-<ol start="7">
+<ol start="7" type="1">
 <li>執行程式並查看結果：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;Fred=31, Ann=23, Barbara=42, Joe=51&#125;</span><br></pre></td></tr></table></figure>
-
-<p>系統不會再次新增 key <code>&quot;Fred&quot;</code>，但其所對應的 value 會更新為 <code>31</code>。</p>
-<hr>
-<h3 id="使用Collection"><a href="#使用Collection" class="headerlink" title="使用Collection"></a>使用Collection</h3><p>雖然性質各不相同，但各種類型的集合(collection)有很多共同點。如果是可變集合，您可以新增或移除item。您可以列舉集合中的所有item、尋找特定item，有時也可以將某種集合轉換成另一種集合。你先前曾執行過，透過 <code>toSet()</code> 將 <code>List</code> 轉換成 <code>Set</code>。以下是使用集合的幾個實用函式。</p>
-<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><p>假設您想列印「<code>peopleAges</code>」中的項目，並在其中納入使用者姓名和年齡。例如 <code>&quot;Fred is 31, Ann is 23,...&quot;</code>、等。您曾在先前的程式碼研究室中學到 <code>for</code> 這個迴圈，因此可以使用 <code>for (people in peopleAges) &#123; ... &#125;</code> 撰寫迴圈。</p>
-<p>不過，列舉集合中的所有項目都是常見的作業，因此 Kotlin 提供的 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/for-each.html">forEach()</a> 會分析所有項目，並在各個項目中執行。</p>
-<ol>
-<li>在 playground 中，將下列程式碼加到 <code>println()</code> 後方：</li>
+<p>系統不會再次新增 key <code>"Fred"</code>，但其所對應的 value 會更新為
+<code>31</code>。</p>
+<hr />
+<h3 id="使用collection">使用Collection</h3>
+<p>雖然性質各不相同，但各種類型的集合(collection)有很多共同點。如果是可變集合，您可以新增或移除item。您可以列舉集合中的所有item、尋找特定item，有時也可以將某種集合轉換成另一種集合。你先前曾執行過，透過
+<code>toSet()</code> 將 <code>List</code> 轉換成
+<code>Set</code>。以下是使用集合的幾個實用函式。</p>
+<h4 id="foreach">forEach</h4>
+<p>假設您想列印「<code>peopleAges</code>」中的項目，並在其中納入使用者姓名和年齡。例如
+<code>"Fred is 31, Ann is 23,..."</code>、等。您曾在先前的程式碼研究室中學到
+<code>for</code> 這個迴圈，因此可以使用
+<code>for (people in peopleAges) &#123; ... &#125;</code> 撰寫迴圈。</p>
+<p>不過，列舉集合中的所有項目都是常見的作業，因此 Kotlin 提供的 <a
+target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/for-each.html">forEach()</a>
+會分析所有項目，並在各個項目中執行。</p>
+<ol type="1">
+<li>在 playground 中，將下列程式碼加到 <code>println()</code>
+後方：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peopleAges.forEach &#123; print(<span class="string">&quot;<span class="subst">$&#123;it.key&#125;</span> is <span class="subst">$&#123;it.value&#125;</span>, &quot;</span>) &#125;</span><br></pre></td></tr></table></figure>
-
-<p>這與 <code>for</code> 迴圈類似，但有點複雜。<code>forEach</code> 會使用特殊 ID <code>it</code> 為目前的項目指定變數，<br>請注意，在呼叫 <code>forEach()</code> 方法時無需加上括號，只要以大括號 <code>&#123;&#125;</code> 傳送程式碼即可。</p>
-<ol start="2">
+<p>這與 <code>for</code> 迴圈類似，但有點複雜。<code>forEach</code>
+會使用特殊 ID <code>it</code> 為目前的項目指定變數， 請注意，在呼叫
+<code>forEach()</code> 方法時無需加上括號，只要以大括號 <code>&#123;&#125;</code>
+傳送程式碼即可。</p>
+<ol start="2" type="1">
 <li>執行您的程式並查看額外的結果：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fred is 31, Ann is 23, Barbara is 42, Joe is 51,</span><br></pre></td></tr></table></figure>
-
-<p>這與您需要的非常接近，但結尾有一個額外的逗號。<br>將集合(collection)轉換為字串(string)是一種常見的作業，而結尾的分隔符也是一個常見問題。我們將在下列步驟中說明相關處理方式。</p>
-<h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><p><a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/collection-transformations.html#mapping">map()</a> 函式 (不應與上方 map 或 dictionary collection 混淆) 會將 collection 中的每個 item 套用到轉換中的每個 item。</p>
-<ol>
+<p>這與您需要的非常接近，但結尾有一個額外的逗號。
+將集合(collection)轉換為字串(string)是一種常見的作業，而結尾的分隔符也是一個常見問題。我們將在下列步驟中說明相關處理方式。</p>
+<h4 id="map">Map</h4>
+<p><a
+target="_blank" rel="noopener" href="https://kotlinlang.org/docs/collection-transformations.html#mapping">map()</a>
+函式 (不應與上方 map 或 dictionary collection 混淆) 會將 collection
+中的每個 item 套用到轉換中的每個 item。</p>
+<ol type="1">
 <li>將程式中的 <code>forEach</code> 陳述式替換成這一行：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(peopleAges.map &#123; <span class="string">&quot;<span class="subst">$&#123;it.key&#125;</span> is <span class="subst">$&#123;it.value&#125;</span>&quot;</span> &#125;.joinToString(<span class="string">&quot;, &quot;</span>) )</span><br></pre></td></tr></table></figure>
-
-<p>執行您的程式並查看額外的結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fred is 31, Ann is 23, Barbara is 42, Joe is 51</span><br></pre></td></tr></table></figure>
-
-<p>可產生正確的輸出內容，而且沒有多餘的逗號！有一行有太多工作，請密切關注。</p>
-<ul>
-<li><code>peopleAges.map</code> 會為 <code>peopleAges</code> 中的每個 item 套用一項轉換，並建立新的轉換 item 集合</li>
-<li>大括號 <code>&#123;&#125;</code> 中的部分會定義每個 item 的轉換作業。轉換作業會使用 key&#x2F;value 組合，並將其轉換為 string，例如<code> &lt;Fred, 31&gt;</code> 會轉換為 <code>Fred is 31</code>。</li>
-<li><code>joinToString(&quot;, &quot;)</code> 會將轉換集合中的每個 item 新增至 string 中，並以 <code>,</code> 分隔，但不知道是否要將該 item 新增到最後一個 item</li>
-<li>以上所有 item 會以 <code>.</code> (點號運算子) 鏈結在一起，就像您在先前的程式碼研究室中對函式呼叫和屬性存取作業所做的一樣</li>
-</ul>
-<h4 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h4><p>集合(collection) 的另一個常見操作是尋找與特定條件相符的 item。<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/collection-filtering.html">filter()</a> 函式會根據運算式傳回相符 collection 中的 item。</p>
-<ol>
+<p>執行您的程式並查看額外的結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fred is 31, Ann is 23, Barbara is 42, Joe is 51</span><br></pre></td></tr></table></figure></p>
+<p>可產生正確的輸出內容，而且沒有多餘的逗號！有一行有太多工作，請密切關注。
++ <code>peopleAges.map</code> 會為 <code>peopleAges</code> 中的每個 item
+套用一項轉換，並建立新的轉換 item 集合 + 大括號 <code>&#123;&#125;</code>
+中的部分會定義每個 item 的轉換作業。轉換作業會使用 key/value
+組合，並將其轉換為 string，例如<code>&lt;Fred, 31&gt;</code> 會轉換為
+<code>Fred is 31</code>。 + <code>joinToString(", ")</code>
+會將轉換集合中的每個 item 新增至 string 中，並以 <code>,</code>
+分隔，但不知道是否要將該 item 新增到最後一個 item + 以上所有 item 會以
+<code>.</code> (點號運算子)
+鏈結在一起，就像您在先前的程式碼研究室中對函式呼叫和屬性存取作業所做的一樣</p>
+<h4 id="filter">Filter</h4>
+<p>集合(collection) 的另一個常見操作是尋找與特定條件相符的 item。<a
+target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/collection-filtering.html">filter()</a>
+函式會根據運算式傳回相符 collection 中的 item。</p>
+<ol type="1">
 <li>在 <code>println()</code> 之後，新增以下這行：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> filteredNames = peopleAges.filter &#123; it.key.length &lt; <span class="number">4</span> &#125;</span><br><span class="line">println(filteredNames)</span><br></pre></td></tr></table></figure>
-<p>另請注意，<code>filter</code> 的呼叫不需要括號，而 <code>it</code> 是指 list 中目前的 item。</p>
-<p>執行您的程式並查看額外的結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;Ann=23, Joe=51&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在此情況下，運算式會取得 <code>key</code> 的長度 (String)，並檢查其是否小於 4。任何符合條件的項目 (也就是名稱少於 4 個半形字元) 都會新增至新的 collection。</p>
-<p>將 <code>filter</code> 套用至對應時，系統會傳回新的類型 (<code>LinkedHashMap</code>)。您可以在對應上進行額外的處理，或將其轉換成其他類型的 collection，例如 list。</p>
-<hr>
-<h3 id="了解Lambda和高階函式"><a href="#了解Lambda和高階函式" class="headerlink" title="了解Lambda和高階函式"></a>了解Lambda和高階函式</h3><h4 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h4><p>讓我們再回到先前的範例：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peopleAges.forEach &#123; print(<span class="string">&quot;<span class="subst">$&#123;it.key&#125;</span> is <span class="subst">$&#123;it.value&#125;</span>&quot;</span>) &#125;</span><br></pre></td></tr></table></figure>
-
-<p>有一變數 (<code>peopleAges</code>) 呼叫了函式 (<code>forEach</code>)。在函式名稱前方加上括號時，你會在大括號後方看到大括號 <code>&#123;&#125;</code> 的部分程式碼。程式碼中也會使用上一個步驟中的 <code>map</code> 和 <code>filter</code> 函式。<code>forEach</code> 函式會透過 <code>peopleAges </code>變數呼叫，並使用大括號中的程式碼。</p>
-<p>就好像您用大括號表示小函式，卻並沒有函式名稱。這個沒有名稱而可立即用作運算式的函式是很實用的概念，也就是所謂的「<code>lambda 運算式</code>」，簡稱 <code>lambda</code>。</p>
-<p>這是一個重要主題，可讓您瞭解如何利用 Kotlin 功能強大的函式與函式互動。您可將函式儲存在變數和類別中、將引數傳遞為引數，甚至傳回函式。就像其他變數 (例如 <code>Int</code> 或 <code>String</code>) 的變數一樣。</p>
+<p>另請注意，<code>filter</code> 的呼叫不需要括號，而 <code>it</code>
+是指 list 中目前的 item。</p>
+<p>執行您的程式並查看額外的結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;Ann=23, Joe=51&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在此情況下，運算式會取得 <code>key</code> 的長度
+(String)，並檢查其是否小於 4。任何符合條件的項目 (也就是名稱少於 4
+個半形字元) 都會新增至新的 collection。</p>
+<p>將 <code>filter</code> 套用至對應時，系統會傳回新的類型
+(<code>LinkedHashMap</code>)。您可以在對應上進行額外的處理，或將其轉換成其他類型的
+collection，例如 list。</p>
+<hr />
+<h3 id="了解lambda和高階函式">了解Lambda和高階函式</h3>
+<h4 id="lambda">Lambda</h4>
+<p>讓我們再回到先前的範例： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peopleAges.forEach &#123; print(<span class="string">&quot;<span class="subst">$&#123;it.key&#125;</span> is <span class="subst">$&#123;it.value&#125;</span>&quot;</span>) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>有一變數 (<code>peopleAges</code>) 呼叫了函式
+(<code>forEach</code>)。在函式名稱前方加上括號時，你會在大括號後方看到大括號
+<code>&#123;&#125;</code> 的部分程式碼。程式碼中也會使用上一個步驟中的
+<code>map</code> 和 <code>filter</code> 函式。<code>forEach</code>
+函式會透過 <code>peopleAges</code>變數呼叫，並使用大括號中的程式碼。</p>
+<p>就好像您用大括號表示小函式，卻並沒有函式名稱。這個沒有名稱而可立即用作運算式的函式是很實用的概念，也就是所謂的「<code>lambda 運算式</code>」，簡稱
+<code>lambda</code>。</p>
+<p>這是一個重要主題，可讓您瞭解如何利用 Kotlin
+功能強大的函式與函式互動。您可將函式儲存在變數和類別中、將引數傳遞為引數，甚至傳回函式。就像其他變數
+(例如 <code>Int</code> 或 <code>String</code>) 的變數一樣。</p>
 <div class="note no-icon success">
-            <p><strong>注意：</strong> 由於 <b>lambda</b> 通常只有單一參數，因此 Kotlin 提供了簡要參數。Kotlin 以隱含識別碼 <a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/lambdas.html#it-implicit-name-of-a-single-parameter"><strong>it</strong></a> 做為一個 <b>lambda</b> 參數 (使用單一參數)。</p>
+            <p><strong>注意：</strong> 由於 <b>lambda</b> 通常只有單一參數，因此Kotlin 提供了簡要參數。Kotlin 以隱含識別碼 <ahref="https://kotlinlang.org/docs/lambdas.html#it-implicit-name-of-a-single-parameter"><strong>it</strong></a>做為一個 <b>lambda</b> 參數 (使用單一參數)。</p>
           </div>
-
-<h4 id="函式類型"><a href="#函式類型" class="headerlink" title="函式類型"></a>函式類型</h4><p>為了啟用這種類型的行為，Kotlin 提供了一個「<code>函式類型(function types)</code>」，可讓您根據其輸入參數和傳回值定義特定類型的函式。格式如下：</p>
+<h4 id="函式類型">函式類型</h4>
+<p>為了啟用這種類型的行為，Kotlin
+提供了一個「<code>函式類型(function types)</code>」，可讓您根據其輸入參數和傳回值定義特定類型的函式。格式如下：</p>
 <p>函式類型範例：<code>(Int) -&gt; Int</code></p>
-<p>具有上述函式類型的函式必須採用 <code>Int</code> 類型的參數，並傳回 <code>Int</code> 類型的值。在函式類型標記中，這些參數會以括號列出 (如有多個參數，請以半形逗號分隔)。旁邊有箭頭 <code>-&gt;</code>，後面接著傳回類型。</p>
-<p>哪些函式符合這項條件？如下所示，您可以使用 <code>lambda</code> 運算式將整數輸入的值改成三倍，如下所示。針對 <code>lambda</code> 運算式的語法，參數會先顯示 (以紅色方塊醒目顯示)，後面接著函式箭頭，然後是函式內文 (以紫色方塊醒目顯示)。<code>lambda</code> 中的最後一個運算式是傳回值。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/252712172e539fe2_1920.png?hl=zh-tw">
-
-<p>您甚至可以將 <code>lambda</code> 儲存在變數中，如下圖所示。這個語法類似於宣告基本資料類型 (例如 <code>Int</code>) 的變數時所用的方式。觀察變數名稱 (黃色方塊)、變數類型 (藍色方塊) 和變數值 (綠色方塊)。<code>triple</code> 變數會儲存函式。其類型為 <code>(Int) -&gt; Int</code> 的函式類型，且值為 <code>lambda</code> 運算式 <code>&#123; a: Int -&gt; a * 3&#125;</code>。</p>
-<ol>
-<li>在遊樂場裡試用這個程式碼。你可以傳送 <code>triple</code> 函式 (如 5) 來呼叫並呼叫它。</li>
+<p>具有上述函式類型的函式必須採用 <code>Int</code> 類型的參數，並傳回
+<code>Int</code> 類型的值。在函式類型標記中，這些參數會以括號列出
+(如有多個參數，請以半形逗號分隔)。旁邊有箭頭
+<code>-&gt;</code>，後面接著傳回類型。</p>
+<p>哪些函式符合這項條件？如下所示，您可以使用 <code>lambda</code>
+運算式將整數輸入的值改成三倍，如下所示。針對 <code>lambda</code>
+運算式的語法，參數會先顯示
+(以紅色方塊醒目顯示)，後面接著函式箭頭，然後是函式內文
+(以紫色方塊醒目顯示)。<code>lambda</code>
+中的最後一個運算式是傳回值。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/252712172e539fe2_1920.png?hl=zh-tw"></p>
+<p>您甚至可以將 <code>lambda</code>
+儲存在變數中，如下圖所示。這個語法類似於宣告基本資料類型 (例如
+<code>Int</code>) 的變數時所用的方式。觀察變數名稱 (黃色方塊)、變數類型
+(藍色方塊) 和變數值 (綠色方塊)。<code>triple</code>
+變數會儲存函式。其類型為 <code>(Int) -&gt; Int</code> 的函式類型，且值為
+<code>lambda</code> 運算式 <code>&#123; a: Int -&gt; a * 3&#125;</code>。</p>
+<ol type="1">
+<li>在遊樂場裡試用這個程式碼。你可以傳送 <code>triple</code> 函式 (如 5)
+來呼叫並呼叫它。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/4d3f2be4f253af50_1920.png?hl=zh-tw">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/4d3f2be4f253af50_1920.png?hl=zh-tw"></p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> triple: (<span class="built_in">Int</span>) -&gt; <span class="built_in">Int</span> = &#123; a: <span class="built_in">Int</span> -&gt; a * <span class="number">3</span> &#125;</span><br><span class="line">    println(triple(<span class="number">5</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol start="2" type="1">
 <li>產生的輸出內容應為：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">15</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>在大括號中，可明確宣告參數 (<code>a: Int</code>)、省略函式箭頭 (<code>-&gt;</code>)，而是只包含函式主體。更新 <code>main</code> 函式中宣告的 <code>triple</code> 函式，然後執行程式碼。</li>
+<ol start="3" type="1">
+<li>在大括號中，可明確宣告參數 (<code>a: Int</code>)、省略函式箭頭
+(<code>-&gt;</code>)，而是只包含函式主體。更新 <code>main</code>
+函式中宣告的 <code>triple</code> 函式，然後執行程式碼。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> triple: (<span class="built_in">Int</span>) -&gt; <span class="built_in">Int</span> = &#123; it * <span class="number">3</span> &#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>輸出結果應該相同，但僅以更精簡的方式呈現 <code>lambda</code>！如需更多 <code>lambda</code> 的範例，請參考這個<a target="_blank" rel="noopener" href="https://play.kotlinlang.org/byExample/04_functional/02_Lambdas">資源</a>。</li>
+<ol start="4" type="1">
+<li>輸出結果應該相同，但僅以更精簡的方式呈現
+<code>lambda</code>！如需更多 <code>lambda</code> 的範例，請參考這個<a
+target="_blank" rel="noopener" href="https://play.kotlinlang.org/byExample/04_functional/02_Lambdas">資源</a>。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">15</span><br></pre></td></tr></table></figure>
-
-<p>⭐️ 嘗試修改一下：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">/* function type: 輸入Int 回傳Int */</span></span><br><span class="line">    <span class="keyword">val</span> triple: (<span class="built_in">Int</span>) -&gt; <span class="built_in">Int</span> = &#123; a: <span class="built_in">Int</span> -&gt; a * <span class="number">3</span> &#125;</span><br><span class="line">    println(triple(<span class="number">6</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* function type: 輸入String 回傳String */</span></span><br><span class="line">    <span class="keyword">val</span> name: (String) -&gt; String = &#123; a: String -&gt; <span class="string">&quot;My name is &quot;</span> + a &#125;</span><br><span class="line">    println(name(<span class="string">&quot;Tina&quot;</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* function type: 輸入String 回傳Int */</span></span><br><span class="line">    <span class="keyword">val</span> nameLen: (String) -&gt; <span class="built_in">Int</span> = &#123; a: String -&gt; a.length &#125;</span><br><span class="line">    println(nameLen(<span class="string">&quot;Tina&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">18</span><br><span class="line">My name is Tina</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
-
-<h4 id="高階函式"><a href="#高階函式" class="headerlink" title="高階函式"></a>高階函式</h4><p>您現在已學會在 Kotlin 中操縱函式的彈性了，接著我們要談談另一個功能強大的概念，也就是高階函式(Higher-order functions)。這只是<strong>將函式 (在本例中為 <code>lambda</code>) 傳遞給其他函式，或從另一個函式傳回函式</strong>。</p>
-<p>結果指出，<code>map</code>、<code>filter</code> 和 <code>forEach</code> 函式都是高階函式的範例，因為它們都會將函式視為參數。(在傳送至這個 <code>filter</code> 較高順序函式的 <code>lambda</code> 中，您可以省略單一參數和箭頭符號，也可以使用 <code>it</code> 參數)。</p>
+<p>⭐️ 嘗試修改一下： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">/* function type: 輸入Int 回傳Int */</span></span><br><span class="line">    <span class="keyword">val</span> triple: (<span class="built_in">Int</span>) -&gt; <span class="built_in">Int</span> = &#123; a: <span class="built_in">Int</span> -&gt; a * <span class="number">3</span> &#125;</span><br><span class="line">    println(triple(<span class="number">6</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* function type: 輸入String 回傳String */</span></span><br><span class="line">    <span class="keyword">val</span> name: (String) -&gt; String = &#123; a: String -&gt; <span class="string">&quot;My name is &quot;</span> + a &#125;</span><br><span class="line">    println(name(<span class="string">&quot;Tina&quot;</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* function type: 輸入String 回傳Int */</span></span><br><span class="line">    <span class="keyword">val</span> nameLen: (String) -&gt; <span class="built_in">Int</span> = &#123; a: String -&gt; a.length &#125;</span><br><span class="line">    println(nameLen(<span class="string">&quot;Tina&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>執行結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">18</span><br><span class="line">My name is Tina</span><br><span class="line">4</span><br></pre></td></tr></table></figure></p>
+<h4 id="高階函式">高階函式</h4>
+<p>您現在已學會在 Kotlin
+中操縱函式的彈性了，接著我們要談談另一個功能強大的概念，也就是高階函式(Higher-order
+functions)。這只是<strong>將函式 (在本例中為 <code>lambda</code>)
+傳遞給其他函式，或從另一個函式傳回函式</strong>。</p>
+<p>結果指出，<code>map</code>、<code>filter</code> 和
+<code>forEach</code>
+函式都是高階函式的範例，因為它們都會將函式視為參數。(在傳送至這個
+<code>filter</code> 較高順序函式的 <code>lambda</code>
+中，您可以省略單一參數和箭頭符號，也可以使用 <code>it</code> 參數)。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> peopleAges = mutableMapOf&lt;String, <span class="built_in">Int</span>&gt;(</span><br><span class="line">        <span class="string">&quot;Fred&quot;</span> to <span class="number">30</span>,</span><br><span class="line">        <span class="string">&quot;Ann&quot;</span> to <span class="number">23</span></span><br><span class="line">    )</span><br><span class="line">    peopleAges.put(<span class="string">&quot;Barbara&quot;</span>, <span class="number">42</span>)</span><br><span class="line">    peopleAges[<span class="string">&quot;Joe&quot;</span>] = <span class="number">51</span></span><br><span class="line">    peopleAges[<span class="string">&quot;Fred&quot;</span>] = <span class="number">31</span></span><br><span class="line">    println(peopleAges)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* it 代表 peopleAges 中的 item */</span></span><br><span class="line">    <span class="comment">/* forEach */</span></span><br><span class="line">    peopleAges.forEach &#123; print(<span class="string">&quot;<span class="subst">$&#123;it.key&#125;</span> is <span class="subst">$&#123;it.value&#125;</span>, &quot;</span>) &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* map */</span></span><br><span class="line">    peopleAges.map &#123; print(<span class="string">&quot;<span class="subst">$&#123;it.key&#125;</span> is <span class="subst">$&#123;it.value&#125;</span>, &quot;</span>) &#125;</span><br><span class="line">    println(peopleAges.map &#123; <span class="string">&quot;<span class="subst">$&#123;it.key&#125;</span> is <span class="subst">$&#123;it.value&#125;</span>&quot;</span> &#125;.joinToString(<span class="string">&quot;, &quot;</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* filter */</span></span><br><span class="line">    println(peopleAges.filter &#123; it.key.length &lt; <span class="number">4</span> &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>以下是高優先順序函式的範例：<code>sortedWith()</code>。</p>
-<p>如果想排序字串 list，可以使用內建的 <code>sorted()</code> 方法集合。不過，如果您想用字串長度為 list 排序，就必須撰寫一些程式碼來比較兩個字串的長度。Kotlin 可讓您將 <code>lambda</code> 傳遞至 <code>sortedWith()</code> 方法，藉此達成此目標。</p>
+<p>如果想排序字串 list，可以使用內建的 <code>sorted()</code>
+方法集合。不過，如果您想用字串長度為 list
+排序，就必須撰寫一些程式碼來比較兩個字串的長度。Kotlin 可讓您將
+<code>lambda</code> 傳遞至 <code>sortedWith()</code>
+方法，藉此達成此目標。</p>
 <div class="note no-icon success">
-            <p><strong>注意：</strong> 如要比較兩個要排序的 objects，慣例是在第一個 objects 小於第二個時傳回小於 0 的值，如果二者大小相同，則會傳回 0；如果第一個 objects 大於第二個 objects，則會傳回大於 0 的值。  </p><ul><li><code>objects1 &lt; objects2</code> 回傳 <code>小於 0 的值</code></li><li><code>objects1 == objects2</code> 回傳 <code>0</code></li><li><code>objects1 &gt; objects2</code> 回傳 <code>大於 0 的值</code></li></ul>
+            <p><strong>注意：</strong> 如要比較兩個要排序的 objects，慣例是在第一個objects 小於第二個時傳回小於 0 的值，如果二者大小相同，則會傳回0；如果第一個 objects 大於第二個 objects，則會傳回大於 0 的值。<br />+ <code>objects1 &lt; objects2</code> 回傳 <code>小於 0 的值</code> +<code>objects1 == objects2</code> 回傳 <code>0</code> +<code>objects1 &gt; objects2</code> 回傳 <code>大於 0 的值</code></p>
           </div>
-
-<ol>
-<li>在 Playground 中，使用這個程式碼建立 name list，並按 name 排序輸出該 list：</li>
+<ol type="1">
+<li>在 Playground 中，使用這個程式碼建立 name list，並按 name 排序輸出該
+list：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> peopleNames = listOf(<span class="string">&quot;Fred&quot;</span>, <span class="string">&quot;Ann&quot;</span>, <span class="string">&quot;Barbara&quot;</span>, <span class="string">&quot;Joe&quot;</span>)</span><br><span class="line">    println(peopleNames.sorted())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>執行結果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Ann, Barbara, Fred, Joe]</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>現在請將 <code>lambda</code> 傳送至 <code>sortedWith()</code> 函式，按名稱長度排序 list。<code>lambda</code> 應採用相同類型的兩個參數並傳回 <code>Int</code>。在 <code>main()</code> 函式的 <code>println()</code> 陳述式後方加上這行程式碼。</li>
+<p>執行結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Ann, Barbara, Fred, Joe]</span><br></pre></td></tr></table></figure></p>
+<ol start="2" type="1">
+<li>現在請將 <code>lambda</code> 傳送至 <code>sortedWith()</code>
+函式，按名稱長度排序 list。<code>lambda</code>
+應採用相同類型的兩個參數並傳回 <code>Int</code>。在 <code>main()</code>
+函式的 <code>println()</code> 陳述式後方加上這行程式碼。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(peopleNames.sortedWith &#123; str1: String, str2: String -&gt; str1.length - str2.length &#125;)</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol start="3" type="1">
 <li>執行程式並查看結果。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Ann, Barbara, Fred, Joe]</span><br><span class="line">[Ann, Joe, Fred, Barbara]</span><br></pre></td></tr></table></figure>
-
-<p>傳送至 <code>sortedWith()</code> 的 <code>lambda</code> 有兩個參數，<code>str1</code> 為 <code>String</code>，<code>str2</code> 則為 <code>String</code>。然後，您就會依次看到函式箭頭和函式主體。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/7005f5b6bc466894_1920.png?hl=zh-tw">
-
-<p>請記住，<code>lambda</code> 中的最後一個運算式是傳回 value。在這種情況下，系統會<strong>傳回第一個字串和第二個字串長度之間的差異</strong>，也就是 <code>Int</code>。符合排序所需的項目：</p>
-<ul>
-<li>如果 <code>str1.length &lt; str2.length</code>，則會傳回<code>小於 0 的值</code>。</li>
-<li>如果 <code>str1.length == str2.length</code>，系統會傳回 <code>0</code>。</li>
-<li>如果 <code>str1.length &gt; str2.length</code>，就會傳回<code>大於 0 的值</code>。</li>
-</ul>
-<p>透過一次比較兩個 <code>Strings</code> 的方式，<code>sortedWith()</code> 函式會輸出 list，list 將按照長度遞增排序。</p>
-<h4 id="Android-中的-OnClickListener-和-OnKeyListener"><a href="#Android-中的-OnClickListener-和-OnKeyListener" class="headerlink" title="Android 中的 OnClickListener 和 OnKeyListener"></a>Android 中的 OnClickListener 和 OnKeyListener</h4><p>統整一下上述內容與您目前學到的 Android 知識，您會發現其實在之前的程式碼研究室就用過 lambda，例如在小費計算機應用程式中為按鈕設定點按事件監聽器時：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">calculateButton.setOnClickListener&#123; calculateTip() &#125;</span><br></pre></td></tr></table></figure>
-
-<p>只要使用 <code>lambda</code> 來設定點擊事件監聽器，就能快速完成。編寫上述程式碼的長版方法如下所示，並與精簡版相比。您不一定要知道長版版本的所有詳細資料，但需要注意這兩種版本的模式。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/29760e0a3cac26a2_1920.png?hl=zh-tw">
-
-<p>觀察 <code>lambda</code> 與 <code>OnClickListener</code> 中的 <code>onClick()</code> 方法具有相同函式類型的方式 (使用一個 <code>View</code> 引數並傳回 <code>Unit</code>，表示<strong>沒有傳回值</strong>)。</p>
-<p>由於 Kotlin 中名為 <code>SAM (Single-Abstract-Method)</code> 轉換，您可以縮短程式碼的版本。Kotlin 會將 <code>lambda</code> 轉換為一個實作單一抽象方法 <code>onClick()</code> 的 <code>OnClickListener</code> 物件(object)。只要確認 <code>lambda</code> 函式類型與抽象函式的函式類型相符即可。</p>
-<p>由於 <code>lambda</code> 中一律不使用 <code>view</code> 參數，因此可略過該參數。接著我們只具備 <code>lambda</code> 中的功能主體。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">calculateButton.setOnClickListener &#123; calculateTip() &#125;</span><br></pre></td></tr></table></figure>
-
-<p>這些概念非常具有挑戰性，因此請耐心累積經驗，您需要一些時間才能沉澱所學。再舉另一個例子回想一下您在小費計算機的「Cost of service」文字欄位中設定的按鍵事件監聽器，以便在使用者按下 Enter 鍵後把螢幕小鍵盤隱藏起來。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">costOfServiceEditText.setOnKeyListener &#123; view, keyCode, event -&gt; handleKeyEvent(view, keyCode) &#125;</span><br></pre></td></tr></table></figure>
-
-<p>查詢 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/view/View.OnKeyListener">OnKeyListener</a> 時，抽象方法擁有下列參數 <code>onKey(View v, int keyCode, KeyEvent event)</code>，並傳回 <code>Boolean</code>。由於 Kotlin 中的 <strong>SAM</strong> 轉換功能，您可以將 <code>lambda</code> 傳送至 <code>setOnKeyListener()</code>。請確認 <code>lambda</code> 的函式類型為 <code>(View, Int, KeyEvent) -&gt; Boolean</code>。</p>
-<p>以下是使用的 運算式。參數的值為 <strong>View</strong>、<strong>keyCode</strong> 和 <strong>event</strong>。函式主體包含使用 <code>handleKeyEvent(view, keyCode)</code> 並傳入 <code>Boolean</code> 的參數。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/f73fe767b8950123_1920.png?hl=zh-tw">
-
+<p>傳送至 <code>sortedWith()</code> 的 <code>lambda</code>
+有兩個參數，<code>str1</code> 為 <code>String</code>，<code>str2</code>
+則為 <code>String</code>。然後，您就會依次看到函式箭頭和函式主體。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/7005f5b6bc466894_1920.png?hl=zh-tw"></p>
+<p>請記住，<code>lambda</code> 中的最後一個運算式是傳回
+value。在這種情況下，系統會<strong>傳回第一個字串和第二個字串長度之間的差異</strong>，也就是
+<code>Int</code>。符合排序所需的項目： + 如果
+<code>str1.length &lt; str2.length</code>，則會傳回<code>小於 0 的值</code>。
++ 如果 <code>str1.length == str2.length</code>，系統會傳回
+<code>0</code>。 + 如果
+<code>str1.length &gt; str2.length</code>，就會傳回<code>大於 0 的值</code>。</p>
+<p>透過一次比較兩個 <code>Strings</code>
+的方式，<code>sortedWith()</code> 函式會輸出 list，list
+將按照長度遞增排序。</p>
+<h4 id="android-中的-onclicklistener-和-onkeylistener">Android 中的
+OnClickListener 和 OnKeyListener</h4>
+<p>統整一下上述內容與您目前學到的 Android
+知識，您會發現其實在之前的程式碼研究室就用過
+lambda，例如在小費計算機應用程式中為按鈕設定點按事件監聽器時：
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">calculateButton.setOnClickListener&#123; calculateTip() &#125;</span><br></pre></td></tr></table></figure></p>
+<p>只要使用 <code>lambda</code>
+來設定點擊事件監聽器，就能快速完成。編寫上述程式碼的長版方法如下所示，並與精簡版相比。您不一定要知道長版版本的所有詳細資料，但需要注意這兩種版本的模式。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/29760e0a3cac26a2_1920.png?hl=zh-tw"></p>
+<p>觀察 <code>lambda</code> 與 <code>OnClickListener</code> 中的
+<code>onClick()</code> 方法具有相同函式類型的方式 (使用一個
+<code>View</code> 引數並傳回
+<code>Unit</code>，表示<strong>沒有傳回值</strong>)。</p>
+<p>由於 Kotlin 中名為 <code>SAM (Single-Abstract-Method)</code>
+轉換，您可以縮短程式碼的版本。Kotlin 會將 <code>lambda</code>
+轉換為一個實作單一抽象方法 <code>onClick()</code> 的
+<code>OnClickListener</code> 物件(object)。只要確認 <code>lambda</code>
+函式類型與抽象函式的函式類型相符即可。</p>
+<p>由於 <code>lambda</code> 中一律不使用 <code>view</code>
+參數，因此可略過該參數。接著我們只具備 <code>lambda</code>
+中的功能主體。 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">calculateButton.setOnClickListener &#123; calculateTip() &#125;</span><br></pre></td></tr></table></figure></p>
+<p>這些概念非常具有挑戰性，因此請耐心累積經驗，您需要一些時間才能沉澱所學。再舉另一個例子回想一下您在小費計算機的「Cost
+of service」文字欄位中設定的按鍵事件監聽器，以便在使用者按下 Enter
+鍵後把螢幕小鍵盤隱藏起來。 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">costOfServiceEditText.setOnKeyListener &#123; view, keyCode, event -&gt; handleKeyEvent(view, keyCode) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>查詢 <a
+target="_blank" rel="noopener" href="https://developer.android.com/reference/android/view/View.OnKeyListener">OnKeyListener</a>
+時，抽象方法擁有下列參數
+<code>onKey(View v, int keyCode, KeyEvent event)</code>，並傳回
+<code>Boolean</code>。由於 Kotlin 中的 <strong>SAM</strong>
+轉換功能，您可以將 <code>lambda</code> 傳送至
+<code>setOnKeyListener()</code>。請確認 <code>lambda</code> 的函式類型為
+<code>(View, Int, KeyEvent) -&gt; Boolean</code>。</p>
+<p>以下是使用的 運算式。參數的值為
+<strong>View</strong>、<strong>keyCode</strong> 和
+<strong>event</strong>。函式主體包含使用
+<code>handleKeyEvent(view, keyCode)</code> 並傳入 <code>Boolean</code>
+的參數。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/f73fe767b8950123_1920.png?hl=zh-tw"></p>
 <div class="note no-icon success">
-            <p><strong>注意：</strong> 如果您並未在函式內文中使用 <b>lambda</b> 參數，則可為 <b>_</b> 命名，以便更清晰易懂。這段程式碼的行為相同。</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">costOfServiceEditText.setOnKeyListener &#123; view, keyCode, _ -&gt; handleKeyEvent(view, keyCode) &#125;</span><br></pre></td></tr></table></figure>
+            <p><strong>注意：</strong> 如果您並未在函式內文中使用 <b>lambda</b>參數，則可為 <b>_</b> 命名，以便更清晰易懂。這段程式碼的行為相同。<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">costOfServiceEditText.setOnKeyListener &#123; view, keyCode, _ -&gt; handleKeyEvent(view, keyCode) &#125;</span><br></pre></td></tr></table></figure></p>
           </div>
-
-<hr>
-<h3 id="製作字詞List"><a href="#製作字詞List" class="headerlink" title="製作字詞List"></a>製作字詞List</h3><p>現在，請將您學到的 <code>collections</code>、<code>lambdas</code> 和 <code>higher order functions(高階函式)</code> 全部納入考量，然後應用在實際用途中。</p>
-<p>假設您想要建立 Android 應用程式來玩文字遊戲或學習字彙。這個應用程式看起來會像這樣，每個字母中的每個字母都會顯示按鈕：</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/7539df92789fad47_1920.png?hl=zh-tw">
-
-<p>按一下字母 <strong>A</strong>，畫面上隨即會顯示一份以字母 A 開頭的幾個字詞 list 等等。</p>
+<hr />
+<h3 id="製作字詞list">製作字詞List</h3>
+<p>現在，請將您學到的 <code>collections</code>、<code>lambdas</code> 和
+<code>higher order functions(高階函式)</code>
+全部納入考量，然後應用在實際用途中。</p>
+<p>假設您想要建立 Android
+應用程式來玩文字遊戲或學習字彙。這個應用程式看起來會像這樣，每個字母中的每個字母都會顯示按鈕：</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-collections/img/7539df92789fad47_1920.png?hl=zh-tw"></p>
+<p>按一下字母 <strong>A</strong>，畫面上隨即會顯示一份以字母 A
+開頭的幾個字詞 list 等等。</p>
 <p>你需要收集一組字詞，但要使用哪一種集合(collections)？如果應用程式要包含一些字母開頭的字母，您就必須找到或整理所有以特定字母開頭的字詞。如要增加挑戰，建議您在每次使用者執行應用程式時，從產品素材資源集合中選擇不同的字詞。</p>
-<p>首先是字詞 list。在真正的應用程式中，建議您建立更長的字詞 list，並且包括以字母表中所有字母做為開頭的字詞，不過現在我們只要一個簡短的 list 就足夠了。</p>
-<ol>
+<p>首先是字詞 list。在真正的應用程式中，建議您建立更長的字詞
+list，並且包括以字母表中所有字母做為開頭的字詞，不過現在我們只要一個簡短的
+list 就足夠了。</p>
+<ol type="1">
 <li>使用下列程式碼取代 Kotlin Playground 中的程式碼：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> words = listOf(<span class="string">&quot;about&quot;</span>, <span class="string">&quot;acute&quot;</span>, <span class="string">&quot;awesome&quot;</span>, <span class="string">&quot;balloon&quot;</span>, <span class="string">&quot;best&quot;</span>, <span class="string">&quot;brief&quot;</span>, <span class="string">&quot;class&quot;</span>, <span class="string">&quot;coffee&quot;</span>, <span class="string">&quot;creative&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>如要取得開頭為字母 <strong>B</strong> 的字詞集合，您可以使用 <code>filter</code> 搭配 <code>lambda</code> 運算式。新增以下幾行內容：</li>
+<ol start="2" type="1">
+<li>如要取得開頭為字母 <strong>B</strong> 的字詞集合，您可以使用
+<code>filter</code> 搭配 <code>lambda</code>
+運算式。新增以下幾行內容：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> filteredWords = words.filter &#123; it.startsWith(<span class="string">&quot;b&quot;</span>, ignoreCase = <span class="literal">true</span>) &#125;</span><br><span class="line">println(filteredWords)</span><br></pre></td></tr></table></figure>
-
-<p>如果字串開頭為指定字串，<a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/starts-with.html">startsWith()</a> 函式則會傳回 <code>true</code>。您也可以指定系統忽略大小寫，因此「b」的比對結果會包括「b」或「B」。</p>
-<ol start="3">
+<p>如果字串開頭為指定字串，<a
+target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/starts-with.html">startsWith()</a>
+函式則會傳回
+<code>true</code>。您也可以指定系統忽略大小寫，因此「b」的比對結果會包括「b」或「B」。</p>
+<ol start="3" type="1">
 <li>執行程式並查看結果：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[balloon, best, brief]</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>別忘了，您希望應用程式隨機挑選字詞。使用 Kotlin 集合時，您可以使用 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffled.html">shuffled()</a> 函式，為隨機隨機分組的項目建立副本。同時變更篩選過的字詞。</li>
+<ol start="4" type="1">
+<li>別忘了，您希望應用程式隨機挑選字詞。使用 Kotlin 集合時，您可以使用
+<a
+target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffled.html">shuffled()</a>
+函式，為隨機隨機分組的項目建立副本。同時變更篩選過的字詞。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> filteredWords = words.filter &#123; it.startsWith(<span class="string">&quot;b&quot;</span>, ignoreCase = <span class="literal">true</span>) &#125;</span><br><span class="line">    .shuffled()</span><br></pre></td></tr></table></figure>
-
 <div class="note no-icon success">
             <p><b>shuffled()</b>：回傳一個新 list，該 list 的元素隨機排列。</p>
           </div>
-
-<ol start="5">
+<ol start="5" type="1">
 <li>執行您的程式並查看新的結果：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">第一次：[brief, best, balloon]</span><br><span class="line">第二次：[best, brief, balloon]</span><br><span class="line">第三次：[brief, best, balloon]</span><br></pre></td></tr></table></figure>
 <ul>
 <li>由於這類字詞會隨機隨機播放，所以您看到的字詞可能會有不同的排列順序。</li>
 </ul>
-<ol start="6">
-<li>您不想使用所有字，您可以使用 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take.html">take()</a> 函式取得產品素材資源集合中的第一個項目。讓篩選後的字詞只包含前兩個重組字詞：</li>
+<ol start="6" type="1">
+<li>您不想使用所有字，您可以使用 <a
+target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take.html">take()</a>
+函式取得產品素材資源集合中的第一個項目。讓篩選後的字詞只包含前兩個重組字詞：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> filteredWords = words.filter &#123; it.startsWith(<span class="string">&quot;b&quot;</span>, ignoreCase = <span class="literal">true</span>) &#125;</span><br><span class="line">    .shuffled()</span><br><span class="line">    </span><br><span class="line">println(filteredWords)   </span><br><span class="line">println(filteredWords.take(<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
-
 <div class="note no-icon success">
             <p><b>take(n: Int)</b>：回傳包含前 <b>n</b> 個元素的 list。</p>
           </div>
-
-<ol start="7">
+<ol start="7" type="1">
 <li>執行您的程式並查看新的結果：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[best, balloon, brief]</span><br><span class="line">[best, balloon]</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
-<li>最後，請針對該應用程式的隨機字詞 list 隨機排序。一如往常，您可以使用 <a target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted.html">sorted()</a> 函式，傳回含有下列項目的集合副本：</li>
+<ol start="8" type="1">
+<li>最後，請針對該應用程式的隨機字詞 list 隨機排序。一如往常，您可以使用
+<a
+target="_blank" rel="noopener" href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted.html">sorted()</a>
+函式，傳回含有下列項目的集合副本：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> filteredWords = words.filter &#123; it.startsWith(<span class="string">&quot;b&quot;</span>, ignoreCase = <span class="literal">true</span>) &#125;</span><br><span class="line">    .shuffled()</span><br><span class="line">    .take(<span class="number">2</span>)</span><br><span class="line">    .sorted()</span><br></pre></td></tr></table></figure>
-
-<ol start="9">
-<li>執行您的程式並查看新的結果：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[balloon, best]</span><br></pre></td></tr></table></figure></li>
+<ol start="9" type="1">
+<li>執行您的程式並查看新的結果： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[balloon, best]</span><br></pre></td></tr></table></figure></li>
 </ol>
-<p>上述所有程式碼：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> words = listOf(<span class="string">&quot;about&quot;</span>, <span class="string">&quot;acute&quot;</span>, <span class="string">&quot;awesome&quot;</span>, <span class="string">&quot;balloon&quot;</span>, <span class="string">&quot;best&quot;</span>, <span class="string">&quot;brief&quot;</span>, <span class="string">&quot;class&quot;</span>, <span class="string">&quot;coffee&quot;</span>, <span class="string">&quot;creative&quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> filteredWords = words.filter &#123; it.startsWith(<span class="string">&quot;b&quot;</span>, ignoreCase = <span class="literal">true</span>) &#125;</span><br><span class="line">        .shuffled()</span><br><span class="line">        .take(<span class="number">2</span>)</span><br><span class="line">        .sorted()</span><br><span class="line">    println(filteredWords)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<p>上述所有程式碼： <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> words = listOf(<span class="string">&quot;about&quot;</span>, <span class="string">&quot;acute&quot;</span>, <span class="string">&quot;awesome&quot;</span>, <span class="string">&quot;balloon&quot;</span>, <span class="string">&quot;best&quot;</span>, <span class="string">&quot;brief&quot;</span>, <span class="string">&quot;class&quot;</span>, <span class="string">&quot;coffee&quot;</span>, <span class="string">&quot;creative&quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> filteredWords = words.filter &#123; it.startsWith(<span class="string">&quot;b&quot;</span>, ignoreCase = <span class="literal">true</span>) &#125;</span><br><span class="line">        .shuffled()</span><br><span class="line">        .take(<span class="number">2</span>)</span><br><span class="line">        .sorted()</span><br><span class="line">    println(filteredWords)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr />
+<h3 id="總結">總結</h3>
+<ul>
 <li><strong>集合(collection)</strong> 是指一組相關項目</li>
-<li><strong>集合(collection)</strong> 可以是 <strong>可變更(mutable)</strong> 或 <strong>不可變更(immutable)</strong> 的</li>
+<li><strong>集合(collection)</strong> 可以是
+<strong>可變更(mutable)</strong> 或 <strong>不可變更(immutable)</strong>
+的</li>
 <li><strong>集合(collection)</strong> 可以是有序或無序的</li>
 <li><strong>集合(collection)</strong> 可以有唯一項目或允許重複項目</li>
-<li>Kotlin 支援不同類型的 <strong>集合(collection)<strong>，包括 <strong>list</strong>、</strong>set</strong> 和 <strong>map</strong></li>
-<li>Kotlin 提供了許多處理及轉換集合的功能，包括 <code>forEach</code>、<code>map</code>、<code>filter</code>、<code>sorted</code> 等。</li>
-<li><strong>lambda</strong> 是一種不含名稱的函式，不可用來立即傳遞運算式。例如：<code>&#123; a: Int -&gt; a * 3 &#125;</code>。</li>
-<li><strong>高階函式(higher-order function)</strong> 指的是將函式傳送至其他函式，或傳回來自其他函式的函式。</li>
+<li>Kotlin 支援不同類型的 <strong>集合(collection)</strong>，包括
+<strong>list</strong>、<strong>set</strong> 和 <strong>map</strong></li>
+<li>Kotlin 提供了許多處理及轉換集合的功能，包括
+<code>forEach</code>、<code>map</code>、<code>filter</code>、<code>sorted</code>
+等。</li>
+<li><strong>lambda</strong>
+是一種不含名稱的函式，不可用來立即傳遞運算式。例如：<code>&#123; a: Int -&gt; a * 3 &#125;</code>。</li>
+<li><strong>高階函式(higher-order function)</strong>
+指的是將函式傳送至其他函式，或傳回來自其他函式的函式。</li>
 </ul>
 
     </div>
@@ -724,7 +825,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3Collection"><span class="nav-number">1.</span> <span class="nav-text">了解Collection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8BList"><span class="nav-number">1.1.</span> <span class="nav-text">建立List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3Set"><span class="nav-number">1.2.</span> <span class="nav-text">了解Set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3Map"><span class="nav-number">1.3.</span> <span class="nav-text">了解Map</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Collection"><span class="nav-number">2.</span> <span class="nav-text">使用Collection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach"><span class="nav-number">2.1.</span> <span class="nav-text">forEach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map"><span class="nav-number">2.2.</span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Filter"><span class="nav-number">2.3.</span> <span class="nav-text">Filter</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3Lambda%E5%92%8C%E9%AB%98%E9%9A%8E%E5%87%BD%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">了解Lambda和高階函式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lambda"><span class="nav-number">3.1.</span> <span class="nav-text">Lambda</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E9%A1%9E%E5%9E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">函式類型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E9%9A%8E%E5%87%BD%E5%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">高階函式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-%E4%B8%AD%E7%9A%84-OnClickListener-%E5%92%8C-OnKeyListener"><span class="nav-number">3.4.</span> <span class="nav-text">Android 中的 OnClickListener 和 OnKeyListener</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E5%AD%97%E8%A9%9EList"><span class="nav-number">4.</span> <span class="nav-text">製作字詞List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">5.</span> <span class="nav-text">總結</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3collection"><span class="nav-number">1.</span> <span class="nav-text">了解Collection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8Blist"><span class="nav-number">1.1.</span> <span class="nav-text">建立List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3set"><span class="nav-number">1.2.</span> <span class="nav-text">了解Set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3map"><span class="nav-number">1.3.</span> <span class="nav-text">了解Map</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8collection"><span class="nav-number">2.</span> <span class="nav-text">使用Collection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#foreach"><span class="nav-number">2.1.</span> <span class="nav-text">forEach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map"><span class="nav-number">2.2.</span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filter"><span class="nav-number">2.3.</span> <span class="nav-text">Filter</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3lambda%E5%92%8C%E9%AB%98%E9%9A%8E%E5%87%BD%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">了解Lambda和高階函式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lambda"><span class="nav-number">3.1.</span> <span class="nav-text">Lambda</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E9%A1%9E%E5%9E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">函式類型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E9%9A%8E%E5%87%BD%E5%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">高階函式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#android-%E4%B8%AD%E7%9A%84-onclicklistener-%E5%92%8C-onkeylistener"><span class="nav-number">3.4.</span> <span class="nav-text">Android 中的
+OnClickListener 和 OnKeyListener</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E5%AD%97%E8%A9%9Elist"><span class="nav-number">4.</span> <span class="nav-text">製作字詞List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">5.</span> <span class="nav-text">總結</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -740,20 +842,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">128</span>
+        <span class="site-state-item-count">129</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -849,6 +951,8 @@
 
 
 
+
+  
 
   
 

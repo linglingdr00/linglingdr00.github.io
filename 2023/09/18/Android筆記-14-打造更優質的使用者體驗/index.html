@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="Material 是 Google 打造的設計系統，提供相關指南、元件，以及支援使用者介面設計最佳做法的工具。在本此篇文章中，我們將根據建議的 UI 最佳做法，更新小費計算機應用程式，確保使用者享有流暢的使用體驗。    學習目標  如何在應用程式中使用 Material Design 元件 如何從 Image Asset Studio 匯入 Material 圖示，使得可在應用程式中使用 Ma">
+  <meta name="description" content="Material 是 Google 打造的設計系統，提供相關指南、元件，以及支援使用者介面設計最佳做法的工具。在本此篇文章中，我們將根據建議的 UI 最佳做法，更新小費計算機應用程式，確保使用者享有流暢的使用體驗。   學習目標 + 如何在應用程式中使用 Material Design 元件 + 如何從 Image Asset Studio 匯入 Material 圖示，使得可在應用程式中使用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(14)-打造更優質的使用者體驗">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/09/18/Android%E7%AD%86%E8%A8%98-14-%E6%89%93%E9%80%A0%E6%9B%B4%E5%84%AA%E8%B3%AA%E7%9A%84%E4%BD%BF%E7%94%A8%E8%80%85%E9%AB%94%E9%A9%97/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="Material 是 Google 打造的設計系統，提供相關指南、元件，以及支援使用者介面設計最佳做法的工具。在本此篇文章中，我們將根據建議的 UI 最佳做法，更新小費計算機應用程式，確保使用者享有流暢的使用體驗。    學習目標  如何在應用程式中使用 Material Design 元件 如何從 Image Asset Studio 匯入 Material 圖示，使得可在應用程式中使用 Ma">
+<meta property="og:description" content="Material 是 Google 打造的設計系統，提供相關指南、元件，以及支援使用者介面設計最佳做法的工具。在本此篇文章中，我們將根據建議的 UI 最佳做法，更新小費計算機應用程式，確保使用者享有流暢的使用體驗。   學習目標 + 如何在應用程式中使用 Material Design 元件 + 如何從 Image Asset Studio 匯入 Material 圖示，使得可在應用程式中使用">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/5743ac5ee2493d7_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/6685eaafba30960a_1920.png?hl=zh-tw">
@@ -68,22 +68,14 @@
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/4c1aa37bbdadab1d_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/35a96c994b82539e_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/2b2a5836a5d9bedf_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/31ac15991713b031_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/3e861407146c9ed4_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://i.imgur.com/py1EnmF.png">
-<meta property="og:image" content="https://i.imgur.com/Juo2DFT.png">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/f2edb1ae9926d5f1_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/2bc08f73d28968cb_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/d73499f9c9d2b330_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://i.imgur.com/lzCsDea.gif">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/e2c3a3dbc40218a2_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/1c95d7406d3847fe_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/77092f702beb1cfb_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/80a390087905eb29_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/aab70a5d4eaabdc7_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/f0b8f59dbf00a20b_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://i.imgur.com/l5p0Vf5.png">
-<meta property="og:image" content="https://i.imgur.com/Tijw0A1.png">
 <meta property="article:published_time" content="2023-09-18T06:59:29.000Z">
 <meta property="article:modified_time" content="2023-09-28T05:29:19.263Z">
 <meta property="article:author" content="Tina Tang">
@@ -321,500 +313,721 @@
 
       
         <blockquote>
-<p><a target="_blank" rel="noopener" href="https://m2.material.io/design/introduction/">Material</a> 是 Google 打造的設計系統，提供相關指南、元件，以及支援使用者介面設計最佳做法的工具。在本此篇文章中，我們將根據建議的 UI 最佳做法，更新小費計算機應用程式，確保使用者享有流暢的使用體驗。</p>
+<p><a target="_blank" rel="noopener" href="https://m2.material.io/design/introduction/">Material</a> 是
+Google
+打造的設計系統，提供相關指南、元件，以及支援使用者介面設計最佳做法的工具。在本此篇文章中，我們將根據建議的
+UI 最佳做法，更新小費計算機應用程式，確保使用者享有流暢的使用體驗。</p>
 </blockquote>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/5743ac5ee2493d7_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<p><strong>學習目標</strong></p>
-<ul>
-<li>如何在應用程式中使用 Material Design 元件</li>
-<li>如何從 Image Asset Studio 匯入 Material 圖示，使得可在應用程式中使用 Material 圖示</li>
-<li>如何建立及套用新樣式</li>
-<li>如何設定顏色以外的佈景主題屬性</li>
-</ul>
-<span id="more"></span>
-<hr>
-<h4 id="範例應用程式總覽"><a href="#範例應用程式總覽" class="headerlink" title="範例應用程式總覽"></a>範例應用程式總覽</h4><p>您在先前的程式碼研究室已建構 <strong>Tip Time</strong> 應用程式，這是一款小費計算機應用程式，且提供可自訂小費的選項。您的應用程式使用者介面看似像如下螢幕截圖。功能可以運作，但看起來更像原型。這些欄位看起來並未完全對齊。就提升樣式和間距的一致性，以及使用 Material Design 元件而言，肯定還有改進空間。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/6685eaafba30960a_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<hr>
-<h4 id="Material-元件"><a href="#Material-元件" class="headerlink" title="Material 元件"></a>Material 元件</h4><p><a target="_blank" rel="noopener" href="https://m3.material.io/components">Material元件 (Material Components) </a>是常見的使用者介面小工具，可協助您輕鬆在應用程式中導入 Material 樣式。這份說明文件說明如何使用及自訂質感設計元件。每個元件都有通用的 Material Design 指南，而 Android 適用的元件則有 Android 平台專屬的指南。如果所選平台沒有某個元件，您可以從已加標籤的圖表取得充足資訊，重新建立該元件。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/c4a4db857bb36c3f_1920.png?hl=zh-tw" width="70%" height="70%">
-
-<p>透過 Material Design Components(元件)，您的應用程式能夠以更一致的方式，與使用者裝置上的其他應用程式搭配運作。如此一來，在某個應用程式中學到的使用者介面操作模式即可沿用到其他應用程式，這樣使用者就能更快瞭解如何使用您的應用程式。因此，建議您<a target="_blank" rel="noopener" href="https://medium.com/androiddevelopers/we-recommend-material-design-components-81e6d165c2dd">盡可能使用 Material Components</a>，而非使用 Material 小工具。Material 元件更加靈活且可自訂，而且您將在下一個工作中學到這些知識。</p>
-<p>您需要將 <code>Material Design Components (MDC)</code> 程式庫做為依附元件加入專案中。根據預設，您的專案應該已經包含這一行。請在應用程式的 build.gradle 檔案中，確認最新版程式庫包含這項依附元件。詳情請參閱 Material Design 網站的<a target="_blank" rel="noopener" href="https://m2.material.io/develop/android/docs/getting-started/">入門指南</a>頁面。</p>
-<p><code>app/build.gradle</code></p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.material:material:&lt;version&gt;&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="文字欄位-Text-Fields"><a href="#文字欄位-Text-Fields" class="headerlink" title="文字欄位(Text Fields)"></a>文字欄位(Text Fields)</h5><p>在小費計算機應用程式中，版面配置頂端會顯示目前服務費的 EditText 欄位。此 EditText 欄位可正常運作，但文字欄位的外觀和行為不符合最新質感設計南要求。</p>
-<p>如果想使用新元件，請先在 Material Design 網站上瞭解相關資訊。根據<a target="_blank" rel="noopener" href="https://m2.material.io/components/text-fields/android">文字欄位指南</a>所述，文字欄位分成兩種類型：<br>實心的文字欄位(左)、含外框的文字欄位(右)。<br><img src="https://lh3.googleusercontent.com/NKeAqZqJLJwvWEuU4J3vuA6XgGKKW6VAlP4FRgIqXbx5jcXr8m00dt6NtVbmFPwFfvIxAEkkUac24QVCRL_wQ2SiGxjreaaVUZAir_nNs0rVj0DZ_f2a=w1064-v0" width="70%" height="70%"></p>
-<p>若要建立上述文字欄位，請使用 MDC 程式庫中內含 <code>TextInputEditText</code> 的 <code>TextInputLayout</code>。您可以輕鬆自訂 Material Design 文字欄位，執行以下操作：</p>
-<ul>
-<li>顯示始終可見的文字或標籤</li>
-<li>在文字欄位中顯示圖示</li>
-<li>顯示小幫手或錯誤訊息</li>
-</ul>
-<p>在本程式碼研究室的第一項工作中，您要將服務費 <code>EditText</code> 替換為 Material Design 的text欄位 (由 <code>TextInputLayout</code> 和 <code>TextInputEditText</code> 所組成)。</p>
-<ol>
-<li><p>在 Android Studio 中開啟 Tip Time 應用程式，前往 <code>activity_main.xml</code> 版面配置檔案。其中應包含有小費計算機版面配置的 <code>ConstraintLayout</code>。</p>
-</li>
-<li><p>如要查看 Material Design text欄位的 XML 樣式示例，請返回<a target="_blank" rel="noopener" href="https://m2.material.io/components/text-fields/android">text欄位的 Android 指南</a>。您應該會看到類似下列內容的程式碼片段：</p>
-</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/5743ac5ee2493d7_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p><strong>學習目標</strong> + 如何在應用程式中使用 Material Design 元件
++ 如何從 Image Asset Studio 匯入 Material 圖示，使得可在應用程式中使用
+Material 圖示 + 如何建立及套用新樣式 +
+如何設定顏色以外的佈景主題屬性</p>
+<h2 id="section"><span id="more"></span></h2>
+<h4 id="範例應用程式總覽">範例應用程式總覽</h4>
+<p>您在先前的程式碼研究室已建構 <strong>Tip Time</strong>
+應用程式，這是一款小費計算機應用程式，且提供可自訂小費的選項。您的應用程式使用者介面看似像如下螢幕截圖。功能可以運作，但看起來更像原型。這些欄位看起來並未完全對齊。就提升樣式和間距的一致性，以及使用
+Material Design 元件而言，肯定還有改進空間。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/6685eaafba30960a_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<hr />
+<h4 id="material-元件">Material 元件</h4>
+<p><a target="_blank" rel="noopener" href="https://m3.material.io/components">Material元件 (Material
+Components)</a>是常見的使用者介面小工具，可協助您輕鬆在應用程式中導入
+Material
+樣式。這份說明文件說明如何使用及自訂質感設計元件。每個元件都有通用的
+Material Design 指南，而 Android 適用的元件則有 Android
+平台專屬的指南。如果所選平台沒有某個元件，您可以從已加標籤的圖表取得充足資訊，重新建立該元件。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/c4a4db857bb36c3f_1920.png?hl=zh-tw" width="70%" height="70%"></p>
+<p>透過 Material Design
+Components(元件)，您的應用程式能夠以更一致的方式，與使用者裝置上的其他應用程式搭配運作。如此一來，在某個應用程式中學到的使用者介面操作模式即可沿用到其他應用程式，這樣使用者就能更快瞭解如何使用您的應用程式。因此，建議您<a
+target="_blank" rel="noopener" href="https://medium.com/androiddevelopers/we-recommend-material-design-components-81e6d165c2dd">盡可能使用
+Material Components</a>，而非使用 Material 小工具。Material
+元件更加靈活且可自訂，而且您將在下一個工作中學到這些知識。</p>
+<p>您需要將 <code>Material Design Components (MDC)</code>
+程式庫做為依附元件加入專案中。根據預設，您的專案應該已經包含這一行。請在應用程式的
+build.gradle 檔案中，確認最新版程式庫包含這項依附元件。詳情請參閱
+Material Design 網站的<a
+target="_blank" rel="noopener" href="https://m2.material.io/develop/android/docs/getting-started/">入門指南</a>頁面。</p>
+<p><code>app/build.gradle</code> <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    implementation <span class="string">&#x27;com.google.android.material:material:&lt;version&gt;&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="文字欄位text-fields">文字欄位(Text Fields)</h5>
+<p>在小費計算機應用程式中，版面配置頂端會顯示目前服務費的 EditText
+欄位。此 EditText
+欄位可正常運作，但文字欄位的外觀和行為不符合最新質感設計南要求。</p>
+<p>如果想使用新元件，請先在 Material Design 網站上瞭解相關資訊。根據<a
+target="_blank" rel="noopener" href="https://m2.material.io/components/text-fields/android">文字欄位指南</a>所述，文字欄位分成兩種類型：
+實心的文字欄位(左)、含外框的文字欄位(右)。
+<img src="https://lh3.googleusercontent.com/NKeAqZqJLJwvWEuU4J3vuA6XgGKKW6VAlP4FRgIqXbx5jcXr8m00dt6NtVbmFPwFfvIxAEkkUac24QVCRL_wQ2SiGxjreaaVUZAir_nNs0rVj0DZ_f2a=w1064-v0" width="70%" height="70%"></p>
+<p>若要建立上述文字欄位，請使用 MDC 程式庫中內含
+<code>TextInputEditText</code> 的
+<code>TextInputLayout</code>。您可以輕鬆自訂 Material Design
+文字欄位，執行以下操作： + 顯示始終可見的文字或標籤 +
+在文字欄位中顯示圖示 + 顯示小幫手或錯誤訊息</p>
+<p>在本程式碼研究室的第一項工作中，您要將服務費 <code>EditText</code>
+替換為 Material Design 的text欄位 (由 <code>TextInputLayout</code> 和
+<code>TextInputEditText</code> 所組成)。</p>
+<ol type="1">
+<li><p>在 Android Studio 中開啟 Tip Time 應用程式，前往
+<code>activity_main.xml</code>
+版面配置檔案。其中應包含有小費計算機版面配置的
+<code>ConstraintLayout</code>。</p></li>
+<li><p>如要查看 Material Design text欄位的 XML 樣式示例，請返回<a
+target="_blank" rel="noopener" href="https://m2.material.io/components/text-fields/android">text欄位的
+Android 指南</a>。您應該會看到類似下列內容的程式碼片段：</p></li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">com.google.android.material.textfield.TextInputLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/textField&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:hint</span>=<span class="string">&quot;@string/label&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.google.android.material.textfield.TextInputEditText</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">com.google.android.material.textfield.TextInputLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>看到這個示例後，請插入 Material Design 文字欄位做為 <code>ConstraintLayout</code> 的第一個子項 (在<code>EditText</code> 欄位前)。您將在後續步驟中移除 <code>EditText</code> 欄位。</li>
+<ol start="3" type="1">
+<li>看到這個示例後，請插入 Material Design 文字欄位做為
+<code>ConstraintLayout</code> 的第一個子項 (在<code>EditText</code>
+欄位前)。您將在後續步驟中移除 <code>EditText</code> 欄位。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.google.android.material.textfield.TextInputLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/textField&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:hint</span>=<span class="string">&quot;@string/label&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">com.google.android.material.textfield.TextInputEditText</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">com.google.android.material.textfield.TextInputLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">EditText</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/cost_of_service&quot;</span> <span class="attr">...</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
-
-<p>您應該會看到 <code>TextInputLayout</code> 元素有錯誤。您尚未在父項 <code>ConstraintLayout</code> 中適當的限制此檢視畫面。系統也無法辨識字串資源。您會在後續步驟中修正這些錯誤。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/344a98d866c7f68c_1920.png?hl=zh-tw" width="50%" height="50%">
-
-<ol start="4">
-<li>在文字欄位中加入垂直和水平限制條件，以便正確放置於父項 <code>ConstraintLayout</code> 中。您尚未刪除 <code>EditText</code>，因此請從 <code>EditText</code> 剪下及貼上下列屬性，並加入 <code>TextInputLayout</code> 中：constraints、resource ID <code>cost_of_service</code>、<code>160dp</code> 的版面配置寬度、<code>wrap_content</code> 的版面配置高度，以及hint text <code>@string/cost_of_service</code>。</li>
+<p>您應該會看到 <code>TextInputLayout</code> 元素有錯誤。您尚未在父項
+<code>ConstraintLayout</code>
+中適當的限制此檢視畫面。系統也無法辨識字串資源。您會在後續步驟中修正這些錯誤。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/344a98d866c7f68c_1920.png?hl=zh-tw" width="50%" height="50%"></p>
+<ol start="4" type="1">
+<li>在文字欄位中加入垂直和水平限制條件，以便正確放置於父項
+<code>ConstraintLayout</code> 中。您尚未刪除
+<code>EditText</code>，因此請從 <code>EditText</code>
+剪下及貼上下列屬性，並加入 <code>TextInputLayout</code>
+中：constraints、resource ID
+<code>cost_of_service</code>、<code>160dp</code>
+的版面配置寬度、<code>wrap_content</code> 的版面配置高度，以及hint text
+<code>@string/cost_of_service</code>。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">com.google.android.material.textfield.TextInputLayout</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/cost_of_service&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;160dp&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:hint</span>=<span class="string">&quot;@string/cost_of_service&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">com.google.android.material.textfield.TextInputEditText</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">com.google.android.material.textfield.TextInputLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p>畫面上可能會顯示錯誤訊息，指出 <code>cost_of_service</code> ID 與 <code>EditText</code> 的資源 ID 相同，但您目前可以忽略這項錯誤 (將用幾個步驟移除 <code>EditText</code>)。</p>
-<ol start="5">
-<li>接著確認 <code>TextInputEditText</code> 元素具有所有適當的屬性。從 <code>EditText</code> 的輸入類型剪下並貼上至 <code>TextInputEditText</code>。將 <code>TextInputEditText</code> 的 resource ID 變更為 <code>cost_of_service_edit_text</code>。</li>
+<p>畫面上可能會顯示錯誤訊息，指出 <code>cost_of_service</code> ID 與
+<code>EditText</code> 的資源 ID 相同，但您目前可以忽略這項錯誤
+(將用幾個步驟移除 <code>EditText</code>)。</p>
+<ol start="5" type="1">
+<li>接著確認 <code>TextInputEditText</code> 元素具有所有適當的屬性。從
+<code>EditText</code> 的輸入類型剪下並貼上至
+<code>TextInputEditText</code>。將 <code>TextInputEditText</code> 的
+resource ID 變更為 <code>cost_of_service_edit_text</code>。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">com.google.android.material.textfield.TextInputLayout</span> <span class="attr">...</span> &gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">com.google.android.material.textfield.TextInputEditText</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/cost_of_service_edit_text&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:inputType</span>=<span class="string">&quot;numberDecimal&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">com.google.android.material.textfield.TextInputLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>保持原本 <code>match_parent</code> 的寬度和 <code>wrap_content</code> 的高度即可。設定 <code>match_parent</code> 的寬度時，<code>TextInputEditText</code> 的寬度會與父項 <code>TextInputLayout</code> 相同，也就是 <code>160dp</code>。</p>
-<ol start="6">
-<li><p>您現在已從 <code>EditText</code> 複製所有相關資訊，請進一步刪除版面配置中的 <code>EditText</code>。</p>
-</li>
-<li><p>版面配置的「Design」檢視畫面應該會顯示以下預覽內容。「Cost of Service」欄位現在會以 Material Design 文字欄位的形式呈現。</p>
-</li>
+<p>保持原本 <code>match_parent</code> 的寬度和 <code>wrap_content</code>
+的高度即可。設定 <code>match_parent</code>
+的寬度時，<code>TextInputEditText</code> 的寬度會與父項
+<code>TextInputLayout</code> 相同，也就是 <code>160dp</code>。</p>
+<ol start="6" type="1">
+<li><p>您現在已從 <code>EditText</code>
+複製所有相關資訊，請進一步刪除版面配置中的
+<code>EditText</code>。</p></li>
+<li><p>版面配置的「Design」檢視畫面應該會顯示以下預覽內容。「Cost of
+Service」欄位現在會以 Material Design 文字欄位的形式呈現。</p></li>
 </ol>
-<p>您目前無法執行這個應用程式，因為 <code>calculateTip()</code> 方法的 MainActivity.kt 檔案發生錯誤。回顧先前的程式碼研究室，如果您的專案已啟用檢視區塊繫結(Binding)，Android 會根據resource ID 名稱在繫結物件中建立屬性。擷取服務費的來源欄位已在 XML 版面配置中有所變更，因此 Kotlin 程式碼也需要隨之更新。</p>
-<p>您現在將從resource ID 為 <code>cost_of_service_edit_text</code> 的 <code>TextInputEditText</code> 元素擷取使用者輸入內容。在 MainActivity 中，使用 <code>binding.costOfServiceEditText</code> 存取儲存於其中的文字字串。<code>calculateTip()</code> 方法的其餘部分則不受影響。</p>
+<p>您目前無法執行這個應用程式，因為 <code>calculateTip()</code> 方法的
+MainActivity.kt
+檔案發生錯誤。回顧先前的程式碼研究室，如果您的專案已啟用檢視區塊繫結(Binding)，Android
+會根據resource ID 名稱在繫結物件中建立屬性。擷取服務費的來源欄位已在 XML
+版面配置中有所變更，因此 Kotlin 程式碼也需要隨之更新。</p>
+<p>您現在將從resource ID 為 <code>cost_of_service_edit_text</code> 的
+<code>TextInputEditText</code> 元素擷取使用者輸入內容。在 MainActivity
+中，使用 <code>binding.costOfServiceEditText</code>
+存取儲存於其中的文字字串。<code>calculateTip()</code>
+方法的其餘部分則不受影響。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">calculateTip</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Get the decimal value from the cost of service text field</span></span><br><span class="line">    <span class="keyword">val</span> stringInTextField = binding.costOfServiceEditText.text.toString()</span><br><span class="line">    <span class="keyword">val</span> cost = stringInTextField.toDoubleOrNull()</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="9">
-<li>接著，執行應用程式並測試是否仍然正常運作。請注意，輸入時，「Cost of Service」標籤顯示在您輸入的內容上方的方式。小費仍會照常計算。</li>
+<ol start="9" type="1">
+<li>接著，執行應用程式並測試是否仍然正常運作。請注意，輸入時，「Cost of
+Service」標籤顯示在您輸入的內容上方的方式。小費仍會照常計算。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/b4a27e58f63417b7_1920.png?hl=zh-tw" width="30%" height="30%"> 
-
-<h5 id="切換鈕-Switches"><a href="#切換鈕-Switches" class="headerlink" title="切換鈕(Switches)"></a>切換鈕(Switches)</h5><p>Material Design 指南中也提供<a target="_blank" rel="noopener" href="https://m2.material.io/develop/android/components/switches">切換鈕</a>的說明。切換鈕這種小工具可用來開啟或關閉設定。</p>
-<ol>
-<li><p>請參閱 Android 指南以瞭解 Material 的<a target="_blank" rel="noopener" href="https://m2.material.io/develop/android/components/switches">切換按鈕</a>。您將會瞭解提供切換鈕 Material 樣式的 SwitchMaterial 小工具 (來自 MDC 程式庫)。如果您持續捲動瀏覽指南，就會看到 XML 範例。</p>
-</li>
-<li><p>若要使用 <code>SwitchMaterial</code>，您必須在版面配置中明確指定 <code>SwitchMaterial</code>，且使用完整的路徑名稱。</p>
-</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/b4a27e58f63417b7_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<h5 id="切換鈕switches">切換鈕(Switches)</h5>
+<p>Material Design 指南中也提供<a
+target="_blank" rel="noopener" href="https://m2.material.io/develop/android/components/switches">切換鈕</a>的說明。切換鈕這種小工具可用來開啟或關閉設定。</p>
+<ol type="1">
+<li><p>請參閱 Android 指南以瞭解 Material 的<a
+target="_blank" rel="noopener" href="https://m2.material.io/develop/android/components/switches">切換按鈕</a>。您將會瞭解提供切換鈕
+Material 樣式的 SwitchMaterial 小工具 (來自 MDC
+程式庫)。如果您持續捲動瀏覽指南，就會看到 XML 範例。</p></li>
+<li><p>若要使用 <code>SwitchMaterial</code>，您必須在版面配置中明確指定
+<code>SwitchMaterial</code>，且使用完整的路徑名稱。</p></li>
 </ol>
-<p>在 <code>activity_main.xml</code> 版面配置中，將 XML 標記從 <code>Switch</code> 變更為 <code>com.google.android.material.switchmaterial.SwitchMaterial</code>。</p>
+<p>在 <code>activity_main.xml</code> 版面配置中，將 XML 標記從
+<code>Switch</code> 變更為
+<code>com.google.android.material.switchmaterial.SwitchMaterial</code>。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">com.google.android.material.switchmaterial.SwitchMaterial</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/round_up_switch&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span> <span class="attr">...</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>執行應用程式，確認應用程式是否仍可編譯。應用程式沒有明顯異動。不過，使用 MDC 程式庫中的 <code>SwitchMaterial</code> (而非 Android 平台的 Switch) 的好處便是當更新 <code>SwitchMaterial</code> 程式庫的實作時 (例如質感設計指南變更)，您不需要執行變更，就能免費取得更新版小工具。這有助於應用程式永不過時。</li>
+<ol start="3" type="1">
+<li>執行應用程式，確認應用程式是否仍可編譯。應用程式沒有明顯異動。不過，使用
+MDC 程式庫中的 <code>SwitchMaterial</code> (而非 Android 平台的 Switch)
+的好處便是當更新 <code>SwitchMaterial</code> 程式庫的實作時
+(例如質感設計指南變更)，您不需要執行變更，就能免費取得更新版小工具。這有助於應用程式永不過時。</li>
 </ol>
-<p>現在您已看到兩個例子，瞭解使用現成的 Material Design 元件對使用者介面有何好處，也明白這種做法如何讓應用程式更符合 Material Design 指南。請注意，您隨時可以前往<a target="_blank" rel="noopener" href="https://m2.material.io/develop/android/">這個網站</a>，探索 Android 提供的其他 Material Design 元件。</p>
-<hr>
-<h4 id="圖示-Icons"><a href="#圖示-Icons" class="headerlink" title="圖示(Icons)"></a>圖示(Icons)</h4><p>圖示(Icons)是一種符號，可透過視覺呈現的方式協助使用者瞭解使用者介面的預定功能，而且通常會以使用者預期在實體世界遇到的物體為靈感。圖示設計往往會將詳細資料精細程度降至供使用者熟悉所需的最低程度。舉例來說，現實生活中的鉛筆是用來寫字，因此對應的圖示通常表示建立、新增或編輯項目。</p>
-<h5 id="在應用程式中呈現圖示"><a href="#在應用程式中呈現圖示" class="headerlink" title="在應用程式中呈現圖示"></a>在應用程式中呈現圖示</h5><p>就應用程式中的圖示而言，建議您採用向量可繪項目，而不是針對不同螢幕密度提供不同版本的點陣圖圖像。向量可繪項目是以 XML 檔案表示，用於儲存如何建立圖像的操作說明，而非儲存組成該圖像的實際像素。向量可繪項目可以任意縮放，而不會減損圖像品質或增加檔案大小。</p>
-<h5 id="提供的圖示"><a href="#提供的圖示" class="headerlink" title="提供的圖示"></a>提供的圖示</h5><p>Material Design 提供多種圖示，並依常見類別排列，方便您視需求選擇使用。查看<a target="_blank" rel="noopener" href="https://fonts.google.com/icons">圖示清單</a>。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/bfdb896506790c69_1920.png?hl=zh-tw" width="70%" height="70%">
-
+<p>現在您已看到兩個例子，瞭解使用現成的 Material Design
+元件對使用者介面有何好處，也明白這種做法如何讓應用程式更符合 Material
+Design 指南。請注意，您隨時可以前往<a
+target="_blank" rel="noopener" href="https://m2.material.io/develop/android/">這個網站</a>，探索
+Android 提供的其他 Material Design 元件。</p>
+<hr />
+<h4 id="圖示icons">圖示(Icons)</h4>
+<p>圖示(Icons)是一種符號，可透過視覺呈現的方式協助使用者瞭解使用者介面的預定功能，而且通常會以使用者預期在實體世界遇到的物體為靈感。圖示設計往往會將詳細資料精細程度降至供使用者熟悉所需的最低程度。舉例來說，現實生活中的鉛筆是用來寫字，因此對應的圖示通常表示建立、新增或編輯項目。</p>
+<h5 id="在應用程式中呈現圖示">在應用程式中呈現圖示</h5>
+<p>就應用程式中的圖示而言，建議您採用向量可繪項目，而不是針對不同螢幕密度提供不同版本的點陣圖圖像。向量可繪項目是以
+XML
+檔案表示，用於儲存如何建立圖像的操作說明，而非儲存組成該圖像的實際像素。向量可繪項目可以任意縮放，而不會減損圖像品質或增加檔案大小。</p>
+<h5 id="提供的圖示">提供的圖示</h5>
+<p>Material Design
+提供多種圖示，並依常見類別排列，方便您視需求選擇使用。查看<a
+target="_blank" rel="noopener" href="https://fonts.google.com/icons">圖示清單</a>。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/bfdb896506790c69_1920.png?hl=zh-tw" width="70%" height="70%"></p>
 <p>繪製這些圖示時，也可以使用實心、含外框、圓角、雙色和銳利這五種主題，並加上顏色。</p>
 <table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
 <thead>
-<tr>
-<th align="center">實心</th>
-<th align="center">含外框</th>
-<th align="center">圓角</th>
-<th align="center">雙色</th>
-<th align="center">銳利</th>
+<tr class="header">
+<th style="text-align: center;">實心</th>
+<th style="text-align: center;">含外框</th>
+<th style="text-align: center;">圓角</th>
+<th style="text-align: center;">雙色</th>
+<th style="text-align: center;">銳利</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/3bf33d3756ecbc26_1920.png?hl=zh-tw" width="30%" height="30%"></td>
-<td align="center"><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/8e38326e16364a77_1920.png?hl=zh-tw" width="30%" height="30%"></td>
-<td align="center"><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/150940d440a179b_1920.png?hl=zh-tw" width="30%" height="30%"></td>
-<td align="center"><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/d80f7e2b888a0eeb_1920.png?hl=zh-tw" width="30%" height="30%"></td>
-<td align="center"><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/a72f07895ce9cccc_1920.png?hl=zh-tw" width="30%" height="30%"></td>
+<tbody>
+<tr class="odd">
+<td
+style="text-align: center;"><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/3bf33d3756ecbc26_1920.png?hl=zh-tw" width="30%" height="30%"></td>
+<td
+style="text-align: center;"><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/8e38326e16364a77_1920.png?hl=zh-tw" width="30%" height="30%"></td>
+<td
+style="text-align: center;"><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/150940d440a179b_1920.png?hl=zh-tw" width="30%" height="30%"></td>
+<td
+style="text-align: center;"><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/d80f7e2b888a0eeb_1920.png?hl=zh-tw" width="30%" height="30%"></td>
+<td
+style="text-align: center;"><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/a72f07895ce9cccc_1920.png?hl=zh-tw" width="30%" height="30%"></td>
 </tr>
-</tbody></table>
-<h5 id="新增圖示"><a href="#新增圖示" class="headerlink" title="新增圖示"></a>新增圖示</h5><p>在這項工作中，您要在應用程式中新增三個向量可繪項目圖示：</p>
-<ol>
-<li>服務費文字欄位旁邊的圖示</li>
-<li>服務問題旁邊的圖示</li>
-<li>小費四捨五入提示旁邊的圖示</li>
-</ol>
+</tbody>
+</table>
+<h5 id="新增圖示">新增圖示</h5>
+<p>在這項工作中，您要在應用程式中新增三個向量可繪項目圖示： 1.
+服務費文字欄位旁邊的圖示 2. 服務問題旁邊的圖示 3.
+小費四捨五入提示旁邊的圖示</p>
 <p>以下是應用程式最終版本的螢幕截圖。新增圖示後，您將配合這些圖示的位置調整版面配置。請注意，新增圖示會造成欄位和計算按鈕向右移動</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/8c4225390dd1fb20_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<h5 id="新增向量可繪項目素材資源"><a href="#新增向量可繪項目素材資源" class="headerlink" title="新增向量可繪項目素材資源"></a>新增向量可繪項目素材資源</h5><p>您可以直接在 Android Studio 的 Asset Studio 中建立這些圖示，做為向量可繪項目。</p>
-<ol>
-<li><p>開啟應用程式視窗左側的「Resource Manager」分頁。</p>
-</li>
-<li><p>按一下「+」圖示，然後選取「Vector Asset」。</p>
-</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/8c4225390dd1fb20_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<h5 id="新增向量可繪項目素材資源">新增向量可繪項目素材資源</h5>
+<p>您可以直接在 Android Studio 的 Asset Studio
+中建立這些圖示，做為向量可繪項目。</p>
+<ol type="1">
+<li><p>開啟應用程式視窗左側的「Resource Manager」分頁。</p></li>
+<li><p>按一下「+」圖示，然後選取「Vector Asset」。</p></li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/6dabda0f4bc1f6ed_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<ol start="3">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/6dabda0f4bc1f6ed_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<ol start="3" type="1">
 <li>確認已選取「Asset Type」中標示「Clip Art」的圓形按鈕。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/914786d2d8b4025_1920.png?hl=zh-tw" width="60%" height="60%">
-
-<ol start="4">
-<li>按一下「Clip Art:」旁的按鈕，選取其他插圖圖像。在隨即顯示的提示中，在顯示的視窗中輸入「”call made」。您將使用這個箭頭圖示來代表「round up tip」選項。請選取該圖示，然後點選「OK」。</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/914786d2d8b4025_1920.png?hl=zh-tw" width="60%" height="60%"></p>
+<ol start="4" type="1">
+<li>按一下「Clip
+Art:」旁的按鈕，選取其他插圖圖像。在隨即顯示的提示中，在顯示的視窗中輸入「"call
+made」。您將使用這個箭頭圖示來代表「round up
+tip」選項。請選取該圖示，然後點選「OK」。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/e7f607e4f576d75c_1920.png?hl=zh-tw" width="60%" height="60%">
-
-<ol start="5">
-<li><p>將圖示重新命名為 <code>ic_round_up</code>。在為圖示檔案命名時，建議使用前置字串 ic_。將「Size」保留為 <code>24 dp x 24 dp</code>，並將「Color」保留為黑色 <code>000000</code>。</p>
-</li>
-<li><p>按一下「Next」。</p>
-</li>
-<li><p>接受預設目錄位置，然後按一下「Finish」。</p>
-</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/e7f607e4f576d75c_1920.png?hl=zh-tw" width="60%" height="60%"></p>
+<ol start="5" type="1">
+<li><p>將圖示重新命名為
+<code>ic_round_up</code>。在為圖示檔案命名時，建議使用前置字串
+ic_。將「Size」保留為
+<code>24 dp x 24 dp</code>，並將「Color」保留為黑色
+<code>000000</code>。</p></li>
+<li><p>按一下「Next」。</p></li>
+<li><p>接受預設目錄位置，然後按一下「Finish」。</p></li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/200aed40ee987672_1920.png?hl=zh-tw" width="60%" height="60%">
-
-<ol start="8">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/200aed40ee987672_1920.png?hl=zh-tw" width="60%" height="60%"></p>
+<ol start="8" type="1">
 <li>針對另外兩個圖示重複步驟 2 到 7：</li>
 </ol>
 <ul>
-<li>服務問題圖示：搜尋「room service」圖示，並將其儲存為 <code>ic_service</code>。</li>
-<li>服務費圖示：搜尋「store」圖示，並將其儲存為 <code>ic_store</code>。</li>
+<li>服務問題圖示：搜尋「room service」圖示，並將其儲存為
+<code>ic_service</code>。</li>
+<li>服務費圖示：搜尋「store」圖示，並將其儲存為
+<code>ic_store</code>。</li>
 </ul>
-<ol start="9">
-<li>完成後，「Resource Manager」分頁會顯示以下螢幕截圖所列的畫面。此外，<code>res/drawable</code> 資料夾也會列出三個向量可繪項目，即 <code>ic_round_up</code>、<code>ic_service</code> 和 <code>ic_store</code>。</li>
+<ol start="9" type="1">
+<li>完成後，「Resource
+Manager」分頁會顯示以下螢幕截圖所列的畫面。此外，<code>res/drawable</code>
+資料夾也會列出三個向量可繪項目，即
+<code>ic_round_up</code>、<code>ic_service</code> 和
+<code>ic_store</code>。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/c2d8b22f0fb55ce0_1920.png?hl=zh-tw" width="40%" height="40%">
-
-<h5 id="支援舊版-Android"><a href="#支援舊版-Android" class="headerlink" title="支援舊版 Android"></a>支援舊版 Android</h5><p>您剛剛在應用程式中新增了向量可繪項目，但請特別注意，Android 5.0 (API 級別 21) 版本之前的 Android 平台不支援向量可繪項目。</p>
-<p>根據專案設定方式，Tip Time 應用程式的最低 SDK 版本為 API 19。這表示該應用程式可以在執行 Android 平台 19 以上版本的 Android 裝置上執行。</p>
-<p>如要讓您的應用程式在舊版 Android 裝置上運作 (稱為回溯相容性)，請在應用程式的 <code>build.gradle</code> 檔案中新增 <code>vectorDrawables</code> 元素。這樣您就能在 API 21 以下版本的平台上使用向量可繪項目，而不需要在建構專案時轉換成 PNG。詳情請參閱這個頁面。</p>
-<p><code>app/build.gradle</code></p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">  defaultConfig &#123;</span><br><span class="line">    ...</span><br><span class="line">    vectorDrawables.useSupportLibrary = <span class="keyword">true</span></span><br><span class="line">   &#125;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="插入圖示和位置元素"><a href="#插入圖示和位置元素" class="headerlink" title="插入圖示和位置元素"></a>插入圖示和位置元素</h5><p>您將使用 <code>ImageViews</code> 在應用程式中顯示圖示。這是最終顯示 UI 的方式。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/5ed07dfeb648bd62_1920.png?hl=zh-tw" width="40%" height="40%">
-
-<ol>
-<li><p>開啟 <code>activity_main.xml</code> 版面配置。</p>
-</li>
-<li><p>先找出服務費文字欄位旁邊的商店圖示。在 <code>TextInputLayout</code> 前插入新的 <code>ImageView</code>，做為 <code>ConstraintLayout</code> 的第一個子項。</p>
-</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/c2d8b22f0fb55ce0_1920.png?hl=zh-tw" width="40%" height="40%"></p>
+<h5 id="支援舊版-android">支援舊版 Android</h5>
+<p>您剛剛在應用程式中新增了向量可繪項目，但請特別注意，Android 5.0 (API
+級別 21) 版本之前的 Android 平台不支援向量可繪項目。</p>
+<p>根據專案設定方式，Tip Time 應用程式的最低 SDK 版本為 API
+19。這表示該應用程式可以在執行 Android 平台 19 以上版本的 Android
+裝置上執行。</p>
+<p>如要讓您的應用程式在舊版 Android 裝置上運作
+(稱為回溯相容性)，請在應用程式的 <code>build.gradle</code> 檔案中新增
+<code>vectorDrawables</code> 元素。這樣您就能在 API 21
+以下版本的平台上使用向量可繪項目，而不需要在建構專案時轉換成
+PNG。詳情請參閱這個頁面。</p>
+<p><code>app/build.gradle</code> <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">  defaultConfig &#123;</span><br><span class="line">    ...</span><br><span class="line">    vectorDrawables.useSupportLibrary = <span class="keyword">true</span></span><br><span class="line">   &#125;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="插入圖示和位置元素">插入圖示和位置元素</h5>
+<p>您將使用 <code>ImageViews</code> 在應用程式中顯示圖示。這是最終顯示
+UI 的方式。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/5ed07dfeb648bd62_1920.png?hl=zh-tw" width="40%" height="40%"></p>
+<ol type="1">
+<li><p>開啟 <code>activity_main.xml</code> 版面配置。</p></li>
+<li><p>先找出服務費文字欄位旁邊的商店圖示。在
+<code>TextInputLayout</code> 前插入新的 <code>ImageView</code>，做為
+<code>ConstraintLayout</code> 的第一個子項。</p></li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag"></span></span><br><span class="line"><span class="tag">   &lt;<span class="attr">com.google.android.material.textfield.TextInputLayout</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">&quot;@+id/cost_of_service&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">...</span></span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>在 <code>ImageView</code> 上設定適當的屬性來保留 <code>ic_store</code> 圖示。將 ID 設定為 <code>icon_cost_of_service</code>。將 <code>android:src</code> 屬性設定為可繪製資源 <code>@drawable/ic_store</code>，而 XML 該行旁邊會顯示圖示的預覽。<br>此外，由於圖片僅用於裝飾用途，請設定 <code>android:importantForAccessibility=&quot;no&quot;</code>。</li>
+<ol start="3" type="1">
+<li>在 <code>ImageView</code> 上設定適當的屬性來保留
+<code>ic_store</code> 圖示。將 ID 設定為
+<code>icon_cost_of_service</code>。將 <code>android:src</code>
+屬性設定為可繪製資源 <code>@drawable/ic_store</code>，而 XML
+該行旁邊會顯示圖示的預覽。 此外，由於圖片僅用於裝飾用途，請設定
+<code>android:importantForAccessibility="no"</code>。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/icon_cost_of_service&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:importantForAccessibility</span>=<span class="string">&quot;no&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:src</span>=<span class="string">&quot;@drawable/ic_store&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
 <div class="note no-icon primary">
-            <p><code>android:importantForAccessibility=&quot;no&quot;</code> 表示： 裝飾用的圖片或所傳達資訊不具意義的圖片不需要內容標籤。</p>
+            <p><code>android:importantForAccessibility="no"</code> 表示：裝飾用的圖片或所傳達資訊不具意義的圖片不需要內容標籤。</p>
           </div>
-
-<p><code>ImageView</code> 應該會出現錯誤，因為檢視區塊尚未受到限制。接下來，您將修復此問題。</p>
-<ol start="4">
-<li>以兩個步驟定位 <code>icon_cost_of_service</code>。首先新增 <code>ImageView</code> 的限制 (此步驟)，然後更新旁邊 <code>TextInputLayout</code> 的限制 (步驟 5)。下圖說明設定限制條件的方式。</li>
+<p><code>ImageView</code>
+應該會出現錯誤，因為檢視區塊尚未受到限制。接下來，您將修復此問題。</p>
+<ol start="4" type="1">
+<li>以兩個步驟定位 <code>icon_cost_of_service</code>。首先新增
+<code>ImageView</code> 的限制 (此步驟)，然後更新旁邊
+<code>TextInputLayout</code> 的限制 (步驟
+5)。下圖說明設定限制條件的方式。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/d982b1b1f0131630_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<p>在 <code>ImageView</code> 上，您想要將起始邊緣限制為父項檢視畫面 (<code>app:layout_constraintStart_toStartOf=&quot;parent&quot;</code>) 的起始邊緣。</p>
-<p>比起旁邊的文字欄位，該圖示看起來是垂直置中，因此應將此 <code>ImageView</code> 的頂端 (<code>layout_constraintTop_toTopOf</code>) 限制在文字欄位頂端，並將此 <code>ImageView</code> 的底部 (<code>layout_constraintBottom_toBottomOf</code>) 限制為文字欄位的底部。如要參照文字欄位，請使用資源 ID <code>@id/cost_of_service</code>。預設行為是指將兩個限制條件套用至相同維度 (例如頂端和底部限制條件) 的小工具時，系統會同樣套用這兩個限制條件。這會讓圖示以服務費欄位為基準垂直置中。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/d982b1b1f0131630_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>在 <code>ImageView</code> 上，您想要將起始邊緣限制為父項檢視畫面
+(<code>app:layout_constraintStart_toStartOf="parent"</code>)
+的起始邊緣。</p>
+<p>比起旁邊的文字欄位，該圖示看起來是垂直置中，因此應將此
+<code>ImageView</code> 的頂端
+(<code>layout_constraintTop_toTopOf</code>) 限制在文字欄位頂端，並將此
+<code>ImageView</code> 的底部
+(<code>layout_constraintBottom_toBottomOf</code>)
+限制為文字欄位的底部。如要參照文字欄位，請使用資源 ID
+<code>@id/cost_of_service</code>。預設行為是指將兩個限制條件套用至相同維度
+(例如頂端和底部限制條件)
+的小工具時，系統會同樣套用這兩個限制條件。這會讓圖示以服務費欄位為基準垂直置中。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/icon_cost_of_service&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:importantForAccessibility</span>=<span class="string">&quot;no&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:src</span>=<span class="string">&quot;@drawable/ic_store&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;@id/cost_of_service&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">&quot;@id/cost_of_service&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>在「Design」檢視畫面中，圖示和文字欄位仍會重疊。這將在下一個步驟中修正。</p>
-<ol start="5">
-<li>新增圖示前，文字欄位定位於父項的開頭，現在，必須移到右側。請更新 <code>cost_of_service</code> 文字欄位與 <code>icon_cost_of_service</code> 相關的限制條件。</li>
+<ol start="5" type="1">
+<li>新增圖示前，文字欄位定位於父項的開頭，現在，必須移到右側。請更新
+<code>cost_of_service</code> 文字欄位與
+<code>icon_cost_of_service</code> 相關的限制條件。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/bb55ea0cddaa2a12_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<p><code>TextInputLayout</code> 的起始邊緣應限制為 <code>ImageView</code> 的結束邊緣 (<code>@id/icon_cost_of_service</code>)。若要在兩個檢視畫面之間加入間距，請在 <code>TextInputLayout</code> 上加入 <code>16dp</code> 的起始邊界。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/bb55ea0cddaa2a12_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p><code>TextInputLayout</code> 的起始邊緣應限制為
+<code>ImageView</code> 的結束邊緣
+(<code>@id/icon_cost_of_service</code>)。若要在兩個檢視畫面之間加入間距，請在
+<code>TextInputLayout</code> 上加入 <code>16dp</code> 的起始邊界。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">com.google.android.material.textfield.TextInputLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/cost_of_service&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_marginStart</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toEndOf</span>=<span class="string">&quot;@id/icon_cost_of_service&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.google.android.material.textfield.TextInputEditText</span> <span class="attr">...</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">com.google.android.material.textfield.TextInputLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>完成上述所有變更後，圖示應正確放置在文字欄位旁邊。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/23dcae5c3931903f_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<ol start="6">
-<li>接著在「How was the service?」旁插入服務鈴鐺圖示 <code>TextView</code>。雖然您可以在 <code>ConstraintLayout</code> 內的任何位置宣告 <code>ImageView</code>，但如果在 XML 版面配置中的 <code>TextInputLayout</code> 後方、<code>service_question TextView</code> 前方插入新 <code>ImageView</code>，XML 版面配置會更清楚易懂。</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/23dcae5c3931903f_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<ol start="6" type="1">
+<li>接著在「How was the service?」旁插入服務鈴鐺圖示
+<code>TextView</code>。雖然您可以在 <code>ConstraintLayout</code>
+內的任何位置宣告 <code>ImageView</code>，但如果在 XML 版面配置中的
+<code>TextInputLayout</code>
+後方、<code>service_question TextView</code> 前方插入新
+<code>ImageView</code>，XML 版面配置會更清楚易懂。</li>
 </ol>
-<p>為新的 <code>ImageView</code> 指派 <code>@+id/icon_service_question</code> 資源 ID。針對 <code>ImageView</code> 和服務問題 <code>TextView</code> 設定適當的限制條件。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/38c2dcb4cb18b5a_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<p>此外，請為 <code>service_question TextView</code> 加上 <code>16dp</code> 邊界，讓服務問題與上方的服務費欄位之間有更多垂直空間。</p>
+<p>為新的 <code>ImageView</code> 指派
+<code>@+id/icon_service_question</code> 資源 ID。針對
+<code>ImageView</code> 和服務問題 <code>TextView</code>
+設定適當的限制條件。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/38c2dcb4cb18b5a_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>此外，請為 <code>service_question TextView</code> 加上
+<code>16dp</code>
+邊界，讓服務問題與上方的服務費欄位之間有更多垂直空間。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/icon_service_question&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:importantForAccessibility</span>=<span class="string">&quot;no&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:src</span>=<span class="string">&quot;@drawable/ic_service&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">&quot;@+id/service_question&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;@+id/service_question&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/service_question&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;@string/how_was_the_service&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginVertical</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginStart</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintStart_toEndOf</span>=<span class="string">&quot;@+id/icon_service_question&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toBottomOf</span>=<span class="string">&quot;@id/cost_of_service&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
-<li>此時，「Design」檢視畫面應如下圖所示。「Cost of Service」欄位和服務問題 (以及各自的圖示) 看起來很清楚，但圓形按鈕的位置並不適當，而且不會與上方的內容垂直對齊。</li>
+<ol start="7" type="1">
+<li>此時，「Design」檢視畫面應如下圖所示。「Cost of
+Service」欄位和服務問題 (以及各自的圖示)
+看起來很清楚，但圓形按鈕的位置並不適當，而且不會與上方的內容垂直對齊。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/578834f5bd3a2d2a_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<ol start="8">
-<li>將圓形按鈕向右移至服務問題下方，改善圓形按鈕的位置。這表示更新 <code>RadioGroup</code> 限制條件。將 <code>RadioGroup</code> 的起始邊緣限制為 <code>service_question TextView</code> 的起始邊緣。<code>RadioGroup</code> 上的所有其他屬性都將維持不變。</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/578834f5bd3a2d2a_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<ol start="8" type="1">
+<li>將圓形按鈕向右移至服務問題下方，改善圓形按鈕的位置。這表示更新
+<code>RadioGroup</code> 限制條件。將 <code>RadioGroup</code>
+的起始邊緣限制為 <code>service_question TextView</code>
+的起始邊緣。<code>RadioGroup</code> 上的所有其他屬性都將維持不變。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/bf454f3f1617024d_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/bf454f3f1617024d_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">RadioGroup</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/tip_options&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;@id/service_question&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<ol start="9">
-<li><p>接下來，請將 <code>ic_round_up</code> 的圖示加到「Round up tip?」切換鈕旁的版面配置。請嘗試自行完成此操作，如果遇到困難，可以參考下方的 XML。您可以將新的 ImageView 資源 ID 指派給 <code>icon_round_up</code>。</p>
-</li>
-<li><p>在版面配置 XML 中的 <code>RadioGroup</code> 後方、<code>SwitchMaterial</code> 小工具前方插入新 <code>ImageView</code>。</p>
-</li>
-<li><p>指派 <code>icon_round_up</code> 的資源 ID 給 <code>ImageView</code>，然後將 <code>src</code> 設為圖示 <code>@drawable/ic_round_up</code> 的可繪項目。請將 <code>ImageView</code> 的開頭限制為父項的開頭，並讓圖示以 <code>SwitchMaterial</code> 為基準垂直置中。</p>
-</li>
-<li><p>更新 <code>SwitchMaterial</code>，將其放於圖示旁邊，並將起始邊界設為 <code>16dp</code>。針對 <code>icon_round_up</code> 和 <code>round_up_switch</code> 產生的 XML 應如下所示。</p>
-</li>
+<ol start="9" type="1">
+<li><p>接下來，請將 <code>ic_round_up</code> 的圖示加到「Round up
+tip?」切換鈕旁的版面配置。請嘗試自行完成此操作，如果遇到困難，可以參考下方的
+XML。您可以將新的 ImageView 資源 ID 指派給
+<code>icon_round_up</code>。</p></li>
+<li><p>在版面配置 XML 中的 <code>RadioGroup</code>
+後方、<code>SwitchMaterial</code> 小工具前方插入新
+<code>ImageView</code>。</p></li>
+<li><p>指派 <code>icon_round_up</code> 的資源 ID 給
+<code>ImageView</code>，然後將 <code>src</code> 設為圖示
+<code>@drawable/ic_round_up</code> 的可繪項目。請將
+<code>ImageView</code> 的開頭限制為父項的開頭，並讓圖示以
+<code>SwitchMaterial</code> 為基準垂直置中。</p></li>
+<li><p>更新
+<code>SwitchMaterial</code>，將其放於圖示旁邊，並將起始邊界設為
+<code>16dp</code>。針對 <code>icon_round_up</code> 和
+<code>round_up_switch</code> 產生的 XML 應如下所示。</p></li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/icon_round_up&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:importantForAccessibility</span>=<span class="string">&quot;no&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:src</span>=<span class="string">&quot;@drawable/ic_round_up&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;@id/round_up_switch&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">&quot;@id/round_up_switch&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.google.android.material.switchmaterial.SwitchMaterial</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/round_up_switch&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">...</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginStart</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintStart_toEndOf</span>=<span class="string">&quot;@id/icon_round_up&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<ol start="13">
+<ol start="13" type="1">
 <li>「Design」檢視畫面應如下圖所示。這三個圖示均已正確定位。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/8781ecbd11859cc4_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<ol start="14">
-<li>如果比較此畫面與最終的應用程式螢幕截圖，就會發現計算按鈕也會移動，並垂直對齊服務費欄位、服務問題、圓形按鈕選項和小費四捨五入問題。只要將「Calculate」按鈕的起始位置限制為 <code>round_up_switch</code> 的起始位置，就能達到此效果。此外，在計算按鈕與上方切換鈕之間，也會加入 <code>8dp</code> 垂直邊界。</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/8781ecbd11859cc4_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<ol start="14" type="1">
+<li>如果比較此畫面與最終的應用程式螢幕截圖，就會發現計算按鈕也會移動，並垂直對齊服務費欄位、服務問題、圓形按鈕選項和小費四捨五入問題。只要將「Calculate」按鈕的起始位置限制為
+<code>round_up_switch</code>
+的起始位置，就能達到此效果。此外，在計算按鈕與上方切換鈕之間，也會加入
+<code>8dp</code> 垂直邊界。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/84348568e13d9e32_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/84348568e13d9e32_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/calculate_button&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_marginTop</span>=<span class="string">&quot;8dp&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;@id/round_up_switch&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<ol start="15">
-<li>最後，也務必為 <code>TextView</code> 的上邊界增加 <code>8dp</code>，設定 <code>tip_result</code> 的位置。</li>
+<ol start="15" type="1">
+<li>最後，也務必為 <code>TextView</code> 的上邊界增加
+<code>8dp</code>，設定 <code>tip_result</code> 的位置。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/8e21f52be710340d_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/8e21f52be710340d_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">&quot;@+id/tip_result&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_marginTop</span>=<span class="string">&quot;8dp&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<ol start="16">
+<ol start="16" type="1">
 <li>執行應用程式，畫面應該看起來像下方的螢幕截圖。使元素垂直對齊並增加元素之間的間距，這些元素就不會擁擠。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/1f2ef2c0c9a9bdc7_1920.png?hl=zh-tw" width="30%" height="30%">
-
-
-<p>我的實作畫面：<br><img src="https://i.imgur.com/DulTyY5.png" width="30%" height="30%"></p>
-<hr>
-<h4 id="樣式與主題-Styles-and-Themes"><a href="#樣式與主題-Styles-and-Themes" class="headerlink" title="樣式與主題(Styles and Themes)"></a>樣式與主題(Styles and Themes)</h4><p><a target="_blank" rel="noopener" href="https://medium.com/androiddevelopers/android-styling-themes-vs-styles-ebe05f917578">樣式(style)</a>是單一類型小工具的檢視畫面屬性值集合。舉例來說，TextView 樣式可指定字型顏色、字型大小和背景顏色等。只要將這些屬性擷取為樣式，就能輕鬆將樣式套用至版面配置的多個檢視畫面，並在同一處維護樣式。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/1f2ef2c0c9a9bdc7_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>我的實作畫面：
+<img src="https://i.imgur.com/DulTyY5.png" width="30%" height="30%"></p>
+<hr />
+<h4 id="樣式與主題styles-and-themes">樣式與主題(Styles and Themes)</h4>
+<p><a
+target="_blank" rel="noopener" href="https://medium.com/androiddevelopers/android-styling-themes-vs-styles-ebe05f917578">樣式(style)</a>是單一類型小工具的檢視畫面屬性值集合。舉例來說，TextView
+樣式可指定字型顏色、字型大小和背景顏色等。只要將這些屬性擷取為樣式，就能輕鬆將樣式套用至版面配置的多個檢視畫面，並在同一處維護樣式。</p>
 <p>在這項工作中，您要先建立文字檢視區塊、圓形按鈕和切換鈕小工具的樣式。</p>
-<h5 id="建立樣式"><a href="#建立樣式" class="headerlink" title="建立樣式"></a>建立樣式</h5><p>如果在「res &gt; values」目錄沒有名為 <code>styles.xml</code> 的新檔案，請建立該檔案。在「values」目錄上按一下滑鼠右鍵，然後依序選取「New」&gt;「Values Resource File」，即可建立檔案。呼叫　<code>styles.xml</code>。新檔案包含下列內容。</p>
+<h5 id="建立樣式">建立樣式</h5>
+<p>如果在「res &gt; values」目錄沒有名為 <code>styles.xml</code>
+的新檔案，請建立該檔案。在「values」目錄上按一下滑鼠右鍵，然後依序選取「New」&gt;「Values
+Resource
+File」，即可建立檔案。呼叫　<code>styles.xml</code>。新檔案包含下列內容。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>建立新的 <code>TextView</code> 樣式，使整個應用程式中的文字保持一致。只需在 <code>styles.xml</code> 中定義樣式一次，就能將該樣式套用至版面配置中的所有 <code>TextViews</code>。雖然您可以從頭開始定義樣式，但您可以從 MDC 程式庫中現有的 <code>TextView</code> 樣式延伸。</li>
+<ol start="2" type="1">
+<li>建立新的 <code>TextView</code>
+樣式，使整個應用程式中的文字保持一致。只需在 <code>styles.xml</code>
+中定義樣式一次，就能將該樣式套用至版面配置中的所有
+<code>TextViews</code>。雖然您可以從頭開始定義樣式，但您可以從 MDC
+程式庫中現有的 <code>TextView</code> 樣式延伸。</li>
 </ol>
 <p>設定元件樣式時，一般而言，您應從所用小工具類型的父項樣式中延伸。這麼做有兩個非常重要的理由：第一是確認已在元件中設定所有重要的預設值，第二是樣式會持續繼承日後的父項樣式變更。</p>
-<p>您可以視需要為樣式命名，但建議採用以下慣例。若是繼承父項 Material 樣式，請將 <code>MaterialComponents</code> 替換成您的應用程式名稱 (<code>TipTime</code>)，藉此以類似方式命名樣式。這麼做會將您的變更移到各自的命名空間，進而避免在 Material 元件日後推出新樣式時發生衝突。示例：</p>
-<p>您的樣式名稱 <code>Widget.TipTime.TextView</code> 繼承父項樣式 <code>Widget.MaterialComponents.TextView</code></p>
-<p>請此內容加至 <code>styles.xml</code> 檔案中 <code>resources</code> 的開頭標記與結尾標記之間。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Widget.TipTime.TextView&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Widget.MaterialComponents.TextView&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>設定 <code>TextView</code> 樣式，使其會覆寫屬性 <code>android:minHeight</code>,<code>android:gravity</code>, 和 <code>android:textAppearance</code>.</li>
+<p>您可以視需要為樣式命名，但建議採用以下慣例。若是繼承父項 Material
+樣式，請將 <code>MaterialComponents</code> 替換成您的應用程式名稱
+(<code>TipTime</code>)，藉此以類似方式命名樣式。這麼做會將您的變更移到各自的命名空間，進而避免在
+Material 元件日後推出新樣式時發生衝突。示例：</p>
+<p>您的樣式名稱 <code>Widget.TipTime.TextView</code> 繼承父項樣式
+<code>Widget.MaterialComponents.TextView</code></p>
+<p>請此內容加至 <code>styles.xml</code> 檔案中 <code>resources</code>
+的開頭標記與結尾標記之間。 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Widget.TipTime.TextView&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Widget.MaterialComponents.TextView&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ol start="3" type="1">
+<li>設定 <code>TextView</code> 樣式，使其會覆寫屬性
+<code>android:minHeight</code>,<code>android:gravity</code>, 和
+<code>android:textAppearance</code>.</li>
 </ol>
-<p><code>android:minHeight</code> 設定 <code>TextView</code> 上的高度下限為 48dp。根據 <a target="_blank" rel="noopener" href="https://m3.material.io/components/lists/overview#specs">Material Design 指南</a>的規定，任一列的最小高度應為 48 dp。</p>
-<p>設定 <code>android:gravity</code> 屬性就可將 <code>TextView</code> 中的文字垂直置中。(請參閱下方的螢幕截圖。)重力可控制檢視畫面中內容本身的定位方式。由於實際文字內容的高度不會佔據整個 48dp，所以 <code>center_vertical</code> 值會將 <code>TextView</code> 內的文字垂直置中 (但不變更水平位置)。其他可能的重力值包括 <code>center</code>、<code>center_horizontal</code>、<code>top</code> 和 <code>bottom</code>。歡迎嘗試其他重心值，瞭解這對文字的影響。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/6a7ecc6a49a858e9_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<p>將文字外觀屬性值設為 <code>?attr/textAppearanceBody1</code>。<code>TextAppearance</code> 是一組預先製作的樣式，用於文字大小、字型和其他文字屬性。如要查看 Material Design 提供的其他可用文字外觀，請參閱<a target="_blank" rel="noopener" href="https://m2.material.io/develop/android/theming/typography">字體排版比例清單</a>。</p>
+<p><code>android:minHeight</code> 設定 <code>TextView</code>
+上的高度下限為 48dp。根據 <a
+target="_blank" rel="noopener" href="https://m3.material.io/components/lists/overview#specs">Material
+Design 指南</a>的規定，任一列的最小高度應為 48 dp。</p>
+<p>設定 <code>android:gravity</code> 屬性就可將 <code>TextView</code>
+中的文字垂直置中。(請參閱下方的螢幕截圖。)重力可控制檢視畫面中內容本身的定位方式。由於實際文字內容的高度不會佔據整個
+48dp，所以 <code>center_vertical</code> 值會將 <code>TextView</code>
+內的文字垂直置中 (但不變更水平位置)。其他可能的重力值包括
+<code>center</code>、<code>center_horizontal</code>、<code>top</code> 和
+<code>bottom</code>。歡迎嘗試其他重心值，瞭解這對文字的影響。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/6a7ecc6a49a858e9_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>將文字外觀屬性值設為
+<code>?attr/textAppearanceBody1</code>。<code>TextAppearance</code>
+是一組預先製作的樣式，用於文字大小、字型和其他文字屬性。如要查看
+Material Design 提供的其他可用文字外觀，請參閱<a
+target="_blank" rel="noopener" href="https://m2.material.io/develop/android/theming/typography">字體排版比例清單</a>。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Widget.TipTime.TextView&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Widget.MaterialComponents.TextView&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:minHeight&quot;</span>&gt;</span>48dp<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:gravity&quot;</span>&gt;</span>center_vertical<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:textAppearance&quot;</span>&gt;</span>?attr/textAppearanceBody1<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>在 <code>activity_main.xml</code> 的每個 <code>TextView</code> 上新增樣式屬性，即可將 <code>Widget.TipTime.TextView</code> 樣式套用到 <code>service_question TextView</code>。</li>
+<ol start="4" type="1">
+<li>在 <code>activity_main.xml</code> 的每個 <code>TextView</code>
+上新增樣式屬性，即可將 <code>Widget.TipTime.TextView</code> 樣式套用到
+<code>service_question TextView</code>。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/service_question&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">style</span>=<span class="string">&quot;@style/Widget.TipTime.TextView&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>在新增此樣式前，<code>TextView</code> 的字型看起來很小，且字型顏色是灰色：</li>
+<ol start="5" type="1">
+<li>在新增此樣式前，<code>TextView</code>
+的字型看起來很小，且字型顏色是灰色：</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/4d54a3179f0c6f8d_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<ol start="6">
-<li>新增樣式之後，<code>TextView</code> 外觀如下。現在，<code>TextView</code> 看起來與版面配置的其餘部分更一致。</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/4d54a3179f0c6f8d_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<ol start="6" type="1">
+<li>新增樣式之後，<code>TextView</code>
+外觀如下。現在，<code>TextView</code>
+看起來與版面配置的其餘部分更一致。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/416d3928f9c3d3de_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<p>將相同的 <code>Widget.TipTime.TextView</code> 樣式套用到 <code>tip_result TextView</code>。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/tip_result&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">style</span>=<span class="string">&quot;@style/Widget.TipTime.TextView&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/3ebe16aa8c5bc010_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/416d3928f9c3d3de_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>將相同的 <code>Widget.TipTime.TextView</code> 樣式套用到
+<code>tip_result TextView</code>。 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/tip_result&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">style</span>=<span class="string">&quot;@style/Widget.TipTime.TextView&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/3ebe16aa8c5bc010_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <div class="note no-icon success">
-            <p><strong>注意：</strong>如果您在樣式中指定屬性 (例如將 <b>android:textSize</b> 設為 <b>18sp</b>)，也在版面配置檔案中指定同一屬性 (例如將 <b>android:textSize</b> 設為 <b>14sp</b>)，則實際套用至畫面內容的會是您在版面配置中設定的值 (<b>14sp</b>)。</p>
+            <p><strong>注意：</strong>如果您在樣式中指定屬性 (例如將<b>android:textSize</b> 設為<b>18sp</b>)，也在版面配置檔案中指定同一屬性 (例如將<b>android:textSize</b> 設為<b>14sp</b>)，則實際套用至畫面內容的會是您在版面配置中設定的值(<b>14sp</b>)。</p>
           </div>
-
-<ol start="6">
-<li>相同的文字樣式應套用至切換按鈕中的文字標籤。不過，您無法將 <code>SwitchMaterial</code> 小工具設定為 <code>TextView</code> 樣式。<code>TextView</code> 樣式只能套用到 <code>TextViews</code>。因此需要建立用於切換按鈕的新樣式。屬性的 <code>minHeight</code>、<code>gravity</code> 和 <code>textAppearance</code> 皆相同。差別在於樣式名稱與父項不同，因為您現在要繼承 MDC 程式庫的 <code>Switch</code> 樣式。樣式名稱也應與父項樣式名稱相同。</li>
+<ol start="6" type="1">
+<li>相同的文字樣式應套用至切換按鈕中的文字標籤。不過，您無法將
+<code>SwitchMaterial</code> 小工具設定為 <code>TextView</code>
+樣式。<code>TextView</code> 樣式只能套用到
+<code>TextViews</code>。因此需要建立用於切換按鈕的新樣式。屬性的
+<code>minHeight</code>、<code>gravity</code> 和
+<code>textAppearance</code>
+皆相同。差別在於樣式名稱與父項不同，因為您現在要繼承 MDC 程式庫的
+<code>Switch</code> 樣式。樣式名稱也應與父項樣式名稱相同。</li>
 </ol>
-<p>您的樣式名稱 <code>Widget.TipTime.CompoundButton.Switch</code> 繼承父項樣式 <code>Widget.MaterialComponents.CompoundButton.Switch.</code></p>
+<p>您的樣式名稱 <code>Widget.TipTime.CompoundButton.Switch</code>
+繼承父項樣式
+<code>Widget.MaterialComponents.CompoundButton.Switch.</code></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Widget.TipTime.CompoundButton.Switch&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Widget.MaterialComponents.CompoundButton.Switch&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:minHeight&quot;</span>&gt;</span>48dp<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:gravity&quot;</span>&gt;</span>center_vertical<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:textAppearance&quot;</span>&gt;</span>?attr/textAppearanceBody1<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="7">
-<li>如果想讓文字視覺效果保持一致，圓形按鈕是最後一項需要留意的元素。您無法將 <code>TextView</code> 樣式或 <code>Switch</code> 樣式套用至 <code>RadioButton</code> 小工具。而是，您必須建立用於圓形按鈕的新樣式。您可以從 MDC 程式庫的 <code>RadioButton</code> 樣式延伸。</li>
+<ol start="7" type="1">
+<li>如果想讓文字視覺效果保持一致，圓形按鈕是最後一項需要留意的元素。您無法將
+<code>TextView</code> 樣式或 <code>Switch</code> 樣式套用至
+<code>RadioButton</code>
+小工具。而是，您必須建立用於圓形按鈕的新樣式。您可以從 MDC 程式庫的
+<code>RadioButton</code> 樣式延伸。</li>
 </ol>
-<p>建立此樣式時，也在圓形按鈕文字與圓形影像內容之間加入邊框間距。<code>paddingStart</code> 是您尚未使用的新屬性。邊框間距是指檢視區塊內容與檢視區塊邊界之間的空間大小。<code>paddingStart</code> 屬性只會在元件的開頭設定邊框間距。以下是圓形按鈕的 <code>paddingStart</code> 分別設為 0 dp 與 8 dp 的差異。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/4c1aa37bbdadab1d_1920.png?hl=zh-tw" width="20%" height="20%">
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/35a96c994b82539e_1920.png?hl=zh-tw" width="20%" height="20%">
-
+<p>建立此樣式時，也在圓形按鈕文字與圓形影像內容之間加入邊框間距。<code>paddingStart</code>
+是您尚未使用的新屬性。邊框間距是指檢視區塊內容與檢視區塊邊界之間的空間大小。<code>paddingStart</code>
+屬性只會在元件的開頭設定邊框間距。以下是圓形按鈕的
+<code>paddingStart</code> 分別設為 0 dp 與 8 dp 的差異。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/4c1aa37bbdadab1d_1920.png?hl=zh-tw" width="20%" height="20%"></p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/35a96c994b82539e_1920.png?hl=zh-tw" width="20%" height="20%"></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Widget.TipTime.CompoundButton.RadioButton&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">parent</span>=<span class="string">&quot;Widget.MaterialComponents.CompoundButton.RadioButton&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:paddingStart&quot;</span>&gt;</span>8dp<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:textAppearance&quot;</span>&gt;</span>?attr/textAppearanceBody1<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="8">
-<li>(選用) 建立 <code>dimens.xml</code> 檔案以更方便<span class="label primary">管理常用值</span>。您可以採用與上述 <code>styles.xml</code> 檔案相同的方式建立檔案。選取「values」目錄、按一下滑鼠右鍵，然後依序選取「New」&gt;「Values Resource File」。</li>
+<ol start="8" type="1">
+<li>(選用) 建立 <code>dimens.xml</code>
+檔案以更方便<span class="label primary">管理常用值</span>。您可以採用與上述 <code>styles.xml</code>
+檔案相同的方式建立檔案。選取「values」目錄、按一下滑鼠右鍵，然後依序選取「New」&gt;「Values
+Resource File」。</li>
 </ol>
-<p>在這個小型應用程式中，您重複設定最小高度兩次。目前當然可以管理，但要是有 4 個、6 個、10 個或更多個元件共用相同的值，就會迅速失控。記住逐一變更每個項目的做法不僅繁瑣，而且容易出錯。您可以依序點選「res」&gt;「values」，建立另一個名為 <code>dimens.xml</code> 的實用資源檔案，保留可命名的常用尺寸。將常用值標準化為已命名的尺寸，就能更輕鬆管理應用程式。<code>TipTime</code> 很小，因此我們不會在此選用步驟外使用此應用程式。不過，如果您在正式環境中擁有較複雜的應用程式，且可能會與設計團隊合作，則 <code>dimens.xml</code> 可讓您輕鬆地頻繁變更這些值。</p>
+<p>在這個小型應用程式中，您重複設定最小高度兩次。目前當然可以管理，但要是有
+4 個、6 個、10
+個或更多個元件共用相同的值，就會迅速失控。記住逐一變更每個項目的做法不僅繁瑣，而且容易出錯。您可以依序點選「res」&gt;「values」，建立另一個名為
+<code>dimens.xml</code>
+的實用資源檔案，保留可命名的常用尺寸。將常用值標準化為已命名的尺寸，就能更輕鬆管理應用程式。<code>TipTime</code>
+很小，因此我們不會在此選用步驟外使用此應用程式。不過，如果您在正式環境中擁有較複雜的應用程式，且可能會與設計團隊合作，則
+<code>dimens.xml</code> 可讓您輕鬆地頻繁變更這些值。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dimen</span> <span class="attr">name</span>=<span class="string">&quot;min_text_height&quot;</span>&gt;</span>48dp<span class="tag">&lt;/<span class="name">dimen</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>與其直接設定 <code>48dp</code>，您可以改為更新 <code>styles.xml</code> 檔案，使用 <code>@dimen/min_text_height</code>。</p>
+<p>與其直接設定 <code>48dp</code>，您可以改為更新
+<code>styles.xml</code> 檔案，使用
+<code>@dimen/min_text_height</code>。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Widget.TipTime.TextView&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Widget.MaterialComponents.TextView&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:minHeight&quot;</span>&gt;</span>@dimen/min_text_height<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:gravity&quot;</span>&gt;</span>center_vertical<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:textAppearance&quot;</span>&gt;</span>?attr/textAppearanceBody1<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<h5 id="將這些樣式加入您的佈景主題"><a href="#將這些樣式加入您的佈景主題" class="headerlink" title="將這些樣式加入您的佈景主題"></a>將這些樣式加入您的佈景主題</h5><p>您可能已經注意到，您尚未將新的 <code>RadioButton</code> 和 <code>Switch</code> 樣式套用至各別的小工具。這是因為您需要使用佈景主題屬性來設定應用程式佈景主題中的 <code>radioButtonStyle</code> 和 <code>switchStyle</code>。讓我們複習一下何為主題。</p>
-<p>佈景主題是一組具名資源 (名為佈景主題屬性)，方便之後在樣式、版面配置等中參照。您可以指定整個應用程式、活動或檢視區塊階層的佈景主題，而不只是指定個別 <code>View</code>。您先前在 <code>themes.xml</code> 中設定了 <code>colorPrimary</code> 和 <code>colorSecondary</code> 等佈景主題屬性，藉此修改應用程式的佈景主題，然後在應用程式和其元件中使用這些佈景主題。</p>
-<p><code>radioButtonStyle</code> 和 <code>switchStyle</code> 是其他可設定的主題屬性。您為這些佈景主題屬性提供的樣式資源，會套用至每個圓形按鈕以及佈景主題所套用的檢視區塊階層中的每個切換按鈕。</p>
-<p>此外，還有適用於 <code>textInputStyle</code> 的主題屬性，當中指定的樣式資源會套用至應用程式中的所有文字輸入欄位。如要讓 <code>TextInputLayout</code> 呈現加上外框的文字欄位外觀 (如 Material Design 指南所述)，可以使用 MDC 程式庫中定義為 <code>Widget.MaterialComponents.TextInputLayoutOutlinedBox</code> 的 <code>OutlinedBox</code> 樣式。這是您將使用的樣式。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/2b2a5836a5d9bedf_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<ol>
-<li>修改 <code>themes.xml</code> 檔案，讓主題參照所需樣式。設定佈景主題屬性的方式與先前在程式碼研究室中宣告 <code>colorPrimary</code> 和 <code>colorSecondary</code> 佈景主題屬性的方式相同。不過，相關的佈景主題屬性為 <code>textInputStyle</code>、<code>radioButtonStyle</code> 和 <code>switchStyle</code>。您會使用先前為 <code>RadioButton</code> 和 <code>Switch</code> 建立的樣式，以及 Material <code>OutlinedBox</code> 的文字欄位的樣式。</li>
+<h5 id="將這些樣式加入您的佈景主題">將這些樣式加入您的佈景主題</h5>
+<p>您可能已經注意到，您尚未將新的 <code>RadioButton</code> 和
+<code>Switch</code>
+樣式套用至各別的小工具。這是因為您需要使用佈景主題屬性來設定應用程式佈景主題中的
+<code>radioButtonStyle</code> 和
+<code>switchStyle</code>。讓我們複習一下何為主題。</p>
+<p>佈景主題是一組具名資源
+(名為佈景主題屬性)，方便之後在樣式、版面配置等中參照。您可以指定整個應用程式、活動或檢視區塊階層的佈景主題，而不只是指定個別
+<code>View</code>。您先前在 <code>themes.xml</code> 中設定了
+<code>colorPrimary</code> 和 <code>colorSecondary</code>
+等佈景主題屬性，藉此修改應用程式的佈景主題，然後在應用程式和其元件中使用這些佈景主題。</p>
+<p><code>radioButtonStyle</code> 和 <code>switchStyle</code>
+是其他可設定的主題屬性。您為這些佈景主題屬性提供的樣式資源，會套用至每個圓形按鈕以及佈景主題所套用的檢視區塊階層中的每個切換按鈕。</p>
+<p>此外，還有適用於 <code>textInputStyle</code>
+的主題屬性，當中指定的樣式資源會套用至應用程式中的所有文字輸入欄位。如要讓
+<code>TextInputLayout</code> 呈現加上外框的文字欄位外觀 (如 Material
+Design 指南所述)，可以使用 MDC 程式庫中定義為
+<code>Widget.MaterialComponents.TextInputLayoutOutlinedBox</code> 的
+<code>OutlinedBox</code> 樣式。這是您將使用的樣式。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/2b2a5836a5d9bedf_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<ol type="1">
+<li>修改 <code>themes.xml</code>
+檔案，讓主題參照所需樣式。設定佈景主題屬性的方式與先前在程式碼研究室中宣告
+<code>colorPrimary</code> 和 <code>colorSecondary</code>
+佈景主題屬性的方式相同。不過，相關的佈景主題屬性為
+<code>textInputStyle</code>、<code>radioButtonStyle</code> 和
+<code>switchStyle</code>。您會使用先前為 <code>RadioButton</code> 和
+<code>Switch</code> 建立的樣式，以及 Material <code>OutlinedBox</code>
+的文字欄位的樣式。</li>
 </ol>
-<p>將下列內容複製到 <code>res/values/themes.xml</code> 而複製到應用程式佈景主題的樣式標記。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;textInputStyle&quot;</span>&gt;</span>@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;radioButtonStyle&quot;</span>&gt;</span>@style/Widget.TipTime.CompoundButton.RadioButton<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;switchStyle&quot;</span>&gt;</span>@style/Widget.TipTime.CompoundButton.Switch<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><code>res/values/themes.xml</code> 檔案看起來會像這樣。您可以視需要在 XML 中加入註解 (以 <code>&lt;!--</code> 和 <code>--&gt;</code> 表示)。</li>
+<p>將下列內容複製到 <code>res/values/themes.xml</code>
+而複製到應用程式佈景主題的樣式標記。 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;textInputStyle&quot;</span>&gt;</span>@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;radioButtonStyle&quot;</span>&gt;</span>@style/Widget.TipTime.CompoundButton.RadioButton<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;switchStyle&quot;</span>&gt;</span>@style/Widget.TipTime.CompoundButton.Switch<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ol start="2" type="1">
+<li><code>res/values/themes.xml</code>
+檔案看起來會像這樣。您可以視需要在 XML 中加入註解 (以
+<code>&lt;!--</code> 和 <code>--&gt;</code> 表示)。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span> <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Base application theme. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Theme.TipTime&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Theme.MaterialComponents.DayNight.DarkActionBar&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        ...</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:statusBarColor&quot;</span> <span class="attr">tools:targetApi</span>=<span class="string">&quot;l&quot;</span>&gt;</span>?attr/colorPrimaryVariant<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Text input fields --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;textInputStyle&quot;</span>&gt;</span>@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Radio buttons --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;radioButtonStyle&quot;</span>&gt;</span>@style/Widget.TipTime.CompoundButton.RadioButton<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Switches --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;switchStyle&quot;</span>&gt;</span>@style/Widget.TipTime.CompoundButton.Switch<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>請務必對 <code>themes.xml (night)</code> 中的深色佈景主題進行相同變更。您的 <code>res/values-night/themes.xml</code> 檔案看起來會像這樣。</li>
+<ol start="3" type="1">
+<li>請務必對 <code>themes.xml (night)</code>
+中的深色佈景主題進行相同變更。您的
+<code>res/values-night/themes.xml</code> 檔案看起來會像這樣。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span> <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Application theme for dark theme. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">&quot;Theme.TipTime&quot;</span> <span class="attr">parent</span>=<span class="string">&quot;Theme.MaterialComponents.DayNight.DarkActionBar&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        ...</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:statusBarColor&quot;</span> <span class="attr">tools:targetApi</span>=<span class="string">&quot;l&quot;</span>&gt;</span>?attr/colorPrimaryVariant<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- Text input fields --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;textInputStyle&quot;</span>&gt;</span>@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- For radio buttons --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;radioButtonStyle&quot;</span>&gt;</span>@style/Widget.TipTime.CompoundButton.RadioButton<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!-- For switches --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;switchStyle&quot;</span>&gt;</span>@style/Widget.TipTime.CompoundButton.Switch<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>執行應用程式並查看變更。文字欄位的 <code>OutlinedBox</code> 樣式看起來更好，所有文字現在看起來都一致！</li>
+<ol start="4" type="1">
+<li>執行應用程式並查看變更。文字欄位的 <code>OutlinedBox</code>
+樣式看起來更好，所有文字現在看起來都一致！</li>
 </ol>
 <div style="display: flex;justify-content: center;">
-    <div style="width:30%;float:left;margin-right:10px;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/31ac15991713b031_1920.png?hl=zh-tw">
-    </div>
-    <div style="width:30%;float:left;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/3e861407146c9ed4_1920.png?hl=zh-tw">
-    </div>
-<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
-</div>
+<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/31ac15991713b031_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;
+&lt;div style=&quot;width:30%;float:left;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/3e861407146c9ed4_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;</code></pre>
+<div style="clear:both;">
 
-<p>我的實作畫面：</p>
+</div>
+<!--這是用來清除上方的浮動效果-->
+</div>
+我的實作畫面：
 <div style="display: flex;justify-content: center;">
-    <div style="width:30%;float:left;margin-right:10px;">
-        <img src="https://i.imgur.com/py1EnmF.png">
-    </div>
-    <div style="width:30%;float:left;">
-        <img src="https://i.imgur.com/Juo2DFT.png">
-    </div>
-<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
+    &lt;img src=&quot;https://i.imgur.com/py1EnmF.png&quot;&gt;
+&lt;/div&gt;
+&lt;div style=&quot;width:30%;float:left;&quot;&gt;
+    &lt;img src=&quot;https://i.imgur.com/Juo2DFT.png&quot;&gt;
+&lt;/div&gt;</code></pre>
+<div style="clear:both;">
+
 </div>
-
-<hr>
-<h4 id="加強使用者體驗"><a href="#加強使用者體驗" class="headerlink" title="加強使用者體驗"></a>加強使用者體驗</h4><p>隨著您即將完成應用程式，除了應該使用預期的工作流程測試應用程式外，也應在其他使用者情境中進行測試。您可能會發現，稍微修改程式碼就能大幅提升使用者體驗。</p>
-<h5 id="旋轉裝置"><a href="#旋轉裝置" class="headerlink" title="旋轉裝置"></a>旋轉裝置</h5><ol>
-<li>旋轉裝置，切換為<strong>橫向模式</strong>。您可能需要先啟用「自動旋轉」設定，這項設定位於裝置的「<a target="_blank" rel="noopener" href="https://support.google.com/android/answer/9083864?hl=zh-Hant">快速設定</a>」選單中。此外，也可以依序前往「設定」&gt;「螢幕」&gt;「進階」，就能找到「自動旋轉螢幕」選項。</li>
+<!--這是用來清除上方的浮動效果-->
+</div>
+<hr />
+<h4 id="加強使用者體驗">加強使用者體驗</h4>
+<p>隨著您即將完成應用程式，除了應該使用預期的工作流程測試應用程式外，也應在其他使用者情境中進行測試。您可能會發現，稍微修改程式碼就能大幅提升使用者體驗。</p>
+<h5 id="旋轉裝置">旋轉裝置</h5>
+<ol type="1">
+<li>旋轉裝置，切換為<strong>橫向模式</strong>。您可能需要先啟用「自動旋轉」設定，這項設定位於裝置的「<a
+target="_blank" rel="noopener" href="https://support.google.com/android/answer/9083864?hl=zh-Hant">快速設定</a>」選單中。此外，也可以依序前往「設定」&gt;「螢幕」&gt;「進階」，就能找到「自動旋轉螢幕」選項。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/f2edb1ae9926d5f1_1920.png?hl=zh-tw" width="30%" height="30%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/f2edb1ae9926d5f1_1920.png?hl=zh-tw" width="30%" height="30%"></p>
 <p>在模擬器中，您可以使用靠近裝置右上角的模擬器選項，將畫面向右或向左旋轉。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/2bc08f73d28968cb_1920.png?hl=zh-tw" width="10%" height="10%">
-
-<ol start="2">
-<li>您會發現部分使用者介面元件 (包括「Calculate」按鈕) 遭到截斷。這顯然使您無法使用應用程式！</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/2bc08f73d28968cb_1920.png?hl=zh-tw" width="10%" height="10%"></p>
+<ol start="2" type="1">
+<li>您會發現部分使用者介面元件 (包括「Calculate」按鈕)
+遭到截斷。這顯然使您無法使用應用程式！</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/d73499f9c9d2b330_1920.png?hl=zh-tw" width="50%" height="50%">
-
-<ol start="3">
-<li>若要解決這個問題，請在 <code>ConstraintLayout</code> 四周加入 <code>ScrollView</code>，然後執行Reformat code。您的 XML 看起來有些像這樣。</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/d73499f9c9d2b330_1920.png?hl=zh-tw" width="50%" height="50%"></p>
+<ol start="3" type="1">
+<li>若要解決這個問題，請在 <code>ConstraintLayout</code> 四周加入
+<code>ScrollView</code>，然後執行Reformat code。您的 XML
+看起來有些像這樣。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ScrollView</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">tools:context</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line">   <span class="tag">&lt;/<span class="name">ConstraintLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">ScrollView</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>再次執行並測試應用程式。將裝置旋轉為橫向模式時，您應能捲動 UI 來存取計算按鈕，並查看小費計算結果。此修正功能不僅可用於橫向模式，而且也適用於其他不同尺寸的 Android 裝置。現在無論裝置螢幕大小為何，使用者都可以捲動瀏覽版面配置。</li>
+<ol start="4" type="1">
+<li>再次執行並測試應用程式。將裝置旋轉為橫向模式時，您應能捲動 UI
+來存取計算按鈕，並查看小費計算結果。此修正功能不僅可用於橫向模式，而且也適用於其他不同尺寸的
+Android
+裝置。現在無論裝置螢幕大小為何，使用者都可以捲動瀏覽版面配置。</li>
 </ol>
-<img src="https://i.imgur.com/lzCsDea.gif" width="70%" height="70%">
-
-<h5 id="按下-Enter-鍵隱藏鍵盤"><a href="#按下-Enter-鍵隱藏鍵盤" class="headerlink" title="按下 Enter 鍵隱藏鍵盤"></a>按下 Enter 鍵隱藏鍵盤</h5><p>您可能已注意到，輸入服務費後，鍵盤仍會保持顯示狀態。每次使用「calculate」按鈕都需要手動隱藏鍵盤會有點麻煩。改為按下 Enter 鍵時，讓鍵盤自動隱藏。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/e2c3a3dbc40218a2_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<p>您可以定義文字欄位的鍵事件監聽器，使得可回應於使用者輕觸特定按鍵的事件。鍵盤上每個可能的輸入項目選項都有相關聯的按鍵碼，包括 Enter 鍵。請注意，螢幕小鍵盤 (又稱為螢幕鍵盤) 與實體鍵盤不同。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/1c95d7406d3847fe_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<p>在這項工作中，您要在文字欄位中設定按鍵事件監聽器，用於監聽使用者何時按下 Enter 鍵。偵測到這項事件後，就要隱藏鍵盤。</p>
-<p>複製以下輔助方法，並貼到 MainActivity 類別中。您可以插入在 MainActivity 類別的大括號之前。<code>handleKeyEvent()</code> 是一種私人輔助函式，可以在 <code>keyCode</code> 輸入參數等於 <code>KeyEvent</code>.<code>KEYCODE_ENTER</code> 時隱藏螢幕小鍵盤。<a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/view/inputmethod/InputMethodManager">InputMethodManager</a> 可控制是否要顯示螢幕鍵盤、隱藏螢幕鍵盤，及讓使用者能夠自行選擇要顯示的螢幕鍵盤。如果系統處理了按鍵事件，此方法會傳回 true，否則會傳回 false。</p>
-<p><code>MainActivity.kt</code></p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">handleKeyEvent</span><span class="params">(view: <span class="type">View</span>, keyCode: <span class="type">Int</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (keyCode == KeyEvent.KEYCODE_ENTER) &#123;</span><br><span class="line">       <span class="comment">// Hide the keyboard</span></span><br><span class="line">       <span class="keyword">val</span> inputMethodManager =</span><br><span class="line">           getSystemService(Context.INPUT_METHOD_SERVICE) <span class="keyword">as</span> InputMethodManager</span><br><span class="line">       inputMethodManager.hideSoftInputFromWindow(view.windowToken, <span class="number">0</span>)</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>現在，請在 <code>TextInputEditText</code> 小工具上附加按鍵事件監聽器。請記住，您可以透過 <code>binding.costOfServiceEditText</code> 等繫結物件存取 <code>TextInputEditText</code> 小工具。</li>
+<p><img src="https://i.imgur.com/lzCsDea.gif" width="70%" height="70%"></p>
+<h5 id="按下-enter-鍵隱藏鍵盤">按下 Enter 鍵隱藏鍵盤</h5>
+<p>您可能已注意到，輸入服務費後，鍵盤仍會保持顯示狀態。每次使用「calculate」按鈕都需要手動隱藏鍵盤會有點麻煩。改為按下
+Enter 鍵時，讓鍵盤自動隱藏。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/e2c3a3dbc40218a2_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>您可以定義文字欄位的鍵事件監聽器，使得可回應於使用者輕觸特定按鍵的事件。鍵盤上每個可能的輸入項目選項都有相關聯的按鍵碼，包括
+Enter 鍵。請注意，螢幕小鍵盤 (又稱為螢幕鍵盤) 與實體鍵盤不同。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/1c95d7406d3847fe_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>在這項工作中，您要在文字欄位中設定按鍵事件監聽器，用於監聽使用者何時按下
+Enter 鍵。偵測到這項事件後，就要隱藏鍵盤。</p>
+<p>複製以下輔助方法，並貼到 MainActivity 類別中。您可以插入在
+MainActivity 類別的大括號之前。<code>handleKeyEvent()</code>
+是一種私人輔助函式，可以在 <code>keyCode</code> 輸入參數等於
+<code>KeyEvent</code>.<code>KEYCODE_ENTER</code> 時隱藏螢幕小鍵盤。<a
+target="_blank" rel="noopener" href="https://developer.android.com/reference/android/view/inputmethod/InputMethodManager">InputMethodManager</a>
+可控制是否要顯示螢幕鍵盤、隱藏螢幕鍵盤，及讓使用者能夠自行選擇要顯示的螢幕鍵盤。如果系統處理了按鍵事件，此方法會傳回
+true，否則會傳回 false。</p>
+<p><code>MainActivity.kt</code> <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">handleKeyEvent</span><span class="params">(view: <span class="type">View</span>, keyCode: <span class="type">Int</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (keyCode == KeyEvent.KEYCODE_ENTER) &#123;</span><br><span class="line">       <span class="comment">// Hide the keyboard</span></span><br><span class="line">       <span class="keyword">val</span> inputMethodManager =</span><br><span class="line">           getSystemService(Context.INPUT_METHOD_SERVICE) <span class="keyword">as</span> InputMethodManager</span><br><span class="line">       inputMethodManager.hideSoftInputFromWindow(view.windowToken, <span class="number">0</span>)</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="2" type="1">
+<li>現在，請在 <code>TextInputEditText</code>
+小工具上附加按鍵事件監聽器。請記住，您可以透過
+<code>binding.costOfServiceEditText</code> 等繫結物件存取
+<code>TextInputEditText</code> 小工具。</li>
 </ol>
-<p>請在 <code>costOfServiceEditText</code> 上呼叫 <code>setOnKeyListener()</code> 方法，然後傳入 <code>OnKeyListener</code>。這個做法類似在應用程式中使用 <code>binding.calculateButton.setOnClickListener &#123; calculateTip() &#125;</code>，設定「calculate」按鈕點擊事件監聽器。</p>
-<p>在檢視畫面上設定按鍵事件監聽器的程式碼較為複雜，但大致來說，<code>OnKeyListener</code> 具有可在使用者按下按鍵時觸發的 <code>onKey()</code> 方法。<code>onKey()</code> 方法採用 3 個輸入引數：檢視畫面、已按下按鍵的程式碼，及按鍵事件 (您不會用到，因此您可以將其稱作「<code>_</code>」)。呼叫 <code>onKey()</code> 方法時，應呼叫 <code>handleKeyEvent()</code> 方法，並傳遞檢視畫面和按鍵碼引數。編寫此功能的語法為 <code>view, keyCode, _ -&gt; handleKeyEvent(view, keyCode)</code>。其實這種語法稱為 lambda 運算式，您將在後續單元中進一步瞭解 lambda。</p>
-<p>請新增程式碼，設定活動 <code>onCreate()</code> 方法內文字欄位的按鍵事件監聽器。這樣一來，就能在建立版面配置後，以及使用者開始與活動互動前，立即附加按鍵事件監聽器。</p>
-<p><code>MainActivity.kt</code></p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   ...</span><br><span class="line"></span><br><span class="line">   setContentView(binding.root)</span><br><span class="line"></span><br><span class="line">   binding.calculateButton.setOnClickListener &#123; calculateTip() &#125;</span><br><span class="line"></span><br><span class="line">   binding.costOfServiceEditText.setOnKeyListener &#123; view, keyCode, _ -&gt; handleKeyEvent(view, keyCode)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>測試新的變更是否正常運作。執行應用程式並輸入服務費。按下鍵盤上的 Enter 鍵就會隱藏螢幕鍵盤。</li>
+<p>請在 <code>costOfServiceEditText</code> 上呼叫
+<code>setOnKeyListener()</code> 方法，然後傳入
+<code>OnKeyListener</code>。這個做法類似在應用程式中使用
+<code>binding.calculateButton.setOnClickListener &#123; calculateTip() &#125;</code>，設定「calculate」按鈕點擊事件監聽器。</p>
+<p>在檢視畫面上設定按鍵事件監聽器的程式碼較為複雜，但大致來說，<code>OnKeyListener</code>
+具有可在使用者按下按鍵時觸發的 <code>onKey()</code>
+方法。<code>onKey()</code> 方法採用 3
+個輸入引數：檢視畫面、已按下按鍵的程式碼，及按鍵事件
+(您不會用到，因此您可以將其稱作「<code>_</code>」)。呼叫
+<code>onKey()</code> 方法時，應呼叫 <code>handleKeyEvent()</code>
+方法，並傳遞檢視畫面和按鍵碼引數。編寫此功能的語法為
+<code>view, keyCode, _ -&gt; handleKeyEvent(view, keyCode)</code>。其實這種語法稱為
+lambda 運算式，您將在後續單元中進一步瞭解 lambda。</p>
+<p>請新增程式碼，設定活動 <code>onCreate()</code>
+方法內文字欄位的按鍵事件監聽器。這樣一來，就能在建立版面配置後，以及使用者開始與活動互動前，立即附加按鍵事件監聽器。</p>
+<p><code>MainActivity.kt</code> <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   ...</span><br><span class="line"></span><br><span class="line">   setContentView(binding.root)</span><br><span class="line"></span><br><span class="line">   binding.calculateButton.setOnClickListener &#123; calculateTip() &#125;</span><br><span class="line"></span><br><span class="line">   binding.costOfServiceEditText.setOnKeyListener &#123; view, keyCode, _ -&gt; handleKeyEvent(view, keyCode)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="3" type="1">
+<li>測試新的變更是否正常運作。執行應用程式並輸入服務費。按下鍵盤上的
+Enter 鍵就會隱藏螢幕鍵盤。</li>
 </ol>
-<h5 id="選用-調整向量可繪項目的色調"><a href="#選用-調整向量可繪項目的色調" class="headerlink" title="(選用) 調整向量可繪項目的色調"></a>(選用) 調整向量可繪項目的色調</h5><p>在此選用工作中，您將依據主題的主要顏色為圖示上色，讓淺色主題和深色主題中的圖示看起來不同 (如下所示)。這項變更是為了美化 UI，使圖示更貼合應用程式主題。</p>
+<h5 id="選用-調整向量可繪項目的色調">(選用) 調整向量可繪項目的色調</h5>
+<p>在此選用工作中，您將依據主題的主要顏色為圖示上色，讓淺色主題和深色主題中的圖示看起來不同
+(如下所示)。這項變更是為了美化 UI，使圖示更貼合應用程式主題。</p>
 <div style="display: flex;justify-content: center;">
-    <div style="width:30%;float:left;margin-right:10px;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/77092f702beb1cfb_1920.png?hl=zh-tw">
-    </div>
-    <div style="width:30%;float:left;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/80a390087905eb29_1920.png?hl=zh-tw">
-    </div>
-<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/77092f702beb1cfb_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;
+&lt;div style=&quot;width:30%;float:left;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/80a390087905eb29_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;</code></pre>
+<div style="clear:both;">
+
 </div>
-
-<p>如先前所述，與點陣圖圖像相比，<code>VectorDrawables</code> 的優點之一就是能夠縮放圖像及上色。下方的 XML 代表鈴鐺圖示。請留意 <code>android:tint</code> 和 <code>android:fillColor</code> 這兩種顏色屬性。</p>
-<p><code>ic_service.xml</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">vector</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:width</span>=<span class="string">&quot;24dp&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:height</span>=<span class="string">&quot;24dp&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:viewportWidth</span>=<span class="string">&quot;24&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:viewportHeight</span>=<span class="string">&quot;24&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:tint</span>=<span class="string">&quot;?attr/colorControlNormal&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">path</span></span></span><br><span class="line"><span class="tag">     <span class="attr">android:fillColor</span>=<span class="string">&quot;@android:color/white&quot;</span></span></span><br><span class="line"><span class="tag">     <span class="attr">android:pathData</span>=<span class="string">&quot;M2,17h20v2L2,19zM13.84,7.79c0.1,-0.24 0.16,-0.51 0.16,-0.79 0,-1.1 -0.9,-2 -2,-2s-2,0.9 -2,2c0,0.28 0.06,0.55 0.16,0.79C6.25,8.6 3.27,11.93 3,16h18c-0.27,-4.07 -3.25,-7.4 -7.16,-8.21z&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">vector</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/aab70a5d4eaabdc7_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<p>如果有色調，則會覆寫可繪項目的任何 <code>fillColor</code> 指令。在這種情況下，系統會用 <code>colorControlNormal</code> 佈景主題屬性覆寫白色顏色。<code>colorControlNormal</code> 是小工具的「一般」(未選取&#x2F;未啟用狀態) 顏色。目前是灰色。</p>
-<p>我們針對應用程式執行的一項視覺強化操作，就是根據應用程式佈景主題的主要顏色為可繪項目調色。在淺色主題中，圖示會顯示為 <code>@color/green</code>；在深色主題中，圖示則會顯示為 <code>@color/green_light</code>，也就是 <code>?attr/colorPrimary</code>。根據應用程式主題的主要顏色為可繪項目上色，可以讓版面配置中的元素看起來更融合一致。這樣也不必複製淺色主題和深色主題的各組圖示。只要準備 1 組向量可繪項目就好，而且色調會根據 <code>colorPrimary</code> 主題屬性而改變。</p>
-<ol>
+<!--這是用來清除上方的浮動效果-->
+</div>
+<p>如先前所述，與點陣圖圖像相比，<code>VectorDrawables</code>
+的優點之一就是能夠縮放圖像及上色。下方的 XML 代表鈴鐺圖示。請留意
+<code>android:tint</code> 和 <code>android:fillColor</code>
+這兩種顏色屬性。</p>
+<p><code>ic_service.xml</code> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">vector</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:width</span>=<span class="string">&quot;24dp&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:height</span>=<span class="string">&quot;24dp&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:viewportWidth</span>=<span class="string">&quot;24&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:viewportHeight</span>=<span class="string">&quot;24&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:tint</span>=<span class="string">&quot;?attr/colorControlNormal&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">path</span></span></span><br><span class="line"><span class="tag">     <span class="attr">android:fillColor</span>=<span class="string">&quot;@android:color/white&quot;</span></span></span><br><span class="line"><span class="tag">     <span class="attr">android:pathData</span>=<span class="string">&quot;M2,17h20v2L2,19zM13.84,7.79c0.1,-0.24 0.16,-0.51 0.16,-0.79 0,-1.1 -0.9,-2 -2,-2s-2,0.9 -2,2c0,0.28 0.06,0.55 0.16,0.79C6.25,8.6 3.27,11.93 3,16h18c-0.27,-4.07 -3.25,-7.4 -7.16,-8.21z&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">vector</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/aab70a5d4eaabdc7_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p>如果有色調，則會覆寫可繪項目的任何 <code>fillColor</code>
+指令。在這種情況下，系統會用 <code>colorControlNormal</code>
+佈景主題屬性覆寫白色顏色。<code>colorControlNormal</code>
+是小工具的「一般」(未選取/未啟用狀態) 顏色。目前是灰色。</p>
+<p>我們針對應用程式執行的一項視覺強化操作，就是根據應用程式佈景主題的主要顏色為可繪項目調色。在淺色主題中，圖示會顯示為
+<code>@color/green</code>；在深色主題中，圖示則會顯示為
+<code>@color/green_light</code>，也就是
+<code>?attr/colorPrimary</code>。根據應用程式主題的主要顏色為可繪項目上色，可以讓版面配置中的元素看起來更融合一致。這樣也不必複製淺色主題和深色主題的各組圖示。只要準備
+1 組向量可繪項目就好，而且色調會根據 <code>colorPrimary</code>
+主題屬性而改變。</p>
+<ol type="1">
 <li>變更 ic_service.xml 中 android:tint 屬性的值</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:tint=&quot;?attr/colorPrimary&quot;</span><br></pre></td></tr></table></figure>
-
 <p>在 Android Studio 中，圖示現在有適當的色調。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/f0b8f59dbf00a20b_1920.png?hl=zh-tw" width="70%" height="70%">
-
-<p><code>colorPrimary</code> 主題屬性指向的值會因淺色主題和深色主題而有所不同。</p>
-<ol start="2">
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-polished-user-experience/img/f0b8f59dbf00a20b_1920.png?hl=zh-tw" width="70%" height="70%"></p>
+<p><code>colorPrimary</code>
+主題屬性指向的值會因淺色主題和深色主題而有所不同。</p>
+<ol start="2" type="1">
 <li>重複上述步驟，變更其他向量可繪項目的色調</li>
 </ol>
-<p><code>ic_store.xml</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">vector</span> <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:tint</span>=<span class="string">&quot;?attr/colorPrimary&quot;</span>&gt;</span></span><br><span class="line">   ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">vector</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>ic_round_up.xml</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">vector</span> <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:tint</span>=<span class="string">&quot;?attr/colorPrimary&quot;</span>&gt;</span></span><br><span class="line">   ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">vector</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p>執行應用程式，確認圖示在淺色和深色主題中的顯示方式不同。</p>
-</li>
-<li><p>作為最後的清理步驟，請記得重新設定應用程式中所有 XML 和 Kotlin 程式碼檔案的格式。</p>
-</li>
+<p><code>ic_store.xml</code> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">vector</span> <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:tint</span>=<span class="string">&quot;?attr/colorPrimary&quot;</span>&gt;</span></span><br><span class="line">   ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">vector</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>ic_round_up.xml</code> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">vector</span> <span class="attr">...</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:tint</span>=<span class="string">&quot;?attr/colorPrimary&quot;</span>&gt;</span></span><br><span class="line">   ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">vector</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ol start="3" type="1">
+<li><p>執行應用程式，確認圖示在淺色和深色主題中的顯示方式不同。</p></li>
+<li><p>作為最後的清理步驟，請記得重新設定應用程式中所有 XML 和 Kotlin
+程式碼檔案的格式。</p></li>
 </ol>
-<p>我的實作畫面：</p>
+我的實作畫面：
 <div style="display: flex;justify-content: center;">
-    <div style="width:30%;float:left;margin-right:10px;">
-        <img src="https://i.imgur.com/l5p0Vf5.png">
-    </div>
-    <div style="width:30%;float:left;">
-        <img src="https://i.imgur.com/Tijw0A1.png">
-    </div>
-<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
+    &lt;img src=&quot;https://i.imgur.com/l5p0Vf5.png&quot;&gt;
+&lt;/div&gt;
+&lt;div style=&quot;width:30%;float:left;&quot;&gt;
+    &lt;img src=&quot;https://i.imgur.com/Tijw0A1.png&quot;&gt;
+&lt;/div&gt;</code></pre>
+<div style="clear:both;">
+
 </div>
+<!--這是用來清除上方的浮動效果-->
+</div>
+
     </div>
 
     
@@ -901,7 +1114,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.</span> <span class="nav-text">範例應用程式總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Material-%E5%85%83%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">Material 元件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E6%AC%84%E4%BD%8D-Text-Fields"><span class="nav-number">2.1.</span> <span class="nav-text">文字欄位(Text Fields)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%87%E6%8F%9B%E9%88%95-Switches"><span class="nav-number">2.2.</span> <span class="nav-text">切換鈕(Switches)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%96%E7%A4%BA-Icons"><span class="nav-number">3.</span> <span class="nav-text">圖示(Icons)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E4%B8%AD%E5%91%88%E7%8F%BE%E5%9C%96%E7%A4%BA"><span class="nav-number">3.1.</span> <span class="nav-text">在應用程式中呈現圖示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%90%E4%BE%9B%E7%9A%84%E5%9C%96%E7%A4%BA"><span class="nav-number">3.2.</span> <span class="nav-text">提供的圖示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%9C%96%E7%A4%BA"><span class="nav-number">3.3.</span> <span class="nav-text">新增圖示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%90%91%E9%87%8F%E5%8F%AF%E7%B9%AA%E9%A0%85%E7%9B%AE%E7%B4%A0%E6%9D%90%E8%B3%87%E6%BA%90"><span class="nav-number">3.4.</span> <span class="nav-text">新增向量可繪項目素材資源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%AF%E6%8F%B4%E8%88%8A%E7%89%88-Android"><span class="nav-number">3.5.</span> <span class="nav-text">支援舊版 Android</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E5%9C%96%E7%A4%BA%E5%92%8C%E4%BD%8D%E7%BD%AE%E5%85%83%E7%B4%A0"><span class="nav-number">3.6.</span> <span class="nav-text">插入圖示和位置元素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A3%E5%BC%8F%E8%88%87%E4%B8%BB%E9%A1%8C-Styles-and-Themes"><span class="nav-number">4.</span> <span class="nav-text">樣式與主題(Styles and Themes)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%A8%A3%E5%BC%8F"><span class="nav-number">4.1.</span> <span class="nav-text">建立樣式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%87%E9%80%99%E4%BA%9B%E6%A8%A3%E5%BC%8F%E5%8A%A0%E5%85%A5%E6%82%A8%E7%9A%84%E4%BD%88%E6%99%AF%E4%B8%BB%E9%A1%8C"><span class="nav-number">4.2.</span> <span class="nav-text">將這些樣式加入您的佈景主題</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E5%BC%B7%E4%BD%BF%E7%94%A8%E8%80%85%E9%AB%94%E9%A9%97"><span class="nav-number">5.</span> <span class="nav-text">加強使用者體驗</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%8B%E8%BD%89%E8%A3%9D%E7%BD%AE"><span class="nav-number">5.1.</span> <span class="nav-text">旋轉裝置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8C%89%E4%B8%8B-Enter-%E9%8D%B5%E9%9A%B1%E8%97%8F%E9%8D%B5%E7%9B%A4"><span class="nav-number">5.2.</span> <span class="nav-text">按下 Enter 鍵隱藏鍵盤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%81%B8%E7%94%A8-%E8%AA%BF%E6%95%B4%E5%90%91%E9%87%8F%E5%8F%AF%E7%B9%AA%E9%A0%85%E7%9B%AE%E7%9A%84%E8%89%B2%E8%AA%BF"><span class="nav-number">5.3.</span> <span class="nav-text">(選用) 調整向量可繪項目的色調</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#section"><span class="nav-number">1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.0.1.</span> <span class="nav-text">範例應用程式總覽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#material-%E5%85%83%E4%BB%B6"><span class="nav-number">1.0.2.</span> <span class="nav-text">Material 元件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E6%AC%84%E4%BD%8Dtext-fields"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">文字欄位(Text Fields)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%87%E6%8F%9B%E9%88%95switches"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">切換鈕(Switches)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%96%E7%A4%BAicons"><span class="nav-number">1.0.3.</span> <span class="nav-text">圖示(Icons)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E4%B8%AD%E5%91%88%E7%8F%BE%E5%9C%96%E7%A4%BA"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">在應用程式中呈現圖示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%90%E4%BE%9B%E7%9A%84%E5%9C%96%E7%A4%BA"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">提供的圖示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%9C%96%E7%A4%BA"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">新增圖示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%90%91%E9%87%8F%E5%8F%AF%E7%B9%AA%E9%A0%85%E7%9B%AE%E7%B4%A0%E6%9D%90%E8%B3%87%E6%BA%90"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">新增向量可繪項目素材資源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%AF%E6%8F%B4%E8%88%8A%E7%89%88-android"><span class="nav-number">1.0.3.5.</span> <span class="nav-text">支援舊版 Android</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E5%9C%96%E7%A4%BA%E5%92%8C%E4%BD%8D%E7%BD%AE%E5%85%83%E7%B4%A0"><span class="nav-number">1.0.3.6.</span> <span class="nav-text">插入圖示和位置元素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A3%E5%BC%8F%E8%88%87%E4%B8%BB%E9%A1%8Cstyles-and-themes"><span class="nav-number">1.0.4.</span> <span class="nav-text">樣式與主題(Styles and Themes)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%A8%A3%E5%BC%8F"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">建立樣式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%87%E9%80%99%E4%BA%9B%E6%A8%A3%E5%BC%8F%E5%8A%A0%E5%85%A5%E6%82%A8%E7%9A%84%E4%BD%88%E6%99%AF%E4%B8%BB%E9%A1%8C"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">將這些樣式加入您的佈景主題</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E5%BC%B7%E4%BD%BF%E7%94%A8%E8%80%85%E9%AB%94%E9%A9%97"><span class="nav-number">1.0.5.</span> <span class="nav-text">加強使用者體驗</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%8B%E8%BD%89%E8%A3%9D%E7%BD%AE"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">旋轉裝置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8C%89%E4%B8%8B-enter-%E9%8D%B5%E9%9A%B1%E8%97%8F%E9%8D%B5%E7%9B%A4"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">按下 Enter 鍵隱藏鍵盤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%81%B8%E7%94%A8-%E8%AA%BF%E6%95%B4%E5%90%91%E9%87%8F%E5%8F%AF%E7%B9%AA%E9%A0%85%E7%9B%AE%E7%9A%84%E8%89%B2%E8%AA%BF"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">(選用) 調整向量可繪項目的色調</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -917,20 +1130,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">128</span>
+        <span class="site-state-item-count">129</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1026,6 +1239,8 @@
 
 
 
+
+  
 
   
 

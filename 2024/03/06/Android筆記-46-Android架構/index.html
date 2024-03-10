@@ -36,14 +36,14 @@
 <meta property="og:image" content="https://imgur.com/za9JdgN.png">
 <meta property="og:image" content="https://imgur.com/RkvcUAT.png">
 <meta property="article:published_time" content="2024-03-06T11:42:12.000Z">
-<meta property="article:modified_time" content="2024-03-06T14:59:35.171Z">
+<meta property="article:modified_time" content="2024-03-10T07:57:37.202Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
-<meta property="article:tag" content="MVVM">
 <meta property="article:tag" content="MVC">
 <meta property="article:tag" content="MVP">
-<meta property="article:tag" content="MVI">
+<meta property="article:tag" content="MVVM">
 <meta property="article:tag" content="Clean Architecture">
+<meta property="article:tag" content="MVI">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://imgur.com/UZjDO3d.png">
 
@@ -233,10 +233,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-03-06 19:42:12 / Modified: 22:59:35" itemprop="dateCreated datePublished" datetime="2024-03-06T19:42:12+08:00">2024-03-06</time>
+              <time title="Created: 2024-03-06 19:42:12" itemprop="dateCreated datePublished" datetime="2024-03-06T19:42:12+08:00">2024-03-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-03-10 15:57:37" itemprop="dateModified" datetime="2024-03-10T15:57:37+08:00">2024-03-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -262,176 +268,138 @@
 <p>比較 Android 架構(MVC、MVP、MVVM、Clean Architecture、MVI)</p>
 </blockquote>
 <span id="more"></span>
-
-<h3 id="MVC-Model-View-Controller"><a href="#MVC-Model-View-Controller" class="headerlink" title="MVC(Model-View-Controller)"></a>MVC(Model-View-Controller)</h3><p>MVC 是最古老和最廣為人知的架構模式之一。 </p>
-<ul>
-<li>在啟動小型專案或快速原型設計時使用 MVC。 </li>
-<li>它在 <b>data(Model)</b>、<b>UI(View)</b>和<b>邏輯(Controller)</b>之間提供了明確的分離。 </li>
-<li>但是 MVC 會導致元件之間的<u>高耦合</u>和<u>單元測試</u>的困難。</li>
-</ul>
-<p>MVC 將程式碼劃分為三個部分：</p>
-<table>
-<thead>
-<tr>
-<th align="left"></th>
-<th align="left">說明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>View</strong></td>
-<td align="left">Layout XML 文件。</td>
-</tr>
-<tr>
-<td align="left"><strong>Model</strong></td>
-<td align="left">負責管理商業資料邏輯，如網絡請求、資料庫處理。</td>
-</tr>
-<tr>
-<td align="left"><strong>Controller</strong></td>
-<td align="left">Activity 負責處理表現邏輯。</td>
-</tr>
-</tbody></table>
-<img src="https://imgur.com/UZjDO3d.png" width="80%">
-
-<p>MVC 希望 Activity &#x2F; Fragment 是只處理表現邏輯的部分 ，但現實是 Activity 不可避免要處理 UI，也要處理和使用者的互動，說明 Activity 也承擔了 View 的角色。那麼這個架構就會造成 Activity 中融合了 view 和 logic 的代碼，分離程度不夠。</p>
-<h3 id="MVP-Model-View-Presenter"><a href="#MVP-Model-View-Presenter" class="headerlink" title="MVP(Model-View-Presenter)"></a>MVP(Model-View-Presenter)</h3><p>MVP 是 MVC 的演變，它進一步分離了 UI 和商業邏輯(business logic)的關注點。 </p>
-<ul>
-<li>將 MVP 用於要求更複雜的中型專案。 </li>
-<li>它強制將 <b>Model</b>、<b>View</b> 和 <b>Presenter</b> 明確分開，使程式碼更易於理解和測試。 </li>
-<li>MVP 允許更好的可測試性，並促進<a target="_blank" rel="noopener" href="https://igouist.github.io/post/2020/10/oo-10-single-responsibility-principle/">單一責任原則(Single Responsibility Principle)</a>。 </li>
-<li>但是，它仍然可能受到過多的樣板程式碼的影響，並且隨著專案的擴展而變得複雜。</li>
-</ul>
+<hr />
+<h3 id="mvcmodel-view-controller">MVC(Model-View-Controller)</h3>
+<p>MVC 是最古老和最廣為人知的架構模式之一。 -
+在啟動小型專案或快速原型設計時使用 MVC。 - 它在
+<b>data(Model)</b>、<b>UI(View)</b>和<b>邏輯(Controller)</b>之間提供了明確的分離。
+- 但是 MVC 會導致元件之間的<u>高耦合</u>和<u>單元測試</u>的困難。</p>
+<p>MVC 將程式碼劃分為三個部分： | | 說明 | | :-- | :-- | |
+<strong>View</strong> | Layout XML 文件。 | | <strong>Model</strong> |
+負責管理商業資料邏輯，如網絡請求、資料庫處理。 | |
+<strong>Controller</strong> | Activity 負責處理表現邏輯。 |</p>
+<p><img src="https://imgur.com/UZjDO3d.png" width="80%"></p>
+<p>MVC 希望 Activity / Fragment 是只處理表現邏輯的部分 ，但現實是
+Activity 不可避免要處理 UI，也要處理和使用者的互動，說明 Activity
+也承擔了 View 的角色。那麼這個架構就會造成 Activity 中融合了 view 和
+logic 的代碼，分離程度不夠。</p>
+<hr />
+<h3 id="mvpmodel-view-presenter">MVP(Model-View-Presenter)</h3>
+<p>MVP 是 MVC 的演變，它進一步分離了 UI 和商業邏輯(business
+logic)的關注點。 - 將 MVP 用於要求更複雜的中型專案。 - 它強制將
+<b>Model</b>、<b>View</b> 和 <b>Presenter</b>
+明確分開，使程式碼更易於理解和測試。 - MVP 允許更好的可測試性，並促進<a
+target="_blank" rel="noopener" href="https://igouist.github.io/post/2020/10/oo-10-single-responsibility-principle/">單一責任原則(Single
+Responsibility Principle)</a>。 -
+但是，它仍然可能受到過多的樣板程式碼的影響，並且隨著專案的擴展而變得複雜。</p>
 <p>為了將 Activity 中的表現邏輯徹底分離出來，業界提出了 MVP 的設計。</p>
-<p>MVP 將程式碼劃分為三個部分：</p>
-<table>
-<thead>
-<tr>
-<th align="left"></th>
-<th align="left">說明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>View</strong></td>
-<td align="left">Activity 和 Layout XML 文件。</td>
-</tr>
-<tr>
-<td align="left"><strong>Model</strong></td>
-<td align="left">負責管理商業資料邏輯，如網絡請求、資料庫處理。</td>
-</tr>
-<tr>
-<td align="left"><strong>Presenter</strong></td>
-<td align="left">負責處理表現邏輯。</td>
-</tr>
-</tbody></table>
-<img src="https://imgur.com/CdbisGM.png">
-
-<p>在實現細節上，View 和 Presenter 中間會定義一個協議介面 Contract，這個介面會約定 View 如何向 Presenter 發指令和 Presenter 如何 Callback 給 View。這樣的架構里 Activity 不再有表現邏輯的部分，Activity 作為 View 的角色只處理和 UI 有關的事情。但還是存在一些缺點：</p>
-<ul>
-<li>雙向依賴： View 和 Presenter 是雙向依賴的，一旦 View 層做出改變，相應地 Presenter 也需要做出調整。在業務語境下，View 層變化是大概率事件；</li>
-<li>內存泄漏風險： Presenter 持有 View 層的引用，當用戶關閉了 View 層，但 Model 層仍然在進行耗時操作，就會有內存泄漏風險。雖然有解決辦法，但還是存在風險點和複雜度（弱引用 &#x2F; onDestroy() 回收 Presenter）。</li>
-<li>協議介面類膨脹： View 層和 Presenter 層的交互需要定義介面方法，當交互非常複雜時，需要定義很多介面方法和 callback 方法，也不好維護。</li>
-</ul>
-<h3 id="MVVM-Model-View-ViewModel"><a href="#MVVM-Model-View-ViewModel" class="headerlink" title="MVVM(Model-View-ViewModel)"></a>MVVM(Model-View-ViewModel)</h3><p>MVVM 是一種利用數據綁定(data binding)和響應式(reactive)程式設計的現代體系結構模式。 </p>
-<ul>
-<li>將 MVVM 用於大型專案，重點關注數據驅動的 UI 和複雜的數據流。 </li>
-<li>它在 <b>View</b>、<b>ViewModel</b> 和 <b>Model</b> 之間提供了明確的分離。 </li>
-<li>MVVM 利用雙向數據綁定(data binding)，使 UI 更新自動並減少樣板程式碼。 </li>
-<li>這種架構允許更好的解耦、可測試性和可維護性。 </li>
-<li>但是，採用 MVVM 需要對響應式程式設計和 data binding 概念有很好的理解。</li>
-</ul>
-<p>MVVM 將程式碼劃分為三個部分：</p>
-<table>
-<thead>
-<tr>
-<th align="left"></th>
-<th align="left">說明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>View</strong></td>
-<td align="left">Activity 和 Layout XML 文件，與 MVP 中 View 的概念相同。</td>
-</tr>
-<tr>
-<td align="left"><strong>Model</strong></td>
-<td align="left">負責管理業務數據邏輯，如網絡請求、資料庫處理，與 MVP 中 Model 的概念相同。</td>
-</tr>
-<tr>
-<td align="left"><strong>ViewModel</strong></td>
-<td align="left">存儲視圖狀態，負責處理表現邏輯，並將數據設置給可觀察數據容器。</td>
-</tr>
-</tbody></table>
-<img src="https://imgur.com/za9JdgN.png">
-
-<p>在實現細節上，View 和 Presenter 從雙向依賴變成 View 可以向 ViewModel 發指令，但 ViewModel 不會直接向 View 回調，而是讓 View 通過觀察者的模式去監聽數據的變化，有效規避了 MVP 雙向依賴的缺點。但 MVVM 本身也存在一些缺點：</p>
-<ul>
-<li>多數據流： View 與 ViewModel 的交互分散，缺少唯一修改源，不易於追蹤。</li>
-<li>LiveData 膨脹： 複雜的頁面需要定義多個 MutableLiveData，並且都需要暴露為不可變的 LiveData。</li>
-</ul>
+<p>MVP 將程式碼劃分為三個部分： | | 說明 | | :-- | :-- | |
+<strong>View</strong> | Activity 和 Layout XML 文件。 | |
+<strong>Model</strong> | 負責管理商業資料邏輯，如網絡請求、資料庫處理。
+| | <strong>Presenter</strong> | 負責處理表現邏輯。 |</p>
+<p><img src="https://imgur.com/CdbisGM.png"></p>
+<p>在實現細節上，View 和 Presenter 中間會定義一個協議介面
+Contract，這個介面會約定 View 如何向 Presenter 發指令和 Presenter 如何
+Callback 給 View。這樣的架構里 Activity 不再有表現邏輯的部分，Activity
+作為 View 的角色只處理和 UI 有關的事情。但還是存在一些缺點： +
+雙向依賴： View 和 Presenter 是雙向依賴的，一旦 View 層做出改變，相應地
+Presenter 也需要做出調整。在業務語境下，View 層變化是大概率事件； +
+內存泄漏風險： Presenter 持有 View 層的引用，當用戶關閉了 View 層，但
+Model
+層仍然在進行耗時操作，就會有內存泄漏風險。雖然有解決辦法，但還是存在風險點和複雜度（弱引用
+/ onDestroy() 回收 Presenter）。 + 協議介面類膨脹： View 層和 Presenter
+層的交互需要定義介面方法，當交互非常複雜時，需要定義很多介面方法和
+callback 方法，也不好維護。</p>
+<hr />
+<h3 id="mvvmmodel-view-viewmodel">MVVM(Model-View-ViewModel)</h3>
+<p>MVVM 是一種利用數據綁定(data
+binding)和響應式(reactive)程式設計的現代體系結構模式。 - 將 MVVM
+用於大型專案，重點關注數據驅動的 UI 和複雜的數據流。 - 它在
+<b>View</b>、<b>ViewModel</b> 和 <b>Model</b> 之間提供了明確的分離。 -
+MVVM 利用雙向數據綁定(data binding)，使 UI 更新自動並減少樣板程式碼。 -
+這種架構允許更好的解耦、可測試性和可維護性。 - 但是，採用 MVVM
+需要對響應式程式設計和 data binding 概念有很好的理解。</p>
+<p>MVVM 將程式碼劃分為三個部分： | | 說明 | | :-- | :-- | |
+<strong>View</strong> | Activity 和 Layout XML 文件，與 MVP 中 View
+的概念相同。 | | <strong>Model</strong> |
+負責管理業務數據邏輯，如網絡請求、資料庫處理，與 MVP 中 Model
+的概念相同。 | | <strong>ViewModel</strong> |
+存儲視圖狀態，負責處理表現邏輯，並將數據設置給可觀察數據容器。 |</p>
+<p><img src="https://imgur.com/za9JdgN.png"></p>
+<p>在實現細節上，View 和 Presenter 從雙向依賴變成 View 可以向 ViewModel
+發指令，但 ViewModel 不會直接向 View 回調，而是讓 View
+通過觀察者的模式去監聽數據的變化，有效規避了 MVP 雙向依賴的缺點。但 MVVM
+本身也存在一些缺點： + 多數據流： View 與 ViewModel
+的交互分散，缺少唯一修改源，不易於追蹤。 + LiveData 膨脹：
+複雜的頁面需要定義多個 MutableLiveData，並且都需要暴露為不可變的
+LiveData。</p>
 <div class="note primary">
-            <p>DataBinding、ViewModel 和 LiveData 等組件是 Google 為了幫助我們實現 MVVM 模式提供的架構組件，它們並不是 MVVM 的本質，只是實現上的工具。</p><ul><li>Lifecycle： 生命周期狀態回調。</li><li>LiveData： 可觀察的數據存儲類。</li><li>DataBinding： 可以自動同步 UI 和 data。</li><li>ViewModel： 存儲界面相關的數據，這些數據不會在手機旋轉等配置改變時丟失。</li></ul>
+            <p>DataBinding、ViewModel 和 LiveData 等組件是 Google 為了幫助我們實現MVVM 模式提供的架構組件，它們並不是 MVVM 的本質，只是實現上的工具。 +Lifecycle： 生命周期狀態回調。 + LiveData： 可觀察的數據存儲類。 +DataBinding： 可以自動同步 UI 和 data。 + ViewModel：存儲界面相關的數據，這些數據不會在手機旋轉等配置改變時丟失。</p>
           </div>
-
-
-<h3 id="Clean-Architecture"><a href="#Clean-Architecture" class="headerlink" title="Clean Architecture"></a>Clean Architecture</h3><p>Clean Architecture 強調關注點和依賴關係規則的分離。</p>
-<ul>
-<li>將 Clean 架構用於大型複雜專案，重點關注可維護性和可測試性。 </li>
-<li>它將代碼庫(codebase)劃分為多個層：<b>Presentation</b>、<b>Domain</b> 和 <b>Data</b>，每個層都有自己的職責和依賴關係。 </li>
-<li>簡潔的架構允許輕鬆更換元件並促進單元測試。 </li>
-<li>但是，它引入了額外的複雜性，並且可能會針對較小的專案進行過度設計。</li>
-</ul>
-<h3 id="MVI-Model-View-Intent"><a href="#MVI-Model-View-Intent" class="headerlink" title="MVI(Model-View-Intent)"></a>MVI(Model-View-Intent)</h3><p> MVI 是一種新興的架構模式，旨在提供<u>可預測(predictable)</u>且<u>響應式(reactive)</u> UI。 </p>
-<ul>
-<li>將 MVI 用於需要嚴格的單向數據流(data flow)和高度互動式 UI 的專案。 </li>
-<li>它將 <b>Model</b>、<b>View</b> 和 <b>Intent</b> 的關注點分開，提供清晰的數據流(data flow)方向。 </li>
-<li>MVI 促進了不變性(immutability)和回應式(reactive)程式設計，使得對狀態變化的推理變得更加容易。 </li>
-<li>但是，MVI 可能會帶來額外的複雜性，尤其是對於簡單的專案。</li>
-</ul>
-<p>MVI 模式的改動在於將 View 和 ViewModel 之間的多數據流改為基於 ViewState 的單數據流。</p>
-<p>MVI 將程式碼劃分為四個部分：</p>
-<table>
-<thead>
-<tr>
-<th align="left"></th>
-<th align="left">說明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>View</strong></td>
-<td align="left">Activity 和 Layout XML 文件，與 MVVM 中 View 的概念相同。</td>
-</tr>
-<tr>
-<td align="left"><strong>Intent</strong></td>
-<td align="left">定義數據操作，是將數據傳到 Model 的唯一來源，相比 MVVM 是新的概念。</td>
-</tr>
-<tr>
-<td align="left"><strong>ViewModel</strong></td>
-<td align="left">存儲視圖狀態，負責處理表現邏輯，並將 ViewState 設置給可觀察數據容器。</td>
-</tr>
-<tr>
-<td align="left"><strong>ViewState</strong></td>
-<td align="left">一個數據類，包含頁面狀態和對應的數據。</td>
-</tr>
-</tbody></table>
-<img src="https://imgur.com/RkvcUAT.png">
-
-<p>在實現細節上，View 和 ViewModel 之間的多個交互（多 LiveData 數據流）變成了單數據流。無論 View 有多少個視圖狀態，只需要訂閱一個 ViewState 便可以獲取所有狀態，再根據 ViewState 去響應。當然，實踐中應該根據狀態之間的關聯程度來決定數據流的個數，不應該為了使用 MVI 模式而強行將多個無關的狀態壓縮在同一個數據流中。</p>
-<ul>
-<li>唯一可信源： 數據只有一個來源（ViewModel），與 MVVM 的思想相同；</li>
-<li>單數據流： View 和 ViewModel 之間只有一個數據流，只有一個地方可以修改數據，確保數據是安全穩定的。並且 View 只需要訂閱一個 ViewState 就可以獲取所有狀態和數據，相比 MVVM 是新的特性；</li>
-<li>響應式： ViewState 包含頁面當前的狀態和數據，View 通過訂閱 ViewState 就可以完成頁面刷新，相比於 MVVM 是新的特性。</li>
-</ul>
-<p>但 MVI 本身也存在一些缺點：</p>
-<ul>
-<li>State 膨脹： 所有視圖變化都轉換為 ViewState，還需要管理不同狀態下對應的數據。實踐中應該根據狀態之間的關聯程度來決定使用單流還是多流；</li>
-<li>內存開銷： ViewState 是不可變類，狀態變更時需要創建新的對象，存在一定內存開銷；</li>
-<li>局部刷新： View 根據 ViewState 響應，不易實現局部 Diff 刷新，可以使用 Flow#distinctUntilChanged() 來刷新來減少不必要的刷新。</li>
-</ul>
-<h3 id="Android-架構的比較"><a href="#Android-架構的比較" class="headerlink" title="Android 架構的比較"></a>Android 架構的比較</h3><p>MVVM 和 MVP 的思想是相同的，最本質的概念就是 Activity 里做的事情太多了，所以要把 Activity 中與 UI 無關的部分抽離出來，交給別人做。這個 「別人」 在 MVP 里叫作 Presenter，在 MVVM 里叫作 ViewModel。而不論是 MVP 中的約定接口，還是 ViewModel 里的觀察者模式，這些都是實現上的細節而已。</p>
-<p>MVI 與前者的主要區別不在於強調嚴格的單向數據流，而在於從命令式的開發模式，轉變為響應式的開發模式。</p>
+<hr />
+<h3 id="clean-architecture">Clean Architecture</h3>
+<p>Clean Architecture 強調關注點和依賴關係規則的分離。 - 將 Clean
+架構用於大型複雜專案，重點關注可維護性和可測試性。 -
+它將代碼庫(codebase)劃分為多個層：<b>Presentation</b>、<b>Domain</b> 和
+<b>Data</b>，每個層都有自己的職責和依賴關係。 -
+簡潔的架構允許輕鬆更換元件並促進單元測試。 -
+但是，它引入了額外的複雜性，並且可能會針對較小的專案進行過度設計。</p>
+<hr />
+<p>### MVI(Model-View-Intent) MVI
+是一種新興的架構模式，旨在提供<u>可預測(predictable)</u>且<u>響應式(reactive)</u>
+UI。 - 將 MVI 用於需要嚴格的單向數據流(data flow)和高度互動式 UI
+的專案。 - 它將 <b>Model</b>、<b>View</b> 和 <b>Intent</b>
+的關注點分開，提供清晰的數據流(data flow)方向。 - MVI
+促進了不變性(immutability)和回應式(reactive)程式設計，使得對狀態變化的推理變得更加容易。
+- 但是，MVI 可能會帶來額外的複雜性，尤其是對於簡單的專案。</p>
+<p>MVI 模式的改動在於將 View 和 ViewModel 之間的多數據流改為基於
+ViewState 的單數據流。</p>
+<p>MVI 將程式碼劃分為四個部分： | | 說明 | | :-- | :-- | |
+<strong>View</strong> | Activity 和 Layout XML 文件，與 MVVM 中 View
+的概念相同。 | | <strong>Intent</strong> | 定義數據操作，是將數據傳到
+Model 的唯一來源，相比 MVVM 是新的概念。 | | <strong>ViewModel</strong>
+| 存儲視圖狀態，負責處理表現邏輯，並將 ViewState 設置給可觀察數據容器。
+| | <strong>ViewState</strong> | 一個數據類，包含頁面狀態和對應的數據。
+|</p>
+<p><img src="https://imgur.com/RkvcUAT.png"></p>
+<p>在實現細節上，View 和 ViewModel 之間的多個交互（多 LiveData
+數據流）變成了單數據流。無論 View 有多少個視圖狀態，只需要訂閱一個
+ViewState 便可以獲取所有狀態，再根據 ViewState
+去響應。當然，實踐中應該根據狀態之間的關聯程度來決定數據流的個數，不應該為了使用
+MVI 模式而強行將多個無關的狀態壓縮在同一個數據流中。 + 唯一可信源：
+數據只有一個來源（ViewModel），與 MVVM 的思想相同； + 單數據流： View 和
+ViewModel
+之間只有一個數據流，只有一個地方可以修改數據，確保數據是安全穩定的。並且
+View 只需要訂閱一個 ViewState 就可以獲取所有狀態和數據，相比 MVVM
+是新的特性； + 響應式： ViewState 包含頁面當前的狀態和數據，View
+通過訂閱 ViewState 就可以完成頁面刷新，相比於 MVVM 是新的特性。</p>
+<p>但 MVI 本身也存在一些缺點： + State 膨脹： 所有視圖變化都轉換為
+ViewState，還需要管理不同狀態下對應的數據。實踐中應該根據狀態之間的關聯程度來決定使用單流還是多流；
++ 內存開銷： ViewState
+是不可變類，狀態變更時需要創建新的對象，存在一定內存開銷； + 局部刷新：
+View 根據 ViewState 響應，不易實現局部 Diff 刷新，可以使用
+Flow#distinctUntilChanged() 來刷新來減少不必要的刷新。</p>
+<hr />
+<h3 id="android-架構的比較">Android 架構的比較</h3>
+<p>MVVM 和 MVP 的思想是相同的，最本質的概念就是 Activity
+里做的事情太多了，所以要把 Activity 中與 UI
+無關的部分抽離出來，交給別人做。這個 「別人」 在 MVP 里叫作
+Presenter，在 MVVM 里叫作 ViewModel。而不論是 MVP 中的約定接口，還是
+ViewModel 里的觀察者模式，這些都是實現上的細節而已。</p>
+<p>MVI
+與前者的主要區別不在於強調嚴格的單向數據流，而在於從命令式的開發模式，轉變為響應式的開發模式。</p>
 <ul>
 <li>MVC 和 MVP 適用於較小的專案。</li>
-<li>MVVM、Clean Architecture 和 MVI 為更大和更複雜的專案提供了更好的可伸縮性、可測試性和可維護性。</li>
+<li>MVVM、Clean Architecture 和 MVI
+為更大和更複雜的專案提供了更好的可伸縮性、可測試性和可維護性。</li>
 </ul>
-<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><p><a target="_blank" rel="noopener" href="https://medium.com/@KodeFlap/choosing-android-architectures-mvc-mvp-mvvm-clean-architecture-and-mvi-8ad2a43f7f9b">Choosing Android Architectures: MVC, MVP, MVVM, Clean Architecture, and MVI</a><br><a target="_blank" rel="noopener" href="https://kknews.cc/zh-tw/n/pjb52mj.html">Android 架構演進：從 MVC 到 MVP、MVVM、MVI，Android開發如何選？</a></p>
+<hr />
+<h3 id="參考資料">參考資料</h3>
+<p><a
+target="_blank" rel="noopener" href="https://medium.com/@KodeFlap/choosing-android-architectures-mvc-mvp-mvvm-clean-architecture-and-mvi-8ad2a43f7f9b">Choosing
+Android Architectures: MVC, MVP, MVVM, Clean Architecture, and MVI</a>
+<a target="_blank" rel="noopener" href="https://kknews.cc/zh-tw/n/pjb52mj.html">Android 架構演進：從
+MVC 到 MVP、MVVM、MVI，Android開發如何選？</a></p>
 
     </div>
 
@@ -442,11 +410,11 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Android/" rel="tag"># Android</a>
-              <a href="/tags/MVVM/" rel="tag"># MVVM</a>
               <a href="/tags/MVC/" rel="tag"># MVC</a>
               <a href="/tags/MVP/" rel="tag"># MVP</a>
-              <a href="/tags/MVI/" rel="tag"># MVI</a>
+              <a href="/tags/MVVM/" rel="tag"># MVVM</a>
               <a href="/tags/Clean-Architecture/" rel="tag"># Clean Architecture</a>
+              <a href="/tags/MVI/" rel="tag"># MVI</a>
           </div>
 
         
@@ -520,7 +488,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC-Model-View-Controller"><span class="nav-number">1.</span> <span class="nav-text">MVC(Model-View-Controller)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVP-Model-View-Presenter"><span class="nav-number">2.</span> <span class="nav-text">MVP(Model-View-Presenter)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVVM-Model-View-ViewModel"><span class="nav-number">3.</span> <span class="nav-text">MVVM(Model-View-ViewModel)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clean-Architecture"><span class="nav-number">4.</span> <span class="nav-text">Clean Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVI-Model-View-Intent"><span class="nav-number">5.</span> <span class="nav-text">MVI(Model-View-Intent)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-%E6%9E%B6%E6%A7%8B%E7%9A%84%E6%AF%94%E8%BC%83"><span class="nav-number">6.</span> <span class="nav-text">Android 架構的比較</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mvcmodel-view-controller"><span class="nav-number">1.</span> <span class="nav-text">MVC(Model-View-Controller)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mvpmodel-view-presenter"><span class="nav-number">2.</span> <span class="nav-text">MVP(Model-View-Presenter)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mvvmmodel-view-viewmodel"><span class="nav-number">3.</span> <span class="nav-text">MVVM(Model-View-ViewModel)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clean-architecture"><span class="nav-number">4.</span> <span class="nav-text">Clean Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#android-%E6%9E%B6%E6%A7%8B%E7%9A%84%E6%AF%94%E8%BC%83"><span class="nav-number">5.</span> <span class="nav-text">Android 架構的比較</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -536,20 +504,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">128</span>
+        <span class="site-state-item-count">129</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -645,6 +613,8 @@
 
 
 
+
+  
 
   
 

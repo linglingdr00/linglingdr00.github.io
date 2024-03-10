@@ -24,26 +24,19 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="目前為止，您使用的應用程式只執行一項活動(activity)。但實際上很多 Android 應用程式需要執行多項活動(activity)，並透過導覽(navigation)來切換應用程式。  學習目標  使用明確意圖(intent)導覽(navigation)至特定活動(activity)。 使用隱含意圖(intent)導覽(navigation)至其他應用程式的內容。 新增選單(menu)選項">
+  <meta name="description" content="目前為止，您使用的應用程式只執行一項活動(activity)。但實際上很多 Android 應用程式需要執行多項活動(activity)，並透過導覽(navigation)來切換應用程式。  學習目標 + 使用明確意圖(intent)導覽(navigation)至特定活動(activity)。 + 使用隱含意圖(intent)導覽(navigation)至其他應用程式的內容。 + 新增選單(me">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(22)-Activities和Intents">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/09/29/Android%E7%AD%86%E8%A8%98-22-Activities%E5%92%8CIntents/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="目前為止，您使用的應用程式只執行一項活動(activity)。但實際上很多 Android 應用程式需要執行多項活動(activity)，並透過導覽(navigation)來切換應用程式。  學習目標  使用明確意圖(intent)導覽(navigation)至特定活動(activity)。 使用隱含意圖(intent)導覽(navigation)至其他應用程式的內容。 新增選單(menu)選項">
+<meta property="og:description" content="目前為止，您使用的應用程式只執行一項活動(activity)。但實際上很多 Android 應用程式需要執行多項活動(activity)，並透過導覽(navigation)來切換應用程式。  學習目標 + 使用明確意圖(intent)導覽(navigation)至特定活動(activity)。 + 使用隱含意圖(intent)導覽(navigation)至其他應用程式的內容。 + 新增選單(me">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/7edb0777b033c159_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/c465ef280fe3792a_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/8ad271362c0a113b_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/61af34429128695e_1920.png">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/ce3474dba2a9c1c8_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/7edb0777b033c159_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/c465ef280fe3792a_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/e9c77033d9224170_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/702236c6e2276f91_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/b43155b06a5556e_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/828cef3fdcfdaed_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/7edb0777b033c159_1920.png?hl=zh-tw">
-<meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/ce3474dba2a9c1c8_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/dfc4095251c1466e_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/5a01fc03113ac399_1920.png?hl=zh-tw">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/c4f83806a1aa121b_1920.png?hl=zh-tw">
@@ -61,7 +54,7 @@
 <meta property="article:tag" content="singleton">
 <meta property="article:tag" content="Navigation">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/7edb0777b033c159_1920.png?hl=zh-tw">
+<meta name="twitter:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/61af34429128695e_1920.png">
 
 <link rel="canonical" href="https://linglingdr00.github.io/2023/09/29/Android%E7%AD%86%E8%A8%98-22-Activities%E5%92%8CIntents/">
 
@@ -289,313 +282,444 @@
 
       
         <blockquote>
-<p>目前為止，您使用的應用程式只執行一項<code>活動(activity)</code>。但實際上很多 Android 應用程式需要執行多項活動(activity)，並透過<code>導覽(navigation)</code>來切換應用程式。</p>
+<p>目前為止，您使用的應用程式只執行一項<code>活動(activity)</code>。但實際上很多
+Android
+應用程式需要執行多項活動(activity)，並透過<code>導覽(navigation)</code>來切換應用程式。</p>
 </blockquote>
-<p><strong>學習目標</strong></p>
-<ul>
-<li>使用<code>明確意圖(intent)</code>導覽(navigation)至特定活動(activity)。</li>
-<li>使用<code>隱含意圖(intent)</code>導覽(navigation)至其他應用程式的內容。</li>
-<li>新增<code>選單(menu)</code>選項，並新增按鈕至<code>應用程式列(app bar)</code>。</li>
-</ul>
+<p><strong>學習目標</strong> +
+使用<code>明確意圖(intent)</code>導覽(navigation)至特定活動(activity)。
++
+使用<code>隱含意圖(intent)</code>導覽(navigation)至其他應用程式的內容。
++
+新增<code>選單(menu)</code>選項，並新增按鈕至<code>應用程式列(app bar)</code>。</p>
 <p>在本程式碼研究室中，您要建構一個字典應用程式，讓應用程式使用多項活動，並使用<code>意圖(intent)</code>切換應用程式，同時<strong>傳遞資料</strong>至其他應用程式。</p>
 <span id="more"></span>
-
-<hr>
-<h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><p>在後續步驟中，您要使用 Words 應用程式。Words 應用程式是簡單的字典應用程式，包含字母清單、每個字母的字詞，以及在瀏覽器中查詢個別字詞定義的功能。</p>
+<hr />
+<h3 id="範例程式碼">範例程式碼</h3>
+<p>在後續步驟中，您要使用 Words 應用程式。Words
+應用程式是簡單的字典應用程式，包含字母清單、每個字母的字詞，以及在瀏覽器中查詢個別字詞定義的功能。</p>
 <div style="display: flex;justify-content: center;">
-    <div style="width:30%;float:left;margin-right:10px;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/7edb0777b033c159_1920.png?hl=zh-tw">
-    </div>
-    <div style="width:30%;float:left;margin-right:10px;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/c465ef280fe3792a_1920.png?hl=zh-tw">
-    </div>
-    <div style="width:30%;float:left;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/8ad271362c0a113b_1920.png?hl=zh-tw">
-    </div>
-<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/7edb0777b033c159_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;
+&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/c465ef280fe3792a_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;
+&lt;div style=&quot;width:30%;float:left;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/8ad271362c0a113b_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;</code></pre>
+<div style="clear:both;">
+
 </div>
-
-<h4 id="下載範例程式碼"><a href="#下載範例程式碼" class="headerlink" title="下載範例程式碼"></a>下載範例程式碼</h4><p>請注意，GitHub 下載範例程式碼的資料夾名稱是 <code>android-basics-kotlin-words-app-starter</code>。在 Android Studio 中開啟專案時，請選取這個資料夾。</p>
+<!--這是用來清除上方的浮動效果-->
+</div>
+<h4 id="下載範例程式碼">下載範例程式碼</h4>
+<p>請注意，GitHub 下載範例程式碼的資料夾名稱是
+<code>android-basics-kotlin-words-app-starter</code>。在 Android Studio
+中開啟專案時，請選取這個資料夾。</p>
 <div class="note no-icon success">
-            <p><strong>範例程式碼網址：</strong> <a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-words-app">https://github.com/google-developer-training/android-basics-kotlin-words-app</a><br><strong>分支版本名稱：</strong> <b>starter</b></p>
+            <p><strong>範例程式碼網址：</strong>https://github.com/google-developer-training/android-basics-kotlin-words-app<strong>分支版本名稱：</strong> <b>starter</b></p>
           </div>
-
-<h4 id="在-Android-Studio-中開啟專案"><a href="#在-Android-Studio-中開啟專案" class="headerlink" title="在 Android Studio 中開啟專案"></a>在 Android Studio 中開啟專案</h4><ol>
+<h4 id="在-android-studio-中開啟專案">在 Android Studio 中開啟專案</h4>
+<ol type="1">
 <li>啟動 Android Studio。</li>
 <li>開啟 <code>android-basics-kotlin-words-app-starter</code> 專案</li>
 <li>按一下「Run」按鈕，確認應用程式的建構符合預期。</li>
 </ol>
-<hr>
-<h3 id="Word-應用程式總覽"><a href="#Word-應用程式總覽" class="headerlink" title="Word 應用程式總覽"></a>Word 應用程式總覽</h3><p>繼續操作前，請花點時間熟悉專案內容。您必須熟悉上一個單元的所有概念。應用程式目前有兩項<code>活動(activities)</code>，包含 <code>recycler view</code> 和 <code>adapter</code>。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/61af34429128695e_1920.png" width="50%" height="50%">
-
-<p>具體而言，您會使用下列檔案：</p>
-<ol>
-<li><code>MainActivity</code> 的 <code>RecyclerView</code> 會使用 <code>LetterAdapter</code>。每個字母都是包含 <code>onClickListener</code> 的按鈕，這些按鈕目前沒有任何內容。您可以在這裡管理按鈕點按操作以導覽至 <code>DetailActivity</code>。</li>
-<li><code>DetailActivity</code> 的 <code>RecyclerView</code> 使用 <code>WordAdapter</code>，以顯示字詞清單(list)。雖然您暫時無法前往此畫面，但請記得每個字詞都有對應的按鈕和 <code>onClickListener</code>。在這個步驟中，為了導覽至瀏覽器並顯示字詞的定義，您要加入程式碼。</li>
-<li><code>MainActivity</code> 也需要進行一些變更。在這個步驟中，為了顯示按鈕，讓使用者切換清單(list)和格線版面配置，您要實作選項選單(option menu)。</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/ce3474dba2a9c1c8_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<hr>
-<h3 id="Intent簡介"><a href="#Intent簡介" class="headerlink" title="Intent簡介"></a>Intent簡介</h3><p>您已完成初始專案設定，接著我們要探討意圖(intent)，以及如何在應用程式中使用意圖(intent)。</p>
-<p><code>意圖(intent)</code>是物件，代表要執行的一些動作。我們最常看到意圖用來啟動<code>活動(activity)</code> (當然意圖不只這個用途)。<code>意圖(intent)</code>分為兩種類型：<code>隱含(implicit)</code>和<code>明確(explicit)</code>。</p>
-<ul>
-<li><strong>明確意圖(explicit intent)</strong> ：極為精確，您確切知道要啟動的活動(activity) (通常是應用程式的畫面)。</li>
-<li><strong>隱含意圖(implicit intent)</strong> ：較抽象，系統收到動作的類型 (例如開啟連結、撰寫電子郵件或撥打電話)，然後負責判斷如何完成要求。</li>
-</ul>
-<p>您可能已看過這兩種意圖(intent)，只是未察覺到。一般而言，在您的應用程式中 <strong>顯示活動(activity)</strong> 時，即是使用 <strong>明確意圖(explicit intent)</strong> 。</p>
+<hr />
+<h3 id="word-應用程式總覽">Word 應用程式總覽</h3>
+<p>繼續操作前，請花點時間熟悉專案內容。您必須熟悉上一個單元的所有概念。應用程式目前有兩項<code>活動(activities)</code>，包含
+<code>recycler view</code> 和 <code>adapter</code>。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/61af34429128695e_1920.png" width="50%" height="50%"></p>
+<p>具體而言，您會使用下列檔案： 1. <code>MainActivity</code> 的
+<code>RecyclerView</code> 會使用
+<code>LetterAdapter</code>。每個字母都是包含
+<code>onClickListener</code>
+的按鈕，這些按鈕目前沒有任何內容。您可以在這裡管理按鈕點按操作以導覽至
+<code>DetailActivity</code>。 2. <code>DetailActivity</code> 的
+<code>RecyclerView</code> 使用
+<code>WordAdapter</code>，以顯示字詞清單(list)。雖然您暫時無法前往此畫面，但請記得每個字詞都有對應的按鈕和
+<code>onClickListener</code>。在這個步驟中，為了導覽至瀏覽器並顯示字詞的定義，您要加入程式碼。
+3. <code>MainActivity</code>
+也需要進行一些變更。在這個步驟中，為了顯示按鈕，讓使用者切換清單(list)和格線版面配置，您要實作選項選單(option
+menu)。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/ce3474dba2a9c1c8_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<hr />
+<h3 id="intent簡介">Intent簡介</h3>
+<p>您已完成初始專案設定，接著我們要探討意圖(intent)，以及如何在應用程式中使用意圖(intent)。</p>
+<p><code>意圖(intent)</code>是物件，代表要執行的一些動作。我們最常看到意圖用來啟動<code>活動(activity)</code>
+(當然意圖不只這個用途)。<code>意圖(intent)</code>分為兩種類型：<code>隱含(implicit)</code>和<code>明確(explicit)</code>。
++ <strong>明確意圖(explicit intent)</strong>
+：極為精確，您確切知道要啟動的活動(activity) (通常是應用程式的畫面)。 +
+<strong>隱含意圖(implicit intent)</strong> ：較抽象，系統收到動作的類型
+(例如開啟連結、撰寫電子郵件或撥打電話)，然後負責判斷如何完成要求。</p>
+<p>您可能已看過這兩種意圖(intent)，只是未察覺到。一般而言，在您的應用程式中
+<strong>顯示活動(activity)</strong> 時，即是使用
+<strong>明確意圖(explicit intent)</strong> 。</p>
 <div style="display: flex;justify-content: center;">
-    <div style="width:30%;float:left;margin-right:10px;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/7edb0777b033c159_1920.png?hl=zh-tw">
-    </div>
-    <div style="width:30%;float:left;margin-right:10px;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/c465ef280fe3792a_1920.png?hl=zh-tw">
-    </div>
-<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/7edb0777b033c159_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;
+&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/c465ef280fe3792a_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;</code></pre>
+<div style="clear:both;">
+
 </div>
-
-<p>但如果動作不涉及目前的應用程式 (例如您找到有趣的 Android 文件資訊頁面，並想分享給朋友)，即使用 <strong>隱含意圖(implicit intent)</strong> 。您可能會看到類似選單，詢問您要使用什麼應用程式分享資訊頁面。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/e9c77033d9224170_1920.png?hl=zh-tw" width="30%" height="30%">
-
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/702236c6e2276f91_1920.png?hl=zh-tw" width="70%" height="70%">
-
-<hr>
-<h3 id="設定-Explicit-Intent"><a href="#設定-Explicit-Intent" class="headerlink" title="設定 Explicit Intent"></a>設定 Explicit Intent</h3><p>現在可以實作第一個意圖(Intent)了。在第一個畫面上，當使用者輕觸字母後，就會前往列有字詞清單的第二個畫面。因為已實作 <code>DetailActivity</code>，所以只需使用Intent啟動此動作。因為應用程式已經知道要啟動特定的活動(Activity)，您可以使用明確意圖(Explicit Intent)。</p>
-<p>建立並使用Intent只需幾個步驟：</p>
-<ol>
-<li>開啟 <code>LetterAdapter.kt</code> 並向下捲動至 <code>onBindViewHolder()</code>。在這一行程式碼下，設定按鈕文字，並設定 <code>holder.button</code> 的 <code>onClickListener</code>。</li>
-</ol>
+<!--這是用來清除上方的浮動效果-->
+</div>
+<p>但如果動作不涉及目前的應用程式 (例如您找到有趣的 Android
+文件資訊頁面，並想分享給朋友)，即使用 <strong>隱含意圖(implicit
+intent)</strong>
+。您可能會看到類似選單，詢問您要使用什麼應用程式分享資訊頁面。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/e9c77033d9224170_1920.png?hl=zh-tw" width="30%" height="30%"></p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/702236c6e2276f91_1920.png?hl=zh-tw" width="70%" height="70%"></p>
+<hr />
+<h3 id="設定-explicit-intent">設定 Explicit Intent</h3>
+<p>現在可以實作第一個意圖(Intent)了。在第一個畫面上，當使用者輕觸字母後，就會前往列有字詞清單的第二個畫面。因為已實作
+<code>DetailActivity</code>，所以只需使用Intent啟動此動作。因為應用程式已經知道要啟動特定的活動(Activity)，您可以使用明確意圖(Explicit
+Intent)。</p>
+<p>建立並使用Intent只需幾個步驟： 1. 開啟 <code>LetterAdapter.kt</code>
+並向下捲動至
+<code>onBindViewHolder()</code>。在這一行程式碼下，設定按鈕文字，並設定
+<code>holder.button</code> 的 <code>onClickListener</code>。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">holder.button.setOnClickListener &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol start="2" type="1">
 <li>然後取得 <code>context</code> 的參考。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> context = holder.itemView.context</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>建立 <code>Intent</code>，並傳入目的地活動的結構定義和 class name。</li>
+<ol start="3" type="1">
+<li>建立 <code>Intent</code>，並傳入目的地活動的結構定義和 class
+name。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> intent = Intent(context, DetailActivity::<span class="keyword">class</span>.java)</span><br></pre></td></tr></table></figure>
 <ul>
-<li>您要顯示的活動名稱指定為 <code>DetailActivity::class.java</code>。實際的 <code>DetailActivity</code> 物件會在幕後建立。</li>
+<li>您要顯示的活動名稱指定為
+<code>DetailActivity::class.java</code>。實際的
+<code>DetailActivity</code> 物件會在幕後建立。</li>
 </ul>
-<ol start="4">
-<li>呼叫 <code>putExtra</code> 方法，然後傳入「letter」做為第一個引數，按鈕文字則做為第二個引數。</li>
+<ol start="4" type="1">
+<li>呼叫 <code>putExtra</code>
+方法，然後傳入「letter」做為第一個引數，按鈕文字則做為第二個引數。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intent.putExtra(<span class="string">&quot;letter&quot;</span>, holder.button.text.toString())</span><br></pre></td></tr></table></figure>
-
-<p>extra 是什麼？請記得，intent 只是一組操作說明，但目的地動作目前沒有 intent。而 extra 是一段資料，例如數字或字串，即之後擷取的指定名稱。這類似於呼叫函式時傳遞引數。因為 <code>DetailActivity</code> 可顯示任何字母，您必須指定顯示哪個字母。</p>
-<p>此外，您認為為什麼需要呼叫 <code>toString()</code>？按鈕的文字是字串，對吧？</p>
-<p>可以這麼說。它其實是 <code>CharSequence</code> 類型，即所謂的介面。您目前不需瞭解 Kotlin 介面的任何資訊，只需知道介面是用於確定字串等類型，以及實作特定函式和屬性的方式。您可以將 － 聯想為類似字串 class 的一般表示法。按鈕的 <code>text</code> 屬性可以是字串，或同時是 <code>CharSequence</code> 的任何物件。但 <code>putExtra()</code> 方法接受 <code>String</code>，不是 <code>CharSequence</code>，所以必須呼叫 <code>toString()</code>。</p>
-<ol start="5">
-<li>呼叫結構定義的 <code>startActivity()</code> 方法，並傳入 <code>intent</code>。</li>
+<p>extra 是什麼？請記得，intent 只是一組操作說明，但目的地動作目前沒有
+intent。而 extra
+是一段資料，例如數字或字串，即之後擷取的指定名稱。這類似於呼叫函式時傳遞引數。因為
+<code>DetailActivity</code> 可顯示任何字母，您必須指定顯示哪個字母。</p>
+<p>此外，您認為為什麼需要呼叫
+<code>toString()</code>？按鈕的文字是字串，對吧？</p>
+<p>可以這麼說。它其實是 <code>CharSequence</code>
+類型，即所謂的介面。您目前不需瞭解 Kotlin
+介面的任何資訊，只需知道介面是用於確定字串等類型，以及實作特定函式和屬性的方式。您可以將
+－ 聯想為類似字串 class 的一般表示法。按鈕的 <code>text</code>
+屬性可以是字串，或同時是 <code>CharSequence</code> 的任何物件。但
+<code>putExtra()</code> 方法接受 <code>String</code>，不是
+<code>CharSequence</code>，所以必須呼叫 <code>toString()</code>。</p>
+<ol start="5" type="1">
+<li>呼叫結構定義的 <code>startActivity()</code> 方法，並傳入
+<code>intent</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">context.startActivity(intent)</span><br></pre></td></tr></table></figure>
-
-<p>接著執行應用程式，並嘗試輕觸字母。隨即顯示詳細資料畫面！但無論使用者輕觸哪個字母，詳細資料畫面會一律顯示字母 A 的字詞。在詳細資料動作中，一些工作仍有待完成，才會顯示傳遞字母的字詞，作為 <code>intent</code> 額外資料。</p>
-<hr>
-<h3 id="設定-DetailActivity"><a href="#設定-DetailActivity" class="headerlink" title="設定 DetailActivity"></a>設定 DetailActivity</h3><p>您已建立第一個明確意圖！現在進入詳細資料畫面。</p>
-<p>在 <code>DetailActivity</code> 的 <code>onCreate</code> 方法中，呼叫 <code>setContentView</code> 後，以程式碼取代硬式編碼字母，從 <code>intent</code> 取得傳入的 <code>letterId</code>。</p>
+<p>接著執行應用程式，並嘗試輕觸字母。隨即顯示詳細資料畫面！但無論使用者輕觸哪個字母，詳細資料畫面會一律顯示字母
+A
+的字詞。在詳細資料動作中，一些工作仍有待完成，才會顯示傳遞字母的字詞，作為
+<code>intent</code> 額外資料。</p>
+<hr />
+<h3 id="設定-detailactivity">設定 DetailActivity</h3>
+<p>您已建立第一個明確意圖！現在進入詳細資料畫面。</p>
+<p>在 <code>DetailActivity</code> 的 <code>onCreate</code> 方法中，呼叫
+<code>setContentView</code> 後，以程式碼取代硬式編碼字母，從
+<code>intent</code> 取得傳入的 <code>letterId</code>。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> letterId = intent?.extras?.getString(<span class="string">&quot;letter&quot;</span>).toString()</span><br></pre></td></tr></table></figure>
-
 <p>這裡有很多要注意的事項，所以接著我們要查看每個項目：</p>
-<p>首先，<code>intent</code> 屬性的來源為何？這不是 <code>DetailActivity</code> 的屬性，而是任何活動的屬性。此屬性會持續參考啟動活動使用的意圖。</p>
-<p>額外屬性是 <code>Bundle</code> 類型，或許您已猜到，該屬性提供方法來存取傳入意圖的所有額外屬性。</p>
-<p>這兩個屬性會以問號標示。原因是什麼呢？原因是 <code>intent</code> 和 <code>extras</code> 屬性可為空值，換句話說，您可以使用值，也可以不使用值。有時，您可能想要變數為 <code>null</code>。<code>intent</code> 屬性可能不是 <code>Intent</code> (如果活動不是從意圖啟動)，此外，額外的屬性可能不是 <code>Bundle</code>，而是名為 <code>null</code> 的值。在 Kotlin 中，<code>null</code> 代表沒有值。物件可能存在，或可能是 <code>null</code>。如果您的應用程式嘗試在 <code>null</code> 物件上存取屬性或呼叫函式，該應用程式就會異常終止。若要安全存取這個值，您必須在名稱後方加上 <code>?</code>。如果 <code>intent</code> 是 <code>null</code>，應用程式不會嘗試存取額外的屬性，此外，如果 <code>extras</code> 為空值，程式碼也不會嘗試呼叫 <code>getString()</code>。</p>
+<p>首先，<code>intent</code> 屬性的來源為何？這不是
+<code>DetailActivity</code>
+的屬性，而是任何活動的屬性。此屬性會持續參考啟動活動使用的意圖。</p>
+<p>額外屬性是 <code>Bundle</code>
+類型，或許您已猜到，該屬性提供方法來存取傳入意圖的所有額外屬性。</p>
+<p>這兩個屬性會以問號標示。原因是什麼呢？原因是 <code>intent</code> 和
+<code>extras</code>
+屬性可為空值，換句話說，您可以使用值，也可以不使用值。有時，您可能想要變數為
+<code>null</code>。<code>intent</code> 屬性可能不是 <code>Intent</code>
+(如果活動不是從意圖啟動)，此外，額外的屬性可能不是
+<code>Bundle</code>，而是名為 <code>null</code> 的值。在 Kotlin
+中，<code>null</code> 代表沒有值。物件可能存在，或可能是
+<code>null</code>。如果您的應用程式嘗試在 <code>null</code>
+物件上存取屬性或呼叫函式，該應用程式就會異常終止。若要安全存取這個值，您必須在名稱後方加上
+<code>?</code>。如果 <code>intent</code> 是
+<code>null</code>，應用程式不會嘗試存取額外的屬性，此外，如果
+<code>extras</code> 為空值，程式碼也不會嘗試呼叫
+<code>getString()</code>。</p>
 <p>如何知道哪些屬性需要問號才能確保空值的安全性？您可以透過類型名稱後方是否有問號或驚嘆號來判斷。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/b43155b06a5556e_1920.png?hl=zh-tw" width="70%">
-
-<p>最後請注意，使用 <code>getString</code> 擷取實際字母會傳回 <code>String?</code>，所以呼叫 <code>toString()</code> 可確保它是 <code>String</code>，而不是 <code>null</code>。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/b43155b06a5556e_1920.png?hl=zh-tw" width="70%"></p>
+<p>最後請注意，使用 <code>getString</code> 擷取實際字母會傳回
+<code>String?</code>，所以呼叫 <code>toString()</code> 可確保它是
+<code>String</code>，而不是 <code>null</code>。</p>
 <p>您現在執行應用程式，並導覽至詳細資料畫面時，應該會看到每個字母的字詞清單。</p>
-<h4 id="清除-Cleaning-Up"><a href="#清除-Cleaning-Up" class="headerlink" title="清除(Cleaning Up)"></a>清除(Cleaning Up)</h4><p>兩個程式碼會執行意圖，並擷取選取 <code>extra</code> 名稱「letter」(字母) 的字母硬式編碼。雖然小型樣本可以使用這方法，但對於大型應用程式 (其中包含需持續追蹤的大量意圖額外資料) 就不是最佳做法。</p>
-<p>雖然您可以只建立名為「letter」的常數，但應用程式加入較多意圖額外資訊後，就不適合使用常數；更何況常數要放置在哪個 class 也是個問題。請記得，字串會同時用於 <code>DetailActivity</code> 和 <code>MainActivity</code>。您必須定義常數，才可以跨多個 class 使用，並維持程式碼井然有序。</p>
-<p>值得慶幸的是，我們可透過一項實用的 Kotlin 功能來區隔常數，而且不必使用名為「<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/object-declarations.html">companion object</a>」 class 的特定 instance，一樣可以使用常數。Companion object 類似於 class instance 這種其他物件。但在程式執行期間，<u><strong>companion object</strong> 只會存在一個 <strong>instance</strong></u>，所以有時稱為「<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Singleton_pattern">單例模式(singleton)</a>」。除了本程式碼研究室的適用範圍外，單例模式(singleton)仍有許多用途，但目前您要使用 companion object 規劃常數，並使其可從 <code>DetailActivity</code> 外部存取。您可以開始使用 companion object，重構「letter」(字母) 額外資料的程式碼。</p>
-<ol>
-<li>在 <code>onCreate</code> 上方的 <code>DetailActivity</code> 中，新增以下內容：</li>
+<h4 id="清除cleaning-up">清除(Cleaning Up)</h4>
+<p>兩個程式碼會執行意圖，並擷取選取 <code>extra</code>
+名稱「letter」(字母)
+的字母硬式編碼。雖然小型樣本可以使用這方法，但對於大型應用程式
+(其中包含需持續追蹤的大量意圖額外資料) 就不是最佳做法。</p>
+<p>雖然您可以只建立名為「letter」的常數，但應用程式加入較多意圖額外資訊後，就不適合使用常數；更何況常數要放置在哪個
+class 也是個問題。請記得，字串會同時用於 <code>DetailActivity</code> 和
+<code>MainActivity</code>。您必須定義常數，才可以跨多個 class
+使用，並維持程式碼井然有序。</p>
+<p>值得慶幸的是，我們可透過一項實用的 Kotlin
+功能來區隔常數，而且不必使用名為「<a
+target="_blank" rel="noopener" href="https://kotlinlang.org/docs/object-declarations.html">companion
+object</a>」 class 的特定 instance，一樣可以使用常數。Companion object
+類似於 class instance
+這種其他物件。但在程式執行期間，<u><strong>companion object</strong>
+只會存在一個 <strong>instance</strong></u>，所以有時稱為「<a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Singleton_pattern">單例模式(singleton)</a>」。除了本程式碼研究室的適用範圍外，單例模式(singleton)仍有許多用途，但目前您要使用
+companion object 規劃常數，並使其可從 <code>DetailActivity</code>
+外部存取。您可以開始使用 companion object，重構「letter」(字母)
+額外資料的程式碼。</p>
+<ol type="1">
+<li>在 <code>onCreate</code> 上方的 <code>DetailActivity</code>
+中，新增以下內容：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>請注意，這做法類似於定義 class，只是使用了 <code>object</code> 關鍵字。另外還有關鍵字 <code>companion</code>，表示該關鍵字與 <code>DetailActivity</code> class 相關聯，所以我們不必為其指定額外的類型名稱。</li>
+<li>請注意，這做法類似於定義 class，只是使用了 <code>object</code>
+關鍵字。另外還有關鍵字 <code>companion</code>，表示該關鍵字與
+<code>DetailActivity</code> class
+相關聯，所以我們不必為其指定額外的類型名稱。</li>
 </ul>
-<ol start="2">
+<ol start="2" type="1">
 <li>在大括號中加入字母常數的屬性。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">val</span> LETTER = <span class="string">&quot;letter&quot;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>若要使用新的常數，請更新 <code>onCreate()</code> 中呼叫的硬式編碼字母，如下所示：</li>
+<ol start="3" type="1">
+<li>若要使用新的常數，請更新 <code>onCreate()</code>
+中呼叫的硬式編碼字母，如下所示：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> letterId = intent?.extras?.getString(LETTER).toString()</span><br></pre></td></tr></table></figure>
-
-<p>再次提醒您，常數通常會參考點標記法，但仍屬於 <code>DetailActivity</code>。</p>
-<ol start="4">
-<li>切換至 <code>LetterAdapter</code>，並修改呼叫 <code>putExtra</code>，以使用新的常數。</li>
+<p>再次提醒您，常數通常會參考點標記法，但仍屬於
+<code>DetailActivity</code>。</p>
+<ol start="4" type="1">
+<li>切換至 <code>LetterAdapter</code>，並修改呼叫
+<code>putExtra</code>，以使用新的常數。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intent.putExtra(DetailActivity.LETTER, holder.button.text.toString())</span><br></pre></td></tr></table></figure>
-
 <p>大功告成！重構後，您的程式碼會更容易閱讀和維護。如果您要變更程式碼，或新增的其他常數，只需在一個位置進行變更。</p>
-<p>若要深入瞭解 companion object，請參閱<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/object-declarations.html">物件運算式和宣告</a>的 Kotlin 說明文件。</p>
-<hr>
-<h3 id="設定-Implicit-Intent"><a href="#設定-Implicit-Intent" class="headerlink" title="設定 Implicit Intent"></a>設定 Implicit Intent</h3><p>在多數情況下，您的應用程式會顯示特定的活動(Activity)。但在部分情況下，您不會知道要啟動什麼活動(Activity)或應用程式(Application)。在我們的詳細資料畫面上，每個字詞按鈕會顯示使用者的字詞定義。</p>
-<p>例如，使用 <code>Google</code> 搜尋提供的字典功能。您不是在應用程式中加入新活動，而是啟動裝置瀏覽器，顯示搜尋網頁。<br>所以您可能需要意圖(Intent)以在 <code>Chrome</code> (Android 預設的瀏覽器) 中載入資訊頁面嗎？</p>
-<p>答錯了。<br>部分使用者可能慣用第三方瀏覽器，或手機隨附製造商預先安裝的瀏覽器。他們也許已安裝 Google 搜尋應用程式，或是第三方字典應用程式。</p>
-<p>您無法得知使用者安裝哪些應用程式，也無法假定他們要查詢的字詞。這範例正適合使用隱含意圖(Implicit Intent)。您的應用程式會提供系統採用動作的資訊，然後系統會判斷處置動作的方式，並在必要時提示使用者其他資訊。</p>
-<p>請按照下列步驟建立隱含意圖：</p>
-<ol>
-<li>在這個應用程式中，您要執行 Google 搜尋字詞。第一個搜尋結果是字詞的字典定義。由於每次搜尋都會使用相同的基準網址，因此建議您將網址定義為常數。在 <code>DetailActivity</code> 中修改隨附物件(companion object)，增加新的常數 <code>SEARCH_PREFIX</code>。這是 Google 搜尋的基準網址。</li>
-</ol>
+<p>若要深入瞭解 companion object，請參閱<a
+target="_blank" rel="noopener" href="https://kotlinlang.org/docs/object-declarations.html">物件運算式和宣告</a>的
+Kotlin 說明文件。</p>
+<hr />
+<h3 id="設定-implicit-intent">設定 Implicit Intent</h3>
+<p>在多數情況下，您的應用程式會顯示特定的活動(Activity)。但在部分情況下，您不會知道要啟動什麼活動(Activity)或應用程式(Application)。在我們的詳細資料畫面上，每個字詞按鈕會顯示使用者的字詞定義。</p>
+<p>例如，使用 <code>Google</code>
+搜尋提供的字典功能。您不是在應用程式中加入新活動，而是啟動裝置瀏覽器，顯示搜尋網頁。
+所以您可能需要意圖(Intent)以在 <code>Chrome</code> (Android
+預設的瀏覽器) 中載入資訊頁面嗎？</p>
+<p>答錯了。
+部分使用者可能慣用第三方瀏覽器，或手機隨附製造商預先安裝的瀏覽器。他們也許已安裝
+Google 搜尋應用程式，或是第三方字典應用程式。</p>
+<p>您無法得知使用者安裝哪些應用程式，也無法假定他們要查詢的字詞。這範例正適合使用隱含意圖(Implicit
+Intent)。您的應用程式會提供系統採用動作的資訊，然後系統會判斷處置動作的方式，並在必要時提示使用者其他資訊。</p>
+<p>請按照下列步驟建立隱含意圖： 1. 在這個應用程式中，您要執行 Google
+搜尋字詞。第一個搜尋結果是字詞的字典定義。由於每次搜尋都會使用相同的基準網址，因此建議您將網址定義為常數。在
+<code>DetailActivity</code> 中修改隨附物件(companion
+object)，增加新的常數 <code>SEARCH_PREFIX</code>。這是 Google
+搜尋的基準網址。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">   <span class="keyword">const</span> <span class="keyword">val</span> LETTER = <span class="string">&quot;letter&quot;</span></span><br><span class="line">   <span class="keyword">const</span> <span class="keyword">val</span> SEARCH_PREFIX = <span class="string">&quot;https://www.google.com/search?q=&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>接著，開啟 <code>WordAdapter</code>，然後在 <code>onBindViewHolder()</code> 方法中呼叫按鈕的 <code>setOnClickListener()</code>。開始建立搜尋查詢的 <code>Uri</code>。呼叫 <code>parse()</code> 以從 <code>String</code> 建立 <code>Uri</code> 時，您必須使用字串格式，才能將字詞附加至 <code>SEARCH_PREFIX</code>。</li>
+<ol start="2" type="1">
+<li>接著，開啟 <code>WordAdapter</code>，然後在
+<code>onBindViewHolder()</code> 方法中呼叫按鈕的
+<code>setOnClickListener()</code>。開始建立搜尋查詢的
+<code>Uri</code>。呼叫 <code>parse()</code> 以從 <code>String</code>
+建立 <code>Uri</code> 時，您必須使用字串格式，才能將字詞附加至
+<code>SEARCH_PREFIX</code>。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">holder.button.setOnClickListener &#123;</span><br><span class="line">    <span class="keyword">val</span> queryUrl: Uri = Uri.parse(<span class="string">&quot;<span class="subst">$&#123;DetailActivity.SEARCH_PREFIX&#125;</span><span class="subst">$&#123;item&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果您想知道「URI」是什麼，URI 不是錯字，而是「統一資源識別項」。您可能已經知道網址，或「統一資源定位器」是指向網頁的字串。URI 是格式的一般用語。所有網址 (URL) 都是 URI，但不是所有 URI 都是網址。其他 URI (例如電話號碼位址) 會以 <code>tel:</code> 開頭，但系統會視為 URN 或統一資源名稱，而不是網址。用來代表兩者的資料類型稱為 <code>URI</code>。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/828cef3fdcfdaed_1920.png?hl=zh-tw">
-
-<p>請注意，以下沒有任何與應用程式相關的活動。您只需提供 URI，但不知道最終用法。</p>
-<ol start="3">
-<li>定義 <code>queryUrl</code> 後，請將新的 <code>intent</code> 物件初始化：</li>
+<p>如果您想知道「URI」是什麼，URI
+不是錯字，而是「統一資源識別項」。您可能已經知道網址，或「統一資源定位器」是指向網頁的字串。URI
+是格式的一般用語。所有網址 (URL) 都是 URI，但不是所有 URI 都是網址。其他
+URI (例如電話號碼位址) 會以 <code>tel:</code> 開頭，但系統會視為 URN
+或統一資源名稱，而不是網址。用來代表兩者的資料類型稱為
+<code>URI</code>。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/828cef3fdcfdaed_1920.png?hl=zh-tw"></p>
+<p>請注意，以下沒有任何與應用程式相關的活動。您只需提供
+URI，但不知道最終用法。</p>
+<ol start="3" type="1">
+<li>定義 <code>queryUrl</code> 後，請將新的 <code>intent</code>
+物件初始化：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> intent = Intent(Intent.ACTION_VIEW, queryUrl)</span><br></pre></td></tr></table></figure>
-
-<p>但不必傳入結構定義和活動，而是傳入 <code>Intent.ACTION_VIEW</code> 和 <code>URI</code>。</p>
-<p><code>ACTION_VIEW</code> 是通用意圖，可採用 URI，在本案例即是網址。接著，系統會在使用者的網路瀏覽器中，開啟 URI 處理意圖。其他意圖類型：</p>
-<ul>
-<li>CATEGORY_APP_MAPS：啟動地圖應用程式</li>
-<li>CATEGORY_APP_EMAIL：啟動電子郵件應用程式</li>
-<li>CATEGORY_APP_GALLERY：啟動圖片庫 (相簿) 應用程式</li>
-<li>ACTION_SET_ALARM：在背景設定鬧鐘</li>
-<li>ACTION_DIAL：撥打電話</li>
-</ul>
-<p>若要瞭解詳情，請參閱部分<a target="_blank" rel="noopener" href="https://developer.android.com/guide/components/intents-common">常用意圖</a>的說明文件。</p>
-<ol start="4">
-<li>最後，即使您不在應用程式中啟動任何特定活動，但您仍會呼叫 <code>startActivity()</code> 並傳入 <code>intent</code>，指示系統啟動其他應用程式。</li>
+<p>但不必傳入結構定義和活動，而是傳入 <code>Intent.ACTION_VIEW</code> 和
+<code>URI</code>。</p>
+<p><code>ACTION_VIEW</code> 是通用意圖，可採用
+URI，在本案例即是網址。接著，系統會在使用者的網路瀏覽器中，開啟 URI
+處理意圖。其他意圖類型： + CATEGORY_APP_MAPS：啟動地圖應用程式 +
+CATEGORY_APP_EMAIL：啟動電子郵件應用程式 +
+CATEGORY_APP_GALLERY：啟動圖片庫 (相簿) 應用程式 +
+ACTION_SET_ALARM：在背景設定鬧鐘 + ACTION_DIAL：撥打電話</p>
+<p>若要瞭解詳情，請參閱部分<a
+target="_blank" rel="noopener" href="https://developer.android.com/guide/components/intents-common">常用意圖</a>的說明文件。</p>
+<ol start="4" type="1">
+<li>最後，即使您不在應用程式中啟動任何特定活動，但您仍會呼叫
+<code>startActivity()</code> 並傳入
+<code>intent</code>，指示系統啟動其他應用程式。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">context.startActivity(intent)</span><br></pre></td></tr></table></figure>
-
-<p>現在當您啟動應用程式、前往字詞清單，並輕觸其中一個字詞時，您的裝置應會導覽至該網址 (或根據安裝的應用程式，顯示選項清單)。</p>
-<hr>
-<h3 id="設定-Menu-和-Icons"><a href="#設定-Menu-和-Icons" class="headerlink" title="設定 Menu 和 Icons"></a>設定 Menu 和 Icons</h3><p>新增明確和隱含意圖，更方便瀏覽應用程式後，您可以新增選單選項，讓使用者可以在字母和清單與格線版面配置間切換。</p>
+<p>現在當您啟動應用程式、前往字詞清單，並輕觸其中一個字詞時，您的裝置應會導覽至該網址
+(或根據安裝的應用程式，顯示選項清單)。</p>
+<hr />
+<h3 id="設定-menu-和-icons">設定 Menu 和 Icons</h3>
+<p>新增明確和隱含意圖，更方便瀏覽應用程式後，您可以新增選單選項，讓使用者可以在字母和清單與格線版面配置間切換。</p>
 <div style="display: flex;justify-content: center;">
-    <div style="width:30%;float:left;margin-right:10px;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/7edb0777b033c159_1920.png?hl=zh-tw">
-    </div>
-    <div style="width:30%;float:left;">
-        <img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/ce3474dba2a9c1c8_1920.png?hl=zh-tw">
-    </div>
-<div style="clear:both;"></div><!--這是用來清除上方的浮動效果-->
+<pre><code>&lt;div style=&quot;width:30%;float:left;margin-right:10px;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/7edb0777b033c159_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;
+&lt;div style=&quot;width:30%;float:left;&quot;&gt;
+    &lt;img src=&quot;https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/ce3474dba2a9c1c8_1920.png?hl=zh-tw&quot;&gt;
+&lt;/div&gt;</code></pre>
+<div style="clear:both;">
+
 </div>
-
+<!--這是用來清除上方的浮動效果-->
+</div>
 <p>您目前可能看到很多應用程式畫面的頂端，使用此選項列。這是應用程式列，除了顯示應用程式名稱外，應用程式列也可以自訂並代管許多實用的功能，例如實用動作的快速鍵或溢位選單。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/dfc4095251c1466e_1920.png?hl=zh-tw" width="50%">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/dfc4095251c1466e_1920.png?hl=zh-tw" width="50%"></p>
 <p>在本應用程式中，我們不會新增完備的選單，您會瞭解如何在應用程式列中新增自訂按鈕，方便使用者變更版面配置。</p>
-<ol>
-<li>首先，您必須匯入兩個圖示，代表格狀和清單檢視。新增名為「view module」(將其命名為 <code>ic_grid_layout</code>) 和「view list」(將其命名為 <code>ic_linear_layout</code>) 的 vector assets。如需複習新增 material icons 的操作方式，請參閱<a target="_blank" rel="noopener" href="https://developer.android.com/codelabs/basic-android-kotlin-training-polished-user-experience?continue=https://developer.android.com/courses/pathways/android-basics-kotlin-unit-2-pathway-1%23codelab-https://developer.android.com/codelabs/basic-android-kotlin-training-polished-user-experience&hl=zh-tw#3">此資訊頁面</a>的操作說明。</li>
+<ol type="1">
+<li>首先，您必須匯入兩個圖示，代表格狀和清單檢視。新增名為「view
+module」(將其命名為 <code>ic_grid_layout</code>) 和「view
+list」(將其命名為 <code>ic_linear_layout</code>) 的 vector
+assets。如需複習新增 material icons 的操作方式，請參閱<a
+target="_blank" rel="noopener" href="https://developer.android.com/codelabs/basic-android-kotlin-training-polished-user-experience?continue=https%3A%2F%2Fdeveloper.android.com%2Fcourses%2Fpathways%2Fandroid-basics-kotlin-unit-2-pathway-1%23codelab-https%3A%2F%2Fdeveloper.android.com%2Fcodelabs%2Fbasic-android-kotlin-training-polished-user-experience&amp;hl=zh-tw#3">此資訊頁面</a>的操作說明。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/5a01fc03113ac399_1920.png?hl=zh-tw" width="70%">
-
-<ol start="2">
-<li>您必須設法告知系統應用程式列要顯示的選項，以及使用的圖示。方法是在「res」資料夾上按一下滑鼠右鍵，然後依序選取「New」&gt;「Android Resource File」，藉此新增資源檔案。將「Resource Type」設為 <code>Menu</code>，並將「File Name」設為 <code>layout_menu</code>。</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/5a01fc03113ac399_1920.png?hl=zh-tw" width="70%"></p>
+<ol start="2" type="1">
+<li>您必須設法告知系統應用程式列要顯示的選項，以及使用的圖示。方法是在「res」資料夾上按一下滑鼠右鍵，然後依序選取「New」&gt;「Android
+Resource File」，藉此新增資源檔案。將「Resource Type」設為
+<code>Menu</code>，並將「File Name」設為 <code>layout_menu</code>。</li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/c4f83806a1aa121b_1920.png?hl=zh-tw" width="70%">
-
-<ol start="3">
-<li><p>按一下「OK」。</p>
-</li>
-<li><p>開啟「res&#x2F;Menu&#x2F;layout_menu」。以下列內容取代 <code>layout_menu.xml</code> 的內容：</p>
-</li>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-activities-intents/img/c4f83806a1aa121b_1920.png?hl=zh-tw" width="70%"></p>
+<ol start="3" type="1">
+<li><p>按一下「OK」。</p></li>
+<li><p>開啟「res/Menu/layout_menu」。以下列內容取代
+<code>layout_menu.xml</code> 的內容：</p></li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">menu</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:id</span>=<span class="string">&quot;@+id/action_switch_layout&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:title</span>=<span class="string">&quot;@string/action_switch_layout&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:icon</span>=<span class="string">&quot;@drawable/ic_linear_layout&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">app:showAsAction</span>=<span class="string">&quot;always&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">menu</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>此選單檔案的結構很簡單。就像版面配置會在開頭透過版面配置管理工具來保留個人檢視畫面，選單 XML 檔案會在開頭使用包含個別選項的選單標記。</p>
-<p>您的選單只有一個按鈕，並包含一些屬性：</p>
-<ul>
-<li><code>id</code>：就像檢視畫面，選單選項在程式碼中也有可以參考的識別碼。</li>
-<li><code>title</code>：在本範例中其實不會顯示文字，但螢幕閱讀器可能使用文字識別選單</li>
-<li><code>icon</code>：預設為 <code>ic_linear_layout</code>。但選取按鈕後，系統會開啟或關閉按鈕，顯示網格圖示。</li>
-<li><code>showAsAction</code>：告訴系統如何顯示按鈕。由於它設定為 always，這個按鈕會始終在應用程式列中可見，並且不會成為溢出選單(overflow menu)的一部分。</li>
-</ul>
-<p>您仍須在 <code>MainActivity.kt</code> 中新增一些程式碼，才能讓選單順利運作。</p>
-<hr>
-<h3 id="實作-Menu-button"><a href="#實作-Menu-button" class="headerlink" title="實作 Menu button"></a>實作 Menu button</h3><p>若要查看 menu button 實際的運作情形，您必須在 <code>MainActivity.kt</code> 中執行以下步驟。</p>
-<ol>
-<li>首先，建議您建立屬性(property)，追蹤應用程式所在的版面配置狀態，這樣做可讓您更輕鬆切換 layout 按鈕。將預設值設為 <code>true</code>，因為預設會使用 linear layout manager。</li>
+<p>此選單檔案的結構很簡單。就像版面配置會在開頭透過版面配置管理工具來保留個人檢視畫面，選單
+XML 檔案會在開頭使用包含個別選項的選單標記。</p>
+<p>您的選單只有一個按鈕，並包含一些屬性： +
+<code>id</code>：就像檢視畫面，選單選項在程式碼中也有可以參考的識別碼。
++
+<code>title</code>：在本範例中其實不會顯示文字，但螢幕閱讀器可能使用文字識別選單
++ <code>icon</code>：預設為
+<code>ic_linear_layout</code>。但選取按鈕後，系統會開啟或關閉按鈕，顯示網格圖示。
++ <code>showAsAction</code>：告訴系統如何顯示按鈕。由於它設定為
+always，這個按鈕會始終在應用程式列中可見，並且不會成為溢出選單(overflow
+menu)的一部分。</p>
+<p>您仍須在 <code>MainActivity.kt</code>
+中新增一些程式碼，才能讓選單順利運作。</p>
+<hr />
+<h3 id="實作-menu-button">實作 Menu button</h3>
+<p>若要查看 menu button 實際的運作情形，您必須在
+<code>MainActivity.kt</code> 中執行以下步驟。</p>
+<ol type="1">
+<li>首先，建議您建立屬性(property)，追蹤應用程式所在的版面配置狀態，這樣做可讓您更輕鬆切換
+layout 按鈕。將預設值設為 <code>true</code>，因為預設會使用 linear
+layout manager。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> isLinearLayoutManager = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>當使用者切換按鈕時，您會希望 item 清單(item list)轉換成 item 的格狀清單(grid list)。不曉得您是否記得，我們在 recycler views 的課程中提到很多不同的版面配置管理工具，其中的 <code>GridLayoutManager</code> 可以在單一資料列顯示多個 item。</li>
+<ol start="2" type="1">
+<li>當使用者切換按鈕時，您會希望 item 清單(item list)轉換成 item
+的格狀清單(grid list)。不曉得您是否記得，我們在 recycler views
+的課程中提到很多不同的版面配置管理工具，其中的
+<code>GridLayoutManager</code> 可以在單一資料列顯示多個 item。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">chooseLayout</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (isLinearLayoutManager) &#123;</span><br><span class="line">        recyclerView.layoutManager = LinearLayoutManager(<span class="keyword">this</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        recyclerView.layoutManager = GridLayoutManager(<span class="keyword">this</span>, <span class="number">4</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    recyclerView.adapter = LetterAdapter()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>在這個步驟中，您可以使用 <code>if</code> 陳述式指派 layout manager。除了設定 <code>layoutManager</code> 外，此程式碼也會指派 adapter。<code>LetterAdapter</code> 會用於 list 和 grid layout。</li>
+<li>在這個步驟中，您可以使用 <code>if</code> 陳述式指派 layout
+manager。除了設定 <code>layoutManager</code> 外，此程式碼也會指派
+adapter。<code>LetterAdapter</code> 會用於 list 和 grid layout。</li>
 </ul>
-<ol start="3">
-<li>一開始在 xml 中設定 menu 時，您會指定靜態圖示。但切換 layout 後，為了反映新功能，建議您更新圖示，並切換回 list layout。在這個步驟中，您只要設定 liner 和 grid layout 圖示，而在下次輕觸按鈕後，按鈕會根據 layout 切換回圖示。</li>
+<ol start="3" type="1">
+<li>一開始在 xml 中設定 menu 時，您會指定靜態圖示。但切換 layout
+後，為了反映新功能，建議您更新圖示，並切換回 list
+layout。在這個步驟中，您只要設定 liner 和 grid layout
+圖示，而在下次輕觸按鈕後，按鈕會根據 layout 切換回圖示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">setIcon</span><span class="params">(menuItem: <span class="type">MenuItem</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (menuItem == <span class="literal">null</span>)</span><br><span class="line">       <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// Set the drawable for the menu icon based on which LayoutManager is currently in use</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// An if-clause can be used on the right side of an assignment if all paths return a value.</span></span><br><span class="line">   <span class="comment">// The following code is equivalent to</span></span><br><span class="line">   <span class="comment">// if (isLinearLayoutManager)</span></span><br><span class="line">   <span class="comment">//     menu.icon = ContextCompat.getDrawable(this, R.drawable.ic_grid_layout)</span></span><br><span class="line">   <span class="comment">// else menu.icon = ContextCompat.getDrawable(this, R.drawable.ic_linear_layout)</span></span><br><span class="line">   menuItem.icon =</span><br><span class="line">       <span class="keyword">if</span> (isLinearLayoutManager)</span><br><span class="line">           ContextCompat.getDrawable(<span class="keyword">this</span>, R.drawable.ic_grid_layout)</span><br><span class="line">       <span class="keyword">else</span> ContextCompat.getDrawable(<span class="keyword">this</span>, R.drawable.ic_linear_layout)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>根據 <code>isLinearLayoutManager</code> 屬性，系統會有條件地設定圖示。</p>
-<p>若要應用程式順利使用 menu，您必須覆寫另外兩種方法。</p>
-<ul>
-<li><code>onCreateOptionsMenu</code>：這會加載 option menu，並執行其他設定</li>
-<li><code>onOptionsItemSelected</code>：選取按鈕後，這會實際呼叫 <code>chooseLayout()</code>。</li>
-</ul>
-<ol>
+<p>根據 <code>isLinearLayoutManager</code>
+屬性，系統會有條件地設定圖示。</p>
+<p>若要應用程式順利使用 menu，您必須覆寫另外兩種方法。 +
+<code>onCreateOptionsMenu</code>：這會加載 option menu，並執行其他設定 +
+<code>onOptionsItemSelected</code>：選取按鈕後，這會實際呼叫
+<code>chooseLayout()</code>。</p>
+<ol type="1">
 <li>依照下列方式覆寫 <code>onCreateOptionsMenu</code>：</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateOptionsMenu</span><span class="params">(menu: <span class="type">Menu</span>?)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   menuInflater.inflate(R.menu.layout_menu, menu)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">val</span> layoutButton = menu?.findItem(R.id.action_switch_layout)</span><br><span class="line">   <span class="comment">// Calls code to set the icon based on the LinearLayoutManager of the RecyclerView</span></span><br><span class="line">   setIcon(layoutButton)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以下方式並不難。加載 layout 後，請呼叫 <code>setIcon()</code>，確保圖示符合 layout。這個方法會傳回 <code>Boolean</code>，因為您要建立 option menu，所以會傳回 <code>true</code>。</p>
-<ol start="2">
-<li>只要在 <code>onOptionsItemSelected</code> 加入幾行程式碼實作，如下所示。</li>
+<p>以下方式並不難。加載 layout 後，請呼叫
+<code>setIcon()</code>，確保圖示符合 layout。這個方法會傳回
+<code>Boolean</code>，因為您要建立 option menu，所以會傳回
+<code>true</code>。</p>
+<ol start="2" type="1">
+<li>只要在 <code>onOptionsItemSelected</code>
+加入幾行程式碼實作，如下所示。</li>
 </ol>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onOptionsItemSelected</span><span class="params">(item: <span class="type">MenuItem</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">when</span> (item.itemId) &#123;</span><br><span class="line">       R.id.action_switch_layout -&gt; &#123;</span><br><span class="line">           <span class="comment">// Sets isLinearLayoutManager (a Boolean) to the opposite value</span></span><br><span class="line">           isLinearLayoutManager = !isLinearLayoutManager</span><br><span class="line">           <span class="comment">// Sets layout and icon</span></span><br><span class="line">           chooseLayout()</span><br><span class="line">           setIcon(item)</span><br><span class="line"></span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//  Otherwise, do nothing and use the core event handling</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// when clauses require that all possible paths be accounted for explicitly,</span></span><br><span class="line">       <span class="comment">//  for instance both the true and false cases if the value is a Boolean,</span></span><br><span class="line">       <span class="comment">//  or an else to catch all unhandled cases.</span></span><br><span class="line">       <span class="keyword">else</span> -&gt; <span class="keyword">super</span>.onOptionsItemSelected(item)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>每次輕觸 menu item 都會呼叫這個程式碼，所以請務必檢查輕觸的 memu item。您會使用上述的 <code>when</code> 陳述式。如果 <code>id</code> 與 <code>action_switch_layout</code> memu item 相符，系統會取消 <code>isLinearLayoutManager</code> 的值。接著，請呼叫 <code>chooseLayout()</code> 和 <code>setIcon()</code>，更新使用者介面。</p>
-<p>此外，執行應用程式前，因為 <code>chooseLayout()</code> 中已設定 layout manager 和 adapter，您必須在 <code>onCreate()</code> 中更換程式碼，才能呼叫新方法。變更完成後，<code>onCreate()</code> 應該會如下所示。</p>
+<p>每次輕觸 menu item 都會呼叫這個程式碼，所以請務必檢查輕觸的 memu
+item。您會使用上述的 <code>when</code> 陳述式。如果 <code>id</code> 與
+<code>action_switch_layout</code> memu item 相符，系統會取消
+<code>isLinearLayoutManager</code> 的值。接著，請呼叫
+<code>chooseLayout()</code> 和
+<code>setIcon()</code>，更新使用者介面。</p>
+<p>此外，執行應用程式前，因為 <code>chooseLayout()</code> 中已設定
+layout manager 和 adapter，您必須在 <code>onCreate()</code>
+中更換程式碼，才能呼叫新方法。變更完成後，<code>onCreate()</code>
+應該會如下所示。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">   <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">val</span> binding = ActivityMainBinding.inflate(layoutInflater)</span><br><span class="line">   setContentView(binding.root)</span><br><span class="line"></span><br><span class="line">   recyclerView = binding.recyclerView</span><br><span class="line">   <span class="comment">// Sets the LinearLayoutManager of the recyclerview</span></span><br><span class="line">   chooseLayout()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接著請執行應用程式，您可以使用 menu button，切換 list 和格狀檢視。</p>
+<p>接著請執行應用程式，您可以使用 menu button，切換 list
+和格狀檢視。</p>
 <div class="video-container"><iframe src="https://player.vimeo.com/video/874763484" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
-
-<hr>
-<h3 id="解決模擬器WIFI無網路"><a href="#解決模擬器WIFI無網路" class="headerlink" title="解決模擬器WIFI無網路"></a>解決模擬器WIFI無網路</h3><p>以MAC示範：</p>
-<ol>
-<li>打開系統設定 &gt; 網路 &gt; 點選 WIFI 的詳細資料</li>
-</ol>
-<img src="https://i.imgur.com/XrhmXOY.png" width="70%">
-
-<ol start="2">
+<hr />
+<h3 id="解決模擬器wifi無網路">解決模擬器WIFI無網路</h3>
+<p>以MAC示範： 1. 打開系統設定 &gt; 網路 &gt; 點選 WIFI 的詳細資料</p>
+<p><img src="https://i.imgur.com/XrhmXOY.png" width="70%"></p>
+<ol start="2" type="1">
 <li>切換到 DNS &gt; 新增 8.8.8.8 和 8.8.4.4 並套用</li>
 </ol>
-<img src="https://i.imgur.com/NszWjnG.png" width="70%">
-
-<ol start="3">
+<p><img src="https://i.imgur.com/NszWjnG.png" width="70%"></p>
+<ol start="3" type="1">
 <li>最後重啟模擬器，即可看到 AndroidWifi 顯示已連線(Connected)</li>
 </ol>
-<img src="https://i.imgur.com/bzJG3Oj.png" width="30%">
-
-<hr>
-<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
-<li>明確意圖(explicit intent)會用來前往應用程式特定的活動。</li>
-<li>隱含意圖(implicit intent)會對應特定動作 (例如開啟連結或共用圖片)，並讓系統決定如何執行意圖。</li>
-<li>選單選項(Menu options)讓您可在應用程式列加入按鈕和選單。</li>
-<li>透過隨附物件(Companion objects)，您可以將能重複使用的常數和類型建立關聯，而非與該類型的 instance 建立關聯。</li>
-</ul>
-<p>若要執行意圖(intent)：</p>
-<ul>
-<li>取得結構定義(context)的參考(reference)。</li>
-<li>建立 <code>Intent</code> 物件提供活動(activity)或 intent type (視 intent 為 explicit 或 implicit 而定)。</li>
-<li>呼叫 <code>putExtra()</code> 傳遞任何必要資料。</li>
-<li>呼叫 <code>startActivity()</code> 傳入 <code>intent</code> 物件。</li>
-</ul>
-<hr>
-<h3 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h3><p><a target="_blank" rel="noopener" href="https://medium.com/@daydreamer_/how-to-fix-android-emulator-wi-fi-connected-with-no-internet-c62fd4ed652d">如何修復 Android 模擬器 Wi-Fi 連線無網際網路的問題</a><br><a target="_blank" rel="noopener" href="https://support.apple.com/zh-tw/guide/mac-help/mh141272/mac">在 Mac 上輸入 DNS 和搜尋網域設定</a></p>
+<p><img src="https://i.imgur.com/bzJG3Oj.png" width="30%"></p>
+<table style="width:6%;">
+<colgroup>
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>### 總結 + 明確意圖(explicit intent)會用來前往應用程式特定的活動。 +
+隱含意圖(implicit intent)會對應特定動作
+(例如開啟連結或共用圖片)，並讓系統決定如何執行意圖。 + 選單選項(Menu
+options)讓您可在應用程式列加入按鈕和選單。 + 透過隨附物件(Companion
+objects)，您可以將能重複使用的常數和類型建立關聯，而非與該類型的
+instance 建立關聯。</td>
+</tr>
+<tr class="even">
+<td>若要執行意圖(intent)： + 取得結構定義(context)的參考(reference)。 +
+建立 <code>Intent</code> 物件提供活動(activity)或 intent type (視 intent
+為 explicit 或 implicit 而定)。 + 呼叫 <code>putExtra()</code>
+傳遞任何必要資料。 + 呼叫 <code>startActivity()</code> 傳入
+<code>intent</code> 物件。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="參考資料">參考資料</h3>
+<p><a
+target="_blank" rel="noopener" href="https://medium.com/@daydreamer_/how-to-fix-android-emulator-wi-fi-connected-with-no-internet-c62fd4ed652d">如何修復
+Android 模擬器 Wi-Fi 連線無網際網路的問題</a> <a
+target="_blank" rel="noopener" href="https://support.apple.com/zh-tw/guide/mac-help/mh141272/mac">在
+Mac 上輸入 DNS 和搜尋網域設定</a></p>
 
     </div>
 
@@ -685,7 +809,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.</span> <span class="nav-text">範例程式碼</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.1.</span> <span class="nav-text">下載範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8-Android-Studio-%E4%B8%AD%E9%96%8B%E5%95%9F%E5%B0%88%E6%A1%88"><span class="nav-number">1.2.</span> <span class="nav-text">在 Android Studio 中開啟專案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Word-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">2.</span> <span class="nav-text">Word 應用程式總覽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Intent%E7%B0%A1%E4%BB%8B"><span class="nav-number">3.</span> <span class="nav-text">Intent簡介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-Explicit-Intent"><span class="nav-number">4.</span> <span class="nav-text">設定 Explicit Intent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-DetailActivity"><span class="nav-number">5.</span> <span class="nav-text">設定 DetailActivity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E9%99%A4-Cleaning-Up"><span class="nav-number">5.1.</span> <span class="nav-text">清除(Cleaning Up)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-Implicit-Intent"><span class="nav-number">6.</span> <span class="nav-text">設定 Implicit Intent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-Menu-%E5%92%8C-Icons"><span class="nav-number">7.</span> <span class="nav-text">設定 Menu 和 Icons</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C-Menu-button"><span class="nav-number">8.</span> <span class="nav-text">實作 Menu button</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B1%BA%E6%A8%A1%E6%93%AC%E5%99%A8WIFI%E7%84%A1%E7%B6%B2%E8%B7%AF"><span class="nav-number">9.</span> <span class="nav-text">解決模擬器WIFI無網路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">10.</span> <span class="nav-text">總結</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">11.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.</span> <span class="nav-text">範例程式碼</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BC%89%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">1.1.</span> <span class="nav-text">下載範例程式碼</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8-android-studio-%E4%B8%AD%E9%96%8B%E5%95%9F%E5%B0%88%E6%A1%88"><span class="nav-number">1.2.</span> <span class="nav-text">在 Android Studio 中開啟專案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#word-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%B8%BD%E8%A6%BD"><span class="nav-number">2.</span> <span class="nav-text">Word 應用程式總覽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#intent%E7%B0%A1%E4%BB%8B"><span class="nav-number">3.</span> <span class="nav-text">Intent簡介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-explicit-intent"><span class="nav-number">4.</span> <span class="nav-text">設定 Explicit Intent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-detailactivity"><span class="nav-number">5.</span> <span class="nav-text">設定 DetailActivity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E9%99%A4cleaning-up"><span class="nav-number">5.1.</span> <span class="nav-text">清除(Cleaning Up)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-implicit-intent"><span class="nav-number">6.</span> <span class="nav-text">設定 Implicit Intent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-menu-%E5%92%8C-icons"><span class="nav-number">7.</span> <span class="nav-text">設定 Menu 和 Icons</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C-menu-button"><span class="nav-number">8.</span> <span class="nav-text">實作 Menu button</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B1%BA%E6%A8%A1%E6%93%AC%E5%99%A8wifi%E7%84%A1%E7%B6%B2%E8%B7%AF"><span class="nav-number">9.</span> <span class="nav-text">解決模擬器WIFI無網路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">10.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -701,20 +825,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">128</span>
+        <span class="site-state-item-count">129</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -810,6 +934,8 @@
 
 
 
+
+  
 
   
 

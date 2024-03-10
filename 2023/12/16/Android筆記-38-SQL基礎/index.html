@@ -24,12 +24,12 @@
 <link rel="preconnect" href="https://fonts.loli.net">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+TC:wght@500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="瞭解關聯資料庫(relational databases)的基本概念，並練習使用 Android Studio 中的資料庫檢查器(Database Inspector)執行 SQL 查詢(queries)。  學習目標  關聯資料庫(relational database)的結構：資料表(tables)、資料欄(columns) 和 資料列(rows) 包含 WHERE、ORDER BY、GRO">
+  <meta name="description" content="瞭解關聯資料庫(relational databases)的基本概念，並練習使用 Android Studio 中的資料庫檢查器(Database Inspector)執行 SQL 查詢(queries)。  學習目標 + 關聯資料庫(relational database)的結構：資料表(tables)、資料欄(columns) 和 資料列(rows) + 包含 WHERE、ORDER BY、">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android筆記(38)-SQL基礎">
 <meta property="og:url" content="https://linglingdr00.github.io/2023/12/16/Android%E7%AD%86%E8%A8%98-38-SQL%E5%9F%BA%E7%A4%8E/index.html">
 <meta property="og:site_name" content="Tina Tang&#39;s Blog">
-<meta property="og:description" content="瞭解關聯資料庫(relational databases)的基本概念，並練習使用 Android Studio 中的資料庫檢查器(Database Inspector)執行 SQL 查詢(queries)。  學習目標  關聯資料庫(relational database)的結構：資料表(tables)、資料欄(columns) 和 資料列(rows) 包含 WHERE、ORDER BY、GRO">
+<meta property="og:description" content="瞭解關聯資料庫(relational databases)的基本概念，並練習使用 Android Studio 中的資料庫檢查器(Database Inspector)執行 SQL 查詢(queries)。  學習目標 + 關聯資料庫(relational database)的結構：資料表(tables)、資料欄(columns) 和 資料列(rows) + 包含 WHERE、ORDER BY、">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-sql-basics/img/ef61dd2663e4da82_1920.png">
 <meta property="og:image" content="https://developer.android.com/static/codelabs/basic-android-kotlin-training-sql-basics/img/3c62c10fad7c0136_1920.png?hl=zh-tw">
@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://i.imgur.com/e8lom9u.png">
 <meta property="og:image" content="https://i.imgur.com/BxKpBUF.png">
 <meta property="article:published_time" content="2023-12-16T08:37:36.000Z">
-<meta property="article:modified_time" content="2023-12-19T10:52:29.473Z">
+<meta property="article:modified_time" content="2024-03-10T09:19:03.576Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Kotlin">
@@ -246,7 +246,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-19 18:52:29" itemprop="dateModified" datetime="2023-12-19T18:52:29+08:00">2023-12-19</time>
+                <time title="Modified: 2024-03-10 17:19:03" itemprop="dateModified" datetime="2024-03-10T17:19:03+08:00">2024-03-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,282 +278,433 @@
 
       
         <blockquote>
-<p>瞭解<b>關聯資料庫(relational databases)</b>的基本概念，並練習使用 Android Studio 中的<b>資料庫檢查器(Database Inspector)</b>執行 <u>SQL 查詢(queries)</u>。</p>
+<p>瞭解<b>關聯資料庫(relational databases)</b>的基本概念，並練習使用
+Android Studio 中的<b>資料庫檢查器(Database Inspector)</b>執行 <u>SQL
+查詢(queries)</u>。</p>
 </blockquote>
-<p><strong>學習目標</strong></p>
-<ul>
-<li>關聯資料庫(relational database)的結構：<b>資料表(tables)</b>、<b>資料欄(columns)</b> 和 <b>資料列(rows)</b></li>
-<li>包含 <code>WHERE</code>、<code>ORDER BY</code>、<code>GROUP BY</code> 和 <code>LIMIT</code> 子句的 <code>SELECT</code> 陳述式</li>
-<li>如何使用 SQL <u>insert</u>、<u>update</u> 及 <u>delete</u> 資料列(rows)</li>
-</ul>
+<p><strong>學習目標</strong> + 關聯資料庫(relational
+database)的結構：<b>資料表(tables)</b>、<b>資料欄(columns)</b> 和
+<b>資料列(rows)</b> + 包含
+<code>WHERE</code>、<code>ORDER BY</code>、<code>GROUP BY</code> 和
+<code>LIMIT</code> 子句的 <code>SELECT</code> 陳述式 + 如何使用 SQL
+<u>insert</u>、<u>update</u> 及 <u>delete</u> 資料列(rows)</p>
 <span id="more"></span>
-
-<hr>
-<h3 id="關聯資料庫總覽"><a href="#關聯資料庫總覽" class="headerlink" title="關聯資料庫總覽"></a>關聯資料庫總覽</h3><h4 id="什麼是關聯資料庫-relational-database-？"><a href="#什麼是關聯資料庫-relational-database-？" class="headerlink" title="什麼是關聯資料庫(relational database)？"></a>什麼是關聯資料庫(relational database)？</h4><p>在運算中，資料庫(database)只是可用電子方式存取和寫入的結構化資料集合。資料庫(database)可使用 Kotlin 儲存任何可在 app 中呈現的相同資訊。在行動裝置(mobile devices)上，<b>資料庫(database)</b>通常會用於<u>儲存執行中 app 的資料</u>，如此一來，<u>下次開啟 app 時即可存取該資料，而無須從網際網路等其他來源擷取資料</u>。這就是所謂的<b>資料持續性(data persistence)</b>。</p>
-<p>談論<b>資料持續性(data persistence)</b>時，通常會聽到<b>關聯資料庫(relational database)</b>一詞。關聯資料庫(relational database)是一種常見的資料庫，可將資料整理成<u>資料表(tables)</u>、<u>資料欄(columns)</u>和<u>資料列(rows)</u>。編寫 Kotlin 程式碼時，您會<u>建立代表 objects 的 classes</u>。關聯資料庫中的 table 運作方式相同。除了呈現資料之外，table 也可以引用其他 table，以便為 table 建立關聯。常見的範例包括「學生(students)」、「老師(teachers)」和「課程(course)」資料表。課程可能只有一位老師，但學生可能會有許多課程。database 可呈現這些 table 之間的關係，因此您會經常聽到 relational database 一詞。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-sql-basics/img/ef61dd2663e4da82_1920.png">
-
+<hr />
+<h3 id="關聯資料庫總覽">關聯資料庫總覽</h3>
+<h4 id="什麼是關聯資料庫relational-database">什麼是關聯資料庫(relational
+database)？</h4>
+<p>在運算中，資料庫(database)只是可用電子方式存取和寫入的結構化資料集合。資料庫(database)可使用
+Kotlin 儲存任何可在 app 中呈現的相同資訊。在行動裝置(mobile
+devices)上，<b>資料庫(database)</b>通常會用於<u>儲存執行中 app
+的資料</u>，如此一來，<u>下次開啟 app
+時即可存取該資料，而無須從網際網路等其他來源擷取資料</u>。這就是所謂的<b>資料持續性(data
+persistence)</b>。</p>
+<p>談論<b>資料持續性(data
+persistence)</b>時，通常會聽到<b>關聯資料庫(relational
+database)</b>一詞。關聯資料庫(relational
+database)是一種常見的資料庫，可將資料整理成<u>資料表(tables)</u>、<u>資料欄(columns)</u>和<u>資料列(rows)</u>。編寫
+Kotlin 程式碼時，您會<u>建立代表 objects 的 classes</u>。關聯資料庫中的
+table 運作方式相同。除了呈現資料之外，table 也可以引用其他 table，以便為
+table
+建立關聯。常見的範例包括「學生(students)」、「老師(teachers)」和「課程(course)」資料表。課程可能只有一位老師，但學生可能會有許多課程。database
+可呈現這些 table 之間的關係，因此您會經常聽到 relational database
+一詞。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-sql-basics/img/ef61dd2663e4da82_1920.png"></p>
 <p>tables 間的關係可呈現實際關係(real world relationships)。</p>
-<h4 id="Tables、columns-和-rows"><a href="#Tables、columns-和-rows" class="headerlink" title="Tables、columns 和 rows"></a>Tables、columns 和 rows</h4><p>建立 relational database 的第一步就是定義 tables，或您要呈現的 data。您也必須思考各 table 中要儲存哪些特定資訊。特定屬性會以 columns 表示。<strong>Columns</strong> 是由 <u>name</u> 和 <u>data type</u> 所組成。您已經熟悉在 Kotlin 中使用 classes 的屬性。您也可以用相同方式看待 SQL tables。<strong>Table</strong> 就如同 class 定義，用於說明您想要呈現的「內容(thing)」type。<strong>Column</strong> 是 table 中每個項目所建立「內容(thing)」的特定屬性。  </p>
-<table>
-  <thead>
-    <tr>
-      <th colspan="2">植物(Plant)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>id</td>
-      <td>INTEGER</td>
-    </tr>
-    <tr>
-      <td>species</td>
-      <td>TEXT (string)</td>
-    </tr>
-    <tr>
-      <td>name</td>
-      <td>TEXT (string)</td>
-    </tr>
-     <tr>
-      <td>color</td>
-      <td>TEXT (string)</td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="2">花園(Garden)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>id</td>
-      <td>INTEGER</td>
-    </tr>
-    <tr>
-      <td>name</td>
-      <td>TEXT (string)</td>
-    </tr>
-    <tr>
-      <td>length</td>
-      <td>INTEGER</td>
-    </tr>
-     <tr>
-      <td>width</td>
-      <td>INTEGER</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><u>個別 table 項目(entries)稱為 rows</u>。這就如同 Kotlin 中 class 的 instance。<u>每個 row 的資料都會與各個 column 相對應</u>。Table 會提供範本，但這些 <u>rows 會定義 table 中實際儲存的資料</u>。</p>
+<h4 id="tablescolumns-和-rows">Tables、columns 和 rows</h4>
+<p>建立 relational database 的第一步就是定義 tables，或您要呈現的
+data。您也必須思考各 table 中要儲存哪些特定資訊。特定屬性會以 columns
+表示。<strong>Columns</strong> 是由 <u>name</u> 和 <u>data type</u>
+所組成。您已經熟悉在 Kotlin 中使用 classes
+的屬性。您也可以用相同方式看待 SQL tables。<strong>Table</strong> 就如同
+class
+定義，用於說明您想要呈現的「內容(thing)」type。<strong>Column</strong>
+是 table 中每個項目所建立「內容(thing)」的特定屬性。</p>
 <table>
 <thead>
 <tr>
-<th align="left">id</th>
-<th align="left">species</th>
-<th align="left">name</th>
-<th align="left">color</th>
+<th colspan="2">
+植物(Plant)
+</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">1</td>
-<td align="left">Camellia Sinensis</td>
-<td align="left">Tea Plant</td>
-<td align="left">green</td>
+<tbody>
+<tr>
+<td>
+id
+</td>
+<td>
+INTEGER
+</td>
 </tr>
 <tr>
-<td align="left">2</td>
-<td align="left">Echinacea Purpurea</td>
-<td align="left">Purple Coneflower</td>
-<td align="left">purple</td>
+<td>
+species
+</td>
+<td>
+TEXT (string)
+</td>
 </tr>
 <tr>
-<td align="left">3</td>
-<td align="left">Ferula Foetida</td>
-<td align="left">Asafoetida</td>
-<td align="left">green</td>
+<td>
+name
+</td>
+<td>
+TEXT (string)
+</td>
 </tr>
-</tbody></table>
-<h4 id="主鍵-Primary-Key"><a href="#主鍵-Primary-Key" class="headerlink" title="主鍵(Primary Key)"></a>主鍵(Primary Key)</h4><p>在上述範例中，請留意 id 屬性的 column 形式。自然界中的植物物種(plant species)或您在 database 中呈現的任何內容，可能沒有方便編號的 id，但 data table 中的 rows 必須具有某種<u>唯一識別碼(unique identifier)</u>。這通常稱為<b>主鍵( primary key)</b>，而且 <u>table 中的每一列(row)皆不得重複</u>。當您需<u>引用其他 tables 內其中一個 data table 的 row </u>時，這項功能就非常實用。</p>
-<p>舉例來說，還有另一個名為 garden 的 table，您希望將 <u>garden</u> 與其中所有的<u>植物物種(plant species)</u>建立關聯。您可以使用 plants table 的 <strong>primary key</strong>，<u>從 garden table 中的項目(entry)或 database 中的其他 table 引用 plant</u>。</p>
-<p><strong>Primary keys</strong> 可在 relational database 中<u>建立關係(relationships)</u>。在本課程中，雖然您不會使用含有多個 table 的 database，但具有 <b>unique ID</b> 可協助<u>查詢(querying)</u>、<u>更新(updating)</u>及<u>刪除(deleting)</u> table 中的現有項目。</p>
-<h4 id="Data-Types"><a href="#Data-Types" class="headerlink" title="Data Types"></a>Data Types</h4><p>如同定義 Kotlin classes 的屬性，<u>database 中的 columns 可為多種  data types 的其中一種</u>。Column 可以呈現 <u>character</u>、<u>string</u>、<u>number(帶或不帶小數)</u>，或 <u>binary data</u>。根據用途，其他 data (例如 <strong>dates</strong> 和 <strong>times</strong>) 可以用 <u>numerically</u> 或 <u>string</u> 表示。使用 <code>Room</code> 時，您主要使用的是 <strong>Kotlin types</strong>，但是其會<u>對應至幕後的 <strong>SQL types</strong></u>。</p>
+<tr>
+<td>
+color
+</td>
+<td>
+TEXT (string)
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th colspan="2">
+花園(Garden)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+id
+</td>
+<td>
+INTEGER
+</td>
+</tr>
+<tr>
+<td>
+name
+</td>
+<td>
+TEXT (string)
+</td>
+</tr>
+<tr>
+<td>
+length
+</td>
+<td>
+INTEGER
+</td>
+</tr>
+<tr>
+<td>
+width
+</td>
+<td>
+INTEGER
+</td>
+</tr>
+</tbody>
+</table>
+<p><u>個別 table 項目(entries)稱為 rows</u>。這就如同 Kotlin 中 class 的
+instance。<u>每個 row 的資料都會與各個 column 相對應</u>。Table
+會提供範本，但這些 <u>rows 會定義 table 中實際儲存的資料</u>。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">id</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">color</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Camellia Sinensis</td>
+<td style="text-align: left;">Tea Plant</td>
+<td style="text-align: left;">green</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Echinacea Purpurea</td>
+<td style="text-align: left;">Purple Coneflower</td>
+<td style="text-align: left;">purple</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Ferula Foetida</td>
+<td style="text-align: left;">Asafoetida</td>
+<td style="text-align: left;">green</td>
+</tr>
+</tbody>
+</table>
+<h4 id="主鍵primary-key">主鍵(Primary Key)</h4>
+<p>在上述範例中，請留意 id 屬性的 column 形式。自然界中的植物物種(plant
+species)或您在 database 中呈現的任何內容，可能沒有方便編號的 id，但 data
+table 中的 rows 必須具有某種<u>唯一識別碼(unique
+identifier)</u>。這通常稱為<b>主鍵( primary key)</b>，而且 <u>table
+中的每一列(row)皆不得重複</u>。當您需<u>引用其他 tables 內其中一個 data
+table 的 row </u>時，這項功能就非常實用。</p>
+<p>舉例來說，還有另一個名為 garden 的 table，您希望將 <u>garden</u>
+與其中所有的<u>植物物種(plant species)</u>建立關聯。您可以使用 plants
+table 的 <strong>primary key</strong>，<u>從 garden table
+中的項目(entry)或 database 中的其他 table 引用 plant</u>。</p>
+<p><strong>Primary keys</strong> 可在 relational database
+中<u>建立關係(relationships)</u>。在本課程中，雖然您不會使用含有多個
+table 的 database，但具有 <b>unique ID</b>
+可協助<u>查詢(querying)</u>、<u>更新(updating)</u>及<u>刪除(deleting)</u>
+table 中的現有項目。</p>
+<h4 id="data-types">Data Types</h4>
+<p>如同定義 Kotlin classes 的屬性，<u>database 中的 columns 可為多種
+data types 的其中一種</u>。Column 可以呈現
+<u>character</u>、<u>string</u>、<u>number(帶或不帶小數)</u>，或
+<u>binary data</u>。根據用途，其他 data (例如 <strong>dates</strong> 和
+<strong>times</strong>) 可以用 <u>numerically</u> 或 <u>string</u>
+表示。使用 <code>Room</code> 時，您主要使用的是 <strong>Kotlin
+types</strong>，但是其會<u>對應至幕後的 <strong>SQL
+types</strong></u>。</p>
 <div class="note success">
-            <p><strong>注意：</strong>如同在 Kotlin 中，database 中的 columns 可能含有不同的 data types。這些 types 與 Kotlin 中的 data types 不太一樣。如需更多資訊，請參閱<a target="_blank" rel="noopener" href="https://www.w3schools.com/sql/sql_datatypes.asp">這項資源</a>，以瞭解 SQL 中的 basic data types。不過，在 <b>Room</b> 中使用 database 時，您無法直接使用這些 data types，而是<u>使用同等的 <b>Kotlin data types</b>，在程式碼中定義 data tables</u>。</p>
+            <p><strong>注意：</strong>如同在 Kotlin 中，database 中的 columns可能含有不同的 data types。這些 types 與 Kotlin 中的 data types不太一樣。如需更多資訊，請參閱<ahref="https://www.w3schools.com/sql/sql_datatypes.asp">這項資源</a>，以瞭解SQL 中的 basic data types。不過，在 <b>Room</b> 中使用 database時，您無法直接使用這些 data types，而是<u>使用同等的 <b>Kotlin datatypes</b>，在程式碼中定義 data tables</u>。</p>
           </div>
-
-<h4 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h4><p>無論是自行或使用 <code>Room</code> 等 library 存取 relational database，您都需要使用 <strong>SQL</strong>。</p>
-<p>什麼是 SQL？SQL (有時發音為「sequel」) 代表 <u>Structured Query Language(結構化查詢語言)</u>，可讓您讀取和操控 relational database 中的 data。但別擔心，您不需要為了在 app 中實作持續性(persistence)，而學習全新的程式設計語言。不同於 Kotlin 等程式設計語言，<u>SQL 只包含幾種 statements，用於讀取(reading)及寫入(writing)資料庫</u>。瞭解基本格式後，只需在空格中填入您從 database 讀取(reading)或寫入(writing)的特定資訊即可。</p>
+<h4 id="sql">SQL</h4>
+<p>無論是自行或使用 <code>Room</code> 等 library 存取 relational
+database，您都需要使用 <strong>SQL</strong>。</p>
+<p>什麼是 SQL？SQL (有時發音為「sequel」) 代表 <u>Structured Query
+Language(結構化查詢語言)</u>，可讓您讀取和操控 relational database 中的
+data。但別擔心，您不需要為了在 app
+中實作持續性(persistence)，而學習全新的程式設計語言。不同於 Kotlin
+等程式設計語言，<u>SQL 只包含幾種
+statements，用於讀取(reading)及寫入(writing)資料庫</u>。瞭解基本格式後，只需在空格中填入您從
+database 讀取(reading)或寫入(writing)的特定資訊即可。</p>
 <p>以下為最常見的 SQL statements，以及您要使用的 statements。</p>
 <table>
-    <tr>
-        <td>SELECT</td>
-        <td>從 data table 取得特定資訊，並透過多種方式<u>篩選(filtered)</u>及<u>排序(sorted)</u>結果。</td>
-    </tr>
-    <tr>
-        <td>INSERT</td>
-        <td>在 table 中新增 row。</td>
-    </tr>
-    <tr>
-        <td>UPDATE</td>
-        <td>更新 table 中的現有 row。</td>
-    </tr>
-    <tr>
-        <td>DELETE</td>
-        <td>從 table 中移除現有的 row。</td>
-    </tr>
+<tr>
+<td>
+SELECT
+</td>
+<td>
+從 data table
+取得特定資訊，並透過多種方式<u>篩選(filtered)</u>及<u>排序(sorted)</u>結果。
+</td>
+</tr>
+<tr>
+<td>
+INSERT
+</td>
+<td>
+在 table 中新增 row。
+</td>
+</tr>
+<tr>
+<td>
+UPDATE
+</td>
+<td>
+更新 table 中的現有 row。
+</td>
+</tr>
+<tr>
+<td>
+DELETE
+</td>
+<td>
+從 table 中移除現有的 row。
+</td>
+</tr>
 </table>
-
-<p>現在，您必須先具備 database，才能在 SQL 中執行任何操作。在下一個畫面中，您將會進行範例專案設定，其包含 database，可供您執行 SQL 查詢(queries)。</p>
-<hr>
-<h3 id="範例程式碼-Parks-database"><a href="#範例程式碼-Parks-database" class="headerlink" title="範例程式碼 - Parks database"></a>範例程式碼 - Parks database</h3><p>將要下載的範例程式碼與先前程式碼研究室的程式碼略有不同。我們會提供簡易的 Android Studio 專案，其可建立 database 讓您用於執行 <u>SQL 查詢(queries)</u>，而非在現有專案上進行建構。執行 app 一次後，您即可<u>使用名為<b>資料庫檢查器(Database Inspector)</b>的 Android Studio tool 存取 database</u>。</p>
+<p>現在，您必須先具備 database，才能在 SQL
+中執行任何操作。在下一個畫面中，您將會進行範例專案設定，其包含
+database，可供您執行 SQL 查詢(queries)。</p>
+<hr />
+<h3 id="範例程式碼---parks-database">範例程式碼 - Parks database</h3>
+<p>將要下載的範例程式碼與先前程式碼研究室的程式碼略有不同。我們會提供簡易的
+Android Studio 專案，其可建立 database 讓您用於執行 <u>SQL
+查詢(queries)</u>，而非在現有專案上進行建構。執行 app
+一次後，您即可<u>使用名為<b>資料庫檢查器(Database Inspector)</b>的
+Android Studio tool 存取 database</u>。</p>
 <div class="note success">
-            <p><strong>範例程式碼網址：</strong><a target="_blank" rel="noopener" href="https://github.com/google-developer-training/android-basics-kotlin-sql-basics-app">https://github.com/google-developer-training/android-basics-kotlin-sql-basics-app</a><br><strong>分支版本：</strong>main</p>
+            <p><strong>範例程式碼網址：</strong>https://github.com/google-developer-training/android-basics-kotlin-sql-basics-app<strong>分支版本：</strong>main</p>
           </div>
-
-<p>在前往下一個部分之前，請先完成下列步驟，確保您已透過範例專案完成相關設定。</p>
-<ol>
-<li>執行 application。app 應會顯示如下所示的單一畫面。</li>
+<p>在前往下一個部分之前，請先完成下列步驟，確保您已透過範例專案完成相關設定。
+1. 執行 application。app 應會顯示如下所示的單一畫面。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-sql-basics/img/3c62c10fad7c0136_1920.png?hl=zh-tw" width="40%"></p>
+<ol start="2" type="1">
+<li><p>在 Android Studio 中，前往「View」&gt;「Tool
+Windows」&gt;「Database Inspector」，開啟 Database Inspector。</p></li>
+<li><p>您應該會在底部看到標示「Database
+Inspector」的新分頁標籤(tab)。載入可能需要幾秒鐘的時間，但您可在左側看到含有
+data tables 的 list，您可選取以執行查詢(queries)。</p></li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-sql-basics/img/3c62c10fad7c0136_1920.png?hl=zh-tw" width="40%">
-
-<ol start="2">
-<li><p>在 Android Studio 中，前往「View」&gt;「Tool Windows」&gt;「Database Inspector」，開啟 Database Inspector。</p>
-</li>
-<li><p>您應該會在底部看到標示「Database Inspector」的新分頁標籤(tab)。載入可能需要幾秒鐘的時間，但您可在左側看到含有 data tables 的 list，您可選取以執行查詢(queries)。</p>
-</li>
-</ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-sql-basics/img/8c2b12249b4f652a_1920.png?hl=zh-tw">
-
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-sql-basics/img/8c2b12249b4f652a_1920.png?hl=zh-tw"></p>
 <div class="note success">
-            <p><strong>注意：</strong>如果您使用 <u>Android Studio 2020.3.1 Arctic Fox</u>，可前往「View」&gt;「Tool」&gt;「App Inspection」存取 Database Inspector。</p>
+            <p><strong>注意：</strong>如果您使用 <u>Android Studio 2020.3.1 ArcticFox</u>，可前往「View」&gt;「Tool」&gt;「App Inspection」存取 DatabaseInspector。</p>
           </div>
-
-<h3 id="基本-SELECT-statements"><a href="#基本-SELECT-statements" class="headerlink" title="基本 SELECT statements"></a>基本 SELECT statements</h3><p>針對下列練習，您必須在<u>資料庫檢查器(Database Inspector)</u>中執行查詢。請務必從左側窗格中選取正確的資料表 (<code>park</code>)，然後按一下「Open New Query Tab」按鈕，接著就會看到可輸入 SQL 指令的文字方塊。</p>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-sql-basics/img/bb06b5ce9ac4ba72_1920.png?hl=zh-tw">
-
-<p>SQL statement 是用於存取(accesses) (讀取(reading)或寫入(writing)) database 的指令，類似程式碼行。在 SQL 中，您可執行的最簡單操作為取得 table 中的所有 data。為此，請先使用 <code>SELECT</code> 字詞，代表您要讀取 data。接著加上星號 (<code>*</code>)。您可以在此處指定要選取的 columns，使用 <code>*</code> 代表選取所有資料欄。然後使用 <code>FROM</code> 關鍵字，後面加上 data table 的名稱 (<code>park</code>)。在 Database Inspector 中執行下列指令，並觀察整個 table 的所有 columns 與 rows。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure>
-
-<p>如果您只想選取特定 column，而非 table 中的所有 columns，您可以指定 column 名稱。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> city <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure>
-
-<p>您也可以選取多個特定 columns，並以半形逗號分隔。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name, established, city <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure>
-
-<p>有時候，您不一定要選取 database 中的所有 rows。您可以新增 SQL statement 的子句部分，以進一步縮小結果範圍。</p>
-<p>其中一個子句是 <code>LIMIT</code>，可讓您<u>限制傳回的 rows 數量</u>。因此，以下查詢只會傳回前五個，不會傳回全部 23 個結果。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> park</span><br><span class="line">LIMIT <span class="number">5</span></span><br></pre></td></tr></table></figure>
-
-<p>最常見且實用的子句之一就是 <code>WHERE</code> 子句。<code>WHERE</code> 子句可讓您根據一或多個 columns 篩選結果。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> type <span class="operator">=</span> &quot;national_park&quot;</span><br></pre></td></tr></table></figure>
-
+<h3 id="基本-select-statements">基本 SELECT statements</h3>
+<p>針對下列練習，您必須在<u>資料庫檢查器(Database
+Inspector)</u>中執行查詢。請務必從左側窗格中選取正確的資料表
+(<code>park</code>)，然後按一下「Open New Query
+Tab」按鈕，接著就會看到可輸入 SQL 指令的文字方塊。</p>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-sql-basics/img/bb06b5ce9ac4ba72_1920.png?hl=zh-tw"></p>
+<p>SQL statement 是用於存取(accesses) (讀取(reading)或寫入(writing))
+database 的指令，類似程式碼行。在 SQL 中，您可執行的最簡單操作為取得
+table 中的所有 data。為此，請先使用 <code>SELECT</code>
+字詞，代表您要讀取 data。接著加上星號
+(<code>*</code>)。您可以在此處指定要選取的 columns，使用 <code>*</code>
+代表選取所有資料欄。然後使用 <code>FROM</code> 關鍵字，後面加上 data
+table 的名稱 (<code>park</code>)。在 Database Inspector
+中執行下列指令，並觀察整個 table 的所有 columns 與 rows。
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure></p>
+<p>如果您只想選取特定 column，而非 table 中的所有 columns，您可以指定
+column 名稱。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> city <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure></p>
+<p>您也可以選取多個特定 columns，並以半形逗號分隔。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name, established, city <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure></p>
+<p>有時候，您不一定要選取 database 中的所有 rows。您可以新增 SQL
+statement 的子句部分，以進一步縮小結果範圍。</p>
+<p>其中一個子句是 <code>LIMIT</code>，可讓您<u>限制傳回的 rows
+數量</u>。因此，以下查詢只會傳回前五個，不會傳回全部 23 個結果。
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> park</span><br><span class="line">LIMIT <span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<p>最常見且實用的子句之一就是 <code>WHERE</code>
+子句。<code>WHERE</code> 子句可讓您根據一或多個 columns 篩選結果。
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> type <span class="operator">=</span> &quot;national_park&quot;</span><br></pre></td></tr></table></figure></p>
 <div class="note success">
-            <p><strong>注意：</strong>有別於 Kotlin，由於 <b>&#x3D;</b> 運算子用於指派，而 <b>&#x3D;&#x3D;</b> 則用於比較，因此在 SQL 中只能使用一個等號來比較兩個值。</p>
+            <p><strong>注意：</strong>有別於 Kotlin，由於 <b>=</b>運算子用於指派，而 <b>==</b> 則用於比較，因此在 SQL中只能使用一個等號來比較兩個值。</p>
           </div>
-
-<p>此外，也有「不等於」(<code>!=</code>) 運算子。以下查詢會列出不屬於 <code>recreation_area</code>，且佔地超過 100,000 英畝的所有公園。使用 <code>WHERE</code> 子句時，您也可以使用 <code>AND</code> 或 <code>OR</code> 等 Boolean 運算子，以新增多個條件。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> type <span class="operator">!=</span> &quot;recreation_area&quot;</span><br><span class="line"><span class="keyword">AND</span> area_acres <span class="operator">&gt;</span> <span class="number">100000</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="練習"><a href="#練習" class="headerlink" title="練習"></a>練習</h4><p>SQL 查詢相當適合回答各種資料相關問題，而最佳的練習做法就是自行編寫查詢。接下來幾個步驟，您將可編寫查詢，以回答特定問題。請務必先在 Database Inspector 中進行測試，再繼續進行操作。</p>
+<p>此外，也有「不等於」(<code>!=</code>) 運算子。以下查詢會列出不屬於
+<code>recreation_area</code>，且佔地超過 100,000 英畝的所有公園。使用
+<code>WHERE</code> 子句時，您也可以使用 <code>AND</code> 或
+<code>OR</code> 等 Boolean 運算子，以新增多個條件。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> type <span class="operator">!=</span> &quot;recreation_area&quot;</span><br><span class="line"><span class="keyword">AND</span> area_acres <span class="operator">&gt;</span> <span class="number">100000</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="練習">練習</h4>
+<p>SQL
+查詢相當適合回答各種資料相關問題，而最佳的練習做法就是自行編寫查詢。接下來幾個步驟，您將可編寫查詢，以回答特定問題。請務必先在
+Database Inspector 中進行測試，再繼續進行操作。</p>
 <div class="note primary">
-            <p><strong>問題 1：</strong><br>請編寫 SQL 查詢，取得訪客(visitors)少於 1,000,000 人的所有 parks 的 names。</p>
+            <p><strong>問題 1：</strong> 請編寫 SQL 查詢，取得訪客(visitors)少於1,000,000 人的所有 parks 的 names。</p>
           </div>
-
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">from</span> park <span class="keyword">WHERE</span> park_visitors <span class="operator">&lt;</span> <span class="number">1000000</span></span><br></pre></td></tr></table></figure>
-
-<img src="https://i.imgur.com/xpL1Jh5.png" width="70%">
-
-<hr>
-<h3 id="常見的-SQL-函式"><a href="#常見的-SQL-函式" class="headerlink" title="常見的 SQL 函式"></a>常見的 SQL 函式</h3><p>您編寫的第一個查詢只會傳回 database 中的所有 rows。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure>
-
-<p>不過，您可能不希望傳回冗長的 results list。SQL 也提供匯總函式，可協助您將 data 縮減為單一個有意義的值。舉例來說，假設您想知道 park table 中的 rows 數量。如果您不使用 <code>SELECT * ...</code>，而是改用 <code>COUNT()</code> 函式並傳遞 <code>*</code> (所有 rows) 或 column 名稱，查詢將會<u>傳回所有 rows 的數量</u>。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure>
-
-<p>另一個實用的匯總函式為 <code>SUM()</code> 函式，可用於<u>加總 columns 中的值</u>。此查詢只會篩選 <code>national parks</code> (由於這是 <code>park_visitors</code>  column 非空值的唯一項目(entries))，並將每個 park 的總訪客(visitors)數加總。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(park_visitors) <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> type <span class="operator">=</span> &quot;national_park&quot;</span><br></pre></td></tr></table></figure>
-
-<p>值得注意的是，您仍然可以在空值中使用 <code>SUM()</code>，但值將會視為零。以下查詢會傳回上述相同結果。但仍建議您盡量具體指定，以避免在應用程式中使用 SQL 時出現錯誤。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(park_visitors) <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure>
-
-<p>除了匯總值之外，還提供其他實用的函式 (例如 <code>MAX()</code> 和 <code>MIN()</code>)，以分別取得最大或最小值。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(area_acres) <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> type <span class="operator">=</span> <span class="string">&#x27;national_park&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="取得-DISTINCT-值"><a href="#取得-DISTINCT-值" class="headerlink" title="取得 DISTINCT 值"></a>取得 DISTINCT 值</h4><p>您可能會注意到，在某些 rows 中，此欄與其他 rows 的值相同。舉例來說，type column 值的數量有限。您可以使用 <code>DISTINCT</code> 關鍵字，<u>排除查詢結果中的重複值</u>。例如，如要取得 type column 的所有不重複值，您可以使用以下查詢。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> type <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure>
-
-<p>您也可以在匯總函式中使用 <code>DISTINCT</code>，如此即可直接傳回計數(count)，而不必列出不重複的 <code>type</code> 並自行計算。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> type) <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure>
-
-<h4 id="練習-1"><a href="#練習-1" class="headerlink" title="練習"></a>練習</h4><div class="note primary">
-            <p><strong>問題 2：</strong><br>請編寫 SQL 查詢，取得 park table 中<u>不同城市(distinct cities)的數量</u></p>
-          </div>
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> city) <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure>
-<img src="https://i.imgur.com/JvDOdoF.png" width="80%">
-
+<p><img src="https://i.imgur.com/xpL1Jh5.png" width="70%"></p>
+<hr />
+<h3 id="常見的-sql-函式">常見的 SQL 函式</h3>
+<p>您編寫的第一個查詢只會傳回 database 中的所有 rows。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure></p>
+<p>不過，您可能不希望傳回冗長的 results list。SQL
+也提供匯總函式，可協助您將 data
+縮減為單一個有意義的值。舉例來說，假設您想知道 park table 中的 rows
+數量。如果您不使用 <code>SELECT * ...</code>，而是改用
+<code>COUNT()</code> 函式並傳遞 <code>*</code> (所有 rows) 或 column
+名稱，查詢將會<u>傳回所有 rows 的數量</u>。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure></p>
+<p>另一個實用的匯總函式為 <code>SUM()</code> 函式，可用於<u>加總 columns
+中的值</u>。此查詢只會篩選 <code>national parks</code> (由於這是
+<code>park_visitors</code> column 非空值的唯一項目(entries))，並將每個
+park 的總訪客(visitors)數加總。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(park_visitors) <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> type <span class="operator">=</span> &quot;national_park&quot;</span><br></pre></td></tr></table></figure></p>
+<p>值得注意的是，您仍然可以在空值中使用
+<code>SUM()</code>，但值將會視為零。以下查詢會傳回上述相同結果。但仍建議您盡量具體指定，以避免在應用程式中使用
+SQL 時出現錯誤。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(park_visitors) <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure></p>
+<p>除了匯總值之外，還提供其他實用的函式 (例如 <code>MAX()</code> 和
+<code>MIN()</code>)，以分別取得最大或最小值。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(area_acres) <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> type <span class="operator">=</span> <span class="string">&#x27;national_park&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="取得-distinct-值">取得 DISTINCT 值</h4>
+<p>您可能會注意到，在某些 rows 中，此欄與其他 rows
+的值相同。舉例來說，type column 值的數量有限。您可以使用
+<code>DISTINCT</code>
+關鍵字，<u>排除查詢結果中的重複值</u>。例如，如要取得 type column
+的所有不重複值，您可以使用以下查詢。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> type <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure></p>
+<p>您也可以在匯總函式中使用
+<code>DISTINCT</code>，如此即可直接傳回計數(count)，而不必列出不重複的
+<code>type</code> 並自行計算。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> type) <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure></p>
+<h4 id="練習-1">練習</h4>
 <div class="note primary">
-            <p><strong>問題 3：</strong><br>請編寫 SQL 查詢，取得 <u>San Francisco parks 的遊客(visitors)總數</u>。</p>
+            <p><strong>問題 2：</strong> 請編寫 SQL 查詢，取得 park table中<u>不同城市(distinct cities)的數量</u></p>
           </div>
-
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> city) <span class="keyword">FROM</span> park</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/JvDOdoF.png" width="80%"></p>
+<div class="note primary">
+            <p><strong>問題 3：</strong> 請編寫 SQL 查詢，取得 <u>San Franciscoparks 的遊客(visitors)總數</u>。</p>
+          </div>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(park_visitors) <span class="keyword">FROM</span> park <span class="keyword">WHERE</span> city <span class="operator">=</span> &quot;San Francisco&quot;</span><br></pre></td></tr></table></figure>
-<img src="https://i.imgur.com/e8lom9u.png">
-
-<hr>
-<h3 id="排序-ordering-及分組-grouping-查詢結果"><a href="#排序-ordering-及分組-grouping-查詢結果" class="headerlink" title="排序(ordering)及分組(grouping)查詢結果"></a>排序(ordering)及分組(grouping)查詢結果</h3><p>在先前的範例中，要找出特定項目(entry)並不容易。所幸，您也可以<u>使用 <code>ORDER BY</code> 子句排序 <code>SELECT</code> statement 的結果</u>。您可<u>在 <code>WHERE</code> 子句後 (如果有) 的查詢結尾新增 <code>ORDER BY</code> 子句</u>，並<u>指定要做為排序依據的 column 名稱</u>。以下範例會取得 database 中每個 park 的名稱，並依字母順序排列結果。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> name</span><br></pre></td></tr></table></figure>
-
-<p><u>根據預設，系統會按遞增順序排序結果</u>，但您可以將 <code>ASC</code> 或 <code>DESC</code> keyword 新增至 Order by 子句，以遞增或遞減順序加以排序。您不需要指定 <code>ASC</code>，因為第一個查詢會以遞增順序列出結果，但如要以遞減順序取得結果，請將 <code>DESC</code> keyword 新增至 <code>ORDER BY</code> 子句結尾。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> name <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
-
-<p>您還可以<u>依 column 將結果分組(group)</u>，以便閱讀。<u>在 <code>ORDER BY</code> 子句 (如果有) 前，您可以視需要指定 <code>GROUP BY</code> 子句和 column</u>。這會將結果分割為 <code>GROUP BY</code> 中 column 特定的子集，每一欄(column)的結果會<u>根據查詢的其餘部分進行篩選(filtered)及排序(ordered)</u>。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> type, name <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> type</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> name</span><br></pre></td></tr></table></figure>
-
-<p>這最容易透過範例理解。您不需計算 database 中的所有 parks 數量，即可得知<u>每個 type 的 parks 數量</u>，並取得<u>每種 type 的個別數量(separate count)</u>。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> type, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> type</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> type</span><br></pre></td></tr></table></figure>
-
-<h4 id="練習-2"><a href="#練習-2" class="headerlink" title="練習"></a>練習</h4><div class="note primary">
-            <p><strong>問題 4：</strong><br>查詢<u>排名前 5 的 park name</u>，和其<u>遊客(visitors)最多的遊客數量(visitor count)</u>(<u>按遞減排序) 編寫一個 SQL 查詢</u>。</p>
+<p><img src="https://i.imgur.com/e8lom9u.png"></p>
+<hr />
+<h3
+id="排序ordering及分組grouping查詢結果">排序(ordering)及分組(grouping)查詢結果</h3>
+<p>在先前的範例中，要找出特定項目(entry)並不容易。所幸，您也可以<u>使用
+<code>ORDER BY</code> 子句排序 <code>SELECT</code> statement
+的結果</u>。您可<u>在 <code>WHERE</code> 子句後 (如果有) 的查詢結尾新增
+<code>ORDER BY</code> 子句</u>，並<u>指定要做為排序依據的 column
+名稱</u>。以下範例會取得 database 中每個 park
+的名稱，並依字母順序排列結果。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> name</span><br></pre></td></tr></table></figure></p>
+<p><u>根據預設，系統會按遞增順序排序結果</u>，但您可以將
+<code>ASC</code> 或 <code>DESC</code> keyword 新增至 Order by
+子句，以遞增或遞減順序加以排序。您不需要指定
+<code>ASC</code>，因為第一個查詢會以遞增順序列出結果，但如要以遞減順序取得結果，請將
+<code>DESC</code> keyword 新增至 <code>ORDER BY</code> 子句結尾。
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> name <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure></p>
+<p>您還可以<u>依 column 將結果分組(group)</u>，以便閱讀。<u>在
+<code>ORDER BY</code> 子句 (如果有) 前，您可以視需要指定
+<code>GROUP BY</code> 子句和 column</u>。這會將結果分割為
+<code>GROUP BY</code> 中 column
+特定的子集，每一欄(column)的結果會<u>根據查詢的其餘部分進行篩選(filtered)及排序(ordered)</u>。
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> type, name <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> type</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> name</span><br></pre></td></tr></table></figure></p>
+<p>這最容易透過範例理解。您不需計算 database 中的所有 parks
+數量，即可得知<u>每個 type 的 parks 數量</u>，並取得<u>每種 type
+的個別數量(separate count)</u>。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> type, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> type</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> type</span><br></pre></td></tr></table></figure></p>
+<h4 id="練習-2">練習</h4>
+<div class="note primary">
+            <p><strong>問題 4：</strong> 查詢<u>排名前 5 的 parkname</u>，和其<u>遊客(visitors)最多的遊客數量(visitorcount)</u>(<u>按遞減排序) 編寫一個 SQL 查詢</u>。</p>
           </div>
-
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name, park_visitors <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> park_visitors <span class="keyword">DESC</span></span><br><span class="line">LIMIT <span class="number">5</span></span><br></pre></td></tr></table></figure>
-
-<img src="https://i.imgur.com/BxKpBUF.png">
-
-<hr>
-<h3 id="插入及刪除-rows"><a href="#插入及刪除-rows" class="headerlink" title="插入及刪除 rows"></a>插入及刪除 rows</h3><p>您必須能夠寫入 data，才能使用 <code>Room</code> 完整發揮 Android 的持續性資料功能。除了查詢 database 之外，您也可以使用 SQL statements <u>插入(inserting)</u>、<u>更新(updating)</u>及<u>刪除(deleting)</u> <strong>rows</strong>。稍後在課程 2 中學習使用 <code>Room</code> 寫入資料時，將會需要具備此基本知識。</p>
-<h4 id="INSERT-statement"><a href="#INSERT-statement" class="headerlink" title="INSERT statement"></a>INSERT statement</h4><p>如要新增 row，請使用 <code>INSERT</code> statement。<code>INSERT</code> statement 後方是 <code>INTO</code> keyword，以及您想新增 row 的 table 名稱。<u>在 <code>VALUES</code> keyword 之後，您必須將每個 column 的值加上括號 <code>()</code>，每個值以半形逗號隔開</u>。<code>INSERT</code> statement 的格式如下。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table_name</span><br><span class="line"><span class="keyword">VALUES</span> (column1, column2, ...)</span><br></pre></td></tr></table></figure>
-
-<p>如要在 <code>park</code> table 中新增 row，<code>INSERT</code> statement 將如下所示。這些值的順序會和為 <code>park</code> table 所定義的 columns 順序相符。請注意，系統不會指定部分 data。這目前沒關係，在您插入(inserted) row 後，可隨時更新(update) row。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> park</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="keyword">null</span>, <span class="string">&#x27;Googleplex&#x27;</span>, <span class="string">&#x27;Mountain View&#x27;</span>, <span class="number">12</span>, <span class="keyword">null</span>, <span class="number">0</span>, <span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>另請注意，您針對 ID 傳入 <code>null</code>。雖然可以提供特定編號，但這實際上並不便利，因為 app 必須追蹤最新的 ID，確保無重複。但是，您可以設定 database，<u>使主鍵(primary key)自動增加</u>，如此處操作。如此一來，當您傳入 <code>null</code> 時，系統就會自動選擇下一個 ID。</p>
-<p>確認已使用 <code>WHERE</code> 子句建立項目，以指定名為 “Googleplex” 的 park。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Googleplex&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="UPDATE-statement"><a href="#UPDATE-statement" class="headerlink" title="UPDATE statement"></a>UPDATE statement</h4><p>Row 建立後，您可以隨時變更其中的內容。使用 <code>UPDATE</code> statement 即可進行變更。如同您看過的所有其他 SQL statement，您必須先指定 table 名稱。在 <code>SET</code> 子句中，只需設定您想要變更為新值的 column 即可。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> table_name</span><br><span class="line"><span class="keyword">SET</span> column1 <span class="operator">=</span> ...,</span><br><span class="line">column2 <span class="operator">=</span> ...,</span><br><span class="line">...</span><br><span class="line"><span class="keyword">WHERE</span> column_name <span class="operator">=</span> ...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p>如果是 Googleplex 項目(entry)，系統會更新現有的屬性，並在其他欄位(fields)填入內容 (這些欄位(fields)先前具有值，但為空白字串(empty string) <code>&quot;&quot;</code>)。您可以使用 <code>UPDATE</code> statement 一次更新多個 (或全部) 欄位(fields)。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> park</span><br><span class="line"><span class="keyword">SET</span> area_acres <span class="operator">=</span> <span class="number">46</span>,</span><br><span class="line">established <span class="operator">=</span> <span class="number">1088640000</span>,</span><br><span class="line">type <span class="operator">=</span> <span class="string">&#x27;office&#x27;</span></span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Googleplex&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>查看查詢結果中反映的更新</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Googleplex&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="DELETE-statement"><a href="#DELETE-statement" class="headerlink" title="DELETE statement"></a>DELETE statement</h4><p>最後，您也可以使用 SQL 指令刪除 database 中的 rows。請再次指定 table 名稱，如同使用 <code>SELECT</code> statement，您可以使用 <code>WHERE</code> 子句為要刪除的 rows 提供條件。由於 <code>WHERE</code> 子句可以比對多個 rows，因此只需一個指令就能刪除多個 rows。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> <span class="operator">&lt;</span>column_name<span class="operator">&gt;</span> <span class="operator">=</span> ...</span><br></pre></td></tr></table></figure>
-
-<p>由於 Googleplex 並非 national park，請嘗試使用 <code>DELETE</code> statement 從 database 中移除此項目。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Googleplex&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>進行驗證，確認使用 <code>SELECT</code> statement 刪除 rows。查詢不應傳回任何結果，代表所有名為「Googleplex」的 rows 都已成功刪除。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Googleplex&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>這些就是<u>插入(inserting)、更新(updating)及刪除(deleting) data</u> 的所有步驟。您只需瞭解要執行 SQL 指令的格式，並指定符合 database 中 columns 的值。我們在下一個程式碼研究室中介紹 <code>Room</code> 時，重點在於<u>從 database 進行讀取(reading)</u>。<u>插入(inserting)、更新(updating)及刪除(deleting) data</u> 的步驟將於課程 2 中詳細說明。</p>
+<p><img src="https://i.imgur.com/BxKpBUF.png"></p>
+<hr />
+<h3 id="插入及刪除-rows">插入及刪除 rows</h3>
+<p>您必須能夠寫入 data，才能使用 <code>Room</code> 完整發揮 Android
+的持續性資料功能。除了查詢 database 之外，您也可以使用 SQL statements
+<u>插入(inserting)</u>、<u>更新(updating)</u>及<u>刪除(deleting)</u>
+<strong>rows</strong>。稍後在課程 2 中學習使用 <code>Room</code>
+寫入資料時，將會需要具備此基本知識。</p>
+<h4 id="insert-statement">INSERT statement</h4>
+<p>如要新增 row，請使用 <code>INSERT</code>
+statement。<code>INSERT</code> statement 後方是 <code>INTO</code>
+keyword，以及您想新增 row 的 table 名稱。<u>在 <code>VALUES</code>
+keyword 之後，您必須將每個 column 的值加上括號
+<code>()</code>，每個值以半形逗號隔開</u>。<code>INSERT</code> statement
+的格式如下。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table_name</span><br><span class="line"><span class="keyword">VALUES</span> (column1, column2, ...)</span><br></pre></td></tr></table></figure></p>
+<p>如要在 <code>park</code> table 中新增 row，<code>INSERT</code>
+statement 將如下所示。這些值的順序會和為 <code>park</code> table
+所定義的 columns 順序相符。請注意，系統不會指定部分
+data。這目前沒關係，在您插入(inserted) row 後，可隨時更新(update) row。
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> park</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="keyword">null</span>, <span class="string">&#x27;Googleplex&#x27;</span>, <span class="string">&#x27;Mountain View&#x27;</span>, <span class="number">12</span>, <span class="keyword">null</span>, <span class="number">0</span>, <span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
+<p>另請注意，您針對 ID 傳入
+<code>null</code>。雖然可以提供特定編號，但這實際上並不便利，因為 app
+必須追蹤最新的 ID，確保無重複。但是，您可以設定
+database，<u>使主鍵(primary
+key)自動增加</u>，如此處操作。如此一來，當您傳入 <code>null</code>
+時，系統就會自動選擇下一個 ID。</p>
+<p>確認已使用 <code>WHERE</code> 子句建立項目，以指定名為 "Googleplex"
+的 park。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Googleplex&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="update-statement">UPDATE statement</h4>
+<p>Row 建立後，您可以隨時變更其中的內容。使用 <code>UPDATE</code>
+statement 即可進行變更。如同您看過的所有其他 SQL statement，您必須先指定
+table 名稱。在 <code>SET</code> 子句中，只需設定您想要變更為新值的
+column 即可。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> table_name</span><br><span class="line"><span class="keyword">SET</span> column1 <span class="operator">=</span> ...,</span><br><span class="line">column2 <span class="operator">=</span> ...,</span><br><span class="line">...</span><br><span class="line"><span class="keyword">WHERE</span> column_name <span class="operator">=</span> ...</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>如果是 Googleplex
+項目(entry)，系統會更新現有的屬性，並在其他欄位(fields)填入內容
+(這些欄位(fields)先前具有值，但為空白字串(empty string)
+<code>""</code>)。您可以使用 <code>UPDATE</code> statement 一次更新多個
+(或全部) 欄位(fields)。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> park</span><br><span class="line"><span class="keyword">SET</span> area_acres <span class="operator">=</span> <span class="number">46</span>,</span><br><span class="line">established <span class="operator">=</span> <span class="number">1088640000</span>,</span><br><span class="line">type <span class="operator">=</span> <span class="string">&#x27;office&#x27;</span></span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Googleplex&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<p>查看查詢結果中反映的更新 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Googleplex&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="delete-statement">DELETE statement</h4>
+<p>最後，您也可以使用 SQL 指令刪除 database 中的 rows。請再次指定 table
+名稱，如同使用 <code>SELECT</code> statement，您可以使用
+<code>WHERE</code> 子句為要刪除的 rows 提供條件。由於 <code>WHERE</code>
+子句可以比對多個 rows，因此只需一個指令就能刪除多個 rows。
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> <span class="operator">&lt;</span>column_name<span class="operator">&gt;</span> <span class="operator">=</span> ...</span><br></pre></td></tr></table></figure></p>
+<p>由於 Googleplex 並非 national park，請嘗試使用 <code>DELETE</code>
+statement 從 database 中移除此項目。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Googleplex&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<p>進行驗證，確認使用 <code>SELECT</code> statement 刪除
+rows。查詢不應傳回任何結果，代表所有名為「Googleplex」的 rows
+都已成功刪除。 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> park</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Googleplex&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<p>這些就是<u>插入(inserting)、更新(updating)及刪除(deleting) data</u>
+的所有步驟。您只需瞭解要執行 SQL 指令的格式，並指定符合 database 中
+columns 的值。我們在下一個程式碼研究室中介紹 <code>Room</code>
+時，重點在於<u>從 database
+進行讀取(reading)</u>。<u>插入(inserting)、更新(updating)及刪除(deleting)
+data</u> 的步驟將於課程 2 中詳細說明。</p>
 
     </div>
 
@@ -643,7 +794,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%9C%E8%81%AF%E8%B3%87%E6%96%99%E5%BA%AB%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.</span> <span class="nav-text">關聯資料庫總覽</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E9%97%9C%E8%81%AF%E8%B3%87%E6%96%99%E5%BA%AB-relational-database-%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">什麼是關聯資料庫(relational database)？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tables%E3%80%81columns-%E5%92%8C-rows"><span class="nav-number">1.2.</span> <span class="nav-text">Tables、columns 和 rows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E9%8D%B5-Primary-Key"><span class="nav-number">1.3.</span> <span class="nav-text">主鍵(Primary Key)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Types"><span class="nav-number">1.4.</span> <span class="nav-text">Data Types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL"><span class="nav-number">1.5.</span> <span class="nav-text">SQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-Parks-database"><span class="nav-number">2.</span> <span class="nav-text">範例程式碼 - Parks database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC-SELECT-statements"><span class="nav-number">3.</span> <span class="nav-text">基本 SELECT statements</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92"><span class="nav-number">3.1.</span> <span class="nav-text">練習</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E7%9A%84-SQL-%E5%87%BD%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">常見的 SQL 函式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E5%BE%97-DISTINCT-%E5%80%BC"><span class="nav-number">4.1.</span> <span class="nav-text">取得 DISTINCT 值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92-1"><span class="nav-number">4.2.</span> <span class="nav-text">練習</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F-ordering-%E5%8F%8A%E5%88%86%E7%B5%84-grouping-%E6%9F%A5%E8%A9%A2%E7%B5%90%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">排序(ordering)及分組(grouping)查詢結果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92-2"><span class="nav-number">5.1.</span> <span class="nav-text">練習</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E5%8F%8A%E5%88%AA%E9%99%A4-rows"><span class="nav-number">6.</span> <span class="nav-text">插入及刪除 rows</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#INSERT-statement"><span class="nav-number">6.1.</span> <span class="nav-text">INSERT statement</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UPDATE-statement"><span class="nav-number">6.2.</span> <span class="nav-text">UPDATE statement</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DELETE-statement"><span class="nav-number">6.3.</span> <span class="nav-text">DELETE statement</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%9C%E8%81%AF%E8%B3%87%E6%96%99%E5%BA%AB%E7%B8%BD%E8%A6%BD"><span class="nav-number">1.</span> <span class="nav-text">關聯資料庫總覽</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E9%97%9C%E8%81%AF%E8%B3%87%E6%96%99%E5%BA%ABrelational-database"><span class="nav-number">1.1.</span> <span class="nav-text">什麼是關聯資料庫(relational
+database)？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tablescolumns-%E5%92%8C-rows"><span class="nav-number">1.2.</span> <span class="nav-text">Tables、columns 和 rows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E9%8D%B5primary-key"><span class="nav-number">1.3.</span> <span class="nav-text">主鍵(Primary Key)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data-types"><span class="nav-number">1.4.</span> <span class="nav-text">Data Types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sql"><span class="nav-number">1.5.</span> <span class="nav-text">SQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC---parks-database"><span class="nav-number">2.</span> <span class="nav-text">範例程式碼 - Parks database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC-select-statements"><span class="nav-number">3.</span> <span class="nav-text">基本 SELECT statements</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92"><span class="nav-number">3.1.</span> <span class="nav-text">練習</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E7%9A%84-sql-%E5%87%BD%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">常見的 SQL 函式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E5%BE%97-distinct-%E5%80%BC"><span class="nav-number">4.1.</span> <span class="nav-text">取得 DISTINCT 值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92-1"><span class="nav-number">4.2.</span> <span class="nav-text">練習</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8Fordering%E5%8F%8A%E5%88%86%E7%B5%84grouping%E6%9F%A5%E8%A9%A2%E7%B5%90%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">排序(ordering)及分組(grouping)查詢結果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92-2"><span class="nav-number">5.1.</span> <span class="nav-text">練習</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E5%8F%8A%E5%88%AA%E9%99%A4-rows"><span class="nav-number">6.</span> <span class="nav-text">插入及刪除 rows</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#insert-statement"><span class="nav-number">6.1.</span> <span class="nav-text">INSERT statement</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#update-statement"><span class="nav-number">6.2.</span> <span class="nav-text">UPDATE statement</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delete-statement"><span class="nav-number">6.3.</span> <span class="nav-text">DELETE statement</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -659,20 +811,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">128</span>
+        <span class="site-state-item-count">129</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -768,6 +920,8 @@
 
 
 
+
+  
 
   
 

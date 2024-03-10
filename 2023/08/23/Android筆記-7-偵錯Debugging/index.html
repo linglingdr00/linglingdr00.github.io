@@ -270,108 +270,149 @@
 
       
         <blockquote>
-<p>只要是軟體使用者，很可能都曾遇到錯誤。「<code>bug</code>」是指某個軟體導致錯誤的行為，例如應用程式當機或功能無法正常運作。無論經驗為何，所有開發人員在撰寫程式碼時都會回報錯誤，而 Android 開發人員最重要的技能之一就是辨識及修正。</p>
+<p>只要是軟體使用者，很可能都曾遇到錯誤。「<code>bug</code>」是指某個軟體導致錯誤的行為，例如應用程式當機或功能無法正常運作。無論經驗為何，所有開發人員在撰寫程式碼時都會回報錯誤，而
+Android 開發人員最重要的技能之一就是辨識及修正。</p>
 </blockquote>
-<p>bug的修正程序稱為<code>偵錯(debugging)</code>。知名電腦科學家 Brian Kernighan 曾表示，「最有效的偵錯工具至今仍在審慎考量，加上眾所皆知的印刷品聲明。」 您可能已經很熟悉先前程式碼研究室的 Kotlin’s println() 陳述式，但專業的 Android 開發人員會使用記錄功能來更妥善地整理程式的輸出內容。在這個程式碼研究室中，您將瞭解如何使用 Android Studio 中的記錄功能，以及如何將記錄用於偵錯工具。您將瞭解如何讀取錯誤訊息記錄 (稱為堆疊追蹤)，藉此找出並修正錯誤。</p>
-<p><strong>學習目標</strong></p>
-<ul>
-<li>使用 <code>android.util.Logger</code> 寫入記錄檔。</li>
-<li>瞭解不同記錄檔層級的使用時機。</li>
-<li>使用記錄是一項簡單的強大工具。</li>
-<li>如何在堆疊追蹤中尋找有意義的資訊。</li>
-<li>搜尋錯誤訊息以解決應用程式當機問題。</li>
-</ul>
-<span id="more"></span>
-<hr>
-<h4 id="建立新專案"><a href="#建立新專案" class="headerlink" title="建立新專案"></a>建立新專案</h4><p>我們將從空白專案開始，先顯示一個空白專案來示範記錄陳述式及其偵錯用途，而不是使用大型的應用程式。<br>請先建立新的 Android Studio 專案，如圖所示。</p>
-<ol>
-<li><p>在「New Project」(新增專案) 畫面中，選擇「Empty Views Activity」(空白活動)。</p>
-</li>
-<li><p>將應用程式命名為「Debugging」。確認語言已設為 Kotlin，且其他維持不變。</p>
-</li>
+<p>bug的修正程序稱為<code>偵錯(debugging)</code>。知名電腦科學家 Brian
+Kernighan
+曾表示，「最有效的偵錯工具至今仍在審慎考量，加上眾所皆知的印刷品聲明。」
+您可能已經很熟悉先前程式碼研究室的 Kotlin's println() 陳述式，但專業的
+Android
+開發人員會使用記錄功能來更妥善地整理程式的輸出內容。在這個程式碼研究室中，您將瞭解如何使用
+Android Studio
+中的記錄功能，以及如何將記錄用於偵錯工具。您將瞭解如何讀取錯誤訊息記錄
+(稱為堆疊追蹤)，藉此找出並修正錯誤。</p>
+<p><strong>學習目標</strong> + 使用 <code>android.util.Logger</code>
+寫入記錄檔。 + 瞭解不同記錄檔層級的使用時機。 +
+使用記錄是一項簡單的強大工具。 + 如何在堆疊追蹤中尋找有意義的資訊。 +
+搜尋錯誤訊息以解決應用程式當機問題。</p>
+<h2 id="section"><span id="more"></span></h2>
+<h4 id="建立新專案">建立新專案</h4>
+<p>我們將從空白專案開始，先顯示一個空白專案來示範記錄陳述式及其偵錯用途，而不是使用大型的應用程式。
+請先建立新的 Android Studio 專案，如圖所示。</p>
+<ol type="1">
+<li><p>在「New Project」(新增專案) 畫面中，選擇「Empty Views
+Activity」(空白活動)。</p></li>
+<li><p>將應用程式命名為「Debugging」。確認語言已設為
+Kotlin，且其他維持不變。</p></li>
 </ol>
-<img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-debugging/img/60a1619c07fae8f5_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%">
-
-<hr>
-<h4 id="對輸出進行記錄與偵錯"><a href="#對輸出進行記錄與偵錯" class="headerlink" title="對輸出進行記錄與偵錯"></a>對輸出進行記錄與偵錯</h4><p>在先前的課程中，您曾使用 Kotlin 的 <code>println()</code> 陳述式產生文字輸出。在 Android 應用程式中，記錄記錄的最佳做法是使用 <code>Log</code> 類別。記錄輸出功能有多種函式，採 <code>Log.v()</code>、<code>Log.d()</code>、<code>Log.i()</code>、<code>Log.w()</code> 或 <code>Log.e()</code> 格式。這些方法有兩種參數，第一個稱為「標記」，是<span class="label primary">識別記錄訊息來源 (例如記錄文字的類別名稱) 的字串</span>。第二個則是<span class="label primary">實際記錄訊息</span> 。</p>
-<p>執行下列步驟，開始在空白專案中使用記錄功能。</p>
-<ol>
-<li>在 <code>MainActivity.kt</code> 的類別宣告之前，新增名為 <code>TAG</code> 的常數，並將該值設為類別的名稱 <code>MainActivity</code>。</li>
-</ol>
+<p><img src="https://developer.android.com/static/codelabs/basic-android-kotlin-training-intro-debugging/img/60a1619c07fae8f5_1920.png?authuser=2&hl=zh-tw" width="70%" height="70%"></p>
+<hr />
+<h4 id="對輸出進行記錄與偵錯">對輸出進行記錄與偵錯</h4>
+<p>在先前的課程中，您曾使用 Kotlin 的 <code>println()</code>
+陳述式產生文字輸出。在 Android 應用程式中，記錄記錄的最佳做法是使用
+<code>Log</code> 類別。記錄輸出功能有多種函式，採
+<code>Log.v()</code>、<code>Log.d()</code>、<code>Log.i()</code>、<code>Log.w()</code>
+或 <code>Log.e()</code>
+格式。這些方法有兩種參數，第一個稱為「標記」，是<span class="label primary">識別記錄訊息來源 (例如記錄文字的類別名稱) 的字串</span>。第二個則是<span class="label primary">實際記錄訊息</span>
+。</p>
+<p>執行下列步驟，開始在空白專案中使用記錄功能。 1. 在
+<code>MainActivity.kt</code> 的類別宣告之前，新增名為 <code>TAG</code>
+的常數，並將該值設為類別的名稱 <code>MainActivity</code>。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private const val TAG = <span class="string">&quot;MainActivity&quot;</span></span><br></pre></td></tr></table></figure>
-
 <div class="note success no-icon">
-            <p>注意： 記錄標記通常是在類別外宣告。雖然此變數是在 <b>MainActivity</b> 之外宣告，但會宣告為私人，因此只能在 <b>MainActivity.kt</b> 中存取。也就是說，您也可以宣告其他類別的 <b>TAG</b> 變數。</p>
+            <p>注意： 記錄標記通常是在類別外宣告。雖然此變數是在 <b>MainActivity</b>之外宣告，但會宣告為私人，因此只能在 <b>MainActivity.kt</b>中存取。也就是說，您也可以宣告其他類別的 <b>TAG</b> 變數。</p>
           </div>
-
-<ol start="2">
-<li>向 MainActivity 類別新增一個名為 <code>logging()</code> 的新函數，如下所示。</li>
+<ol start="2" type="1">
+<li>向 MainActivity 類別新增一個名為 <code>logging()</code>
+的新函數，如下所示。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">logging</span></span>() &#123;</span><br><span class="line">    Log.v(TAG, <span class="string">&quot;Hello, world!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol start="3" type="1">
 <li>在 <code>onCreate()</code> 中呼叫 <code>logging()</code></li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.activity_main)</span><br><span class="line">    logging()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li><p>執行應用程式以查看記錄。記錄檔隨即顯示在畫面底部的 <code>Logcat</code> 視窗中。在篩選框中輸入 <code>level:debug</code> ，藉此排除與您應用程式無關的任何記錄。</p>
-</li>
-<li><p>您應該會在輸出視窗中看到「Hello, world!」。如有需要，請在 <code>Logcat</code> 視窗頂端的搜尋框中輸入「hello」，即可搜尋所有記錄。</p>
-</li>
+<ol start="4" type="1">
+<li><p>執行應用程式以查看記錄。記錄檔隨即顯示在畫面底部的
+<code>Logcat</code> 視窗中。在篩選框中輸入 <code>level:debug</code>
+，藉此排除與您應用程式無關的任何記錄。</p></li>
+<li><p>您應該會在輸出視窗中看到「Hello, world!」。如有需要，請在
+<code>Logcat</code>
+視窗頂端的搜尋框中輸入「hello」，即可搜尋所有記錄。</p></li>
 </ol>
-<hr>
-<h4 id="記錄層級"><a href="#記錄層級" class="headerlink" title="記錄層級"></a>記錄層級</h4><p>造成不同記錄檔函式 (名稱不同) 的原因，原因是這些相對應的記錄層級不同。您可以根據要輸出的資訊類型，在 <code>Logcat</code> 輸出內容中使用不同記錄檔層級進行篩選。您會定期使用五個主要記錄層級。</p>
+<hr />
+<h4 id="記錄層級">記錄層級</h4>
+<p>造成不同記錄檔函式 (名稱不同)
+的原因，原因是這些相對應的記錄層級不同。您可以根據要輸出的資訊類型，在
+<code>Logcat</code>
+輸出內容中使用不同記錄檔層級進行篩選。您會定期使用五個主要記錄層級。</p>
 <table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
-<tr>
-<th align="left">紀錄層級</th>
-<th align="left">用途</th>
-<th align="left">範例</th>
+<tr class="header">
+<th style="text-align: left;">紀錄層級</th>
+<th style="text-align: left;">用途</th>
+<th style="text-align: left;">範例</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">錯誤(ERROR)</td>
-<td align="left">錯誤記錄會回報發生嚴重錯誤，例如應用程式當機的原因。</td>
-<td align="left">Log.e(TAG, “The cake was left in the oven for too long and burned.”).</td>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">錯誤(ERROR)</td>
+<td
+style="text-align: left;">錯誤記錄會回報發生嚴重錯誤，例如應用程式當機的原因。</td>
+<td style="text-align: left;">Log.e(TAG, "The cake was left in the oven
+for too long and burned.").</td>
 </tr>
-<tr>
-<td align="left">警告(WARN)</td>
-<td align="left">WARN 記錄較不嚴重，但仍會回報應修正的問題，以避免嚴重的錯誤。舉例來說，如果您呼叫的函式「已淘汰」，我們不建議使用該函式取代較新的函式。</td>
-<td align="left">Log.w(TAG, “This oven does not heat evenly. You may want to turn the cake around halfway through to promote even browning.”)</td>
+<tr class="even">
+<td style="text-align: left;">警告(WARN)</td>
+<td style="text-align: left;">WARN
+記錄較不嚴重，但仍會回報應修正的問題，以避免嚴重的錯誤。舉例來說，如果您呼叫的函式「已淘汰」，我們不建議使用該函式取代較新的函式。</td>
+<td style="text-align: left;">Log.w(TAG, "This oven does not heat
+evenly. You may want to turn the cake around halfway through to promote
+even browning.")</td>
 </tr>
-<tr>
-<td align="left">資訊(INFO)</td>
-<td align="left">INFO 記錄提供實用資訊，例如成功完成的作業。</td>
-<td align="left">Log.i(TAG, “The cake is ready to be served.”).println(“The cake has cooled.”)</td>
+<tr class="odd">
+<td style="text-align: left;">資訊(INFO)</td>
+<td style="text-align: left;">INFO
+記錄提供實用資訊，例如成功完成的作業。</td>
+<td style="text-align: left;">Log.i(TAG, "The cake is ready to be
+served.").println("The cake has cooled.")</td>
 </tr>
-<tr>
-<td align="left">偵錯(DEBUG)</td>
-<td align="left">DEBUG 記錄包含調查問題時可能會用到的資訊。這些版本不會顯示在發布版本中，例如您在 Google Play 商店發布的版本。</td>
-<td align="left">Log.d(TAG, “Cake was removed from the oven after 55 minutes. Recipe calls for the cake to be removed after 50 - 60 minutes.”)</td>
+<tr class="even">
+<td style="text-align: left;">偵錯(DEBUG)</td>
+<td style="text-align: left;">DEBUG
+記錄包含調查問題時可能會用到的資訊。這些版本不會顯示在發布版本中，例如您在
+Google Play 商店發布的版本。</td>
+<td style="text-align: left;">Log.d(TAG, "Cake was removed from the oven
+after 55 minutes. Recipe calls for the cake to be removed after 50 - 60
+minutes.")</td>
 </tr>
-<tr>
-<td align="left">詳細程度(VERBOSE)</td>
-<td align="left">顧名思義，「VERBOSE」是最低的記錄層級。何謂偵錯記錄與詳細記錄其實有點主觀，但一般而言，詳細記錄可以在功能實作之後移除，而偵錯記錄在偵錯時可能仍然有用。這些版本不包含版本。</td>
-<td align="left">Log.v(TAG, “Put the mixing bowl on the counter.”)Log.v(TAG, “Grabbed the eggs from the refrigerator.”)Log.v(TAG, “Plugged in the stand mixer.”)</td>
+<tr class="odd">
+<td style="text-align: left;">詳細程度(VERBOSE)</td>
+<td
+style="text-align: left;">顧名思義，「VERBOSE」是最低的記錄層級。何謂偵錯記錄與詳細記錄其實有點主觀，但一般而言，詳細記錄可以在功能實作之後移除，而偵錯記錄在偵錯時可能仍然有用。這些版本不包含版本。</td>
+<td style="text-align: left;">Log.v(TAG, "Put the mixing bowl on the
+counter.")Log.v(TAG, "Grabbed the eggs from the
+refrigerator.")Log.v(TAG, "Plugged in the stand mixer.")</td>
 </tr>
-</tbody></table>
-<p>請注意，目前並沒有設定各類型記錄層級的使用規則，特別是使用 <code>DEBUG</code> 和 <code>VERBOSE</code> 的時機。軟體開發團隊可能會制定個別記錄層級的使用時機，或是決定不採用特定記錄層級 (例如 VERBOSE)。這兩個記錄層級有一重要的重點是，這些版本並沒有發布版本，因此使用記錄偵錯功能不會影響已發布應用程式的效能，而 <code>println()</code> 陳述式則保留在發布版本中，並對負面影響產生負面影響成效。</p>
-<p>讓我們看看 Logcat 中各種不同的記錄層級。</p>
-<ol>
-<li>在 <code>MainActivity.kt</code> 中，將 <code>logging()</code> 方法的內容替換為下列內容。</li>
-</ol>
+</tbody>
+</table>
+<p>請注意，目前並沒有設定各類型記錄層級的使用規則，特別是使用
+<code>DEBUG</code> 和 <code>VERBOSE</code>
+的時機。軟體開發團隊可能會制定個別記錄層級的使用時機，或是決定不採用特定記錄層級
+(例如
+VERBOSE)。這兩個記錄層級有一重要的重點是，這些版本並沒有發布版本，因此使用記錄偵錯功能不會影響已發布應用程式的效能，而
+<code>println()</code>
+陳述式則保留在發布版本中，並對負面影響產生負面影響成效。</p>
+<p>讓我們看看 Logcat 中各種不同的記錄層級。 1. 在
+<code>MainActivity.kt</code> 中，將 <code>logging()</code>
+方法的內容替換為下列內容。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">logging</span></span>() &#123;</span><br><span class="line">    Log.e(TAG, <span class="string">&quot;ERROR: a serious error like an app crash&quot;</span>)</span><br><span class="line">    Log.w(TAG, <span class="string">&quot;WARN: warns about the potential for serious errors&quot;</span>)</span><br><span class="line">    Log.i(TAG, <span class="string">&quot;INFO: reporting technical information, such as an operation succeeding&quot;</span>)</span><br><span class="line">    Log.d(TAG, <span class="string">&quot;DEBUG: reporting technical information useful for debugging&quot;</span>)</span><br><span class="line">    Log.v(TAG, <span class="string">&quot;VERBOSE: more verbose than DEBUG logs&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>執行您的應用程式，並在 <code>Logcat</code> 中觀察輸出內容。輸入 <code>tag: MainActivity</code>，篩選出只顯示含有「MainActivity」代碼的記錄。</li>
+<ol start="2" type="1">
+<li>執行您的應用程式，並在 <code>Logcat</code> 中觀察輸出內容。輸入
+<code>tag: MainActivity</code>，篩選出只顯示含有「MainActivity」代碼的記錄。</li>
 </ol>
-<img src="https://i.imgur.com/IZaKXLh.png">
-
-<hr>
-<h4 id="使用鍵-值搜尋查詢記錄"><a href="#使用鍵-值搜尋查詢記錄" class="headerlink" title="使用鍵&#x2F;值搜尋查詢記錄"></a>使用鍵&#x2F;值搜尋查詢記錄</h4><p>在 Android Studio 中，您可以直接透過主查詢欄位產生鍵&#x2F;值搜尋。這個查詢系統可提供精準的查詢結果，也能根據鍵&#x2F;值排除記錄。儘管您可以選擇使用規則運算式，但在查詢上並非必要。如要查看建議項目，請在查詢欄位中按下 Ctrl + Space 鍵。</p>
-<img src="https://developer.android.com/static/studio/images/debug/logcat-query-suggestions.png?authuser=2&hl=zh-tw">
-
+<p><img src="https://i.imgur.com/IZaKXLh.png"></p>
+<hr />
+<h4 id="使用鍵值搜尋查詢記錄">使用鍵/值搜尋查詢記錄</h4>
+<p>在 Android Studio
+中，您可以直接透過主查詢欄位產生鍵/值搜尋。這個查詢系統可提供精準的查詢結果，也能根據鍵/值排除記錄。儘管您可以選擇使用規則運算式，但在查詢上並非必要。如要查看建議項目，請在查詢欄位中按下
+Ctrl + Space 鍵。</p>
+<p><img src="https://developer.android.com/static/studio/images/debug/logcat-query-suggestions.png?authuser=2&hl=zh-tw"></p>
 <p>以下提供幾個可用於查詢的鍵範例：</p>
 <ul>
 <li>tag：比對記錄項目的 tag 欄位。</li>
@@ -379,54 +420,75 @@
 <li>process：比對記錄應用程式的程序名稱。</li>
 <li>message：比對記錄項目的訊息部分。</li>
 <li>level：比對指定或更嚴重的記錄層級，例如 DEBUG。</li>
-<li>age：比對項目時間戳記是否最新。值的指定方式是以數字後面加上代表時間單位的字母：s 代表秒數、m 代表分鐘數、h 代表小時數，d 則代表天數。例如，age: 5m 只會篩選出過去 5 分鐘內記錄的訊息。</li>
+<li>age：比對項目時間戳記是否最新。值的指定方式是以數字後面加上代表時間單位的字母：s
+代表秒數、m 代表分鐘數、h 代表小時數，d 則代表天數。例如，age: 5m
+只會篩選出過去 5 分鐘內記錄的訊息。</li>
 </ul>
-<p>更詳細的介紹請點<a target="_blank" rel="noopener" href="https://developer.android.com/studio/debug/logcat?authuser=2&hl=zh-tw">這裡</a>查看。</p>
-<hr>
-<h4 id="含有錯誤訊息的記錄"><a href="#含有錯誤訊息的記錄" class="headerlink" title="含有錯誤訊息的記錄"></a>含有錯誤訊息的記錄</h4><p>在空白專案中無法偵錯。Android 開發人員經常遇到許多錯誤，那就是應用程式當機，但用戶體驗不佳。讓我們新增一些程式碼，讓這個應用程式當機。</p>
-<ol>
-<li>將下列函式新增至 <code>logging()</code> 函式的 <code>MainActivity.kt</code>。這個程式碼以兩個數字開頭，並使用 <code>repeat</code> 來將分子除以五分子的結果。每次執行 <code>repeat</code> 區塊中的程式碼時，分母的值就會減少 1。在第 5 次和最後一次疊代時，應用程式嘗試除以 0。</li>
+<p>更詳細的介紹請點<a
+target="_blank" rel="noopener" href="https://developer.android.com/studio/debug/logcat?authuser=2&amp;hl=zh-tw">這裡</a>查看。</p>
+<hr />
+<h4 id="含有錯誤訊息的記錄">含有錯誤訊息的記錄</h4>
+<p>在空白專案中無法偵錯。Android
+開發人員經常遇到許多錯誤，那就是應用程式當機，但用戶體驗不佳。讓我們新增一些程式碼，讓這個應用程式當機。</p>
+<ol type="1">
+<li>將下列函式新增至 <code>logging()</code> 函式的
+<code>MainActivity.kt</code>。這個程式碼以兩個數字開頭，並使用
+<code>repeat</code> 來將分子除以五分子的結果。每次執行
+<code>repeat</code> 區塊中的程式碼時，分母的值就會減少 1。在第 5
+次和最後一次疊代時，應用程式嘗試除以 0。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">division</span></span>() &#123;</span><br><span class="line">    val numerator = 60</span><br><span class="line">    var denominator = 4</span><br><span class="line">    repeat(5) &#123;</span><br><span class="line">        Log.v(TAG, <span class="string">&quot;<span class="variable">$&#123;numerator / denominator&#125;</span>&quot;</span>)</span><br><span class="line">        denominator--</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>新增<code>division()</code> 函式到 <code>onCreate()</code> 中的 <code>logging()</code> 後。</li>
+<ol start="2" type="1">
+<li>新增<code>division()</code> 函式到 <code>onCreate()</code> 中的
+<code>logging()</code> 後。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.activity_main)</span><br><span class="line">    logging()</span><br><span class="line">    division()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>再次執行應用程式，向下捲動至 <code>MainActivity.kt</code> 類別中的記錄，即可查看先前定義的 <code>logging()</code> 函式中的日誌、「<code>division()</code>」函式的詳細記錄，以及說明應用程式為什麼當機的紅色錯誤記錄。</li>
+<ol start="3" type="1">
+<li>再次執行應用程式，向下捲動至 <code>MainActivity.kt</code>
+類別中的記錄，即可查看先前定義的 <code>logging()</code>
+函式中的日誌、「<code>division()</code>」函式的詳細記錄，以及說明應用程式為什麼當機的紅色錯誤記錄。</li>
 </ol>
-<hr>
-<h4 id="堆疊追蹤剖析"><a href="#堆疊追蹤剖析" class="headerlink" title="堆疊追蹤剖析"></a>堆疊追蹤剖析</h4><p>說明當機的錯誤記錄 (也稱為例外狀況) 亦稱作堆疊追蹤。堆疊追蹤會顯示所有已觸發至例外狀況的函式，而且系統會從最近呼叫的時間開始呼叫。完整輸出內容如下所示。</p>
+<hr />
+<h4 id="堆疊追蹤剖析">堆疊追蹤剖析</h4>
+<p>說明當機的錯誤記錄 (也稱為例外狀況)
+亦稱作堆疊追蹤。堆疊追蹤會顯示所有已觸發至例外狀況的函式，而且系統會從最近呼叫的時間開始呼叫。完整輸出內容如下所示。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Process: com.example.debugging, PID: 14581</span><br><span class="line">    java.lang.RuntimeException: Unable to start activity ComponentInfo&#123;com.example.debugging/com.example.debugging.MainActivity&#125;: java.lang.ArithmeticException: divide by zero</span><br><span class="line">        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3449)</span><br><span class="line">        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3601)</span><br><span class="line">        at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:85)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)</span><br><span class="line">        at android.app.ActivityThread<span class="variable">$H</span>.handleMessage(ActivityThread.java:2066)</span><br><span class="line">        at android.os.Handler.dispatchMessage(Handler.java:106)</span><br><span class="line">        at android.os.Looper.loop(Looper.java:223)</span><br><span class="line">        at android.app.ActivityThread.main(ActivityThread.java:7656)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Native Method)</span><br><span class="line">        at com.android.internal.os.RuntimeInit<span class="variable">$MethodAndArgsCaller</span>.run(RuntimeInit.java:592)</span><br><span class="line">        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)</span><br><span class="line">     Caused by: java.lang.ArithmeticException: divide by zero</span><br><span class="line">        at com.example.debugging.MainActivity.division(MainActivity.kt:21)</span><br><span class="line">        at com.example.debugging.MainActivity.onCreate(MainActivity.kt:14)</span><br><span class="line">        at android.app.Activity.performCreate(Activity.java:8000)</span><br><span class="line">        at android.app.Activity.performCreate(Activity.java:7984)</span><br><span class="line">        at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1309)</span><br><span class="line">        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3422)</span><br><span class="line">        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3601)</span><br><span class="line">        at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:85)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)</span><br><span class="line">        at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)</span><br><span class="line">        at android.app.ActivityThread<span class="variable">$H</span>.handleMessage(ActivityThread.java:2066)</span><br><span class="line">        at android.os.Handler.dispatchMessage(Handler.java:106)</span><br><span class="line">        at android.os.Looper.loop(Looper.java:223)</span><br><span class="line">        at android.app.ActivityThread.main(ActivityThread.java:7656)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Native Method)</span><br><span class="line">        at com.android.internal.os.RuntimeInit<span class="variable">$MethodAndArgsCaller</span>.run(RuntimeInit.java:592)</span><br><span class="line">        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)</span><br></pre></td></tr></table></figure>
-
-<h5 id="如何查看錯誤"><a href="#如何查看錯誤" class="headerlink" title="如何查看錯誤"></a>如何查看錯誤</h5><ol>
+<h5 id="如何查看錯誤">如何查看錯誤</h5>
+<ol type="1">
 <li><code>java.lang.RuntimeException:</code></li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.RuntimeException: Unable to start activity ComponentInfo&#123;com.example.debugging/com.example.debugging.MainActivity&#125;: java.lang.ArithmeticException: divide by zero</span><br></pre></td></tr></table></figure>
-<p>第一行代表應用程式無法開始活動，這就是應用程式當機的原因。下一行會提供更多資訊。具體來說，該活動無法啟動的原因是 <code>ArithmeticException</code>。具體來說，<code>ArithmeticException</code> 的類型是「除以 0」。</p>
-<ol start="2">
+<p>第一行代表應用程式無法開始活動，這就是應用程式當機的原因。下一行會提供更多資訊。具體來說，該活動無法啟動的原因是
+<code>ArithmeticException</code>。具體來說，<code>ArithmeticException</code>
+的類型是「除以 0」。</p>
+<ol start="2" type="1">
 <li><code>Caused by:</code></li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.ArithmeticException: divide by zero</span><br><span class="line">        at com.example.debugging.MainActivity.division(MainActivity.kt:21)</span><br></pre></td></tr></table></figure>
-<p>如果向下捲動頁面顯示「<code>Caused by:</code>」一行，表示發生「<code>除以 0</code>」的錯誤。另會顯示錯誤發生的確切函式 (<code>division()</code>) 和確切的行數 (21)。Logcat 視窗中的檔案名稱和行數是超連結。輸出結果也會列出發生錯誤的函式名稱 (<code>division()</code>) 和呼叫該函式的函式 (<code>onCreate()</code>)。</p>
-<hr>
-<h4 id="使用記錄檔找出並修正錯誤"><a href="#使用記錄檔找出並修正錯誤" class="headerlink" title="使用記錄檔找出並修正錯誤"></a>使用記錄檔找出並修正錯誤</h4><p>使用記錄陳述式，透過輸出分母值來避免除數為零的情況，從而節省時間。</p>
-<ol>
-<li>在 <code>Log.v()</code> 之前，新增 <code>Log.d()</code> 呼叫記錄分母。<code>Log.d()</code> 的用途是偵錯，因此可用來篩選詳細記錄。</li>
-</ol>
+<p>如果向下捲動頁面顯示「<code>Caused by:</code>」一行，表示發生「<code>除以 0</code>」的錯誤。另會顯示錯誤發生的確切函式
+(<code>division()</code>) 和確切的行數 (21)。Logcat
+視窗中的檔案名稱和行數是超連結。輸出結果也會列出發生錯誤的函式名稱
+(<code>division()</code>) 和呼叫該函式的函式
+(<code>onCreate()</code>)。</p>
+<hr />
+<h4 id="使用記錄檔找出並修正錯誤">使用記錄檔找出並修正錯誤</h4>
+<p>使用記錄陳述式，透過輸出分母值來避免除數為零的情況，從而節省時間。 1.
+在 <code>Log.v()</code> 之前，新增 <code>Log.d()</code>
+呼叫記錄分母。<code>Log.d()</code>
+的用途是偵錯，因此可用來篩選詳細記錄。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Log.d(TAG, <span class="string">&quot;<span class="variable">$denominator</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>再次執行應用程式。雖然分母仍持續當機，但分母應該記錄多次。您可以使用篩選條件設定，只顯示含有 “MainActivity” 標記的記錄。</li>
+<ol start="2" type="1">
+<li>再次執行應用程式。雖然分母仍持續當機，但分母應該記錄多次。您可以使用篩選條件設定，只顯示含有
+"MainActivity" 標記的記錄。</li>
 </ol>
-<img src="https://i.imgur.com/RmP1RGi.png">
-
-<ol start="3">
-<li>您可以看到有多個值輸出。當分母為 0 時，迴圈會在第五次疊代之前執行數次。如要修正錯誤，您可以將迴圈中的疊代次數從 5 變更為 4。再次執行應用程式時，應用程式不會再停止運作。</li>
+<p><img src="https://i.imgur.com/RmP1RGi.png"></p>
+<ol start="3" type="1">
+<li>您可以看到有多個值輸出。當分母為 0
+時，迴圈會在第五次疊代之前執行數次。如要修正錯誤，您可以將迴圈中的疊代次數從
+5 變更為 4。再次執行應用程式時，應用程式不會再停止運作。</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fun <span class="function"><span class="title">division</span></span>() &#123;</span><br><span class="line">        val numerator = 60</span><br><span class="line">        var denominator = 4</span><br><span class="line">        repeat(4) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">&quot;<span class="variable">$denominator</span>&quot;</span>)</span><br><span class="line">            Log.v(TAG, <span class="string">&quot;<span class="variable">$&#123;numerator / denominator&#125;</span>&quot;</span>)</span><br><span class="line">            denominator--</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -511,7 +573,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0%E5%B0%88%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">建立新專案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8D%E8%BC%B8%E5%87%BA%E9%80%B2%E8%A1%8C%E8%A8%98%E9%8C%84%E8%88%87%E5%81%B5%E9%8C%AF"><span class="nav-number">2.</span> <span class="nav-text">對輸出進行記錄與偵錯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%98%E9%8C%84%E5%B1%A4%E7%B4%9A"><span class="nav-number">3.</span> <span class="nav-text">記錄層級</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%8D%B5-%E5%80%BC%E6%90%9C%E5%B0%8B%E6%9F%A5%E8%A9%A2%E8%A8%98%E9%8C%84"><span class="nav-number">4.</span> <span class="nav-text">使用鍵&#x2F;值搜尋查詢記錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AB%E6%9C%89%E9%8C%AF%E8%AA%A4%E8%A8%8A%E6%81%AF%E7%9A%84%E8%A8%98%E9%8C%84"><span class="nav-number">5.</span> <span class="nav-text">含有錯誤訊息的記錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E7%96%8A%E8%BF%BD%E8%B9%A4%E5%89%96%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">堆疊追蹤剖析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E9%8C%AF%E8%AA%A4"><span class="nav-number">6.1.</span> <span class="nav-text">如何查看錯誤</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%A8%98%E9%8C%84%E6%AA%94%E6%89%BE%E5%87%BA%E4%B8%A6%E4%BF%AE%E6%AD%A3%E9%8C%AF%E8%AA%A4"><span class="nav-number">7.</span> <span class="nav-text">使用記錄檔找出並修正錯誤</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#section"><span class="nav-number">1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E6%96%B0%E5%B0%88%E6%A1%88"><span class="nav-number">1.0.1.</span> <span class="nav-text">建立新專案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8D%E8%BC%B8%E5%87%BA%E9%80%B2%E8%A1%8C%E8%A8%98%E9%8C%84%E8%88%87%E5%81%B5%E9%8C%AF"><span class="nav-number">1.0.2.</span> <span class="nav-text">對輸出進行記錄與偵錯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%98%E9%8C%84%E5%B1%A4%E7%B4%9A"><span class="nav-number">1.0.3.</span> <span class="nav-text">記錄層級</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%8D%B5%E5%80%BC%E6%90%9C%E5%B0%8B%E6%9F%A5%E8%A9%A2%E8%A8%98%E9%8C%84"><span class="nav-number">1.0.4.</span> <span class="nav-text">使用鍵&#x2F;值搜尋查詢記錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AB%E6%9C%89%E9%8C%AF%E8%AA%A4%E8%A8%8A%E6%81%AF%E7%9A%84%E8%A8%98%E9%8C%84"><span class="nav-number">1.0.5.</span> <span class="nav-text">含有錯誤訊息的記錄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E7%96%8A%E8%BF%BD%E8%B9%A4%E5%89%96%E6%9E%90"><span class="nav-number">1.0.6.</span> <span class="nav-text">堆疊追蹤剖析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E9%8C%AF%E8%AA%A4"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">如何查看錯誤</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%A8%98%E9%8C%84%E6%AA%94%E6%89%BE%E5%87%BA%E4%B8%A6%E4%BF%AE%E6%AD%A3%E9%8C%AF%E8%AA%A4"><span class="nav-number">1.0.7.</span> <span class="nav-text">使用記錄檔找出並修正錯誤</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -527,20 +589,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">128</span>
+        <span class="site-state-item-count">129</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -636,6 +698,8 @@
 
 
 
+
+  
 
   
 

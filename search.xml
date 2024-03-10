@@ -175,61 +175,61 @@
 </thead>
 <tbody><tr>
 <td align="left">0</td>
-<td align="left">$0*2^0$</td>
+<td align="left"><strong>0 * 2<sup>0</sup></strong></td>
 <td align="left">0</td>
 </tr>
 <tr>
 <td align="left">1</td>
-<td align="left">$1*2^0$</td>
+<td align="left"><strong>1 * 2<sup>0</strong></td>
 <td align="left">1</td>
 </tr>
 <tr>
 <td align="left">10</td>
-<td align="left">$1<em>2^1 + 0</em>2^0$</td>
+<td align="left"><strong>1 * 2<sup>1</sup> + 0 * 2<sup>0</sup></strong></td>
 <td align="left">2</td>
 </tr>
 <tr>
 <td align="left">11</td>
-<td align="left">$1<em>2^1+1</em>2^0$</td>
+<td align="left"><strong>1 * 2<sup>1</sup> + 1 * 2<sup>0</sup></strong></td>
 <td align="left">3</td>
 </tr>
 <tr>
 <td align="left">100</td>
-<td align="left">$1<em>2^2 + 0</em>2^1 + 0*2^0$</td>
+<td align="left"><strong>1 * 2<sup>2</sup> + 0 * 2<sup>1</sup> + 0 * 2<sup>0</sup></strong></td>
 <td align="left">4</td>
 </tr>
 <tr>
 <td align="left">101</td>
-<td align="left">$1<em>2^2 + 0</em>2^1 + 1*2^0$</td>
+<td align="left"><strong>1 * 2<sup>2</sup> + 0 * 2<sup>1</sup> + 1 * 2<sup>0</sup></strong></td>
 <td align="left">5</td>
 </tr>
 <tr>
 <td align="left">110</td>
-<td align="left">$1<em>2^2 + 1</em>2^1 + 0*2^0$</td>
+<td align="left"><strong>1 * 2<sup>2</sup> + 1 * 2<sup>1</sup> + 0 * 2<sup>0</sup></strong></td>
 <td align="left">6</td>
 </tr>
 <tr>
 <td align="left">111</td>
-<td align="left">$1<em>2^2 + 1</em>2^1 + 1*2^0$</td>
+<td align="left"><strong>1 * 2<sup>2</sup> + 1 * 2<sup>1</sup> + 1 * 2<sup>0</sup></strong></td>
 <td align="left">7</td>
 </tr>
 <tr>
 <td align="left">1000</td>
-<td align="left">$1<em>2^3 + 0</em>2^2 + 0<em>2^1 + 0</em>2^0$</td>
+<td align="left"><strong>1 * 2<sup>3</sup> + 0 * 2<sup>2</sup> + 0 * 2<sup>1</sup> + 0 * 2<sup>0</sup></strong></td>
 <td align="left">8</td>
 </tr>
 <tr>
 <td align="left">1001</td>
-<td align="left">$1<em>2^3 + 0</em>2^2 + 0<em>2^1 + 1</em>2^0$</td>
+<td align="left"><strong>1 * 2<sup>3</sup> + 0 * 2<sup>2</sup> + 0 * 2<sup>1</sup> + 1 * 2<sup>0</sup></strong></td>
 <td align="left">9</td>
 </tr>
 <tr>
 <td align="left">1010</td>
-<td align="left">$1<em>2^3 + 0</em>2^2 + 1<em>2^1 + 0</em>2^0$</td>
+<td align="left"><strong>1 * 2<sup>3</sup> + 0 * 2<sup>2</sup> + 1 * 2<sup>1</sup> + 0 * 2<sup>0</sup></strong></td>
 <td align="left">10</td>
 </tr>
 </tbody></table>
-<p>一般而言，以 $B$ 為底的 $K$ 個數字所能表達的範圍為 $R &#x3D; B^K$。以二進位為例，不同的位元數所能表達的數字如下表：</p>
+<p>一般而言，以 <strong>B</strong> 為底的 <strong>K</strong> 個數字所能表達的範圍為 **R &#x3D; B<sup>K</sup>**。以二進位為例，不同的位元數所能表達的數字如下表：</p>
 <table>
 <thead>
 <tr>
@@ -239,39 +239,39 @@
 </thead>
 <tbody><tr>
 <td align="left">1</td>
-<td align="left">2 ($2^1$)</td>
+<td align="left"><strong>2 (2<sup>1</sup>)</strong></td>
 </tr>
 <tr>
 <td align="left">4</td>
-<td align="left">16 ($2^4$)</td>
+<td align="left"><strong>16 (2<sup>4</sup>)</strong></td>
 </tr>
 <tr>
 <td align="left">8</td>
-<td align="left">256 ($2^8$)</td>
+<td align="left"><strong>256 (2<sup>8</sup>)</strong></td>
 </tr>
 <tr>
 <td align="left">10</td>
-<td align="left">1024 ($2^{10}$)</td>
+<td align="left"><strong>1024 (2<sup>10</sup>)</strong></td>
 </tr>
 <tr>
 <td align="left">16</td>
-<td align="left">65536 ($2^{16}$)</td>
+<td align="left"><strong>65536 (2<sup>16</sup>)</strong></td>
 </tr>
 <tr>
 <td align="left">20</td>
-<td align="left">1048576 ($2^{20}$)</td>
+<td align="left"><strong>1048576 (2<sup>20</sup>)</strong></td>
 </tr>
 <tr>
 <td align="left">32</td>
-<td align="left">4294967296 ($2^{32}$)</td>
+<td align="left"><strong>4294967296 (2<sup>32</sup>)</strong></td>
 </tr>
 <tr>
 <td align="left">64</td>
-<td align="left">約等於 $1.6*10^{19}$</td>
+<td align="left"><strong>約等於 1.6 * 10<sup>19</sup></strong></td>
 </tr>
 <tr>
 <td align="left">128</td>
-<td align="left">約等於 $2.6*10^{38}$</td>
+<td align="left"><strong>約等於 2.6 * 10<sup>38</sup></strong></td>
 </tr>
 </tbody></table>
 <hr>
@@ -781,7 +781,7 @@
 <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
 <h2 id="Contact-Us"><a href="#Contact-Us" class="headerlink" title="Contact Us"></a>Contact Us</h2><p>If you have any questions about this Privacy Policy, You can contact us:</p>
 <ul>
-<li>By email: <a href="mailto:&#x6c;&#105;&#x6e;&#x67;&#x6c;&#105;&#110;&#103;&#x64;&#114;&#48;&#x30;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x6c;&#105;&#x6e;&#x67;&#x6c;&#105;&#110;&#103;&#x64;&#114;&#48;&#x30;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a></li>
+<li>By email: <a href="mailto:&#x6c;&#105;&#110;&#103;&#x6c;&#x69;&#110;&#103;&#100;&#114;&#x30;&#48;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x6c;&#105;&#110;&#103;&#x6c;&#x69;&#110;&#103;&#100;&#114;&#x30;&#48;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -2414,8 +2414,8 @@
         <tag>LiveData</tag>
         <tag>Coroutine</tag>
         <tag>suspend function</tag>
-        <tag>SQL</tag>
         <tag>ListAdapter</tag>
+        <tag>SQL</tag>
         <tag>Room</tag>
         <tag>DAO</tag>
         <tag>Entity</tag>
@@ -3308,10 +3308,10 @@
         <tag>ViewModel</tag>
         <tag>suspend function</tag>
         <tag>CoroutineScope</tag>
+        <tag>ListAdapter</tag>
         <tag>SQL</tag>
         <tag>Database Inspector</tag>
         <tag>App Inspector</tag>
-        <tag>ListAdapter</tag>
         <tag>Room</tag>
         <tag>ORM</tag>
         <tag>DAO</tag>
@@ -3699,9 +3699,9 @@
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>Layout</tag>
         <tag>Automated Testing</tag>
         <tag>RecyclerView</tag>
+        <tag>Layout</tag>
         <tag>Fragment</tag>
         <tag>LiveData</tag>
         <tag>MutableLiveData</tag>
@@ -5336,12 +5336,12 @@ app 啟動後，您會看到像這樣的畫面：
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>Layout</tag>
         <tag>View Binding</tag>
         <tag>Automated Testing</tag>
         <tag>Adapter</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
+        <tag>Layout</tag>
         <tag>Navigation</tag>
         <tag>Fragment</tag>
         <tag>MutableLiveData</tag>
@@ -5776,11 +5776,11 @@ app 啟動後，您會看到像這樣的畫面：
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>Layout</tag>
         <tag>View Binding</tag>
         <tag>Adapter</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
+        <tag>Layout</tag>
         <tag>Navigation</tag>
         <tag>Fragment</tag>
         <tag>ViewModel</tag>
@@ -9703,13 +9703,13 @@ width="30%"></p>
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>Layout</tag>
         <tag>List</tag>
-        <tag>Card</tag>
-        <tag>MaterialCardView</tag>
         <tag>Adapter</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
+        <tag>Layout</tag>
+        <tag>Card</tag>
+        <tag>MaterialCardView</tag>
       </tags>
   </entry>
   <entry>
@@ -12889,8 +12889,8 @@ width="30%"></p>
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>XML</tag>
         <tag>Layout</tag>
+        <tag>XML</tag>
       </tags>
   </entry>
   <entry>

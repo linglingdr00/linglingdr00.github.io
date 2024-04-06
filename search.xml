@@ -131,6 +131,9 @@
     <content><![CDATA[<blockquote>
 <p>了解有關 Kotlin Coroutine 的基本知識。</p>
 </blockquote>
+<span id="more"></span>
+
+<hr>
 <h3 id="Coroutine"><a href="#Coroutine" class="headerlink" title="Coroutine"></a>Coroutine</h3><p>Coroutine 是一種執行非同步任務的解決方法之一，其中「非同步任務」是指「任務非按照排列的順序依序執行，而是一個任務尚未完成時就能執行下一個任務」。</p>
 <p>和非同步概念相關的有「併發(Concurrency)」和「並行(Parallel)」二者，但他們的概念不太一樣。我們可以將併發和並行視為作業系統層面的解決方法，而非同步則屬於應用程式層面。</p>
 <h3 id="併發-Concurrency"><a href="#併發-Concurrency" class="headerlink" title="併發(Concurrency)"></a>併發(Concurrency)</h3><p>併發(Concurrency)：快速切換<b>單核心 CPU</b> 的 <b>CPU 時間</b>給不同任務執行，已達到看似「同時執行多個任務」一樣。</p>

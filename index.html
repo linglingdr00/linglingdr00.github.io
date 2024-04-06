@@ -303,6 +303,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2024/03/18/Android%E7%AD%86%E8%A8%98-47-Corotine%E7%B0%A1%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog_photo.png">
+      <meta itemprop="name" content="Tina Tang">
+      <meta itemprop="description" content="^(-o-)>">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tina Tang's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/18/Android%E7%AD%86%E8%A8%98-47-Corotine%E7%B0%A1%E4%BB%8B/" class="post-title-link" itemprop="url">Android筆記(47)-Corotine簡介</a>
+        </h2>
+
+        <div class="post-meta">
+        
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-03-18 17:01:39" itemprop="dateCreated datePublished" datetime="2024-03-18T17:01:39+08:00">2024-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-04-06 23:04:32" itemprop="dateModified" datetime="2024-04-06T23:04:32+08:00">2024-04-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>了解有關 Kotlin Coroutine 的基本知識。</p>
+</blockquote>
+<h3 id="Coroutine"><a href="#Coroutine" class="headerlink" title="Coroutine"></a>Coroutine</h3><p>Coroutine 是一種執行非同步任務的解決方法之一，其中「非同步任務」是指「任務非按照排列的順序依序執行，而是一個任務尚未完成時就能執行下一個任務」。</p>
+<p>和非同步概念相關的有「併發(Concurrency)」和「並行(Parallel)」二者，但他們的概念不太一樣。我們可以將併發和並行視為作業系統層面的解決方法，而非同步則屬於應用程式層面。</p>
+<h3 id="併發-Concurrency"><a href="#併發-Concurrency" class="headerlink" title="併發(Concurrency)"></a>併發(Concurrency)</h3><p>併發(Concurrency)：快速切換<b>單核心 CPU</b> 的 <b>CPU 時間</b>給不同任務執行，已達到看似「同時執行多個任務」一樣。</p>
+<p>併發指的是「同時執行多個任務」。但單核心的 CPU 一次只能執行一個任務，因此並不是上的「同時」執行多個任務。因為每個任務在取得 CPU 時間後才能開始執行，所以這邊說的「同時」指的是<u>作業系統(OS)快速切換 CPU 時間給不同任務執行</u>，由於切換速度很快，感覺就像是同時執行一樣。</p>
+<p>系統在不同任務間切換時，需要將必要的資訊紀錄下來，在取得 CPU 時間後才能繼續執行，這個動作就稱為<span class="label primary「內容切換(Context Switch)"></span>，而每個任務都是執行在一個執行緒上。</p>
+<h3 id="並行-Parallel"><a href="#並行-Parallel" class="headerlink" title="並行(Parallel)"></a>並行(Parallel)</h3><p>並行(Parallel)：使用<b>多核心 CPU</b>「同時執行多個任務」。</p>
+<p>如果是多核心的 CPU，就能夠實現真正的「同時執行多個任務」，因為同一時間 CPU 的每個核心都能夠獨立運行，所以任務自然也能分配到不同 CPU 來執行，這就是「並行」。</p>
+<p>…待更新</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2024/03/10/%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B%E7%AD%86%E8%A8%98-1-%E9%9B%BB%E8%85%A6%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -548,91 +634,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://linglingdr00.github.io/2024/03/06/Java%E7%AD%86%E8%A8%98-2-%E4%BB%8B%E9%9D%A2%E5%92%8C%E6%8A%BD%E8%B1%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/blog_photo.png">
-      <meta itemprop="name" content="Tina Tang">
-      <meta itemprop="description" content="^(-o-)>">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tina Tang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/06/Java%E7%AD%86%E8%A8%98-2-%E4%BB%8B%E9%9D%A2%E5%92%8C%E6%8A%BD%E8%B1%A1/" class="post-title-link" itemprop="url">Java筆記(2)-介面和抽象</a>
-        </h2>
-
-        <div class="post-meta">
-        
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-03-06 15:35:31" itemprop="dateCreated datePublished" datetime="2024-03-06T15:35:31+08:00">2024-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-03-10 15:57:32" itemprop="dateModified" datetime="2024-03-10T15:57:32+08:00">2024-03-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>了解 Java 中的<b>介面(interface)</b>和<b>抽象(abstract)</b>。</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/03/06/Java%E7%AD%86%E8%A8%98-2-%E4%BB%8B%E9%9D%A2%E5%92%8C%E6%8A%BD%E8%B1%A1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -704,7 +705,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

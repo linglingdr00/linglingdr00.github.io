@@ -104,7 +104,6 @@
 </ul>
 ]]></content>
       <categories>
-        <category>Android</category>
         <category>Portfolio</category>
       </categories>
       <tags>
@@ -123,190 +122,6 @@
         <tag>BottomNavigation</tag>
         <tag>LocationManager</tag>
         <tag>FusedLocationProvider</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android筆記(47)-Corotine簡介</title>
-    <url>/2024/03/18/Android%E7%AD%86%E8%A8%98-47-Corotine%E7%B0%A1%E4%BB%8B/</url>
-    <content><![CDATA[<blockquote>
-<p>了解有關 Kotlin Coroutine 的基本知識。</p>
-</blockquote>
-<span id="more"></span>
-
-<hr>
-<h3 id="Coroutine"><a href="#Coroutine" class="headerlink" title="Coroutine"></a>Coroutine</h3><p>Coroutine 是一種執行非同步任務的解決方法之一，其中「非同步任務」是指「任務非按照排列的順序依序執行，而是一個任務尚未完成時就能執行下一個任務」。</p>
-<p>和非同步概念相關的有「併發(Concurrency)」和「並行(Parallel)」二者，但他們的概念不太一樣。我們可以將併發和並行視為作業系統層面的解決方法，而非同步則屬於應用程式層面。</p>
-<h3 id="併發-Concurrency"><a href="#併發-Concurrency" class="headerlink" title="併發(Concurrency)"></a>併發(Concurrency)</h3><p>併發(Concurrency)：快速切換<b>單核心 CPU</b> 的 <b>CPU 時間</b>給不同任務執行，已達到看似「同時執行多個任務」一樣。</p>
-<p>併發指的是「同時執行多個任務」。但單核心的 CPU 一次只能執行一個任務，因此並不是上的「同時」執行多個任務。因為每個任務在取得 CPU 時間後才能開始執行，所以這邊說的「同時」指的是<u>作業系統(OS)快速切換 CPU 時間給不同任務執行</u>，由於切換速度很快，感覺就像是同時執行一樣。</p>
-<p>系統在不同任務間切換時，需要將必要的資訊紀錄下來，在取得 CPU 時間後才能繼續執行，這個動作就稱為<span class="label primary">「內容切換(Context Switch)</span>，而每個任務都是執行在一個執行緒上。</p>
-<h3 id="並行-Parallel"><a href="#並行-Parallel" class="headerlink" title="並行(Parallel)"></a>並行(Parallel)</h3><p>並行(Parallel)：使用<b>多核心 CPU</b>「同時執行多個任務」。</p>
-<p>如果是多核心的 CPU，就能夠實現真正的「同時執行多個任務」，因為同一時間 CPU 的每個核心都能夠獨立運行，所以任務自然也能分配到不同 CPU 來執行，這就是「並行」。</p>
-<p>…待更新</p>
-]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>計算機結構筆記(1)-電腦基礎概念</title>
-    <url>/2024/03/10/%E8%A8%88%E7%AE%97%E6%A9%9F%E7%B5%90%E6%A7%8B%E7%AD%86%E8%A8%98-1-%E9%9B%BB%E8%85%A6%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5/</url>
-    <content><![CDATA[<blockquote>
-<p>為什麼<u>數字比對</u>比<u>字串比對</u>還要快？因為<b>暫存器</b>只能存放數字，所以做字串比對的話，必須先轉換成數字，再放到暫存器，接著才能比對。相較於將數字直接放進暫存器來說，速度會比較慢。<b>循環展開(loop unrolling)</b>為什麼能加速迴圈執行的速度？為什麼深度學習要交給 GPU 來算？這些其實都跟計算機架構息息相關，而對軟體工程師來說，了解程式如何寫可以跑得更快就是最關鍵的議題。</p>
-</blockquote>
-<span id="more"></span>
-
-<hr>
-<h3 id="硬體元件"><a href="#硬體元件" class="headerlink" title="硬體元件"></a>硬體元件</h3><img src="https://imgur.com/MBvTeJe.png" width="50%">
-
-<p>一個簡化的典型的電腦系統架構可由上圖來表示。電腦的運算是由<b>中央處理單元(Central Processing Unit, CPU)</b>來執行。它包含了<b>控制單元(Control Unit, CU)</b>和<b>算術邏輯單元(Arithmetic and Logic Unit, ALU)</b>兩大部份。</p>
-<table>
-<thead>
-<tr>
-<th align="left"><div style="width:150px"></th>
-<th align="left">說明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">控制單元(CU)</td>
-<td align="left">用來解釋電腦指令，搬移CPU內部資料，以指揮協調CPU各部份的運作。</td>
-</tr>
-<tr>
-<td align="left">算術邏輯單元(ALU)</td>
-<td align="left">是電腦指令主要的執行部份，它又可細分成加法器、乘法器、及多個<b>暫存器(Register)</b>等部份。</td>
-</tr>
-<tr>
-<td align="left">暫存器(Register)</td>
-<td align="left"><b>CPU內部</b>用來<u>儲存資料</u>的地方。</td>
-</tr>
-</tbody></table>
-<p><b>記憶體</b>是用來<u>儲存程式和資料</u>的地方。一般又稱為<b>RAM(Random Access Memory)</b>或<b>Main Memory(主記憶體)</b>。我們可將記憶體視為由一個個小格子所組成的<b>陣列</b>，每個格子內都儲存著一個二進位數字以代表程式指令或資料。我們給每一個格子一個特有的編號，稱為<b>地址(Address)</b>，就像我們的門牌號碼一樣，可供CPU定址某一塊記憶體。</p>
-<p><b>輸入輸出(Input &#x2F; Output, I&#x2F;O)</b>裝置是我們最常見的硬體元件。常見的輸入元件有鍵盤、滑鼠、搖桿、DVD光碟機(或燒錄機)等。常見的輸出元件有螢幕、印表機、喇叭等。可同時做輸入輸出的元件有磁碟機、磁帶機等儲存媒介及網路卡等。CPU、RAM和之間是由<b>匯流排(Bus)</b>連接起來。Bus係作為連接其上各硬體元件交換電子資料的路徑。</p>
-<hr>
-<h3 id="軟體元件"><a href="#軟體元件" class="headerlink" title="軟體元件"></a>軟體元件</h3><p>軟體元件是由許多的<b>程式(Program)</b>所組成。這些程式是用來指揮電腦硬體的運作，以達我們的工作。我們一般將軟體分為<b>系統軟體</b>和<b>應用軟體</b>兩大類。</p>
-<p><b>系統軟體</b>幫我們<u>管理檔案</u>、<u>分配電腦的各種資源</u>、<u>執行程式</u>以及<u>從鍵盤接收我們的命令</u>。其中和<u>管理電腦相關的一些程式</u>我們稱為<b>作業系統(Operating System)</b>，如Window NT和UNIX都是一種作業系統。而應用軟體則幫助我們完成特定的工作，如Word可用來編輯文書，Excel可用來作分析計算等。</p>
-<p>作業系統是電腦系統不可或缺的一部份，當電腦啟動時，首先會執行儲存在<b>唯讀記憶體(Read Only Memory, ROM)</b>內的程式，此程式會從<u>本地磁碟機</u>或透過網路從<u>伺服器的磁碟機</u>上將作業系統載入<b>記憶體(Random Access Memory, RAM)</b>內執行，然後我們就可以透過輸入裝置下達命令，以執行應用程式來處理我們的資料。</p>
-<hr>
-<h3 id="數字系統"><a href="#數字系統" class="headerlink" title="數字系統"></a>數字系統</h3><h4 id="數字表示法"><a href="#數字表示法" class="headerlink" title="數字表示法"></a>數字表示法</h4><p>在<b>十進位系統</b>中, <code>43 = 4*10 + 3</code>, 而 <code>527 = 5*102 + 2*10 + 7</code>。目前的電腦大多使用<b>二進位系統</b>，我們稱<span class="label primary">一個<b>二進位數字</b>(0 or 1)為一個<b>位元(Bit, Binary Digit)</b></span>。由於 bit 實在太小了,現在<u>記憶體的最小儲存單位</u>通常為 <strong>8 bits</strong>,又稱為 <strong>byte</strong>。下圖是二進位系統的計數方式：</p>
-<table>
-<thead>
-<tr>
-<th align="left">二進位</th>
-<th align="left">等於</th>
-<th align="left">十進位</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">0</td>
-<td align="left"><strong>0 * 2<sup>0</sup></strong></td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">1</td>
-<td align="left"><strong>1 * 2<sup>0</strong></td>
-<td align="left">1</td>
-</tr>
-<tr>
-<td align="left">10</td>
-<td align="left"><strong>1 * 2<sup>1</sup> + 0 * 2<sup>0</sup></strong></td>
-<td align="left">2</td>
-</tr>
-<tr>
-<td align="left">11</td>
-<td align="left"><strong>1 * 2<sup>1</sup> + 1 * 2<sup>0</sup></strong></td>
-<td align="left">3</td>
-</tr>
-<tr>
-<td align="left">100</td>
-<td align="left"><strong>1 * 2<sup>2</sup> + 0 * 2<sup>1</sup> + 0 * 2<sup>0</sup></strong></td>
-<td align="left">4</td>
-</tr>
-<tr>
-<td align="left">101</td>
-<td align="left"><strong>1 * 2<sup>2</sup> + 0 * 2<sup>1</sup> + 1 * 2<sup>0</sup></strong></td>
-<td align="left">5</td>
-</tr>
-<tr>
-<td align="left">110</td>
-<td align="left"><strong>1 * 2<sup>2</sup> + 1 * 2<sup>1</sup> + 0 * 2<sup>0</sup></strong></td>
-<td align="left">6</td>
-</tr>
-<tr>
-<td align="left">111</td>
-<td align="left"><strong>1 * 2<sup>2</sup> + 1 * 2<sup>1</sup> + 1 * 2<sup>0</sup></strong></td>
-<td align="left">7</td>
-</tr>
-<tr>
-<td align="left">1000</td>
-<td align="left"><strong>1 * 2<sup>3</sup> + 0 * 2<sup>2</sup> + 0 * 2<sup>1</sup> + 0 * 2<sup>0</sup></strong></td>
-<td align="left">8</td>
-</tr>
-<tr>
-<td align="left">1001</td>
-<td align="left"><strong>1 * 2<sup>3</sup> + 0 * 2<sup>2</sup> + 0 * 2<sup>1</sup> + 1 * 2<sup>0</sup></strong></td>
-<td align="left">9</td>
-</tr>
-<tr>
-<td align="left">1010</td>
-<td align="left"><strong>1 * 2<sup>3</sup> + 0 * 2<sup>2</sup> + 1 * 2<sup>1</sup> + 0 * 2<sup>0</sup></strong></td>
-<td align="left">10</td>
-</tr>
-</tbody></table>
-<p>一般而言，以 <strong>B</strong> 為底的 <strong>K</strong> 個數字所能表達的範圍為 <b> R &#x3D; B<sup>K</sup> </b>。以二進位為例，不同的位元數所能表達的數字如下表：</p>
-<table>
-<thead>
-<tr>
-<th align="left">位元數</th>
-<th align="left">表達範圍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">1</td>
-<td align="left"><strong>2 (2<sup>1</sup>)</strong></td>
-</tr>
-<tr>
-<td align="left">4</td>
-<td align="left"><strong>16 (2<sup>4</sup>)</strong></td>
-</tr>
-<tr>
-<td align="left">8</td>
-<td align="left"><strong>256 (2<sup>8</sup>)</strong></td>
-</tr>
-<tr>
-<td align="left">10</td>
-<td align="left"><strong>1024 (2<sup>10</sup>)</strong></td>
-</tr>
-<tr>
-<td align="left">16</td>
-<td align="left"><strong>65536 (2<sup>16</sup>)</strong></td>
-</tr>
-<tr>
-<td align="left">20</td>
-<td align="left"><strong>1048576 (2<sup>20</sup>)</strong></td>
-</tr>
-<tr>
-<td align="left">32</td>
-<td align="left"><strong>4294967296 (2<sup>32</sup>)</strong></td>
-</tr>
-<tr>
-<td align="left">64</td>
-<td align="left"><strong>約等於 1.6 * 10<sup>19</sup></strong></td>
-</tr>
-<tr>
-<td align="left">128</td>
-<td align="left"><strong>約等於 2.6 * 10<sup>38</sup></strong></td>
-</tr>
-</tbody></table>
-<hr>
-<p>待更新…</p>
-]]></content>
-      <categories>
-        <category>計算機結構</category>
-      </categories>
-      <tags>
-        <tag>Computer Architecture</tag>
       </tags>
   </entry>
   <entry>
@@ -1292,7 +1107,7 @@
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>WorkManager</category>
       </categories>
       <tags>
@@ -1489,7 +1304,7 @@
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Data persistence</category>
       </categories>
       <tags>
@@ -1726,7 +1541,7 @@
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Data persistence</category>
       </categories>
       <tags>
@@ -1941,7 +1756,7 @@
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Data persistence</category>
       </categories>
       <tags>
@@ -2425,7 +2240,7 @@
 <div style="clear:static;"></div>]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Data persistence</category>
       </categories>
       <tags>
@@ -2933,7 +2748,7 @@
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Data persistence</category>
       </categories>
       <tags>
@@ -3320,7 +3135,7 @@
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Data persistence</category>
       </categories>
       <tags>
@@ -3629,7 +3444,7 @@
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Data persistence</category>
       </categories>
       <tags>
@@ -3718,7 +3533,7 @@
 <h3 id="執行測試"><a href="#執行測試" class="headerlink" title="執行測試"></a>執行測試</h3><img src="https://i.imgur.com/KuHSJgw.png">]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Connect to the internet</category>
       </categories>
       <tags>
@@ -3898,7 +3713,7 @@ app 啟動後，您會看到像這樣的畫面：
 <img src="https://i.imgur.com/CjTjY3M.png">]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Connect to the internet</category>
       </categories>
       <tags>
@@ -4473,7 +4288,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Connect to the internet</category>
       </categories>
       <tags>
@@ -4964,7 +4779,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Connect to the internet</category>
       </categories>
       <tags>
@@ -5149,7 +4964,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Connect to the internet</category>
       </categories>
       <tags>
@@ -5355,7 +5170,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -5795,7 +5610,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -5966,7 +5781,7 @@ app 啟動後，您會看到像這樣的畫面：
 <img src="https://i.imgur.com/7t5rnKR.png">]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -6323,7 +6138,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -7047,7 +6862,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -7392,7 +7207,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -7916,7 +7731,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -8016,7 +7831,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -8459,7 +8274,7 @@ app 啟動後，您會看到像這樣的畫面：
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -8860,7 +8675,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -9186,7 +9001,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -9560,7 +9375,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Navigation</category>
       </categories>
       <tags>
@@ -9722,7 +9537,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -9877,7 +9692,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -10101,7 +9916,7 @@ width="30%"></p>
 <img src="https://i.imgur.com/1aEU8Mg.gif" width="30%" height="30%">]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -10524,7 +10339,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -11137,7 +10952,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -11281,7 +11096,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -11791,7 +11606,7 @@ width="30%"></p>
 </div>]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -12043,7 +11858,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -12257,7 +12072,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -12525,7 +12340,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -12908,7 +12723,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -13380,7 +13195,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Layouts</category>
       </categories>
       <tags>
@@ -13512,7 +13327,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Kotlin基本概念</category>
       </categories>
       <tags>
@@ -13683,7 +13498,7 @@ width="30%"></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fun <span class="function"><span class="title">division</span></span>() &#123;</span><br><span class="line">        val numerator = 60</span><br><span class="line">        var denominator = 4</span><br><span class="line">        repeat(4) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">&quot;<span class="variable">$denominator</span>&quot;</span>)</span><br><span class="line">            Log.v(TAG, <span class="string">&quot;<span class="variable">$&#123;numerator / denominator&#125;</span>&quot;</span>)</span><br><span class="line">            denominator--</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Kotlin基本概念</category>
       </categories>
       <tags>
@@ -13803,7 +13618,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Kotlin基本概念</category>
       </categories>
       <tags>
@@ -13971,7 +13786,7 @@ width="30%"></p>
 <img src="https://i.imgur.com/2ekxDp1.gif" width="30%" height="30%">]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Kotlin基本概念</category>
       </categories>
       <tags>
@@ -14064,7 +13879,7 @@ width="30%"></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fun <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    val myFirstDice = Dice(8)</span><br><span class="line">    val rollResult = myFirstDice.roll()</span><br><span class="line">    val luckyNumber = 4</span><br><span class="line">    </span><br><span class="line">    when (rollResult) &#123;</span><br><span class="line">        luckyNumber -&gt; println(<span class="string">&quot;You win!&quot;</span>)</span><br><span class="line">        1 -&gt; println(<span class="string">&quot;So sorry! You rolled a 1. Try again!&quot;</span>)</span><br><span class="line">        2 -&gt; println(<span class="string">&quot;Sadly, you rolled a 2. Try again!&quot;</span>)</span><br><span class="line">        3 -&gt; println(<span class="string">&quot;Unfortunately, you rolled a 3. Try again!&quot;</span>)</span><br><span class="line">        5 -&gt; println(<span class="string">&quot;Don&#x27;t cry! You rolled a 5. Try again!&quot;</span>)</span><br><span class="line">        6 -&gt; println(<span class="string">&quot;Apologies! You rolled a 6. Try again!&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span> -&gt; println(<span class="string">&quot;Sorry! You rolled 7 or 8. Try again!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice (val numSides: Int) &#123;</span><br><span class="line"></span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Kotlin基本概念</category>
       </categories>
       <tags>
@@ -14561,7 +14376,7 @@ width="30%"></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * This activity allows the user to roll a dice and view the result</span><br><span class="line"> * on the screen.</span><br><span class="line"> */</span><br><span class="line">class MainActivity : <span class="function"><span class="title">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        val rollButton: Button = findViewById(R.id.button)</span><br><span class="line">        val rollButton2: Button = findViewById(R.id.button2)</span><br><span class="line"></span><br><span class="line">        val resultTextView: TextView = findViewById(R.id.textView)</span><br><span class="line">        val resultTextView2: TextView = findViewById(R.id.textView2)</span><br><span class="line"></span><br><span class="line">        //when click button</span><br><span class="line">        rollButton.setOnClickListener &#123;</span><br><span class="line">            // Update the screen with the dice roll</span><br><span class="line">            resultTextView.text = rollDice()</span><br><span class="line">        &#125;</span><br><span class="line">        rollButton2.setOnClickListener &#123;</span><br><span class="line">            // Update the screen with the dice roll</span><br><span class="line">            resultTextView2.text = rollDice()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Roll the dice and update the screen with the result.</span><br><span class="line">     */</span><br><span class="line">    private fun rollDice(): String &#123;</span><br><span class="line">        // Create new Dice object with 6 sides and roll it</span><br><span class="line">        val dice = Dice(6)</span><br><span class="line">        val diceRoll = dice.roll()</span><br><span class="line"></span><br><span class="line">        // <span class="built_in">return</span> random number</span><br><span class="line">        <span class="built_in">return</span> diceRoll.toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dice(private val numSides: Int) &#123;</span><br><span class="line"></span><br><span class="line">    fun roll(): Int &#123;</span><br><span class="line">        <span class="built_in">return</span> (1..numSides).random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Kotlin基本概念</category>
       </categories>
       <tags>
@@ -14671,7 +14486,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Kotlin基本概念</category>
       </categories>
       <tags>
@@ -14948,7 +14763,7 @@ width="30%"></p>
 ]]></content>
       <categories>
         <category>Android</category>
-        <category>Android Kotlin基本概念課程</category>
+        <category>Kotlin</category>
         <category>Kotlin基本概念</category>
       </categories>
       <tags>

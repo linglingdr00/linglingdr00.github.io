@@ -97,10 +97,7 @@
 <div class="video-container"><iframe src="https://player.vimeo.com/video/914676522" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
 
 <h4 id="下載-App"><a href="#下載-App" class="headerlink" title="下載 App"></a>下載 App</h4><ul>
-<li><p>由於此 App 處於封閉測試階段，如欲安裝「天氣：威特 App」可寄信至 <a href="mailto:linglingdr00@gmail.com">linglingdr00@gmail.com</a>，這邊會邀請您加入封閉測試。</p>
-</li>
-<li><p>如欲查看專案 <strong>source code</strong>，可點選以下連結查看。<br>Github: <a href="https://github.com/linglingdr00/Weather_App">https://github.com/linglingdr00/Weather_App</a></p>
-</li>
+<li>如欲安裝「天氣：威特 App」或查看專案 <strong>source code</strong>，可點選以下連結。<br>Github: <a href="https://github.com/linglingdr00/Weather_App">https://github.com/linglingdr00/Weather_App</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -109,12 +106,12 @@
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>Fragment</tag>
         <tag>ViewModel</tag>
         <tag>LiveData</tag>
-        <tag>ListAdapter</tag>
+        <tag>Fragment</tag>
         <tag>Retrofit</tag>
         <tag>Moshi</tag>
+        <tag>ListAdapter</tag>
         <tag>MVVM</tag>
         <tag>RyclcerView</tag>
         <tag>RecyclerView.Adapter</tag>
@@ -338,9 +335,9 @@
       </categories>
       <tags>
         <tag>Android</tag>
+        <tag>MVVM</tag>
         <tag>MVC</tag>
         <tag>MVP</tag>
-        <tag>MVVM</tag>
         <tag>Clean Architecture</tag>
         <tag>MVI</tag>
       </tags>
@@ -621,7 +618,7 @@
 <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
 <h2 id="Contact-Us"><a href="#Contact-Us" class="headerlink" title="Contact Us"></a>Contact Us</h2><p>If you have any questions about this Privacy Policy, You can contact us:</p>
 <ul>
-<li>By email: <a href="mailto:&#108;&#105;&#x6e;&#x67;&#108;&#105;&#110;&#103;&#100;&#114;&#x30;&#x30;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#108;&#105;&#x6e;&#x67;&#108;&#105;&#110;&#103;&#100;&#114;&#x30;&#x30;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a></li>
+<li>By email: <a href="mailto:&#108;&#105;&#110;&#103;&#108;&#x69;&#x6e;&#x67;&#x64;&#114;&#x30;&#x30;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#108;&#105;&#110;&#103;&#108;&#x69;&#x6e;&#x67;&#x64;&#114;&#x30;&#x30;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -1310,13 +1307,13 @@
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>companion object</tag>
-        <tag>singleton</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
-        <tag>Fragment</tag>
+        <tag>companion object</tag>
+        <tag>singleton</tag>
         <tag>ViewModel</tag>
         <tag>LiveData</tag>
+        <tag>Fragment</tag>
         <tag>Coroutine</tag>
         <tag>suspend function</tag>
         <tag>SQL</tag>
@@ -1326,8 +1323,8 @@
         <tag>Factory</tag>
         <tag>Flow</tag>
         <tag>Database Class</tag>
-        <tag>SQLite</tag>
         <tag>Concurrency</tag>
+        <tag>SQLite</tag>
       </tags>
   </entry>
   <entry>
@@ -2246,20 +2243,20 @@
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>Navigation</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
-        <tag>Fragment</tag>
+        <tag>Navigation</tag>
         <tag>ViewModel</tag>
         <tag>LiveData</tag>
+        <tag>Fragment</tag>
         <tag>Coroutine</tag>
         <tag>suspend function</tag>
-        <tag>ListAdapter</tag>
         <tag>SQL</tag>
         <tag>Room</tag>
         <tag>DAO</tag>
         <tag>Entity</tag>
         <tag>Flow</tag>
+        <tag>ListAdapter</tag>
         <tag>SQLite</tag>
       </tags>
   </entry>
@@ -2756,9 +2753,9 @@
         <tag>Kotlin</tag>
         <tag>companion object</tag>
         <tag>singleton</tag>
-        <tag>Fragment</tag>
         <tag>ViewModel</tag>
         <tag>LiveData</tag>
+        <tag>Fragment</tag>
         <tag>Coroutine</tag>
         <tag>suspend function</tag>
         <tag>SQL</tag>
@@ -2768,8 +2765,8 @@
         <tag>Factory</tag>
         <tag>Flow</tag>
         <tag>Database Class</tag>
-        <tag>SQLite</tag>
         <tag>Concurrency</tag>
+        <tag>SQLite</tag>
       </tags>
   </entry>
   <entry>
@@ -3141,14 +3138,13 @@
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>companion object</tag>
-        <tag>Navigation</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
+        <tag>companion object</tag>
+        <tag>Navigation</tag>
         <tag>ViewModel</tag>
         <tag>suspend function</tag>
         <tag>CoroutineScope</tag>
-        <tag>ListAdapter</tag>
         <tag>SQL</tag>
         <tag>Database Inspector</tag>
         <tag>App Inspector</tag>
@@ -3158,6 +3154,7 @@
         <tag>Entity</tag>
         <tag>Factory</tag>
         <tag>Flow</tag>
+        <tag>ListAdapter</tag>
         <tag>Database Class</tag>
       </tags>
   </entry>
@@ -3542,12 +3539,11 @@
         <tag>Layout</tag>
         <tag>Automated Testing</tag>
         <tag>RecyclerView</tag>
-        <tag>Fragment</tag>
         <tag>LiveData</tag>
         <tag>MutableLiveData</tag>
         <tag>Data Binding</tag>
+        <tag>Fragment</tag>
         <tag>suspend function</tag>
-        <tag>Enum Classes</tag>
         <tag>Internet</tag>
         <tag>RESTful</tag>
         <tag>URI</tag>
@@ -3555,6 +3551,7 @@
         <tag>Retrofit</tag>
         <tag>Moshi</tag>
         <tag>Converter</tag>
+        <tag>Enum Classes</tag>
       </tags>
   </entry>
   <entry>
@@ -4296,17 +4293,17 @@ app 啟動後，您會看到像這樣的畫面：
         <tag>Kotlin</tag>
         <tag>Material Design</tag>
         <tag>View Binding</tag>
+        <tag>RecyclerView</tag>
         <tag>ImageView</tag>
         <tag>companion object</tag>
-        <tag>RecyclerView</tag>
         <tag>ViewModel</tag>
         <tag>LiveData</tag>
         <tag>Data Binding</tag>
+        <tag>ListAdapter</tag>
         <tag>Coil</tag>
         <tag>Binding Adapters</tag>
         <tag>let</tag>
         <tag>Grid Layout</tag>
-        <tag>ListAdapter</tag>
         <tag>Enum Classes</tag>
       </tags>
   </entry>
@@ -4785,8 +4782,8 @@ app 啟動後，您會看到像這樣的畫面：
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>singleton</tag>
         <tag>Data Class</tag>
+        <tag>singleton</tag>
         <tag>suspend function</tag>
         <tag>Internet</tag>
         <tag>Web Service</tag>
@@ -5180,13 +5177,13 @@ app 啟動後，您會看到像這樣的畫面：
         <tag>View Binding</tag>
         <tag>Automated Testing</tag>
         <tag>Adapter</tag>
-        <tag>Navigation</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
-        <tag>Fragment</tag>
-        <tag>Shared ViewModel</tag>
+        <tag>Navigation</tag>
         <tag>MutableLiveData</tag>
         <tag>Data Binding</tag>
+        <tag>Fragment</tag>
+        <tag>Shared ViewModel</tag>
       </tags>
   </entry>
   <entry>
@@ -5619,14 +5616,14 @@ app 啟動後，您會看到像這樣的畫面：
         <tag>Layout</tag>
         <tag>View Binding</tag>
         <tag>Adapter</tag>
-        <tag>Navigation</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
-        <tag>Fragment</tag>
+        <tag>Navigation</tag>
         <tag>ViewModel</tag>
-        <tag>Shared ViewModel</tag>
         <tag>MutableLiveData</tag>
         <tag>Observer</tag>
+        <tag>Fragment</tag>
+        <tag>Shared ViewModel</tag>
         <tag>SlidingPaneLayout</tag>
         <tag>Custom Back Navigation</tag>
         <tag>Callback</tag>
@@ -6872,11 +6869,11 @@ app 啟動後，您會看到像這樣的畫面：
         <tag>Navigation</tag>
         <tag>UI Controller</tag>
         <tag>ViewModel</tag>
-        <tag>Shared ViewModel</tag>
         <tag>LiveData</tag>
         <tag>MutableLiveData</tag>
         <tag>Observer</tag>
         <tag>Data Binding</tag>
+        <tag>Shared ViewModel</tag>
         <tag>LifecycleOwner</tag>
         <tag>SimpleDateFormat</tag>
       </tags>
@@ -8280,9 +8277,9 @@ app 啟動後，您會看到像這樣的畫面：
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
+        <tag>Activity</tag>
         <tag>companion object</tag>
         <tag>Navigation</tag>
-        <tag>Activity</tag>
         <tag>Fragment</tag>
       </tags>
   </entry>
@@ -9545,9 +9542,9 @@ width="30%"></p>
         <tag>Kotlin</tag>
         <tag>Layout</tag>
         <tag>List</tag>
-        <tag>Adapter</tag>
         <tag>Card</tag>
         <tag>MaterialCardView</tag>
+        <tag>Adapter</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
       </tags>
@@ -9922,9 +9919,9 @@ width="30%"></p>
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>Material Component</tag>
         <tag>Card</tag>
         <tag>MaterialCardView</tag>
+        <tag>Material Component</tag>
       </tags>
   </entry>
   <entry>
@@ -11613,8 +11610,8 @@ width="30%"></p>
         <tag>Android</tag>
         <tag>Kotlin</tag>
         <tag>Material Design</tag>
-        <tag>User Experience</tag>
         <tag>Material Component</tag>
+        <tag>User Experience</tag>
       </tags>
   </entry>
   <entry>

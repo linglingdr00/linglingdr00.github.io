@@ -305,7 +305,7 @@
 <li>Frameworks and Drivers：Web 框架（如 React 或 Django）、資料庫（如 PostgreSQL）、第三方支付處理器等。</li>
 </ul>
 <p>通過遵循 Clean Architecture 的原則，當你更換 Web 框架或支付處理器時，無需修改核心業務邏輯，這樣可以大大提升系統的可維護性和靈活性。</p>
-<h4 id="從-MVVM-切入"><a href="#從-MVVM-切入" class="headerlink" title="從 MVVM 切入"></a>從 MVVM 切入</h4><img src="https://i.imgur.com/odMgUIk.png" width="50%">
+<h4 id="從-MVVM-切入"><a href="#從-MVVM-切入" class="headerlink" title="從 MVVM 切入"></a>從 MVVM 切入</h4><img src="https://i.imgur.com/odMgUIk.png" width="70%">
 
 <p>在資料流向方面，Clean Architecture 相當於把 MVVM 中的 ViewModel 職責拆分成多個 UseCase，避免 ViewModel 太過膨脹(塞太多code)。</p>
 <h4 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h4><p>Clean Architecture 的目的是將系統中的業務邏輯與外部技術（框架、資料庫、UI 等）進行有效分離，這樣可以確保系統的可測試性、可維護性、靈活性和可擴展性。這種架構設計使得每一層的責任更加明確，並能夠隨著需求的變化而輕鬆地調整系統的組成部分。</p>
@@ -655,7 +655,7 @@
 <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
 <h2 id="Contact-Us"><a href="#Contact-Us" class="headerlink" title="Contact Us"></a>Contact Us</h2><p>If you have any questions about this Privacy Policy, You can contact us:</p>
 <ul>
-<li>By email: <a href="mailto:&#108;&#x69;&#110;&#103;&#108;&#x69;&#x6e;&#x67;&#100;&#x72;&#x30;&#x30;&#x40;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#108;&#x69;&#110;&#103;&#108;&#x69;&#x6e;&#x67;&#100;&#x72;&#x30;&#x30;&#x40;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a></li>
+<li>By email: <a href="mailto:&#x6c;&#105;&#110;&#103;&#x6c;&#105;&#x6e;&#x67;&#x64;&#114;&#48;&#x30;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#x6c;&#105;&#110;&#103;&#x6c;&#105;&#x6e;&#x67;&#x64;&#114;&#48;&#x30;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -1355,11 +1355,11 @@
         <tag>suspend function</tag>
         <tag>SQL</tag>
         <tag>Room</tag>
+        <tag>Flow</tag>
         <tag>DAO</tag>
         <tag>Entity</tag>
-        <tag>Factory</tag>
-        <tag>Flow</tag>
         <tag>Database Class</tag>
+        <tag>Factory</tag>
         <tag>Concurrency</tag>
         <tag>SQLite</tag>
       </tags>
@@ -1800,8 +1800,8 @@
         <tag>ViewModel</tag>
         <tag>LiveData</tag>
         <tag>Room</tag>
-        <tag>DAO</tag>
         <tag>Flow</tag>
+        <tag>DAO</tag>
         <tag>Cache</tag>
         <tag>Repository</tag>
       </tags>
@@ -2288,12 +2288,12 @@
         <tag>LiveData</tag>
         <tag>Coroutine</tag>
         <tag>suspend function</tag>
-        <tag>ListAdapter</tag>
         <tag>SQL</tag>
+        <tag>ListAdapter</tag>
         <tag>Room</tag>
+        <tag>Flow</tag>
         <tag>DAO</tag>
         <tag>Entity</tag>
-        <tag>Flow</tag>
         <tag>SQLite</tag>
       </tags>
   </entry>
@@ -2797,11 +2797,11 @@
         <tag>suspend function</tag>
         <tag>SQL</tag>
         <tag>Room</tag>
+        <tag>Flow</tag>
         <tag>DAO</tag>
         <tag>Entity</tag>
-        <tag>Factory</tag>
-        <tag>Flow</tag>
         <tag>Database Class</tag>
+        <tag>Factory</tag>
         <tag>Concurrency</tag>
         <tag>SQLite</tag>
       </tags>
@@ -3182,17 +3182,17 @@
         <tag>ViewModel</tag>
         <tag>suspend function</tag>
         <tag>CoroutineScope</tag>
-        <tag>ListAdapter</tag>
         <tag>SQL</tag>
         <tag>Database Inspector</tag>
         <tag>App Inspector</tag>
+        <tag>ListAdapter</tag>
         <tag>Room</tag>
-        <tag>ORM</tag>
+        <tag>Flow</tag>
         <tag>DAO</tag>
         <tag>Entity</tag>
-        <tag>Factory</tag>
-        <tag>Flow</tag>
         <tag>Database Class</tag>
+        <tag>Factory</tag>
+        <tag>ORM</tag>
       </tags>
   </entry>
   <entry>
@@ -3574,8 +3574,8 @@
         <tag>Android</tag>
         <tag>Kotlin</tag>
         <tag>Layout</tag>
-        <tag>RecyclerView</tag>
         <tag>Automated Testing</tag>
+        <tag>RecyclerView</tag>
         <tag>Fragment</tag>
         <tag>LiveData</tag>
         <tag>MutableLiveData</tag>
@@ -5210,12 +5210,12 @@ app 啟動後，您會看到像這樣的畫面：
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>Layout</tag>
         <tag>View Binding</tag>
+        <tag>Layout</tag>
+        <tag>Automated Testing</tag>
         <tag>Adapter</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
-        <tag>Automated Testing</tag>
         <tag>Navigation</tag>
         <tag>Fragment</tag>
         <tag>MutableLiveData</tag>
@@ -5650,8 +5650,8 @@ app 啟動後，您會看到像這樣的畫面：
       <tags>
         <tag>Android</tag>
         <tag>Kotlin</tag>
-        <tag>Layout</tag>
         <tag>View Binding</tag>
+        <tag>Layout</tag>
         <tag>Adapter</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
@@ -9579,11 +9579,11 @@ width="30%"></p>
         <tag>Kotlin</tag>
         <tag>Layout</tag>
         <tag>List</tag>
-        <tag>Card</tag>
-        <tag>MaterialCardView</tag>
         <tag>Adapter</tag>
         <tag>RecyclerView</tag>
         <tag>Data Class</tag>
+        <tag>Card</tag>
+        <tag>MaterialCardView</tag>
       </tags>
   </entry>
   <entry>

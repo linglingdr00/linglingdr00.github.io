@@ -34,14 +34,15 @@
 <meta property="og:image" content="https://imgur.com/UZjDO3d.png">
 <meta property="og:image" content="https://imgur.com/CdbisGM.png">
 <meta property="og:image" content="https://imgur.com/za9JdgN.png">
+<meta property="og:image" content="https://i.imgur.com/2HDrX38.png">
 <meta property="og:image" content="https://imgur.com/RkvcUAT.png">
 <meta property="article:published_time" content="2024-03-06T11:42:12.000Z">
-<meta property="article:modified_time" content="2024-03-10T07:57:37.202Z">
+<meta property="article:modified_time" content="2025-03-13T14:28:03.582Z">
 <meta property="article:author" content="Tina Tang">
 <meta property="article:tag" content="Android">
-<meta property="article:tag" content="MVVM">
 <meta property="article:tag" content="MVC">
 <meta property="article:tag" content="MVP">
+<meta property="article:tag" content="MVVM">
 <meta property="article:tag" content="Clean Architecture">
 <meta property="article:tag" content="MVI">
 <meta name="twitter:card" content="summary">
@@ -241,7 +242,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-03-10 15:57:37" itemprop="dateModified" datetime="2024-03-10T15:57:37+08:00">2024-03-10</time>
+                <time title="Modified: 2025-03-13 22:28:03" itemprop="dateModified" datetime="2025-03-13T22:28:03+08:00">2025-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -387,6 +388,40 @@
 <li>簡潔的架構允許輕鬆更換元件並促進單元測試。 </li>
 <li>但是，它引入了額外的複雜性，並且可能會針對較小的專案進行過度設計。</li>
 </ul>
+<blockquote>
+<p>Clean Architecture（乾淨架構）是由 Robert C. Martin（又稱 Uncle Bob）提出的一種軟體設計理念。其主要目的是通過將系統的不同層次進行分離，使得程式碼更加靈活、可測試和易於維護。Clean Architecture 強調將業務邏輯與外部系統（例如框架、資料庫、UI 等）進行隔離，這樣可以減少依賴並提高系統的可擴展性和可測試性。</p>
+</blockquote>
+<h4 id="Clean-Architecture-的核心概念"><a href="#Clean-Architecture-的核心概念" class="headerlink" title="Clean Architecture 的核心概念"></a>Clean Architecture 的核心概念</h4><ol>
+<li>框架獨立性：核心業務邏輯不應該依賴於特定的框架或技術，框架只應作為工具，應該可以被替換而不影響核心邏輯。</li>
+<li>UI 獨立性：用戶界面不應依賴於核心邏輯，這意味著你可以更換 UI 技術（例如從 Web 界面換成移動應用），而不需要修改核心業務邏輯。</li>
+<li>資料庫獨立性：應用程序不應依賴於特定的資料庫，核心邏輯不應該依賴於使用 SQL、NoSQL 或其他數據存儲。</li>
+<li>可測試性：由於核心邏輯與外部系統隔離，因此更容易進行單元測試。業務邏輯可以在不依賴資料庫或 UI 的情況下進行測試。</li>
+<li>關注點分離：系統的不同部分應該處理不同的問題。這是通過架構的層次結構來實現的。</li>
+</ol>
+<h4 id="Clean-Architecture-的層次結構"><a href="#Clean-Architecture-的層次結構" class="headerlink" title="Clean Architecture 的層次結構"></a>Clean Architecture 的層次結構</h4><ul>
+<li>Entities（實體層，核心業務邏輯）：這是最內層，包含應用程序的業務規則和領域模型。實體是代表核心業務邏輯的對象，它們與外部系統無關。</li>
+<li>Use Cases（用例層，應用邏輯）：此層包含具體的應用邏輯，它使用業務邏輯來完成任務。它定義了應用的用例，並可以與實體進行交互來達成所需的結果。此層應該不依賴框架或基礎設施。</li>
+<li>Interface Adapters（介面適配層）：這一層充當應用核心與外部系統（如 UI、資料庫、Web 服務等）之間的橋樑。它將數據轉換成用例所需的格式，並將外部系統的數據轉換為內部邏輯可處理的格式。</li>
+<li>Frameworks and Drivers（基礎設施層）：最外層，包括框架、庫、資料庫、Web 伺服器和與外部系統的所有交互。這一層可以根據需要進行更換，對核心應用邏輯影響最小。</li>
+</ul>
+<h4 id="依賴規則"><a href="#依賴規則" class="headerlink" title="依賴規則"></a>依賴規則</h4><p>Clean Architecture 的關鍵在於「依賴規則」，即依賴關係應該始終指向內層。這意味著外層的代碼可以依賴於內層的代碼，但內層的代碼不應該依賴於外層的代碼。這樣可以確保核心業務邏輯與外部系統的解耦，增強系統的可維護性和靈活性。</p>
+<img src="https://i.imgur.com/2HDrX38.png" width="50%">
+
+<h4 id="Clean-Architecture-的優點"><a href="#Clean-Architecture-的優點" class="headerlink" title="Clean Architecture 的優點"></a>Clean Architecture 的優點</h4><ul>
+<li>可維護性：由於層次分離，代碼更容易維護，當需要修改某一部分時，不會影響到其他部分。</li>
+<li>可測試性：核心業務邏輯不依賴外部系統，可以輕鬆地進行單元測試。</li>
+<li>靈活性：可以根據需求更換或替換不同的框架、資料庫或 UI，對核心業務邏輯的影響最小。</li>
+<li>可擴展性：架構支持系統的擴展，不同的系統模塊可以獨立發展。</li>
+</ul>
+<h4 id="實際應用範例"><a href="#實際應用範例" class="headerlink" title="實際應用範例"></a>實際應用範例</h4><p>以一個簡單的電子商務應用為例：</p>
+<ul>
+<li>Entities：產品（Product）、訂單（Order）、用戶（User）等核心業務對象。</li>
+<li>Use Cases：加入購物車、處理支付、註冊用戶等應用邏輯。</li>
+<li>Interface Adapters：Web 控制器、資料庫倉儲（Repositories）、用於展示的呈現者（Presenter）等。</li>
+<li>Frameworks and Drivers：Web 框架（如 React 或 Django）、資料庫（如 PostgreSQL）、第三方支付處理器等。</li>
+</ul>
+<p>通過遵循 Clean Architecture 的原則，當你更換 Web 框架或支付處理器時，無需修改核心業務邏輯，這樣可以大大提升系統的可維護性和靈活性。</p>
+<h4 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h4><p>Clean Architecture 的目的是將系統中的業務邏輯與外部技術（框架、資料庫、UI 等）進行有效分離，這樣可以確保系統的可測試性、可維護性、靈活性和可擴展性。這種架構設計使得每一層的責任更加明確，並能夠隨著需求的變化而輕鬆地調整系統的組成部分。</p>
 <hr>
 <h3 id="MVI-Model-View-Intent"><a href="#MVI-Model-View-Intent" class="headerlink" title="MVI(Model-View-Intent)"></a>MVI(Model-View-Intent)</h3><p> MVI 是一種新興的架構模式，旨在提供<u>可預測(predictable)</u>且<u>響應式(reactive)</u> UI。 </p>
 <ul>
@@ -454,9 +489,9 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Android/" rel="tag"># Android</a>
-              <a href="/tags/MVVM/" rel="tag"># MVVM</a>
               <a href="/tags/MVC/" rel="tag"># MVC</a>
               <a href="/tags/MVP/" rel="tag"># MVP</a>
+              <a href="/tags/MVVM/" rel="tag"># MVVM</a>
               <a href="/tags/Clean-Architecture/" rel="tag"># Clean Architecture</a>
               <a href="/tags/MVI/" rel="tag"># MVI</a>
           </div>
@@ -532,7 +567,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC-Model-View-Controller"><span class="nav-number">1.</span> <span class="nav-text">MVC(Model-View-Controller)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVP-Model-View-Presenter"><span class="nav-number">2.</span> <span class="nav-text">MVP(Model-View-Presenter)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVVM-Model-View-ViewModel"><span class="nav-number">3.</span> <span class="nav-text">MVVM(Model-View-ViewModel)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clean-Architecture"><span class="nav-number">4.</span> <span class="nav-text">Clean Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVI-Model-View-Intent"><span class="nav-number">5.</span> <span class="nav-text">MVI(Model-View-Intent)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-%E6%9E%B6%E6%A7%8B%E7%9A%84%E6%AF%94%E8%BC%83"><span class="nav-number">6.</span> <span class="nav-text">Android 架構的比較</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC-Model-View-Controller"><span class="nav-number">1.</span> <span class="nav-text">MVC(Model-View-Controller)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVP-Model-View-Presenter"><span class="nav-number">2.</span> <span class="nav-text">MVP(Model-View-Presenter)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVVM-Model-View-ViewModel"><span class="nav-number">3.</span> <span class="nav-text">MVVM(Model-View-ViewModel)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clean-Architecture"><span class="nav-number">4.</span> <span class="nav-text">Clean Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Clean-Architecture-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">Clean Architecture 的核心概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Clean-Architecture-%E7%9A%84%E5%B1%A4%E6%AC%A1%E7%B5%90%E6%A7%8B"><span class="nav-number">4.2.</span> <span class="nav-text">Clean Architecture 的層次結構</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%9D%E8%B3%B4%E8%A6%8F%E5%89%87"><span class="nav-number">4.3.</span> <span class="nav-text">依賴規則</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Clean-Architecture-%E7%9A%84%E5%84%AA%E9%BB%9E"><span class="nav-number">4.4.</span> <span class="nav-text">Clean Architecture 的優點</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%A6%E9%9A%9B%E6%87%89%E7%94%A8%E7%AF%84%E4%BE%8B"><span class="nav-number">4.5.</span> <span class="nav-text">實際應用範例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">4.6.</span> <span class="nav-text">總結</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVI-Model-View-Intent"><span class="nav-number">5.</span> <span class="nav-text">MVI(Model-View-Intent)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-%E6%9E%B6%E6%A7%8B%E7%9A%84%E6%AF%94%E8%BC%83"><span class="nav-number">6.</span> <span class="nav-text">Android 架構的比較</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
